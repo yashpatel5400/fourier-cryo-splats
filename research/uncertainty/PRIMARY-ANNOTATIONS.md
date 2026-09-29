@@ -4,6 +4,44 @@ These notes record which claims and sections were checked, rather than treating
 PDF retrieval as completed review. The source/hash manifest identifies the local
 versions. General survey synthesis is in SURVEY.md.
 
+## Cai and Low: adaptive confidence intervals (revision reading)
+
+Primary electronic reprint: arXiv:math/0503662v1, published Annals of Statistics
+32(5), 1805–1840 (2004), DOI 10.1214/009053604000000049. Checked introduction,
+ordered/between-class modulus definitions, Proposition 1 and Theorem 1 with their
+proofs, and Remark 1 (PDF pages 1–7). This is targeted reading, not a claim to
+have checked all 37 pages. Retrieval bytes are hashed in
+`revision-foundations-manifest.json`.
+
+Coverage over a union of classes constrains expected length even at parameters
+in an easier subclass. Their two-point Gaussian argument and between-class
+modulus quantify that obstruction. Their framework includes variable-length
+adaptive intervals; our fixed-length design audit is much narrower. The current
+two-point proposition and generic efficiency observation cannot be presented as
+new general confidence-interval theory. A pilot that appears smooth does not by
+itself license replacing the advertised density class by a smaller one.
+
+Low (1997), DOI 10.1214/aos/1030741084, was also requested. The primary publisher
+download returns a security page instead of a PDF. We have not critically read
+that full text and do not count it as such. The directly read Cai--Low source
+supports the adaptation/expected-length discussion used in this revision.
+
+## Kuczynski and Wozniakowski: random-start spectral estimation
+
+Verified published record: SIAM J. Matrix Anal. Appl. 13(4), 1094–1122 (1992),
+DOI 10.1137/0613066. Downloaded the authors' March 1989 Columbia technical report
+CUCS-465-89 from the university host, 37 scanned pages. Rendered and OCR-read
+pages 1–5 (abstract, introduction and start of problem definition); this is not
+a full proof audit of the report or an assertion that it is identical to the
+published version. Its hash is in `revision-foundations-manifest.json`.
+
+The report analyzes average and probabilistic power/Lanczos errors for random
+starts and emphasizes the difficulty of reliable stopping. A deterministic
+start can miss an unseen eigendirection. We use this as prior art for randomized
+norm estimation, with our short Gaussian-projection upper-bound derivation
+stated separately in full. We do not call that construction a new general
+spectral-estimation theorem or use a Ritz value as an upper bound.
+
 ## Xu, Balanov, Singer and Bendory: Bayesian orientation estimation
 
 Source: arXiv:2412.03723v3 (23 February 2026), subsequently Acta Crystallographica D,

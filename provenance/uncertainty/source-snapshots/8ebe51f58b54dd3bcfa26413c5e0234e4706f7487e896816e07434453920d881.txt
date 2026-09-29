@@ -1,0 +1,169 @@
+"""Pose-aware continuous weights with fixed shared-field block scales.
+
+Optimization uses matrix-free Ritz modes as approximate subgradients. Final
+validity uses fresh independent random upper certificates and analytic
+integration pads, not a Ritz value or optimizer-success flag.
+"""
+import numpy as np
+from scipy.optimize import minimize
+from scipy.sparse.linalg import LinearOperator, eigsh
+from scipy.stats import norm
+from scipy.special import logsumexp
+from .uq_pose_operator import PolynomialPoseFieldOperator
+from .uq_random_spectral import gaussian_power_upper
+from .uq_continuous_pose import polynomial_kernel_error
+from .uq_intervals import bias_aware_half_width_stable
+
+
+def amplitude_gradient(values, weights):
+    """Gradient of a weighted sum of complex-pair amplitudes."""
+    n,nq=values.shape;w=np.asarray(weights).reshape(n,2*nq)
+    amplitude=np.hypot(w[:,:nq],w[:,nq:])
+    ratio=np.divide(values,amplitude,out=np.zeros_like(values),where=amplitude>0)
+    return np.concatenate([ratio*w[:,:nq],ratio*w[:,nq:]],axis=1).ravel()
+
+
+def cubic_penalty_coefficients(k,q,transfer,angle,shift,density_norm_bound):
+    n=len(k);a=np.broadcast_to(angle,(n,))[:,None];s=np.broadcast_to(shift,(n,))[:,None]
+    knorm=np.linalg.norm(k,axis=-1);qn=np.linalg.norm(q,axis=-1)
+    c2=12**-.5;c4=(3/12**2)**.25;c6=(15/12**3)**(1/6)
+    first6=2*np.pi*(a*knorm*c6+s*qn);first4=2*np.pi*(a*knorm*c4+s*qn)
+    second4=2*np.pi*a*a*knorm*c4;third2=2*np.pi*a**3*knorm*c2
+    return density_norm_bound/6*abs(transfer)*(first6**3+3*first4*second4+third2)
+
+
+def gram_spectral_power(gram,vector,ridge,power):
+    """Apply a power of the saved low-rank Gram preconditioner, by blocks."""
+    w=np.asarray(vector).reshape(gram.n,2*gram.nq);out=[]
+    if not gram.preconditioner_factors:
+        return np.asarray(vector)*ridge**power
+    for part,(factor,eigenvalues) in zip([w[:,:gram.nq].ravel(),w[:,gram.nq:].ravel()],gram.preconditioner_factors):
+        keep=eigenvalues>1e-10*max(1.,float(np.max(eigenvalues)))
+        f=factor[:,keep];lam=eigenvalues[keep]
+        out.append(ridge**power*part+f@(((ridge+lam)**power-ridge**power)/lam*(f.T@part)))
+    return gram.pack(*out)
+
+
+def pose_aware_certificate(gram,detector_frequencies,centers,signs,width,density_radius,pilot_norm,
+                           initial_weights,angle,shift,alpha=.05,numerical_delta=1e-6,
+                           maxiter=80,ritz_tolerance=1e-4,power_iterations=40,
+                           power_probes=4,optimization_seed=609601,certificate_seed=609611,
+                           callback=None,spectral_modes=8,spectral_smoothing=.002,precondition=True,pose_order=32):
+    if not 0<numerical_delta<alpha<.5:
+        raise ValueError('Require 0 < numerical delta < total alpha < .5')
+    a,target_norm2=gram.target(centers,signs,width)
+    B=float(density_radius);R=B+float(pilot_norm);z=norm.isf((alpha-numerical_delta)/2)
+    op=PolynomialPoseFieldOperator(gram.k,np.broadcast_to(detector_frequencies,gram.k.shape[:2]+(2,)),
+                                  gram.ctf,initial_weights,gram.noise_std,angle,shift,order=pose_order)
+    scaling=op.establish_group_scaling(callback=callback)
+    scale_factor=R*np.sqrt(scaling['sum_group_scales'])
+    kernel_error=polynomial_kernel_error(gram.k,pose_order)
+    coefficients=op.coefficient_bound_matrix()
+    remainder_coefficients=cubic_penalty_coefficients(op.k,op.q,op.transfer,angle,shift,R)
+    mode=np.random.default_rng(optimization_seed).normal(size=op.shape[0]);mode/=np.linalg.norm(mode)
+    modes=mode[:,None]
+    history=[];best={'value':np.inf,'weights':np.asarray(initial_weights).copy()}
+    n,nq=op.n,op.nq
+
+    def objective(weights):
+        nonlocal mode,modes
+        op.set_weights(weights)
+        operator=LinearOperator((op.shape[0],)*2,matvec=op.spatial_gram,dtype=float)
+        eigenvalue,eigenvector=eigsh(operator,k=spectral_modes,which='LA',v0=mode,tol=ritz_tolerance,
+                                     ncv=max(12,2*spectral_modes+1),maxiter=100)
+        order=np.argsort(eigenvalue)[::-1];modes=eigenvector[:,order]
+        modes/=np.linalg.norm(modes,axis=0);mode=modes[:,0]
+        adjoints=[op.rmatvec(v) for v in modes.T]
+        singular=np.array([np.linalg.norm(u) for u in adjoints])
+        if spectral_smoothing>0:
+            field_norm=float(spectral_smoothing*logsumexp(singular/spectral_smoothing))
+            mixing=np.exp((singular-field_norm)/spectral_smoothing)
+        else:
+            field_norm=float(singular.max());mixing=np.eye(len(singular))[int(np.argmax(singular))]
+        field_gradient=sum(prob*op.weight_gradient(u/max(s,np.finfo(float).tiny),v)
+                           for prob,u,s,v in zip(mixing,adjoints,singular,modes.T))
+        w=np.asarray(weights).reshape(n,2*nq);amplitude=np.hypot(w[:,:nq],w[:,nq:])
+        column_masses=np.einsum('naj,nj->na',coefficients,amplitude)
+        joint_norm=np.sqrt(field_norm**2+kernel_error*np.sum(column_masses**2))
+        mass_gradient=amplitude_gradient(np.einsum('naj,na->nj',coefficients,column_masses),weights)
+        pose_gradient=scale_factor*(field_norm*field_gradient+kernel_error*mass_gradient)/max(joint_norm,np.finfo(float).tiny)
+        gw=gram.matvec(weights)
+        residual2=float(target_norm2-2*weights@a+weights@gw)
+        if residual2 < -1e-7*max(1,target_norm2):
+            raise FloatingPointError('Substantially negative quadrature residual norm')
+        residual=np.sqrt(max(residual2,1e-24))
+        sd=float(np.linalg.norm(weights))
+        remainder=float(np.sum(remainder_coefficients*amplitude))
+        remainder_gradient=amplitude_gradient(remainder_coefficients,weights)
+        value=z*sd+B*residual+scale_factor*joint_norm+remainder
+        gradient=z*weights/max(sd,np.finfo(float).tiny)+B*(gw-a)/residual+pose_gradient+remainder_gradient
+        row={'evaluation':len(history)+1,'surrogate_objective':float(value),'noise_term':z*sd,
+             'density_term':B*residual,'pose_polynomial_term':float(scale_factor*joint_norm),
+             'cubic_term':remainder,'ritz_value':float(eigenvalue.max()),'gradient_norm':float(np.linalg.norm(gradient)),
+             'active_spectral_modes':int(np.sum(mixing>1e-3))}
+        history.append(row)
+        if value<best['value']:
+            best.update(value=float(value),weights=weights.copy())
+        if callback is not None:callback(row)
+        return value,gradient
+
+    initial=np.asarray(initial_weights).copy()
+    initial_residual=np.sqrt(max(1e-24,target_norm2-2*initial@a+initial@gram.matvec(initial)))
+    ridge=float(z*initial_residual/(B*max(np.linalg.norm(initial),1e-30)))
+    initial_coordinates=gram_spectral_power(gram,initial,ridge,.5) if precondition else initial
+    if precondition:
+        np.testing.assert_allclose(gram_spectral_power(gram,initial_coordinates,ridge,-.5),initial,rtol=1e-5,atol=1e-9)
+    def coordinate_objective(coordinates):
+        weights=gram_spectral_power(gram,coordinates,ridge,-.5) if precondition else coordinates
+        value,gradient=objective(weights)
+        return value,(gram_spectral_power(gram,gradient,ridge,-.5) if precondition else gradient)
+    optimized=minimize(coordinate_objective,initial_coordinates,jac=True,method='L-BFGS-B',
+                       options={'maxiter':maxiter,'ftol':1e-10,'gtol':1e-6,'maxls':20,'maxcor':15})
+    weights=best['weights'];op.set_weights(weights)
+    # Fresh probes: optimization modes and results cannot reuse these draws.
+    random_bound=gaussian_power_upper(op.spatial_gram,op.shape[0],numerical_delta,power_probes,
+                                     power_iterations,certificate_seed,callback=callback)
+    w=weights.reshape(n,2*nq);amplitude=np.hypot(w[:,:nq],w[:,nq:])
+    column_masses=np.einsum('naj,nj->na',coefficients,amplitude)
+    integration_pad=float(kernel_error*np.sum(column_masses**2))
+    pose_bound=scale_factor*np.sqrt(random_bound['eigenvalue_upper']+integration_pad)
+    gw=gram.matvec(weights);error=gram.quadrature_error(weights)
+    residual=np.sqrt(max(0,target_norm2-2*weights@a+weights@gw+error['squared_field_norm']))
+    remainder=float(np.sum(remainder_coefficients*amplitude))
+    sd=float(np.linalg.norm(weights));bias=B*residual+pose_bound+remainder
+    half=bias_aware_half_width_stable(sd,bias,alpha-numerical_delta)
+    # A valid dual direction can use ANY unit spatial mode, not necessarily the
+    # leading eigenvector. Its supporting gradient has the required dual norm.
+    adjoints=[op.rmatvec(v) for v in modes.T]
+    singular=np.array([np.linalg.norm(u) for u in adjoints])
+    if spectral_smoothing>0:
+        field_norm=float(spectral_smoothing*logsumexp(singular/spectral_smoothing))
+        mixing=np.exp((singular-field_norm)/spectral_smoothing)
+    else:
+        field_norm=float(singular.max());mixing=np.eye(len(singular))[int(np.argmax(singular))]
+    field_gradient=sum(prob*op.weight_gradient(u/max(s,np.finfo(float).tiny),v)
+                       for prob,u,s,v in zip(mixing,adjoints,singular,modes.T))
+    mass_gradient=amplitude_gradient(np.einsum('naj,na->nj',coefficients,column_masses),weights)
+    local_norm=np.sqrt(field_norm**2+integration_pad)
+    gp=scale_factor*(field_norm*field_gradient+kernel_error*mass_gradient)/max(local_norm,np.finfo(float).tiny)
+    gr=amplitude_gradient(remainder_coefficients,weights)
+    factor=B/max(residual,np.finfo(float).tiny)
+    dual_residual=float(np.linalg.norm(factor*(a-gw)-gp-gr)+factor*error['gram_action_norm'])
+    dual_scale=min(1.,z/max(dual_residual,np.finfo(float).tiny))
+    lower=max(0.,float(dual_scale*factor*(target_norm2-weights@a)))
+    upper=z*sd+bias
+    return {'weights':weights,'noise_sd':sd,'bias':float(bias),'half_width':half,
+            'target_norm':float(np.sqrt(target_norm2)),'sum_objective_upper':float(upper),
+            'dual_lower_bound':lower,'relative_sum_gap':float((upper-lower)/max(upper,1e-30)),
+            'density_bias':float(B*residual),'pose_polynomial_bias':float(pose_bound),
+            'cubic_bias':remainder,'pose_integration_pad':integration_pad,
+            'initial_group_scale_sum':scaling['sum_group_scales'],
+            'optimizer_success':bool(optimized.success),'optimizer_message':str(optimized.message),
+            'optimizer_iterations':int(optimized.nit),'optimization_history':history,
+            'spectral_modes':spectral_modes,'spectral_smoothing':spectral_smoothing,
+            'smoothing_additive_objective_bound':float(scale_factor*spectral_smoothing*np.log(spectral_modes)),
+            'coordinate_preconditioning':precondition,'preconditioner_ridge':ridge,
+            'pose_quadrature_order':pose_order,
+            'spectral_upper_certificate':random_bound,'alpha_noise':alpha-numerical_delta,
+            'alpha_numerical':numerical_delta,'alpha_total':alpha,
+            'scope':'Fixed shared-field scales; approximate Ritz-mode optimization, final independent probabilistic upper audit; no optimization success inferred from validity.'}

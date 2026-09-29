@@ -107,3 +107,14 @@ The next major decisions should follow this assessment, rather than accumulating
 more similar oracle-bound simulations. End-to-end pose/noise/class calibration,
 biologically useful feature resolution and the strongest matched external
 baselines remain material scope questions. The goal is active, not complete.
+
+The first revision now includes a tested matrix-free pose operator, a numerical
+failure-probability budget, a small independently checked pose-aware optimizer,
+and completed experimental-noise/CTF sensitivity attempts. The latter are
+negative usefulness results, not established experimental calibration. The
+10,000-particle scale run and longer three-geometry pose-aware fits are active.
+Their final width, adversarial sharpness and reference-power results should
+guide the next methodological decision. The signed density class remains too
+broad for the desired fine-feature interpretation; any support/positivity or
+energy refinement must be explicit, physically motivated and independently
+validated rather than chosen to turn a negative outcome positive.

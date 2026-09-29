@@ -526,3 +526,59 @@ While the review ran, a development probe was launched to select a frequency
 band using the pose-aware width, holding physical noise and geometry fixed.
 It uses the old 10028 development geometry and does not alter either frozen
 study. This is an exploratory design check, not resolution of the review.
+
+## Post-review numerical and experimental development
+
+The bandwidth-only probe completes all twelve settings. At 0.5/1/2 degrees its
+best relative widths are 0.209/0.402/0.945; reference sign power is negligible.
+Changing bandwidth alone does not solve the usefulness problem.
+
+New matrix-free polynomial pose fields use ten NUFFT moments without a global
+dense Gram. Dense/adjoint/weight-gradient checks pass. A Gaussian-start power
+upper bound includes an explicit numerical failure probability; a Ritz value
+is only a lower diagnostic. Audits at 128 and 1,024 particles complete in
+50.3/353.3 seconds with peak resident memory 390/434 MB. Their widths are
+0.438/0.740 of no data. The radius-12, 10,000-distinct-particle matched-filter
+audit remains in progress, with its exact source snapshot saved at launch.
+
+A convex fixed-scale pose-aware objective now optimizes estimator weights.
+An independently assembled tiny CLARABEL problem brackets its optimum with
+relative gap 0.000260. The first attempt lost JSON serialization because two
+comparison flags were NumPy booleans; the failure log is retained and the rerun
+casts these to Python booleans. The 20-iteration larger probe has relative width
+0.255 but a 97.8% optimality gap. Its six independent feasible nonlinear searches
+reach 0.432 of the bias upper bound and minimum reference sign power is
+2.95e-103. It is not a converged or useful-feature result. Longer optimization
+and all three geometries/two targets/three angles at 0.5 Angstrom shifts are
+running, with best-weight checkpoints and source snapshots.
+
+The new critical-value helper retains both Gaussian tails. Its audit of 288
+old widths changes them by at most 1.42e-13 and changes no fallback decisions.
+Frozen dependencies remain byte-identical: 23 original and 26 follow-up source
+hashes rechecked. The old shortcut remains only in the preserved frozen code.
+
+An experimental conditional-noise attempt now runs on all three stacks. It
+uses a common-covariance Gaussian trace envelope that permits nonzero signal,
+with one particle per fresh calibration exposure. The grouped inference runs
+use 58/30/93 particles and 57/35/92 calibration groups. All eighteen intervals
+contain the approximate deposited-map value and none excludes zero. All 10
+Angstrom targets switch to no data at nonzero pose budgets. Unknown pose-bound
+calibration, physical density radius, covariance commonality and full-data
+consensus-pose dependence are still unresolved. The first 128-particle attempt
+is retained with its additional within-exposure independence limitation.
+
+Uniform nonlinear CTF/gain/envelope sensitivities are implemented without
+dividing by CTF zeros. On all six radius-12 fine-target estimators, a 100 Angstrom
+defocus envelope expands relative widths to 0.647--1 and causes two no-data
+fallbacks. All six fall back at 500 Angstrom and under combined sensitivities.
+The triangle bound loses cancellations; these outcomes do not establish
+impossibility for tighter methods.
+
+The expanded suite passes 58 tests in 4.34 seconds. The manuscript now has
+30 pages including references and appendices, with the main text ending on
+page 7. The revised first page, final main-text page and new methods/results
+pages were visually inspected; no overflow or undefined-reference warnings
+remain. The survey adds targeted primary reading of Cai--Low and the
+Kuczynski--Wozniakowski technical-report introduction (95 ledger candidates).
+Low 1997 full text remains inaccessible from the attempted primary URL.
+No second Fable review or positive verdict is claimed.

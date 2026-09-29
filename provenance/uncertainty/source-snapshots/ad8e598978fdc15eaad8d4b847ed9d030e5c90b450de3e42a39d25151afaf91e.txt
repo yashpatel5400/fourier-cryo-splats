@@ -1,0 +1,200 @@
+"""Matrix-free polynomial pose fields; no particle-by-particle dense Gram.
+
+The field is the quadrature representation of the SAME continuous first/second
+derivatives used by uq_continuous_pose. Quadrature padding remains necessary.
+Its ten spatial monomials need ten simultaneous type-3 NUFFTs in each direction,
+independent of particle count. Temporary storage grows linearly with frequencies.
+"""
+import sys
+import numpy as np
+import finufft
+from .uq_continuous_pose import (PAIRS, PAIR_SCALE, cube_quadrature,
+                                 pose_derivative_fields, derivative_coefficient_bounds,
+                                 polynomial_kernel_error)
+
+# 1, x, y, z, x^2, y^2, z^2, xy, xz, yz.
+PRODUCT = np.array([[0, 1, 2, 3], [1, 4, 7, 8], [2, 7, 5, 9], [3, 8, 9, 6]])
+
+
+class PolynomialPoseFieldOperator:
+    def __init__(self, k, q, ctf, weights, noise, angle, shift, order=32,
+                 column_denominators=None, backend='nufft', eps=1e-12, block_particles=128):
+        self.k, self.q, self.ctf = map(lambda x: np.asarray(x, dtype=float), (k, q, ctf))
+        self.n, self.nq = self.ctf.shape
+        if self.k.shape != (self.n, self.nq, 3) or self.q.shape != (self.n, self.nq, 2):
+            raise ValueError('Mismatched particle/frequency arrays')
+        if noise <= 0 or not np.isfinite(noise):
+            raise ValueError('Positive finite noise scale required')
+        self.angle = np.broadcast_to(angle, (self.n,)).astype(float).copy()
+        self.shift = np.broadcast_to(shift, (self.n,)).astype(float).copy()
+        if not np.isfinite(self.angle).all() or not np.isfinite(self.shift).all() or (self.angle<0).any() or (self.angle>np.pi).any() or (self.shift<0).any():
+            raise ValueError('Invalid particle-specific pose radii')
+        w = np.asarray(weights, dtype=float).reshape(self.n, 2*self.nq)
+        self.c = (w[:, :self.nq]+1j*w[:, self.nq:])*self.ctf/noise
+        self.xyz, self.quadrature = cube_quadrature(order)
+        self.sqrt_quad = np.sqrt(self.quadrature)
+        x, y, z = self.xyz.T
+        self.monomials = np.stack([np.ones_like(x), x, y, z, x*x, y*y, z*z, x*y, x*z, y*z])
+        self.shape = (len(self.xyz), 20*self.n)
+        self.denominators = (np.ones(20*self.n) if column_denominators is None
+                             else np.asarray(column_denominators, dtype=float).copy())
+        if self.denominators.shape != (20*self.n,) or not np.isfinite(self.denominators).all() or (self.denominators<=0).any():
+            raise ValueError('Positive column denominators required')
+        if backend not in ['nufft', 'direct']:
+            raise ValueError('Choose nufft or direct')
+        self.backend, self.order, self.eps = backend, order, eps
+        self.block_particles = block_particles
+        self.frequency_points = np.ascontiguousarray(self.k.reshape(-1, 3))
+        self.source = [np.ascontiguousarray(2*np.pi*self.frequency_points[:, a]) for a in range(3)]
+        self.destination = [np.ascontiguousarray(self.xyz[:, a]) for a in range(3)]
+        self.nthreads = 1 if sys.platform == 'darwin' else 4
+        self.transfer = self.ctf/noise
+
+    def set_weights(self, weights):
+        """Change estimator weights, retaining design and fixed column scales.
+
+        A random spectral certificate for previous weights no longer applies.
+        Draw fresh probes only after final weights are chosen.
+        """
+        w = np.asarray(weights, dtype=float).reshape(self.n, 2*self.nq)
+        self.c = (w[:, :self.nq]+1j*w[:, self.nq:])*self.transfer
+
+    def _blocks(self):
+        for start in range(0, self.n, self.block_particles):
+            yield slice(start, min(self.n, start+self.block_particles))
+
+    def _phase_coefficients(self, index):
+        """First phase derivatives as polynomials (constant,x,y,z)."""
+        k = self.k[index]; count = len(k)
+        b = np.zeros((count, self.nq, 5, 4))
+        for a in range(3):
+            b[:, :, a, 1:] = 2*np.pi*self.angle[index, None, None]*np.cross(k, np.eye(3)[a])
+        b[:, :, 3:, 0] = 2*np.pi*self.shift[index, None, None]*self.q[index]
+        return b
+
+    def _curvature(self, index, a, b):
+        value = np.zeros_like(self.k[index])
+        if a < 3 and b < 3:
+            k = self.k[index]
+            value[:, :, b] += .5*k[:, :, a]
+            value[:, :, a] += .5*k[:, :, b]
+            if a == b:
+                value -= k
+            value *= 2*np.pi*self.angle[index, None, None]**2
+        return value
+
+    @staticmethod
+    def _product(left, right):
+        value = np.zeros((*left.shape[:-1], 10))
+        for a in range(4):
+            for b in range(4):
+                value[..., PRODUCT[a, b]] += left[..., a]*right[..., b]
+        return value
+
+    def _transform_forward(self, strengths):
+        if self.backend == 'nufft':
+            return finufft.nufft3d3(*self.source, np.ascontiguousarray(strengths),
+                                    *self.destination, isign=1, eps=self.eps, nthreads=self.nthreads)
+        output = np.empty((10, len(self.xyz)), complex)
+        for start in range(0, len(self.xyz), 1024):
+            phase = np.exp(2j*np.pi*self.frequency_points@self.xyz[start:start+1024].T)
+            output[:, start:start+phase.shape[1]] = strengths@phase
+        return output
+
+    def _transform_adjoint(self, strengths):
+        # Both transforms have positive phase: realification conjugates neither
+        # the fixed complex coefficient c nor the real quadrature test vector.
+        if self.backend == 'nufft':
+            return finufft.nufft3d3(*self.destination, np.ascontiguousarray(strengths),
+                                    *self.source, isign=1, eps=self.eps, nthreads=self.nthreads)
+        output = np.empty((10, len(self.frequency_points)), complex)
+        for start in range(0, len(self.frequency_points), 1024):
+            phase = np.exp(2j*np.pi*self.xyz@self.frequency_points[start:start+1024].T)
+            output[:, start:start+phase.shape[1]] = strengths@phase
+        return output
+
+    def matvec(self, vector):
+        vector = np.asarray(vector, dtype=float).reshape(20*self.n)/self.denominators
+        first = vector[:5*self.n].reshape(self.n, 5)
+        second = vector[5*self.n:].reshape(self.n, 15)
+        strengths = np.zeros((self.n, self.nq, 10), complex)
+        for index in self._blocks():
+            b = self._phase_coefficients(index)
+            polynomial = np.zeros((*b.shape[:2], 10), complex)
+            polynomial[..., :4] = 1j*np.einsum('nqaL,na->nqL', b, first[index])
+            for j, ((a, bb), scale) in enumerate(zip(PAIRS, PAIR_SCALE)):
+                coefficient = .5*scale*second[index, j, None, None]
+                polynomial -= coefficient*self._product(b[:, :, a], b[:, :, bb])
+                polynomial[..., 1:4] += 1j*coefficient*self._curvature(index, a, bb)
+            strengths[index] = self.c[index, :, None]*polynomial
+        field = self._transform_forward(strengths.reshape(-1, 10).T)
+        return self.sqrt_quad*np.sum(self.monomials*field.real, axis=0)
+
+    def rmatvec(self, vector):
+        vector = np.asarray(vector, dtype=float).reshape(len(self.xyz))
+        transformed = self._transform_adjoint((self.monomials*(self.sqrt_quad*vector)[None]).astype(complex))
+        transformed = transformed.T.reshape(self.n, self.nq, 10)*self.c[:, :, None]
+        first = np.empty((self.n, 5)); second = np.empty((self.n, 15))
+        for index in self._blocks():
+            b = self._phase_coefficients(index); t = transformed[index]
+            first[index] = np.real(1j*np.einsum('nqaL,nqL->na', b, t[..., :4]))
+            for j, ((a, bb), scale) in enumerate(zip(PAIRS, PAIR_SCALE)):
+                value = -np.sum(self._product(b[:, :, a], b[:, :, bb])*t, axis=(1, 2))
+                value += 1j*np.sum(self._curvature(index, a, bb)*t[..., 1:4], axis=(1, 2))
+                second[index, j] = .5*scale*value.real
+        return np.concatenate([first.ravel(), second.ravel()])/self.denominators
+
+    def spatial_gram(self, vector):
+        return self.matvec(self.rmatvec(vector))
+
+    def weight_gradient(self, column_vector, spatial_vector):
+        """Gradient in real estimator weights of v.T F(w) u, at fixed scales."""
+        vector = np.asarray(column_vector).reshape(20*self.n)/self.denominators
+        first = vector[:5*self.n].reshape(self.n, 5)
+        second = vector[5*self.n:].reshape(self.n, 15)
+        test = np.asarray(spatial_vector).reshape(len(self.xyz))
+        transform = self._transform_adjoint((self.monomials*(self.sqrt_quad*test)[None]).astype(complex))
+        transform = transform.T.reshape(self.n, self.nq, 10)
+        gradient = np.empty((self.n, self.nq), complex)
+        for index in self._blocks():
+            b = self._phase_coefficients(index)
+            polynomial = np.zeros((*b.shape[:2], 10), complex)
+            polynomial[..., :4] = 1j*np.einsum('nqaL,na->nqL', b, first[index])
+            for j, ((a, bb), scale) in enumerate(zip(PAIRS, PAIR_SCALE)):
+                coefficient = .5*scale*second[index, j, None, None]
+                polynomial -= coefficient*self._product(b[:, :, a], b[:, :, bb])
+                polynomial[..., 1:4] += 1j*coefficient*self._curvature(index, a, bb)
+            gradient[index] = self.transfer[index]*np.sum(polynomial*transform[index], axis=-1)
+        return np.concatenate([gradient.real, -gradient.imag], axis=1).ravel()
+
+    def establish_group_scaling(self, callback=None):
+        """Stream exact quadrature block norms, never form a dense global Gram.
+
+        Sets denominators for first-derivative particle blocks followed by
+        half-Hessian blocks. An integration pad ensures positive scaling norms.
+        This changes the operator and must precede a fixed-matrix random audit.
+        """
+        squared = np.zeros(2*self.n); masses = np.zeros(2*self.n)
+        sums = np.empty(20*self.n)
+        error = polynomial_kernel_error(self.k, self.order)
+        for i in range(self.n):
+            one, two = pose_derivative_fields(self.k[i], self.q[i], self.c[i], self.xyz,
+                                              self.angle[i], self.shift[i], self.backend)
+            m1, m2 = derivative_coefficient_bounds(self.k[i], self.q[i], self.c[i], self.angle[i], self.shift[i])
+            squared[i] = np.sum(self.quadrature[:, None]*one**2)
+            squared[self.n+i] = .25*np.sum(self.quadrature[:, None]*two**2)
+            masses[i] = m1@m1; masses[self.n+i] = .25*(m2@m2)
+            sums[5*i:5*(i+1)] = m1
+            sums[5*self.n+15*i:5*self.n+15*(i+1)] = .5*m2
+            if callback is not None and ((i+1)%128 == 0 or i+1 == self.n):
+                callback({'scaled_particles': i+1, 'total_particles': self.n})
+        d = np.sqrt(np.maximum(0, squared+error*masses))
+        # A truly zero block has no contribution; denominator one avoids division.
+        safe_d = np.where(d>0, d, 1.)
+        self.denominators = np.sqrt(np.concatenate([np.repeat(safe_d[:self.n], 5), np.repeat(safe_d[self.n:], 15)]))
+        pad = error*np.sum((sums/self.denominators)**2)
+        trace = float(np.sum(squared/safe_d))
+        return {'sum_group_scales': float(d.sum()), 'quadrature_gram_trace': trace,
+                'integration_eigenvalue_pad': float(pad), 'kernel_error': float(error),
+                'triangle_field_bound': float(d.sum()), 'group_scales': d,
+                'coefficient_sums': sums}

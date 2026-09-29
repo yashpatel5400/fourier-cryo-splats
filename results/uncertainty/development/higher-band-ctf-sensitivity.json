@@ -1,0 +1,864 @@
+{
+  "stage": "Post-review development, fixed-pose weights with bounded CTF sensitivities; known simulation noise",
+  "source_snapshot": {
+    "git_head_at_snapshot": "0717c851191452e1aae9773122377c0a5cbf6739",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/audit_uq_ctf_sensitivity.py": {
+        "sha256": "806192f178538c268d61c12b2389dfc815d7c8d515705ecf4ce8b5ad31cd24f1",
+        "snapshot": "provenance/uncertainty/source-snapshots/806192f178538c268d61c12b2389dfc815d7c8d515705ecf4ce8b5ad31cd24f1.txt"
+      },
+      "scripts/audit_uq_grid_refinement.py": {
+        "sha256": "83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b",
+        "snapshot": "provenance/uncertainty/source-snapshots/83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_ctf_uncertainty.py": {
+        "sha256": "17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e",
+        "snapshot": "provenance/uncertainty/source-snapshots/17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_intervals.py": {
+        "sha256": "590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9",
+        "snapshot": "provenance/uncertainty/source-snapshots/590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_noise_calibration.py": {
+        "sha256": "285548378bede8a0fff00325aa99ddbad2f754e88581f9ec1a8944a6e53ffa17",
+        "snapshot": "provenance/uncertainty/source-snapshots/285548378bede8a0fff00325aa99ddbad2f754e88581f9ec1a8944a6e53ffa17.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_pose_operator.py": {
+        "sha256": "9007bb6262c0fb07bd1c874240f4838f438f95ee94b5dffa4f4de820a987a2cc",
+        "snapshot": "provenance/uncertainty/source-snapshots/9007bb6262c0fb07bd1c874240f4838f438f95ee94b5dffa4f4de820a987a2cc.txt"
+      },
+      "src/fourier_splats/uq_pose_optimization.py": {
+        "sha256": "1e4713766e4c99a50b19c08799d9ef0f40986ffbe04049ff943a8aefdc21b2b0",
+        "snapshot": "provenance/uncertainty/source-snapshots/1e4713766e4c99a50b19c08799d9ef0f40986ffbe04049ff943a8aefdc21b2b0.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_random_spectral.py": {
+        "sha256": "55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e",
+        "snapshot": "provenance/uncertainty/source-snapshots/55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "complete": true,
+  "records": [
+    {
+      "dataset": "10028",
+      "target": "center",
+      "sigma_A": 14.472000360488892,
+      "frequency_radius": 12.0,
+      "setting": "nominal",
+      "radii": {},
+      "ctf_bias_addition": 0.0,
+      "fixed_pose_density_bias": 6.29113700756593,
+      "uncapped_half_width": 7.5109175405182995,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.13024236642535764,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.0011605197722781568,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 1.0094474020604369e-09
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.0011605197722781568,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 1.0094474020604369e-09
+        }
+      ],
+      "source_result_sha256": "527872fbecde33dc1635e13a29fb8f29e6b6ba5bc4e198cd14caaed003e3a40e"
+    },
+    {
+      "dataset": "10028",
+      "target": "center",
+      "sigma_A": 14.472000360488892,
+      "frequency_radius": 12.0,
+      "setting": "defocus100A",
+      "radii": {
+        "defocus_radius_A": 100.0
+      },
+      "ctf_bias_addition": 30.73798389718581,
+      "fixed_pose_density_bias": 6.29113700756593,
+      "uncapped_half_width": 38.24890143770412,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.6632515148173342,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": -0.0010600150025168453,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.0033795008925485703,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "527872fbecde33dc1635e13a29fb8f29e6b6ba5bc4e198cd14caaed003e3a40e"
+    },
+    {
+      "dataset": "10028",
+      "target": "center",
+      "sigma_A": 14.472000360488892,
+      "frequency_radius": 12.0,
+      "setting": "defocus500A",
+      "radii": {
+        "defocus_radius_A": 500.0
+      },
+      "ctf_bias_addition": 154.28016804525404,
+      "fixed_pose_density_bias": 6.29113700756593,
+      "uncapped_half_width": 161.79108558577238,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": -3.644311382387585,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": -3.644311382387585,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "527872fbecde33dc1635e13a29fb8f29e6b6ba5bc4e198cd14caaed003e3a40e"
+    },
+    {
+      "dataset": "10028",
+      "target": "center",
+      "sigma_A": 14.472000360488892,
+      "frequency_radius": 12.0,
+      "setting": "mixed",
+      "radii": {
+        "defocus_radius_A": 100.0,
+        "astigmatism_angle_radius_degrees": 2.0,
+        "phase_radius_degrees": 1.0,
+        "relative_gain_radius": 0.05,
+        "relative_B_radius_A2": 10.0
+      },
+      "ctf_bias_addition": 902.1191319782275,
+      "fixed_pose_density_bias": 6.29113700756593,
+      "uncapped_half_width": 909.6300495187459,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": -3.644311382387585,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": -3.644311382387585,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "527872fbecde33dc1635e13a29fb8f29e6b6ba5bc4e198cd14caaed003e3a40e"
+    },
+    {
+      "dataset": "10028",
+      "target": "contrast",
+      "sigma_A": 14.472000360488892,
+      "frequency_radius": 12.0,
+      "setting": "nominal",
+      "radii": {},
+      "ctf_bias_addition": 0.0,
+      "fixed_pose_density_bias": 8.787463400627987,
+      "uncapped_half_width": 10.5646030827,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.12959096787169772,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": -0.020375304284346252,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 4.167678779664103e-21
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": -0.020375304284346252,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 4.167678779664103e-21
+        }
+      ],
+      "source_result_sha256": "527872fbecde33dc1635e13a29fb8f29e6b6ba5bc4e198cd14caaed003e3a40e"
+    },
+    {
+      "dataset": "10028",
+      "target": "contrast",
+      "sigma_A": 14.472000360488892,
+      "frequency_radius": 12.0,
+      "setting": "defocus100A",
+      "radii": {
+        "defocus_radius_A": 100.0
+      },
+      "ctf_bias_addition": 42.16811807823098,
+      "fixed_pose_density_bias": 8.787463400627987,
+      "uncapped_half_width": 52.732721160930986,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.6468472426516297,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": -0.021125759746898176,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": -0.019625673290332657,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "527872fbecde33dc1635e13a29fb8f29e6b6ba5bc4e198cd14caaed003e3a40e"
+    },
+    {
+      "dataset": "10028",
+      "target": "contrast",
+      "sigma_A": 14.472000360488892,
+      "frequency_radius": 12.0,
+      "setting": "defocus500A",
+      "radii": {
+        "defocus_radius_A": 500.0
+      },
+      "ctf_bias_addition": 211.65786121090036,
+      "fixed_pose_density_bias": 8.787463400627987,
+      "uncapped_half_width": 222.22246429360038,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 1.1258590365867505,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 1.1258590365867505,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "527872fbecde33dc1635e13a29fb8f29e6b6ba5bc4e198cd14caaed003e3a40e"
+    },
+    {
+      "dataset": "10028",
+      "target": "contrast",
+      "sigma_A": 14.472000360488892,
+      "frequency_radius": 12.0,
+      "setting": "mixed",
+      "radii": {
+        "defocus_radius_A": 100.0,
+        "astigmatism_angle_radius_degrees": 2.0,
+        "phase_radius_degrees": 1.0,
+        "relative_gain_radius": 0.05,
+        "relative_B_radius_A2": 10.0
+      },
+      "ctf_bias_addition": 1212.8650083331493,
+      "fixed_pose_density_bias": 8.787463400627987,
+      "uncapped_half_width": 1223.4296114158494,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 1.1258590365867505,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 1.1258590365867505,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "527872fbecde33dc1635e13a29fb8f29e6b6ba5bc4e198cd14caaed003e3a40e"
+    },
+    {
+      "dataset": "10049",
+      "target": "center",
+      "sigma_A": 7.084800109863281,
+      "frequency_radius": 12.0,
+      "setting": "nominal",
+      "radii": {},
+      "ctf_bias_addition": 0.0,
+      "fixed_pose_density_bias": 10.758483905746477,
+      "uncapped_half_width": 12.732351746009764,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.2207841602060663,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.12488551251302238,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 6.168051904381596e-22
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.12488551251302238,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 6.168051904381596e-22
+        }
+      ],
+      "source_result_sha256": "ce1849bb2b393ba3661b5e679ddc625b8665bc02b7d99db5ce2b5db51916af4d"
+    },
+    {
+      "dataset": "10049",
+      "target": "center",
+      "sigma_A": 7.084800109863281,
+      "frequency_radius": 12.0,
+      "setting": "defocus100A",
+      "radii": {
+        "defocus_radius_A": 100.0
+      },
+      "ctf_bias_addition": 68.30557361313168,
+      "fixed_pose_density_bias": 10.758483905746477,
+      "uncapped_half_width": 81.03792535914145,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 3.288089855025283,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 3.288089855025283,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "ce1849bb2b393ba3661b5e679ddc625b8665bc02b7d99db5ce2b5db51916af4d"
+    },
+    {
+      "dataset": "10049",
+      "target": "center",
+      "sigma_A": 7.084800109863281,
+      "frequency_radius": 12.0,
+      "setting": "defocus500A",
+      "radii": {
+        "defocus_radius_A": 500.0
+      },
+      "ctf_bias_addition": 347.86898896540987,
+      "fixed_pose_density_bias": 10.758483905746477,
+      "uncapped_half_width": 360.60134071141965,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 3.288089855025283,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 3.288089855025283,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "ce1849bb2b393ba3661b5e679ddc625b8665bc02b7d99db5ce2b5db51916af4d"
+    },
+    {
+      "dataset": "10049",
+      "target": "center",
+      "sigma_A": 7.084800109863281,
+      "frequency_radius": 12.0,
+      "setting": "mixed",
+      "radii": {
+        "defocus_radius_A": 100.0,
+        "astigmatism_angle_radius_degrees": 2.0,
+        "phase_radius_degrees": 1.0,
+        "relative_gain_radius": 0.05,
+        "relative_B_radius_A2": 10.0
+      },
+      "ctf_bias_addition": 743.6596425673974,
+      "fixed_pose_density_bias": 10.758483905746477,
+      "uncapped_half_width": 756.3919943134074,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 3.288089855025283,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 3.288089855025283,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "ce1849bb2b393ba3661b5e679ddc625b8665bc02b7d99db5ce2b5db51916af4d"
+    },
+    {
+      "dataset": "10049",
+      "target": "contrast",
+      "sigma_A": 7.084800109863281,
+      "frequency_radius": 12.0,
+      "setting": "nominal",
+      "radii": {},
+      "ctf_bias_addition": 0.0,
+      "fixed_pose_density_bias": 16.426636693394517,
+      "uncapped_half_width": 19.391942676235214,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.23787174971494982,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.5905971428285293,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 7.877892812413071e-23
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.5905971428285293,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 7.877892812413071e-23
+        }
+      ],
+      "source_result_sha256": "ce1849bb2b393ba3661b5e679ddc625b8665bc02b7d99db5ce2b5db51916af4d"
+    },
+    {
+      "dataset": "10049",
+      "target": "contrast",
+      "sigma_A": 7.084800109863281,
+      "frequency_radius": 12.0,
+      "setting": "defocus100A",
+      "radii": {
+        "defocus_radius_A": 100.0
+      },
+      "ctf_bias_addition": 96.09159746518681,
+      "fixed_pose_density_bias": 16.426636693394517,
+      "uncapped_half_width": 115.48354014142203,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.9935612794682771,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.9935612794682771,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "ce1849bb2b393ba3661b5e679ddc625b8665bc02b7d99db5ce2b5db51916af4d"
+    },
+    {
+      "dataset": "10049",
+      "target": "contrast",
+      "sigma_A": 7.084800109863281,
+      "frequency_radius": 12.0,
+      "setting": "defocus500A",
+      "radii": {
+        "defocus_radius_A": 500.0
+      },
+      "ctf_bias_addition": 489.41293058764074,
+      "fixed_pose_density_bias": 16.426636693394517,
+      "uncapped_half_width": 508.804873263876,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.9935612794682771,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.9935612794682771,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "ce1849bb2b393ba3661b5e679ddc625b8665bc02b7d99db5ce2b5db51916af4d"
+    },
+    {
+      "dataset": "10049",
+      "target": "contrast",
+      "sigma_A": 7.084800109863281,
+      "frequency_radius": 12.0,
+      "setting": "mixed",
+      "radii": {
+        "defocus_radius_A": 100.0,
+        "astigmatism_angle_radius_degrees": 2.0,
+        "phase_radius_degrees": 1.0,
+        "relative_gain_radius": 0.05,
+        "relative_B_radius_A2": 10.0
+      },
+      "ctf_bias_addition": 1050.0033398191672,
+      "fixed_pose_density_bias": 16.426636693394517,
+      "uncapped_half_width": 1069.3952824954026,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.9935612794682771,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.9935612794682771,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "ce1849bb2b393ba3661b5e679ddc625b8665bc02b7d99db5ce2b5db51916af4d"
+    },
+    {
+      "dataset": "10076",
+      "target": "center",
+      "sigma_A": 12.575999450683593,
+      "frequency_radius": 12.0,
+      "setting": "nominal",
+      "radii": {},
+      "ctf_bias_addition": 0.0,
+      "fixed_pose_density_bias": 6.120814511799704,
+      "uncapped_half_width": 7.027271321484906,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.12185574418649345,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.012803353037652343,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 6.101736771797329e-11
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.012803353037652343,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 6.101736771797329e-11
+        }
+      ],
+      "source_result_sha256": "5c259b1d2f631f476c819eed5208ce33612beae4d50d6154fad522092e7fea0b"
+    },
+    {
+      "dataset": "10076",
+      "target": "center",
+      "sigma_A": 12.575999450683593,
+      "frequency_radius": 12.0,
+      "setting": "defocus100A",
+      "radii": {
+        "defocus_radius_A": 100.0
+      },
+      "ctf_bias_addition": 42.555904491976264,
+      "fixed_pose_density_bias": 6.120814511799704,
+      "uncapped_half_width": 49.58317581346118,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.8597924445305669,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.009311305141403992,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.016293784740840422,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "5c259b1d2f631f476c819eed5208ce33612beae4d50d6154fad522092e7fea0b"
+    },
+    {
+      "dataset": "10076",
+      "target": "center",
+      "sigma_A": 12.575999450683593,
+      "frequency_radius": 12.0,
+      "setting": "defocus500A",
+      "radii": {
+        "defocus_radius_A": 500.0
+      },
+      "ctf_bias_addition": 214.03805283322342,
+      "fixed_pose_density_bias": 6.120814511799704,
+      "uncapped_half_width": 221.06532415470835,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.9985821971310624,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.9985821971310624,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "5c259b1d2f631f476c819eed5208ce33612beae4d50d6154fad522092e7fea0b"
+    },
+    {
+      "dataset": "10076",
+      "target": "center",
+      "sigma_A": 12.575999450683593,
+      "frequency_radius": 12.0,
+      "setting": "mixed",
+      "radii": {
+        "defocus_radius_A": 100.0,
+        "astigmatism_angle_radius_degrees": 2.0,
+        "phase_radius_degrees": 1.0,
+        "relative_gain_radius": 0.05,
+        "relative_B_radius_A2": 10.0
+      },
+      "ctf_bias_addition": 1013.5089126239948,
+      "fixed_pose_density_bias": 6.120814511799704,
+      "uncapped_half_width": 1020.5361839454798,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.9985821971310624,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.9985821971310624,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "5c259b1d2f631f476c819eed5208ce33612beae4d50d6154fad522092e7fea0b"
+    },
+    {
+      "dataset": "10076",
+      "target": "contrast",
+      "sigma_A": 12.575999450683593,
+      "frequency_radius": 12.0,
+      "setting": "nominal",
+      "radii": {},
+      "ctf_bias_addition": 0.0,
+      "fixed_pose_density_bias": 8.467080488067152,
+      "uncapped_half_width": 9.761257992004813,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.11973671522981243,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.02046034979915956,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 2.274129386730916e-34
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.02046034979915956,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 2.274129386730916e-34
+        }
+      ],
+      "source_result_sha256": "5c259b1d2f631f476c819eed5208ce33612beae4d50d6154fad522092e7fea0b"
+    },
+    {
+      "dataset": "10076",
+      "target": "contrast",
+      "sigma_A": 12.575999450683593,
+      "frequency_radius": 12.0,
+      "setting": "defocus100A",
+      "radii": {
+        "defocus_radius_A": 100.0
+      },
+      "ctf_bias_addition": 57.554530491598065,
+      "fixed_pose_density_bias": 8.467080488067152,
+      "uncapped_half_width": 67.31578848360289,
+      "uses_no_data": false,
+      "selected_relative_half_width": 0.8257308026007834,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": 0.02024716519291303,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": 0.020675882241870558,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "5c259b1d2f631f476c819eed5208ce33612beae4d50d6154fad522092e7fea0b"
+    },
+    {
+      "dataset": "10076",
+      "target": "contrast",
+      "sigma_A": 12.575999450683593,
+      "frequency_radius": 12.0,
+      "setting": "defocus500A",
+      "radii": {
+        "defocus_radius_A": 500.0
+      },
+      "ctf_bias_addition": 289.5073922180999,
+      "fixed_pose_density_bias": 8.467080488067152,
+      "uncapped_half_width": 299.26865021010474,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": -0.36568786197776815,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": -0.36568786197776815,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "5c259b1d2f631f476c819eed5208ce33612beae4d50d6154fad522092e7fea0b"
+    },
+    {
+      "dataset": "10076",
+      "target": "contrast",
+      "sigma_A": 12.575999450683593,
+      "frequency_radius": 12.0,
+      "setting": "mixed",
+      "radii": {
+        "defocus_radius_A": 100.0,
+        "astigmatism_angle_radius_degrees": 2.0,
+        "phase_radius_degrees": 1.0,
+        "relative_gain_radius": 0.05,
+        "relative_B_radius_A2": 10.0
+      },
+      "ctf_bias_addition": 1349.8904538497236,
+      "fixed_pose_density_bias": 8.467080488067152,
+      "uncapped_half_width": 1359.6517118417285,
+      "uses_no_data": true,
+      "selected_relative_half_width": 1.0,
+      "reference_checks": [
+        {
+          "coherent_sign": -1.0,
+          "actual_bias": -0.36568786197776815,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        },
+        {
+          "coherent_sign": 1.0,
+          "actual_bias": -0.36568786197776815,
+          "analytic_coverage": 1.0,
+          "correct_sign_probability": 0.0
+        }
+      ],
+      "source_result_sha256": "5c259b1d2f631f476c819eed5208ce33612beae4d50d6154fad522092e7fea0b"
+    }
+  ],
+  "assumptions": "Declared nuisance radii, not experimentally estimated confidence bounds; fixed voltage/Cs/amplitude contrast; no orientation error in these six designs.",
+  "seconds": 6.444784875027835
+}

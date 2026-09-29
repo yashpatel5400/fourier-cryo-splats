@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+"""Reference power and independent feasible-pose stresses for one completed fit."""
+import argparse
+import hashlib
+import json
+import time
+from pathlib import Path
+from types import SimpleNamespace
+import numpy as np
+import torch
+from scipy.stats import norm
+from scipy.spatial.transform import Rotation
+from fourier_splats.uq_data import particle_geometry,VoxelReference
+from fourier_splats.uq_continuous import cell_forward,cell_target_coefficients,continuous_residual_norm
+from fourier_splats.uq_continuous_pose import cube_quadrature,pose_cell_forward,perturbed_geometry
+from fourier_splats.uq_nonlinear_stress import TorchPoseAdjoint
+from fourier_splats.uq_provenance import source_snapshot
+from audit_uq_grid_refinement import model
+
+ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'results/uncertainty/development'
+MAPS={'10028':'2660','10049':'6487','10076':'8434'}
+
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--fit',required=True)
+    p.add_argument('--starts',type=int,default=3);p.add_argument('--steps',type=int,default=150)
+    p.add_argument('--order',type=int,default=12);p.add_argument('--device',default='mps',choices=['mps','cpu'])
+    args=p.parse_args();source=ROOT/args.fit;record=json.loads(source.read_text())
+    if not record.get('complete') or 'fit' not in record:raise RuntimeError('Completed numerical fit required')
+    dataset=record.get('dataset',record['config'].get('dataset'))
+    target=record.get('target',record['config'].get('target'))
+    degrees=record.get('rotation_radius_degrees',record['config'].get('angle'))
+    out=BASE/'pose-optimized-diagnostics'/source.parent.name;out.mkdir(parents=True,exist_ok=True)
+    path=out/source.name
+    if path.exists():raise RuntimeError('Preserve previous diagnostics')
+    start=time.perf_counter();snapshot=source_snapshot(ROOT,Path(__file__),['scripts/audit_uq_grid_refinement.py'])
+    prior=json.loads((BASE/'continuous-quadrature-optimized'/f'{dataset}.json').read_text())
+    g=particle_geometry(ROOT,dataset,'inference_half0',radius=5,count=128,seed=prior['config']['seed'])
+    wp=source.with_name(source.stem+'-weights.npz');saved=np.load(wp);w=saved['weights'];noise=float(saved['noise_std'])
+    np.testing.assert_array_equal(saved['indices'],g['indices'])
+    angle=np.deg2rad(degrees);shift=record['translation_radius_A']/g['field_A'] if 'translation_radius_A' in record else .01/24
+    checkpoint=np.load(BASE/'representation'/dataset/'real_particles-spacing-2.0.npz')
+    op,pilot,_,check_noise=model(g,checkpoint,24);pilot=op.expand(pilot)
+    np.testing.assert_allclose(noise,check_noise)
+    nominal=cell_forward(g['k'],g['ctf'],pilot,24,noise)
+    centers=[[0,0,0]] if target=='center' else [[0,0,.08],[0,0,-.08]];signs=[1] if target=='center' else [1,-1]
+    pilot_target=float(cell_target_coefficients(24,centers,signs,.07)@pilot)
+    rho=VoxelReference.from_mrc(ROOT/f'data/uncertainty/references/emd_{MAPS[dataset]}.map',box=64).volume.ravel()
+    rho/=np.linalg.norm(rho);truth=float(cell_target_coefficients(64,centers,signs,.07)@rho)
+    fit=record['fit'];no_data=2*fit['target_norm'];fallback=bool(fit['half_width']>=no_data)
+    selected_half=min(fit['half_width'],no_data)
+    result={'stage':'Exploratory optimized-estimator diagnostics; local search gives feasible bias, not a global optimum',
+            'source_snapshot':snapshot,'source_fit_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
+            'source_weights_sha256':hashlib.sha256(wp.read_bytes()).hexdigest(),'dataset':dataset,'target':target,
+            'rotation_radius_degrees':degrees,'translation_radius_A':shift*g['field_A'],'config':vars(args),
+            'complete':False,'uses_no_data':fallback,'selected_relative_half_width':selected_half/no_data,
+            'audited_bias_upper':fit['bias'],'reference_checks':[],'candidates':[]}
+    path.write_text(json.dumps(result,indent=2)+'\n')
+    rng=np.random.default_rng(609711+int(dataset))
+    for scenario in ['nominal','coherent_x','random_boundary']:
+        pose=np.zeros((len(g['k']),5))
+        if scenario=='coherent_x':pose[:,0]=1.
+        if scenario=='random_boundary':
+            pose=rng.normal(size=pose.shape);pose/=np.linalg.norm(pose,axis=1)[:,None]
+        signal=pose_cell_forward(g['k'],g['q'],g['ctf'],rho,64,noise,pose,angle,shift)
+        mean=pilot_target if fallback else float(pilot_target+w@(signal-nominal));sd=0. if fallback else float(np.linalg.norm(w));bias=mean-truth
+        coverage=float(norm.cdf((selected_half-bias)/sd)-norm.cdf((-selected_half-bias)/sd)) if sd else float(abs(bias)<=selected_half)
+        power=float(norm.cdf((np.sign(truth)*mean-selected_half)/sd)) if sd else float(np.sign(truth)*mean>selected_half)
+        result['reference_checks'].append({'scenario':scenario,'true_target':truth,'expected_center':mean,
+            'actual_bias':bias,'analytic_coverage':coverage,'correct_sign_probability':power})
+    path.write_text(json.dumps(result,indent=2)+'\n')
+    xyz,quadrature=cube_quadrature(args.order)
+    indices=np.minimum(((xyz+.5)*24).astype(int),23)
+    pilot_nodes=pilot.reshape(24,24,24)[indices[:,2],indices[:,1],indices[:,0]]*24**1.5
+    fake_op=SimpleNamespace(op=SimpleNamespace(k=g['k'],box=1.,transfer=g['ctf']/noise,n=len(g['k']),q=g['k'].shape[1]),
+                            xyz=xyz,shape=(2*np.prod(g['k'].shape[:2]),len(xyz)))
+    dtype=torch.float32 if args.device=='mps' else torch.float64
+    tensor=lambda x:torch.as_tensor(np.asarray(x).copy(),dtype=dtype,device=args.device)
+    qw=tensor(quadrature);pilotq=tensor(pilot_nodes)
+    ell=sum(s*np.exp(-np.sum((xyz-c)**2,axis=1)/(2*.07**2))/(2*np.pi*.07**2)**1.5 for c,s in zip(np.asarray(centers),signs))
+    ellq=tensor(ell);adjoint=TorchPoseAdjoint(fake_op,g['q'],w,angle,shift,device=args.device,dtype=dtype)
+    with torch.no_grad():nominalq=adjoint(tensor(np.zeros((len(g['k']),5))))
+    for sign in [-1.,1.]:
+        for attempt in range(args.starts):
+            initial=np.zeros((len(g['k']),5))
+            if attempt==1:initial[:,0]=sign
+            elif attempt>1:
+                initial=rng.normal(size=initial.shape);initial/=np.linalg.norm(initial,axis=1)[:,None]
+            u=torch.nn.Parameter(tensor(initial));optimizer=torch.optim.Adam([u],lr=.05)
+            best=-np.inf;best_pose=None;trace=[]
+            for iteration in range(args.steps+1):
+                optimizer.zero_grad(set_to_none=True);field=adjoint(u)
+                value=sign*torch.sum(qw*pilotq*(field-nominalq))+2*torch.sqrt(torch.sum(qw*(field-ellq)**2))
+                scalar=float(value.detach().cpu())
+                if scalar>best:best=scalar;best_pose=u.detach().cpu().numpy().astype(float).copy()
+                if iteration%25==0:trace.append({'iteration':iteration,'surrogate_bias':scalar})
+                if iteration<args.steps:
+                    (-value).backward();optimizer.step()
+                    with torch.no_grad():u.div_(torch.clamp(torch.linalg.vector_norm(u,dim=1,keepdim=True),min=1.))
+            best_pose/=np.maximum(1.,np.linalg.norm(best_pose,axis=1,keepdims=True))
+            rotated,shifts=perturbed_geometry(g['k'],g['q'],best_pose,angle,shift)
+            exact=continuous_residual_norm(rotated,g['ctf']*np.exp(2j*np.pi*shifts),w,noise,centers,signs,.07)
+            shifted_pilot=pose_cell_forward(g['k'],g['q'],g['ctf'],pilot,24,noise,best_pose,angle,shift)
+            pilot_bias=float(w@(shifted_pilot-nominal))
+            feasible=abs(pilot_bias)+2*np.sqrt(max(0.,exact['residual_norm2_unpadded']))
+            error=None
+            if attempt==0:
+                ids=np.arange(0,len(xyz),max(1,len(xyz)//31));ks=g['k']@Rotation.from_rotvec(angle*best_pose[:,:3]).as_matrix()
+                wr=w.reshape(len(g['k']),-1);nq=g['k'].shape[1];c=(wr[:,:nq]+1j*wr[:,nq:])*g['ctf']/noise
+                direct=sum((c[i]@np.exp(2j*np.pi*(ks[i]@xyz[ids].T+shifts[i,:,None]))).real for i in range(len(g['k'])))
+                predicted=adjoint(tensor(best_pose)).detach().cpu().numpy()[ids]
+                error=float(np.linalg.norm(direct-predicted)/max(np.linalg.norm(direct),1e-12))
+            row={'sign':sign,'start':attempt,'surrogate_maximum':best,'feasible_bias_numerical':float(feasible),
+                 'feasible_over_upper':float(feasible/fit['bias']),'analytic_residual':exact,'pilot_bias':pilot_bias,
+                 'independent_field_relative_error':error,'maximum_pose_norm':float(np.linalg.norm(best_pose,axis=1).max()),'trace':trace}
+            result['candidates'].append(row)
+            np.savez(out/f'{source.stem}-sign{sign}-start{attempt}.npz',poses=best_pose)
+            path.write_text(json.dumps(result,indent=2)+'\n');print('CANDIDATE',dataset,target,degrees,sign,attempt,row['feasible_over_upper'],flush=True)
+    result.update(complete=True,seconds=time.perf_counter()-start,
+                  largest_feasible_over_upper=max(x['feasible_over_upper'] for x in result['candidates']),
+                  minimum_reference_power=min(x['correct_sign_probability'] for x in result['reference_checks']))
+    # Preserve every result before identifying a possible implementation failure.
+    result['audit_failure']=bool(result['largest_feasible_over_upper']>1.000001 or
+           any(x['independent_field_relative_error'] is not None and x['independent_field_relative_error']>2e-4 for x in result['candidates']))
+    path.write_text(json.dumps(result,indent=2)+'\n')
+    if result['audit_failure']:raise AssertionError('Pose audit diagnostic failed; full results retained')
+    print('DONE',result['largest_feasible_over_upper'],result['minimum_reference_power'],flush=True)
+
+
+if __name__=='__main__':main()

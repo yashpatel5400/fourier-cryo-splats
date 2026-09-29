@@ -8,12 +8,17 @@ See the [research plan](research/uncertainty/PLAN.md),
 The [current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) has been
 rewritten around uncertainty, ambient-space bias auditing, and conditional pose
 bounds. Both frozen conditional-uncertainty studies and the fresh-exposure
-prediction comparison are complete. The manuscript is a **candidate for independent
-review**, not a claim of end-to-end experimental calibration or conference acceptance.
-Across 144 audit settings the continuous pose procedures remain conservative;
+prediction comparison are complete. The first authentic **Claude Fable 5.1 review
+recommends rejection** and does not consider the work a strong ICML contender.
+Read the [unaltered review](research/uncertainty/reviews/round-01/review.md) and
+[revision plan](research/uncertainty/reviews/round-01/response-plan.md).
+The manuscript is under substantive revision, with no claim of end-to-end
+experimental calibration or conference acceptance. The continuous pose procedures remain conservative;
 the moment refinement reduces no-data fallbacks from 48 to 16, but map-like
-feature detection remains weak. Independent review and substantive revisions
-are the next stage.
+feature detection remains weak. Current work optimizes weights with pose
+uncertainty included, scales the shared-field audit without dense matrices, and
+attempts an experimental noise-calibration analysis. The completed frozen
+studies remain unchanged and public.
 Completed development comparisons include source-group bootstrap, nonlinear pose
 curvature, shared-density spectral audits, finite-grid and continuous-density
 checks, joint continuous-pose bounds, assumption-violation controls, and stock neural

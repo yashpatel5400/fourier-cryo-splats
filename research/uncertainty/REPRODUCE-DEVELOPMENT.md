@@ -183,3 +183,37 @@ evaluator verifies its original protocol dependencies; the newer reporting and
 release scripts do not alter the protocol locks. This release is a research
 checkpoint undergoing independent review, not a scientifically validated
 end-to-end cryo-EM confidence pipeline.
+
+## Post-review development
+
+These new runs leave both frozen protocol dependency sets unchanged. They
+refuse to overwrite previous raw outcomes. The summary/figure script only
+accepts completed experimental/CTF diagnostic inputs.
+
+```sh
+OPENBLAS_NUM_THREADS=4 python scripts/validate_uq_pose_optimizer_conic.py
+OPENBLAS_NUM_THREADS=4 python scripts/benchmark_uq_matrix_free_pose.py
+OPENBLAS_NUM_THREADS=4 python scripts/scale_uq_matrix_free_pose.py
+OPENBLAS_NUM_THREADS=2 python scripts/run_uq_pose_optimized_study.py --datasets 10028
+OPENBLAS_NUM_THREADS=2 python scripts/run_uq_pose_optimized_study.py --datasets 10049
+OPENBLAS_NUM_THREADS=2 python scripts/run_uq_pose_optimized_study.py --datasets 10076
+python scripts/probe_uq_experimental_noise.py --dataset 10028
+python scripts/probe_uq_experimental_noise.py --dataset 10049
+python scripts/probe_uq_experimental_noise.py --dataset 10076
+python scripts/audit_uq_ctf_sensitivity.py
+python scripts/summarize_uq_revision_diagnostics.py
+```
+
+After a fit is complete, `evaluate_uq_optimized_pose.py --fit <result-json>`
+computes reference sign power and six local nonlinear pose stresses, then
+checks final candidates using independent analytic continuous-density integrals.
+It writes diagnostics before flagging failures. Best-weight checkpoints from
+ongoing fits are not final certified results. Final randomized spectral probes
+are distinct from the optimization's random modes; a fixed-matrix probability
+bound cannot justify adaptive candidate selection using reused probes.
+
+The conservative calibration lemma and CTF sensitivity proof are documented in
+EXPERIMENTAL-CALIBRATION-ATTEMPT.md and CTF-SENSITIVITY.md. Neither establishes
+the unknown empirical pose bounds or a physical density-energy radius. New
+weights are not yet included in the immutable v0.3 release; a later checkpoint
+will package the completed revision arrays.

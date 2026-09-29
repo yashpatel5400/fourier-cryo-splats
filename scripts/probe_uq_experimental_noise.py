@@ -1,0 +1,125 @@
+#!/usr/bin/env python3
+"""Exploratory experimental interval attempt with signal-contaminated calibration.
+
+This is a conditional sensitivity analysis, not experimentally established
+coverage: Gaussian/common-covariance noise, consensus-pose independence and the
+supplied density/pose classes remain unverified. Preserve vacuous outcomes.
+"""
+import argparse
+import csv
+import hashlib
+import json
+import time
+from pathlib import Path
+import numpy as np
+from fourier_splats.physics import fft_center
+from fourier_splats.uq_data import particle_geometry,particle_observations,VoxelReference
+from fourier_splats.uq_continuous import continuous_certificate,cell_forward,cell_target_coefficients
+from fourier_splats.uq_continuous_quadrature import QuadratureObservationGram
+from fourier_splats.uq_continuous_pose import continuous_pose_audit
+from fourier_splats.uq_continuous_moments import integrated_cubic_remainder
+from fourier_splats.uq_intervals import bias_aware_half_width_stable
+from fourier_splats.uq_noise_calibration import common_covariance_trace_upper
+from fourier_splats.uq_provenance import source_snapshot
+from audit_uq_grid_refinement import model
+
+ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'results/uncertainty/development'
+MAPS={'10028':'2660','10049':'6487','10076':'8434'}
+
+
+def realify(x):return np.concatenate([x.real,x.imag],axis=1)
+
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--dataset',default='10028')
+    p.add_argument('--output',default='experimental-noise-grouped');args=p.parse_args()
+    out=BASE/args.output;out.mkdir(exist_ok=True);path=out/f'{args.dataset}.json'
+    if path.exists():raise RuntimeError('Preserve previous experimental attempts')
+    start=time.perf_counter();snapshot=source_snapshot(ROOT,Path(__file__),['scripts/audit_uq_grid_refinement.py'])
+    g=particle_geometry(ROOT,args.dataset,'inference_half0',radius=5)
+    pick_rng=np.random.default_rng(609685)
+    chosen=np.array([pick_rng.choice(np.flatnonzero(g['groups']==label)) for label in np.unique(g['groups'])])
+    for key in ['indices','groups','q','k','ctf','translations']:g[key]=g[key][chosen]
+    gp=particle_geometry(ROOT,args.dataset,'pilot',radius=5,count=256,seed=609681)
+    checkpoint=np.load(BASE/'representation'/args.dataset/'real_particles-spacing-2.0.npz')
+    op,pilot,_,_=model(g,checkpoint,24);pilot=op.expand(pilot)
+    pilot_predictions=cell_forward(gp['k'],gp['ctf'],pilot,24,1.)
+    pilot_pixels=realify(particle_observations(ROOT,args.dataset,gp)).ravel()
+    amplitude=float(pilot_predictions@pilot_pixels/(pilot_predictions@pilot_predictions))
+    if not np.isfinite(amplitude) or amplitude<=0:raise ValueError('Positive pilot amplitude required')
+    fresh=ROOT/'data/uncertainty/confirmation/prediction-v1'/args.dataset
+    selection=ROOT/'research/uncertainty/confirmation/prediction-v1'/f'{args.dataset}-selection.csv'
+    rows=list(csv.DictReader(selection.open()));groups=np.array([r['source_group'] for r in rows])
+    rng=np.random.default_rng(609683);labels=rng.permutation(np.unique(groups))
+    representative=np.array([rng.choice(np.flatnonzero(groups==label)) for label in labels])
+    images=np.load(fresh/'images.npy',mmap_mode='r');q=g['q'][0].astype(int);center=images.shape[-1]//2
+    # No mask, mean subtraction, pose centering or image-dependent normalization.
+    # Arbitrary nonzero means are allowed in the conditional calibration lemma.
+    fourier=fft_center(np.asarray(images[representative],dtype=float))
+    samples=realify(fourier[:,q[:,1]+center,q[:,0]+center])/amplitude
+    split=len(samples)//2;cal=common_covariance_trace_upper(samples[:split],.005)
+    noise=float(np.sqrt(cal['covariance_trace_upper']))
+    group_energy=np.sum(samples*samples,axis=1)
+    reference=VoxelReference.from_mrc(ROOT/'data/uncertainty/references'/f'emd_{MAPS[args.dataset]}.map',box=64).volume.ravel()
+    reference/=np.linalg.norm(reference)
+    refpred=cell_forward(gp['k'],gp['ctf'],reference,64,1.)
+    ref_amplitude=float(refpred@pilot_pixels/(refpred@refpred))
+    reference*=ref_amplitude/amplitude
+    y=realify(particle_observations(ROOT,args.dataset,g)).ravel()/(amplitude*noise)
+    nominal=cell_forward(g['k'],g['ctf'],pilot,24,noise)
+    B=2.;P=float(np.linalg.norm(pilot));alpha_noise=.045
+    result={'stage':'Exploratory experimental sensitivity analysis, not established density confidence coverage',
+            'dataset':args.dataset,'config':vars(args),'source_snapshot':snapshot,'complete':False,
+            'inference_particles':len(g['indices']),'inference_source_groups':len(np.unique(g['groups'])),
+            'inference_indices':g['indices'].tolist(),'frequency_radius':5.,'field_A':g['field_A'],
+            'source_selection_sha256':hashlib.sha256(selection.read_bytes()).hexdigest(),
+            'representative_indices':representative.tolist(),'source_groups':labels.tolist(),
+            'calibration_groups':split,'validation_groups':len(samples)-split,
+            'calibration':cal,'noise_sd_envelope':noise,'pilot_amplitude_raw_units':amplitude,
+            'approx_reference_amplitude_raw_units':ref_amplitude,'density_radius_supplied':B,
+            'pilot_norm':P,'noise_alpha':alpha_noise,'calibration_alpha':.005,
+            'mean_energy_calibration':float(group_energy[:split].mean()),
+            'mean_energy_validation':float(group_energy[split:].mean()),
+            'unverified_conditions':['Common Gaussian noise covariance across calibration and inference particles.',
+              'Independence between source groups; original archive preprocessing is not reversed.',
+              'Supplied full-data consensus poses are treated as external, although their inference-noise independence is not established.',
+              'Density L2 radius 2 and pose radii are supplied sensitivities, not estimated confidence bounds.',
+              'Reference map with pilot-pool amplitude alignment is approximate, not biological truth.'],
+            'records':[]}
+    path.write_text(json.dumps(result,indent=2)+'\n')
+    gram=QuadratureObservationGram(g['k'],g['ctf'],noise,order=40,preconditioner_rank=1024)
+    try:
+        for width in [.07,10./g['field_A']]:
+            fit=continuous_certificate(gram,[[0,0,0]],[1],width,B,alpha=alpha_noise,rtol=.005,maxiter=150)
+            w=fit.pop('weights');sd=float(np.linalg.norm(w))
+            pilot_target=float(cell_target_coefficients(24,[[0,0,0]],[1],width)@pilot)
+            approx_reference=float(cell_target_coefficients(64,[[0,0,0]],[1],width)@reference)
+            raw_center=float(pilot_target+w@(y-nominal));no_data=B*fit['target_norm']
+            np.savez(out/f'{args.dataset}-width{width:.8f}-weights.npz',weights=w,indices=g['indices'],noise_std=noise)
+            for degrees in [0.,1.,2.]:
+                if degrees:
+                    audit=continuous_pose_audit(g['k'],g['q'],g['ctf'],w,noise,np.deg2rad(degrees),.5/g['field_A'],
+                                              B,P,fit['bias']/B,order=32)
+                    moment=integrated_cubic_remainder(g['k'],g['q'],g['ctf'],w,noise,np.deg2rad(degrees),.5/g['field_A'],B,P)
+                    bias=audit['density_bias']+audit['pose_polynomial_bias']+min(audit['remainder_bias'],moment['remainder_bias'])
+                else: bias=fit['bias']
+                half=bias_aware_half_width_stable(sd,bias,alpha_noise);fallback=bool(half>=no_data)
+                selected_half=min(half,no_data);selected_center=pilot_target if fallback else raw_center
+                row={'target':'central Gaussian density average','sigma_A':width*g['field_A'],
+                     'target_width_fraction':width,'fit':fit,'rotation_radius_degrees':degrees,
+                     'translation_radius_A':.5 if degrees else 0.,'half_width_before_fallback':half,
+                     'relative_half_width':selected_half/no_data,'uses_no_data':fallback,
+                     'interval_center':selected_center,'interval_half_width':selected_half,
+                     'approximate_reference_target':approx_reference,
+                     'approximate_reference_inside_interval':bool(abs(approx_reference-selected_center)<=selected_half),
+                     'excludes_zero':bool(abs(selected_center)>selected_half)}
+                result['records'].append(row);path.write_text(json.dumps(result,indent=2)+'\n')
+                print('CASE',row['sigma_A'],degrees,row['relative_half_width'],row['excludes_zero'],flush=True)
+        result.update(complete=True,seconds=time.perf_counter()-start)
+    except Exception as exc:
+        result.update(error=repr(exc),seconds=time.perf_counter()-start)
+        path.write_text(json.dumps(result,indent=2)+'\n');raise
+    path.write_text(json.dumps(result,indent=2)+'\n');print('DONE',result['seconds'],flush=True)
+
+
+if __name__=='__main__':main()

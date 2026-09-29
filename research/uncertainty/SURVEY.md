@@ -215,12 +215,26 @@ calibration and compute separately. One scalar FSC cannot answer all of them.
 The general inference construction here is grounded in
 [Donoho](https://doi.org/10.1214/aos/1176325367) and
 [Armstrong–Kolesar](https://doi.org/10.3982/ECTA14434).
+[Cai–Low](https://arxiv.org/abs/math/0503662) develops between-class modulus
+bounds for expected interval length and adaptive procedures. Its two-point
+Gaussian argument is particularly close to the generic lower-bound component
+used here. Such arguments and restrictions on honest adaptation are established
+theory, not a new contribution of Fourier density auditing. The post-review
+reading ledger now has 95 entries; the two additions are statistical/numerical
+foundations, not newly discovered cryo-EM methods.
 [Recent simultaneous inverse-problem calibration](https://arxiv.org/abs/2510.11708)
 is also directly relevant. Conformal imaging methods, including
 [posterior-variance calibration](https://arxiv.org/abs/2212.12499), must be assessed
 with their exchangeability assumptions and calibration targets intact. Calibration
 against simulated or paired ground-truth maps cannot be silently transferred
 to an arbitrary new molecule with uncertain poses.
+
+For large numerical audits, random-start power and Lanczos error analysis also
+has established foundations, including
+[Kuczynski–Wozniakowski](https://doi.org/10.1137/0613066). An approximate leading
+eigenvalue is not automatically a conservative upper bound. The revised
+matrix-free implementation explicitly budgets the failure probability of its
+Gaussian-projection spectral upper certificate, separate from measurement noise.
 
 The strongest current candidate is **structural-feature uncertainty that exposes
 pose ambiguity and reconstruction bias under an explicit sensitivity class**.
@@ -245,7 +259,7 @@ calibration, Gaussian/ bootstrap uncertainty, and feature validation. They did
 not identify a directly matched conformal density-reconstruction paper in the
 returned results; that is a search outcome, not a proof of absence. Three further
 candidates brought the then-current ledger to 89 entries (historical checkpoint;
-the current ledger has 93).
+the current ledger has 95).
 
 [SIMPLE's 2025 probabilistic ab initio method](https://doi.org/10.1107/S2059798325005686)
 uses coupled orientation assignments and adaptive spatial regularization. Its
@@ -287,7 +301,7 @@ conservative widths limit practical inference.
 The pose-transfer follow-up adds [CESPED](https://arxiv.org/abs/2311.06194v2),
 [cryoPARES](https://www.biorxiv.org/content/10.1101/2025.03.04.641536v6), and
 [CryoFastAR](https://arxiv.org/abs/2506.05864v1), bringing the curated ledger to
-92 entries at that historical checkpoint (93 currently). CESPED standardizes refinement-derived pose labels and explicitly
+92 entries at that historical checkpoint (95 currently). CESPED standardizes refinement-derived pose labels and explicitly
 acknowledges their uncertainty. CryoPARES reuses alignments of related specimens;
 CryoFastAR learns multiview pose prediction from synthetic training with real
 fine-tuning. These are distinct transfer assumptions. Their quality scores,
