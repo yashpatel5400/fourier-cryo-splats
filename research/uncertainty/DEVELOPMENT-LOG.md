@@ -509,3 +509,20 @@ unfavorable utility results, and is a candidate for independent review.
 The classical fixed-length efficiency proof also makes explicit its generic
 1.19756 factor from Gaussian testing and a 0.5% primal-dual gap; this is not
 a novel minimax theorem. No scientific Fable review has occurred at this entry.
+
+
+## Authentic Fable 5.1 review, round 1
+
+The complete candidate at a4117ab was sent through the authenticated Claude
+CLI to the exact claude-fable-5-1 model. The provider response confirms that
+canonical model. The review took approximately 770 seconds and is preserved
+verbatim with the full input packet and source/PDF hashes. It says reject,
+confidence 4/5, not a strong ICML contender. Its main objections are useful
+precision, experimental calibration, pose-aware weight optimization, pose
+scaling and incremental novelty. A finite substantive response plan is saved;
+no claim of reviewer approval is made. The goal remains active.
+
+While the review ran, a development probe was launched to select a frequency
+band using the pose-aware width, holding physical noise and geometry fixed.
+It uses the old 10028 development geometry and does not alter either frozen
+study. This is an exploratory design check, not resolution of the review.

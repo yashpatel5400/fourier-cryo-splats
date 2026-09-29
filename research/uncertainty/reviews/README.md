@@ -1,8 +1,11 @@
 # Independent review record
 
-No scientific review has yet been performed. The exact requested model,
-`claude-fable-5-1`, succeeded in an availability-only invocation through the
-authenticated Claude CLI. An availability response is not a research review.
+Round 1 is complete through the authenticated Claude CLI using the exact
+`claude-fable-5-1` model. The unmodified review says **reject**, confidence 4/5,
+and **not a strong contender for ICML acceptance**. It checked the supplied
+mathematics favorably but identified major gaps in usefulness, experimental
+calibration, pose-aware optimization and scaling. See [the full review](round-01/review.md).
+The raw provider metadata confirms the requested model; no proxy reviewer was used.
 
 After the complete frozen studies and current manuscript have been integrated,
 `scripts/review_uq_candidate.py --round 1 --invoke` creates an immutable review

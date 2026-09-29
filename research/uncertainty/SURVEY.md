@@ -244,7 +244,8 @@ Four additional queries combined cryo-EM with conformal inference, posterior
 calibration, Gaussian/ bootstrap uncertainty, and feature validation. They did
 not identify a directly matched conformal density-reconstruction paper in the
 returned results; that is a search outcome, not a proof of absence. Three further
-candidates bring the curated ledger to 89 entries.
+candidates brought the then-current ledger to 89 entries (historical checkpoint;
+the current ledger has 93).
 
 [SIMPLE's 2025 probabilistic ab initio method](https://doi.org/10.1107/S2059798325005686)
 uses coupled orientation assignments and adaptive spatial regularization. Its
@@ -279,12 +280,14 @@ and misspecified noise, while some tested defocus/heavy-tail controls remain
 conservative. A frozen additional-exposure prediction study now favors the
 neural baseline slightly on all three stacks. Those results do not change the
 survey's novelty threshold or supply experimental density-coverage labels.
-The newly frozen continuous-uncertainty simulation study is still running.
+Both frozen continuous-uncertainty studies are now complete. Their analytic
+coverage calculations verify conditional implementations; poor sign power and
+conservative widths limit practical inference.
 
 The pose-transfer follow-up adds [CESPED](https://arxiv.org/abs/2311.06194v2),
 [cryoPARES](https://www.biorxiv.org/content/10.1101/2025.03.04.641536v6), and
 [CryoFastAR](https://arxiv.org/abs/2506.05864v1), bringing the curated ledger to
-92 entries. CESPED standardizes refinement-derived pose labels and explicitly
+92 entries at that historical checkpoint (93 currently). CESPED standardizes refinement-derived pose labels and explicitly
 acknowledges their uncertainty. CryoPARES reuses alignments of related specimens;
 CryoFastAR learns multiview pose prediction from synthetic training with real
 fine-tuning. These are distinct transfer assumptions. Their quality scores,

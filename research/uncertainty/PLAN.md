@@ -17,7 +17,7 @@ claim that a favorable model review guarantees conference acceptance.
 
 The authenticated Claude Code installation successfully invoked the exact
 requested model in an availability-only probe. The returned provider metadata
-identifies `claude-fable-5-1`. No scientific review has yet been requested.
+identifies `claude-fable-5-1`. The first scientific review is now complete; see the current status below.
 `caffeinate -im` is running during active work (exec session 14198).
 
 ## Work sequence
@@ -96,8 +96,13 @@ A classical fixed-length lower bound is within a factor 1.20 of every reported
 fixed-pose interval; it does not establish the larger pose bound's sharpness.
 Real-image background diagnostics expose unresolved dependence after scaling.
 
-No scientific Fable 5.1 review has occurred. The review runner now requires both frozen simulation summaries to be complete. It saves
-unaltered prompts, source/PDF hashes, provider output and critical verdicts.
+The first authentic Fable 5.1 review is complete: reject, confidence 4/5, not a
+strong ICML contender. Its original prompt, source/PDF hashes, provider output
+and verdict are preserved under reviews/round-01. The reviewer found the checked
+mathematics correct but practical calibration, usefulness and pose scaling
+insufficient. The finite revision plan prioritizes continuous pose-aware weights,
+one documented experimental calibration attempt, a matrix-free pose scale test,
+and realistic translation/CTF sensitivity. These are substantive open tasks.
 The next major decisions should follow this assessment, rather than accumulating
 more similar oracle-bound simulations. End-to-end pose/noise/class calibration,
 biologically useful feature resolution and the strongest matched external
