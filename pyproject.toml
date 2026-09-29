@@ -9,6 +9,10 @@ description = "Conjugate-paired Fourier Gaussian splats for cryo-EM reconstructi
 requires-python = ">=3.10"
 dependencies = ["numpy", "scipy", "torch", "mrcfile", "requests", "matplotlib"]
 
+[project.optional-dependencies]
+uncertainty = ["finufft>=2.5", "starfile", "cvxpy>=1.7", "pypdf", "beautifulsoup4"]
+test = ["pytest", "cvxpy>=1.7"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

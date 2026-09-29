@@ -1,5 +1,18 @@
 # Fourier Cryo Splats
 
+**Active research branch:** the uncertainty-focused study is under development.
+See the [research plan](research/uncertainty/PLAN.md),
+[literature synthesis](research/uncertainty/SURVEY.md),
+[theory audit](research/uncertainty/THEORY.md), and
+[development results and failures](research/uncertainty/DEVELOPMENT-LOG.md).
+The manuscript and release linked below describe the earlier v0.1.0 feasibility
+study. A completed uncertainty manuscript and independent scientific review are
+still outstanding; the new development results are not a publication-readiness claim.
+
+On macOS, installing the optional uncertainty tools requires the FINUFFT build
+configuration in [COMPUTE.md](research/uncertainty/COMPUTE.md) to avoid conflicting
+OpenMP runtimes. Numerical verification: `OPENBLAS_NUM_THREADS=4 pytest -q`.
+
 A research implementation of **conjugate-paired Gaussian kernels centered in
 Fourier space** for single-particle cryo-EM reconstruction. The pair structure
 ensures a real inverse transform. An anisotropic Gaussian has an exact analytic

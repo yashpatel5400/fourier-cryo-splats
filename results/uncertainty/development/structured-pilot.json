@@ -1,0 +1,2407 @@
+{
+  "stage": "development: exact dictionary, known simulation bounds; not practical calibration",
+  "python": "3.13.9",
+  "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+  "cases": [
+    {
+      "seed": 20260929,
+      "particles": 96,
+      "frequencies": 40,
+      "coefficients": 40,
+      "geometry": "uniform",
+      "pose_degrees": 0.0,
+      "shift_pixels": 0,
+      "density_radius": 0.25,
+      "known_noise_std": 0.2,
+      "median_remainder_bound": 0.0,
+      "median_density_pose_cross_bound": 0.0,
+      "median_pilot_curvature_bound": 0.0,
+      "seconds": 0.5625552080164198,
+      "certificates": {
+        "bias_aware_fixed_pose": {
+          "noise_sd": 0.04493003608712654,
+          "density_bias": 0.0007497861597798765,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.08881103871463283,
+          "dual_lower_bound": 0.08865091888018321,
+          "relative_gap": 0.0018029271672423172,
+          "converged": true,
+          "iterations": 28,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.07236220798222348
+        },
+        "linearized_pose_only": {
+          "noise_sd": 0.04493003608712654,
+          "density_bias": 0.0007497861597798765,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.08881103871463283,
+          "dual_lower_bound": 0.08865091888018321,
+          "relative_gap": 0.0018029271672423172,
+          "converged": true,
+          "iterations": 28,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.07059699998353608
+        },
+        "bounded_pose_remainder": {
+          "noise_sd": 0.04493003608712654,
+          "density_bias": 0.0007497861597798765,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.08881103871463283,
+          "dual_lower_bound": 0.08865091888018321,
+          "relative_gap": 0.0018029271672423172,
+          "converged": true,
+          "iterations": 28,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.07109741697786376
+        },
+        "structured_pose_density": {
+          "noise_sd": 0.04493003608711926,
+          "density_bias": 0.000749786159798055,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.08881103871463675,
+          "dual_lower_bound": 0.08865091888019103,
+          "relative_gap": 0.0018029271671983283,
+          "converged": true,
+          "iterations": 28,
+          "nuisance_group_biases": [
+            0.0,
+            0.0
+          ],
+          "seconds": 0.2997567499987781
+        }
+      },
+      "results": [
+        {
+          "stress": "random_truth_pose",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": -0.004560890564910021,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.9949624137677314,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": -0.004560890564910021,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.9994100207884501,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": -0.004560890564910021,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.9386327134598024,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": -4.739249429374943e-05,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500317610885768,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "linearized_pose_only",
+          "half_width": 0.08807351307697124,
+          "bias": -4.739249429374943e-05,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500317610885768,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.08807351307697124,
+          "bias": -4.739249429374943e-05,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500317610885768,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "structured_pose_density",
+          "half_width": 0.08807351307695761,
+          "bias": -4.739249428209642e-05,
+          "noise_sd": 0.04493003608711926,
+          "exact_noise_coverage": 0.9500317610885785,
+          "width_fraction_of_no_data": 0.35229405230783045,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.0046102966233301235,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.0847179501650986e-05,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.0002848240109773987,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.011136299787882e-07,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0006364216969508285,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500089139563874,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "linearized_pose_only",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0006364216969508285,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500089139563874,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0006364216969508285,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500089139563874,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "structured_pose_density",
+          "half_width": 0.08807351307695761,
+          "bias": 0.0006364216969558245,
+          "noise_sd": 0.04493003608711926,
+          "exact_noise_coverage": 0.9500089139563888,
+          "width_fraction_of_no_data": 0.35229405230783045,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.18477148123216114,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.0847179501650986e-05,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.0002848240109773987,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.011136299787882e-07,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0006364216969508285,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500089139563874,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "linearized_pose_only",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0006364216969508285,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500089139563874,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0006364216969508285,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500089139563874,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "structured_pose_density",
+          "half_width": 0.08807351307695761,
+          "bias": 0.0006364216969558245,
+          "noise_sd": 0.04493003608711926,
+          "exact_noise_coverage": 0.9500089139563888,
+          "width_fraction_of_no_data": 0.35229405230783045,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.18477148123216114,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.2041824882801083,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 4.7006500973166634e-29,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.2041824882801083,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 5.714768620321964e-26,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.2041824882801083,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 5.560058760134886e-34,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.001272843393901657,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9499399864771866,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "linearized_pose_only",
+          "half_width": 0.08807351307697124,
+          "bias": 0.001272843393901657,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9499399864771866,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.08807351307697124,
+          "bias": 0.001272843393901657,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9499399864771866,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "structured_pose_density",
+          "half_width": 0.08807351307695761,
+          "bias": 0.001272843393911649,
+          "noise_sd": 0.04493003608711926,
+          "exact_noise_coverage": 0.9499399864771868,
+          "width_fraction_of_no_data": 0.35229405230783045,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.3695429624643223,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 20260929,
+      "particles": 96,
+      "frequencies": 40,
+      "coefficients": 40,
+      "geometry": "uniform",
+      "pose_degrees": 0.5,
+      "shift_pixels": 0.05,
+      "density_radius": 0.25,
+      "known_noise_std": 0.2,
+      "median_remainder_bound": 0.4048789771751612,
+      "median_density_pose_cross_bound": 0.3802171593505171,
+      "median_pilot_curvature_bound": 0.02229839268922431,
+      "seconds": 1.5605159169936087,
+      "certificates": {
+        "bias_aware_fixed_pose": {
+          "noise_sd": 0.04493003608712654,
+          "density_bias": 0.0007497861597798765,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.08881103871463283,
+          "dual_lower_bound": 0.08865091888018321,
+          "relative_gap": 0.0018029271672423172,
+          "converged": true,
+          "iterations": 28,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.07355929201003164
+        },
+        "linearized_pose_only": {
+          "noise_sd": 0.04613433687509092,
+          "density_bias": 0.00017447418744705618,
+          "pose_bias": 0.01144445629361819,
+          "remainder_bias": 0.0,
+          "objective": 0.10204056920688159,
+          "dual_lower_bound": 0.10183979646051375,
+          "relative_gap": 0.001967577679430509,
+          "converged": true,
+          "iterations": 46,
+          "nuisance_group_biases": [
+            0.01144445629361819
+          ],
+          "seconds": 0.22697254197555594
+        },
+        "bounded_pose_remainder": {
+          "noise_sd": 0.016091611095021083,
+          "density_bias": 0.09958100886055489,
+          "pose_bias": 0.006551872845484075,
+          "remainder_bias": 0.05162855418355551,
+          "objective": 0.18930041408906095,
+          "dual_lower_bound": 0.18894494690285052,
+          "relative_gap": 0.0018777940234361878,
+          "converged": true,
+          "iterations": 53,
+          "nuisance_group_biases": [
+            0.006551872845484075
+          ],
+          "seconds": 0.11797862499952316
+        },
+        "structured_pose_density": {
+          "noise_sd": 0.04101107627976819,
+          "density_bias": 0.013510369878791879,
+          "pose_bias": 0.03054198650870276,
+          "remainder_bias": 0.012624396441597581,
+          "objective": 0.13705698530466276,
+          "dual_lower_bound": 0.13679506487715384,
+          "relative_gap": 0.0019110330416701883,
+          "converged": true,
+          "iterations": 78,
+          "nuisance_group_biases": [
+            0.011252677029953626,
+            0.019289309478749135
+          ],
+          "seconds": 1.0920244159933645
+        }
+      },
+      "results": [
+        {
+          "stress": "random_truth_pose",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": -0.004351423880652046,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.9951162107701376,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.05555370042901646
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": -0.004351423880652046,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.999433959807278,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.05555370042901646
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": -0.004351423880652046,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.9396588306610757,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.05555370042901646
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.00022341961240620375,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500290571361314,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.05555370042901646
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "linearized_pose_only",
+          "half_width": 0.09321801480199704,
+          "bias": 0.00017510000763390834,
+          "noise_sd": 0.04613433687509092,
+          "exact_noise_coverage": 0.9566749984791728,
+          "width_fraction_of_no_data": 0.37287205920798816,
+          "max_actual_remainder_bound_ratio": 0.05555370042901646
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.18422978076273247,
+          "bias": -0.0024371203885525192,
+          "noise_sd": 0.016091611095021083,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.7369191230509299,
+          "max_actual_remainder_bound_ratio": 0.05555370042901646
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "structured_pose_density",
+          "half_width": 0.12413603638930008,
+          "bias": -0.00044941817701823865,
+          "noise_sd": 0.04101107627976819,
+          "exact_noise_coverage": 0.997527679732004,
+          "width_fraction_of_no_data": 0.49654414555720033,
+          "max_actual_remainder_bound_ratio": 0.05555370042901646
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.0046102966233301235,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.05555370042901646
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.0847179501650986e-05,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 2.2058587136588064e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.0002848240109773987,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 2.2058587136588064e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.011136299787882e-07,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 2.2058587136588064e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0006364216969508285,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500089139563874,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 2.2058587136588064e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "linearized_pose_only",
+          "half_width": 0.09321801480199704,
+          "bias": 0.000150690258067937,
+          "noise_sd": 0.04613433687509092,
+          "exact_noise_coverage": 0.9566753895765958,
+          "width_fraction_of_no_data": 0.37287205920798816,
+          "max_actual_remainder_bound_ratio": 2.2058587136588064e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.18422978076273247,
+          "bias": 0.09915830898023623,
+          "noise_sd": 0.016091611095021083,
+          "exact_noise_coverage": 0.9999999377276536,
+          "width_fraction_of_no_data": 0.7369191230509299,
+          "max_actual_remainder_bound_ratio": 2.2058587136588064e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "structured_pose_density",
+          "half_width": 0.12413603638930008,
+          "bias": 0.012396074397427403,
+          "noise_sd": 0.04101107627976819,
+          "exact_noise_coverage": 0.9963457556782048,
+          "width_fraction_of_no_data": 0.49654414555720033,
+          "max_actual_remainder_bound_ratio": 2.2058587136588064e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.18477148123216114,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 2.2058587136588064e-15
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.10947167019917448,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.0529762674290007e-06,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.12592849459231928
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.10947167019917448,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 3.847105675042735e-05,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.12592849459231928
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.10947167019917448,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 1.2308270102459018e-08,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.12592849459231928
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.014562082392941822,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9379182247370366,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.12592849459231928
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "linearized_pose_only",
+          "half_width": 0.09321801480199704,
+          "bias": 0.01093954690768345,
+          "noise_sd": 0.04613433687509092,
+          "exact_noise_coverage": 0.9507616478977999,
+          "width_fraction_of_no_data": 0.37287205920798816,
+          "max_actual_remainder_bound_ratio": 0.12592849459231928
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.18422978076273247,
+          "bias": 0.10578274946593688,
+          "noise_sd": 0.016091611095021083,
+          "exact_noise_coverage": 0.9999994560308859,
+          "width_fraction_of_no_data": 0.7369191230509299,
+          "max_actual_remainder_bound_ratio": 0.12592849459231928
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "structured_pose_density",
+          "half_width": 0.12413603638930008,
+          "bias": 0.023186746542232906,
+          "noise_sd": 0.04101107627976819,
+          "exact_noise_coverage": 0.9929184711200004,
+          "width_fraction_of_no_data": 0.49654414555720033,
+          "max_actual_remainder_bound_ratio": 0.12592849459231928
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.18477148123216114,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.12592849459231928
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.22704303252417432,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.9774440874077773e-37,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.7352094439889875
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.22704303252417432,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 1.0028679681994036e-33,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.7352094439889875
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.22704303252417432,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 7.726515483962497e-43,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.7352094439889875
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0461071670865385,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.8234465185023988,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.7352094439889875
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "linearized_pose_only",
+          "half_width": 0.09321801480199704,
+          "bias": 0.035571591166518646,
+          "noise_sd": 0.04613433687509092,
+          "exact_noise_coverage": 0.891642858270914,
+          "width_fraction_of_no_data": 0.37287205920798816,
+          "max_actual_remainder_bound_ratio": 0.7352094439889875
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.18422978076273247,
+          "bias": 0.21916636287540045,
+          "noise_sd": 0.016091611095021083,
+          "exact_noise_coverage": 0.014961606802834003,
+          "width_fraction_of_no_data": 0.7369191230509299,
+          "max_actual_remainder_bound_ratio": 0.7352094439889875
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "structured_pose_density",
+          "half_width": 0.12413603638930008,
+          "bias": 0.0598660549830724,
+          "noise_sd": 0.04101107627976819,
+          "exact_noise_coverage": 0.941455064246338,
+          "width_fraction_of_no_data": 0.49654414555720033,
+          "max_actual_remainder_bound_ratio": 0.7352094439889875
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.3695429624643223,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.7352094439889875
+        }
+      ]
+    },
+    {
+      "seed": 20260929,
+      "particles": 96,
+      "frequencies": 40,
+      "coefficients": 40,
+      "geometry": "uniform",
+      "pose_degrees": 2.0,
+      "shift_pixels": 0.05,
+      "density_radius": 0.25,
+      "known_noise_std": 0.2,
+      "median_remainder_bound": 1.1612242757529123,
+      "median_density_pose_cross_bound": 0.9677676365109495,
+      "median_pilot_curvature_bound": 0.19800181903770517,
+      "seconds": 1.2226113329816144,
+      "certificates": {
+        "bias_aware_fixed_pose": {
+          "noise_sd": 0.04493003608712654,
+          "density_bias": 0.0007497861597798765,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.08881103871463283,
+          "dual_lower_bound": 0.08865091888018321,
+          "relative_gap": 0.0018029271672423172,
+          "converged": true,
+          "iterations": 28,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.08204579199082218
+        },
+        "linearized_pose_only": {
+          "noise_sd": 0.047167315638876585,
+          "density_bias": 3.826504895642822e-05,
+          "pose_bias": 0.012044230726227644,
+          "remainder_bias": 0.0,
+          "objective": 0.10452873567481502,
+          "dual_lower_bound": 0.10432198047545,
+          "relative_gap": 0.0019779747457027994,
+          "converged": true,
+          "iterations": 60,
+          "nuisance_group_biases": [
+            0.012044230726227644
+          ],
+          "seconds": 0.3383201659889892
+        },
+        "bounded_pose_remainder": {
+          "noise_sd": 0.0042252060153787,
+          "density_bias": 0.2004012180337434,
+          "pose_bias": 0.002302183284738828,
+          "remainder_bias": 0.03527736431400139,
+          "objective": 0.24626201724988783,
+          "dual_lower_bound": 0.24575635868843484,
+          "relative_gap": 0.002053335577690342,
+          "converged": false,
+          "iterations": 120,
+          "nuisance_group_biases": [
+            0.002302183284738828
+          ],
+          "seconds": 0.1423147500026971
+        },
+        "structured_pose_density": {
+          "noise_sd": 0.013403845525458901,
+          "density_bias": 0.11646982976653962,
+          "pose_bias": 0.023784691021123103,
+          "remainder_bias": 0.03846355757128663,
+          "objective": 0.20498913284318715,
+          "dual_lower_bound": 0.20459415735807243,
+          "relative_gap": 0.001926811824785204,
+          "converged": true,
+          "iterations": 57,
+          "nuisance_group_biases": [
+            0.006754256597191824,
+            0.017030434423931283
+          ],
+          "seconds": 0.6119642499834299
+        }
+      },
+      "results": [
+        {
+          "stress": "random_truth_pose",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": -0.004295640850111157,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.9951557593997254,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.0685797737976555
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": -0.004295640850111157,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.9994400942219969,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.0685797737976555
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": -0.004295640850111157,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.9399237773713884,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.0685797737976555
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.00018127275406164788,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500300246163129,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.0685797737976555
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "linearized_pose_only",
+          "half_width": 0.09540137308175656,
+          "bias": -4.334427519726847e-05,
+          "noise_sd": 0.047167315638876585,
+          "exact_noise_coverage": 0.9568871712564374,
+          "width_fraction_of_no_data": 0.38160549232702623,
+          "max_actual_remainder_bound_ratio": 0.0685797737976555
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.24493061107149644,
+          "bias": 0.0009713265621402764,
+          "noise_sd": 0.0042252060153787,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9797224442859858,
+          "max_actual_remainder_bound_ratio": 0.0685797737976555
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "structured_pose_density",
+          "half_width": 0.2007654422865977,
+          "bias": -0.0020707030486263617,
+          "noise_sd": 0.013403845525458901,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.8030617691463908,
+          "max_actual_remainder_bound_ratio": 0.0685797737976555
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.0046102966233301235,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.0685797737976555
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.0847179501650986e-05,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 7.660148922823985e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 0.0002848240109773987,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 7.660148922823985e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.10209124414005415,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 2.011136299787882e-07,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 7.660148922823985e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.0006364216969508285,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9500089139563874,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 7.660148922823985e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "linearized_pose_only",
+          "half_width": 0.09540137308175656,
+          "bias": 3.309198246922995e-05,
+          "noise_sd": 0.047167315638876585,
+          "exact_noise_coverage": 0.9568872080115307,
+          "width_fraction_of_no_data": 0.38160549232702623,
+          "max_actual_remainder_bound_ratio": 7.660148922823985e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.24493061107149644,
+          "bias": 0.16718018360975137,
+          "noise_sd": 0.0042252060153787,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9797224442859858,
+          "max_actual_remainder_bound_ratio": 7.660148922823985e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "structured_pose_density",
+          "half_width": 0.2007654422865977,
+          "bias": 0.11477389613839546,
+          "noise_sd": 0.013403845525458901,
+          "exact_noise_coverage": 0.9999999999297909,
+          "width_fraction_of_no_data": 0.8030617691463908,
+          "max_actual_remainder_bound_ratio": 7.660148922823985e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.18477148123216114,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 7.660148922823985e-16
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.11250556621914262,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 7.367503330533452e-07,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.06978449475586739
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.11250556621914262,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 1.5733530294578106e-05,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.06978449475586739
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.11250556621914262,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 3.629658071273867e-09,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.06978449475586739
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.022340005992155715,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.9212726654585157,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.06978449475586739
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "linearized_pose_only",
+          "half_width": 0.09540137308175656,
+          "bias": 0.013015359632676776,
+          "noise_sd": 0.047167315638876585,
+          "exact_noise_coverage": 0.9488881409621114,
+          "width_fraction_of_no_data": 0.38160549232702623,
+          "max_actual_remainder_bound_ratio": 0.06978449475586739
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.24493061107149644,
+          "bias": 0.16935637254280023,
+          "noise_sd": 0.0042252060153787,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9797224442859858,
+          "max_actual_remainder_bound_ratio": 0.06978449475586739
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "structured_pose_density",
+          "half_width": 0.2007654422865977,
+          "bias": 0.12169257638093822,
+          "noise_sd": 0.013403845525458901,
+          "exact_noise_coverage": 0.999999998174402,
+          "width_fraction_of_no_data": 0.8030617691463908,
+          "max_actual_remainder_bound_ratio": 0.06978449475586739
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.18477148123216114,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.06978449475586739
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.04256276309051206,
+          "bias": 0.23636140941057304,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 6.690315555846058e-41,
+          "width_fraction_of_no_data": 0.17025105236204824,
+          "max_actual_remainder_bound_ratio": 0.3989882089575548
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.052037261081553945,
+          "bias": 0.23636140941057304,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 3.415513328284781e-37,
+          "width_fraction_of_no_data": 0.20814904432621578,
+          "max_actual_remainder_bound_ratio": 0.3989882089575548
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.02847168697129903,
+          "bias": 0.23636140941057304,
+          "noise_sd": 0.01452663783410311,
+          "exact_noise_coverage": 9.349557223384282e-47,
+          "width_fraction_of_no_data": 0.11388674788519612,
+          "max_actual_remainder_bound_ratio": 0.3989882089575548
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.08807351307697124,
+          "bias": 0.07560371862770698,
+          "noise_sd": 0.04493003608712654,
+          "exact_noise_coverage": 0.6091817289999004,
+          "width_fraction_of_no_data": 0.35229405230788496,
+          "max_actual_remainder_bound_ratio": 0.3989882089575548
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "linearized_pose_only",
+          "half_width": 0.09540137308175656,
+          "bias": 0.04861398521901267,
+          "noise_sd": 0.047167315638876585,
+          "exact_noise_coverage": 0.8382561014788125,
+          "width_fraction_of_no_data": 0.38160549232702623,
+          "max_actual_remainder_bound_ratio": 0.3989882089575548
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.24493061107149644,
+          "bias": 0.340938700888893,
+          "noise_sd": 0.0042252060153787,
+          "exact_noise_coverage": 1.3363160690581805e-114,
+          "width_fraction_of_no_data": 0.9797224442859858,
+          "max_actual_remainder_bound_ratio": 0.3989882089575548
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "structured_pose_density",
+          "half_width": 0.2007654422865977,
+          "bias": 0.25177879625080607,
+          "noise_sd": 0.013403845525458901,
+          "exact_noise_coverage": 7.065201065225501e-05,
+          "width_fraction_of_no_data": 0.8030617691463908,
+          "max_actual_remainder_bound_ratio": 0.3989882089575548
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "density_ball_without_data",
+          "half_width": 0.24999999999999997,
+          "bias": 0.3695429624643223,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.9999999999999999,
+          "max_actual_remainder_bound_ratio": 0.3989882089575548
+        }
+      ]
+    },
+    {
+      "seed": 20260929,
+      "particles": 96,
+      "frequencies": 40,
+      "coefficients": 40,
+      "geometry": "preferred",
+      "pose_degrees": 0.0,
+      "shift_pixels": 0,
+      "density_radius": 0.25,
+      "known_noise_std": 0.2,
+      "median_remainder_bound": 0.0,
+      "median_density_pose_cross_bound": 0.0,
+      "median_pilot_curvature_bound": 0.0,
+      "seconds": 0.6202342920005322,
+      "certificates": {
+        "bias_aware_fixed_pose": {
+          "noise_sd": 0.007882865291138564,
+          "density_bias": 0.22842877633137423,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.24387890839698667,
+          "dual_lower_bound": 0.24351334347374196,
+          "relative_gap": 0.001498960798404297,
+          "converged": true,
+          "iterations": 35,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.0672154999920167
+        },
+        "linearized_pose_only": {
+          "noise_sd": 0.007882865291138564,
+          "density_bias": 0.22842877633137423,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.24387890839698667,
+          "dual_lower_bound": 0.24351334347374196,
+          "relative_gap": 0.001498960798404297,
+          "converged": true,
+          "iterations": 35,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.06733212500694208
+        },
+        "bounded_pose_remainder": {
+          "noise_sd": 0.007882865291138564,
+          "density_bias": 0.22842877633137423,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.24387890839698667,
+          "dual_lower_bound": 0.24351334347374196,
+          "relative_gap": 0.001498960798404297,
+          "converged": true,
+          "iterations": 35,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.06584441699669696
+        },
+        "structured_pose_density": {
+          "noise_sd": 0.007882865291137246,
+          "density_bias": 0.22842877633137681,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.24387890839698667,
+          "dual_lower_bound": 0.2435133434737015,
+          "relative_gap": 0.0014989607985702303,
+          "converged": true,
+          "iterations": 35,
+          "nuisance_group_biases": [
+            0.0,
+            0.0
+          ],
+          "seconds": 0.3738019159936812
+        }
+      },
+      "results": [
+        {
+          "stress": "random_truth_pose",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": -0.007427778706465105,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.9999999999655738,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": -0.007427778706465105,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.9999999999190637,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": -0.007427778706465105,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.8840065488888675,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": -0.008945046909893017,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "linearized_pose_only",
+          "half_width": 0.2413949358962734,
+          "bias": -0.008945046909893017,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.2413949358962734,
+          "bias": -0.008945046909893017,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "structured_pose_density",
+          "half_width": 0.2413949358962738,
+          "bias": -0.00894504690991807,
+          "noise_sd": 0.007882865291137246,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9655797435850952,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": -0.024101953714897713,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 2.75012444215347e-53,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 3.7249651988358613e-54,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 7.12138273437665e-95,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2282986296841269,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.9516797877404695,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "linearized_pose_only",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2282986296841269,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.9516797877404695,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2282986296841269,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.9516797877404695,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "structured_pose_density",
+          "half_width": 0.2413949358962738,
+          "bias": 0.22829862968412928,
+          "noise_sd": 0.007882865291137246,
+          "exact_noise_coverage": 0.9516797877404723,
+          "width_fraction_of_no_data": 0.9655797435850952,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 2.75012444215347e-53,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 3.7249651988358613e-54,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 7.12138273437665e-95,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2282986296841269,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.9516797877404695,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "linearized_pose_only",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2282986296841269,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.9516797877404695,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2282986296841269,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.9516797877404695,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "structured_pose_density",
+          "half_width": 0.2413949358962738,
+          "bias": 0.22829862968412928,
+          "noise_sd": 0.007882865291137246,
+          "exact_noise_coverage": 0.9516797877404723,
+          "width_fraction_of_no_data": 0.9655797435850952,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.44919198519903225,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.44919198519903225,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.44919198519903225,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.4565972593682538,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 2.120055764443747e-164,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "linearized_pose_only",
+          "half_width": 0.2413949358962734,
+          "bias": 0.4565972593682538,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 2.120055764443747e-164,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.2413949358962734,
+          "bias": 0.4565972593682538,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 2.120055764443747e-164,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "structured_pose_density",
+          "half_width": 0.2413949358962738,
+          "bias": 0.45659725936825857,
+          "noise_sd": 0.007882865291137246,
+          "exact_noise_coverage": 2.120055764147013e-164,
+          "width_fraction_of_no_data": 0.9655797435850952,
+          "max_actual_remainder_bound_ratio": 0.0
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.4843961428754407,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 20260929,
+      "particles": 96,
+      "frequencies": 40,
+      "coefficients": 40,
+      "geometry": "preferred",
+      "pose_degrees": 0.5,
+      "shift_pixels": 0.05,
+      "density_radius": 0.25,
+      "known_noise_std": 0.2,
+      "median_remainder_bound": 0.42992529874283186,
+      "median_density_pose_cross_bound": 0.40479003102870703,
+      "median_pilot_curvature_bound": 0.024863783091226627,
+      "seconds": 0.8202094579755794,
+      "certificates": {
+        "bias_aware_fixed_pose": {
+          "noise_sd": 0.007882865291138564,
+          "density_bias": 0.22842877633137423,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.24387890839698667,
+          "dual_lower_bound": 0.24351334347374196,
+          "relative_gap": 0.001498960798404297,
+          "converged": true,
+          "iterations": 35,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.07057345900102518
+        },
+        "linearized_pose_only": {
+          "noise_sd": 0.006233592991581931,
+          "density_bias": 0.2322051553091716,
+          "pose_bias": 0.0010687828526668806,
+          "remainder_bias": 0.0,
+          "objective": 0.24549155591962035,
+          "dual_lower_bound": 0.24510207132988157,
+          "relative_gap": 0.0015865498439641135,
+          "converged": true,
+          "iterations": 37,
+          "nuisance_group_biases": [
+            0.0010687828526668806
+          ],
+          "seconds": 0.0682905420253519
+        },
+        "bounded_pose_remainder": {
+          "noise_sd": 0.0,
+          "density_bias": 0.25,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.25,
+          "dual_lower_bound": 0.24961052923929528,
+          "relative_gap": 0.0015578830428188972,
+          "converged": true,
+          "iterations": 17,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.013086624996503815
+        },
+        "structured_pose_density": {
+          "noise_sd": 0.0017137929876031549,
+          "density_bias": 0.24386604820948968,
+          "pose_bias": 0.001405084429092934,
+          "remainder_bias": 0.000731664476992998,
+          "objective": 0.2493617696482351,
+          "dual_lower_bound": 0.2489079046791767,
+          "relative_gap": 0.001820106464991153,
+          "converged": true,
+          "iterations": 64,
+          "nuisance_group_biases": [
+            0.00032450297528581213,
+            0.0010805814538071218
+          ],
+          "seconds": 0.6212472500046715
+        }
+      },
+      "results": [
+        {
+          "stress": "random_truth_pose",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": -0.007046917730266396,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.9999999999733554,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.04773600587435883
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": -0.007046917730266396,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.9999999999370536,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.04773600587435883
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": -0.007046917730266396,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.8907498429163389,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.04773600587435883
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": -0.008656034608635397,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.04773600587435883
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "linearized_pose_only",
+          "half_width": 0.24352728620298128,
+          "bias": -0.010639217270775433,
+          "noise_sd": 0.006233592991581931,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9741091448119251,
+          "max_actual_remainder_bound_ratio": 0.04773600587435883
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.25,
+          "bias": -0.024101953714897713,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.04773600587435883
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "structured_pose_density",
+          "half_width": 0.24882173572707864,
+          "bias": -0.018760927217590935,
+          "noise_sd": 0.0017137929876031549,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9952869429083145,
+          "max_actual_remainder_bound_ratio": 0.04773600587435883
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": -0.024101953714897713,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.04773600587435883
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 2.75012444215347e-53,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 2.711770322265186e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 3.7249651988358613e-54,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 2.711770322265186e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 7.12138273437665e-95,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 2.711770322265186e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2282986296841269,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.9516797877404695,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 2.711770322265186e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "linearized_pose_only",
+          "half_width": 0.24352728620298128,
+          "bias": 0.2316421628161249,
+          "noise_sd": 0.006233592991581931,
+          "exact_noise_coverage": 0.9717154084845431,
+          "width_fraction_of_no_data": 0.9741091448119251,
+          "max_actual_remainder_bound_ratio": 2.711770322265186e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 2.711770322265186e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "structured_pose_density",
+          "half_width": 0.24882173572707864,
+          "bias": 0.2395877151313266,
+          "noise_sd": 0.0017137929876031549,
+          "exact_noise_coverage": 0.9999999643889943,
+          "width_fraction_of_no_data": 0.9952869429083145,
+          "max_actual_remainder_bound_ratio": 2.711770322265186e-15
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 2.711770322265186e-15
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.22781633218651925,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 1.787041882748292e-55,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.030064987757434488
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.22781633218651925,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 2.321535197246404e-56,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.030064987757434488
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.22781633218651925,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 8.328501022474559e-98,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.030064987757434488
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.23084408932065859,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.909625632945561,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.030064987757434488
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "linearized_pose_only",
+          "half_width": 0.24352728620298128,
+          "bias": 0.23276083981140777,
+          "noise_sd": 0.006233592991581931,
+          "exact_noise_coverage": 0.9579310223005597,
+          "width_fraction_of_no_data": 0.9741091448119251,
+          "max_actual_remainder_bound_ratio": 0.030064987757434488
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.030064987757434488
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "structured_pose_density",
+          "half_width": 0.24882173572707864,
+          "bias": 0.23990550131408478,
+          "noise_sd": 0.0017137929876031549,
+          "exact_noise_coverage": 0.9999999017572014,
+          "width_fraction_of_no_data": 0.9952869429083145,
+          "max_actual_remainder_bound_ratio": 0.030064987757434488
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.030064987757434488
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.45954084970356457,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.180145770940153
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.45954084970356457,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.180145770940153
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.45954084970356457,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.180145770940153
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.4647574782389161,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 6.3698568561933635e-177,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.180145770940153
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "linearized_pose_only",
+          "half_width": 0.24352728620298128,
+          "bias": 0.46701043505207845,
+          "noise_sd": 0.006233592991581931,
+          "exact_noise_coverage": 8.739096200711098e-282,
+          "width_fraction_of_no_data": 0.9741091448119251,
+          "max_actual_remainder_bound_ratio": 0.180145770940153
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.25,
+          "bias": 0.4843961428754407,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.180145770940153
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "structured_pose_density",
+          "half_width": 0.24882173572707864,
+          "bias": 0.4802002303600626,
+          "noise_sd": 0.0017137929876031549,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.9952869429083145,
+          "max_actual_remainder_bound_ratio": 0.180145770940153
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.4843961428754407,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.180145770940153
+        }
+      ]
+    },
+    {
+      "seed": 20260929,
+      "particles": 96,
+      "frequencies": 40,
+      "coefficients": 40,
+      "geometry": "preferred",
+      "pose_degrees": 2.0,
+      "shift_pixels": 0.05,
+      "density_radius": 0.25,
+      "known_noise_std": 0.2,
+      "median_remainder_bound": 1.2629815878677115,
+      "median_density_pose_cross_bound": 1.0402768783714174,
+      "median_pilot_curvature_bound": 0.22006450109132697,
+      "seconds": 0.34492612499161623,
+      "certificates": {
+        "bias_aware_fixed_pose": {
+          "noise_sd": 0.007882865291138564,
+          "density_bias": 0.22842877633137423,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.24387890839698667,
+          "dual_lower_bound": 0.24351334347374196,
+          "relative_gap": 0.001498960798404297,
+          "converged": true,
+          "iterations": 35,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.07660091598518193
+        },
+        "linearized_pose_only": {
+          "noise_sd": 0.005631138581732107,
+          "density_bias": 0.23464431387711648,
+          "pose_bias": 0.0008120978529888156,
+          "remainder_bias": 0.0,
+          "objective": 0.2464932405422542,
+          "dual_lower_bound": 0.24608707035576635,
+          "relative_gap": 0.001647794420627166,
+          "converged": true,
+          "iterations": 40,
+          "nuisance_group_biases": [
+            0.0008120978529888156
+          ],
+          "seconds": 0.0774827919958625
+        },
+        "bounded_pose_remainder": {
+          "noise_sd": 0.0,
+          "density_bias": 0.25,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.25,
+          "dual_lower_bound": 0.24995958832302348,
+          "relative_gap": 0.00016164670790608238,
+          "converged": true,
+          "iterations": 5,
+          "nuisance_group_biases": [
+            0.0
+          ],
+          "seconds": 0.004941999999573454
+        },
+        "structured_pose_density": {
+          "noise_sd": 0.0,
+          "density_bias": 0.25,
+          "pose_bias": 0.0,
+          "remainder_bias": 0.0,
+          "objective": 0.25,
+          "dual_lower_bound": 0.24973819811343634,
+          "relative_gap": 0.001047207546254647,
+          "converged": true,
+          "iterations": 16,
+          "nuisance_group_biases": [
+            0.0,
+            0.0
+          ],
+          "seconds": 0.13973537500714883
+        }
+      },
+      "results": [
+        {
+          "stress": "random_truth_pose",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": -0.0068082774206568095,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.999999999977324,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.04463345441415345
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": -0.0068082774206568095,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.9999999999462659,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.04463345441415345
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": -0.0068082774206568095,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.8947816706601623,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.04463345441415345
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": -0.00848187156268947,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.04463345441415345
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "linearized_pose_only",
+          "half_width": 0.24471881045013372,
+          "bias": -0.012940907132529877,
+          "noise_sd": 0.005631138581732107,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 0.9788752418005349,
+          "max_actual_remainder_bound_ratio": 0.04463345441415345
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.25,
+          "bias": -0.024101953714897713,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.04463345441415345
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "structured_pose_density",
+          "half_width": 0.25,
+          "bias": -0.024101953714897713,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.04463345441415345
+        },
+        {
+          "stress": "random_truth_pose",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": -0.024101953714897713,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.04463345441415345
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 2.75012444215347e-53,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 9.347913701303722e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 3.7249651988358613e-54,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 9.347913701303722e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.22459599259951613,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 7.12138273437665e-95,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 9.347913701303722e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2282986296841269,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.9516797877404695,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 9.347913701303722e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "linearized_pose_only",
+          "half_width": 0.24471881045013372,
+          "bias": 0.23355169247861732,
+          "noise_sd": 0.005631138581732107,
+          "exact_noise_coverage": 0.9763219396013024,
+          "width_fraction_of_no_data": 0.9788752418005349,
+          "max_actual_remainder_bound_ratio": 9.347913701303722e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 9.347913701303722e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "structured_pose_density",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 9.347913701303722e-16
+        },
+        {
+          "stress": "ridge_bias_boundary",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 9.347913701303722e-16
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.23301750333370017,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 4.204394695638876e-59,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.0479636074536648
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.23301750333370017,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 5.105723323566414e-60,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.0479636074536648
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.23301750333370017,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 1.227652820607858e-102,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.0479636074536648
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.2350663233441447,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 0.7889639331188318,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.0479636074536648
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "linearized_pose_only",
+          "half_width": 0.24471881045013372,
+          "bias": 0.2347262680531518,
+          "noise_sd": 0.005631138581732107,
+          "exact_noise_coverage": 0.962011035338976,
+          "width_fraction_of_no_data": 0.9788752418005349,
+          "max_actual_remainder_bound_ratio": 0.0479636074536648
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.0479636074536648
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "structured_pose_density",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.0479636074536648
+        },
+        {
+          "stress": "joint_adversary",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.24219807143772035,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 1.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.0479636074536648
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "full_gaussian_posterior",
+          "half_width": 0.07227771881685031,
+          "bias": 0.47726470335793697,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.28911087526740126,
+          "max_actual_remainder_bound_ratio": 0.2699380766037102
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "diagonal_variational_posterior",
+          "half_width": 0.07099136937994818,
+          "bias": 0.47726470335793697,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.28396547751979273,
+          "max_actual_remainder_bound_ratio": 0.2699380766037102
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "ridge_sampling_covariance",
+          "half_width": 0.019485029954461316,
+          "bias": 0.47726470335793697,
+          "noise_sd": 0.009941524491346141,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.07794011981784527,
+          "max_actual_remainder_bound_ratio": 0.2699380766037102
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bias_aware_fixed_pose",
+          "half_width": 0.2413949358962734,
+          "bias": 0.47899711619807894,
+          "noise_sd": 0.007882865291138564,
+          "exact_noise_coverage": 6.91035357321558e-200,
+          "width_fraction_of_no_data": 0.9655797435850936,
+          "max_actual_remainder_bound_ratio": 0.2699380766037102
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "linearized_pose_only",
+          "half_width": 0.24471881045013372,
+          "bias": 0.47206571474784126,
+          "noise_sd": 0.005631138581732107,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 0.9788752418005349,
+          "max_actual_remainder_bound_ratio": 0.2699380766037102
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "bounded_pose_remainder",
+          "half_width": 0.25,
+          "bias": 0.4843961428754407,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.2699380766037102
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "structured_pose_density",
+          "half_width": 0.25,
+          "bias": 0.4843961428754407,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.2699380766037102
+        },
+        {
+          "stress": "bounds_violated",
+          "method": "density_ball_without_data",
+          "half_width": 0.25,
+          "bias": 0.4843961428754407,
+          "noise_sd": 0.0,
+          "exact_noise_coverage": 0.0,
+          "width_fraction_of_no_data": 1.0,
+          "max_actual_remainder_bound_ratio": 0.2699380766037102
+        }
+      ]
+    }
+  ]
+}
