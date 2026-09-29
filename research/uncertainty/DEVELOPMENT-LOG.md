@@ -412,3 +412,72 @@ budgets (96 audits), with 2304 signal/scenario records and exact Gaussian covera
 cross-checked by 10000 noise draws each. A smoke run used only eight old
 particles and unrelated seeds. The forthcoming simulation study includes all
 selected procedural generators, continuous boundaries and assumption failures.
+
+
+## Integrated moments, wider poses and exact nonlinear stress checks
+
+The complete 1/2/5-degree broad-target development sweep has 18 original
+no-data fallbacks. Integrating Fourier-column derivative envelopes over the
+cube and retaining actual estimator weights reduces cubic remainder bounds by
+6.79--14.74 times across 30 small/large-angle settings. The refined audit has
+10 no-data fallbacks; all six one-degree relative widths lie in 0.300--0.532.
+The proof uses classical moment comparison, Holder and Taylor bounds, not a new
+general concentration theorem. Three independent numerical tests bring the full
+suite to 48 passing tests. No experimental pose calibration follows.
+
+The second frozen study was committed as 8d66785 before its outcomes, while v1
+continued unchanged. It uses disjoint particle subsets and fresh simulation
+seeds, broad targets and one/two-degree budgets, with 48 audit settings and six
+matched procedures. Its protocol explicitly discloses that the refinement was
+motivated by development outcomes and that partial v1 outcomes were already
+known. Both studies remain running at this entry.
+
+Continuous nonlinear adversaries now cover all 18 target/geometry/angle settings
+at 0.5/1/2 degrees, three starts and both bias signs (108 candidates). The search
+uses an order-16 quadrature surrogate and MPS float32, with final feasible poses
+projected and evaluated in float64 using independent sinc-integral formulas.
+All candidates stay below the integrated-moment upper bound. Best feasible
+biases improve coherent-pose controls by 1.06--2.54 times but attain only
+0.16--0.57 of the upper bounds. Direct-field discrepancies are at most 5.35e-6.
+This does not establish global sharpness or validated arithmetic. Total recorded
+setting time was approximately 606 seconds under concurrent load.
+
+The survey now has 92 curated candidates, with new targeted readings on pose
+quality/transfer, image-level calibration, empirical-Bayes resampling and
+heterogeneity benchmarks. Access failures and version distinctions remain in
+the ledger. A stock cryoDRGN ab initio 32-particle timing probe completes locally
+in 49.4 seconds; it is explicitly not a converged reconstruction baseline.
+No cloud compute was rented. The provisional first GPU batch cap remains $100,
+subject to profiling and an actual offer including storage/transfer charges.
+
+
+## Higher-band completion, background diagnostics and fixed-length efficiency
+
+All six radius-12 continuous fixed-pose targets on the three stacks now meet
+0.5% sum-objective gaps. Width/no-data ranges from 0.120 to 0.238, but reference
+sign power is below 1.1e-9 throughout. Solve/audit times range from 483 to 1223
+seconds under concurrent load. Cell64 projections of the same residuals give
+continuous-boundary coverage only 0.791--0.894. This extends the bandwidth check
+without claiming high-resolution biological utility or isolated speed rankings.
+
+Post-hoc annular-background diagnostics use all 12288 already-evaluated fresh
+images. Mean nearest-neighbor pair products are 0.197--0.292, compared with near
+zero in identically centered/scaled white-Gaussian controls. Molecular signal,
+ice and preprocessing can contaminate the background: this diagnoses an
+experimental assumption gap, not a calibrated noise covariance. All axis/lag
+summaries and whole-exposure bootstrap aggregates are retained.
+
+A classical two-point Gaussian-testing bound now evaluates the necessary
+half-length of every uniformly valid deterministic-length interval, even with
+nonlinear centers. Across all 18 completed fixed-pose continuous settings, its
+numerical lower/upper ratios are 0.840--0.882. Thus the reported widths lie within
+1.20 times the optimal fixed length in the stated density/noise class, subject
+to numerical integration accuracy. This is standard lower-bound theory, not a
+new general theorem, and does not establish sharpness with uncertain poses or
+for variable-length intervals. The proof and post-hoc design-only computations
+are independent of frozen-study coverage outcomes.
+
+The main paper now emphasizes the continuous method; finite-representation
+methods and early experiments remain in the appendix. The literature ledger
+adds Gold-standard local validation (93 candidates total) and targeted EMMIVox
+reading. No scientific reviewer has yet been invoked.

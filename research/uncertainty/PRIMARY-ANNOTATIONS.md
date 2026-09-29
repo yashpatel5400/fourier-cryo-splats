@@ -397,3 +397,30 @@ Its discussion reports domain-gap and image-batch limitations and excludes
 heterogeneous reconstruction. These different transfer/reference assumptions
 prevent interpreting all three approaches as the same ab initio or confidence-
 calibration task. No original-code benchmark for these methods is claimed.
+
+
+## EMMIVox: map-conditioned atomic inference
+
+Read the 2024 PLOS Computational Biology primary article, especially the
+pre-filtering, noise-prior and benchmark sections (doi:10.1371/journal.pcbi.1012180).
+EMMIVox combines force fields with map likelihoods and half-map-informed
+uncertainty parameters. It subsamples correlated map voxels before assuming
+independence; this is not proof of exact whitening. Half-map differences guide a
+lower noise-scale prior, while the authors acknowledge additional errors.
+Its evaluations concern stereochemistry, map agreement and atomic ensembles.
+Those outputs cannot be scored as raw-particle density confidence intervals.
+The released PLUMED/GROMACS workflow would require a separately matched atomic
+inference task. The molecular-dynamics examples are not executed in this project.
+
+## Gold-standard local validation: half-map phase and amplitude
+
+Read the Zenodo record 20730619 (v3, 17 June 2026), whose attached 47-page
+manuscript filename is v5: overview, methods, threshold rationale, discussion and
+supplementary SNR derivation. LocSpiral2, LocFOM, LocSNR, LocQ, LocAnisotropy and
+LocResMap compare local phase/amplitude information from half maps. Their SNR
+derivation explicitly assumes a shared signal, independent equal-variance noise
+and unbiased reconstructions. Operational quality thresholds are not advertised
+as fixed-parameter density interval coverage. Shared reconstruction bias is thus
+a distinct audit question. The source is a versioned repository manuscript;
+no peer-reviewed publication status was verified. Its Scipion software was
+identified but has not been executed here.

@@ -58,24 +58,44 @@ linear-functional confidence tools. Any use of these must explicitly credit
 that literature; standard Gaussian posterior or conformal formulas are not new
 theorems. A cryo-EM-specific contribution must go beyond rebranding them.
 
-## Current status
+## Current status (updated 29 September 2026)
 
-Literature audit underway. Main methodology is not frozen. Small physical
-development experiments and numerical/conic checks have run; their limitations
-and a necessary method revision are recorded in DEVELOPMENT-LOG.md. Three EMDB
-reference volumes were downloaded as semisynthetic signal generators. Whole
-micrograph/film splits are now available for all three original datasets.
-For EMPIAR-10076, the deposited Frealign FILM field resolves the misleading
-sequential micrograph labels in its STAR file. The main manuscript has now been
-completely rewritten as an explicitly labeled uncertainty development draft.
-The first ambient-space audit and full-grid solves cover all three acquisition
-geometries; their known-map coverage is conditional on fixed poses, Gaussian
-noise, a finite supported grid and a prescribed norm class. Final validation,
-method integration and independent scientific review remain outstanding.
+The rewritten ICML manuscript now presents a conditional uncertainty audit in
+continuous L2 density space, with explicit nonlinear pose bounds, an integrated
+moment refinement, independent numerical checks, and a critical survey of 93
+curated candidates. The ledger distinguishes discovery, retrieval and targeted
+reading. Forty-eight tests pass. General bias-aware inference, norm duality and
+moment inequalities are credited as prior art; scientific novelty and practical
+value still require independent assessment.
 
-The ambient density-space audit and full-grid nonlinear pose bounds now run
-together in a nine-case development experiment. Larger pose radii still yield
-wide intervals and slow majorization convergence. Remaining priorities include
-practical sensitivity-class reporting, empirical noise/support diagnostics,
-stronger uncertainty/reconstruction baselines and higher-bandwidth validation.
-Fresh confirmatory data are still required after development freezes.
+Completed development covers all three experimental acquisition geometries,
+matched covariance/variational/bootstrap controls, grid and continuous audits,
+assumption violations, nonlinear feasible adversaries, real-particle Gaussian,
+voxel and stock cryoDRGN fixed-pose neural reconstructions, and all frozen
+additional-exposure prediction comparisons. Neural prediction wins all six
+prespecified paired contrasts on the 4096-particle-per-stack fresh cohort.
+This is conditional prediction, not unknown experimental-density coverage.
+
+The original continuous uncertainty validation was frozen at 76dbd53 before
+outcomes (96 settings). Its follow-up integrated-moment validation was frozen at
+8d66785 after development but before its own outcomes (48 settings, disjoint
+particle subsets and new signal/noise seeds). Both are running; no final coverage
+summary is claimed yet. Preserve the frozen dependencies and all failures.
+
+The broader-angle development sweep exposed no-data fallback in every original
+1/2/5-degree setting. The refinement reduces fallbacks from 18 to 10 across 30
+settings. All 108 optimized continuous feasible adversaries stay below its
+upper bound, but the best attained biases are only 0.16--0.57 of that bound.
+Conservatism remains. Higher-frequency continuous solves are complete for all three geometries;
+runtimes reach 1223 seconds per target and reference sign power remains poor.
+A classical fixed-length lower bound is within a factor 1.20 of every reported
+fixed-pose interval; it does not establish the larger pose bound's sharpness.
+Real-image background diagnostics expose unresolved dependence after scaling.
+
+No scientific Fable 5.1 review has occurred. The review runner is being prepared
+and will require both frozen simulation summaries to be complete. It will save
+unaltered prompts, source/PDF hashes, provider output and critical verdicts.
+The next major decisions should follow this assessment, rather than accumulating
+more similar oracle-bound simulations. End-to-end pose/noise/class calibration,
+biologically useful feature resolution and the strongest matched external
+baselines remain material scope questions. The goal is active, not complete.

@@ -42,3 +42,19 @@ The previously inaccessible Lai et al. Statistica Sinica article downloaded
 successfully using verified macOS curl TLS. Its main text includes confidence-
 set and hybrid-resampling discussion; the annotations and access history now
 record that reading. No TLS verification was disabled.
+
+
+## Local validation and atomic uncertainty follow-up
+
+Queries: "cryo EM uncertainty quantification density confidence 2026
+reconstruction"; "cryo EM uncertainty quantification 2025 Gaussian splatting
+confidence reconstruction"; "cryo EM validation Bayesian nonparametric
+uncertainty 2026 half maps confidence"; exact titles of EMMIVox and Gold-standard
+local validation. The latter adds one scoped validation candidate (93 total).
+Followed its older Zenodo record to 20730619, checked the June 2026 version date,
+and downloaded the attached manuscript. EMMIVox was already listed; its publisher
+PDF and methods were read now. PMC and OpenReview browser checks blocked direct
+full-text access on this attempt; publisher/Zenodo sources supplied the material.
+CryoSplat's ICLR 2026 record was identified; the versioned arXiv paper was already
+in the ledger. Unrelated indoor Gaussian-splatting uncertainty hits were excluded
+from the cryo-EM candidate count.

@@ -106,3 +106,57 @@ study outcomes at `76dbd53`. After the additional cohort and locked pilots/maps
 are present, run `OPENBLAS_NUM_THREADS=4 python scripts/confirm_uq_continuous.py`.
 The evaluator checks every locked dependency before execution; do not silently
 update the lock to accommodate a scientific change after seeing outcomes.
+
+
+## Integrated-moment refinement and nonlinear stress searches
+
+These are development results, responding to the original broad-pose failures.
+They do not amend the frozen v1 results. Run all settings, including those that
+fall back to the no-data rule:
+
+```sh
+OPENBLAS_NUM_THREADS=4 python scripts/audit_uq_continuous_pose.py --angles 1,2,5 --output continuous-pose-large
+OPENBLAS_NUM_THREADS=4 python scripts/audit_uq_continuous_moments.py
+OPENBLAS_NUM_THREADS=4 python scripts/stress_uq_continuous_pose.py --device mps --steps 150 --starts 3 --angles .5,1,2 --output continuous-pose-adversaries
+python scripts/summarize_uq_continuous_adversaries.py
+```
+
+The search uses an accelerated quadrature surrogate only to propose poses.
+Final feasible biases use exact continuous sinc integrals and float64 nonlinear
+poses. They are numerical feasible lower estimates, not certified global maxima
+or interval-arithmetic results. The complete run contains 108 candidates.
+
+## Frozen follow-up uncertainty component
+
+The integrated-moment follow-up protocol was committed at `8d66785` before its
+outcomes. Its particle positions 512:1024 in each new-cohort permutation are
+disjoint from v1's positions 0:512. Both conditional-geometry studies use known
+simulation limits; neither calibrates those limits for experimental density.
+
+```sh
+OPENBLAS_NUM_THREADS=4 python scripts/confirm_uq_continuous_moments.py
+python scripts/summarize_uq_confirmation.py --study continuous-v1
+python scripts/summarize_uq_confirmation.py --study continuous-moments-v2
+```
+
+Each summarizer refuses partial or protocol-mismatched results. It preserves
+all cases, separately reports in-class and deliberately violated assumptions,
+and reports widths, no-data fallbacks, sign power and fitting gaps alongside
+coverage. Paired scalar noise draws are not independent biological replications.
+
+
+## Additional diagnostics and classical lower bounds
+
+```sh
+python scripts/diagnose_uq_background.py
+python scripts/summarize_uq_high_band.py
+OPENBLAS_NUM_THREADS=4 python scripts/audit_uq_fixed_length_lower.py
+```
+
+The background analysis is explicitly post-hoc and descriptive. It requires
+all downloaded additional-exposure images and preserves exposure-level
+aggregates. It cannot identify pure measurement noise. The fixed-length lower
+bound is a classical Gaussian testing consequence for the declared continuous
+density class, not a new statistical theorem or a variable-length bound. It
+compares every completed low- and higher-band fixed-pose target without changing
+any frozen weights or outcomes.
