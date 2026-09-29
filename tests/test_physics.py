@@ -1,0 +1,43 @@
+import numpy as np
+from scipy.spatial.transform import Rotation
+from fourier_splats.physics import plane_restriction,hermitian_pairs,ctf
+from fourier_splats.basis import design,evaluate_grid
+from fourier_splats.fsc import fsc,resolution
+
+def test_analytic_plane_restriction():
+ rng=np.random.default_rng(4);L=rng.normal(size=(3,3));P=L@L.T+np.eye(3)
+ E=Rotation.random(random_state=rng).as_matrix()[:,:2];mu=rng.normal(size=3);q=rng.normal(size=(80,2))
+ m,A,a=plane_restriction(mu,P,E);d=q@E.T-mu
+ direct=np.exp(-.5*np.einsum('ni,ij,nj->n',d,P,d));dd=q-m
+ np.testing.assert_allclose(direct,a*np.exp(-.5*np.einsum('ni,ij,nj->n',dd,A,dd)),rtol=1e-12,atol=1e-14)
+
+def test_conjugate_symmetry():
+ rng=np.random.default_rng(2);k=rng.normal(size=(50,3));mu=rng.normal(size=(5,3));p=np.tile(np.eye(3),(5,1,1));c=rng.normal(size=5)+1j*rng.normal(size=5)
+ np.testing.assert_allclose(hermitian_pairs(-k,mu,p,c),np.conj(hermitian_pairs(k,mu,p,c)),atol=1e-14)
+
+def test_sparse_pairing_and_adjoint():
+ rng=np.random.default_rng(3);k=rng.uniform(-5,5,(100,3))
+ for kind in ['gaussian','voxel']:
+  a,b=design(k,16,kind);am,bm=design(-k,16,kind)
+  np.testing.assert_allclose(a.toarray(),am.toarray(),atol=2e-6)
+  np.testing.assert_allclose(b.toarray(),-bm.toarray(),atol=2e-6)
+  x=rng.normal(size=a.shape[1]);y=rng.normal(size=len(k))
+  np.testing.assert_allclose(np.dot(a@x,y),np.dot(x,a.T@y),rtol=1e-12,atol=1e-12)
+
+def test_ctf_even_and_units():
+ q=np.array([[0,0],[.01,.02],[.05,.07]])
+ p=np.array([[128,2,15000,16000,35,300,2.7,.1,0]])
+ np.testing.assert_allclose(ctf(q,p),ctf(-q,p),atol=1e-6)
+ np.testing.assert_allclose(ctf(q,p)[0,0],-.1)
+
+def test_fsc_identity_noise_and_censoring():
+ rng=np.random.default_rng(8);v=rng.normal(size=(32,32,32));f=np.fft.fftshift(np.fft.fftn(v))
+ c=fsc(f,f,2);np.testing.assert_allclose(c[:,2],1,atol=1e-6)
+ assert resolution(c)['status']=='censored_at_sampled_limit'
+ noise=np.fft.fftshift(np.fft.fftn(rng.normal(size=v.shape)))
+ assert np.nanmean(np.abs(fsc(f,noise,2)[3:,2]))<.08
+
+def test_grid_inverse_real():
+ rng=np.random.default_rng(8);a,b=design(np.zeros((1,3)),16);r=rng.normal(size=a.shape[1]);im=rng.normal(size=a.shape[1])
+ f=evaluate_grid(r,im,16);v=np.fft.ifftn(np.fft.ifftshift(f))
+ assert np.max(np.abs(v.imag))<1e-7
