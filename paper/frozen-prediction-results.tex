@@ -1,0 +1,23 @@
+\begin{table*}[t]
+\centering
+\caption{Frozen additional-exposure prediction: 4,096 particles per dataset from 115, 71 and 185 source groups absent from development. Models and cohort were locked before image access. Lower normalized prediction MSE is better. Supplied consensus poses/CTFs remain conditional; this does not measure unknown density coverage.}
+\label{tab:freshprediction}
+\begin{tabular}{lrrr}\toprule
+EMPIAR & Gaussian & Voxel & Neural \\\midrule
+10028 & 0.835319 & 0.841379 & 0.829369 \\
+10049 & 0.931579 & 0.932359 & 0.930739 \\
+10076 & 0.874799 & 0.879078 & 0.868657 \\
+\bottomrule\end{tabular}
+\medskip
+
+\begin{tabular}{llrl}\toprule
+EMPIAR & Comparator minus neural & NMSE difference & Adjusted percentile interval \\\midrule
+10028 & Gaussian & 0.005950 & [0.004995, 0.006932] \\
+10028 & Voxel & 0.012011 & [0.010695, 0.013356] \\
+10049 & Gaussian & 0.000840 & [0.000659, 0.001023] \\
+10049 & Voxel & 0.001620 & [0.001366, 0.001875] \\
+10076 & Gaussian & 0.006143 & [0.005686, 0.006593] \\
+10076 & Voxel & 0.010421 & [0.009792, 0.011038] \\
+\bottomrule\end{tabular}
+\par\small{All six prespecified paired differences are shown. Intervals use 10,000 whole-exposure bootstrap resamples and a Bonferroni adjustment for six contrasts (99.1667\% marginal percentile intervals). This is a bootstrap approximation, not a finite-sample coverage theorem. No model selection uses these outcomes.}
+\end{table*}

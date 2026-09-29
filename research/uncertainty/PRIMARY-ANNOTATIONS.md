@@ -160,3 +160,36 @@ confidence from Monte Carlo sampling. Direct full-text access returned HTTP403.
 The full calibration target and procedures remain unverified; do not equate
 its confidence score with frequentist raw-particle density coverage or claim
 to have critically reviewed/reproduced the full method from this abstract.
+
+## EMReady2: local quality conditioning is not density interval calibration
+
+Primary publisher text checked on 29 September 2026:
+https://doi.org/10.1038/s41467-026-71794-1 (16 May 2026 publication; publisher also
+lists a 17 July version-of-record date). Read the input/output description,
+local-resolution target construction, evaluation and discussion limitations.
+The model enhances a supplied map, training against atom-derived maps with
+locally varying blur informed by Q-scores. Its 136-map evaluation uses map/model
+and interpretation metrics. This is not a raw-particle density confidence
+interval procedure. The authors explicitly distinguish real-space map defects
+from conformational/compositional variability and discuss learned-prior
+hallucination risk. Therefore we should not label it an uncertainty baseline
+merely because training is local-quality-aware. A matched use would test whether
+particle evidence supports selected enhanced-map features, with target selection
+separated from evaluation. That experiment is not yet executed here.
+
+## Stochastic inverse reconstruction over conformational distributions
+
+Primary full text: https://arxiv.org/html/2509.05541v1, checked 29 September 2026.
+The page labels arXiv v1 (2025), while its displayed manuscript date is August
+2026; preserve the exact URL/hash rather than inventing a v2 publication.
+Checked the random forward model, variational formulation, Proposition 5,
+particle-discretization lemma and conclusions. The estimand is a distribution
+of structures whose random projections reproduce an image distribution. The
+paper relates distributional optimization to MAP discretizations and gives
+conditional consistency statements using continuity, compactness and empirical
+convergence assumptions. This is distinct from finite-sample coverage of a
+fixed homogeneous density functional. Its conclusion identifies experimental
+data benchmarks and fuller particle-method convergence analysis as future work.
+Continuous/discretized distinctions are already prior art; our proposed
+continuous adjoint norm is a specific uncertainty audit, not the first
+continuous-space formulation of cryo-EM.

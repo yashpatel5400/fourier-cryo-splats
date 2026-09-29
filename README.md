@@ -10,8 +10,11 @@ rewritten around uncertainty, ambient-space bias auditing, and conditional pose
 bounds. It is explicitly a **development draft**, not a completed submission.
 Comprehensive validation and independent scientific review remain outstanding.
 Completed development comparisons include source-group bootstrap, nonlinear pose
-curvature, shared-density spectral audits, finite-grid checks, and stock neural
+curvature, shared-density spectral audits, finite-grid and continuous-density
+checks, joint continuous-pose bounds, assumption-violation controls, and stock neural
 reconstruction on three stacks. See [reproduction commands](research/uncertainty/REPRODUCE-DEVELOPMENT.md).
+An [additional-exposure prediction protocol](research/uncertainty/confirmation/prediction-v1/PROTOCOL.md)
+was frozen before new particle downloads, with models locked by checksum.
 The [earlier reconstruction paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0
 release preserve the original feasibility study.
 
@@ -151,7 +154,7 @@ archive. Extract it into the repository root to populate the paths below.
 The smaller JSON metrics, FSC CSVs, figures, and provenance records are in Git.
 
 - `paper/`: official ICML 2026 template, LaTeX source, bibliography, and initial draft.
-- `output/pdf/fourier-cryo-splats.pdf`: final manuscript.
+- `output/pdf/fourier-cryo-splats.pdf`: current uncertainty development manuscript.
 - `results/final/`: reported metrics, unmasked FSC curves, predictions and maps.
 - `results/main/`: initial sparse-observation ablation, retained transparently.
 - `results/full-reg*/10049/`: regularization-selection runs.

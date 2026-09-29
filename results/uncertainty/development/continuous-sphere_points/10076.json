@@ -1,0 +1,308 @@
+{
+  "dataset": "10076",
+  "stage": "development continuous L2 cube, fixed poses/CTFs and known white Gaussian noise",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "targets": "center,contrast",
+    "widths": ".03,.07",
+    "cell_boxes": "16,24,32,48,64",
+    "reference_box": 64,
+    "output": "continuous-sphere_points",
+    "fitting_space": "sphere_points",
+    "fitting_box": 24
+  },
+  "density_class": "L2([-1/2,1/2]^3); radius 2 around unit-norm independent constant-cell pilot",
+  "generator": "unit-norm deposited-map constant cells; analytic cell Fourier transform, not point samples",
+  "noise_std_physical": 0.010009658835039114,
+  "reference_pilot_L2_distance": 1.1572870281933203,
+  "targets": [
+    {
+      "target": "center",
+      "width_fraction_field": 0.03,
+      "fitting_space": "sphere_points",
+      "coarse_optimization_converged": true,
+      "audit": {
+        "residual_norm": 44.5861833743024,
+        "target_norm": 28.834386792345455,
+        "target_norm2": 831.421861690586,
+        "field_norm2": 2005.9550898401196,
+        "cross_term": 424.7246019369431,
+        "residual_norm2_unpadded": 1987.9277476568195,
+        "squared_norm_roundoff_pad": 2.3010004633961258e-07
+      },
+      "noise_sd": 1.1299942050412886,
+      "half_width": 91.0310418152011,
+      "width_fraction_of_continuous_no_data": 1.578515306581216,
+      "reference_true_target": 3.4672447822986374,
+      "reference_expected_center": 2.0472209530655023,
+      "reference_bias": -1.420023829233135,
+      "reference_coverage": 1.0,
+      "continuous_boundary_coverage": 0.9499999999999996,
+      "cell_subspaces": [
+        {
+          "box": 16,
+          "projected_residual_norm": 37.2453967275805,
+          "unresolved_within_cell_residual_norm": 24.50934863459361,
+          "half_width_assuming_cell_subspace": 76.3494685217573,
+          "width_fraction_of_continuous": 0.8387190457157643,
+          "continuous_boundary_coverage_using_cell_width": 3.804534677926867e-30,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 24,
+          "projected_residual_norm": 41.41743861082206,
+          "unresolved_within_cell_residual_norm": 16.50828661023627,
+          "half_width_assuming_cell_subspace": 84.69355228824043,
+          "width_fraction_of_continuous": 0.9303810062964434,
+          "continuous_boundary_coverage_using_cell_width": 3.691814393764913e-05,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 32,
+          "projected_residual_norm": 42.79482278542754,
+          "unresolved_within_cell_residual_norm": 12.511230580992889,
+          "half_width_assuming_cell_subspace": 87.44832063745139,
+          "width_fraction_of_continuous": 0.960642863068371,
+          "continuous_boundary_coverage_using_cell_width": 0.06354075905204425,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 48,
+          "projected_residual_norm": 43.76803742053053,
+          "unresolved_within_cell_residual_norm": 8.502155505632617,
+          "half_width_assuming_cell_subspace": 89.39474990765737,
+          "width_fraction_of_continuous": 0.9820249018915381,
+          "continuous_boundary_coverage_using_cell_width": 0.5780080781519829,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 64,
+          "projected_residual_norm": 44.12123985722614,
+          "unresolved_within_cell_residual_norm": 6.422144606596677,
+          "half_width_assuming_cell_subspace": 90.10115478104859,
+          "width_fraction_of_continuous": 0.9897849457107143,
+          "continuous_boundary_coverage_using_cell_width": 0.7944446269900423,
+          "reference_coverage_using_cell_width": 1.0
+        }
+      ],
+      "seconds": 4.218533250037581
+    },
+    {
+      "target": "contrast",
+      "width_fraction_field": 0.03,
+      "fitting_space": "sphere_points",
+      "coarse_optimization_converged": true,
+      "audit": {
+        "residual_norm": 51.82700485530067,
+        "target_norm": 40.76134030096737,
+        "target_norm2": 1661.4868631312668,
+        "field_norm2": 2766.02309958392,
+        "cross_term": 870.735765379985,
+        "residual_norm2_unpadded": 2686.0384319552168,
+        "squared_norm_roundoff_pad": 3.1614259947357366e-07
+      },
+      "noise_sd": 1.3352219014639686,
+      "half_width": 105.85025429800939,
+      "width_fraction_of_continuous_no_data": 1.2984147910305257,
+      "reference_true_target": -0.20712917297202704,
+      "reference_expected_center": -0.570639655958351,
+      "reference_bias": -0.36351048298632394,
+      "reference_coverage": 1.0,
+      "continuous_boundary_coverage": 0.9499999999999996,
+      "cell_subspaces": [
+        {
+          "box": 16,
+          "projected_residual_norm": 41.69387423368672,
+          "unresolved_within_cell_residual_norm": 30.784075163254034,
+          "half_width_assuming_cell_subspace": 85.58399305478149,
+          "width_fraction_of_continuous": 0.8085383792638746,
+          "continuous_boundary_coverage_using_cell_width": 4.969892357200961e-42,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 24,
+          "projected_residual_norm": 47.24026517686144,
+          "unresolved_within_cell_residual_norm": 21.316561127235595,
+          "half_width_assuming_cell_subspace": 96.67677494113093,
+          "width_fraction_of_continuous": 0.9133353111174247,
+          "continuous_boundary_coverage_using_cell_width": 8.683105779222732e-08,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 32,
+          "projected_residual_norm": 49.241370810253656,
+          "unresolved_within_cell_residual_norm": 16.16557555419722,
+          "half_width_assuming_cell_subspace": 100.67898620791536,
+          "width_fraction_of_continuous": 0.9511454353663156,
+          "continuous_boundary_coverage_using_cell_width": 0.01293653458728621,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 48,
+          "projected_residual_norm": 50.6423299035668,
+          "unresolved_within_cell_residual_norm": 11.01784253879423,
+          "half_width_assuming_cell_subspace": 103.48090439454164,
+          "width_fraction_of_continuous": 0.9776160206776914,
+          "continuous_boundary_coverage_using_cell_width": 0.4484235093708877,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 64,
+          "projected_residual_norm": 51.15318997547877,
+          "unresolved_within_cell_residual_norm": 8.330041272643147,
+          "half_width_assuming_cell_subspace": 104.50262453836558,
+          "width_fraction_of_continuous": 0.98726852600798,
+          "continuous_boundary_coverage_using_cell_width": 0.7374686680669107,
+          "reference_coverage_using_cell_width": 1.0
+        }
+      ],
+      "seconds": 3.749161749961786
+    },
+    {
+      "target": "center",
+      "width_fraction_field": 0.07,
+      "fitting_space": "sphere_points",
+      "coarse_optimization_converged": true,
+      "audit": {
+        "residual_norm": 4.550056696342069,
+        "target_norm": 8.089944495523957,
+        "target_norm2": 65.44720194065836,
+        "field_norm2": 85.72527791677939,
+        "cross_term": 65.23473196557973,
+        "residual_norm2_unpadded": 20.703015926278297,
+        "squared_norm_roundoff_pad": 1.3649008199312957e-08
+      },
+      "noise_sd": 0.2438681553815181,
+      "half_width": 9.501240812561393,
+      "width_fraction_of_continuous_no_data": 0.5872253399153904,
+      "reference_true_target": 2.7902021704912663,
+      "reference_expected_center": 3.021513437423435,
+      "reference_bias": 0.23131126693216864,
+      "reference_coverage": 1.0,
+      "continuous_boundary_coverage": 0.9500000000000001,
+      "cell_subspaces": [
+        {
+          "box": 16,
+          "projected_residual_norm": 4.135968760241262,
+          "unresolved_within_cell_residual_norm": 1.8965174278755415,
+          "half_width_assuming_cell_subspace": 8.67306494035978,
+          "width_fraction_of_continuous": 0.9128349771845905,
+          "continuous_boundary_coverage_using_cell_width": 0.039960485432626695,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 24,
+          "projected_residual_norm": 4.359375617107961,
+          "unresolved_within_cell_residual_norm": 1.3034033024708394,
+          "half_width_assuming_cell_subspace": 9.119878654093178,
+          "width_fraction_of_continuous": 0.9598618574150837,
+          "continuous_boundary_coverage_using_cell_width": 0.532298493644831,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 32,
+          "projected_residual_norm": 4.441439516625892,
+          "unresolved_within_cell_residual_norm": 0.9882464065612716,
+          "half_width_assuming_cell_subspace": 9.28400645312904,
+          "width_fraction_of_continuous": 0.9771362116045778,
+          "continuous_boundary_coverage_using_cell_width": 0.7745956668781522,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 48,
+          "projected_residual_norm": 4.501344720874449,
+          "unresolved_within_cell_residual_norm": 0.6640117798526135,
+          "half_width_assuming_cell_subspace": 9.403816861626153,
+          "width_fraction_of_continuous": 0.9897461865395056,
+          "continuous_boundary_coverage_using_cell_width": 0.8935001417767173,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 64,
+          "projected_residual_norm": 4.5225693576310215,
+          "unresolved_within_cell_residual_norm": 0.499381963374964,
+          "half_width_assuming_cell_subspace": 9.446266135139298,
+          "width_fraction_of_continuous": 0.9942139475773086,
+          "continuous_boundary_coverage_using_cell_width": 0.9221125370387877,
+          "reference_coverage_using_cell_width": 1.0
+        }
+      ],
+      "seconds": 5.745354166952893
+    },
+    {
+      "target": "contrast",
+      "width_fraction_field": 0.07,
+      "fitting_space": "sphere_points",
+      "coarse_optimization_converged": true,
+      "audit": {
+        "residual_norm": 10.44817033966251,
+        "target_norm": 9.769301689263502,
+        "target_norm2": 95.43925549584671,
+        "field_norm2": 203.94189106212534,
+        "cross_term": 95.10844156861845,
+        "residual_norm2_unpadded": 109.16426342073515,
+        "squared_norm_roundoff_pad": 2.5868262465031426e-08
+      },
+      "noise_sd": 0.37968462900595285,
+      "half_width": 21.520866318443186,
+      "width_fraction_of_continuous_no_data": 1.1014536659306313,
+      "reference_true_target": -0.26222598313444134,
+      "reference_expected_center": -0.25665270854778166,
+      "reference_bias": 0.005573274586659682,
+      "reference_coverage": 1.0,
+      "continuous_boundary_coverage": 0.9499999999999997,
+      "cell_subspaces": [
+        {
+          "box": 16,
+          "projected_residual_norm": 9.642312085661064,
+          "unresolved_within_cell_residual_norm": 4.023689984245557,
+          "half_width_assuming_cell_subspace": 19.909149810440294,
+          "width_fraction_of_continuous": 0.9251091250624206,
+          "continuous_boundary_coverage_using_cell_width": 0.004660800477818313,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 24,
+          "projected_residual_norm": 10.077938272722278,
+          "unresolved_within_cell_residual_norm": 2.7567052105371963,
+          "half_width_assuming_cell_subspace": 20.78040218456272,
+          "width_fraction_of_continuous": 0.9655932004351565,
+          "continuous_boundary_coverage_using_cell_width": 0.38004800086167434,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 32,
+          "projected_residual_norm": 10.237458552012697,
+          "unresolved_within_cell_residual_norm": 2.087751384247065,
+          "half_width_assuming_cell_subspace": 21.09944274314356,
+          "width_fraction_of_continuous": 0.9804179084120572,
+          "continuous_boundary_coverage_using_cell_width": 0.7036484693317215,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 48,
+          "projected_residual_norm": 10.35372990888289,
+          "unresolved_within_cell_residual_norm": 1.4016206407253424,
+          "half_width_assuming_cell_subspace": 21.331985456883945,
+          "width_fraction_of_continuous": 0.9912233616080143,
+          "continuous_boundary_coverage_using_cell_width": 0.8743889103438895,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 64,
+          "projected_residual_norm": 10.39489069901288,
+          "unresolved_within_cell_residual_norm": 1.0538077633890046,
+          "half_width_assuming_cell_subspace": 21.414307037143924,
+          "width_fraction_of_continuous": 0.9950485598617402,
+          "continuous_boundary_coverage_using_cell_width": 0.9137479290911519,
+          "reference_coverage_using_cell_width": 1.0
+        }
+      ],
+      "seconds": 8.406382583023515
+    }
+  ],
+  "code_hashes": {
+    "scripts/audit_uq_continuous.py": "93a593ab7f15ab137c4a3200ee20ccf94c35a584bedd3961515ef8997bbe106c",
+    "src/fourier_splats/uq_continuous.py": "fa78e59341e49ca06926d899266d9a6925cbf3ca40dc7f413bc8d881443cdd2f"
+  }
+}

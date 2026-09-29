@@ -1,0 +1,93 @@
+{
+  "dataset": "10028",
+  "stage": "development continuous L2 cube, fixed poses/CTFs and known white Gaussian noise",
+  "config": {
+    "datasets": "10028",
+    "targets": "center",
+    "widths": ".07",
+    "cell_boxes": "16,24,32,48,64",
+    "reference_box": 64,
+    "output": "continuous-probe"
+  },
+  "density_class": "L2([-1/2,1/2]^3); radius 2 around unit-norm independent constant-cell pilot",
+  "generator": "unit-norm deposited-map constant cells; analytic cell Fourier transform, not point samples",
+  "noise_std_physical": 0.0037776813154703085,
+  "reference_pilot_L2_distance": 1.3511087478161379,
+  "targets": [
+    {
+      "target": "center",
+      "width_fraction_field": 0.07,
+      "fitting_space": "24-cubed point-sample operator restricted to sphere, used only to choose weights",
+      "coarse_optimization_converged": true,
+      "audit": {
+        "residual_norm": 6.6017452429494305,
+        "target_norm": 8.089944495523957,
+        "target_norm2": 65.44720194065836,
+        "field_norm2": 108.75328884684693,
+        "cross_term": 65.30872527715539,
+        "residual_norm2_unpadded": 43.58304023319451,
+        "squared_norm_roundoff_pad": 1.961092591881891e-08
+      },
+      "noise_sd": 0.10373925115382279,
+      "half_width": 13.374126369416457,
+      "width_fraction_of_continuous_no_data": 0.8265895011279841,
+      "reference_true_target": 2.457750947726109,
+      "reference_expected_center": 2.4185603320001565,
+      "reference_bias": -0.039190615725952505,
+      "reference_coverage": 1.0,
+      "continuous_boundary_coverage": 0.9500000000000007,
+      "cell_subspaces": [
+        {
+          "box": 16,
+          "projected_residual_norm": 6.035182749749604,
+          "unresolved_within_cell_residual_norm": 2.6757446496125628,
+          "half_width_assuming_cell_subspace": 12.241001383016803,
+          "width_fraction_of_continuous": 0.9152748407558905,
+          "continuous_boundary_coverage_using_cell_width": 8.637341892033346e-21,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 24,
+          "projected_residual_norm": 6.340359850209684,
+          "unresolved_within_cell_residual_norm": 1.83925996603375,
+          "half_width_assuming_cell_subspace": 12.851355583936964,
+          "width_fraction_of_continuous": 0.9609117806247929,
+          "continuous_boundary_coverage_using_cell_width": 0.00034386686087279516,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 32,
+          "projected_residual_norm": 6.452802760778833,
+          "unresolved_within_cell_residual_norm": 1.394409116181659,
+          "half_width_assuming_cell_subspace": 13.076241405075262,
+          "width_fraction_of_continuous": 0.9777267721185595,
+          "continuous_boundary_coverage_using_cell_width": 0.10998192579071492,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 48,
+          "projected_residual_norm": 6.53493713978827,
+          "unresolved_within_cell_residual_norm": 0.9368227323359214,
+          "half_width_assuming_cell_subspace": 13.240510163094136,
+          "width_fraction_of_continuous": 0.9900093506946465,
+          "continuous_boundary_coverage_using_cell_width": 0.6393991229344993,
+          "reference_coverage_using_cell_width": 1.0
+        },
+        {
+          "box": 64,
+          "projected_residual_norm": 6.564044822979784,
+          "unresolved_within_cell_residual_norm": 0.7045252406534048,
+          "half_width_assuming_cell_subspace": 13.298725529477164,
+          "width_fraction_of_continuous": 0.994362185771497,
+          "continuous_boundary_coverage_using_cell_width": 0.8206966507700847,
+          "reference_coverage_using_cell_width": 1.0
+        }
+      ],
+      "seconds": 12.912368416960817
+    }
+  ],
+  "code_hashes": {
+    "scripts/audit_uq_continuous.py": "2c48f58a91cf11e34a2476fd779800d7ecdbb962839242c564030b00820641d8",
+    "src/fourier_splats/uq_continuous.py": "77c235dd2020bcf2f4284365317e917d8af0c03f1a4b5b31dcdf0dd20c9ef231"
+  }
+}

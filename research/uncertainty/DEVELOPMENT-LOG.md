@@ -316,3 +316,99 @@ fine-grid triangle-bound interval. All 96 saved nonlinear adversaries from the
 coarse class remain below their corresponding tightened coarse upper bounds.
 The assumption-violation diagnostic suite is being run separately; it is not
 included as completed evidence in this checkpoint.
+
+## Assumption failures and a continuous-density extension
+
+The six completed assumption-stress runs (three geometries, both targets) each
+retain 273 records. They include noise scale, within-particle correlation,
+artificial estimator-aligned global noise, elliptical Student-t noise, coherent
+defocus errors, support-only violations that retain the total L2 radius,
+equal-population two-state heterogeneity, and pose-radius exceedance. The
+fixed-pose estimator's own nominal bias boundary attains 0.95 analytically,
+checking the control. Some support and view-coupled heterogeneity cases drive
+the tighter nonlinear interval's coverage near zero. Correlated noise and scale
+errors can also fail. The tested low-bandwidth defocus offsets and Student-t
+cases do not produce undercoverage for the tighter nonlinear intervals. Do not
+suppress those negative findings or portray constructed adversaries as typical.
+
+An analytic continuous fixed-pose audit now treats the unknown density as any
+L2 function on the unit cube. This is broader support than the prior spherical
+voxel class. Exact sinc Grams and truncated-Gaussian target integrals avoid an
+unjustified continuum conclusion from grid agreement. Independent quadrature
+and conic optimization checks pass. Constant-cell pilots/reference generators
+use exact cell Fourier transforms and target integrals, including the cell
+volume, sinc and half-cell phase. They are not point-sampled volumes.
+
+The full three-geometry/four-target dense continuous optimization is complete.
+Every case meets its continuous 0.5% sum-objective gap. The first broad central
+10028 probe gives width/no-data 0.08733057. Transferring the original sphere-only
+weights without refitting can be much worse because the support class changed;
+that unfavorable comparison is preserved. For the cell-fitted broad central
+probe, using only the 64-cell projection reduces width by merely 1.7%, yet
+coverage at an explicitly continuous worst-bias direction is about 0.923.
+Reference-map coverage remains one. This is a worst-case audit, not a claim of
+typical reference-map undercoverage.
+
+A matrix-free Gauss–Legendre/type-3-NUFFT implementation includes an analytic
+quadrature remainder in both primal and continuous dual bounds. Requested
+FINUFFT tolerance and roundoff remain numerical, not interval-arithmetic,
+checks. Its first 128-particle broad-target result agrees with the dense
+solution to displayed precision but is slower: about 313 seconds versus 12
+seconds for dense optimization/audit, under concurrent load. Stored quadrature
+arrays use about 2.2 MB versus 419 MB for the dense Gram (these are not peak RSS).
+A standard 256-column pivoted-Cholesky preconditioner reduces this to about
+141 seconds with 23 MB stored arrays, still slower than dense. A higher-rank
+preconditioner is being profiled; no speed superiority is claimed. The current
+complete suite has 41 passing tests. The continuous nonlinear-pose extension in
+CONTINUOUS-POSE-NEXT.md remains a hypothesis, not an implemented result.
+
+## Completed continuous pose audit and first frozen prediction cohort
+
+All twelve continuous-pose post-audits are complete: three real acquisition
+geometries, two broad targets, and 0.1/0.5-degree joint pose budgets. Relative
+half-widths range from 0.1102 to 0.4435, and all are narrower than the no-data
+option. Exact reference-generator coverage is essentially one. At a coherent
+nonzero pose, eliminating the full continuous density ball gives feasible bias
+between 0.24 and 0.86 of the uniform upper bound. These are lower bounds, not
+global pose optima; considerable slack remains. The probe encountered a JSON
+serialization error for a NumPy boolean at its second setting; the full sweep
+reran with explicit Python scalar conversion. Both the failed probe's first
+result and exact source snapshots are retained. Each complete audit took roughly
+38–40 seconds and stored 725 MB of main field/Gram arrays, not peak RSS.
+
+The rank-1024 matrix-free fixed-pose implementation completed all twelve targets
+and agrees with dense continuous optimization. It also completed broad targets
+with 1024 particles on all three geometries. A higher-bandwidth continuous
+radius-12 probe is still running; its first central target reaches relative
+width 0.13024 but takes about 864 seconds. Scaling is not uniformly cheap.
+The full unit suite now has 45 passing tests, including continuous nonlinear
+fields, polynomial quadrature remainders and exact density-ball stress checks.
+
+Commit 72a6dc0 freezes an additional-exposure experimental prediction protocol
+before selected image downloads. It selects 4096 particles per stack from
+115/71/185 source groups absent from the entire development pool and locks the
+existing Gaussian, voxel and neural checkpoints/scales by hash. No new density
+coverage or independent-pose claim follows from this conditional prediction
+study. Downloading and evaluation are in progress. Uncertainty confirmation on
+fresh simulated designs remains separate and is not yet frozen.
+
+The higher-band finite-voxel comparison is now complete for both targets and all
+three geometries. Every quadratic solve meets its gap tolerance. Relative widths
+are 0.166–0.231 at 0.1 degrees and 0.442–0.477 at 0.5 degrees. The continuous
+higher-band probe on 10028 completes both fine targets with relative widths
+0.13024/0.12959 and runtimes 864/883 seconds; this is only one geometry so far.
+
+All frozen additional-exposure prediction runs are complete. Gaussian/voxel/
+neural NMSEs are 0.835319/0.841379/0.829369 (10028),
+0.931579/0.932359/0.930739 (10049), and 0.874799/0.879078/0.868657 (10076).
+All six paired whole-exposure bootstrap contrasts favor neural prediction even
+with the prespecified six-contrast adjustment. No models were retuned. The raw
+transfer totals for this new cohort are approximately 2.37/0.60/2.56 GB, with
+verified range hashes. This supplies no experimental-density coverage label.
+
+A separate continuous-v1 protocol is being committed before its simulation
+outcomes. It specifies 12 new acquisition subsets, four targets and two pose
+budgets (96 audits), with 2304 signal/scenario records and exact Gaussian coverage
+cross-checked by 10000 noise draws each. A smoke run used only eight old
+particles and unrelated seeds. The forthcoming simulation study includes all
+selected procedural generators, continuous boundaries and assumption failures.

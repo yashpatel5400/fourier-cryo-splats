@@ -470,3 +470,195 @@ of worst-case coverage. MPS float32 accelerates the search; every saved pose
 is reprojected onto its ball and recomputed by independent SciPy rotations and
 direct complex Fourier sums in float64. Autograd checks and explicit first
 pose-derivative comparisons validate the search objective and gradient.
+
+## 13. Fixed-pose continuous-density audit on a cube
+
+Grid refinement alone cannot justify a confidence statement for continuous
+unresolved density. A new fixed-pose development extension instead declares
+H=L2(S), S=[-1/2,1/2]^3, and uses its analytic observation Gram. This changes the
+support from the earlier sphere to the full cube, which must be acknowledged
+when comparing widths. The local-pose continuum extension is not implemented.
+
+For f_w(x)=Re sum_j c_j exp(2*pi*i*k_j'x), c_j=(w_Rj+i*w_Ij) C_j/sigma,
+the cube Fourier kernel is K(v)=prod_a sinc(v_a). Thus
+
+ ||f_w||_H^2 = (1/2) Re sum_jl [c_j conj(c_l) K(k_j-k_l)
+                              +c_j c_l K(k_j+k_l)].
+
+For a Gaussian local average or contrast ell, its squared norm on S is a sum
+of Gaussian-product integrals, and int_S ell(x) exp(-2*pi*i*k'x) dx factors
+into three truncated complex-normal integrals. Each one-dimensional term is
+
+ exp(-2*pi*i*k*mu - 2*pi^2*sigma_ell^2*k^2)
+ * [Phi((1/2-mu)/sigma_ell + 2*pi*i*sigma_ell*k)
+    -Phi((-1/2-mu)/sigma_ell + 2*pi*i*sigma_ell*k)].
+
+Consequently ||ell-A*w||_H^2 = ||ell||_H^2 - 2<w,A ell> + ||f_w||_H^2
+is evaluated without assuming the density is voxelwise constant or band-limited.
+The class still fixes support, poses, CTF and Gaussian whitening. These are
+classical integral/Gram identities specialized to this acquisition model.
+
+Central symmetry makes cosine/sine Gram cross blocks zero. Their two dense
+blocks are (C_j C_l/(2 sigma^2)) [K(k_j-k_l) +/- K(k_j+k_l)]. Storage is
+quadratic in the number of sampled Fourier pairs; the implementation rejects
+more than 8192 frequencies rather than silently allocating unbounded memory.
+Classical quadratic majorization solves (G+lambda I)w=A ell with conjugate
+gradients. A continuous dual certificate uses h=ell-A*w and
+
+ v=t*h, t=min(B/||h||_H, z/||A h||),
+ lower=t*(||ell||_H^2 - w' A ell), A h=A ell-Gw.
+
+This is feasible in the actual continuous Hilbert space, not just a voxel
+subspace. It supplies the same sum-width objective gap used elsewhere. An
+independent conic solve of the joint Hilbert Gram [ell,A*_1,...,A*_m] verifies
+small cases. Separate blocked Gram integrals recheck final residual norms.
+Floating-point safeguards are not interval-arithmetic proofs.
+
+Constant-cell generators have exact Fourier transforms: a unit-norm cell basis
+coefficient carries voxel-volume factor box^(-3/2), a product sinc(k/box), and
+an explicit half-cell phase for centers spanning the fixed cube. Their target
+coefficients are products of real normal-CDF differences, not point samples.
+The pilot has 24^3 cells; the independent map generator has 64^3 cells, each
+normalized in continuous L2. Their distance is computed through exact cell
+intersection volumes. B=2 therefore covers every such normalized pair by the
+triangle inequality, still only a simulation convention.
+
+Orthogonal projection onto a constant-cell space gives a useful audit identity:
+
+ ||h||_H^2 = ||P_cell h||_H^2 + ||(I-P_cell)h||_H^2.
+
+Finite-cell intervals omit the second term. On an estimator-specific continuous
+bias boundary, even a small relative width discrepancy can appreciably reduce
+coverage when bias dominates measurement variance. Such an adversarial example
+is not evidence that the independent deposited-map generator typically fails.
+In the first broad-average EMPIAR-10028 probe, optimizing for the continuous cube
+class gives width/no-data 0.08733 with a converged continuous objective gap;
+a 64-cell-only width at a nearby cell-fitted estimator gives boundary coverage
+0.923 despite differing in width by only about 1.7%. The reference-generator
+coverage in that probe is one. Full comparisons are running.
+
+## 14. Matrix-free continuous Gram with a quadrature remainder
+
+An analytic dense Gram is quadratic in observations. The new matrix-free
+alternative integrates only the finite Fourier adjoint field with tensor
+Gauss–Legendre quadrature; it does not approximate the unknown density by those
+quadrature nodes. For r nodes on an interval of length one, the standard Gauss
+error constant is
+
+ C_r = (r!)^4 / [(2r+1) ((2r)!)^3].
+
+The positive Peano kernel bounds error for exp(i nu x) by C_r*|nu|^(2r).
+Let K_a=max_j |k_ja| and E_r=sum_a C_r*(4*pi*K_a)^(2r). Every frequency appearing
+in the square of f_w is k_j +/- k_l, so its coordinate magnitude is <=2*K_a.
+Telescoping the tensor-product integration and using positive quadrature weights
+of total mass one gives
+
+ | ||f_w||_L2^2 - sum_t omega_t f_w(x_t)^2 | <= E_r * (sum_j |c_j|)^2.
+
+Target norms and cross terms A ell are still evaluated analytically. Adding this
+remainder to the squared adjoint residual gives a continuous primal upper bound.
+The same exponential error applied to each observation of f_w bounds
+
+ ||(G-G_quad)w||_2 <= sqrt(2)*E_r*||C/sigma||_2*sum_j |c_j|.
+
+The sqrt(2) is a conservative allowance for realification. Add this to
+||A ell-G_quad w|| in the continuous dual feasibility scale. Thus both objective
+bounds remain valid in real arithmetic even when the Gram is computed by
+quadrature. A small objective gap can certify the actual continuous sum-width
+objective; the folded-normal width is evaluated afterwards as before.
+
+Two type-3 NUFFTs apply G_quad through the real field at quadrature nodes and
+its weighted Fourier transform. At maximum frequency five, order 40 gives
+E_r <= 3.21e-23 before multiplication by the coefficient norm. FINUFFT uses
+requested tolerance 1e-12. Its floating-point approximation is independently
+checked against exact sinc Grams; the analytic quadrature bound does not itself
+certify the library's roundoff or approximate transform error.
+
+The first diagonal-preconditioned matrix-free optimization is slow despite
+low storage. A standard pivoted-Cholesky/Nystrom preconditioner now approximates
+the exact cosine and sine Gram blocks, with 256 columns each by default. Its
+Woodbury inverse preconditions CG; it changes neither the final class nor the
+primal/dual validation. This is a computational implementation, not a new
+Nystrom theorem. Small-instance checks match the dense optimizer and independent
+conic optimum. Full-size timing/accuracy probes are running, and no performance
+win is yet claimed.
+
+Primary numerical-analysis references checked for these ingredients:
+NIST DLMF Section 3.5(v), equations 3.5.19 and 3.5.21
+(https://dlmf.nist.gov/3.5), gives the positive Gaussian weights and the
+Gauss–Legendre remainder; rescaling from [-1,1] to an interval of length one
+gives C_r above. Pivoted Cholesky is established; see Harbrecht, Peters and
+Schneider (2012), https://doi.org/10.1016/j.apnum.2011.10.001, author-repository
+record https://edoc.unibas.ch/22467/. No new pivot rule is proposed here.
+
+## 15. Joint continuous density and bounded nonlinear poses
+
+The implemented extension `uq_continuous_pose.py` now covers both uncertainties
+on H=L2([-1/2,1/2]^3). It is a conservative post-audit of fixed-pose-optimized
+weights; no nonlinear optimality claim follows from their fixed-pose gap.
+Write P=||rho0||, ||delta||<=B, h=A0*w-ell. For each particle, first and second
+adjoint derivative fields are T_i u_i and U_i svec(u_i u_i')/2. Symmetric
+vectorization multiplies off-diagonal matrix entries by sqrt(2), preserving
+||svec(u u')||=||u||^2; this uses fifteen Hessian columns instead of twenty-five
+ordered columns with identical contraction and norm geometry.
+
+Suppose L12 bounds the continuous norm of the sum of these first and half-scaled
+second fields for every ||u_i||<=1. The scalar-estimator bias obeys
+
+ b <= B||h|| + (B+P)L12 + (B+P)/6 sum_i K3_i ||w_i||.
+
+Proof: split the exact bias into <h,delta> plus the change in adjoint paired
+with rho0+delta. The first term is <=B||h||. The norm of rho0+delta is <=P+B.
+Apply this to the Taylor polynomial field and its remainder. For cube radius
+R=sqrt(3)/2, k in cycles per field and shifts s in field fractions, put
+
+ L=2*pi*(a||k||R+s||q||), H=2*pi*a^2||k||R, T=2*pi*a^3||k||R.
+ K3_i^2=sum_q |C_iq/noise|^2 (L^3+3LH+T)^2.
+
+Along exp(t a[u_rotation]_cross), the norms of the first three rotated
+frequency derivatives are bounded by a||k||, a^2||k|| and a^3||k||. The shift
+phase is linear. Differentiating the complex exponential three times gives
+L^3+3LH+T uniformly along every allowed segment. Integrating its squared column
+bound on the unit-volume cube bounds the realified operator Hilbert--Schmidt
+norm by K3_i. Taylor's integral remainder contributes 1/6, and Cauchy--Schwarz
+with each w_i completes the proof. This bound does not assume a piecewise
+constant density, a finite density bandwidth, or independently varying density
+errors across particles. It still assumes the cube support, fixed CTF, valid
+pose and density radii, and independent Gaussian whitening.
+
+To compute L12, the twenty Fourier moments yield polynomial Fourier fields of
+degree <=1 (first derivative) and <=2 (second derivative). A Gram product has
+monomials x^beta with each coordinate degree <=4 and frequencies k_j +/- k_l.
+Let n=2r, omega_a=4*pi*max_j|k_ja|. For beta=0,...,4, the one-dimensional
+Leibniz bound on the nth derivative is
+
+ D_beta(omega)=sum_{l=0}^{min(beta,n)} binom(n,l) beta!/(beta-l)!
+                 * (1/2)^(beta-l) * omega^(n-l).
+
+Set E_poly=sum_a C_r max_{0<=beta<=4} D_beta(omega_a), with C_r from Section 14.
+The other monomial factors have modulus <=1 on the cube. Positive-weight tensor
+quadrature telescoping and the positive Gauss Peano kernel therefore bound the
+complex monomial-exponential integration error by E_poly. Real-part Fourier
+expansions do not increase the absolute sum of coefficients. If M_j bounds that
+sum for field column j, every Gram-entry error is <=E_poly M_j M_l. Consequently
+its operator norm is <=E_poly sum_j M_j^2, by Cauchy--Schwarz on an arbitrary
+unit quadratic form.
+
+For arbitrary positive block scales d_i, divide each field and its M_j by
+sqrt(d_i). Add E_poly sum_j M_j^2/d_block(j) to the largest quadrature Gram
+eigenvalue; multiplying its square root by sqrt(sum_i d_i) gives a valid shared
+field bound. We compare separate first/second bounds and a joint relaxed block
+bound, taking the smallest, also including a padded Frobenius triangle bound.
+Scales depend on design and fixed weights, not inference noise. Ordinary
+float64 eigenvalue padding and FINUFFT tolerance are numerical precautions,
+not interval arithmetic. The analytic statement is in real arithmetic.
+
+Independent checks compare derivatives with SciPy rotations of Fourier fields,
+low-order quadrature Gram errors with dense higher-order integrals, and cubic
+remainders with direct nonlinear fields. Exact constant-cell projections supply
+independent reference generators. At selected nonzero allowed poses, analytic
+sinc integrals eliminate the full continuous density ball: feasible worst bias
+is |<rho0,A(u)*w-A0*w>| + B||A(u)*w-ell||. This is a lower bound on the global
+pose supremum, not a proof that the chosen pose is worst. It must remain below
+the uniform continuous upper bound. The initial full-size probe is complete
+only at 0.1 degrees; the broader development sweep is running.

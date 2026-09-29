@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+"""Optimize continuous fixed-pose certificates using analytic Fourier Grams."""
+import argparse,hashlib,json,time
+from pathlib import Path
+import numpy as np
+from scipy.stats import norm
+from fourier_splats.uq_data import particle_geometry,VoxelReference
+from fourier_splats.uq_continuous import (ContinuousObservationGram,continuous_certificate,continuous_residual_norm,
+                                        cell_forward,cell_adjoint,cell_target_coefficients)
+from fourier_splats.uncertainty import bias_aware_half_width
+from fourier_splats.uq_continuous_quadrature import QuadratureObservationGram
+from fourier_splats.uq_provenance import source_snapshot
+from audit_uq_grid_refinement import model
+ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'results/uncertainty/development';MAPS={'10028':'2660','10049':'6487','10076':'8434'}
+# Snapshot at process start: later edits to on-disk source cannot relabel a run.
+HASHES={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path(__file__),ROOT/'src/fourier_splats/uq_continuous.py',ROOT/'src/fourier_splats/uq_continuous_quadrature.py']}
+SNAPSHOT=source_snapshot(ROOT,Path(__file__),['scripts/audit_uq_grid_refinement.py'])
+
+
+def run(args,dataset):
+    begin=time.perf_counter();g=particle_geometry(ROOT,dataset,'inference_half0',radius=args.frequency_radius,count=args.particles,seed=args.seed);box=24
+    ck=np.load(BASE/'representation'/dataset/'real_particles-spacing-2.0.npz');op,pilot,mask,noise=model(g,ck,box)
+    pilot_full=op.expand(pilot);pilot_prediction=cell_forward(g['k'],g['ctf'],pilot_full,box,noise)
+    fine=64;ref=VoxelReference.from_mrc(ROOT/'data/uncertainty/references'/f'emd_{MAPS[dataset]}.map',box=fine).volume.ravel();ref/=np.linalg.norm(ref)
+    ref_prediction=cell_forward(g['k'],g['ctf'],ref,fine,noise);B=2.
+    if args.backend=='dense':
+        gram=ContinuousObservationGram(g['k'],g['ctf'],noise);storage=gram.real.nbytes+gram.imag.nbytes
+    else:
+        gram=QuadratureObservationGram(g['k'],g['ctf'],noise,order=args.quadrature_order,preconditioner_rank=args.preconditioner_rank)
+        storage=sum(x.nbytes for x in gram.nodes+gram.frequencies)+gram.weights.nbytes+sum(x.nbytes+v.nbytes for x,v in gram.preconditioner_factors)
+    setup=time.perf_counter()-begin
+    out=BASE/args.output;out.mkdir(parents=True,exist_ok=True)
+    result={'dataset':dataset,'stage':'development; continuous cube L2 density ball; fixed poses/CTFs and known white Gaussian noise',
+            'config':vars(args),'code_hashes':HASHES,'source_snapshot':SNAPSHOT,'stored_gram_or_quadrature_bytes':storage,'setup_seconds':setup,
+            'class':'radius 2 around a unit-L2 constant-cell pilot; independent unit-L2 64-cell reference generator',
+            'preconditioner':getattr(gram,'preconditioner_diagnostics',None),'targets':[]}
+    for width in map(float,args.widths.split(',')):
+        for name in args.targets.split(','):
+            start=time.perf_counter();centers=[[0,0,0]] if name=='center' else [[0,0,.08],[0,0,-.08]];signs=[1] if name=='center' else [1,-1]
+            callback=(lambda record:print(dataset,width,name,'iteration',record,flush=True)) if args.log_iterations else None
+            fit=continuous_certificate(gram,centers,signs,width,B,maxiter=args.maxiter,rtol=.005,callback=callback)
+            solve_seconds=time.perf_counter()-start
+            w=fit.pop('weights');audit=None
+            if not args.skip_exact_check:audit=continuous_residual_norm(g['k'],g['ctf'],w,noise,centers,signs,width)
+            # Separate blocked analytic integral rechecks the solver's Gram residual.
+            if audit is not None and abs(fit['bias']/B-audit['residual_norm'])>1e-5:raise AssertionError('Continuous norm implementations disagree')
+            sd=fit['noise_sd'];half=fit['half_width'];true=float(cell_target_coefficients(fine,centers,signs,width)@ref)
+            expected=float(cell_target_coefficients(box,centers,signs,width)@pilot_full+w@(ref_prediction-pilot_prediction));bias=expected-true
+            coverage=lambda q,b:float(norm.cdf((q-b)/sd)-norm.cdf((-q-b)/sd)) if sd>1e-15 else float(abs(b)<=q)
+            row={'target':name,'width_fraction_field':width,'fit':fit,'independent_integral_check':audit,
+                'width_fraction_of_no_data':float(half/(B*fit['target_norm'])),'solve_seconds':solve_seconds,'reference_true_target':true,
+                'reference_expected_center':expected,'reference_bias':bias,'reference_analytic_coverage':coverage(half,bias),
+                'reference_correct_sign_probability':float(norm.cdf((np.sign(true)*expected-half)/sd)) if sd>1e-15 else float(np.sign(true)*expected>half),
+                'continuous_boundary_coverage':coverage(half,fit['bias']),'cell_projection_diagnostics':[]}
+            for size in [24,64]:
+                h=cell_target_coefficients(size,centers,signs,width)-cell_adjoint(g['k'],g['ctf'],w,size,noise)
+                hnorm=np.linalg.norm(h);cell_half=bias_aware_half_width(sd,B*hnorm)
+                row['cell_projection_diagnostics'].append({'box':size,'half_width':cell_half,'width_fraction_of_continuous':cell_half/half,
+                    'coverage_at_continuous_bias_boundary':coverage(cell_half,fit['bias'])})
+            row['seconds']=time.perf_counter()-start;result['targets'].append(row)
+            np.savez(out/f'{dataset}-{name}-{width}-weights.npz',weights=w,indices=g['indices'],noise_std=noise)
+            (out/f'{dataset}.json').write_text(json.dumps(result,indent=2)+'\n')
+            print(dataset,width,name,'continuous width/no-data',row['width_fraction_of_no_data'],'converged',fit['converged'],
+                  'iterations',len(fit['history']),'seconds',row['seconds'],flush=True)
+    return result
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--datasets',default='10028,10049,10076');p.add_argument('--widths',default='.03,.07')
+    p.add_argument('--targets',default='center,contrast');p.add_argument('--maxiter',type=int,default=100);p.add_argument('--seed',type=int,default=609315)
+    p.add_argument('--backend',choices=['dense','quadrature'],default='dense');p.add_argument('--quadrature-order',type=int,default=40)
+    p.add_argument('--preconditioner-rank',type=int,default=256)
+    p.add_argument('--log-iterations',action='store_true')
+    p.add_argument('--particles',type=int,default=128);p.add_argument('--frequency-radius',type=float,default=5.);p.add_argument('--skip-exact-check',action='store_true')
+    p.add_argument('--output',default='continuous-optimized');args=p.parse_args()
+    for dataset in args.datasets.split(','):run(args,dataset)
