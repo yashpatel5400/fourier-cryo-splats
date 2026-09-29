@@ -2,6 +2,7 @@ import numpy as np
 from fourier_splats.uq_physics import (
     evaluate_pairs, image_design, pose_jacobian, perturbed_images,
     pose_remainder_bounds, pose_design_derivatives, realify,gaussian_pair_gram,density_energy_coordinates,
+    gaussian_average_functionals,density_functionals,
 )
 
 
@@ -84,3 +85,17 @@ def test_analytic_density_energy_against_independent_quadrature():
     transform,record=density_energy_coordinates(centers,sigma)
     assert record['excluded_modes']==1
     assert np.allclose(transform.T@gram@transform,np.eye(5),atol=1e-12)
+
+
+def test_gaussian_local_average_against_independent_quadrature():
+    centers=np.array([[.2,.4,-.5],[1.2,-.1,.7]])
+    sigma=np.array([.6,.8]);point=np.array([.04,-.08,.1]);width=.07
+    from numpy.polynomial.hermite import hermgauss
+    grid,weights=hermgauss(16)
+    z,y,x=np.meshgrid(grid,grid,grid,indexing='ij')
+    points=point+np.sqrt(2)*width*np.stack([x.ravel(),y.ravel(),z.ravel()],axis=-1)
+    w=np.einsum('i,j,k->ijk',weights,weights,weights).ravel()/np.pi**1.5
+    numerical=w@density_functionals(points,centers,sigma)
+    analytic=gaussian_average_functionals(point[None],centers,sigma,width)[0]
+    assert np.allclose(analytic,numerical,rtol=1e-10,atol=1e-10)
+    assert np.allclose(gaussian_average_functionals(point[None],centers,sigma,0),density_functionals(point[None],centers,sigma))

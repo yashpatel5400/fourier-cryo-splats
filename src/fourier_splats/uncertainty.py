@@ -13,6 +13,7 @@ from scipy.optimize import brentq
 from scipy.sparse import issparse
 from scipy.sparse.linalg import LinearOperator, cg
 from scipy.stats import norm
+from scipy.linalg import eigvalsh
 
 
 def bias_aware_half_width(sd, bias, alpha=0.05):
@@ -89,6 +90,100 @@ def compress_nuisance_group(design,relative_jitter=1e-12):
     gram=design@design.transpose(0,2,1)
     scale=np.maximum(np.max(np.diagonal(gram,axis1=1,axis2=2),axis=1),1e-300)
     return np.linalg.cholesky(gram+relative_jitter*scale[:,None,None]*np.eye(design.shape[1])[None])
+
+
+def optimize_certificate_pdhg(
+    a,j,ell,density_radius,nuisance_radius=0.0,remainder_radius=0.0,
+    alpha=0.05,maxiter=10000,rtol=1e-4,extra_nuisance_groups=(),check_every=25,
+):
+    """Matrix-vector primal-dual alternative to quadratic majorization.
+
+    This solves the same conservative sum-of-norms problem. No particle-block
+    inversion is required. Step sizes use a computed upper bound on the stacked
+    operator norm, not an unconverged power-method estimate. A feasible dual
+    iterate bounds the optimum from below; returned weights are always valid
+    conditional on the supplied model bounds, including on early stopping.
+
+    Implementation: Chambolle--Pock with theta=1 and nested group shrinkage for
+    z*||w||+sum gamma_i*||w_i||. It is a classical solver, not a novel algorithm.
+    """
+    a=np.asarray(a,dtype=float);j=np.asarray(j,dtype=float);ell=np.asarray(ell,dtype=float)
+    if j.ndim!=3 or a.shape!=(j.shape[0]*j.shape[1],len(ell)):
+        raise ValueError('Incompatible design, functional, and particle blocks')
+    n,m,_=j.shape;B=float(density_radius)
+    if not np.isfinite(B) or B<0 or not 0<alpha<1:
+        raise ValueError('Nonnegative density bound and valid alpha required')
+    if maxiter<1 or check_every<1 or rtol<=0:
+        raise ValueError('Positive iteration counts and tolerance required')
+    gamma=_broadcast_bounds(remainder_radius,n,'remainder_radius')
+    designs=[j];radii=[_broadcast_bounds(nuisance_radius,n,'nuisance_radius')]
+    for design,radius in extra_nuisance_groups:
+        design=np.asarray(design,dtype=float)
+        if design.ndim!=3 or design.shape[:2]!=(n,m):
+            raise ValueError('Invalid extra group shape')
+        designs.append(design);radii.append(_broadcast_bounds(radius,n,'extra nuisance radius'))
+    if not all(np.isfinite(x).all() for x in [a,ell,*designs]):
+        raise ValueError('Finite design and target required')
+    z=norm.ppf(1-alpha/2);base=B*np.linalg.norm(ell)
+    if base==0:
+        return Certificate(np.zeros(a.shape[0]),0.,0.,0.,0.,alpha,0.,0.,0,True,[],[0.]*len(designs))
+    # Dimensionless variables w=(base/z)*x, objective/base. Incorporate radii
+    # into K so all dual constraints are unit Euclidean balls.
+    aa=a*(B/z);target=ell/np.linalg.norm(ell)
+    dd=[d*(r/z)[:,None,None] for d,r in zip(designs,radii)]
+    gg=gamma/z
+    gram=aa.T@aa if a.shape[1]<=a.shape[0] else aa@aa.T
+    norm_a_squared=max(0.,float(eigvalsh(gram,subset_by_index=[len(gram)-1,len(gram)-1])[0]))
+    # The Frobenius bound on each stacked nuisance block is inexpensive and
+    # remains rigorous when the block has many columns.
+    operator_norms=np.array([np.sqrt(norm_a_squared),*[np.sqrt(np.max(np.sum(d*d,axis=(1,2)))) for d in dd]])*(1+1e-12)
+    # Separate dual step sizes avoid slowing small nuisance operators to the
+    # scale of the much larger density operator. tau*sum sigma_g*||K_g||^2<1.
+    dual_steps=.99/np.maximum(operator_norms,1e-15)
+    step=.99/max(operator_norms.sum(),1e-15)
+    v=np.zeros(len(ell));ts=[np.zeros((n,d.shape[2])) for d in dd]
+    x=np.zeros((n,m));bar=x.copy();best=x.copy();best_cost=1.;best_lower=0.;history=[]
+
+    def project(value):
+        norms=np.linalg.norm(value,axis=-1,keepdims=True)
+        return value/np.maximum(norms,1.)
+
+    def measure(candidate):
+        res=target-aa.T@candidate.ravel()
+        groups=[np.linalg.norm(np.einsum('nmp,nm->np',d,candidate),axis=1).sum() for d in dd]
+        return (np.linalg.norm(candidate)+np.linalg.norm(res)+sum(groups)
+                +gg@np.linalg.norm(candidate,axis=1))
+
+    for it in range(maxiter):
+        v=project(v+dual_steps[0]*(target-aa.T@bar.ravel()))
+        ts=[project(t+sigma*np.einsum('nmp,nm->np',d,bar)) for t,d,sigma in zip(ts,dd,dual_steps[1:])]
+        adjoint=(aa@v).reshape(n,m)-sum(np.einsum('nmp,np->nm',d,t) for d,t in zip(dd,ts))
+        nxt=x+step*adjoint
+        # prox of nested group norms: shrink disjoint particle blocks first,
+        # then shrink their containing global block.
+        block_norm=np.linalg.norm(nxt,axis=1)
+        nxt*=np.maximum(0.,1-step*gg/np.maximum(block_norm,1e-300))[:,None]
+        nxt*=max(0.,1-step/max(np.linalg.norm(nxt),1e-300))
+        bar=2*nxt-x;x=nxt
+        if it%check_every==0 or it==maxiter-1:
+            value=float(measure(x))
+            if value<best_cost:best_cost=value;best=x.copy()
+            # Complete the dual point with the closest vector in the product
+            # of remainder balls, then scale to satisfy the global noise ball.
+            length=np.linalg.norm(adjoint,axis=1)
+            leftover=adjoint*np.maximum(0.,1-gg/np.maximum(length,1e-300))[:,None]
+            scale=min(1.,1/max(np.linalg.norm(leftover),1e-300))
+            lower=max(0.,float(scale*target@v));best_lower=max(best_lower,lower)
+            history.append({'iteration':it+1,'objective':base*best_cost,
+                            'lower_bound':base*best_lower,'best_gap':base*max(0.,best_cost-best_lower)})
+            if best_cost-best_lower<=rtol*max(best_cost,1e-15):break
+    w=best.ravel()*(base/z);wb=w.reshape(n,m)
+    sd=float(np.linalg.norm(w));b=float(B*np.linalg.norm(ell-a.T@w))
+    groups=[float(np.sum(r*np.linalg.norm(np.einsum('nmp,nm->np',d,wb),axis=1)))
+            for d,r in zip(designs,radii)]
+    rb=float(gamma@np.linalg.norm(wb,axis=1));objective=z*sd+b+sum(groups)+rb
+    return Certificate(w,sd,b,sum(groups),rb,alpha,objective,min(base*best_lower,objective),
+                       it+1,best_cost-best_lower<=rtol*max(best_cost,1e-15),history,groups)
 
 
 def optimize_certificate(

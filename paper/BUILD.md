@@ -6,6 +6,9 @@ https://media.icml.cc/Conferences/ICML2026/Styles/icml2026.zip
 The manuscript uses the provided `preprint` option, so it does not imply an
 ICML submission or acceptance. Authorship/contact details remain unassigned.
 The original `initial-draft.tex` records the proposal before real-data fitting.
+`reconstruction-v0.1.0.tex` and its PDF preserve the earlier reconstruction
+feasibility manuscript. The current `main.tex` is the uncertainty development
+draft and explicitly lists unfinished validation.
 
 From `paper/`:
 
@@ -19,3 +22,6 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 The final deliverable is copied to `output/pdf/fourier-cryo-splats.pdf`.
 Numbers and figures are generated from saved experiment outputs. Rasterized
 pages are inspected before release; compilation alone is not visual QA.
+Refresh the current uncertainty table with `scripts/write_uq_results.py` and
+the stratified coverage figure with `scripts/summarize_uq_coverage.py` before
+building. They read completed development outputs; no result is invented in TeX.

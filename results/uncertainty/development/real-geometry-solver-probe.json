@@ -1,0 +1,398 @@
+{
+  "config": {
+    "datasets": "10028",
+    "particles": "128",
+    "angles": "0.5",
+    "spacing": 2.0,
+    "radius": 0.25,
+    "snr": 0.1,
+    "shift": 0.05,
+    "width": 0.03,
+    "solvers": "pdhg,irls",
+    "maxiter": 3000,
+    "irls_maxiter": 150,
+    "tolerance": 0.002,
+    "targets": 1,
+    "signals": 10,
+    "seed": 609301,
+    "output": "real-geometry-solver-probe.json"
+  },
+  "cases": [
+    {
+      "stage": "development; real geometry and experimental pilot; assumed finite density-energy class",
+      "dataset": "10028",
+      "particles": 128,
+      "angle_degrees": 0.5,
+      "shift_pixels": 0.05,
+      "snr_power": 0.1,
+      "simulated_noise_std": 0.0037188413351455637,
+      "density_energy_radius": 0.25,
+      "pilot_energy_norm": 1.0000000000000002,
+      "energy_coordinates": {
+        "retained_modes": 257,
+        "excluded_modes": 1,
+        "relative_eigenvalue_cutoff": 1e-12,
+        "largest_eigenvalue": 56.109677703598486,
+        "smallest_retained_eigenvalue": 0.5175560034831201
+      },
+      "remainder_transform_norm": 1.3900208822113993,
+      "frequency_radius_bins": 5,
+      "local_average_width_A": 14.472000360488892,
+      "setup_seconds": 0.3448903750104364,
+      "targets": [
+        {
+          "target": "center",
+          "pilot_target": -1.6178659109170033,
+          "no_data_half_width": 6.71328672079964,
+          "diagnostics": {
+            "pdhg": {
+              "half_width": 5.875206587201113,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "noise_sd": 0.11235601095799001,
+              "density_bias": 4.864029389848731,
+              "nuisance_group_biases": [
+                0.013267849169608076,
+                0.292116340280521
+              ],
+              "remainder_bias": 0.5209838157682036,
+              "relative_gap": 0.0018568647753481214,
+              "converged": true,
+              "iterations": 2526,
+              "seconds": 1.8148337500169873
+            },
+            "irls": {
+              "half_width": 5.874465172015729,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "noise_sd": 0.1120240452780375,
+              "density_bias": 4.865019663425742,
+              "nuisance_group_biases": [
+                0.013195603477226373,
+                0.2924945118420404
+              ],
+              "remainder_bias": 0.5194922360893648,
+              "relative_gap": 0.0015395037970187722,
+              "converged": true,
+              "iterations": 24,
+              "seconds": 0.3439761659828946
+            }
+          },
+          "coverage_rows": [
+            {
+              "truth": "random_boundary_0",
+              "method": "pdhg",
+              "bias": -0.20923646654085581,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_0",
+              "method": "irls",
+              "bias": -0.20784729312952605,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_0",
+              "method": "gaussian_posterior",
+              "bias": -0.11271032363955302,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.9999664655340192
+            },
+            {
+              "truth": "random_boundary_1",
+              "method": "pdhg",
+              "bias": -0.4795751306245837,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_1",
+              "method": "irls",
+              "bias": -0.4789879056875662,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_1",
+              "method": "gaussian_posterior",
+              "bias": -0.4768272607517996,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.8779535992709447
+            },
+            {
+              "truth": "random_boundary_2",
+              "method": "pdhg",
+              "bias": 0.10313409205446727,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_2",
+              "method": "irls",
+              "bias": 0.1048039937452315,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_2",
+              "method": "gaussian_posterior",
+              "bias": 0.09875067819095182,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.9999788516915817
+            },
+            {
+              "truth": "random_boundary_3",
+              "method": "pdhg",
+              "bias": 0.41263953762115707,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_3",
+              "method": "irls",
+              "bias": 0.4141589712803958,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_3",
+              "method": "gaussian_posterior",
+              "bias": 0.37265337575454405,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.9757007447628353
+            },
+            {
+              "truth": "random_boundary_4",
+              "method": "pdhg",
+              "bias": 0.2340566650004432,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_4",
+              "method": "irls",
+              "bias": 0.23385154669337266,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_4",
+              "method": "gaussian_posterior",
+              "bias": 0.22924924365348912,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.9989767008004609
+            },
+            {
+              "truth": "random_boundary_5",
+              "method": "pdhg",
+              "bias": -0.28213161759174865,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_5",
+              "method": "irls",
+              "bias": -0.28281501750072435,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_5",
+              "method": "gaussian_posterior",
+              "bias": -0.18885360141299,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.9996586389846811
+            },
+            {
+              "truth": "random_boundary_6",
+              "method": "pdhg",
+              "bias": 0.47355411593473623,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_6",
+              "method": "irls",
+              "bias": 0.4773478717886637,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_6",
+              "method": "gaussian_posterior",
+              "bias": 0.40749411160133997,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.955632088660706
+            },
+            {
+              "truth": "random_boundary_7",
+              "method": "pdhg",
+              "bias": -0.06945249768067172,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_7",
+              "method": "irls",
+              "bias": -0.069834141394335,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_7",
+              "method": "gaussian_posterior",
+              "bias": -0.03378870304491882,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.9999977166073546
+            },
+            {
+              "truth": "random_boundary_8",
+              "method": "pdhg",
+              "bias": 0.02845214933408824,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_8",
+              "method": "irls",
+              "bias": 0.029682808831127894,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_8",
+              "method": "gaussian_posterior",
+              "bias": -0.01085034726867784,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.999998722503531
+            },
+            {
+              "truth": "random_boundary_9",
+              "method": "pdhg",
+              "bias": 0.04495644596151213,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_9",
+              "method": "irls",
+              "bias": 0.044926394471865944,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "random_boundary_9",
+              "method": "gaussian_posterior",
+              "bias": 0.0950026481177644,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 0.9999813480396224
+            },
+            {
+              "truth": "adversarial_to_pdhg",
+              "method": "pdhg",
+              "bias": 4.87780308715784,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "adversarial_to_pdhg",
+              "method": "irls",
+              "bias": 4.8786518973313715,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "adversarial_to_pdhg",
+              "method": "gaussian_posterior",
+              "bias": 4.689124752275008,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 8.761958653054929e-218
+            },
+            {
+              "truth": "adversarial_to_irls",
+              "method": "pdhg",
+              "bias": 4.877712662200947,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "adversarial_to_irls",
+              "method": "irls",
+              "bias": 4.878708950199785,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "adversarial_to_irls",
+              "method": "gaussian_posterior",
+              "bias": 4.688109554677698,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 1.1226499780501795e-217
+            },
+            {
+              "truth": "adversarial_to_gaussian_posterior",
+              "method": "pdhg",
+              "bias": 4.8546313599012905,
+              "sd": 0.11235601095799,
+              "width_fraction_of_no_data": 0.875160980239095,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "adversarial_to_gaussian_posterior",
+              "method": "irls",
+              "bias": 4.854503782014716,
+              "sd": 0.1120240452780375,
+              "width_fraction_of_no_data": 0.8750505402688958,
+              "analytic_coverage": 1.0
+            },
+            {
+              "truth": "adversarial_to_gaussian_posterior",
+              "method": "gaussian_posterior",
+              "bias": 4.711865428765222,
+              "sd": 0.12904313929349856,
+              "width_fraction_of_no_data": 0.09341757871149867,
+              "analytic_coverage": 3.3444906784082926e-220
+            }
+          ]
+        }
+      ],
+      "seconds": 2.825459874991793
+    }
+  ]
+}

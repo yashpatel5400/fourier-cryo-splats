@@ -211,3 +211,83 @@ optimum/unidentified case, independent CVXPY/CLARABEL primal optimum and dual ga
 100,000 draws at a simultaneously adversarial bias/nuisance/remainder boundary,
 and agreement of sparse versus dense implementations. These are implementation
 checks and do not yet establish cryo-EM performance.
+
+## 6. Audit the density space, not just the fitting dictionary
+
+Let H be a declared finite voxel space (possibly restricted by a specified
+support mask), A:H->R^m its forward operator, and ell in H a fixed functional.
+Suppose ||rho-rho0||_H<=B. For arbitrary fixed image weights w the correct
+reconstruction-bias support function is
+
+    b_H(w)=B ||ell-A* w||_H.
+
+If S:R^p->H has orthonormal columns, a dictionary-restricted computation instead
+uses b_S(w)=B||S*(ell-A*w)||. It can be arbitrarily smaller: by Pythagoras,
+
+    b_H(w)^2 = b_S(w)^2 + B^2 ||(I-SS*)(ell-A*w)||_H^2.
+
+Thus increasing the forward interpolation accuracy within S cannot establish
+confidence over H. Evaluating the full adjoint residual does account for errors
+outside S, without separately estimating their direction from image residuals.
+It still requires the total radius B and the ambient grid/support assumptions.
+
+**Coverage.** Use the same center ell'rho0+w'(y-A rho0) and replace the restricted
+bias by b_H. The theorem in Section 1 applies directly; weights may have been
+computed using any Gaussian or neural surrogate. Centering must use the ambient
+operator too, or its deterministic approximation error must also be bounded.
+
+**Reduced-space lower bound.** The optimum of
+F_S(w)=z||w||+B||S*(ell-A*w)|| is at most the full optimum F_H. More usefully,
+a feasible restricted dual v has ||v||<=B and ||A S v||<=z; its lift S v is
+feasible for the full dual and has objective ell'S v. Therefore a full adjoint
+residual supplies a primal upper bound and a restricted dual supplies a lower
+bound on the *same ambient* optimization problem. Their gap is a legitimate
+stopping criterion. This is a specialization of reduced-space convex duality,
+not a claim of a new general duality theorem.
+
+**Enrichment.** Append the normalized component of ell-A*w orthogonal to S.
+The subspaces are nested, so their exact restricted optima are nondecreasing and
+bounded by the ambient optimum. Store the best ambient primal iterate rather
+than assuming every enrichment decreases its objective. If the outside residual
+is zero and the restricted primal-dual gap is zero, the current w solves the
+ambient problem. A finite gap certifies the corresponding tolerance. No rate
+for this greedy scheme is asserted. All choices depend on the design and
+functional, not inference noise, so enrichment preserves the conditional result.
+
+**Matrix-free comparator.** With fixed poses, the majorization subproblem is
+(A*A+lambda I)u=ell and w=A u. For any approximate u, set
+v=u min(B/||u||,z/||A u||). This is a feasible ambient dual point independently
+of CG convergence. The implemented full-grid solver is a comparator to reduced
+Gaussian enrichment, not evidence that the latter is invariably faster.
+
+FINUFFT forward/adjoint evaluations are checked against direct Fourier sums
+and adjoint identities at tight tolerances. These are floating-point numerical
+certificates, not interval-arithmetic bounds on roundoff. A rigorous operator
+error bound epsilon_A, if available, can be charged by adding B epsilon_A to
+the evaluated adjoint residual norm and separately bounding pilot-centering
+error. Tests do not by themselves prove a uniform NUFFT error bound.
+
+## 7. Near-indistinguishability gives an uncertainty floor
+
+Let two allowed densities/nuisances have Gaussian means mu0,mu1 and target
+values t0,t1, with identity noise covariance. Their total variation distance is
+TV=2 Phi(||mu1-mu0||/2)-1. If an interval has coverage at least 1-alpha at both
+parameters, then under the first law it contains both targets with probability
+at least max(0,1-2alpha-TV): transfer the second coverage event to the first law
+and apply the union bound. Consequently its expected length under the first law
+is at least |t1-t0| max(0,1-2alpha-TV). Exact null directions recover Section 5.
+This familiar two-point argument shows why confidence cannot be rescued merely
+by accurate image prediction or small half-map disagreement. Searching a finite
+set of pairs gives a lower bound, not the exact modulus over all densities.
+
+## Solver provenance
+
+The additional implementation uses classical Chambolle--Pock primal-dual hybrid
+gradient, with blockwise dual step sizes. For K_g of norm at most L_g, choosing
+tau=.99/sum L_g and sigma_g=.99/L_g gives
+||sqrt(Sigma) K sqrt(tau)||^2 <= tau sum sigma_g L_g^2=.99^2<1.
+Zero operators receive arbitrary finite positive steps. The noise and per-image
+remainder norms have nested groups, so their proximal map first shrinks each
+image block and then the entire vector. Independent conic solves validate both
+this implementation and the original majorization solver, including rescaling.
+See Chambolle and Pock (2011), doi:10.1007/s10851-010-0251-1.

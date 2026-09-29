@@ -174,3 +174,22 @@ def density_functionals(points, centers, sigma):
     phase=2*np.pi*(points@centers.T)
     envelope=2*(2*np.pi)**1.5*sigma**3*np.exp(-2*np.pi**2*np.sum(points*points,axis=-1)[:,None]*sigma**2)
     return np.concatenate([envelope*np.cos(phase),-envelope*np.sin(phase)],axis=-1)
+
+
+def gaussian_average_functionals(points,centers,sigma,width):
+    """Density averaged against normalized real-space Gaussian kernels.
+
+    Points and width use the reciprocal units of the Fourier centers. For
+    frequencies measured in field-of-view bins, multiply them by the physical
+    field of view to get Angstroms. The integral is analytic, including the
+    attenuation of each Fourier center; width=0 recovers point evaluation.
+    """
+    if width<0:raise ValueError('Nonnegative averaging width required')
+    points=np.asarray(points);centers=np.asarray(centers)
+    sigma=np.broadcast_to(np.asarray(sigma),(len(centers),))
+    denominator=1+4*np.pi**2*width**2*sigma**2
+    effective_sigma=sigma/np.sqrt(denominator)
+    effective_centers=centers/denominator[:,None]
+    attenuation=np.exp(-2*np.pi**2*width**2*np.sum(centers**2,axis=1)/denominator)
+    values=density_functionals(points,effective_centers,effective_sigma)
+    return values*np.tile(attenuation,2)

@@ -1,0 +1,3103 @@
+{
+  "config": {
+    "datasets": "10028,10049,10076",
+    "particles": 128,
+    "box": 24,
+    "frequency_radius": 5.0,
+    "support": 0.35,
+    "dictionary_radius": 6.0,
+    "spacing": 3.0,
+    "sigma": 1.2,
+    "widths": ".03,.07",
+    "snr": 0.1,
+    "radius": 2.0,
+    "rounds": 1,
+    "tolerance": 0.005,
+    "matrix_free": true,
+    "seed": 609311,
+    "output": "ambient-full-solve.json"
+  },
+  "cases": [
+    {
+      "stage": "development; fixed published poses/CTFs; explicit supported finite voxel model",
+      "dataset": "10028",
+      "config": {
+        "datasets": "10028,10049,10076",
+        "particles": 128,
+        "box": 24,
+        "frequency_radius": 5.0,
+        "support": 0.35,
+        "dictionary_radius": 6.0,
+        "spacing": 3.0,
+        "sigma": 1.2,
+        "widths": ".03,.07",
+        "snr": 0.1,
+        "radius": 2.0,
+        "rounds": 1,
+        "tolerance": 0.005,
+        "matrix_free": true,
+        "seed": 609311,
+        "output": "ambient-full-solve.json"
+      },
+      "particles_used": 128,
+      "active_voxels": 2517,
+      "initial_dictionary_rank": 33,
+      "pilot_sha256": "44dffa6a614a5b34f73046854a300b19806f46231047abfc9b6d2cd6c81f372f",
+      "noise_std": 0.44190904010328,
+      "reference_pilot_distance": 1.320635617979707,
+      "setup_seconds": 0.26911037499667145,
+      "targets": [
+        {
+          "target": "center",
+          "width_fraction_field": 0.03,
+          "width_A": 14.472000360488892,
+          "no_data_half_width": 0.49922663889786867,
+          "restricted_width_fraction": 0.008782300883393783,
+          "audited_width_fraction": 1.0538165314988275,
+          "enriched_width_fraction": 1.0,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.0782062920043245,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.5267981738995268,
+              "best_ambient_objective": 0.49922663889786867,
+              "dual_lower_bound": 0.004384361089617508,
+              "relative_gap": 0.9912176940331214,
+              "restricted_objective": 0.004384525903251992,
+              "outside_residual_norm": 0.26120690767998234,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 7,
+              "ambient_half_width": 0.526093285035197,
+              "restricted_half_width": 0.004384358551806425
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.522413815359964
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.949999999999997,
+              "bias": -0.522413815359964
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.20656235188791713
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.2270312501724738
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.522413815359964
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.949999999999997,
+              "bias": -0.522413815359964
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.20656235188791713
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.2270312501724738
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.21615638660173842
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.21615638660173842
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.49922663889786856
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.2384715409041373
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.3485795620133543
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.3485795620133543
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.34989354873610273
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9499999999999996,
+              "bias": -0.3402501882884364
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.059370767993910945,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.059370767993910945,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.05147378163768742,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.0329493567157137,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.6976991200984557,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.4988473175003219,
+                "best_objective": 0.4988473175003219,
+                "lower_bound": 0.005694164847247071,
+                "cg_info": 0,
+                "relative_gap": 0.9885853553833265
+              },
+              {
+                "iteration": 2,
+                "ridge": 109531.84526652684,
+                "objective": 0.47233701006888257,
+                "best_objective": 0.47233701006888257,
+                "lower_bound": 0.006310705072227203,
+                "cg_info": 0,
+                "relative_gap": 0.9866394016608885
+              },
+              {
+                "iteration": 3,
+                "ridge": 1388.6741395938864,
+                "objective": 0.3685612224781124,
+                "best_objective": 0.3685612224781124,
+                "lower_bound": 0.03496173673133076,
+                "cg_info": 0,
+                "relative_gap": 0.9051399479949169
+              },
+              {
+                "iteration": 4,
+                "ridge": 121.82066759232035,
+                "objective": 0.3516308278947243,
+                "best_objective": 0.3516308278947243,
+                "lower_bound": 0.14219451726170604,
+                "cg_info": 0,
+                "relative_gap": 0.5956141897084233
+              },
+              {
+                "iteration": 5,
+                "ridge": 47.80491136472799,
+                "objective": 0.34995754450249156,
+                "best_objective": 0.34995754450249156,
+                "lower_bound": 0.2727461306315146,
+                "cg_info": 0,
+                "relative_gap": 0.22063080246131755
+              },
+              {
+                "iteration": 6,
+                "ridge": 36.98379346691414,
+                "objective": 0.34986038705439754,
+                "best_objective": 0.34986038705439754,
+                "lower_bound": 0.32898777182643646,
+                "cg_info": 0,
+                "relative_gap": 0.05965984146903642
+              },
+              {
+                "iteration": 7,
+                "ridge": 34.71630878713855,
+                "objective": 0.3498544174541509,
+                "best_objective": 0.3498544174541509,
+                "lower_bound": 0.34444397959929324,
+                "cg_info": 0,
+                "relative_gap": 0.015464826467616986
+              },
+              {
+                "iteration": 8,
+                "ridge": 34.16433526897257,
+                "objective": 0.3498540304348957,
+                "best_objective": 0.3498540304348957,
+                "lower_bound": 0.3484596633886944,
+                "cg_info": 0,
+                "relative_gap": 0.003985568050961201
+              }
+            ],
+            "seconds": 3.3208410409861244
+          }
+        },
+        {
+          "target": "z_contrast",
+          "width_fraction_field": 0.03,
+          "width_A": 14.472000360488892,
+          "no_data_half_width": 0.7052132956002288,
+          "restricted_width_fraction": 0.007230661860160744,
+          "audited_width_fraction": 0.9027719578935631,
+          "enriched_width_fraction": 0.9027719578924381,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.07585329198627733,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.6374665974495485,
+              "best_ambient_objective": 0.6374665974495485,
+              "dual_lower_bound": 0.005099159407783963,
+              "relative_gap": 0.9920008994538926,
+              "restricted_objective": 0.0050992077299166,
+              "outside_residual_norm": 0.31618371928533545,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 7,
+              "ambient_half_width": 0.6366467876007973,
+              "restricted_half_width": 0.0050991588797747334
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.6323674385714657
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000094,
+              "bias": -0.6323674385714657
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9500000000000042,
+              "bias": -0.6323674385706726
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.3449923720558704
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.6323674385714657
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000094,
+              "bias": -0.6323674385714657
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9500000000000042,
+              "bias": -0.6323674385706726
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.3449923720558704
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.6323674385714659
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000005,
+              "bias": -0.6323674385714659
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999953,
+              "bias": -0.6323674385706728
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.34499237205630434
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.4797787355958892
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.4797787355958892
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.47977873559589074
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.949999999999999,
+              "bias": -0.4547136553951399
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.9163523929319715,
+              "bias": 0.0013973205499708072,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": 0.0013973205499708072,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.0013973205491752076,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.0033252215685166684,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.6755410559987047,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.7046533042472461,
+                "best_objective": 0.7046533042472461,
+                "lower_bound": 0.007869119361204283,
+                "cg_info": 0,
+                "relative_gap": 0.9888326368246999
+              },
+              {
+                "iteration": 2,
+                "ridge": 107155.62821203384,
+                "objective": 0.6649859357952237,
+                "best_objective": 0.6649859357952237,
+                "lower_bound": 0.008750434628887005,
+                "cg_info": 0,
+                "relative_gap": 0.98684117338749
+              },
+              {
+                "iteration": 3,
+                "ridge": 1333.909469386453,
+                "objective": 0.5070558081008595,
+                "best_objective": 0.5070558081008595,
+                "lower_bound": 0.04606500515009301,
+                "cg_info": 0,
+                "relative_gap": 0.909152001783342
+              },
+              {
+                "iteration": 4,
+                "ridge": 110.65816298461087,
+                "objective": 0.4891872679889961,
+                "best_objective": 0.4891872679889961,
+                "lower_bound": 0.2157389378802091,
+                "cg_info": 0,
+                "relative_gap": 0.5589849695657615
+              },
+              {
+                "iteration": 5,
+                "ridge": 47.55267618178805,
+                "objective": 0.48369571176969345,
+                "best_objective": 0.48369571176969345,
+                "lower_bound": 0.29993923880218465,
+                "cg_info": 0,
+                "relative_gap": 0.3799009759569721
+              },
+              {
+                "iteration": 6,
+                "ridge": 28.886771931287416,
+                "objective": 0.4814394990308985,
+                "best_objective": 0.4814394990308985,
+                "lower_bound": 0.36890926287816633,
+                "cg_info": 0,
+                "relative_gap": 0.2337370248582575
+              },
+              {
+                "iteration": 7,
+                "ridge": 21.83793581797979,
+                "objective": 0.48075873351695053,
+                "best_objective": 0.48075873351695053,
+                "lower_bound": 0.42065391998957347,
+                "cg_info": 0,
+                "relative_gap": 0.12502074187542117
+              },
+              {
+                "iteration": 8,
+                "ridge": 18.96952004828947,
+                "objective": 0.4805968939761016,
+                "best_objective": 0.4805968939761016,
+                "lower_bound": 0.45165825825389994,
+                "cg_info": 0,
+                "relative_gap": 0.060213946625382674
+              },
+              {
+                "iteration": 9,
+                "ridge": 17.765544055646572,
+                "objective": 0.48056321483445336,
+                "best_objective": 0.48056321483445336,
+                "lower_bound": 0.4674322726401216,
+                "cg_info": 0,
+                "relative_gap": 0.027324068486713364
+              },
+              {
+                "iteration": 10,
+                "ridge": 17.25309663591424,
+                "objective": 0.4805566437166584,
+                "best_objective": 0.4805566437166584,
+                "lower_bound": 0.4747696100688375,
+                "cg_info": 0,
+                "relative_gap": 0.012042354888829723
+              },
+              {
+                "iteration": 11,
+                "ridge": 17.03361465238994,
+                "objective": 0.4805553985498139,
+                "best_objective": 0.4805553985498139,
+                "lower_bound": 0.47803868359748003,
+                "cg_info": 0,
+                "relative_gap": 0.005237096409547408
+              },
+              {
+                "iteration": 12,
+                "ridge": 16.939350459384993,
+                "objective": 0.48055516561695094,
+                "best_objective": 0.48055516561695094,
+                "lower_bound": 0.47946709353483635,
+                "cg_info": 0,
+                "relative_gap": 0.00226419807748334
+              }
+            ],
+            "seconds": 7.4466850830067415
+          }
+        },
+        {
+          "target": "center",
+          "width_fraction_field": 0.07,
+          "width_A": 33.76800084114075,
+          "no_data_half_width": 0.13761275042398124,
+          "restricted_width_fraction": 0.0071794504268369395,
+          "audited_width_fraction": 0.41728883832782937,
+          "enriched_width_fraction": 0.4172888383240486,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.07337683299556375,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.05758310642283569,
+              "best_ambient_objective": 0.05758310642283569,
+              "dual_lower_bound": 0.0009879856256282786,
+              "relative_gap": 0.9828424396146076,
+              "restricted_objective": 0.0009882184567561155,
+              "outside_residual_norm": 0.02829756130480848,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 6,
+              "ambient_half_width": 0.05742426476300036,
+              "restricted_half_width": 0.0009879839197696623
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.05659512261062365
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000036,
+              "bias": -0.05659512261062365
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9500000000000013,
+              "bias": -0.05659512261010337
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999999999998108,
+              "bias": -0.0006500262171392802
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.05659512261062365
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000036,
+              "bias": -0.05659512261062365
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9500000000000013,
+              "bias": -0.05659512261010337
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999999999998108,
+              "bias": -0.0006500262171392802
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.056595122610623674
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.949999999999998,
+              "bias": -0.056595122610623674
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.949999999999997,
+              "bias": -0.05659512261010339
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999999999998108,
+              "bias": -0.0006500262171452442
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.006658938227235797
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.006658938227235797
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.0066589382272356275
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9500000000000007,
+              "bias": -0.00552465155911039
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 4.180370999840033e-05,
+              "bias": -0.002970952804654557,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.002970952804654557,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.002970952804391653,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999999999999865,
+              "bias": -0.000347541762706724,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.050517190044964085,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735364,
+                "objective": 0.1373587189485898,
+                "best_objective": 0.1373587189485898,
+                "lower_bound": 0.0010082420883873724,
+                "cg_info": 0,
+                "relative_gap": 0.99265978820926
+              },
+              {
+                "iteration": 2,
+                "ridge": 70360.79191535115,
+                "objective": 0.11063280115869085,
+                "best_objective": 0.11063280115869085,
+                "lower_bound": 0.0010282508651727755,
+                "cg_info": 0,
+                "relative_gap": 0.9907057323469749
+              },
+              {
+                "iteration": 3,
+                "ridge": 526.8993162759032,
+                "objective": 0.011629712595593825,
+                "best_objective": 0.011629712595593825,
+                "lower_bound": 0.0012371260860619614,
+                "cg_info": 0,
+                "relative_gap": 0.893623675057054
+              },
+              {
+                "iteration": 4,
+                "ridge": 9.77097561179248,
+                "objective": 0.007359534124590863,
+                "best_objective": 0.007359534124590863,
+                "lower_bound": 0.004043872411872471,
+                "cg_info": 0,
+                "relative_gap": 0.4505260328421562
+              },
+              {
+                "iteration": 5,
+                "ridge": 4.410328385549261,
+                "objective": 0.0072427425455399395,
+                "best_objective": 0.0072427425455399395,
+                "lower_bound": 0.006200832997904666,
+                "cg_info": 0,
+                "relative_gap": 0.14385566532071178
+              },
+              {
+                "iteration": 6,
+                "ridge": 3.6069527743299794,
+                "objective": 0.007228623734854228,
+                "best_objective": 0.007228623734854228,
+                "lower_bound": 0.006795803325637553,
+                "cg_info": 0,
+                "relative_gap": 0.05987590793109708
+              },
+              {
+                "iteration": 7,
+                "ridge": 3.3286732257364924,
+                "objective": 0.007225949889870777,
+                "best_objective": 0.007225949889870777,
+                "lower_bound": 0.007029387076693667,
+                "cg_info": 0,
+                "relative_gap": 0.02720234933439664
+              },
+              {
+                "iteration": 8,
+                "ridge": 3.211044321952002,
+                "objective": 0.007225375136793755,
+                "best_objective": 0.007225375136793755,
+                "lower_bound": 0.007132795322745654,
+                "cg_info": 0,
+                "relative_gap": 0.012813149808188831
+              },
+              {
+                "iteration": 9,
+                "ridge": 3.1573863075913513,
+                "objective": 0.007225245160548559,
+                "best_objective": 0.007225245160548559,
+                "lower_bound": 0.00718092079373204,
+                "cg_info": 0,
+                "relative_gap": 0.006134652296442476
+              },
+              {
+                "iteration": 10,
+                "ridge": 3.132077730823736,
+                "objective": 0.007225215093450657,
+                "best_objective": 0.007225215093450657,
+                "lower_bound": 0.007203830506823804,
+                "cg_info": 0,
+                "relative_gap": 0.0029597162645354815
+              }
+            ],
+            "seconds": 11.056852750014514
+          }
+        },
+        {
+          "target": "z_contrast",
+          "width_fraction_field": 0.07,
+          "width_A": 33.76800084114075,
+          "no_data_half_width": 0.1661791873391555,
+          "restricted_width_fraction": 0.006599683038808249,
+          "audited_width_fraction": 0.6017287979324933,
+          "enriched_width_fraction": 0.6017287979342046,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.07426112500252202,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.1001711277642887,
+              "best_ambient_objective": 0.1001711277642887,
+              "dual_lower_bound": 0.0010967329294078309,
+              "relative_gap": 0.9890514067887053,
+              "restricted_objective": 0.0010971021887240685,
+              "outside_residual_norm": 0.04953719902123414,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 6,
+              "ambient_half_width": 0.09999480263927303,
+              "restricted_half_width": 0.0010967299640851594
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.09907439804288404
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000007,
+              "bias": -0.09907439804288404
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999988,
+              "bias": -0.09907439804316844
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999999997059998,
+              "bias": -0.0005243700713649518
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.09907439804288404
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000007,
+              "bias": -0.09907439804288404
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999988,
+              "bias": -0.09907439804316844
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999999997059998,
+              "bias": -0.0005243700713649518
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.09907439804288404
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000007,
+              "bias": -0.09907439804288404
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999988,
+              "bias": -0.09907439804316844
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999999997059998,
+              "bias": -0.0005243700713634253
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.008276710747461424
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.008276710747461424
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.008276710747461417
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9499999999999997,
+              "bias": -0.006276847259416483
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.7995804089978523,
+              "bias": 0.0006245283397876568,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": 0.0006245283397876568,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.0006245283398187466,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999999999569834,
+              "bias": -8.841895662239441e-05,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.05028731516668732,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.16587177409149714,
+                "best_objective": 0.16587177409149714,
+                "lower_bound": 0.0012162735147501144,
+                "cg_info": 0,
+                "relative_gap": 0.9926673870740708
+              },
+              {
+                "iteration": 2,
+                "ridge": 70287.68464754509,
+                "objective": 0.13374609670310014,
+                "best_objective": 0.13374609670310014,
+                "lower_bound": 0.0012469924367043022,
+                "cg_info": 0,
+                "relative_gap": 0.9906764199670628
+              },
+              {
+                "iteration": 3,
+                "ridge": 528.8947386935589,
+                "objective": 0.015481682081148935,
+                "best_objective": 0.015481682081148935,
+                "lower_bound": 0.0015626314088635364,
+                "cg_info": 0,
+                "relative_gap": 0.8990657862192989
+              },
+              {
+                "iteration": 4,
+                "ridge": 10.698433347386008,
+                "objective": 0.00919529806272732,
+                "best_objective": 0.00919529806272732,
+                "lower_bound": 0.004313967418730548,
+                "cg_info": 0,
+                "relative_gap": 0.530850725087749
+              },
+              {
+                "iteration": 5,
+                "ridge": 3.4281810904240224,
+                "objective": 0.008770894113497732,
+                "best_objective": 0.008770894113497732,
+                "lower_bound": 0.0071952304524940105,
+                "cg_info": 0,
+                "relative_gap": 0.17964686845083397
+              },
+              {
+                "iteration": 6,
+                "ridge": 2.5833734366237526,
+                "objective": 0.008755620215714329,
+                "best_objective": 0.008755620215714329,
+                "lower_bound": 0.00844838308359727,
+                "cg_info": 0,
+                "relative_gap": 0.03509027625086326
+              },
+              {
+                "iteration": 7,
+                "ridge": 2.4572936190522032,
+                "objective": 0.008755164550516444,
+                "best_objective": 0.008755164550516444,
+                "lower_bound": 0.00870079381446235,
+                "cg_info": 0,
+                "relative_gap": 0.006210132972416491
+              },
+              {
+                "iteration": 8,
+                "ridge": 2.436017417639161,
+                "objective": 0.008755150815874043,
+                "best_objective": 0.008755150815874043,
+                "lower_bound": 0.008745660397073926,
+                "cg_info": 0,
+                "relative_gap": 0.0010839811900110088
+              }
+            ],
+            "seconds": 9.14156487499713
+          }
+        }
+      ],
+      "seconds": 31.788445208978374
+    },
+    {
+      "stage": "development; fixed published poses/CTFs; explicit supported finite voxel model",
+      "dataset": "10049",
+      "config": {
+        "datasets": "10028,10049,10076",
+        "particles": 128,
+        "box": 24,
+        "frequency_radius": 5.0,
+        "support": 0.35,
+        "dictionary_radius": 6.0,
+        "spacing": 3.0,
+        "sigma": 1.2,
+        "widths": ".03,.07",
+        "snr": 0.1,
+        "radius": 2.0,
+        "rounds": 1,
+        "tolerance": 0.005,
+        "matrix_free": true,
+        "seed": 609311,
+        "output": "ambient-full-solve.json"
+      },
+      "particles_used": 128,
+      "active_voxels": 2517,
+      "initial_dictionary_rank": 33,
+      "pilot_sha256": "80534f71c66d679af9a549ab9553402fd4c75b6800f4bf856471dead443a0fc7",
+      "noise_std": 2.0837252661428978,
+      "reference_pilot_distance": 1.277948845440777,
+      "setup_seconds": 0.14009008300490677,
+      "targets": [
+        {
+          "target": "center",
+          "width_fraction_field": 0.03,
+          "width_A": 7.084800109863281,
+          "no_data_half_width": 0.49922663889786867,
+          "restricted_width_fraction": 0.024159496985238733,
+          "audited_width_fraction": 1.057762496015878,
+          "enriched_width_fraction": 1.0,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.08280008399742655,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.5300023157197165,
+              "best_ambient_objective": 0.49922663889786867,
+              "dual_lower_bound": 0.01206110177827292,
+              "relative_gap": 0.9758404282974564,
+              "restricted_objective": 0.012061688075023958,
+              "outside_residual_norm": 0.258970625651938,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 9,
+              "ambient_half_width": 0.528063215638881,
+              "restricted_half_width": 0.012061064477405596
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.5179412513035992
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999941,
+              "bias": -0.5179412513035992
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.20634452877634857
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.23889813614299105
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.5179412513035992
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999941,
+              "bias": -0.5179412513035992
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.20634452877634857
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.23889813614299105
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.21407980886199784
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.21407980886199784
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.49922663889786856
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.25110093020905155
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.35832604202710455
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.35832604202710455
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.363020526511097
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9500000000000011,
+              "bias": -0.34531456008056116
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.8143919635326111,
+              "bias": 0.006529381895604584,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": 0.006529381895604584,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.03754566715231455,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.025862307811784092,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.7213720483994596,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.4991503032758145,
+                "best_objective": 0.4991503032758145,
+                "lower_bound": 0.012604943133087972,
+                "cg_info": 0,
+                "relative_gap": 0.9747471992897441
+              },
+              {
+                "iteration": 2,
+                "ridge": 242404.63026540386,
+                "objective": 0.49628931988246716,
+                "best_objective": 0.49628931988246716,
+                "lower_bound": 0.012800010728962122,
+                "cg_info": 0,
+                "relative_gap": 0.9742085710569119
+              },
+              {
+                "iteration": 3,
+                "ridge": 6215.472078028302,
+                "objective": 0.44284944439307505,
+                "best_objective": 0.44284944439307505,
+                "lower_bound": 0.018665687404439288,
+                "cg_info": 0,
+                "relative_gap": 0.9578509408992922
+              },
+              {
+                "iteration": 4,
+                "ridge": 237.94780684399277,
+                "objective": 0.37540252134758106,
+                "best_objective": 0.37540252134758106,
+                "lower_bound": 0.08073456089669347,
+                "cg_info": 0,
+                "relative_gap": 0.7849386823325509
+              },
+              {
+                "iteration": 5,
+                "ridge": 47.388217459339664,
+                "objective": 0.364650286557366,
+                "best_objective": 0.364650286557366,
+                "lower_bound": 0.2073211491880753,
+                "cg_info": 0,
+                "relative_gap": 0.4314521149965969
+              },
+              {
+                "iteration": 6,
+                "ridge": 26.192823742993248,
+                "objective": 0.3631808345462281,
+                "best_objective": 0.3631808345462281,
+                "lower_bound": 0.29533681461335953,
+                "cg_info": 0,
+                "relative_gap": 0.1868050664557657
+              },
+              {
+                "iteration": 7,
+                "ridge": 21.07692545202726,
+                "objective": 0.3629918663938168,
+                "best_objective": 0.3629918663938168,
+                "lower_bound": 0.3375150781447568,
+                "cg_info": 0,
+                "relative_gap": 0.07018556228865958
+              },
+              {
+                "iteration": 8,
+                "ridge": 19.524867838558556,
+                "objective": 0.36296903627287075,
+                "best_objective": 0.36296903627287075,
+                "lower_bound": 0.35397266118109016,
+                "cg_info": 0,
+                "relative_gap": 0.024785516649462467
+              },
+              {
+                "iteration": 9,
+                "ridge": 19.016494430122794,
+                "objective": 0.3629663469474488,
+                "best_objective": 0.3629663469474488,
+                "lower_bound": 0.35986174023139544,
+                "cg_info": 0,
+                "relative_gap": 0.00855342855381254
+              },
+              {
+                "iteration": 10,
+                "ridge": 18.845549281053692,
+                "objective": 0.3629660329887474,
+                "best_objective": 0.3629660329887474,
+                "lower_bound": 0.3619032741991874,
+                "cg_info": 0,
+                "relative_gap": 0.002927984144436383
+              }
+            ],
+            "seconds": 3.355505790997995
+          }
+        },
+        {
+          "target": "z_contrast",
+          "width_fraction_field": 0.03,
+          "width_A": 7.084800109863281,
+          "no_data_half_width": 0.7052132956002288,
+          "restricted_width_fraction": 0.015247250239536643,
+          "audited_width_fraction": 0.9738618555689998,
+          "enriched_width_fraction": 0.9738618555701711,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.07881079200888053,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.6885090563898726,
+              "best_ambient_objective": 0.6885090563898726,
+              "dual_lower_bound": 0.010752567578011438,
+              "relative_gap": 0.9843828233220469,
+              "restricted_objective": 0.010752734620100714,
+              "outside_residual_norm": 0.33887824640240605,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 8,
+              "ambient_half_width": 0.6867803286259945,
+              "restricted_half_width": 0.010752563590264367
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.6777564928040072
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999998,
+              "bias": -0.6777564928040072
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9500000000000017,
+              "bias": -0.6777564928048336
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.35553788377741813
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.6777564928040072
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999998,
+              "bias": -0.6777564928040072
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9500000000000017,
+              "bias": -0.6777564928048336
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.35553788377741813
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.6777564928040072
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999998,
+              "bias": -0.6777564928040072
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999975,
+              "bias": -0.6777564928048339
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.3555378837769855
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.5001640768050801
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.5001640768050801
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.5001640768050813
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9500000000000008,
+              "bias": -0.481778121106146
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0017681319429233865,
+              "bias": 0.02675450549969626,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": 0.02675450549969626,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.026754505501550466,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.008120023357041026,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.7098213440384716,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.7050784032326782,
+                "best_objective": 0.7050784032326782,
+                "lower_bound": 0.015941424424459734,
+                "cg_info": 0,
+                "relative_gap": 0.9773905648628993
+              },
+              {
+                "iteration": 2,
+                "ridge": 217036.04487712914,
+                "objective": 0.6994539147069363,
+                "best_objective": 0.6994539147069363,
+                "lower_bound": 0.016233731557653404,
+                "cg_info": 0,
+                "relative_gap": 0.9767908489518496
+              },
+              {
+                "iteration": 3,
+                "ridge": 4996.473691058622,
+                "objective": 0.6029647515137412,
+                "best_objective": 0.6029647515137412,
+                "lower_bound": 0.026023945066010946,
+                "cg_info": 0,
+                "relative_gap": 0.9568400225706762
+              },
+              {
+                "iteration": 4,
+                "ridge": 191.69663750436698,
+                "objective": 0.5144225233879269,
+                "best_objective": 0.5144225233879269,
+                "lower_bound": 0.12725554597979488,
+                "cg_info": 0,
+                "relative_gap": 0.7526244668648941
+              },
+              {
+                "iteration": 5,
+                "ridge": 44.29285167286999,
+                "objective": 0.5054882704523934,
+                "best_objective": 0.5054882704523934,
+                "lower_bound": 0.3288004395657138,
+                "cg_info": 0,
+                "relative_gap": 0.34953893337337083
+              },
+              {
+                "iteration": 6,
+                "ridge": 28.28511245590134,
+                "objective": 0.5044262258044501,
+                "best_objective": 0.5044262258044501,
+                "lower_bound": 0.42694398986804794,
+                "cg_info": 0,
+                "relative_gap": 0.15360469375444313
+              },
+              {
+                "iteration": 7,
+                "ridge": 23.764810792346672,
+                "objective": 0.5042296536226628,
+                "best_objective": 0.5042296536226628,
+                "lower_bound": 0.46859725303327454,
+                "cg_info": 0,
+                "relative_gap": 0.0706670072523215
+              },
+              {
+                "iteration": 8,
+                "ridge": 22.012152982498183,
+                "objective": 0.5041881942870625,
+                "best_objective": 0.5041881942870625,
+                "lower_bound": 0.487448900964294,
+                "cg_info": 0,
+                "relative_gap": 0.03320048647001422
+              },
+              {
+                "iteration": 9,
+                "ridge": 21.248308016892818,
+                "objective": 0.5041790434842404,
+                "best_objective": 0.5041790434842404,
+                "lower_bound": 0.496242179525392,
+                "cg_info": 0,
+                "relative_gap": 0.015742153628597697
+              },
+              {
+                "iteration": 10,
+                "ridge": 20.898442581959944,
+                "objective": 0.5041769857435177,
+                "best_objective": 0.5041769857435177,
+                "lower_bound": 0.5003979630661326,
+                "cg_info": 0,
+                "relative_gap": 0.007495428756653924
+              },
+              {
+                "iteration": 11,
+                "ridge": 20.73454454943814,
+                "objective": 0.5041765191731238,
+                "best_objective": 0.5041765191731238,
+                "lower_bound": 0.5023736872924226,
+                "cg_info": 0,
+                "relative_gap": 0.0035757950085773993
+              }
+            ],
+            "seconds": 3.6939385409932584
+          }
+        },
+        {
+          "target": "center",
+          "width_fraction_field": 0.07,
+          "width_A": 16.531200256347656,
+          "no_data_half_width": 0.13761275042398124,
+          "restricted_width_fraction": 0.025602592859170176,
+          "audited_width_fraction": 0.45693258291230787,
+          "enriched_width_fraction": 0.4569325829087739,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.07676204098970629,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.06344619378389214,
+              "best_ambient_objective": 0.06344619378389214,
+              "dual_lower_bound": 0.0035232543824751344,
+              "relative_gap": 0.9444686249505226,
+              "restricted_objective": 0.0035235910778843673,
+              "outside_residual_norm": 0.029961475313767624,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 8,
+              "ambient_half_width": 0.06287974949241022,
+              "restricted_half_width": 0.0035232432213384702
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.059922950629033925
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999977,
+              "bias": -0.059922950629033925
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999977,
+              "bias": -0.05992295062854533
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999290325493486,
+              "bias": -0.0007877438881299008
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.059922950629033925
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999977,
+              "bias": -0.059922950629033925
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999977,
+              "bias": -0.05992295062854533
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999290325493486,
+              "bias": -0.0007877438881299008
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.0599229506290339
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999994,
+              "bias": -0.0599229506290339
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.949999999999999,
+              "bias": -0.05992295062854531
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999290325493478,
+              "bias": -0.0007877438881360999
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.007006969508517313,
+              "bias": -0.007939792166991191
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.007939792166991191
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.007939792166988938
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9500000000000317,
+              "bias": -0.005945235986525797
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.8712197637340546,
+              "bias": -0.0014642144649086308,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.0014642144649086308,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.0014642144651613545,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999540962309111,
+              "bias": 0.0004747854420996977,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.07156989545015369,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735364,
+                "objective": 0.13757890058531347,
+                "best_objective": 0.13757890058531347,
+                "lower_bound": 0.0027466041916234863,
+                "cg_info": 0,
+                "relative_gap": 0.9800361524918547
+              },
+              {
+                "iteration": 2,
+                "ridge": 191640.40261771367,
+                "objective": 0.13595724270267398,
+                "best_objective": 0.13595724270267398,
+                "lower_bound": 0.0027688236765612793,
+                "cg_info": 0,
+                "relative_gap": 0.97963459966148
+              },
+              {
+                "iteration": 3,
+                "ridge": 3856.0767358600924,
+                "objective": 0.09573909905925337,
+                "best_objective": 0.09573909905925337,
+                "lower_bound": 0.003301849348927201,
+                "cg_info": 0,
+                "relative_gap": 0.9655120073055662
+              },
+              {
+                "iteration": 4,
+                "ridge": 95.5794336493396,
+                "objective": 0.02043945713165919,
+                "best_objective": 0.02043945713165919,
+                "lower_bound": 0.004329133371371402,
+                "cg_info": 0,
+                "relative_gap": 0.7881972430341168
+              },
+              {
+                "iteration": 5,
+                "ridge": 4.635168229742162,
+                "objective": 0.010839262170972246,
+                "best_objective": 0.010839262170972246,
+                "lower_bound": 0.0063579188942132,
+                "cg_info": 0,
+                "relative_gap": 0.41343619206482246
+              },
+              {
+                "iteration": 6,
+                "ridge": 1.446627862151671,
+                "objective": 0.010601174811539056,
+                "best_objective": 0.010601174811539056,
+                "lower_bound": 0.009813957078976775,
+                "cg_info": 0,
+                "relative_gap": 0.07425759376266665
+              },
+              {
+                "iteration": 7,
+                "ridge": 1.2571413048520972,
+                "objective": 0.010596874646334593,
+                "best_objective": 0.010596874646334593,
+                "lower_bound": 0.010475059932754851,
+                "cg_info": 0,
+                "relative_gap": 0.01149534345222031
+              },
+              {
+                "iteration": 8,
+                "ridge": 1.2314197176172097,
+                "objective": 0.01059677449521067,
+                "best_objective": 0.01059677449521067,
+                "lower_bound": 0.01057767517467427,
+                "cg_info": 0,
+                "relative_gap": 0.001802371140863028
+              }
+            ],
+            "seconds": 6.534679208998568
+          }
+        },
+        {
+          "target": "z_contrast",
+          "width_fraction_field": 0.07,
+          "width_A": 16.531200256347656,
+          "no_data_half_width": 0.1661791873391555,
+          "restricted_width_fraction": 0.014238476367779484,
+          "audited_width_fraction": 0.8149075669635532,
+          "enriched_width_fraction": 0.8149075669661171,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.07597937498940155,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.1358010896207387,
+              "best_ambient_objective": 0.1358010896207387,
+              "dual_lower_bound": 0.0023661543191075725,
+              "relative_gap": 0.9825763230198248,
+              "restricted_objective": 0.0023669086296103353,
+              "outside_residual_norm": 0.06671747583445464,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 7,
+              "ambient_half_width": 0.13542067723495776,
+              "restricted_half_width": 0.002366138431745007
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.1334349516707085
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999983,
+              "bias": -0.1334349516707085
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999972,
+              "bias": -0.13343495167113492
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999243726486221,
+              "bias": -0.0006888759861087695
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.1334349516707085
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999983,
+              "bias": -0.1334349516707085
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999972,
+              "bias": -0.13343495167113492
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999243726486221,
+              "bias": -0.0006888759861087695
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.13343495167070854
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999958,
+              "bias": -0.13343495167070854
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999948,
+              "bias": -0.13343495167113495
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999243726486223,
+              "bias": -0.0006888759861066046
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.012475538736970574
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.012475538736970574
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.012475538736970992
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9500000000000071,
+              "bias": -0.007368029217137891
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 4.899125414733422e-16,
+              "bias": 0.01205946615947617,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": 0.01205946615947617,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.012059466160232013,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999385543570856,
+              "bias": 0.0004459211179601366,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.07469122454101082,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.16612072560391206,
+                "best_objective": 0.16612072560391206,
+                "lower_bound": 0.002777850814954611,
+                "cg_info": 0,
+                "relative_gap": 0.9832781201451171
+              },
+              {
+                "iteration": 2,
+                "ridge": 160512.1010376348,
+                "objective": 0.16280055057381349,
+                "best_objective": 0.16280055057381349,
+                "lower_bound": 0.002803750531708107,
+                "cg_info": 0,
+                "relative_gap": 0.9827780033800506
+              },
+              {
+                "iteration": 3,
+                "ridge": 2708.4034426773046,
+                "objective": 0.09158732526756463,
+                "best_objective": 0.09158732526756463,
+                "lower_bound": 0.003438804561058699,
+                "cg_info": 0,
+                "relative_gap": 0.9624532701330394
+              },
+              {
+                "iteration": 4,
+                "ridge": 59.896045987866245,
+                "objective": 0.01938722904126681,
+                "best_objective": 0.01938722904126681,
+                "lower_bound": 0.004798864067438828,
+                "cg_info": 0,
+                "relative_gap": 0.7524729265216717
+              },
+              {
+                "iteration": 5,
+                "ridge": 3.997102325132348,
+                "objective": 0.013949063930912477,
+                "best_objective": 0.013949063930912477,
+                "lower_bound": 0.008940625972226527,
+                "cg_info": 0,
+                "relative_gap": 0.3590519036612031
+              },
+              {
+                "iteration": 6,
+                "ridge": 1.7934068103548342,
+                "objective": 0.013445956543201944,
+                "best_objective": 0.013445956543201944,
+                "lower_bound": 0.011530133934183768,
+                "cg_info": 0,
+                "relative_gap": 0.14248317721856568
+              },
+              {
+                "iteration": 7,
+                "ridge": 1.3570400807193141,
+                "objective": 0.013386087572105942,
+                "best_objective": 0.013386087572105942,
+                "lower_bound": 0.012697803374713464,
+                "cg_info": 0,
+                "relative_gap": 0.0514178764844428
+              },
+              {
+                "iteration": 8,
+                "ridge": 1.2329125620411203,
+                "objective": 0.013379273110173923,
+                "best_objective": 0.013379273110173923,
+                "lower_bound": 0.013145167649240109,
+                "cg_info": 0,
+                "relative_gap": 0.017497621806957086
+              },
+              {
+                "iteration": 9,
+                "ridge": 1.1939875970127227,
+                "objective": 0.01337852372840923,
+                "best_objective": 0.01337852372840923,
+                "lower_bound": 0.013300727067574765,
+                "cg_info": 0,
+                "relative_gap": 0.00581504076337393
+              },
+              {
+                "iteration": 10,
+                "ridge": 1.1814004503313387,
+                "objective": 0.013378442432650232,
+                "best_objective": 0.013378442432650232,
+                "lower_bound": 0.013352802496730558,
+                "cg_info": 0,
+                "relative_gap": 0.0019165112866277865
+              }
+            ],
+            "seconds": 10.22705145800137
+          }
+        }
+      ],
+      "seconds": 24.530601707985625
+    },
+    {
+      "stage": "development; fixed published poses/CTFs; explicit supported finite voxel model",
+      "dataset": "10076",
+      "config": {
+        "datasets": "10028,10049,10076",
+        "particles": 128,
+        "box": 24,
+        "frequency_radius": 5.0,
+        "support": 0.35,
+        "dictionary_radius": 6.0,
+        "spacing": 3.0,
+        "sigma": 1.2,
+        "widths": ".03,.07",
+        "snr": 0.1,
+        "radius": 2.0,
+        "rounds": 1,
+        "tolerance": 0.005,
+        "matrix_free": true,
+        "seed": 609311,
+        "output": "ambient-full-solve.json"
+      },
+      "particles_used": 128,
+      "active_voxels": 2517,
+      "initial_dictionary_rank": 33,
+      "pilot_sha256": "3b9ffa85eb3f4d23ca14be8dd81e0a03be0e9dda8071775d16ef889f779f8a15",
+      "noise_std": 1.1831248725575754,
+      "reference_pilot_distance": 1.03789959726313,
+      "setup_seconds": 0.25145295800757594,
+      "targets": [
+        {
+          "target": "center",
+          "width_fraction_field": 0.03,
+          "width_A": 12.575999450683593,
+          "no_data_half_width": 0.49922663889786867,
+          "restricted_width_fraction": 0.026869451407876006,
+          "audited_width_fraction": 1.0307849815091037,
+          "enriched_width_fraction": 1.0,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.08189041601144709,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.51675192937202,
+              "best_ambient_objective": 0.49922663889786867,
+              "dual_lower_bound": 0.01341397573002889,
+              "relative_gap": 0.9731304888704605,
+              "restricted_objective": 0.013414542978686573,
+              "outside_residual_norm": 0.25166899175366864,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 9,
+              "ambient_half_width": 0.5145953217448781,
+              "restricted_half_width": 0.013413945915381949
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.5033379835080036
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999986,
+              "bias": -0.5033379835080036
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.2142756856469307
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.24708811997301713
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.5033379835080036
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999986,
+              "bias": -0.5033379835080036
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.2142756856469307
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.24708811997301713
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.2160403374435822
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.2160403374435822
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.49922663889786856
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.252969567314485
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.3594058778019211
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.3594058778019211
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.3649552662392079
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9499999999999991,
+              "bias": -0.34604007262381326
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0012950199890387323,
+              "bias": 0.03403223605898245,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": 0.03403223605898245,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.01302517707504185,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.009773007152080009,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.7248840182196473,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.4991850827230438,
+                "best_objective": 0.4991850827230438,
+                "lower_bound": 0.01700596399054076,
+                "cg_info": 0,
+                "relative_gap": 0.9659325477080092
+              },
+              {
+                "iteration": 2,
+                "ridge": 326954.8791746354,
+                "objective": 0.49801687826121904,
+                "best_objective": 0.49801687826121904,
+                "lower_bound": 0.017079105205209565,
+                "cg_info": 0,
+                "relative_gap": 0.9657057703248136
+              },
+              {
+                "iteration": 3,
+                "ridge": 11185.549236166602,
+                "objective": 0.47109162518639636,
+                "best_objective": 0.47109162518639636,
+                "lower_bound": 0.019075964744919793,
+                "cg_info": 0,
+                "relative_gap": 0.959506890538816
+              },
+              {
+                "iteration": 4,
+                "ridge": 428.9062611790496,
+                "objective": 0.3830837842608326,
+                "best_objective": 0.3830837842608326,
+                "lower_bound": 0.05460275808195182,
+                "cg_info": 0,
+                "relative_gap": 0.8574652326062069
+              },
+              {
+                "iteration": 5,
+                "ridge": 54.67403224189857,
+                "objective": 0.3676269893633298,
+                "best_objective": 0.3676269893633298,
+                "lower_bound": 0.19304558070302852,
+                "cg_info": 0,
+                "relative_gap": 0.47488735514943536
+              },
+              {
+                "iteration": 6,
+                "ridge": 27.813522343892352,
+                "objective": 0.3653686582848629,
+                "best_objective": 0.3653686582848629,
+                "lower_bound": 0.27984089844223864,
+                "cg_info": 0,
+                "relative_gap": 0.23408619733316535
+              },
+              {
+                "iteration": 7,
+                "ridge": 21.005084850303938,
+                "objective": 0.36498296102325534,
+                "best_objective": 0.36498296102325534,
+                "lower_bound": 0.3284131920742932,
+                "cg_info": 0,
+                "relative_gap": 0.10019582515971764
+              },
+              {
+                "iteration": 8,
+                "ridge": 18.792911612013704,
+                "objective": 0.3649254002417824,
+                "best_objective": 0.3649254002417824,
+                "lower_bound": 0.3506697375381481,
+                "cg_info": 0,
+                "relative_gap": 0.03906459428197964
+              },
+              {
+                "iteration": 9,
+                "ridge": 18.019647979823883,
+                "objective": 0.3649174123703762,
+                "best_objective": 0.3649174123703762,
+                "lower_bound": 0.3595903800759951,
+                "cg_info": 0,
+                "relative_gap": 0.014597912058453436
+              },
+              {
+                "iteration": 10,
+                "ridge": 17.742360321991725,
+                "objective": 0.3649163361466155,
+                "best_objective": 0.3649163361466155,
+                "lower_bound": 0.3629588117336353,
+                "cg_info": 0,
+                "relative_gap": 0.0053643101694238835
+              },
+              {
+                "iteration": 11,
+                "ridge": 17.642003798602808,
+                "objective": 0.36491619275289444,
+                "best_objective": 0.36491619275289444,
+                "lower_bound": 0.3642013709127353,
+                "cg_info": 0,
+                "relative_gap": 0.0019588657734440074
+              }
+            ],
+            "seconds": 2.5395780410035513
+          }
+        },
+        {
+          "target": "z_contrast",
+          "width_fraction_field": 0.03,
+          "width_A": 12.575999450683593,
+          "no_data_half_width": 0.7052132956002288,
+          "restricted_width_fraction": 0.020892369273725817,
+          "audited_width_fraction": 0.8679242353066987,
+          "enriched_width_fraction": 0.8679242353016682,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.07575387501856312,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.6144404795700589,
+              "best_ambient_objective": 0.6144404795700589,
+              "dual_lower_bound": 0.01473363403398684,
+              "relative_gap": 0.9760210557020976,
+              "restricted_objective": 0.014735466487530947,
+              "outside_residual_norm": 0.2998534517222559,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 8,
+              "ambient_half_width": 0.6120717103083979,
+              "restricted_half_width": 0.014733576588421237
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.5997069034510387
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000008,
+              "bias": -0.5997069034510387
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999998,
+              "bias": -0.5997069034474911
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.4020511712025607
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.5997069034510387
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000008,
+              "bias": -0.5997069034510387
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999998,
+              "bias": -0.5997069034474911
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.4020511712025607
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.5997069034510387
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000008,
+              "bias": -0.5997069034510387
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999998,
+              "bias": -0.5997069034474911
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.4020511712049292
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.49854555677813406
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.49854555677813406
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.4985455567781219
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9500000000000002,
+              "bias": -0.4836325580132544
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.6050570401952603,
+              "bias": -0.01272800544519109,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.01272800544519109,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.012728005441812539,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.013267506066429794,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.7125871833806944,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.7051508630768969,
+                "best_objective": 0.7051508630768969,
+                "lower_bound": 0.02330643913926058,
+                "cg_info": 0,
+                "relative_gap": 0.9669482938196178
+              },
+              {
+                "iteration": 2,
+                "ridge": 317215.60271498637,
+                "objective": 0.7033416572730229,
+                "best_objective": 0.7033416572730229,
+                "lower_bound": 0.02341684574227427,
+                "cg_info": 0,
+                "relative_gap": 0.9667063005580169
+              },
+              {
+                "iteration": 3,
+                "ridge": 10533.315674975764,
+                "objective": 0.6614768079870619,
+                "best_objective": 0.6614768079870619,
+                "lower_bound": 0.026471953101908748,
+                "cg_info": 0,
+                "relative_gap": 0.959980527235013
+              },
+              {
+                "iteration": 4,
+                "ridge": 397.081837057143,
+                "objective": 0.5291787777646403,
+                "best_objective": 0.5291787777646403,
+                "lower_bound": 0.07515643550489173,
+                "cg_info": 0,
+                "relative_gap": 0.8579753409190597
+              },
+              {
+                "iteration": 5,
+                "ridge": 49.829336374032025,
+                "objective": 0.5077758488036909,
+                "best_objective": 0.5077758488036909,
+                "lower_bound": 0.2917267172280188,
+                "cg_info": 0,
+                "relative_gap": 0.4254813065345255
+              },
+              {
+                "iteration": 6,
+                "ridge": 27.89804463495357,
+                "objective": 0.5063679031734216,
+                "best_objective": 0.5063679031734216,
+                "lower_bound": 0.425523439520256,
+                "cg_info": 0,
+                "relative_gap": 0.15965558469743268
+              },
+              {
+                "iteration": 7,
+                "ridge": 23.260065410014192,
+                "objective": 0.5061832044940953,
+                "best_objective": 0.5061832044940953,
+                "lower_bound": 0.47323404647269135,
+                "cg_info": 0,
+                "relative_gap": 0.06509334511470989
+              },
+              {
+                "iteration": 8,
+                "ridge": 21.67891719349587,
+                "objective": 0.5061522607126812,
+                "best_objective": 0.5061522607126812,
+                "lower_bound": 0.49218563468766335,
+                "cg_info": 0,
+                "relative_gap": 0.027593724476014936
+              },
+              {
+                "iteration": 9,
+                "ridge": 21.05342778138687,
+                "objective": 0.5061466669267009,
+                "best_objective": 0.5061466669267009,
+                "lower_bound": 0.5001311164488889,
+                "cg_info": 0,
+                "relative_gap": 0.0118849947473489
+              },
+              {
+                "iteration": 10,
+                "ridge": 20.79165026665393,
+                "objective": 0.506145626201145,
+                "best_objective": 0.506145626201145,
+                "lower_bound": 0.5035372330614404,
+                "cg_info": 0,
+                "relative_gap": 0.005153443998482827
+              },
+              {
+                "iteration": 11,
+                "ridge": 20.679525640569683,
+                "objective": 0.5061454302724274,
+                "best_objective": 0.5061454302724274,
+                "lower_bound": 0.5050111535591539,
+                "cg_info": 0,
+                "relative_gap": 0.0022410094914083745
+              }
+            ],
+            "seconds": 2.41696270898683
+          }
+        },
+        {
+          "target": "center",
+          "width_fraction_field": 0.07,
+          "width_A": 29.343998718261723,
+          "no_data_half_width": 0.13761275042398124,
+          "restricted_width_fraction": 0.024158037660584848,
+          "audited_width_fraction": 0.3797133577118304,
+          "enriched_width_fraction": 0.3797133576992435,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.07706637500086799,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.052787883777604724,
+              "best_ambient_objective": 0.052787883777604724,
+              "dual_lower_bound": 0.0033244590150195608,
+              "relative_gap": 0.9370223093423198,
+              "restricted_objective": 0.003324650506012799,
+              "outside_residual_norm": 0.024731714896104245,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 8,
+              "ambient_half_width": 0.05225339952571792,
+              "restricted_half_width": 0.003324454007319157
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.04946342979433097
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999994,
+              "bias": -0.04946342979433097
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999996,
+              "bias": -0.04946342979259889
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999792368856698,
+              "bias": -0.0009211575782657466
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.04946342979433097
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999994,
+              "bias": -0.04946342979433097
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999996,
+              "bias": -0.04946342979259889
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999792368856698,
+              "bias": -0.0009211575782657466
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.049463429794330965
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999997,
+              "bias": -0.049463429794330965
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999996,
+              "bias": -0.04946342979259889
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999792368856685,
+              "bias": -0.0009211575782973325
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.00686485794179037,
+              "bias": -0.007504282366628357
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.007504282366628357
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.007504282366622934
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9500000000000001,
+              "bias": -0.006071681604717544
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.917992292348039,
+              "bias": 0.0008888668523658518,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": 0.0008888668523658518,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.0008888668502113391,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9999940410200078,
+              "bias": 0.00016670112924116465,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.0691724773770013,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735364,
+                "objective": 0.13758925261575825,
+                "best_objective": 0.13758925261575825,
+                "lower_bound": 0.003289919611846599,
+                "cg_info": 0,
+                "relative_gap": 0.9760888328899185
+              },
+              {
+                "iteration": 2,
+                "ridge": 229529.59208605616,
+                "objective": 0.1366383533633734,
+                "best_objective": 0.1366383533633734,
+                "lower_bound": 0.0032939287372927535,
+                "cg_info": 0,
+                "relative_gap": 0.9758930881687885
+              },
+              {
+                "iteration": 3,
+                "ridge": 5494.094294063099,
+                "objective": 0.10754684988311534,
+                "best_objective": 0.10754684988311534,
+                "lower_bound": 0.0034053002830003614,
+                "cg_info": 0,
+                "relative_gap": 0.9683365873877168
+              },
+              {
+                "iteration": 4,
+                "ridge": 136.54304271818035,
+                "objective": 0.019547414097936498,
+                "best_objective": 0.019547414097936498,
+                "lower_bound": 0.0037994097381785635,
+                "cg_info": 0,
+                "relative_gap": 0.8056310814748819
+              },
+              {
+                "iteration": 5,
+                "ridge": 4.876654621661357,
+                "objective": 0.010342849968732599,
+                "best_objective": 0.010342849968732599,
+                "lower_bound": 0.00599815071887646,
+                "cg_info": 0,
+                "relative_gap": 0.42006789840233305
+              },
+              {
+                "iteration": 6,
+                "ridge": 1.5936350947689046,
+                "objective": 0.010180968752262248,
+                "best_objective": 0.010180968752262248,
+                "lower_bound": 0.009580373072174886,
+                "cg_info": 0,
+                "relative_gap": 0.058991997196132004
+              },
+              {
+                "iteration": 7,
+                "ridge": 1.4367847837395236,
+                "objective": 0.010179450233913685,
+                "best_objective": 0.010179450233913685,
+                "lower_bound": 0.010113626837505446,
+                "cg_info": 0,
+                "relative_gap": 0.006466301705463722
+              },
+              {
+                "iteration": 8,
+                "ridge": 1.4212160641027625,
+                "objective": 0.010179432545657598,
+                "best_objective": 0.010179432545657598,
+                "lower_bound": 0.010172180525870378,
+                "cg_info": 0,
+                "relative_gap": 0.0007124188656580215
+              }
+            ],
+            "seconds": 4.008876334002707
+          }
+        },
+        {
+          "target": "z_contrast",
+          "width_fraction_field": 0.07,
+          "width_A": 29.343998718261723,
+          "no_data_half_width": 0.1661791873391555,
+          "restricted_width_fraction": 0.022516292398133523,
+          "audited_width_fraction": 0.5441241782898464,
+          "enriched_width_fraction": 0.5441241782875698,
+          "enriched_dimension": 33,
+          "converged": false,
+          "seconds": 0.0777186659979634,
+          "history": [
+            {
+              "round": 0,
+              "dimension": 33,
+              "ambient_objective": 0.09102368641699883,
+              "best_ambient_objective": 0.09102368641699883,
+              "dual_lower_bound": 0.003741750817541613,
+              "relative_gap": 0.9588925590159042,
+              "restricted_objective": 0.003742137963947249,
+              "outside_residual_norm": 0.04364097366257237,
+              "restricted_inner_converged": true,
+              "restricted_inner_iterations": 8,
+              "ambient_half_width": 0.0904221137594141,
+              "restricted_half_width": 0.0037417391726125675
+            }
+          ],
+          "coverage": [
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.08728194732643445
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999993,
+              "bias": -0.08728194732643445
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999994,
+              "bias": -0.08728194732605618
+            },
+            {
+              "truth": "ambient_adversary_to_restricted_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9997901414078654,
+              "bias": -0.0009167346123240827
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.08728194732643445
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9499999999999993,
+              "bias": -0.08728194732643445
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9499999999999994,
+              "bias": -0.08728194732605618
+            },
+            {
+              "truth": "ambient_adversary_to_audited_dictionary",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9997901414078654,
+              "bias": -0.0009167346123240827
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.0,
+              "bias": -0.08728194732643443
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 0.9500000000000001,
+              "bias": -0.08728194732643443
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 0.9500000000000001,
+              "bias": -0.08728194732605617
+            },
+            {
+              "truth": "ambient_adversary_to_enriched_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9997901414078646,
+              "bias": -0.0009167346123279962
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 3.9804408157761983e-05,
+              "bias": -0.01127417911245026
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": -0.01127417911245026
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": -0.011274179112449647
+            },
+            {
+              "truth": "ambient_adversary_to_matrix_free_ambient",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9499999999999686,
+              "bias": -0.0070971359730153775
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "restricted_dictionary",
+              "analytic_coverage": 0.6695952848773742,
+              "bias": 0.0029027212277431087,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "audited_dictionary",
+              "analytic_coverage": 1.0,
+              "bias": 0.0029027212277431087,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "enriched_ambient",
+              "analytic_coverage": 1.0,
+              "bias": 0.0029027212277823356,
+              "density_bound_satisfied": true
+            },
+            {
+              "truth": "independent_EMDB_voxel_reference",
+              "method": "matrix_free_ambient",
+              "analytic_coverage": 0.9998739072903269,
+              "bias": -9.087946957686468e-05,
+              "density_bound_satisfied": true
+            }
+          ],
+          "matrix_free": {
+            "half_width_fraction": 0.07477535103671523,
+            "converged": true,
+            "history": [
+              {
+                "iteration": 1,
+                "ridge": 9603647.051735362,
+                "objective": 0.16615026389884466,
+                "best_objective": 0.16615026389884466,
+                "lower_bound": 0.003935516069303321,
+                "cg_info": 0,
+                "relative_gap": 0.9763135129794357
+              },
+              {
+                "iteration": 2,
+                "ridge": 227373.2944294798,
+                "objective": 0.16496969921297824,
+                "best_objective": 0.16496969921297824,
+                "lower_bound": 0.003942522651566259,
+                "cg_info": 0,
+                "relative_gap": 0.9761015345825635
+              },
+              {
+                "iteration": 3,
+                "ridge": 5394.359800056458,
+                "objective": 0.12951345722588686,
+                "best_objective": 0.12951345722588686,
+                "lower_bound": 0.004132840133420552,
+                "cg_info": 0,
+                "relative_gap": 0.9680894926137877
+              },
+              {
+                "iteration": 4,
+                "ridge": 134.98184547385387,
+                "objective": 0.025064642136384426,
+                "best_objective": 0.025064642136384426,
+                "lower_bound": 0.004743643559805023,
+                "cg_info": 0,
+                "relative_gap": 0.8107436150895991
+              },
+              {
+                "iteration": 5,
+                "ridge": 5.1537951693036,
+                "objective": 0.01438411099966148,
+                "best_objective": 0.01438411099966148,
+                "lower_bound": 0.008294150108533885,
+                "cg_info": 0,
+                "relative_gap": 0.4233811106762815
+              },
+              {
+                "iteration": 6,
+                "ridge": 1.821041651994787,
+                "objective": 0.01355537070080777,
+                "best_objective": 0.01355537070080777,
+                "lower_bound": 0.011252888032978086,
+                "cg_info": 0,
+                "relative_gap": 0.1698575950927316
+              },
+              {
+                "iteration": 7,
+                "ridge": 1.2795693385666658,
+                "objective": 0.01345863728697581,
+                "best_objective": 0.01345863728697581,
+                "lower_bound": 0.012630874134696818,
+                "cg_info": 0,
+                "relative_gap": 0.06150423216175346
+              },
+              {
+                "iteration": 8,
+                "ridge": 1.1342355061564338,
+                "objective": 0.013448160268748448,
+                "best_objective": 0.013448160268748448,
+                "lower_bound": 0.013174671968325039,
+                "cg_info": 0,
+                "relative_gap": 0.02033648431889644
+              },
+              {
+                "iteration": 9,
+                "ridge": 1.0908621585502594,
+                "objective": 0.013447100899929045,
+                "best_objective": 0.013447100899929045,
+                "lower_bound": 0.013360161802881302,
+                "cg_info": 0,
+                "relative_gap": 0.00646526695194213
+              },
+              {
+                "iteration": 10,
+                "ridge": 1.0775235679719761,
+                "objective": 0.013446996652733162,
+                "best_objective": 0.013446996652733162,
+                "lower_bound": 0.013419731335039292,
+                "cg_info": 0,
+                "relative_gap": 0.0020276139273320897
+              }
+            ],
+            "seconds": 6.6720744160120375
+          }
+        }
+      ],
+      "seconds": 16.467221291008173
+    }
+  ]
+}

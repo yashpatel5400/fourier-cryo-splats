@@ -11,6 +11,55 @@ from .physics import ctf, fft_center
 from .uq_physics import gaussian_pair_features
 
 
+class VoxelObservationOperator:
+    """Real Fourier-slice forward/adjoint pair for a declared voxel model.
+
+    The density parameter is the vector of voxel values, with the ordinary
+    Euclidean norm. Physical L2 energy additionally includes voxel volume.
+    A wider voxel model can audit weights obtained from a Gaussian dictionary:
+    computing ||ell-A* w|| here charges unresolved density outside that
+    dictionary instead of assuming it away. It still declares a finite grid,
+    fixed poses/CTFs and Gaussian whitened noise.
+    """
+    def __init__(self,k,transfer,box,noise_std=1.0,eps=1e-11):
+        self.k=np.asarray(k,dtype=float);self.box=int(box);self.eps=eps
+        if self.k.ndim!=3 or self.k.shape[-1]!=3 or self.box<2 or self.box%2:
+            raise ValueError('Even grid and particle-by-frequency-by-3 coordinates required')
+        self.n,self.q=self.k.shape[:2]
+        self.transfer=np.broadcast_to(np.asarray(transfer,dtype=float),self.k.shape[:2])/noise_std
+        if noise_std<=0 or not np.isfinite(self.transfer).all():raise ValueError('Positive finite noise required')
+        xyz=2*np.pi*self.k.reshape(-1,3)/self.box
+        self.coordinates=[np.ascontiguousarray(xyz[:,i]) for i in [2,1,0]]
+        self.shape=(self.n*2*self.q,self.box**3)
+        self.nthreads=1 if sys.platform=='darwin' else 4
+
+    def forward(self,volume):
+        v=np.asarray(volume).reshape((self.box,)*3).astype(complex)
+        f=finufft.nufft3d2(*self.coordinates,v,isign=-1,eps=self.eps,nthreads=self.nthreads)
+        f=f.reshape(self.n,self.q)*self.transfer
+        return np.concatenate([f.real,f.imag],axis=1).ravel()
+
+    def adjoint(self,weights):
+        w=np.asarray(weights,dtype=float).reshape(self.n,2*self.q)
+        c=np.ascontiguousarray(((w[:,:self.q]+1j*w[:,self.q:])*self.transfer).ravel())
+        v=finufft.nufft3d1(*self.coordinates,c,(self.box,)*3,isign=1,eps=self.eps,nthreads=self.nthreads)
+        return v.real.ravel()
+
+    def forward_columns(self,columns,batch=16):
+        columns=np.asarray(columns,dtype=float)
+        if columns.shape[0]!=self.shape[1]:raise ValueError('Voxel-column dimensions do not match')
+        result=[]
+        for start in range(0,columns.shape[1],batch):
+            v=np.ascontiguousarray(columns[:,start:start+batch].T.reshape((-1,self.box,self.box,self.box)),dtype=complex)
+            f=finufft.nufft3d2(*self.coordinates,v,isign=-1,eps=self.eps,nthreads=self.nthreads)
+            f=f.reshape(len(v),self.n,self.q)*self.transfer[None]
+            result.append(np.concatenate([f.real,f.imag],axis=2).reshape(len(v),-1).T)
+        return np.concatenate(result,axis=1)
+
+    def bias_residual(self,weights,functional):
+        return np.asarray(functional).ravel()-self.adjoint(weights)
+
+
 def half_plane_frequencies(radius):
     limit=int(np.ceil(radius))
     return np.array([(x,y) for y in range(-limit,limit+1) for x in range(-limit,limit+1)

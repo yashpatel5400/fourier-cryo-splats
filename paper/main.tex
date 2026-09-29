@@ -1,115 +1,220 @@
 \documentclass{article}
 \usepackage{microtype,graphicx,booktabs,amsmath,amssymb,amsthm,hyperref}
 \usepackage[preprint]{icml2026}
+\newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\icmltitlerunning{Conjugate-Paired Fourier Gaussian Splats for Cryo-EM}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\A}{\mathcal{A}}
+\icmltitlerunning{Auditing Density Uncertainty Beyond the Reconstruction Dictionary}
 \begin{document}
 \twocolumn[
-\icmltitle{Conjugate-Paired Fourier Gaussian Splats\\for Cryo-EM Reconstruction: A Feasibility Study}
+\icmltitle{Auditing Density Uncertainty in Cryo-EM\\Beyond a Gaussian Reconstruction Dictionary}
 \begin{icmlauthorlist}\icmlauthor{Anonymous Authors}{anon}\end{icmlauthorlist}
 \icmlaffiliation{anon}{Fourier Cryo Splats research project}
 \icmlcorrespondingauthor{Project repository}{\url{https://github.com/yashpatel5400/fourier-cryo-splats}}
-\icmlkeywords{cryo-EM, inverse problems, Gaussian splatting, Fourier reconstruction}
-\vskip 0.3in]
+\icmlkeywords{cryo-EM, uncertainty quantification, inverse problems, Gaussian splats}
+\vskip 0.2in]
 \printAffiliationsAndNotice{}
+\hypersetup{pdftitle={Auditing Density Uncertainty in Cryo-EM Beyond a Gaussian Reconstruction Dictionary},pdfsubject={Development preprint in ICML format; not submitted or accepted}}
+\begin{center}\small\textbf{Development manuscript, 29 September 2026.}\\
+Preliminary experiments; not a completed submission candidate.
+\end{center}
 \begin{abstract}
-We study a direct Fourier-domain Gaussian representation for single-particle cryogenic electron microscopy. Complex Gaussian kernels are paired under conjugate reflection, enforcing the Hermitian symmetry of a real electrostatic potential. We derive the exact restriction of anisotropic kernels to projection planes, including plane-distance attenuation, contrast transfer, and translations. Fixed geometry yields a regularized linear least-squares problem, while a differentiable formulation supports geometry learning. We evaluate the stationary model on 24,576 experimental particle images from three EMPIAR accessions, using supplied consensus poses and $64\times64$ images. Conditional half-map FSC remains above 0.143 through the sampled limits of 7.87--16.08 \AA. Mean shell-wise agreement with classical cryoDRGN backprojection is 0.984--0.995; these correlations measure agreement, not independent accuracy. Held-out image error is modestly lower than for a matched Fourier-voxel solver, but the reference implementation is slower. A separate low-frequency real-data experiment fits centers and anisotropic precisions. The results support feasibility at the evaluated bandwidth, without establishing ab initio inference, a speed advantage, or near-atomic heterogeneous reconstruction.
+A confidence interval can be calibrated within a reconstruction dictionary and still miss errors excluded by that dictionary. We investigate this failure in cryogenic electron microscopy (cryo-EM), using conjugate-paired Fourier Gaussians as a computational representation. Our candidate procedure estimates fixed linear density features and audits their bias through the adjoint residual in an explicitly larger voxel space. This separates numerical representation from the density class to which a confidence statement applies. We specialize classical bias-aware inference to the Fourier-slice model, derive explicit bounds for local pose errors, and implement reduced-space and matrix-free solvers with primal-dual diagnostics. Development experiments include repeated bounded-model tests and acquisition geometries from three experimental particle stacks. In fixed-pose tests, dictionary-only intervals can severely undercover an independent map generator; an ambient-space audit restores the assumed-model guarantee. Broader features admit useful intervals, while finer features and restricted viewing angles expose large uncertainty. Density radii, support, Gaussian noise and pose bounds remain explicit assumptions. Comprehensive end-to-end validation, several external baselines and independent review are outstanding; these preliminary results do not establish publication readiness.
 \end{abstract}
 
 \section{Introduction}
-Single-particle cryo-EM estimates molecular structure from many noisy projections. Neural reconstruction methods such as cryoDRGN represent conformationally varying volumes using coordinate networks \citep{zhong2021}. Their connection to neural fields motivates alternatives with explicit local basis functions. However, the cryo-EM projection is a linear integral, not the occlusion-dependent color compositing used in ordinary neural radiance fields and graphics splatting.
+Cryo-EM reconstructs molecular density from noisy projections whose orientations, translations and imaging parameters are imperfectly known. Modern neural and Gaussian representations offer expressive reconstruction models, but expressiveness alone does not establish which reconstructed features the data support. We focus on a fixed local density average or contrast. This target differs from a conformational population, the uncertainty of an atomic model, or prediction of a noisy held-out particle image.
 
-Gaussian representations are already established in cryo-EM. E2GMM models heterogeneity using Gaussian mixtures \citep{chen2021}; CryoSPIRE introduces hierarchical parts \citep{shekar2025}; CryoGS/CryoSplat and GEM exploit real-space Gaussian rendering \citep{chen2025,qu2025}. Merely substituting Gaussians for a neural network is therefore not a new contribution. Our specific proposal is to put complex kernels at nonzero \emph{Fourier frequencies}, pair their coefficients by conjugation, and fit their plane restrictions. We do not claim that Fourier transforms themselves lose information: discretization, interpolation, and statistical estimation are the relevant approximations.
+An uncertainty calculation usually inherits its reconstruction space. If a Gaussian dictionary spans $S$, a posterior or confidence interval computed in $S$ need not cover density outside $S$. Improving optimization inside the dictionary does not remove this discrepancy. Independent half reconstructions can also share the same representational restriction. Our working question is whether one can retain Gaussian computation while auditing feature uncertainty in a larger, explicitly declared density class.
 
-The scope is homogeneous reconstruction with supplied poses. This isolates the representation and its numerical conditioning. We distinguish the implemented stationary dictionary from proposed adaptive geometry and latent-variable extensions. The high-resolution adaptive and latent-variable extensions require additional validation. Reconstruction under known poses does not establish ab initio recovery, biological validity, or high-resolution heterogeneous reconstruction.
+We develop three connected components: an adjoint-residual audit that separates fitting and inference spaces; a Fourier-Gaussian treatment of bounded local pose errors, including the density--pose interaction and a uniform nonlinear remainder; and a validation protocol that distinguishes fixed-parameter coverage, Bayesian prior-predictive coverage and experimental-image prediction. We do not claim a new general theory of bias-aware intervals, reduced-space duality or primal-dual optimization. The value of the cryo-EM specialization must be established by its usefulness, assumptions and comparison to existing methods.
 
-\section{Related Work}
-CryoDRGN learns a latent-conditioned frequency-domain density \citep{zhong2021}; cryoDRGN2 jointly estimates poses and structure through multiresolution pose search \citep{zhong2021b}. Classical Bayesian methods estimate voxel volumes and nuisance parameters \citep{scheres2012}. These are different inference problems unless poses, particle selection, resolution, and compute budgets are controlled.
+\section{Related Work and Scientific Scope}
+\paragraph{Probabilistic reconstruction.} Bayesian inference is foundational in cryo-EM \citep{scheres2012}. \citet{ullrich2020} already combine differentiable Fourier-slice reconstruction with variational density uncertainty and discuss the distinction between variance and model bias. \citet{rangan2024} examine soft modes of the joint volume/alignment likelihood Hessian. Thus neither a probabilistic Fourier representation nor pose--density ambiguity is a new observation. Our candidate emphasizes a finite-sample, bounded-class statement and a check outside the fitting dictionary.
 
-Real-space Gaussian mixtures have analytic Fourier transforms, but translating a real-space Gaussian induces a phase ramp on a Gaussian envelope centered at zero frequency. A Gaussian centered at a nonzero Fourier frequency instead corresponds to an oscillating, spatially localized function. Our proposed dictionary is thus a Gaussian-windowed spectral basis, closely related mathematically to Gabor functions. Its potential novelty lies in its particular cryo-EM inference and splatting construction, not the existence of Gaussian bases or the Fourier slice theorem. An exhaustive priority claim is outside this study.
+\paragraph{Representations and heterogeneity.} CryoDRGN learns a latent-conditioned density family \citep{zhong2021}; its latent variation is not automatically calibrated uncertainty in a homogeneous density. Ab initio neural inference \citep{zhong2021b} is a different task from fixed-pose backprojection. Gaussian mixtures and Gaussian splatting are also established \citep{chen2021,chen2025,qu2025,shekar2025}. We use Fourier kernels as a numerical basis, without treating their existence as the contribution. Continuous-state recovery, conformational populations and pose entanglement are substantial separate problems; the living survey records current RECOVAR, DynaMight, cryoDRGN-AI and CAHRA work with source-level distinctions.
 
-\section{Method}
-\subsection{Image formation and conventions}
-Use the Fourier convention $F(k)=\int \rho(x)\exp(-2\pi i k^\top x)\,dx$. For an orthonormal plane embedding $E_i\in\R^{3\times2}$, detector frequency $q\in\R^2$, image translation $t_i$, and real even contrast transfer function $C_i$, the observation is
-\begin{equation}\label{eq:forward}
+\paragraph{Validation and map confidence.} Gold-standard splitting and noise substitution address reconstruction overfitting \citep{schereschen2012,chen2013}; a shell correlation is not a coverage statement for a local feature. LocScale-2.0 provides calibrated confidence for map enhancement relative to its reference target \citep{locscale2026}. That target must not be conflated with confidence in an unknown density from raw particles. Map significance relative to background noise, directional resolution, atomic-model reliability and particle-derived confidence likewise answer different questions.
+
+\paragraph{Statistical foundations.} Optimal recovery links linear inverse estimation to bias--variance tradeoffs \citep{donoho1994}. Honest inference over convex function classes and bias-aware Gaussian critical values are classical \citep{armstrong2018}. Our theorems below specialize these principles and identify the assumptions that cryo-EM introduces. The survey and its bibliographic ledger are ongoing; a downloaded paper is not counted as a completed critical review.
+
+\section{Forward Model and Inference Target}
+With $F(k)=\int\rho(x)e^{-2\pi i k^\top x}\,dx$, a particle obeys
+\begin{equation}
 Y_i(q)=C_i(q)e^{-2\pi i q^\top t_i}F(E_iq)+\epsilon_i(q).
 \end{equation}
-Frequencies must share units, such as inverse angstroms, and translations must use the corresponding length unit. Implementations using cycles per box must scale pixel sizes and translations consistently after downsampling. We assume the weak-phase, central-slice imaging model and neglect Ewald curvature, higher-order aberrations, and multiple scattering.
-
-\subsection{Conjugate-paired spectral kernels}
-Define $g(k;\mu,\Lambda)=\exp[-\frac12(k-\mu)^\top\Lambda(k-\mu)]$ with positive-definite precision $\Lambda$. Our representation is
-\begin{equation}\label{eq:pair}
-F_\theta(k)=\sum_{j=1}^K \left[c_jg(k;\mu_j,\Lambda_j)+\bar c_jg(k;-\mu_j,\Lambda_j)\right].
+$E_i$ embeds a detector plane, $C_i$ is its contrast transfer function (CTF), and frequencies and translations use reciprocal units. We realify one representative of each conjugate Fourier pair and whiten the noise. The initial theory conditions on a fixed design and an independent pilot $\rho_0$, giving
+\begin{equation}\label{eq:model}
+y-\A\rho_0=\A\delta+Ju+r+\epsilon,\quad\epsilon\sim N(0,I).
 \end{equation}
-Here $c_j\in\C$, $\mu_j\in\R^3$, and $\Lambda_j=L_jL_j^\top+\delta I$. A zero-centered component has a real coefficient and is included separately so that it is not counted twice. No opacity, transmittance, depth sorting, or view-dependent color appears.
+Here $\delta=\rho-\rho_0$, $J$ is block diagonal over particles, $u$ describes bounded nuisance errors, and $r$ is a bounded remainder. We assume
+\begin{equation}\label{eq:class}
+\norm{\delta}_{H}\le B,\quad\norm{u_i}\le\eta_i,\quad\norm{r_i}\le\gamma_i.
+\end{equation}
+$H$ is either a declared Gaussian density subspace or an ambient voxel space with a stated support mask. These are different classes. A physical density-energy norm includes voxel volume; experiments using an ordinary voxel Euclidean norm explicitly normalize that norm. $B$, $\eta_i$ and $\gamma_i$ are assumptions, not quantities automatically learned from residual fit.
 
+The estimand is $t=\ip{\ell}{\rho}$, such as a Gaussian-weighted spatial average or the difference of two such averages. The smoothing scale and coordinate frame are specified in physical units. For weights fixed without the inference noise, use
+\begin{equation}\label{eq:estimator}
+\widehat t=\ip{\ell}{\rho_0}+w^\top(y-\A\rho_0).
+\end{equation}
+The pilot, dictionary, whitening, target and weights may depend on independent development data. Poses estimated from the inference images violate literal fixed-design independence; supplied consensus poses therefore support only a conditional experimental analysis here.
+
+\section{Bias-Aware Confidence and Ambient Auditing}
+\subsection{A conditional certificate}
+Define $s=\norm{w}$ and
+\begin{align}\label{eq:bias}
+b_H(w)&=B\norm{\ell-\A^*w}_{H}\nonumber\\
+&\quad+\sum_i\eta_i\norm{J_i^\top w_i}+\sum_i\gamma_i\norm{w_i}.
+\end{align}
+Let $q(s,b,\alpha)$ solve
+\begin{equation}\label{eq:critical}
+\Phi((q-b)/s)-\Phi((-q-b)/s)=1-\alpha
+\end{equation}
+when $s>0$, and set $q(0,b,\alpha)=b$.
+\begin{theorem}[Conditional coverage]\label{thm:coverage}
+Under Equations~\eqref{eq:model}--\eqref{eq:class}, the interval
+$\widehat t\pm q(s,b_H(w),\alpha)$ covers $t$ with probability at least $1-\alpha$, uniformly over the stated class, conditional on the independent design choices.
+\end{theorem}
+\begin{proof}
+The deterministic estimation error is
+$\ip{\A^*w-\ell}{\delta}+\sum_iw_i^\top J_i u_i+\sum_iw_i^\top r_i$.
+Cauchy--Schwarz bounds its absolute value by $b_H$. The remaining error is Gaussian with standard deviation $s$. Coverage of a symmetric interval decreases with the absolute Gaussian mean, so the minimum occurs at mean $\pm b_H$ and equals Equation~\eqref{eq:critical}.
+\end{proof}
+The result is a direct bias-aware inference construction. It is useful only if its assumptions are defensible and its width improves on the no-data interval $\ip{\ell}{\rho_0}\pm B\norm{\ell}$.
+
+\subsection{Why auditing the dictionary matters}
+Let $S:\R^p\to H$ have orthonormal columns. A restricted calculation replaces the density term by $B\norm{S^*(\ell-\A^*w)}$. Write $h=\ell-\A^*w$. Then
+\begin{equation}\label{eq:orthogonal}
+\norm{h}_H^2=\norm{S^*h}^2+\norm{(I-SS^*)h}_H^2.
+\end{equation}
+The second term measures uncertainty discarded by the dictionary. It can be large even when the restricted residual is zero. Evaluating the full adjoint residual repairs this omission for $H$ without estimating a representation-error direction from noisy data. It does not cover density outside the declared ambient grid or support.
+
+Centering in Equation~\eqref{eq:estimator} also uses the ambient operator. If a surrogate centers the images instead, the discrepancy $w^\top(\A-\widetilde\A)\rho_0$ requires an additional bound. We do not silently substitute a surrogate forward model into the coverage theorem.
+
+\subsection{Optimization and verifiable stopping}
+We optimize the conservative convex objective
+\begin{equation}\label{eq:objective}
+\mathcal F_H(w)=z_{1-\alpha/2}\norm{w}+b_H(w),
+\end{equation}
+then report the sharper width from Equation~\eqref{eq:critical}. Its dual is
+\begin{align}
+\max_{v,a,d}\quad&\ip{\ell}{v}\nonumber\\
+\text{s.t.}\quad&\norm{v}\le B,\ \norm{a_i}\le\eta_i,\ \norm{d_i}\le\gamma_i,\nonumber\\
+&\norm{\A v-Ja-d}\le z_{1-\alpha/2}.\label{eq:dual}
+\end{align}
+Representing each norm by a Euclidean support function proves this dual; continuity and coercivity yield strong duality. A feasible dual iterate supplies a lower bound before convergence. The gap concerns Equation~\eqref{eq:objective}, not optimality of the folded-normal width.
+
+For a reduced density space $S$, a feasible dual vector lifts to $Sv$ in $H$. Thus a restricted dual lower bound and an ambient primal upper bound bracket the same full-space optimum. We enrich $S$ with the component of $\ell-\A^*w$ orthogonal to it, using only design and target information. Restricted exact optima increase under enrichment; individual ambient primal values need not decrease, so we keep the best feasible iterate. No convergence-rate claim is made for this greedy construction.
+
+Quadratic majorization gives coefficient-space conjugate-gradient solves with particle-block inverses. A classical Chambolle--Pock implementation is an alternative \citep{chambolle2011}. For fixed poses, a full-space matrix-free comparator solves $(\A^*\A+\lambda I)v=\ell$ within majorization. It can outperform enrichment and is included to prevent an unsupported Gaussian speed claim.
+
+\section{Fourier Gaussians and Local Pose Errors}
+We use smooth conjugate pairs
+\begin{align}
+F_c(k)&=\sum_j c_jg_j(k)+\overline c_jg_j(-k),\nonumber\\
+ g_j(k)&=e^{-\norm{k-\mu_j}^2/(2\sigma_j^2)}.
+\end{align}
+This enforces Hermitian symmetry. Hard cutoff kernels from the earlier reconstruction prototype are unsuitable for an unqualified Taylor bound; the uncertainty implementation uses full Gaussians. Their analytic whole-space Gram matrix provides density-energy coordinates $\delta=T\beta$ with $T^*GT=I$, so $\norm{\beta}\le B$ is a density-energy assumption rather than an arbitrary coefficient scale.
+
+Parameterize local rotations by a Lie-algebra vector and translations by detector shifts. Normalize their joint vector so $\norm{u_i}\le1$, with physical radii incorporated in the operator. With $D_{ia}=\partial A_i/\partial u_{ia}$ at the pilot pose,
+\begin{align}
+A_i(u_i)(c_0+\delta)&=A_i(0)(c_0+\delta)+J_i u_i\nonumber\\
+&\quad+\sum_a u_{ia}D_{ia}\delta+e_i.\label{eq:pose}
+\end{align}
+If $H_i$ uniformly bounds the pilot's second derivative along all allowed segments and $K_i$ bounds the corresponding operator derivative, then $\norm{e_i}\le(H_i+BK_i)/2$. Define $T_i(w_i)=[D_{i1}^\top w_i,\ldots,D_{iq}^\top w_i]$. The interaction contributes at most
+\begin{equation}
+B\sum_i\norm{T_i(w_i)}_{\rm op}\le B\sum_i\norm{T_i(w_i)}_{F}.
+\end{equation}
+The implemented Frobenius relaxation is a sum of Euclidean group norms. It ignores some sharing of $\delta$ across particles and can be conservative. Charging the entire first-order interaction to an isotropic remainder was substantially worse in development.
+
+The finite-Gaussian pose experiment and the full-voxel fixed-pose audit are currently separate. Combining the ambient audit with useful full-grid nonlinear nuisance bounds remains unfinished. Fixed CTFs and known whitened Gaussian noise are also assumptions; CTF error, window correlations and heterogeneous densities are not covered by assertion.
+
+\section{Development Experiments}
+All results below are exploratory. A confirmatory protocol has not been frozen. Experimental particle pools have already been inspected during the earlier reconstruction study and subsequent development; their partitions must not be described as untouched final tests.
+
+\subsection{Data, references and provenance}
+We retain 8,192 extracted experimental images from each of EMPIAR-10028, 10049 and 10076 \citep{empiar10028,empiar10049,empiar10076}. Source exposure groups are reconstructed from deposited metadata. EMPIAR-10076 requires the original Frealign \texttt{FILM} field because its STAR micrograph numbers are sequential particle identifiers. Hash-based whole-group partitions provide pilot, tuning, inference-half and test labels within this development pool. Consensus poses and CTFs remain conditional inputs.
+
+Deposited maps EMD-2660, EMD-6487 and EMD-8434 define independent voxel signal generators after explicit low-pass resampling. They are simulation truth, not proof of experimental accuracy. Nonuniform Fourier transforms project these maps independently of the Gaussian representation. Native and downloaded-file hashes, source indices, signs, field sizes and software versions are recorded.
+
+\subsection{Representation and exact-dictionary controls}
+A noiseless projection audit with 256 particles per split and a radius-six frequency band found relative held-out errors of approximately 1.8\%, 2.7\% and 7.7\% for the finest tested Gaussian dictionary. These residuals demonstrate why noise-only intervals do not cover representation error.
+
+The bounded-model coverage benchmark has 48 settings: 12 seeds, broad versus preferred orientations, and rotation radii $0.5^\circ$ or $2^\circ$. Each setting uses 96 particles, 40 coefficients, 20 random bounded signals and estimator-specific adversarial controls. We report exact Gaussian noise-marginal coverage and cross-check with 2,000 paired noise draws per signal. Shared designs and paired noise do not constitute independent voxel trials.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=.92\textwidth]{../results/uncertainty/development/coverage-summary/coverage-width.png}
+\caption{Exact-dictionary development tests with known bounds and an independent fixed pilot. Minimum coverage is over the finite tested set, including adversarial signals; it is not an empirical proof of the worst case. Widths count each independent design once. Gaussian posterior methods separately pass their correctly matched prior-predictive coverage check at 0.95. Their fixed-parameter boundary failures do not contradict Bayesian prior-average calibration.}
+\label{fig:coverage}
+\end{figure*}
+The structured certificate's smallest tested coverage was 0.991 at nominal 0.95; omitting the quadratic remainder gave 0.932. Median width relative to the no-data bound was 0.557 for broad views at $0.5^\circ$, and approximately one for preferred views. This is a usefulness limitation, not a calibration success to conceal with pooled averages.
+
+\subsection{Ambient-space audit}
+The fixed-pose audit uses 128 real acquisition geometries per dataset, a $24^3$ voxel grid, a spherical support of radius 0.35 times the field, and prescribed signal-to-noise power ratio 0.1. A pilot derived from real particles and each reference generator are normalized to unit voxel Euclidean norm. We set $B=2$ before seeing coverage; the triangle inequality covers all such normalized generator/pilot pairs. This simulation convention does not estimate the density radius of experimental data.
+
+The initial dictionary has 33 non-null Gaussian modes. Two targets, a central average and an axial contrast, use Gaussian averaging widths 0.03 and 0.07 times the field. Restricted intervals, the same weights with a full-grid audit, enriched weights, and the ambient matrix-free solution use identical estimands. The larger-grid model is deliberately able to express errors outside the initial dictionary.
+\input{uncertainty-results.tex}
+
+\subsection{Baselines and numerical checks}
+Implemented matched mathematical baselines include full Gaussian posterior covariance, diagonal variational covariance, regularized sampling covariance, joint Gaussian pose covariance, identifiable unregularized estimation, fixed-pose bias-aware intervals, coarse and structured nuisance bounds, and the no-data interval. These are not executions of every external paper's original code. Full Gaussian posteriors pass their exactly matched linear prior-predictive identity at 0.95. Narrow priors can nevertheless fail bounded fixed-signal tests; wider priors and unregularized estimation can produce very wide intervals.
+
+Independent conic optimization checks the majorization, primal-dual and ambient solvers on small instances. Derivative finite differences, nonlinear remainder tests, direct Fourier sums, adjoint identities and independent Gaussian-integral checks validate implementation components. The current suite has 30 passing tests. Tight FINUFFT tolerances are numerical checks, not interval-arithmetic guarantees on roundoff.
+
+\section{Limitations and Work Remaining}
+The current evidence does not establish an end-to-end uncertainty method with estimated poses, noise law and density class. Local pose radii and the total density bound are assumptions. Selecting them from the same inference residuals would require new analysis; a narrow residual does not rule out an almost invisible density error. Learned support can exclude true structure. Gauge and hand ambiguity must be fixed or included in the target class.
+
+The next validation must freeze the method before fresh simulations and additional source groups, include higher bandwidth and grid refinement, compare bootstrap and actual neural reconstruction pipelines, test correlated noise, CTF errors, heterogeneity and support violations, and quantify coverage--width--power tradeoffs. Simultaneous maps need multiplicity correction. Real-data prediction and stability cannot supply unavailable density-coverage labels. Comprehensive literature screening and independent review of a complete candidate remain outstanding.
+
+\section*{Reproducibility and Impact}
+The active research branch is \texttt{uncertainty-study} at \url{https://github.com/yashpatel5400/fourier-cryo-splats}. It preserves failed development approaches and distinguishes them from completed outputs. The earlier reconstruction release v0.1.0 remains available with its conditional FSC results; it is not the uncertainty study's accuracy claim. No new conference submission or acceptance is implied by this format. Background PDFs are retained locally with source hashes rather than redistributed. Prematurely calibrated-looking maps can mislead structural interpretation; explicit assumptions and negative controls are central outputs of this work.
+
+\bibliography{references,uncertainty-references}
+\bibliographystyle{icml2026}
+\clearpage
+\appendix
+\section{Additional Derivations}
+\subsection{An identifiability lower bound}
 \begin{proposition}
-Equation~\eqref{eq:pair} satisfies $F_\theta(-k)=\overline{F_\theta(k)}$, and hence its inverse Fourier transform is real.
+Let two allowed parameters induce $N(\mu_0,I)$ and $N(\mu_1,I)$, with targets $t_0,t_1$. Any interval covering each target with probability at least $1-\alpha$ has expected length under the first law at least
+\begin{equation}
+|t_1-t_0|[1-2\alpha-\operatorname{TV}(P_0,P_1)]_+,
+\end{equation}
+where $\operatorname{TV}(P_0,P_1)=2\Phi(\norm{\mu_1-\mu_0}/2)-1$.
 \end{proposition}
 \begin{proof}
-$g(-k;\mu,\Lambda)=g(k;-\mu,\Lambda)$ is real. Reflection exchanges each pair, which is exactly complex conjugation of their sum.
+Under $P_0$, the probability of containing $t_1$ is at least $1-\alpha-\operatorname{TV}(P_0,P_1)$ by the definition of total variation. The union bound gives simultaneous containment of both targets with probability at least the displayed positive part. The length on that event is at least their separation. The total variation formula follows by projecting onto the line between the Gaussian means.
 \end{proof}
-The pair has the explicit inverse transform
+This standard two-point argument also applies to different allowed nuisance settings. Exact null directions give a nonvanishing uncertainty floor even with perfect image prediction. It does not assert that a finite numerical search finds the largest possible separation.
+
+\subsection{Gaussian density-energy Gram matrix}
+For isotropic paired features, let
 \begin{align}
-\rho_j(x)&=2(2\pi)^{3/2}|\Lambda_j|^{-1/2}\nonumber\\
-&\quad\times e^{-2\pi^2x^\top\Lambda_j^{-1}x}
-\operatorname{Re}\{c_je^{2\pi i\mu_j^\top x}\}.
+P_{jk}&=\left(\frac{2\pi\sigma_j^2\sigma_k^2}{\sigma_j^2+\sigma_k^2}\right)^{3/2}
+\exp\left[-\frac{\norm{\mu_j-\mu_k}^2}{2(\sigma_j^2+\sigma_k^2)}\right],\\
+Q_{jk}&=P_{jk}\text{ with }\mu_j-\mu_k\text{ replaced by }\mu_j+\mu_k.\nonumber
 \end{align}
-It is a signed oscillatory function; positivity does not follow from Hermitian symmetry. A spatial support or nonnegativity penalty can be considered, but would alter the inference problem and must be reported explicitly.
+Integrating products of Gaussians and applying Parseval gives real and imaginary coefficient blocks $2(P+Q)$ and $2(P-Q)$, with zero cross block. A zero-centered imaginary coefficient is exactly null. Numerically excluded eigenmodes are reported; exclusion changes the stated Gaussian subspace. In an ambient audit they remain available to the larger space rather than being silently assigned zero uncertainty.
 
-\subsection{Exact restriction to a plane}
-Let $A=E^\top\Lambda E$, $b=E^\top\Lambda\mu$, and $m=A^{-1}b$. Completing the square gives
-\begin{align}\label{eq:restrict}
-g(Eq;\mu,\Lambda)&=a\exp[-\tfrac12(q-m)^\top A(q-m)],\\
-a&=\exp[-\tfrac12(\mu^\top\Lambda\mu-b^\top A^{-1}b)].\nonumber
+\subsection{Uniform nonlinear remainder}
+For a Gaussian of width $\sigma$ at radial distance $r$, bounds on value, gradient and Hessian are
+\begin{align}
+g_0(r)&=e^{-r^2/(2\sigma^2)},\\
+g_1(r)&=r g_0(r)/\sigma^2,\\
+g_2(r)&=(1+r^2/\sigma^2)g_0(r)/\sigma^2.
 \end{align}
-The 2D covariance is $A^{-1}$: it is obtained by restricting \emph{precision}, not by projecting the 3D covariance as in a real-space Gaussian integral. The attenuation $a$ is essential; a kernel far from the central plane should contribute negligibly. This formula permits plane culling and elliptical rasterization followed by CTF multiplication. If $|c_j|a_j\leq\tau_j$, omitting that component incurs at most $\tau_j$ absolute error per Fourier sample; errors add across omitted components. Culling must respect conjugate partners.
+On an interval of possible distances, $g_0$ is largest at the lower endpoint; $g_1$ and $g_2$ attain their largest value at the point nearest $\sigma$. A rotation radius $a\le\pi$ gives displacement at most $2\norm{k}\sin(a/2)$, speed at most $a\norm{k}$ and acceleration at most $a^2\norm{k}$. A shift radius $s$ gives phase speed at most $2\pi\norm{q}s/\text{box}$.
 
-\subsection{Inference}
-For known poses and geometry, stack independent real and imaginary observations into $y$, let $B_\eta$ be the real linear operator generated by Equation~\eqref{eq:forward}, and solve
-\begin{equation}\label{eq:objective}
-\min_a\ \tfrac12\|W^{1/2}(B_\eta a-y)\|_2^2+\tfrac\lambda2\|Da\|_2^2.
-\end{equation}
-$W$ contains inverse noise variances, $D$ may penalize high-frequency coefficients, and $a$ stores real and imaginary coefficient parts with the imaginary DC coefficient fixed to zero. One representative per Friedel pair is sufficient; using both simply duplicates information if weights are adjusted consistently. CTF zeros are handled by the likelihood, not unstable division.
+The product rule bounds the second derivative by the sum of squared-speed times $g_2$, acceleration times $g_1$, twice speed times phase-speed times $g_1$, and squared phase-speed times $g_0$. Sum conjugate-pair bounds and apply the fixed CTF/noise scale. A coefficient-column Frobenius bound controls the operator term; the pilot-weighted bound controls its pilot term. Taylor's integral formula gives Equation~\eqref{eq:pose}. Evaluating a Hessian only at the nominal pose would not establish this uniform result.
 
-The normal equations are
-\begin{equation}
-(B_\eta^\top WB_\eta+\lambda D^\top D)a=B_\eta^\top Wy.
-\end{equation}
-Matrix-free conjugate gradients or stochastic optimization can exploit local kernel support. A useful reference implementation keeps centers on a regular frequency lattice, uses a shared isotropic width, and fits all complex coefficients. This stationary case is a Gaussian radial-basis discretization, not evidence that learned sparse geometry outperforms conventional gridding.
+\subsection{Simultaneous targets and sensitivity budgets}
+For $K$ targets and parameter-budget choices fixed independently of inference noise, applying Theorem~\ref{thm:coverage} with $\alpha/K$ gives simultaneous coverage by the union bound. Correlated Gaussian maxima can reduce the noise component if the joint weight covariance is accounted for. Selecting the most favorable point on a sensitivity surface after inspecting inference data requires such simultaneous control. A density radius supplied by simulation truth is an oracle control and cannot be reported as a practical calibration method.
 
-For adaptive kernels, define the reduced objective $\mathcal J(\eta)=\min_a\mathcal L(a,\eta)$. At an exact inner optimum, its gradient is the partial derivative of $\mathcal L$ with respect to $\eta$ (the envelope theorem). Inner solves must be converged sufficiently; otherwise ignoring their dependence on $\eta$ biases the outer gradient. Center displacement, eigenvalue bounds, frequency marching, and a coefficient penalty stabilize the otherwise ill-conditioned basis. Split or prune kernels only using training residuals and coverage, with a separate validation set for model selection.
+\section{Survey and Experimental Audit Trail}
+The repository's living survey distinguishes density uncertainty, pose uncertainty, conformational variability/populations, map-processing confidence and atomic-model uncertainty. Its broad Europe PMC retrieval ledger contains 16,969 deduplicated records, mostly application papers; that count is not a count of reviewed methods. The curated list contains 86 candidate works at this draft checkpoint, with local full-text availability recorded separately. Recent items include LocScale-2.0, CryoDiff, CryoSplat, GEM, measurement-limited heterogeneity, population-counting work and the CAHRA dataset-construction preprint. Preprints and final publications are distinguished, and titles/versions are checked against primary sources.
 
-\subsection{Cost and limitations}
-Dense evaluation costs $O(KM)$ for $M$ Fourier samples. Culling yields cost proportional to the number of sample--kernel intersections, but a speedup requires bounded overlap and an efficient implementation; it is not guaranteed by the representation. Finite neighborhood truncation approximates infinite Gaussian support and should be checked against a larger neighborhood. Narrow kernels poorly couple nearby slices; broad kernels can make coefficient recovery ill-conditioned. Missing viewing directions and CTF coverage cannot be repaired by smoothness alone.
-
-\section{Experimental Protocol}
-\subsection{Data and matched baselines}
-We select EMPIAR-10028 (Pf80S ribosome), EMPIAR-10049 (RAG complex), and EMPIAR-10076 (assembling 50S subunit) \citep{empiar10028,empiar10049,empiar10076}, using deposited experimental particle images and public cryoDRGN poses/CTFs. These are extracted images, not a fresh movie-motion-correction and particle-picking pipeline. We record particle counts, selection indices, original and working pixel sizes, Fourier crop size, signs, seeds, and downloaded byte-range hashes. Different dataset accessions are not replaced by three synthetic stacks.
-
-For a controlled known-pose comparison, we fit a classical Fourier voxel representation with trilinear interpolation and the same objective, particle partitions, and frequency support. We additionally run cryoDRGN's classical CTF-weighted backprojection, with its version and invocation recorded. Ab initio comparisons require independent pose estimation and are a distinct experiment.
-
-\subsection{FSC and safeguards}
-For two Fourier volumes and shell $S_r$, we compute
-\begin{equation}
-\operatorname{FSC}(r)=\frac{\operatorname{Re}\sum_{k\in S_r}F_1(k)\bar F_2(k)}{\sqrt{\sum_{k\in S_r}|F_1(k)|^2\sum_{k\in S_r}|F_2(k)|^2}}.
-\end{equation}
-Independently fitted particle halves with consensus poses give \emph{conditional half-map FSC}; they are not fully independent gold-standard reconstructions \citep{schereschen2012,chen2013}. Method--baseline FSC measures agreement, not resolution. We use unmasked FSC as the primary transparent diagnostic; common masks can inflate correlation and require noise-substitution correction. We report the first sustained crossing of 0.143 and the sampled frequency limit, censoring curves with no crossing. Alignment, sharpening, masks, and hyperparameters are not optimized on the reported FSC. Held-out image prediction and noise controls complement FSC, because shared bias can inflate agreement.
-
-\section{Results}
-\input{results.tex}
-
-\section{Discussion}
-The proposed spectral representation yields an exact central-plane restriction and a convex coefficient-fitting subproblem. Its practical value depends on conditioning, truncation error, predictive performance, and measured cost. Fixed-pose, downsampled consensus reconstructions cannot resolve the full heterogeneous distributions modeled by cryoDRGN, and favorable correlation at a coarse frequency limit would not establish near-atomic accuracy. High-resolution adaptive anisotropy, independent pose inference, and heterogeneous extensions require further experiments.
-
-\section*{Code and Data Availability}
-The code, source-index manifests, complete FSC curves, software environment, and manuscript are available at \url{https://github.com/yashpatel5400/fourier-cryo-splats}. Reconstructed half maps and coefficient checkpoints are distributed as release artifacts. The original experimental images remain available from the cited EMPIAR accessions; background papers are linked rather than redistributed.
-
-\section*{Impact Statement}
-This work studies a computational representation for structural biology. Reconstructions may contain artifacts and should not be treated as validated atomic structures or used for biological inference without independent validation. We release provenance, failed runs where informative, and evaluation code to reduce the risk of overstated resolution claims.
-
-\bibliography{references}
-\bibliographystyle{icml2026}
+The full experimental protocol draft records unimplemented comparisons and required failure controls. Fixed-pose resampling must be distinguished from rerunning alignment; a mathematical diagonal-Gaussian control must be distinguished from reproducing Ullrich et al.'s full software; cryoDRGN backprojection must be distinguished from training a neural model. Exposure-group splits do not undo the dependence introduced by full-data consensus poses. All development results, including the initially incomplete covariance-factor benchmark, remain identifiable by filename and status.
 \end{document}

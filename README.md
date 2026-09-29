@@ -5,9 +5,12 @@ See the [research plan](research/uncertainty/PLAN.md),
 [literature synthesis](research/uncertainty/SURVEY.md),
 [theory audit](research/uncertainty/THEORY.md), and
 [development results and failures](research/uncertainty/DEVELOPMENT-LOG.md).
-The manuscript and release linked below describe the earlier v0.1.0 feasibility
-study. A completed uncertainty manuscript and independent scientific review are
-still outstanding; the new development results are not a publication-readiness claim.
+The [current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) has been
+rewritten around uncertainty, ambient-space bias auditing, and conditional pose
+bounds. It is explicitly a **development draft**, not a completed submission.
+Comprehensive validation and independent scientific review remain outstanding.
+The [earlier reconstruction paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0
+release preserve the original feasibility study.
 
 On macOS, installing the optional uncertainty tools requires the FINUFFT build
 configuration in [COMPUTE.md](research/uncertainty/COMPUTE.md) to avoid conflicting
@@ -23,10 +26,10 @@ This repository includes an ICML-format manuscript, actual experimental-data
 reconstruction code, matched voxel and cryoDRGN classical backprojection
 comparisons, numerical tests, provenance, and complete FSC curves.
 
-[Manuscript](output/pdf/fourier-cryo-splats.pdf) · [Measured results](RESULTS.md) ·
+[Earlier reconstruction results](RESULTS.md) ·
 [Reconstruction artifacts](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.1.0)
 
-**Scope:** a three-accession feasibility study using 8,192 extracted experimental
+**Original reconstruction scope:** a three-accession feasibility study using 8,192 extracted experimental
 particles per accession, Fourier-cropped to 64×64, with supplied consensus poses.
 It is not ab initio, a detector-movie processing pipeline, a full-stack benchmark,
 or evidence of near-atomic heterogeneous reconstruction. Half-map FSC is

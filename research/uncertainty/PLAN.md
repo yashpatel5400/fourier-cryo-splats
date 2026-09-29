@@ -66,5 +66,14 @@ and a necessary method revision are recorded in DEVELOPMENT-LOG.md. Three EMDB
 reference volumes were downloaded as semisynthetic signal generators. Whole
 micrograph/film splits are now available for all three original datasets.
 For EMPIAR-10076, the deposited Frealign FILM field resolves the misleading
-sequential micrograph labels in its STAR file. Final experimental validation,
-new manuscript, and independent scientific review remain outstanding.
+sequential micrograph labels in its STAR file. The main manuscript has now been
+completely rewritten as an explicitly labeled uncertainty development draft.
+The first ambient-space audit and full-grid solves cover all three acquisition
+geometries; their known-map coverage is conditional on fixed poses, Gaussian
+noise, a finite supported grid and a prescribed norm class. Final validation,
+method integration and independent scientific review remain outstanding.
+
+The next methodological priority is combining the ambient density-space audit
+with useful nuisance bounds, rather than reporting finite-dictionary pose
+coverage and full-grid fixed-pose coverage as though they were the same result.
+Fresh confirmatory data are still required after development freezes.

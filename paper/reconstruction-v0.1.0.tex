@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{microtype,graphicx,booktabs,amsmath,amssymb,amsthm,hyperref}
+\usepackage[preprint]{icml2026}
+\newtheorem{proposition}{Proposition}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\icmltitlerunning{Conjugate-Paired Fourier Gaussian Splats for Cryo-EM}
+\begin{document}
+\twocolumn[
+\icmltitle{Conjugate-Paired Fourier Gaussian Splats\\for Cryo-EM Reconstruction: A Feasibility Study}
+\begin{icmlauthorlist}\icmlauthor{Anonymous Authors}{anon}\end{icmlauthorlist}
+\icmlaffiliation{anon}{Fourier Cryo Splats research project}
+\icmlcorrespondingauthor{Project repository}{\url{https://github.com/yashpatel5400/fourier-cryo-splats}}
+\icmlkeywords{cryo-EM, inverse problems, Gaussian splatting, Fourier reconstruction}
+\vskip 0.3in]
+\printAffiliationsAndNotice{}
+\begin{abstract}
+We study a direct Fourier-domain Gaussian representation for single-particle cryogenic electron microscopy. Complex Gaussian kernels are paired under conjugate reflection, enforcing the Hermitian symmetry of a real electrostatic potential. We derive the exact restriction of anisotropic kernels to projection planes, including plane-distance attenuation, contrast transfer, and translations. Fixed geometry yields a regularized linear least-squares problem, while a differentiable formulation supports geometry learning. We evaluate the stationary model on 24,576 experimental particle images from three EMPIAR accessions, using supplied consensus poses and $64\times64$ images. Conditional half-map FSC remains above 0.143 through the sampled limits of 7.87--16.08 \AA. Mean shell-wise agreement with classical cryoDRGN backprojection is 0.984--0.995; these correlations measure agreement, not independent accuracy. Held-out image error is modestly lower than for a matched Fourier-voxel solver, but the reference implementation is slower. A separate low-frequency real-data experiment fits centers and anisotropic precisions. The results support feasibility at the evaluated bandwidth, without establishing ab initio inference, a speed advantage, or near-atomic heterogeneous reconstruction.
+\end{abstract}
+
+\section{Introduction}
+Single-particle cryo-EM estimates molecular structure from many noisy projections. Neural reconstruction methods such as cryoDRGN represent conformationally varying volumes using coordinate networks \citep{zhong2021}. Their connection to neural fields motivates alternatives with explicit local basis functions. However, the cryo-EM projection is a linear integral, not the occlusion-dependent color compositing used in ordinary neural radiance fields and graphics splatting.
+
+Gaussian representations are already established in cryo-EM. E2GMM models heterogeneity using Gaussian mixtures \citep{chen2021}; CryoSPIRE introduces hierarchical parts \citep{shekar2025}; CryoGS/CryoSplat and GEM exploit real-space Gaussian rendering \citep{chen2025,qu2025}. Merely substituting Gaussians for a neural network is therefore not a new contribution. Our specific proposal is to put complex kernels at nonzero \emph{Fourier frequencies}, pair their coefficients by conjugation, and fit their plane restrictions. We do not claim that Fourier transforms themselves lose information: discretization, interpolation, and statistical estimation are the relevant approximations.
+
+The scope is homogeneous reconstruction with supplied poses. This isolates the representation and its numerical conditioning. We distinguish the implemented stationary dictionary from proposed adaptive geometry and latent-variable extensions. The high-resolution adaptive and latent-variable extensions require additional validation. Reconstruction under known poses does not establish ab initio recovery, biological validity, or high-resolution heterogeneous reconstruction.
+
+\section{Related Work}
+CryoDRGN learns a latent-conditioned frequency-domain density \citep{zhong2021}; cryoDRGN2 jointly estimates poses and structure through multiresolution pose search \citep{zhong2021b}. Classical Bayesian methods estimate voxel volumes and nuisance parameters \citep{scheres2012}. These are different inference problems unless poses, particle selection, resolution, and compute budgets are controlled.
+
+Real-space Gaussian mixtures have analytic Fourier transforms, but translating a real-space Gaussian induces a phase ramp on a Gaussian envelope centered at zero frequency. A Gaussian centered at a nonzero Fourier frequency instead corresponds to an oscillating, spatially localized function. Our proposed dictionary is thus a Gaussian-windowed spectral basis, closely related mathematically to Gabor functions. Its potential novelty lies in its particular cryo-EM inference and splatting construction, not the existence of Gaussian bases or the Fourier slice theorem. An exhaustive priority claim is outside this study.
+
+\section{Method}
+\subsection{Image formation and conventions}
+Use the Fourier convention $F(k)=\int \rho(x)\exp(-2\pi i k^\top x)\,dx$. For an orthonormal plane embedding $E_i\in\R^{3\times2}$, detector frequency $q\in\R^2$, image translation $t_i$, and real even contrast transfer function $C_i$, the observation is
+\begin{equation}\label{eq:forward}
+Y_i(q)=C_i(q)e^{-2\pi i q^\top t_i}F(E_iq)+\epsilon_i(q).
+\end{equation}
+Frequencies must share units, such as inverse angstroms, and translations must use the corresponding length unit. Implementations using cycles per box must scale pixel sizes and translations consistently after downsampling. We assume the weak-phase, central-slice imaging model and neglect Ewald curvature, higher-order aberrations, and multiple scattering.
+
+\subsection{Conjugate-paired spectral kernels}
+Define $g(k;\mu,\Lambda)=\exp[-\frac12(k-\mu)^\top\Lambda(k-\mu)]$ with positive-definite precision $\Lambda$. Our representation is
+\begin{equation}\label{eq:pair}
+F_\theta(k)=\sum_{j=1}^K \left[c_jg(k;\mu_j,\Lambda_j)+\bar c_jg(k;-\mu_j,\Lambda_j)\right].
+\end{equation}
+Here $c_j\in\C$, $\mu_j\in\R^3$, and $\Lambda_j=L_jL_j^\top+\delta I$. A zero-centered component has a real coefficient and is included separately so that it is not counted twice. No opacity, transmittance, depth sorting, or view-dependent color appears.
+
+\begin{proposition}
+Equation~\eqref{eq:pair} satisfies $F_\theta(-k)=\overline{F_\theta(k)}$, and hence its inverse Fourier transform is real.
+\end{proposition}
+\begin{proof}
+$g(-k;\mu,\Lambda)=g(k;-\mu,\Lambda)$ is real. Reflection exchanges each pair, which is exactly complex conjugation of their sum.
+\end{proof}
+The pair has the explicit inverse transform
+\begin{align}
+\rho_j(x)&=2(2\pi)^{3/2}|\Lambda_j|^{-1/2}\nonumber\\
+&\quad\times e^{-2\pi^2x^\top\Lambda_j^{-1}x}
+\operatorname{Re}\{c_je^{2\pi i\mu_j^\top x}\}.
+\end{align}
+It is a signed oscillatory function; positivity does not follow from Hermitian symmetry. A spatial support or nonnegativity penalty can be considered, but would alter the inference problem and must be reported explicitly.
+
+\subsection{Exact restriction to a plane}
+Let $A=E^\top\Lambda E$, $b=E^\top\Lambda\mu$, and $m=A^{-1}b$. Completing the square gives
+\begin{align}\label{eq:restrict}
+g(Eq;\mu,\Lambda)&=a\exp[-\tfrac12(q-m)^\top A(q-m)],\\
+a&=\exp[-\tfrac12(\mu^\top\Lambda\mu-b^\top A^{-1}b)].\nonumber
+\end{align}
+The 2D covariance is $A^{-1}$: it is obtained by restricting \emph{precision}, not by projecting the 3D covariance as in a real-space Gaussian integral. The attenuation $a$ is essential; a kernel far from the central plane should contribute negligibly. This formula permits plane culling and elliptical rasterization followed by CTF multiplication. If $|c_j|a_j\leq\tau_j$, omitting that component incurs at most $\tau_j$ absolute error per Fourier sample; errors add across omitted components. Culling must respect conjugate partners.
+
+\subsection{Inference}
+For known poses and geometry, stack independent real and imaginary observations into $y$, let $B_\eta$ be the real linear operator generated by Equation~\eqref{eq:forward}, and solve
+\begin{equation}\label{eq:objective}
+\min_a\ \tfrac12\|W^{1/2}(B_\eta a-y)\|_2^2+\tfrac\lambda2\|Da\|_2^2.
+\end{equation}
+$W$ contains inverse noise variances, $D$ may penalize high-frequency coefficients, and $a$ stores real and imaginary coefficient parts with the imaginary DC coefficient fixed to zero. One representative per Friedel pair is sufficient; using both simply duplicates information if weights are adjusted consistently. CTF zeros are handled by the likelihood, not unstable division.
+
+The normal equations are
+\begin{equation}
+(B_\eta^\top WB_\eta+\lambda D^\top D)a=B_\eta^\top Wy.
+\end{equation}
+Matrix-free conjugate gradients or stochastic optimization can exploit local kernel support. A useful reference implementation keeps centers on a regular frequency lattice, uses a shared isotropic width, and fits all complex coefficients. This stationary case is a Gaussian radial-basis discretization, not evidence that learned sparse geometry outperforms conventional gridding.
+
+For adaptive kernels, define the reduced objective $\mathcal J(\eta)=\min_a\mathcal L(a,\eta)$. At an exact inner optimum, its gradient is the partial derivative of $\mathcal L$ with respect to $\eta$ (the envelope theorem). Inner solves must be converged sufficiently; otherwise ignoring their dependence on $\eta$ biases the outer gradient. Center displacement, eigenvalue bounds, frequency marching, and a coefficient penalty stabilize the otherwise ill-conditioned basis. Split or prune kernels only using training residuals and coverage, with a separate validation set for model selection.
+
+\subsection{Cost and limitations}
+Dense evaluation costs $O(KM)$ for $M$ Fourier samples. Culling yields cost proportional to the number of sample--kernel intersections, but a speedup requires bounded overlap and an efficient implementation; it is not guaranteed by the representation. Finite neighborhood truncation approximates infinite Gaussian support and should be checked against a larger neighborhood. Narrow kernels poorly couple nearby slices; broad kernels can make coefficient recovery ill-conditioned. Missing viewing directions and CTF coverage cannot be repaired by smoothness alone.
+
+\section{Experimental Protocol}
+\subsection{Data and matched baselines}
+We select EMPIAR-10028 (Pf80S ribosome), EMPIAR-10049 (RAG complex), and EMPIAR-10076 (assembling 50S subunit) \citep{empiar10028,empiar10049,empiar10076}, using deposited experimental particle images and public cryoDRGN poses/CTFs. These are extracted images, not a fresh movie-motion-correction and particle-picking pipeline. We record particle counts, selection indices, original and working pixel sizes, Fourier crop size, signs, seeds, and downloaded byte-range hashes. Different dataset accessions are not replaced by three synthetic stacks.
+
+For a controlled known-pose comparison, we fit a classical Fourier voxel representation with trilinear interpolation and the same objective, particle partitions, and frequency support. We additionally run cryoDRGN's classical CTF-weighted backprojection, with its version and invocation recorded. Ab initio comparisons require independent pose estimation and are a distinct experiment.
+
+\subsection{FSC and safeguards}
+For two Fourier volumes and shell $S_r$, we compute
+\begin{equation}
+\operatorname{FSC}(r)=\frac{\operatorname{Re}\sum_{k\in S_r}F_1(k)\bar F_2(k)}{\sqrt{\sum_{k\in S_r}|F_1(k)|^2\sum_{k\in S_r}|F_2(k)|^2}}.
+\end{equation}
+Independently fitted particle halves with consensus poses give \emph{conditional half-map FSC}; they are not fully independent gold-standard reconstructions \citep{schereschen2012,chen2013}. Method--baseline FSC measures agreement, not resolution. We use unmasked FSC as the primary transparent diagnostic; common masks can inflate correlation and require noise-substitution correction. We report the first sustained crossing of 0.143 and the sampled frequency limit, censoring curves with no crossing. Alignment, sharpening, masks, and hyperparameters are not optimized on the reported FSC. Held-out image prediction and noise controls complement FSC, because shared bias can inflate agreement.
+
+\section{Results}
+\input{results.tex}
+
+\section{Discussion}
+The proposed spectral representation yields an exact central-plane restriction and a convex coefficient-fitting subproblem. Its practical value depends on conditioning, truncation error, predictive performance, and measured cost. Fixed-pose, downsampled consensus reconstructions cannot resolve the full heterogeneous distributions modeled by cryoDRGN, and favorable correlation at a coarse frequency limit would not establish near-atomic accuracy. High-resolution adaptive anisotropy, independent pose inference, and heterogeneous extensions require further experiments.
+
+\section*{Code and Data Availability}
+The code, source-index manifests, complete FSC curves, software environment, and manuscript are available at \url{https://github.com/yashpatel5400/fourier-cryo-splats}. Reconstructed half maps and coefficient checkpoints are distributed as release artifacts. The original experimental images remain available from the cited EMPIAR accessions; background papers are linked rather than redistributed.
+
+\section*{Impact Statement}
+This work studies a computational representation for structural biology. Reconstructions may contain artifacts and should not be treated as validated atomic structures or used for biological inference without independent validation. We release provenance, failed runs where informative, and evaluation code to reduce the risk of overstated resolution claims.
+
+\bibliography{references}
+\bibliographystyle{icml2026}
+\end{document}

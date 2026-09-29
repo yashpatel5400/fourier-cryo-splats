@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 from scipy.stats import norm
-from fourier_splats.uncertainty import optimize_certificate, bias_aware_half_width,compress_nuisance_group
+from fourier_splats.uncertainty import optimize_certificate, optimize_certificate_pdhg, bias_aware_half_width,compress_nuisance_group
 
 
 def test_folded_normal_critical_values():
@@ -107,3 +107,22 @@ def test_wide_group_gram_reduction():
     compressed=np.linalg.norm(np.einsum('nmp,nm->np',factor,w),axis=1)
     assert np.all(compressed>=original-1e-12)
     assert np.allclose(compressed,original,rtol=1e-10)
+
+
+@pytest.mark.parametrize('scale',[1e-4,1.,1e4])
+def test_primal_dual_solver_against_independent_conic_solver(scale):
+    cp=pytest.importorskip('cvxpy');rng=np.random.default_rng(309)
+    n,m,p=6,5,8
+    a=rng.normal(size=(n*m,p));j=rng.normal(size=(n,m,2));d=rng.normal(size=(n,m,4))
+    ell=scale*rng.normal(size=p);B=3.;eta=.3;gamma=np.arange(n)*.03;radius=.17
+    w=cp.Variable(n*m)
+    cost=norm.ppf(.975)*cp.norm(w)+B*cp.norm(ell/scale-a.T@w)
+    for i in range(n):
+        wi=w[i*m:(i+1)*m]
+        cost+=eta*cp.norm(j[i].T@wi)+gamma[i]*cp.norm(wi)+radius*cp.norm(d[i].T@wi)
+    optimum=cp.Problem(cp.Minimize(cost)).solve(solver='CLARABEL',tol_gap_abs=1e-10,tol_feas=1e-10,tol_gap_rel=1e-10)*scale
+    fit=optimize_certificate_pdhg(a,j,ell,B,eta,gamma,extra_nuisance_groups=[(d,radius)],maxiter=10000,rtol=1e-5)
+    assert fit.converged
+    assert fit.dual_lower_bound<=optimum+scale*1e-7
+    assert fit.objective>=optimum-scale*1e-7
+    assert fit.objective-optimum<1e-5*optimum
