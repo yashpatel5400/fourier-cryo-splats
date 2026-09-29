@@ -57,3 +57,16 @@ converged reconstruction or an uncertainty baseline**. The installed stock code
 chooses CUDA or CPU and does not select MPS. These timings support continuing
 small neural development runs locally; they do not predict high-resolution or
 ab initio GPU time.
+
+A second bounded probe executed the stock cryoDRGN 4.3.1 `abinit` command with
+no supplied poses, homogeneous latent dimension zero, the default three-layer
+width-256 Hartley network, and 32 old development particles. On this Mac it
+completed pretraining, one hierarchical pose-search epoch, and one pose-SGD
+epoch in 49.40 seconds including process startup. The training log reports
+39.03 seconds for pose search and 0.40 seconds for pose SGD. Batch sizes were
+two and eight, respectively, with four CPU threads. Exact arguments and source
+snapshots are in `results/uncertainty/development/abinit-runtime-probe/profile.json`.
+This establishes that the stock unknown-pose path executes locally. It neither
+demonstrates convergence nor measures GPU throughput. Linear particle-count
+extrapolation from this tiny run would ignore changing search difficulty,
+batching, memory, and convergence, so it is not a cloud cost quotation.

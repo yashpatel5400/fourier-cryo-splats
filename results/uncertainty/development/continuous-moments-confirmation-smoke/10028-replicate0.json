@@ -1,0 +1,2758 @@
+{
+  "stage": "development smoke only",
+  "dataset": "10028",
+  "replicate": 0,
+  "config": {
+    "particles": 8,
+    "frequency_radius": 5.0,
+    "density_radius": 2.0,
+    "generator_box": 24,
+    "quadrature_order": 32,
+    "pose_quadrature_order": 24,
+    "preconditioner_rank": 128,
+    "widths": [
+      0.07
+    ],
+    "targets": [
+      "center"
+    ],
+    "angles": [
+      0.1
+    ],
+    "shift_field": 0.0004166666666666667,
+    "signal_seed": 900011,
+    "pose_seed": 900021,
+    "noise_seed": 900031,
+    "noise_replicates": 100
+  },
+  "source_snapshot": {
+    "git_head_at_snapshot": "b4caba0318a99ca5f4bab4e4ce2292857266e646",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/confirm_uq_continuous_moments.py": {
+        "sha256": "29e231fb93a98fa0d18f0efdfd027735336cf3379b42d605174f1805f50e3822",
+        "snapshot": "provenance/uncertainty/source-snapshots/29e231fb93a98fa0d18f0efdfd027735336cf3379b42d605174f1805f50e3822.txt"
+      },
+      "scripts/audit_uq_grid_refinement.py": {
+        "sha256": "83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b",
+        "snapshot": "provenance/uncertainty/source-snapshots/83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "protocol_lock_sha256": "development-smoke-29e231fb93a98fa0d18f0efdfd027735336cf3379b42d605174f1805f50e3822",
+  "complete": true,
+  "geometry_indices": [
+    6725,
+    3856,
+    6939,
+    5927,
+    1321,
+    4789,
+    5627,
+    3863
+  ],
+  "geometry_sha256": "64c73d96c57539be5d37ab113f704e3ff96b209d241e03497e39bd8b5c7b8798",
+  "noise_std_physical": 0.0037992099061051254,
+  "generator_hashes": {
+    "deposited_map": "4bd8b3eb3cec93783fad221fab41f0cc5a0bcbb8f4186a6c8697174c446bf367",
+    "ellipsoids": "3da884ffe63887af40bbf8ff241f69970132e1a09764fe74f167591f5c846b4e",
+    "modulated_shell": "b934e49321fcbb1a1bf0ccfb23d97a0401bca4080159f270e992b684ddb7a532",
+    "signed_multiscale": "0fd7034eef12dd7a1ffab5fec6564d667240eb5ed75a199e78773fc12fa4a305"
+  },
+  "records": [
+    {
+      "target": "center",
+      "width": 0.07,
+      "angle_degrees": 0.1,
+      "fit": {
+        "objective": 6.403696911734319,
+        "bias": 5.7918245502370675,
+        "noise_sd": 0.31218551275616424,
+        "half_width": 6.305324023175753,
+        "target_norm": 8.089944495523957,
+        "dual_lower_bound": 6.385400475037614,
+        "converged": true,
+        "history": [
+          {
+            "iteration": 1,
+            "ridge": 9603647.051735362,
+            "objective": 16.1781069474718,
+            "best_objective": 16.1781069474718,
+            "dual_lower_bound": 0.4802232616174366,
+            "relative_gap": 0.9703164737891363,
+            "cg_info": 0,
+            "squared_norm_roundoff_pad": 4.6513592064517604e-10,
+            "quadrature_errors": {
+              "squared_field_norm": 2.304276592023019e-16,
+              "gram_action_norm": 1.476224482504925e-11
+            },
+            "cg_iterations": 3
+          },
+          {
+            "iteration": 2,
+            "ridge": 284913.2190318492,
+            "objective": 16.120207850503288,
+            "best_objective": 16.120207850503288,
+            "dual_lower_bound": 0.4810981216638928,
+            "relative_gap": 0.9701555881831342,
+            "cg_info": 0,
+            "squared_norm_roundoff_pad": 4.685793337065546e-10,
+            "quadrature_errors": {
+              "squared_field_norm": 2.584732637192467e-13,
+              "gram_action_norm": 4.944164510769368e-10
+            },
+            "cg_iterations": 4
+          },
+          {
+            "iteration": 3,
+            "ridge": 8471.729970435035,
+            "objective": 14.518993029401905,
+            "best_objective": 14.518993029401905,
+            "dual_lower_bound": 0.5062829093045137,
+            "relative_gap": 0.9651296127576301,
+            "cg_info": 0,
+            "squared_norm_roundoff_pad": 5.736712360775425e-10,
+            "quadrature_errors": {
+              "squared_field_norm": 2.0132465911715423e-10,
+              "gram_action_norm": 1.3798554263339087e-08
+            },
+            "cg_iterations": 8
+          },
+          {
+            "iteration": 4,
+            "ridge": 265.8793890666358,
+            "objective": 7.470207594555056,
+            "best_objective": 7.470207594555056,
+            "dual_lower_bound": 0.8708381438174637,
+            "relative_gap": 0.8834251748971197,
+            "cg_info": 0,
+            "squared_norm_roundoff_pad": 1.3440210486537576e-09,
+            "quadrature_errors": {
+              "squared_field_norm": 6.851250438091145e-09,
+              "gram_action_norm": 8.04952069017775e-08
+            },
+            "cg_iterations": 28
+          },
+          {
+            "iteration": 5,
+            "ridge": 19.31779481346392,
+            "objective": 6.4283743011582555,
+            "best_objective": 6.4283743011582555,
+            "dual_lower_bound": 3.6925554774074096,
+            "relative_gap": 0.42558486727474937,
+            "cg_info": 0,
+            "squared_norm_roundoff_pad": 1.6330499620171789e-09,
+            "quadrature_errors": {
+              "squared_field_norm": 1.248804175325764e-08,
+              "gram_action_norm": 1.086756560580007e-07
+            },
+            "cg_iterations": 88
+          },
+          {
+            "iteration": 6,
+            "ridge": 10.332274506524227,
+            "objective": 6.40435948185113,
+            "best_objective": 6.40435948185113,
+            "dual_lower_bound": 5.817713469262013,
+            "relative_gap": 0.09160104367213813,
+            "cg_info": 0,
+            "squared_norm_roundoff_pad": 1.6530571389327953e-09,
+            "quadrature_errors": {
+              "squared_field_norm": 1.4030316646719127e-08,
+              "gram_action_norm": 1.1519107622747623e-07
+            },
+            "cg_iterations": 110
+          },
+          {
+            "iteration": 7,
+            "ridge": 9.287966344137375,
+            "objective": 6.403715781113416,
+            "best_objective": 6.403715781113416,
+            "dual_lower_bound": 6.298549461125114,
+            "relative_gap": 0.016422702628132082,
+            "cg_info": 0,
+            "squared_norm_roundoff_pad": 1.6556667037711463e-09,
+            "quadrature_errors": {
+              "squared_field_norm": 1.4321600051186963e-08,
+              "gram_action_norm": 1.163806746014305e-07
+            },
+            "cg_iterations": 104
+          },
+          {
+            "iteration": 8,
+            "ridge": 9.119370026188006,
+            "objective": 6.403696911734319,
+            "best_objective": 6.403696911734319,
+            "dual_lower_bound": 6.385400475037614,
+            "relative_gap": 0.002857167812420661,
+            "cg_info": 0,
+            "squared_norm_roundoff_pad": 1.656096034257995e-09,
+            "quadrature_errors": {
+              "squared_field_norm": 1.437590958792429e-08,
+              "gram_action_norm": 1.1660113180246346e-07
+            },
+            "cg_iterations": 93
+          }
+        ]
+      },
+      "audit": {
+        "density_bias": 5.7918245502370675,
+        "pose_polynomial_bias": 0.9917679580956229,
+        "remainder_bias": 0.001248154118676671,
+        "total_bias": 6.784840662451367,
+        "first_order_field": {
+          "triangle": 0.42598786321185517,
+          "spectral": 0.32015848296993393,
+          "minimum": 0.32015848296993393,
+          "quadrature_eigenvalue_pad": 0.22781331702830704,
+          "roundoff_eigenvalue_pad": 4.429629086669054e-15
+        },
+        "half_second_order_field": {
+          "triangle": 0.010768697192950975,
+          "spectral": 0.010430836395273679,
+          "minimum": 0.010430836395273679,
+          "quadrature_eigenvalue_pad": 0.01006482472910957,
+          "roundoff_eigenvalue_pad": 5.056828409299545e-17
+        },
+        "joint_field": {
+          "triangle": 0.4367565604048061,
+          "spectral": 0.33089190648083594,
+          "minimum": 0.33089190648083594,
+          "quadrature_eigenvalue_pad": 0.23787814175741656,
+          "roundoff_eigenvalue_pad": 1.8295772012900964e-14
+        },
+        "minimum_field_bound": 0.33058931936520763,
+        "quadrature_kernel_error": 0.0014651667414086363,
+        "stored_field_and_gram_bytes": 18343168,
+        "quadrature_order": 24,
+        "backend": "nufft",
+        "integrated_moment_remainder": {
+          "remainder_bias": 0.001248154118676671,
+          "hilbert_schmidt_remainder_bias": 0.004898493346930897,
+          "frequency_weighted_remainder_bias": 0.001248154118676671,
+          "per_particle_operator_third_bound": [
+            0.009895461381118253,
+            0.009219835252136195,
+            0.00978714088614531,
+            0.012849942780046952,
+            0.012022366659863198,
+            0.013126154152236932,
+            0.0129130480919543,
+            0.009219833836293418
+          ],
+          "cube_linear_form_constants": {
+            "L2": 0.28867513459481287,
+            "L4": 0.37991784282579627,
+            "L6": 0.4533405704995666
+          }
+        }
+      },
+      "half_widths_before_fallback": {
+        "noise_only": 0.6118723614972515,
+        "cell24_fixed_pose": 6.0266008347802,
+        "continuous_fixed_pose": 6.305324023175753,
+        "continuous_pose": 7.298340135390048,
+        "continuous_pose_spatial_maximum": 7.317013320656796,
+        "no_data": 16.179888991047914
+      },
+      "no_data_half_width": 16.179888991047914,
+      "spatial_maximum_audit": {
+        "density_bias": 5.7918245502370675,
+        "pose_polynomial_bias": 0.9917679580956229,
+        "remainder_bias": 0.019921339385424817,
+        "total_bias": 6.803513847718115,
+        "first_order_field": {
+          "triangle": 0.42598786321185517,
+          "spectral": 0.32015848296993393,
+          "minimum": 0.32015848296993393,
+          "quadrature_eigenvalue_pad": 0.22781331702830704,
+          "roundoff_eigenvalue_pad": 4.429629086669054e-15
+        },
+        "half_second_order_field": {
+          "triangle": 0.010768697192950975,
+          "spectral": 0.010430836395273679,
+          "minimum": 0.010430836395273679,
+          "quadrature_eigenvalue_pad": 0.01006482472910957,
+          "roundoff_eigenvalue_pad": 5.056828409299545e-17
+        },
+        "joint_field": {
+          "triangle": 0.4367565604048061,
+          "spectral": 0.33089190648083594,
+          "minimum": 0.33089190648083594,
+          "quadrature_eigenvalue_pad": 0.23787814175741656,
+          "roundoff_eigenvalue_pad": 1.8295772012900964e-14
+        },
+        "minimum_field_bound": 0.33058931936520763,
+        "quadrature_kernel_error": 0.0014651667414086363,
+        "stored_field_and_gram_bytes": 18343168,
+        "quadrature_order": 24,
+        "backend": "nufft"
+      },
+      "cases": [
+        {
+          "generator": "deposited_map",
+          "scenario": "nominal",
+          "within_declared_model": true,
+          "true_target": 2.794298988665158,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.1538504598216841,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9217440823103586,
+              "covered": 91,
+              "replications": 100,
+              "monte_carlo_coverage": 0.91,
+              "binomial_95": [
+                0.8360177449703647,
+                0.9580164043716077
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.9999999999999638
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.1538504598216841,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.072698361299512e-23
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.1538504598216841,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.8440609929283693e-27
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.1538504598216841,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.950992562634273e-44
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.1538504598216841,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 8.426676340621809e-45
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -1.912627524816224,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "ellipsoids",
+          "scenario": "nominal",
+          "within_declared_model": true,
+          "true_target": 0.6125035772653307,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.09351115380007802,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9396595784583952,
+              "covered": 96,
+              "replications": 100,
+              "monte_carlo_coverage": 0.96,
+              "binomial_95": [
+                0.9007428432873401,
+                0.9889955060138118
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.6185058891539654
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.09351115380007802,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.9690557971901774e-65
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.09351115380007802,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.0960615804836426e-72
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.09351115380007802,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.7936401646154247e-99
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.09351115380007802,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 7.863592879453374e-100
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.26916788658360347,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "modulated_shell",
+          "scenario": "nominal",
+          "within_declared_model": true,
+          "true_target": 3.2033554235997928,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.027353725076088242,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9491200934331668,
+              "covered": 96,
+              "replications": 100,
+              "monte_carlo_coverage": 0.96,
+              "binomial_95": [
+                0.9007428432873401,
+                0.9889955060138118
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.0
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.027353725076088242,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.6853927432055124e-19
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.027353725076088242,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.472541136450309e-23
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.027353725076088242,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.155818715617287e-39
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.027353725076088242,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.8942806264234717e-39
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -2.3216839597508585,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "signed_multiscale",
+          "scenario": "nominal",
+          "within_declared_model": true,
+          "true_target": -0.044880163653785804,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.012564719450015832,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9498144224767809,
+              "covered": 93,
+              "replications": 100,
+              "monte_carlo_coverage": 0.93,
+              "binomial_95": [
+                0.8610802715441427,
+                0.9713947110925613
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.03169469391655522
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.012564719450015832,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.8139039462293246e-82
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.012564719450015832,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.1764393937602785e-90
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.012564719450015832,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.9996143641599356e-120
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.012564719450015832,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 9.89742736037661e-121
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.9265516275027199,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "deposited_map",
+          "scenario": "random_boundary",
+          "within_declared_model": true,
+          "true_target": 2.794298988665158,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9215308853244716,
+              "covered": 95,
+              "replications": 100,
+              "monte_carlo_coverage": 0.95,
+              "binomial_95": [
+                0.8871650888945373,
+                0.9835681208179479
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.9999999999999644
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.1292095640178056e-23
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.9010605753249035e-27
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.0016359110738747e-44
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 8.6463553654817e-45
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -1.912627524816224,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "ellipsoids",
+          "scenario": "random_boundary",
+          "within_declared_model": true,
+          "true_target": 0.6125035772653307,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9392032378085798,
+              "covered": 94,
+              "replications": 100,
+              "monte_carlo_coverage": 0.94,
+              "binomial_95": [
+                0.8739700654191771,
+                0.9776651139286836
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.6209808567089902
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.2004711398011045e-65
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.4799983156385854e-72
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.2054884814541046e-99
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 9.02637189941315e-100
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.26916788658360347,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "modulated_shell",
+          "scenario": "random_boundary",
+          "within_declared_model": true,
+          "true_target": 3.2033554235997928,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9491383906262225,
+              "covered": 90,
+              "replications": 100,
+              "monte_carlo_coverage": 0.9,
+              "binomial_95": [
+                0.8237774022599773,
+                0.9509953107785141
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.0
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.6714658685746228e-19
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.441063275496058e-23
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.106263638751687e-39
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.8715908359515988e-39
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -2.3216839597508585,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "signed_multiscale",
+          "scenario": "random_boundary",
+          "within_declared_model": true,
+          "true_target": -0.044880163653785804,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9498155636628681,
+              "covered": 97,
+              "replications": 100,
+              "monte_carlo_coverage": 0.97,
+              "binomial_95": [
+                0.91482394702572,
+                0.9937700284616936
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.03170351949818895
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.8182369310010546e-82
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.186877951801438e-90
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.0111884866088925e-120
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 9.926142074339335e-121
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.9265516275027199,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "deposited_map",
+          "scenario": "coherent_boundary",
+          "within_declared_model": true,
+          "true_target": 2.794298988665158,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.15386115319408322,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9217400990530021,
+              "covered": 92,
+              "replications": 100,
+              "monte_carlo_coverage": 0.92,
+              "binomial_95": [
+                0.848442364135579,
+                0.9648284374818372
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.9999999999999638
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.15386115319408322,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.073746869075353e-23
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.15386115319408322,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.845117712009984e-27
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.15386115319408322,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.9519287554264562e-44
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.15386115319408322,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 8.430737107417708e-45
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -1.912627524816224,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "ellipsoids",
+          "scenario": "coherent_boundary",
+          "within_declared_model": true,
+          "true_target": 0.6125035772653307,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.09352098150165034,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.93965739208972,
+              "covered": 96,
+              "replications": 100,
+              "monte_carlo_coverage": 0.96,
+              "binomial_95": [
+                0.9007428432873401,
+                0.9889955060138118
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.6185178896808008
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.09352098150165034,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.970116131935517e-65
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.09352098150165034,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.0978155935244257e-72
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.09352098150165034,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.7955020308270178e-99
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.09352098150165034,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 7.868848480961866e-100
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.26916788658360347,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "modulated_shell",
+          "scenario": "coherent_boundary",
+          "within_declared_model": true,
+          "true_target": 3.2033554235997928,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.027419084153892825,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.949115881242452,
+              "covered": 98,
+              "replications": 100,
+              "monte_carlo_coverage": 0.98,
+              "binomial_95": [
+                0.9296160675289299,
+                0.9975686631760574
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.0
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.027419084153892825,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.6885943243341629e-19
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.027419084153892825,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.479781057971337e-23
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.027419084153892825,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.167236782410482e-39
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.027419084153892825,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.899508793957394e-39
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -2.3216839597508585,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "signed_multiscale",
+          "scenario": "coherent_boundary",
+          "within_declared_model": true,
+          "true_target": -0.044880163653785804,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.01257255416029493,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9498141909452067,
+              "covered": 99,
+              "replications": 100,
+              "monte_carlo_coverage": 0.99,
+              "binomial_95": [
+                0.9455406146079194,
+                0.9997468539670226
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.031692906885316306
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.01257255416029493,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.8130277233125482e-82
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.01257255416029493,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.17432863279223e-90
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.01257255416029493,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.9972745376950645e-120
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.01257255416029493,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 9.891622415044182e-121
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.9265516275027199,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "deposited_map",
+          "scenario": "pose_exceedance4",
+          "within_declared_model": false,
+          "true_target": 2.794298988665158,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.1538823172084105,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9217322146476058,
+              "covered": 90,
+              "replications": 100,
+              "monte_carlo_coverage": 0.9,
+              "binomial_95": [
+                0.8237774022599773,
+                0.9509953107785141
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.9999999999999639
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.1538823172084105,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.0758230898198387e-23
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.1538823172084105,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.847210287841825e-27
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.1538823172084105,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.9537829591044393e-44
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.1538823172084105,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 8.438779800944286e-45
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -1.912627524816224,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "ellipsoids",
+          "scenario": "pose_exceedance4",
+          "within_declared_model": false,
+          "true_target": 0.6125035772653307,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.09356335975233898,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.939647961509569,
+              "covered": 91,
+              "replications": 100,
+              "monte_carlo_coverage": 0.91,
+              "binomial_95": [
+                0.8360177449703647,
+                0.9580164043716077
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.6185696361146091
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.09356335975233898,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.9746949462316145e-65
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.09356335975233898,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.105390465302699e-72
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.09356335975233898,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.8035448162816595e-99
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.09356335975233898,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 7.89155144779508e-100
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.26916788658360347,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "modulated_shell",
+          "scenario": "pose_exceedance4",
+          "within_declared_model": false,
+          "true_target": 3.2033554235997928,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.027615273040251687,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9491031769685992,
+              "covered": 99,
+              "replications": 100,
+              "monte_carlo_coverage": 0.99,
+              "binomial_95": [
+                0.9455406146079194,
+                0.9997468539670226
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.0
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.027615273040251687,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.6982406682502867e-19
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.027615273040251687,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.501603061442263e-23
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.027615273040251687,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.201698147817126e-39
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.027615273040251687,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.915288550162454e-39
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -2.3216839597508585,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "signed_multiscale",
+          "scenario": "pose_exceedance4",
+          "within_declared_model": false,
+          "true_target": -0.044880163653785804,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.012598797674475831,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9498134143442734,
+              "covered": 98,
+              "replications": 100,
+              "monte_carlo_coverage": 0.98,
+              "binomial_95": [
+                0.9296160675289299,
+                0.9975686631760574
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.03168692156790047
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.012598797674475831,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.8100957598120862e-82
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.012598797674475831,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.167266077715751e-90
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.012598797674475831,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.989446893810038e-120
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.012598797674475831,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 9.872202643014419e-121
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.9265516275027199,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "deposited_map",
+          "scenario": "noise_scale2",
+          "within_declared_model": false,
+          "true_target": 2.794298988665158,
+          "noise_scale": 2.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 0.6582627151997157,
+              "covered": 70,
+              "replications": 100,
+              "monte_carlo_coverage": 0.7,
+              "binomial_95": [
+                0.6001853238201958,
+                0.7875935795104634
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.9999089818828378
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.12055846327902e-07
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.808457902698534e-08
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.6257483327895274e-12
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.15442171095087698,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.3139681192559127e-12
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -1.912627524816224,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "ellipsoids",
+          "scenario": "noise_scale2",
+          "within_declared_model": false,
+          "true_target": 0.6125035772653307,
+          "noise_scale": 2.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 0.6672641377802728,
+              "covered": 71,
+              "replications": 100,
+              "monte_carlo_coverage": 0.71,
+              "binomial_95": [
+                0.6107340410925517,
+                0.7964258107492681
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.5612065424947588
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 8.09812972496009e-18
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.5560510266990937e-19
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.4057189635169854e-26
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.09553999307347083,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.7488306289276885e-26
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.26916788658360347,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "modulated_shell",
+          "scenario": "noise_scale2",
+          "within_declared_model": false,
+          "true_target": 3.2033554235997928,
+          "noise_scale": 2.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 0.6724505538827009,
+              "covered": 66,
+              "replications": 100,
+              "monte_carlo_coverage": 0.66,
+              "binomial_95": [
+                0.5584667322490411,
+                0.7517764984551558
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.9999862901903509
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.760391953748435e-06
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.2223964459439455e-07
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.6290770057983955e-11
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.027067978412341098,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.972170326155766e-11
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -2.3216839597508585,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "signed_multiscale",
+          "scenario": "noise_scale2",
+          "within_declared_model": false,
+          "true_target": -0.044880163653785804,
+          "noise_scale": 2.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 0.6728076504953711,
+              "covered": 63,
+              "replications": 100,
+              "monte_carlo_coverage": 0.63,
+              "binomial_95": [
+                0.527648359448317,
+                0.7244334203854486
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.17666145163786579
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 3.979566720250296e-22
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.741941671800641e-24
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.3317394065766223e-31
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 0.012526031647781127,
+              "actual_noise_sd": 0.6243710255123285,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 9.375078718492689e-32
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 0.9265516275027199,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "continuous_nominal_boundary_-1",
+          "scenario": "nominal",
+          "within_declared_model": true,
+          "true_target": -5.523964450837288,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 3.945234308607422e-62,
+              "covered": 0,
+              "replications": 100,
+              "monte_carlo_coverage": 0.0,
+              "binomial_95": [
+                0.0,
+                0.03621669264517641
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.0024163428290080186
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.7739867839584441,
+              "covered": 72,
+              "replications": 100,
+              "monte_carlo_coverage": 0.72,
+              "binomial_95": [
+                0.6213329952827327,
+                0.8052063725088185
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.0438526306756598e-90
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9500000018291234,
+              "covered": 93,
+              "replications": 100,
+              "monte_carlo_coverage": 0.93,
+              "binomial_95": [
+                0.8610802715441427,
+                0.9713947110925613
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.0207326679120569e-98
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9999993024600928,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.6187817780316446e-130
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9999994842205915,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.0791893455327248e-130
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 6.405635914686222,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "continuous_nominal_boundary_1",
+          "scenario": "nominal",
+          "within_declared_model": true,
+          "true_target": 7.287307378535156,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": -5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.0,
+              "covered": 0,
+              "replications": 100,
+              "monte_carlo_coverage": 0.0,
+              "binomial_95": [
+                0.0,
+                0.03621669264517641
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.9976755218186882
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": -5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.7739867839584441,
+              "covered": 78,
+              "replications": 100,
+              "monte_carlo_coverage": 0.78,
+              "binomial_95": [
+                0.686080346213682,
+                0.8566964232501855
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.926150346448371e-48
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": -5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9500000018291234,
+              "covered": 95,
+              "replications": 100,
+              "monte_carlo_coverage": 0.95,
+              "binomial_95": [
+                0.8871650888945373,
+                0.9835681208179479
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 7.344051146536911e-54
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": -5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9999993024600928,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 2.0150799817505566e-77
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": -5.791824544700422,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9999994842205915,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 6.595844194622412e-78
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -6.405635914686222,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "continuous_pose_boundary_-1",
+          "scenario": "coherent_boundary",
+          "within_declared_model": true,
+          "true_target": 7.287047223271525,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": -5.7920050310677125,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.0,
+              "covered": 0,
+              "replications": 100,
+              "monte_carlo_coverage": 0.0,
+              "binomial_95": [
+                0.0,
+                0.03621669264517641
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.9976652453013954
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": -5.7920050310677125,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.773812913776933,
+              "covered": 72,
+              "replications": 100,
+              "monte_carlo_coverage": 0.72,
+              "binomial_95": [
+                0.6213329952827327,
+                0.8052063725088185
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.8257882737746965e-48
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": -5.7920050310677125,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9499403468216836,
+              "covered": 90,
+              "replications": 100,
+              "monte_carlo_coverage": 0.9,
+              "binomial_95": [
+                0.8237774022599773,
+                0.9509953107785141
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 7.185407253450522e-54
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": -5.7920050310677125,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9999993004336046,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.9627491784566158e-77
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": -5.7920050310677125,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9999994827048784,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 6.424011976439888e-78
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": -6.405375759422591,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        },
+        {
+          "generator": "continuous_pose_boundary_1",
+          "scenario": "coherent_boundary",
+          "within_declared_model": true,
+          "true_target": -5.523704295573657,
+          "noise_scale": 1.0,
+          "methods": {
+            "noise_only": {
+              "half_width": 0.6118723614972515,
+              "actual_bias": 5.792114529917629,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 3.8846765577072803e-62,
+              "covered": 0,
+              "replications": 100,
+              "monte_carlo_coverage": 0.0,
+              "binomial_95": [
+                0.0,
+                0.03621669264517641
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 0.0024031139081264613
+            },
+            "cell24_fixed_pose": {
+              "half_width": 6.0266008347802,
+              "actual_bias": 5.792114529917629,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.773707392060086,
+              "covered": 81,
+              "replications": 100,
+              "monte_carlo_coverage": 0.81,
+              "binomial_95": [
+                0.7193020420263876,
+                0.8815568038674564
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.0073255613852144e-90
+            },
+            "continuous_fixed_pose": {
+              "half_width": 6.305324023175753,
+              "actual_bias": 5.792114529917629,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9499041272156407,
+              "covered": 97,
+              "replications": 100,
+              "monte_carlo_coverage": 0.97,
+              "binomial_95": [
+                0.91482394702572,
+                0.9937700284616936
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 9.834696795790147e-99
+            },
+            "continuous_pose": {
+              "half_width": 7.298340135390048,
+              "actual_bias": 5.792114529917629,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9999992992014012,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 4.425340957139152e-130
+            },
+            "continuous_pose_spatial_maximum": {
+              "half_width": 7.317013320656796,
+              "actual_bias": 5.792114529917629,
+              "actual_noise_sd": 0.31218551275616424,
+              "analytic_coverage": 0.9999994817832254,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": false,
+              "correct_sign_probability": 1.033882637486907e-130
+            },
+            "no_data": {
+              "half_width": 16.179888991047914,
+              "actual_bias": 6.405375759422591,
+              "actual_noise_sd": 0.0,
+              "analytic_coverage": 1.0,
+              "covered": 100,
+              "replications": 100,
+              "monte_carlo_coverage": 1.0,
+              "binomial_95": [
+                0.9637833073548235,
+                1.0
+              ],
+              "uses_no_data": true,
+              "correct_sign_probability": 0.0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "seconds": 20.287424250040203
+}

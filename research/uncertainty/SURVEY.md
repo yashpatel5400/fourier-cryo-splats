@@ -259,4 +259,40 @@ primary abstract, rather than a verified full-text reproduction, supports its
 inclusion here. [Experiment-guided AlphaFold3](https://doi.org/10.1038/s41587-026-03166-5)
 belongs to the atomic-ensemble branch: agreement of ensemble-averaged observables
 with experiments addresses a different target from particle-derived density CIs.
-Its full text has been retrieved for subsequent detailed assessment.
+Its full text has been checked for inputs, cryo-EM guidance and independent-modality limitations; see the critical annotations.
+
+
+## 10. Target-specific reading updates
+
+Additional primary-source annotations now cover DynaMight, 3DFlex, RECOVAR,
+particle-counting bias and measurement-limited ensemble selection. These refine
+the distinction between per-image latent-coordinate error, variability of
+physical structures, population uncertainty, shared-reference bias and the
+homogeneous density-functional target used here. RECOVAR's final PMC record and
+its preprint record are distinguished; direct full-page access limitations are
+recorded rather than silently treating all versions as interchangeable.
+
+The present implementation has progressed from finite dictionary/voxel audits
+to continuous L2 density and bounded nonlinear-pose post-audits. Completed
+assumption controls show failures from support exclusion, heterogeneous images
+and misspecified noise, while some tested defocus/heavy-tail controls remain
+conservative. A frozen additional-exposure prediction study now favors the
+neural baseline slightly on all three stacks. Those results do not change the
+survey's novelty threshold or supply experimental density-coverage labels.
+The newly frozen continuous-uncertainty simulation study is still running.
+
+The pose-transfer follow-up adds [CESPED](https://arxiv.org/abs/2311.06194v2),
+[cryoPARES](https://www.biorxiv.org/content/10.1101/2025.03.04.641536v6), and
+[CryoFastAR](https://arxiv.org/abs/2506.05864v1), bringing the curated ledger to
+92 entries. CESPED standardizes refinement-derived pose labels and explicitly
+acknowledges their uncertainty. CryoPARES reuses alignments of related specimens;
+CryoFastAR learns multiview pose prediction from synthetic training with real
+fine-tuning. These are distinct transfer assumptions. Their quality scores,
+reconstruction comparisons, and inference speed do not by themselves calibrate
+the bounded nuisance sets used in this project.
+
+The Lai et al. main article is now available and critically annotated. It
+explicitly discusses scalar confidence sets and hybrid resampling in a multilevel
+empirical-Bayes treatment, so its relationship to our construction is more
+substantive than a shared title. The broader survey still distinguishes targeted
+primary reading from exhaustive screening or original-code reproduction.

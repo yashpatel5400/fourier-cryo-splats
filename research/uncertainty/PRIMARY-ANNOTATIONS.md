@@ -193,3 +193,207 @@ data benchmarks and fuller particle-method convergence analysis as future work.
 Continuous/discretized distinctions are already prior art; our proposed
 continuous adjoint norm is a specific uncertainty audit, not the first
 continuous-space formulation of cryo-EM.
+
+## DynaMight: validation of estimated deformation fields
+
+Primary published PDF, doi:10.1038/s41592-024-02377-5; checked training,
+model-bias experiments, half-set reconstruction and deformation-error discussion.
+Separate variational autoencoders and consensus Gaussian models are fitted to
+halves. A reserved particle subset is embedded through the separate models;
+disagreement of the resulting displacement estimates is an error diagnostic.
+The paper explicitly demonstrates that atomic-model regularization can transmit
+incorrect structural features, and warns that a shared deformation model can
+inflate half-map agreement. These concerns are prior art, not failures newly
+identified by our audit. The diagnostic targets motion estimates and depends on
+its split/regularization design; it is not a uniform confidence interval for a
+fixed homogeneous density functional. Its comparison also reports cases where
+multi-body refinement has better local resolution. Our validation should retain
+similarly unfavorable comparisons rather than interpreting conservatism as
+universal superiority.
+
+## 3DFlex: motion learning and frequency-separated validation
+
+Primary publisher text: https://doi.org/10.1038/s41592-023-01853-8. Checked forward
+model, training/refinement split and experimental validation description.
+The method deforms a canonical density through a mesh-based neural flow,
+assuming supplied poses and CTFs in the described experiments. Low-resolution
+images train the motion model; fixed learned motions then support full-resolution
+half-map reconstruction. Latent-coordinate noise is a training regularizer,
+not a calibrated interval for the physical density. The authors' validation
+argument relies on evaluating recovered information beyond motion-training
+frequencies. DynaMight raises an additional shared-bias concern; the appropriate
+comparison must preserve both methods' actual protocols rather than asserting
+that any half split is automatically independent. This is a heterogeneity and
+resolution baseline, not a matched homogeneous confidence-coverage method.
+
+## RECOVAR: uncertainty of latent coordinates and population deconvolution
+
+Primary final article: https://pmc.ncbi.nlm.nih.gov/articles/PMC11892586/,
+doi:10.1073/pnas.2419140122. Publisher/PMC-indexed method and discussion passages
+were retrieved; direct PMC access returned a browser challenge. The separately
+available PMC10634927 version is a preprint and must not be mislabeled the final
+publication. The method estimates conformational covariance, embeds images in a
+linear principal-component space, models noisy latent coordinates, and uses
+adaptive kernel regression to reconstruct states. It then corrects the latent
+population density for the observation-noise effect. This separates covariance
+of physical structures, uncertainty of per-image coordinates, and populations;
+none should be equated automatically with a confidence interval for a single
+homogeneous density. Its linear embedding permits statistical corrections that
+a general neural latent coordinate system need not preserve. Our homogeneous
+scope does not reproduce its population task, so a simplistic one-number
+coverage ranking would be misleading.
+
+## Evans et al.: counting and population inference
+
+Primary published Comment: doi:10.1038/s42003-026-09859-6. Checked two-state and
+continuous examples, the real-data mixture construction and scope discussion.
+Particle assignments require the ensemble's base rates; simply counting hard
+or soft image assignments can distort populations as noise increases. The
+comparison uses whole-dataset reweighting/deconvolution to address that inverse
+problem. Its real spike example uses a constructed 80/20 mixture of heavily
+classified subsets and explicitly acknowledges that this baseline is not known
+biological truth. In the continuous example, supplying true candidate structures
+to a comparator is also disclosed. Thus population uncertainty deserves a
+separate benchmark with candidate-structure error and pose/contrast uncertainty;
+our homogeneous two-state assumption-stress test is not a reproduction of this
+population-estimation result.
+
+## Mattingly et al.: choosing a learnable conformational resolution
+
+Primary arXiv:2606.14449v1. Checked model, mutual-information objective, Gaussian
+information approximation, RNA example and its conditional imaging parameters.
+The method chooses a representative conformational ensemble using expected
+information about its mixture weights under a Dirichlet prior and probabilistic
+image model. Its RNA example uses a Gaussian/Fisher-information approximation,
+conditional on specified imaging parameters, to compare ensemble sizes and
+selection schemes. The quantity is prior-averaged learnability of populations,
+not a uniform finite-sample confidence interval for arbitrary density. The
+paper directly studies indistinguishable nearby states and measurement-induced
+coarse graining. Therefore our fine-feature uncertainty cannot be claimed as
+the first theory of measurement-limited structural resolution. A useful future
+comparison would connect sensitivity of density functionals to population
+resolution while retaining their distinct targets and assumptions.
+
+## Cryo-forum: orientation dispersion as a quality score
+
+Read the locally archived arXiv:2307.09847v1, sections 3.6 and 5, rather than
+silently treating it as the final 2024 journal text. The quaternion quadratic
+representation defines Bingham dispersion statistics; eigenvalue-derived
+scores rank images and permit quantile-based filtering. Its uncertainty claim
+is a proxy for orientation error and particle quality. A score that improves
+reconstruction after filtering does not establish a prescribed simultaneous
+coverage probability for per-particle rotation balls. The proposed pipeline
+also uses conventional refinement to obtain training orientations. This makes
+it relevant to practical pose-quality assessment, while leaving the absolute
+pose bounds in our density audit as assumptions to be justified separately.
+
+## ARCHER: transferable reference-conditioned pose scoring
+
+Read arXiv:2608.22029v1, including its discrete-pose classifier, continuous
+refinement, independent-reference controls and supplemental quality-score
+experiments. The score conditions on a supplied volume; transfer to a new
+specimen is not reference-free joint reconstruction. Learned temperature and
+soft angular training labels define the grid probabilities. The reported
+behavioral calibration aligns synthetic operating conditions with experimental
+pose-recovery performance, and negative entropy separates constructed junk
+from curated particles. Neither experiment alone calibrates density confidence
+intervals or a simultaneous set of small rotation balls. Reported experimental
+pose differences use benchmark assignments as reference labels. This is a
+useful practical comparator for pose estimation, but importing its posterior
+scores as guaranteed nuisance radii would require an additional argument.
+
+## QUTCC: image-level calibration distribution versus fixed-density coverage
+
+Read arXiv:2507.14760v2 (24 May 2026), sections 3.1--3.3 and 5. Simultaneous
+quantile regression produces spatially varying intervals; calibration adjusts
+quantile inputs using paired reference images and an aggregate pixel-error
+criterion. The paper explicitly limits its guarantees to pixelwise marginal
+coverage and discusses rare-event and distribution-shift risks. Its imaging
+experiments are denoising, MRI and quantitative phase microscopy, not cryo-EM
+particle reconstruction. A conformal control here would need a stated
+exchangeable population of molecules/geometries plus calibration truth; treating
+voxels from one molecule as independent calibration specimens would not supply
+that design. Learned conditional distributions and marginal interval coverage
+should also be kept distinct. This is relevant general inverse-problem prior
+art, not an unexecuted cryo-EM software baseline under another name.
+
+## Lai et al.: empirical Bayes, dynamic reconstruction and hybrid resampling
+
+The earlier Python TLS download failure was resolved with the Mac's verified
+curl transport. Read the 18-page published main article, doi:10.5705/ss.202021.0419,
+especially section 5; the supplement remains separately unreviewed. This is
+direct uncertainty prior art: it connects empirical Bayes and sequential MCMC
+filtering, discusses discretized random fields, and describes exact, bootstrap
+and hybrid-resampling confidence sets for scalar functionals. Hybrid sets use
+a fitted resampling family and approximate coverage, distinct from an exact
+uniform statement over our fixed bounded density/nuisance class. The main
+article does not provide a directly matched three-stack Fourier-feature coverage
+benchmark. We must cite its actual confidence-set discussion rather than
+dismissing it as merely a generic dynamic-imaging title. Monte Carlo approximation
+error, posterior uncertainty and repeated-data coverage require separate checks.
+
+## CryoBench: matching a metric to the reconstruction task
+
+Read the archived primary manuscript's sections 4.1, 6 and appendix C.1. Its
+synthetic heterogeneous datasets support several distinct FSC evaluations:
+per-conformation reconstruction, representative samples matched to reference
+states, and per-image reconstruction at an inferred latent coordinate. The
+last combines state assignment and reconstruction, while maximizing over
+reference states answers a different question. The paper explicitly identifies
+shared-bias limitations of half-map FSC. Its discussion also identifies more
+realistic noise, combined compositional/conformational variation and
+nonstructural heterogeneity as extensions. Our homogeneous acquisition-geometry
+simulations cannot be relabeled a CryoBench heterogeneity reproduction. Likewise,
+an independent map used as a known simulation generator does not become the
+unknown experimental density merely because the accession matches.
+
+## CryoRes: learned resolution labels are not density coverage
+
+Read the archived accepted-manuscript version of doi:10.1016/j.jmb.2023.168059,
+including training-label construction and the single-map/half-map comparisons.
+The network learns deposited global resolution, ResMap-derived relative local
+resolution, and masks derived from atomic models; these are specified proxy
+labels. Evaluation compares resolution estimates with established methods,
+including half-map FSC where available. This is a map-resolution predictor,
+not an estimator of a conditional density-error interval. Its use of experimental
+maps does not remove uncertainty in the training targets. A fair comparison
+would ask whether resolution scores predict feature recoverability under a
+matched task, rather than counting them as failed confidence intervals.
+
+## Narnhofer et al.: variance-bin conformal calibration
+
+Read the archived manuscript dated 1 August 2024, arXiv:2212.12499, particularly
+section 3.2, Proposition 3.5, Corollary 3.7 and the image-sampling caveat. The
+method calibrates squared reconstruction errors within bins of estimated
+posterior variance using independent signal--observation pairs. It explicitly
+permits approximate posterior means and variances; sampler accuracy affects
+efficiency without being the source of its rank-based coverage result. Bin-
+conditional coverage is not arbitrary pointwise conditional coverage. The
+experimental use of all pixels is discussed separately because same-image
+pixels need not be independent. Thus a faithful cryo-EM adaptation would require
+a defensible calibration sampling unit. We must not imply that posterior
+variance can never be calibrated, or that its calibration automatically transfers
+to every fixed molecule and imaging design.
+
+## CESPED, cryoPARES and CryoFastAR: three pose-transfer settings
+
+CESPED arXiv:2311.06194v2, methods and evaluation, was read in primary HTML and
+archived as a PDF. Pose labels come from consistently reprocessed RELION
+refinements. The authors acknowledge uncertainty in these labels and use
+confidence-weighted angle errors plus reconstructed-volume comparisons. These
+are useful standardized benchmarks rather than experimental ground truth.
+
+For cryoPARES, the primary bioRxiv v6 abstract (10 August 2026) and author
+repository documentation were checked; PDF retrieval returned 429. It transfers
+supervised pose assignments between related samples and includes pruning and
+local-refinement machinery. Full-paper validation has not been audited here.
+The source limitation must accompany detailed claims about its uncertainty.
+
+CryoFastAR arXiv:2506.05864v1, method, experimental comparisons and limitations,
+was read and archived. It predicts relative Fourier-plane geometry from
+multiple views, using synthetic supervision and real-data fine-tuning.
+Comparisons distinguish direct inference from subsequent cryoSPARC refinement.
+Its discussion reports domain-gap and image-batch limitations and excludes
+heterogeneous reconstruction. These different transfer/reference assumptions
+prevent interpreting all three approaches as the same ab initio or confidence-
+calibration task. No original-code benchmark for these methods is claimed.

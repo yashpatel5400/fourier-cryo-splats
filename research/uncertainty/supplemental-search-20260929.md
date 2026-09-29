@@ -20,3 +20,25 @@ work, not a matched density-uncertainty baseline on the evidence checked. The
 search also returned generic commercial internship advertisements; these are
 excluded as research evidence. Only primary papers/software sources inform the
 method comparison. No candidate count was inflated by those hits.
+
+## Pose-transfer and benchmark follow-up
+
+Queries: "CESPED cryo-EM supervised pose estimation benchmark Nature Methods";
+"cryoPARES pose estimation cryo EM uncertainty 2025 2026"; "cryo EM uncertainty
+quantification validation confidence reconstruction 2026 density posterior";
+the exact title of the cryoPARES preprint.
+
+Added CESPED (arXiv:2311.06194v2), cryoPARES (bioRxiv
+2025.03.04.641536v6, 10 August 2026) and CryoFastAR (arXiv:2506.05864v1;
+ICCV 2025 version separately identified). This brings the curated ledger to 92
+entries. CESPED and CryoFastAR primary PDFs were retrieved. For cryoPARES,
+the primary abstract and author software documentation were read; PDF retrieval
+returned HTTP 429. Software documentation is not a substitute for an audited
+full experimental paper. 3DDF-VAE was already in the ledger. A Cryo-IEF Nature
+Methods highlight and a tomography particle-picking challenge also appeared;
+these were not inflated into new matched density-uncertainty baselines.
+
+The previously inaccessible Lai et al. Statistica Sinica article downloaded
+successfully using verified macOS curl TLS. Its main text includes confidence-
+set and hybrid-resampling discussion; the annotations and access history now
+record that reading. No TLS verification was disabled.

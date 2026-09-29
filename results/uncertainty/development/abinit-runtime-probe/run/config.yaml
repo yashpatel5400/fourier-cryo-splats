@@ -1,0 +1,128 @@
+cmd:
+- /Users/yash/Documents/New project/fourier-splats/.venv/bin/cryodrgn
+- abinit
+- /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/particles.mrcs
+- --ctf
+- /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/ctf.pkl
+- --ind
+- /Users/yash/Documents/New project/fourier-splats/data/uncertainty/abinit-runtime-probe-indices.pkl
+- -o
+- /Users/yash/Documents/New project/fourier-splats/results/uncertainty/development/abinit-runtime-probe/run
+- --zdim
+- '0'
+- --num-epochs
+- '2'
+- --epochs-pose-search
+- '1'
+- --n-imgs-pretrain
+- '32'
+- --batch-size-hps
+- '2'
+- --batch-size-sgd
+- '8'
+- --num-workers
+- '0'
+- --max-threads
+- '4'
+- --no-amp
+- --no-analysis
+- --seed
+- '609491'
+- --log-interval
+- '8'
+data_norm_mean: 0.0
+data_norm_std: 66.65863800048828
+dataset_args:
+  ctf: /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/ctf.pkl
+  datadir: null
+  ind: /Users/yash/Documents/New project/fourier-splats/data/uncertainty/abinit-runtime-probe-indices.pkl
+  invert_data: true
+  particles: /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/particles.mrcs
+lattice_args:
+  D: 65
+  extent: 0.5
+  ignore_DC: true
+model_args:
+  domain: hartley
+  feat_sigma: 0.5
+  pe_dim: 64
+  pe_type: gaussian
+  use_conf_encoder: false
+  zdim: 0
+time: 2026-09-29 12:33:07.194486
+training:
+  add_one_frequency_every: 100000
+  amp: false
+  base_healpy: 2
+  batch_size_hps: 2
+  batch_size_known_poses: 64
+  batch_size_sgd: 8
+  beta_conf: 0.0
+  channels_cnn: 32
+  conf_encoder_optimizer_type: adam
+  conf_table_optimizer_type: adam
+  ctf: /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/ctf.pkl
+  datadir: null
+  depth_cnn: 5
+  epochs_pose_search: 1
+  epochs_sgd: 1
+  explicit_volume: false
+  feat_sigma: 0.5
+  hypervolume_dim: 256
+  hypervolume_domain: hartley
+  hypervolume_layers: 3
+  hypervolume_optimizer_type: adam
+  ind: /Users/yash/Documents/New project/fourier-splats/data/uncertainty/abinit-runtime-probe-indices.pkl
+  initial_conf: null
+  invert_data: true
+  kernel_size_cnn: 3
+  l2_smoothness_regularizer: 0.0
+  l_end: 32
+  l_start: 12
+  lazy: false
+  load: null
+  load_poses: null
+  log_heavy_interval: 5
+  log_interval: 8
+  lr: 0.0001
+  lr_conf_encoder: 0.0001
+  lr_conf_table: 0.01
+  lr_pose_table: 0.001
+  max_freq: null
+  max_threads: 4
+  multigpu: false
+  n_frequencies_per_epoch: 10
+  n_imgs_pose_search: null
+  n_imgs_pretrain: 32
+  n_iter: 4
+  n_kept_poses: 8
+  no_trans: false
+  no_trans_search_at_pose_search: false
+  norm: null
+  num_epochs: 2
+  num_workers: 0
+  output_mask: circ
+  particles: /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/particles.mrcs
+  pe_dim: 64
+  pe_type: gaussian
+  pe_type_conf: null
+  pose_only_phase: 0
+  pose_table_optimizer_type: adam
+  relion31: false
+  resolution_encoder: null
+  seed: 609491
+  shuffle: true
+  shuffler_size: 32768
+  std_z_init: 0.1
+  t_extent: 20.0
+  t_n_grid: 7
+  t_x_shift: 0.0
+  t_y_shift: 0.0
+  trans_l1_regularizer: 0.0
+  use_conf_encoder: false
+  variational_het: false
+  verbose_time: false
+  wd: 0.0
+  window_radius_gt_real: 0.85
+  zdim: 0
+version: 4.3.1
