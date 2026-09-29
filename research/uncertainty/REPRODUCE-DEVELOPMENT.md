@@ -1,7 +1,7 @@
-# Reproduce the uncertainty development comparisons
+# Reproduce the uncertainty studies
 
-These commands reproduce development studies, not an untouched confirmatory
-benchmark. Start from the project environment, downloaded particle selections,
+The commands distinguish exploratory development from the two frozen uncertainty
+studies and frozen additional-exposure prediction comparison below. Start from the project environment, downloaded particle selections,
 reference maps and metadata described in the repository README and provenance.
 Install uncertainty dependencies and use the macOS FINUFFT build in COMPUTE.md.
 Run from the repository root with its virtual environment active. The existing
@@ -160,3 +160,26 @@ bound is a classical Gaussian testing consequence for the declared continuous
 density class, not a new statistical theorem or a variable-length bound. It
 compares every completed low- and higher-band fixed-pose target without changing
 any frozen weights or outcomes.
+
+
+## Exact validation arrays (v0.3.0-dev)
+
+The [validation release](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.3.0-dev)
+adds every frozen uncertainty weight, continuous nonlinear stress pose, and
+selected development audit array. It contains no particle pixels or third-party
+PDFs. Original trained models and pilots remain in the required v0.2.0-dev
+checkpoint. The source/result candidate is commit `a4117ab`.
+
+```sh
+gh release download v0.3.0-dev --pattern 'uncertainty-validation-arrays-*.tar.gz'
+shasum -a 256 uncertainty-validation-arrays-v0.3.0-dev.tar.gz
+tar -xzf uncertainty-validation-arrays-v0.3.0-dev.tar.gz
+```
+
+Expected SHA-256: `6fc17a8393bbc84009212a232226984177f8507783f119def55364ee3912af32`.
+The file-by-file hashes and sizes are in
+`provenance/uncertainty/validation-arrays-v0.3.0-dev.json`. Re-running each frozen
+evaluator verifies its original protocol dependencies; the newer reporting and
+release scripts do not alter the protocol locks. This release is a research
+checkpoint undergoing independent review, not a scientifically validated
+end-to-end cryo-EM confidence pipeline.
