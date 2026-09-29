@@ -7,8 +7,13 @@ See the [research plan](research/uncertainty/PLAN.md),
 [development results and failures](research/uncertainty/DEVELOPMENT-LOG.md).
 The [current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) has been
 rewritten around uncertainty, ambient-space bias auditing, and conditional pose
-bounds. It is explicitly a **development draft**, not a completed submission.
-Comprehensive validation and independent scientific review remain outstanding.
+bounds. Both frozen conditional-uncertainty studies and the fresh-exposure
+prediction comparison are complete. The manuscript is a **candidate for independent
+review**, not a claim of end-to-end experimental calibration or conference acceptance.
+Across 144 audit settings the continuous pose procedures remain conservative;
+the moment refinement reduces no-data fallbacks from 48 to 16, but map-like
+feature detection remains weak. Independent review and substantive revisions
+are the next stage.
 Completed development comparisons include source-group bootstrap, nonlinear pose
 curvature, shared-density spectral audits, finite-grid and continuous-density
 checks, joint continuous-pose bounds, assumption-violation controls, and stock neural

@@ -175,7 +175,7 @@ def main():
 
 def plot(designs, cases, cfg):
     plt.rcParams.update({'font.size': 8, 'axes.spines.top': False, 'axes.spines.right': False})
-    fig, axes = plt.subplots(1, 3, figsize=(10., 3.1))
+    fig, axes = plt.subplots(1, 3, figsize=(7.4, 2.85))
     panels = [(width, None) for width in cfg['widths']] if len(cfg['widths']) == 2 else [(cfg['widths'][0], name) for name in cfg['targets']]
     for j, (width, selected_target) in enumerate(panels):
         ax = axes[j]
@@ -224,7 +224,7 @@ def table(widths, setting_count, cfg):
     scale_header = ' & '+' & '.join(r'\multicolumn{2}{c}{Scale '+f'{width:.2f}'+'}' for width in cfg['widths'])+r' \\'
     angle_header = 'EMPIAR & '+' & '.join(f'${angle:g}^\\circ$' for width in cfg['widths'] for angle in cfg['angles'])+r' \\'
     label = 'frozenuncertainty' if ARGS.study == 'continuous-v1' else 'frozenmoments'
-    lines = [r'\begin{table}[t]', r'\centering\small',
+    lines = [r'\begin{table}[t]', r'\centering\small\setlength{\tabcolsep}{3pt}',
              r'\caption{'+caption+'}', r'\label{tab:'+label+'}',
              r'\begin{tabular}{l'+'c'*ncols+'}', r'\toprule', scale_header, angle_header, r'\midrule']
     for dataset in ['10028', '10049', '10076']:

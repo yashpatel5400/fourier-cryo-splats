@@ -79,8 +79,12 @@ This is conditional prediction, not unknown experimental-density coverage.
 The original continuous uncertainty validation was frozen at 76dbd53 before
 outcomes (96 settings). Its follow-up integrated-moment validation was frozen at
 8d66785 after development but before its own outcomes (48 settings, disjoint
-particle subsets and new signal/noise seeds). Both are running; no final coverage
-summary is claimed yet. Preserve the frozen dependencies and all failures.
+particle subsets and new signal/noise seeds). Both are complete with all locked
+dependencies unchanged. V1 has minimum in-class coverage 0.993772 over 1536
+records; v2 has coverage rounded to one over 768 in-class records. All 72 unique
+fits converge. In v2, no-data fallbacks fall from 48 to 16, but correct-sign power
+for the in-class cell generators is at most 2.3e-5. Preserve these limitations
+alongside the improvements.
 
 The broader-angle development sweep exposed no-data fallback in every original
 1/2/5-degree setting. The refinement reduces fallbacks from 18 to 10 across 30
@@ -92,8 +96,7 @@ A classical fixed-length lower bound is within a factor 1.20 of every reported
 fixed-pose interval; it does not establish the larger pose bound's sharpness.
 Real-image background diagnostics expose unresolved dependence after scaling.
 
-No scientific Fable 5.1 review has occurred. The review runner is being prepared
-and will require both frozen simulation summaries to be complete. It will save
+No scientific Fable 5.1 review has occurred. The review runner now requires both frozen simulation summaries to be complete. It saves
 unaltered prompts, source/PDF hashes, provider output and critical verdicts.
 The next major decisions should follow this assessment, rather than accumulating
 more similar oracle-bound simulations. End-to-end pose/noise/class calibration,

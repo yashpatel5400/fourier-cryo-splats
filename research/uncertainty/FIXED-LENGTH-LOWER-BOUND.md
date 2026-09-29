@@ -36,3 +36,20 @@ Fixed poses form a submodel of the bounded-pose class, so the lower bound remain
 necessary there. A large gap to a pose-robust upper bound does not prove that
 the gap is unavoidable under pose uncertainty. The comparison separates
 fixed-pose efficiency from additional pose conservatism.
+
+
+## Relation to the existing optimization gap
+
+The numerical factor near 1.20 is expected from the classical dual/testing
+connection, not an empirical discovery of a new efficiency principle. Let U be
+the fixed-pose sum-objective upper bound and L>0 a feasible dual value. Scaling
+the dual vector by kappa=z_(1-alpha)/z_(1-alpha/2) makes it feasible in the
+fixed-length testing bound. Therefore q_opt >= kappa L and q_reported <= U.
+If (U-L)/U <= epsilon, then
+
+    q_reported/q_opt <= z_(1-alpha/2) / (z_(1-alpha)*(1-epsilon)).
+
+At alpha=.05 and epsilon=.005 this is 1.197561. Direct direction-wise numerical
+lower bounds provide additional checks. This argument does not transfer an
+optimization gap to the later nonlinear-pose post-audit, and does not establish
+similar efficiency relative to arbitrary variable-length intervals.

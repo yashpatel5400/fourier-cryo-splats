@@ -481,3 +481,31 @@ The main paper now emphasizes the continuous method; finite-representation
 methods and early experiments remain in the appendix. The literature ledger
 adds Gold-standard local validation (93 candidates total) and targeted EMMIVox
 reading. No scientific reviewer has yet been invoked.
+
+
+## Completed frozen studies and first review candidate
+
+Both locked continuous studies are complete. V1 contains 96 settings, 2304
+signal/scenario records and 48 converged fits; minimum coverage across its 1536
+in-class records is 0.993772 for the pose audit, 0.939215 for fixed poses and
+zero for the 24-cell audit. The severe projection-audit failures occur at
+constructed continuous boundaries. V1 has no no-data fallbacks, although fine
+feature widths nearly reach the no-data bound. Deliberate violations did not
+expose failure of the pose audit at their selected severities.
+
+V2 contains 48 settings, 1152 records and 24 converged fits. The integrated
+pose audit covers all 768 in-class records with analytic values rounded to one
+in float64. Fixed-pose and cell-projected minima are 0.671143 and 0.125960.
+Its 16 no-data fallbacks improve on the spatial-maximum correction's 48.
+One-degree relative widths are 0.303676--0.500927; at two degrees only 10076
+remains narrower than no data (0.865642--0.986669). In-class cell-generator
+sign power is at most 2.2843e-5: useful structural detection is not established.
+
+All raw JSON records, fitting gaps, widths, sign-power values, scalar Monte
+Carlo checks and stratum summaries are retained. Reporting scripts and plots
+were developed after outcomes; experimental algorithms and locked protocols
+were not altered. The manuscript now integrates all frozen outcomes, including
+unfavorable utility results, and is a candidate for independent review.
+The classical fixed-length efficiency proof also makes explicit its generic
+1.19756 factor from Gaussian testing and a 0.5% primal-dual gap; this is not
+a novel minimax theorem. No scientific Fable review has occurred at this entry.

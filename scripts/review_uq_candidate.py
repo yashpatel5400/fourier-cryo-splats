@@ -46,6 +46,9 @@ Produce a detailed independent review with:
    whether the CURRENT work is a strong contender for ICML acceptance, with reasons.
 
 Do not infer that a cited paper was fully read merely because it was downloaded.
+Historical progress remarks in the theory/development notes are retained
+records; compare current manuscript claims with the complete result summaries.
+Flag substantive contradictions instead of assuming historical plans were done.
 You have no tools in this invocation; say what you cannot independently verify.
 The packet includes original project texts and summaries, not third-party PDFs.
 Return the entire review as readable Markdown. Never issue a favorable verdict
@@ -78,12 +81,8 @@ def main():
                  'PRIMARY-ANNOTATIONS.md', 'REPRODUCE-DEVELOPMENT.md', 'COMPUTE.md']],
              *sorted((ROOT/'research/uncertainty/confirmation').glob('*/PROTOCOL.md')),
              *sorted((ROOT/'src/fourier_splats').glob('*.py')),
-             *sorted((ROOT/'tests').glob('test*uq*.py')),
-             *[ROOT/'scripts'/name for name in [
-                 'confirm_uq_continuous.py', 'confirm_uq_continuous_moments.py',
-                 'summarize_uq_confirmation.py', 'evaluate_uq_fresh_prediction.py',
-                 'benchmark_uq_group_bootstrap.py', 'stress_uq_continuous_pose.py',
-                 'summarize_uq_continuous_adversaries.py']],
+             *sorted((ROOT/'tests').glob('test*.py')),
+             *sorted((ROOT/'scripts').glob('*.py')),
              *sorted((ROOT/'results/uncertainty/confirmation').glob('*/summary/summary.json')),
              *sorted((ROOT/'results/uncertainty/confirmation/prediction-v1').glob('*/metrics.json')),
              *[ROOT/'results/uncertainty/development'/name for name in [
@@ -92,6 +91,11 @@ def main():
                  'continuous-pose-adversaries/summary.json', 'noise-scale-calibration.json',
                  'continuous-high-band-summary/summary.json', 'background-diagnostics/summary.json',
                  'continuous-fixed-length-lower/summary.json']]]
+    if args.round > 1:
+        if args.response_file is None:
+            raise ValueError('A revision needs a response and every unmodified earlier review')
+        files.extend(ROOT/'research/uncertainty/reviews'/f'round-{number:02d}'/'review.md'
+                     for number in range(1, args.round))
     if args.response_file:
         files.append(args.response_file.resolve())
     unique = list(dict.fromkeys(files))
