@@ -15,6 +15,8 @@ checks, joint continuous-pose bounds, assumption-violation controls, and stock n
 reconstruction on three stacks. See [reproduction commands](research/uncertainty/REPRODUCE-DEVELOPMENT.md).
 An [additional-exposure prediction protocol](research/uncertainty/confirmation/prediction-v1/PROTOCOL.md)
 was frozen before new particle downloads, with models locked by checksum.
+Exact frozen models and selected audit weights are available in the
+[interim uncertainty checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev).
 The [earlier reconstruction paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0
 release preserve the original feasibility study.
 

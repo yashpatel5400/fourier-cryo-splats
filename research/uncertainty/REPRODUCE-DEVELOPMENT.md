@@ -82,7 +82,9 @@ The [protocol](confirmation/prediction-v1/PROTOCOL.md), selections and locked
 model hashes were committed as `72a6dc0` before image access. This confirms
 conditional experimental prediction on new exposure groups, not density
 coverage or independently estimated poses. Do not retune on these outcomes.
-After obtaining the exact frozen trained checkpoints, run:
+Obtain the exact frozen trained checkpoints from the
+[v0.2.0-dev release](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev)
+and extract its archive in the repository root, then run:
 
 ```sh
 for dataset in 10028 10049 10076; do
@@ -97,3 +99,10 @@ The evaluator fails on checkpoint/selection drift. Source byte ranges and
 checksums are public provenance; particle pixels are downloaded from the
 original archive. Results retain all six prespecified paired method contrasts,
 including their multiplicity-adjusted bootstrap intervals.
+
+The frozen continuous-density validation is defined in
+[continuous-v1](confirmation/continuous-v1/PROTOCOL.md), committed before its
+study outcomes at `76dbd53`. After the additional cohort and locked pilots/maps
+are present, run `OPENBLAS_NUM_THREADS=4 python scripts/confirm_uq_continuous.py`.
+The evaluator checks every locked dependency before execution; do not silently
+update the lock to accommodate a scientific change after seeing outcomes.
