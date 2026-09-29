@@ -271,6 +271,7 @@ text = "\n".join(
     line + "\\" if line.endswith(" \\") and not line.endswith(" \\\\") else line
     for line in text.split("\n")
 )
+text = "\n".join(line.rstrip() for line in text.splitlines())
 (ROOT / "paper/results.tex").write_text(text + "\n")
 summary = []
 for d in datasets:
