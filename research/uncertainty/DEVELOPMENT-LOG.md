@@ -181,3 +181,71 @@ all negative dictionary-only coverage controls are retained. This exposes a
 scale-dependent information limit under the chosen class, not an atomic-resolution
 claim. `paper/main.tex` has been rewritten to present the uncertainty problem,
 proofs and these development results; it explicitly states unfinished work.
+
+## Joint ambient-space and nonlinear pose experiment
+
+The ambient voxel operator now supplies analytic phase derivatives, exact
+pixel-space Gram factors for the full-density/pose interaction, and uniform
+second-order remainder bounds over the declared support. The existing
+majorization solver operates through forward/adjoint NUFFTs, using the exact
+Fourier-column Gram diagonal as a preconditioner. This combines the two earlier
+separate guarantees in one implementation. Independent finite differences,
+nonlinear perturbations, direct sums and operator/dense agreement pass; the
+suite now has 31 tests.
+
+`ambient-pose.json` contains nine development cases: all three acquisition
+geometries, 128 particles, the broad axial contrast, and 0.1/0.5/2-degree radii.
+At 0.5 degrees the full certificate width is 0.200/0.239/0.218 times the no-data
+width. At two degrees it rises to 0.866/0.996/0.910, showing substantial remaining
+conservatism/information loss. Fixed-pose intervals reach analytic coverage as
+low as 0.904 on tested allowed perturbations. The full certificate's minimum
+is 0.999705; this conservatism is not described as optimal calibration. The
+large-radius optimization gaps did not converge in 100 majorization steps;
+a separately named longer refinement run is underway. Model validity does not
+depend on optimization convergence, but efficiency claims do.
+
+Stock neural cryoDRGN has also actually executed a one-epoch CPU timing run.
+It is only a compute profile, not a fitted/converged neural baseline. The original
+backprojection baseline remains distinct. Its timings and exact command are
+in COMPUTE.md and `neural-runtime-probe/profile.json`.
+
+## Combined audit, power and real neural baselines
+
+The full supported-voxel and nonlinear-pose certificate is now implemented and
+checked. Nine geometry/radius cases and a longer 2-degree optimization run are
+preserved. One longer run (10049) misses the 0.5% gap threshold at 500 iterations;
+its valid feasible interval is not called an optimum. At 0.5 degrees the broad
+contrast widths are approximately 20–24% of the no-data width. This alone is not
+evidence of a biologically useful inference: a subsequent sign-power experiment
+finds essentially no power for the three deposited-map axial contrasts under
+the prescribed B=2 class. Artificial target-directed signals are easier.
+A paired central-average experiment is running to distinguish target size from
+interval validity. These remain development outcomes, not a frozen final test.
+
+Stock cryoDRGN homogeneous neural training (3 layers, width 256) has completed
+20 epochs on two audited exposure-group halves for each of the three stacks.
+Held-out evaluation uses identical Fourier samples for neural, Gaussian and
+voxel predictions. A map-evaluation bug was caught before publication: the
+image FFT helper only transforms two dimensions. An explicit volume FFT helper
+and an axial-frequency regression test now prevent that mistake. Neural map
+FFTs are additionally checked against direct network values; provisional FSC
+files from the runner are replaced by the corrected evaluator. Neural error
+still improves at 20 epochs on 10028, motivating a recorded 20-to-60 epoch
+continuation. This is actual neural fixed-pose training, not ab initio inference.
+
+A second-order pose expansion now retains pilot curvature and density/curvature
+interaction in Euclidean support functions, with a uniform cubic remainder.
+Mixed derivative and independent nonlinear tests pass. In the first EMPIAR-10028
+contrast probe, width/no-data decreases from 0.200 to 0.143 at 0.5 degrees and
+from 0.865 to 0.478 at 2 degrees. Tests remain conservative. The extension is
+being checked on all three geometries and both targets; this probe alone is
+not a finalized method comparison. Full-space Gaussian posterior controls also
+pass their separate, exactly matched additive-linear prior-predictive identities.
+
+An independent scalar-noise upper-bound module implements a standard noncentral
+chi-square argument. Its assumptions allow fixed signal in calibration samples
+but require independent Gaussian coordinates with a common variance. Synthetic
+correlation violates the scale guarantee (a failure rate around 0.50 instead of
+0.01 in the rho=0.5 control); it is not silently treated as valid whitening.
+These are calibration experiments, not evidence that raw experimental noise
+satisfies the model. The current complete unit suite has 35 passing tests.

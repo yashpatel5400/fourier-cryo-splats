@@ -70,6 +70,7 @@ def test_coverage_for_adversarial_bias_and_nuisance():
 
 def test_sparse_and_dense_agree():
     from scipy.sparse import csr_matrix
+    from scipy.sparse.linalg import aslinearoperator
     rng=np.random.default_rng(31)
     a=rng.normal(size=(30,5)); ell=rng.normal(size=5)
     j=rng.normal(size=(5,6,1))
@@ -77,6 +78,9 @@ def test_sparse_and_dense_agree():
     sparse=optimize_certificate(csr_matrix(a),j,ell,2,0.3,0.1,maxiter=200)
     assert sparse.objective == pytest.approx(dense.objective,rel=1e-8)
     assert np.allclose(sparse.weights,dense.weights,atol=1e-7)
+    matrix_free=optimize_certificate(aslinearoperator(a),j,ell,2,.3,.1,maxiter=200,gram_diagonal=np.sum(a*a,axis=0))
+    assert matrix_free.objective==pytest.approx(dense.objective,rel=1e-8)
+    assert np.allclose(matrix_free.weights,dense.weights,atol=1e-7)
 
 
 @pytest.mark.parametrize('extra_rank',[1,9])
@@ -126,3 +130,16 @@ def test_primal_dual_solver_against_independent_conic_solver(scale):
     assert fit.dual_lower_bound<=optimum+scale*1e-7
     assert fit.objective>=optimum-scale*1e-7
     assert fit.objective-optimum<1e-5*optimum
+
+
+def test_matrix_free_gaussian_reference_matches_dense_with_pose_covariance():
+    from scipy.sparse.linalg import aslinearoperator
+    from fourier_splats.uq_baselines import gaussian_reference,gaussian_reference_operator,prior_predictive_coverage
+    rng=np.random.default_rng(506);a=rng.normal(size=(60,25));ell=rng.normal(size=25)
+    j=rng.normal(size=(10,6,3))
+    for pose_sd in [0.,.7]:
+        dense=gaussian_reference(a,ell,.3,j,pose_sd)
+        operator=gaussian_reference_operator(aslinearoperator(a),ell,.3,j,pose_sd,gram_diagonal=(a*a).sum(axis=0))
+        np.testing.assert_allclose(operator['weights'],dense['weights'],rtol=1e-7,atol=1e-9)
+        np.testing.assert_allclose(operator['posterior_half_width'],dense['posterior_half_width'],rtol=1e-8)
+        np.testing.assert_allclose(prior_predictive_coverage(aslinearoperator(a),ell,.3,operator,j,pose_sd),.95,atol=1e-9)

@@ -1,0 +1,126 @@
+# Primary-source annotations (living; targeted reading, not a full-screening count)
+
+These notes record which claims and sections were checked, rather than treating
+PDF retrieval as completed review. The source/hash manifest identifies the local
+versions. General survey synthesis is in SURVEY.md.
+
+## Xu, Balanov, Singer and Bendory: Bayesian orientation estimation
+
+Source: arXiv:2412.03723v3 (23 February 2026), subsequently Acta Crystallographica D,
+doi:10.1107/S2059798326001415. Checked introduction/contribution list, propositions,
+heterogeneity experiment, discussion and code availability.
+
+The estimator minimizes posterior expected chordal rotation loss; averaging
+rotation matrices and projecting onto SO(3) is distinct from choosing a posterior
+mode. The paper establishes a high-SNR connection to maximum likelihood and
+studies downstream heterogeneous reconstruction with RECOVAR. Its Figure 6
+compares ground-truth, MMSE and MLE pose inputs; this is a pose-estimation and
+heterogeneity-quality experiment, not a coverage experiment for density CIs.
+The discussion explicitly identifies individual-rotation confidence regions as
+future work. Therefore its existence does not supply empirically validated pose
+balls for the present conditional theorem.
+
+Author code: https://github.com/AmnonBa/bayesian-orientation-estimation.
+The currently documented toolkit is MATLAB, with Image Processing Toolbox and
+3D alignment/MMSE demos. Reproducing a 3D demo is not equivalent to reproducing
+its full single-particle 2D-projection experiment. Inspect the actual released
+components before describing any run as that baseline.
+
+## Rangan et al.: joint likelihood soft modes
+
+Source: arXiv:2411.13263v2 (24 November 2024). Checked formulation, Hessian blocks,
+soft-mode examples, discussion, and appendix contents including translations and
+noise marginalization.
+
+This is a direct nearest neighbor for pose--volume ambiguity and for asking
+which extra orientations/defocus values could resolve structural uncertainty.
+The likelihood representations invoke a low-temperature approximation or a
+noise-marginalized regime. Local soft eigenvectors characterize sensitivity,
+not a uniform fixed-parameter confidence guarantee under arbitrary nonlinear
+pose errors. Several illustrative calculations are low resolution, and the
+heterogeneity example describes a uniform view distribution and CTF equal to one.
+Do not infer the scope of its demonstrations merely from the broad formulation.
+The discussion explicitly anticipates ill-posed or spurious multi-particle
+heterogeneity even when a related single-particle problem is well posed.
+
+## Ullrich et al.: probabilistic Fourier-slice reconstruction
+
+Source: PMLR 115, UAI proceedings published 2020; local arXiv:1906.07582v2.
+Checked abstract/contributions, probabilistic model, uncertainty/variance and
+model-bias discussion, and pose-inference limitations.
+
+This work already connects differentiable Fourier reconstruction to explicit
+density uncertainty, missing-view diagnostics and held-out model fit. Its joint
+pose inference can encounter symmetry-related local optima. A diagonal Gaussian
+mathematical control in this project reproduces a covariance approximation under
+a matched linear model, not the paper's entire learning pipeline. The original
+paper recognizes bias as a separate issue, so presenting it as claiming that
+posterior variance automatically covers representation bias would be a straw man.
+
+## Armstrong and Kolesar: inference over convex classes
+
+Source: Econometrica 86(2), 655–683 (2018), doi:10.3982/ECTA14434.
+Checked setup, fixed-length intervals, folded-normal critical values, and the
+scope-for-adaptation discussion.
+
+The central bias-aware Gaussian construction used here is prior art. Uniform
+coverage over a broad class limits data-adaptive tightening toward smoother
+subclasses. This is directly relevant to proposals to estimate a convenient
+small density radius from the same noisy residuals. A numerical Gaussian basis,
+a new name for its confidence bound, or an independent conic solver does not
+create a new statistical theorem. Our possible contribution must be the cryo-EM
+physics, practical audit, and convincing validation, with explicit scope.
+
+## LocScale-2.0: confidence for enhancement
+
+Source: Nature Communications (2026), doi:10.1038/s41467-026-75327-8.
+Checked model/uncertainty calibration and validation descriptions.
+
+MC dropout variances are empirically recalibrated and used for voxel scores
+relative to a phase-conservative baseline map. Its target is the map-processing
+comparison defined in the paper. The proxy should not be renamed unknown true
+density, and the method should not be penalized for failing a different estimand
+it did not promise. The distinction suggests a useful future matched experiment:
+can ambient particle evidence validate or reject enhancement-induced features?
+That experiment has not yet been implemented here.
+
+## Beckers, Palmer and Sachse: significance maps
+
+Primary full text: https://journals.iucr.org/d/issues/2020/04/00/rr5194/.
+Checked signal detection, multiplicity, simulations and limitations.
+The method tests voxel intensity against estimated background, with dependence-
+robust multiple-testing options. Its FWER experiment trades detection sensitivity
+for fewer false water-like peaks. The authors explicitly discuss misalignment,
+preferred views and reconstruction artifacts that can be significant without
+representing correct structure. This is therefore neither an unacknowledged
+failure discovered here nor a method promising density-error coverage. A useful
+comparison should separate background detection from robustness to a declared
+forward-model error. Noise-region selection and homogeneity are material
+assumptions; smoothing the displayed confidence surface is a visualization step.
+
+## Sorzano et al.: bias, consensus and validation
+
+Primary full text: https://journals.iucr.org/paper?ic5116=,
+doi:10.1107/S2059798322001978. Checked formulation, sources of bias, FSC and
+independent-half discussion, conclusions; supporting experiments not yet audited.
+The paper directly warns that agreement can persist under shared processing
+bias, and advocates examining parameter estimates across runs or algorithms.
+It also notes that coincident estimates can share bias. Its claims about the
+relative importance of parameter error are tied to its experimental examples;
+our fixed-pose linear controls still exhibit a conventional bias--variance tradeoff.
+We should cite this work when motivating the ambient audit, not present shared-
+bias failure of half maps as a new discovery. Parameter agreement is a diagnostic,
+not an externally calibrated bound on pose error.
+
+### Released Ullrich code audit
+
+Inspected the author repository at commit
+`013149a0927183b5969095cb774d43b387644771`; file hashes are recorded in
+`ullrich-code-manifest.json`. The README lists Python 3.6/PyTorch 1.1 and GPL-3.0.
+The notebook includes generative projections and reconstruction training. Its
+shown training cell minimizes sampled negative image log likelihood, with the
+log scale initialized at -100; that cell does not include the prior/entropy
+terms required for the paper's full variational objective. Thus merely running
+that tutorial cannot be labeled a faithful complete uncertainty reproduction.
+The project currently uses explicitly identified mathematical covariance
+controls. No external-code reproduction is claimed from this inspection.

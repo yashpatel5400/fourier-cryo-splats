@@ -73,7 +73,9 @@ geometries; their known-map coverage is conditional on fixed poses, Gaussian
 noise, a finite supported grid and a prescribed norm class. Final validation,
 method integration and independent scientific review remain outstanding.
 
-The next methodological priority is combining the ambient density-space audit
-with useful nuisance bounds, rather than reporting finite-dictionary pose
-coverage and full-grid fixed-pose coverage as though they were the same result.
+The ambient density-space audit and full-grid nonlinear pose bounds now run
+together in a nine-case development experiment. Larger pose radii still yield
+wide intervals and slow majorization convergence. Remaining priorities include
+practical sensitivity-class reporting, empirical noise/support diagnostics,
+stronger uncertainty/reconstruction baselines and higher-bandwidth validation.
 Fresh confirmatory data are still required after development freezes.

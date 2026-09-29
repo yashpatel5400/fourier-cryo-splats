@@ -1,0 +1,53 @@
+cmd:
+- /Users/yash/Documents/New project/fourier-splats/.venv/bin/cryodrgn
+- train_nn
+- /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/particles.mrcs
+- --poses
+- /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/poses.pkl
+- --ctf
+- /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/ctf.pkl
+- --ind
+- /Users/yash/Documents/New project/fourier-splats/data/uncertainty/neural-runtime-probe-indices.pkl
+- -o
+- /Users/yash/Documents/New project/fourier-splats/results/uncertainty/development/neural-runtime-probe
+- --layers
+- '3'
+- --dim
+- '128'
+- --num-epochs
+- '1'
+- --batch-size
+- '8'
+- --no-amp
+- --seed
+- '609320'
+- --shuffle-seed
+- '609320'
+dataset_args:
+  ctf: /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/ctf.pkl
+  datadir: null
+  do_pose_sgd: false
+  ind: /Users/yash/Documents/New project/fourier-splats/data/uncertainty/neural-runtime-probe-indices.pkl
+  invert_data: true
+  norm:
+  - 0.0
+  - 66.44730377197266
+  particles: /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/particles.mrcs
+  poses: /Users/yash/Documents/New project/fourier-splats/data/10028/cryodrgn/poses.pkl
+  window: true
+  window_r: 0.85
+lattice_args:
+  D: 65
+  extent: 0.5
+  ignore_DC: true
+model_args:
+  activation: relu
+  dim: 128
+  domain: fourier
+  feat_sigma: 0.5
+  layers: 3
+  pe_dim: null
+  pe_type: gaussian
+seed: 609320
+time: 2026-09-29 09:37:43.950836
+version: 4.3.1

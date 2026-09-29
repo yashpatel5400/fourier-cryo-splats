@@ -131,7 +131,12 @@ B\sum_i\norm{T_i(w_i)}_{\rm op}\le B\sum_i\norm{T_i(w_i)}_{F}.
 \end{equation}
 The implemented Frobenius relaxation is a sum of Euclidean group norms. It ignores some sharing of $\delta$ across particles and can be conservative. Charging the entire first-order interaction to an isotropic remainder was substantially worse in development.
 
-The finite-Gaussian pose experiment and the full-voxel fixed-pose audit are currently separate. Combining the ambient audit with useful full-grid nonlinear nuisance bounds remains unfinished. Fixed CTFs and known whitened Gaussian noise are also assumptions; CTF error, window correlations and heterogeneous densities are not covered by assertion.
+The same construction operates in the full supported voxel space. For voxel position $x$, box length $d$, rotation radius $a$ and shift radius $s_t$, set
+\begin{align}
+L(q,x)&=\tfrac{2\pi}{d}(a\norm{k}\norm{x}+s_t\norm{q}),\\
+H(q,x)&=\tfrac{2\pi}{d}a^2\norm{k}\norm{x}.
+\end{align}
+The absolute second derivative of its complex Fourier column is bounded uniformly by $|C_i(q)|[L(q,x)^2+H(q,x)]$ before whitening. Summing this column bound against $|\rho_0(x)|$ gives the pilot bound; its frequency/voxel Frobenius norm gives the operator bound. Analytic first derivatives supply the full-density interaction. Thus the implemented joint certificate covers the stated ambient density ball and local pose balls simultaneously. Fixed CTFs and known whitened Gaussian noise remain assumptions; CTF error, window correlations and heterogeneous densities are not covered by assertion.
 
 \section{Development Experiments}
 All results below are exploratory. A confirmatory protocol has not been frozen. Experimental particle pools have already been inspected during the earlier reconstruction study and subsequent development; their partitions must not be described as untouched final tests.
@@ -159,15 +164,28 @@ The fixed-pose audit uses 128 real acquisition geometries per dataset, a $24^3$ 
 The initial dictionary has 33 non-null Gaussian modes. Two targets, a central average and an axial contrast, use Gaussian averaging widths 0.03 and 0.07 times the field. Restricted intervals, the same weights with a full-grid audit, enriched weights, and the ambient matrix-free solution use identical estimands. The larger-grid model is deliberately able to express errors outside the initial dictionary.
 \input{uncertainty-results.tex}
 
+\subsection{Joint ambient and nonlinear pose uncertainty}
+We combine the full supported voxel space with the nonlinear pose bound, using the broad axial contrast, 128 particles per geometry and the same prescribed density radius. Rotation radii are $0.1^\circ$, $0.5^\circ$ and $2^\circ$, with a shift radius of 0.01 working pixels in their joint unit ball. Signal cases include random density/pose boundaries, estimator-directed adversaries and the independent voxel reference under a coherent rotation. Table~\ref{tab:ambientpose} shows that a valid but conservative interval can still be uninformative at a large nuisance radius. Fixed-pose intervals reach coverage as low as 0.904 on these allowed perturbed cases. The nonlinear certificate's smallest tested analytic coverage is 0.9997; its conservatism requires scrutiny rather than being interpreted as superior calibration.
+\input{uncertainty-pose-results.tex}
+
+We also compute the probability that the entire interval has the correct sign. For a positive true target and expected center $m$, this is $\Phi((m-q)/s)$, with the analogous negative-sign formula. The deposited-map axial contrasts are too small for the present bounds, despite high coverage. Central averages are easier (Table~\ref{tab:power}). The averaging standard deviation is 0.07 times the field, or approximately 16.5--33.8\,\AA; these coarse features do not establish ligand- or atomic-scale utility. Artificial perturbations directed along the target can be detected more readily, but are not substitutes for the deposited-map cases.
+\input{uncertainty-power-results.tex}
+
+\subsection{Experimental reconstruction controls}
+We execute stock cryoDRGN 4.3.1 homogeneous neural training on both exposure-group halves of all three stacks: three hidden layers, width 256, batch size eight, fixed consensus poses and CTFs. These are actual neural fits; they are not ab initio inference or uncertainty estimates. Gaussian and voxel ridge fits use the same halves. All methods are evaluated on identical held-out particles and 1,410 Fourier pairs per image inside radius 30 of the 64-pixel grid, with the same window and image-background normalization. Neural training itself uses the stock radius-32 loss and per-half global scaling, so training objectives are not identical.
+
+Table~\ref{tab:reconstruction} records the completed 20-epoch checkpoint comparison. Continued improvement on tuning groups motivates longer neural runs. Exposure-group bootstrap comparisons, checkpoint hashes and direct-network versus map-Fourier checks are recorded with the results. FSC assesses conditional map agreement; neither it nor image prediction labels true experimental density coverage.
+\input{uncertainty-reconstruction-results.tex}
+
 \subsection{Baselines and numerical checks}
 Implemented matched mathematical baselines include full Gaussian posterior covariance, diagonal variational covariance, regularized sampling covariance, joint Gaussian pose covariance, identifiable unregularized estimation, fixed-pose bias-aware intervals, coarse and structured nuisance bounds, and the no-data interval. These are not executions of every external paper's original code. Full Gaussian posteriors pass their exactly matched linear prior-predictive identity at 0.95. Narrow priors can nevertheless fail bounded fixed-signal tests; wider priors and unregularized estimation can produce very wide intervals.
 
-Independent conic optimization checks the majorization, primal-dual and ambient solvers on small instances. Derivative finite differences, nonlinear remainder tests, direct Fourier sums, adjoint identities and independent Gaussian-integral checks validate implementation components. The current suite has 30 passing tests. Tight FINUFFT tolerances are numerical checks, not interval-arithmetic guarantees on roundoff.
+Independent conic optimization checks the majorization, primal-dual and ambient solvers on small instances. Derivative finite differences, nonlinear remainder tests, direct Fourier sums, adjoint identities and independent Gaussian-integral checks validate implementation components. The current suite has 35 passing tests, including a three-dimensional Fourier-transform check for externally generated maps. Tight FINUFFT tolerances are numerical checks, not interval-arithmetic guarantees on roundoff.
 
 \section{Limitations and Work Remaining}
 The current evidence does not establish an end-to-end uncertainty method with estimated poses, noise law and density class. Local pose radii and the total density bound are assumptions. Selecting them from the same inference residuals would require new analysis; a narrow residual does not rule out an almost invisible density error. Learned support can exclude true structure. Gauge and hand ambiguity must be fixed or included in the target class.
 
-The next validation must freeze the method before fresh simulations and additional source groups, include higher bandwidth and grid refinement, compare bootstrap and actual neural reconstruction pipelines, test correlated noise, CTF errors, heterogeneity and support violations, and quantify coverage--width--power tradeoffs. Simultaneous maps need multiplicity correction. Real-data prediction and stability cannot supply unavailable density-coverage labels. Comprehensive literature screening and independent review of a complete candidate remain outstanding.
+The next validation must freeze the method before fresh simulations and additional source groups, include higher bandwidth and grid refinement, complete bootstrap and neural convergence comparisons, and test correlated noise, CTF errors, heterogeneity and support violations. The power analysis above is only an initial coarse-feature check. Simultaneous maps need multiplicity correction. Real-data prediction and stability cannot supply unavailable density-coverage labels. Comprehensive literature screening and independent review of a complete candidate remain outstanding.
 
 \section*{Reproducibility and Impact}
 The active research branch is \texttt{uncertainty-study} at \url{https://github.com/yashpatel5400/fourier-cryo-splats}. It preserves failed development approaches and distinguishes them from completed outputs. The earlier reconstruction release v0.1.0 remains available with its conditional FSC results; it is not the uncertainty study's accuracy claim. No new conference submission or acceptance is implied by this format. Background PDFs are retained locally with source hashes rather than redistributed. Prematurely calibrated-looking maps can mislead structural interpretation; explicit assumptions and negative controls are central outputs of this work.
@@ -209,6 +227,26 @@ g_2(r)&=(1+r^2/\sigma^2)g_0(r)/\sigma^2.
 On an interval of possible distances, $g_0$ is largest at the lower endpoint; $g_1$ and $g_2$ attain their largest value at the point nearest $\sigma$. A rotation radius $a\le\pi$ gives displacement at most $2\norm{k}\sin(a/2)$, speed at most $a\norm{k}$ and acceleration at most $a^2\norm{k}$. A shift radius $s$ gives phase speed at most $2\pi\norm{q}s/\text{box}$.
 
 The product rule bounds the second derivative by the sum of squared-speed times $g_2$, acceleration times $g_1$, twice speed times phase-speed times $g_1$, and squared phase-speed times $g_0$. Sum conjugate-pair bounds and apply the fixed CTF/noise scale. A coefficient-column Frobenius bound controls the operator term; the pilot-weighted bound controls its pilot term. Taylor's integral formula gives Equation~\eqref{eq:pose}. Evaluating a Hessian only at the nominal pose would not establish this uniform result.
+
+\subsection{Retaining quadratic pose terms}
+The isotropic quadratic remainder can dominate an interval. A development extension retains the curvature and uses a cubic remainder instead. Put $E_{iab}=\partial^2 A_i/\partial u_{ia}\partial u_{ib}$ at zero, $Q_i(w)_{ab}=w_i^\top E_{iab}\rho_0$, and let $U_i(w)$ collect columns $E_{iab}^\top w_i$ over all ordered pairs. Since $\norm{u_i\otimes u_i}_F\le1$, a valid bias bound is
+\begin{align}
+b_2(w)&=B\norm{\ell-\A^*w}+\sum_i\norm{J_i^\top w_i}\nonumber\\
+&\quad+B\sum_i\norm{T_i(w)}_F+\tfrac12\sum_i\norm{Q_i(w)}_F\nonumber\\
+&\quad+\tfrac B2\sum_i\norm{U_i(w)}_F+\sum_i\gamma_{3i}\norm{w_i}.
+\end{align}
+For a Fourier voxel column, define $T(q,x)=2\pi a^3\norm{k}\norm{x}/d$. Its third derivative along any allowed pose segment is bounded by $|C|[L^3+3LH+T]$ before whitening. The three summands follow by differentiating the phase exponential three times. Pilot contraction and a column Frobenius bound give $H_{3i}$ and $K_{3i}$, hence $\gamma_{3i}=(H_{3i}+BK_{3i})/6$. Taylor's integral remainder and Cauchy--Schwarz then give Theorem~\ref{thm:coverage} with $b_2$. Sharing of density errors and rank-one quadratic pose constraints are still relaxed.
+
+Analytic column Hessians and pixel-space Gram factors implement these Euclidean groups. Mixed finite differences and independent nonlinear projections test the implementation. The initial EMPIAR-10028 contrast probe reduces width/no-data from 0.200 to 0.143 at $0.5^\circ$ and from 0.865 to 0.478 at $2^\circ$. Broader comparisons are running; a single favorable probe is not the final evaluation.
+
+\subsection{An independent noise-scale upper bound}
+Known noise is not necessary if an independently calibrated upper bound is available. A standard construction assumes independent calibration coordinates $z_j=\mu_j+\sigma e_j$, $e_j\sim N(0,1)$, with arbitrary fixed means and independent inference noise. For $\nu$ coordinates, set
+\begin{equation}
+\overline\sigma=\norm{z}/\sqrt{\chi^2_{\nu,\beta}}.
+\end{equation}
+The probability that $\overline\sigma\ge\sigma$ is at least $1-\beta$: the central chi-square pivot is exact at zero mean, and a noncentral chi-square has a smaller lower tail. Conditional on calibration, weights may use $\overline\sigma$. On this event their inference standard deviation is at most $s_+=\overline\sigma\norm{w}$. For $\alpha<1/2$, $q(s_+,b,\alpha)\ge b$, and Gaussian coverage decreases with the actual noise standard deviation up to $s_+$. Integrating the conditional bound yields coverage at least $(1-\alpha)(1-\beta)\ge1-\alpha-\beta$.
+
+This extension does not justify independence of windowed Fourier pixels or estimate arbitrary covariance. With 128 calibration coordinates and $\beta=0.01$, a 20,000-draw development control gives scale-bound failure 0.0103 under independence. Equicorrelation 0.5 raises that failure to 0.503. Such a calibration set violates the premise even if a particular resulting interval remains conservative. Experimental whitening remains unresolved.
 
 \subsection{Simultaneous targets and sensitivity budgets}
 For $K$ targets and parameter-budget choices fixed independently of inference noise, applying Theorem~\ref{thm:coverage} with $\alpha/K$ gives simultaneous coverage by the union bound. Correlated Gaussian maxima can reduce the noise component if the joint weight covariance is accounted for. Selecting the most favorable point on a sensitivity surface after inspecting inference data requires such simultaneous control. A density radius supplied by simulation truth is an oracle control and cannot be reported as a practical calibration method.

@@ -291,3 +291,112 @@ remainder norms have nested groups, so their proximal map first shrinks each
 image block and then the entire vector. Independent conic solves validate both
 this implementation and the original majorization solver, including rescaling.
 See Chambolle and Pock (2011), doi:10.1007/s10851-010-0251-1.
+
+## 8. Combining ambient auditing with nonlinear pose bounds
+
+For a finite supported voxel model, its complex Fourier column at voxel x is
+C_i(q) exp(-2 pi i k(u)'x / box) exp(-2 pi i q't(u)/box), divided by the known
+real/imaginary noise standard deviation. This gives full-space derivatives,
+without assuming a Gaussian dictionary spans the true density.
+
+Let a,s be the physical rotation/shift radii of the normalized joint unit ball.
+Along any segment tu, frequency rotation preserves ||k||. Define per voxel and
+frequency
+
+    L(q,x)=2 pi/box * (a ||k|| ||x|| + s ||q||),
+    H(q,x)=2 pi/box * a^2 ||k|| ||x||.
+
+The phase derivative magnitude is at most L and its second derivative at most
+H throughout the segment. Since |exp(i phase)|=1, the complex column second
+ derivative is bounded by |C|/noise * (L^2+H). Summing these positive column
+bounds against |rho0_x| gives the pilot bound H_i after taking the frequency
+Euclidean norm. Their frequency/voxel Frobenius norm gives K_i. Taylor's formula
+therefore gives gamma_i=(H_i+B K_i)/2 for any ||delta||<=B in the support.
+The realification norm equals the complex Euclidean norm, so no duplicate
+Friedel-pair or real/imaginary factor is added.
+
+The exact first derivative of each column is i times its phase derivative times
+the column. Its pilot contraction supplies J_i. Flattening its density/pose
+indices gives D_i; a factor of D_i D_i' supplies the support function
+B||D_i' w_i|| without storing the full tensor for every particle. A small
+positive Cholesky padding enlarges this bound. The resulting joint confidence
+certificate uses the full ambient adjoint residual, pilot-pose term, full-density
+interaction term and uniform remainder in a single objective.
+
+The general majorization solver now accepts a forward/adjoint LinearOperator.
+For the Fourier voxel operator with independent real/imaginary samples,
+diag(A'A) is exactly sum_{i,q} |C_i(q)/noise|^2 for every supported voxel:
+cos^2+sin^2=1. This supplies its CG preconditioner without forming the design.
+Particle-block nuisance inverses are small. The noise, support and local-pose
+assumptions still require validation; integration does not make them automatic.
+
+## 9. Independent calibration of a scalar noise upper bound
+
+This is a standard chi-square confidence construction, not a new distributional
+result. Suppose calibration coordinates z_j=mu_j+sigma e_j, j=1,...,nu, have
+independent standard Gaussian e_j and arbitrary fixed means. Their noise is
+independent of the inference noise. Set
+
+    sigma_upper = ||z|| / sqrt(chi2_quantile(beta, nu)).
+
+Then P(sigma_upper >= sigma) >= 1-beta. At mu=0 this is the exact chi-square
+pivot. For nonzero mu, ||z/sigma||^2 is noncentral chi-square; its lower-tail
+probability at a fixed threshold is at most that of the central distribution.
+Thus residual signal increases conservatism; it need not be declared absent.
+Subtracting a fitted mean without adjusting the argument is not this procedure.
+
+Conditional on the independent calibration, weights may be chosen using its
+upper scale. On the scale-coverage event, the inference noise SD of a linear
+estimator is at most s_upper=sigma_upper ||w||. For alpha<1/2 the folded-normal
+critical width q(s_upper,b,alpha) is at least b. Its coverage for any |bias|<=b
+is nonincreasing in the actual SD over [0,s_upper], so the conditional coverage
+is at least 1-alpha. Integrating gives at least (1-alpha)(1-beta), and therefore
+at least 1-alpha-beta. Multiple upper scales use an explicitly allocated beta
+budget and the corresponding diagonal weighted norm. This does not estimate
+arbitrary correlations, justify solvent homogeneity, or make windowed Fourier
+coordinates independent. Those assumptions still need separate diagnostics.
+
+## 10. Retaining pose curvature instead of an isotropic quadratic remainder
+
+The first-order certificate may pay heavily for a direction-independent bound
+on the entire second-order change. A higher-order specialization keeps that
+curvature inside weight-dependent support functions. This uses Taylor's theorem
+and Euclidean relaxations; no novelty is claimed for Taylor bounds themselves.
+
+Let E_iab be the second pose derivative of A_i at zero, and define
+Q_i(w)_ab=w_i' E_iab rho0 and U_i(w) with columns E_iab' w_i for all ordered
+pairs a,b (symmetric off-diagonal terms appear twice). For ||u_i||<=1,
+||u_i tensor u_i||_F=||u_i||^2<=1, so the quadratic pilot and density terms are
+bounded by ||Q_i(w)||_F/2 and B||U_i(w)||_F/2. Add these to the previous density,
+pilot-linear and density-linear-interaction terms. Replace the isotropic
+second-order remainder by a uniform cubic remainder.
+
+For the finite Fourier voxel column, retain L,H from Section 8 and set
+T(q,x)=2*pi/box * a^3 ||k|| ||x||. Throughout each allowed pose segment,
+
+    |column'''| <= |C|/noise * (L^3 + 3 L H + T).
+
+Indeed differentiating exp(i phi) three times gives terms with magnitudes
+|phi'|^3, 3|phi'||phi''| and |phi'''|; rotation preserves frequency length,
+and translation is linear. Contract the positive column bound with |rho0| for
+a pilot norm bound H3_i, and use its Frobenius norm for K3_i. Taylor's integral
+remainder is at most gamma3_i=(H3_i+B K3_i)/6. Thus the general coverage theorem
+applies with all four structured nuisance terms and the cubic remainder.
+It remains a relaxation: the repeated density perturbation and the rank-one
+quadratic pose tensor are not jointly optimized over their exact set.
+
+For implementation, phi_a uses x cross k for rotations and q for translations.
+Its only nonzero second derivatives are the rotation block:
+
+    phi_ab = (-2*pi/box)*a^2 *
+             [ (k_a x_b+k_b x_a)/2 - 1(a=b) k'x ].
+
+The column Hessian is exp(i phi)*(i phi_ab - phi_a phi_b), multiplied by C/noise.
+Pixel-space Gram factors compress the density/Hessian interaction exactly up
+to the same conservative positive numerical padding as the first derivative.
+Both pilot and interaction norms are Euclidean groups, so the existing convex
+solver and feasible dual diagnostics apply without a new optimization claim.
+Finite differences check diagonal/mixed rotation and translation entries;
+independent nonlinear projections check the uniform cubic remainder. Whether
+this tighter expansion actually improves useful intervals is an experiment,
+not an assumption from its higher order.

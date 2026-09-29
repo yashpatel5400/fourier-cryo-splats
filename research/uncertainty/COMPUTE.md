@@ -47,3 +47,13 @@ The independent-map generator requests one FINUFFT thread on macOS; BLAS and
 other numerical kernels remain parallel. Linux CUDA environments need their
 own dependency check. The build option is documented in FINUFFT's CMake source:
 https://github.com/flatironinstitute/finufft/blob/master/CMakeLists.txt.
+
+A stock cryoDRGN 4.3.1 `train_nn` CPU timing probe used 512 experimental 64x64
+particles, three hidden layers of width 128 (74,498 parameters), batch size 8,
+and one epoch. Its own log reports 1.32 seconds of training and 2.42 seconds
+including reconstruction output; process startup/preparation brought the wrapper
+measurement to 8.25 seconds. This is a deliberately small network and **not a
+converged reconstruction or an uncertainty baseline**. The installed stock code
+chooses CUDA or CPU and does not select MPS. These timings support continuing
+small neural development runs locally; they do not predict high-resolution or
+ab initio GPU time.

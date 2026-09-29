@@ -191,6 +191,7 @@ def optimize_certificate(
     alpha=0.05, maxiter=100, rtol=1e-4, smoothing=1e-7,
     cg_rtol=1e-10, cg_maxiter=1000,
     extra_nuisance_groups=(),
+    gram_diagonal=None,
 ):
     """Minimize a valid sum-of-norms half-width by quadratic majorization.
 
@@ -206,6 +207,9 @@ def optimize_certificate(
     extra_nuisance_groups is a sequence of (design, radius) pairs. Each design
     has shape (n,m,q_g), and its per-particle radius is scalar or (n,).
     These independent norm groups can relax structured nonlinear interactions.
+    a may also be a scipy LinearOperator with a correct adjoint. For that case,
+    gram_diagonal optionally supplies diag(A'A) for the CG preconditioner;
+    omitting it uses a unit diagonal and can be slower without changing coverage.
     """
     j = np.asarray(j, dtype=np.float64)
     ell = np.asarray(ell, dtype=np.float64)
@@ -230,7 +234,11 @@ def optimize_certificate(
     z = norm.ppf(1 - alpha / 2)
     at = a.T
     jtj = np.einsum("nmq,nmr->nqr", j, j) if q<=m else None
-    diag_a = np.asarray(a.power(2).sum(axis=0)).ravel() if issparse(a) else np.sum(np.asarray(a)**2, axis=0)
+    if isinstance(a,LinearOperator):
+        diag_a=np.ones(a.shape[1]) if gram_diagonal is None else np.broadcast_to(np.asarray(gram_diagonal,dtype=float),(a.shape[1],)).copy()
+        if not np.isfinite(diag_a).all() or (diag_a<0).any():raise ValueError('Invalid Gram diagonal')
+    else:
+        diag_a = np.asarray(a.power(2).sum(axis=0)).ravel() if issparse(a) else np.sum(np.asarray(a)**2, axis=0)
     base = B * np.linalg.norm(ell)
     epsilon = max(base, 1e-12) * smoothing
     w = np.zeros(a.shape[0], dtype=np.float64)

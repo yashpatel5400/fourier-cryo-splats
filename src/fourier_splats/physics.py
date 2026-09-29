@@ -5,7 +5,15 @@ from scipy.fft import fftn, ifftn, fftshift, ifftshift
 
 
 def fft_center(x):
+    """Centered 2D FFT of images, preserving any leading batch dimensions."""
     return fftshift(fftn(ifftshift(x, axes=(-2, -1)), axes=(-2, -1)), axes=(-2, -1))
+
+
+def fft_volume_center(x):
+    """Centered 3D FFT of one spatial volume (e.g. an MRC reconstruction)."""
+    if x.ndim != 3:
+        raise ValueError("A single 3D spatial volume is required")
+    return fftshift(fftn(ifftshift(x)))
 
 
 def ctf(q, params):

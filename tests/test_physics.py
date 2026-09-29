@@ -68,6 +68,17 @@ def test_fsc_identity_noise_and_censoring():
     assert np.nanmean(np.abs(fsc(f, noise, 2)[3:, 2])) < 0.08
 
 
+def test_volume_fft_transforms_axial_dimension_and_roundtrips():
+    from fourier_splats.physics import fft_volume_center, volume_from_fourier
+    n = 16
+    z = np.arange(-n // 2, n // 2)
+    v = np.broadcast_to(np.cos(2 * np.pi * 3 * z[:, None, None] / n), (n, n, n))
+    f = fft_volume_center(v)
+    nonzero = np.argwhere(np.abs(f) > 1e-8)
+    np.testing.assert_array_equal(nonzero, [[n // 2 - 3, n // 2, n // 2], [n // 2 + 3, n // 2, n // 2]])
+    np.testing.assert_allclose(volume_from_fourier(f), v, atol=1e-7)
+
+
 def test_grid_inverse_real():
     rng = np.random.default_rng(8)
     a, b = design(np.zeros((1, 3)), 16)

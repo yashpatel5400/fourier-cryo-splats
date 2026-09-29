@@ -4,7 +4,7 @@
 import os
 
 os.environ.setdefault("OPENBLAS_NUM_THREADS", "4")
-import argparse, json, time, platform, gc
+import argparse, csv, json, time, platform, gc
 from pathlib import Path
 import numpy as np
 import mrcfile
@@ -174,6 +174,12 @@ def run(args):
     validation = order[ntest : 2 * ntest]
     train = order[2 * ntest :]
     halves = [train[::2], train[1::2]]
+    if args.group_splits:
+        rows=list(csv.DictReader((ROOT/'research/uncertainty/splits'/(args.dataset+'.csv')).open()))
+        by_split={label:np.array([int(r['output_index']) for r in rows if r['split']==label])
+                  for label in ['inference_half0','inference_half1','tune','test']}
+        halves=[by_split['inference_half0'],by_split['inference_half1']]
+        train=np.concatenate(halves);validation=by_split['tune'];test=by_split['test']
     scale = np.sqrt(np.mean(np.abs(y[train]) ** 2))
     y /= scale
     np.savez(
@@ -211,6 +217,7 @@ def run(args):
         "data_sign": manifest["data_sign"],
         "window": args.window,
         "phase_randomize": args.phase_randomize,
+        "source_group_splits": args.group_splits,
         "regularization_factor": args.reg,
         "pose_protocol": "fixed public consensus poses; conditional half-map FSC, not fully gold-standard",
         "methods": {},
@@ -338,4 +345,5 @@ if __name__ == "__main__":
     p.add_argument("--methods", default="gaussian,voxel")
     p.add_argument("--window", action="store_true")
     p.add_argument("--phase-randomize", action="store_true")
+    p.add_argument("--group-splits", action="store_true",help="Use the audited exposure-group uncertainty development splits")
     run(p.parse_args())
