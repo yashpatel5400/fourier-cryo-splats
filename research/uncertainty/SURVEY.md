@@ -237,3 +237,26 @@ specific structural questions; and practical uncertainty propagation through
 movie correction, CTF estimation, alignment, classification and model building.
 These are research directions inferred from the sources above, not claims of
 unclaimed priority.
+
+## 9. Additional targeted search, 29 September 2026
+
+Four additional queries combined cryo-EM with conformal inference, posterior
+calibration, Gaussian/ bootstrap uncertainty, and feature validation. They did
+not identify a directly matched conformal density-reconstruction paper in the
+returned results; that is a search outcome, not a proof of absence. Three further
+candidates bring the curated ledger to 89 entries.
+
+[SIMPLE's 2025 probabilistic ab initio method](https://doi.org/10.1107/S2059798325005686)
+uses coupled orientation assignments and adaptive spatial regularization. Its
+sampling neighborhoods guide optimization, and should not be treated as
+calibrated confidence sets for individual poses. The paper also ties acquisition
+and reconstruction speed to useful online processing, an important practical
+comparison beyond a final FSC.
+
+[CryoETGS](https://doi.org/10.1016/j.jsb.2025.108281) adds published cryo-ET Gaussian
+representation work to the existing single-particle Gaussian literature. The
+primary abstract, rather than a verified full-text reproduction, supports its
+inclusion here. [Experiment-guided AlphaFold3](https://doi.org/10.1038/s41587-026-03166-5)
+belongs to the atomic-ensemble branch: agreement of ensemble-averaged observables
+with experiments addresses a different target from particle-derived density CIs.
+Its full text has been retrieved for subsequent detailed assessment.

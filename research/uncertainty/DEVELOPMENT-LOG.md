@@ -249,3 +249,70 @@ correlation violates the scale guarantee (a failure rate around 0.50 instead of
 0.01 in the rho=0.5 control); it is not silently treated as valid whitening.
 These are calibration experiments, not evidence that raw experimental noise
 satisfies the model. The current complete unit suite has 35 passing tests.
+
+The curvature comparison is complete for both targets, all three geometries and
+three radii. At 0.5 degrees, central-reference sign power increases to about
+0.999 or higher for all three geometries; small axial contrasts remain mostly
+undetectable. At 2 degrees, even central averages remain difficult. The whole
+regularization sweep for group bootstrap uses 999 resamples and 1,000 independent
+noise replications per setting; counts are shared across noise replicates and
+this conditioning is recorded. Weakly regularized full-space bootstrap often
+has near-nominal reference coverage with smaller widths than the robust audit.
+Strong regularization and restricted dictionaries can fail. Report both outcomes.
+
+A physical-unit fixed-pose grid audit uses a common 64-cubed inference center and
+truth generator. The 32-cubed weights change in width by less than about 0.6%
+on that common fine grid for this band; 16-cubed results can differ substantially.
+The new Fourier-moment adjoint computes first/second pose audits on finer grids
+without full derivative Grams. The first 64-cubed probe gives the same width
+ratio (0.97936768556) with NUFFT and direct sums. Profiling under concurrent load
+was 289.34 versus 17.32 seconds, respectively; this is not a controlled hardware
+speed benchmark. The implementations use different native threading behavior.
+Larger-grid checks for all datasets/targets/radii and a higher-bandwidth finer-
+target probe are in progress. Current source tests cover both adjoint backends.
+
+## Shared-density audit, nonlinear stress search and extended comparisons
+
+All 18 curvature fits (three geometries, two targets, three pose radii) now
+meet the 0.5% optimization-gap tolerance. The subsequent Fourier-moment pose
+refinement audit is complete on grids 24/32/64 for both targets and 0.5/2 degrees.
+A higher-bandwidth 32-grid, radius-12, width-0.03 probe gives a no-data first-order
+interval but quadratic relative width 0.44855 at 0.5 degrees for EMPIAR-10028.
+Its expanded comparison is still running; the probe is not three-stack evidence.
+
+A projected nonlinear search now eliminates the common density ball analytically
+and searches 128 five-dimensional pose balls. Four starts per bias sign, 150
+Adam steps each, give feasible lower bounds on worst bias. All 12 geometry/target/
+radius settings are complete. The Mac MPS backend uses float32 during search;
+saved candidates are reprojected and reevaluated by independent float64 Fourier
+sums. Lower bounds do not imply globally worst cases. These searches expose
+considerable slack in the separate density-interaction triangle bounds.
+
+A deterministic spectral post-audit preserves the common density direction in
+linear/quadratic pose terms and the nominal density residual. It uses classical
+weighted block operator-norm inequalities, comparing joint, affine, separate and
+triangle relaxations. Across the 12 settings, interval widths fall to roughly
+0.50–0.65 of their original values without changing image weights or assumptions.
+All completed feasible nonlinear adversaries remain below these tighter upper
+bounds. This does not certify optimality for the new objective. A 64-grid probe
+agrees closely in physical units; the full larger-grid post-audit is running.
+
+Neural fits reached 60 epochs for 10028/10049 and 100 for 10076. Tuning-only
+checkpoint selection gives epochs 60/50/100 with development test NMSE
+0.829325/0.930173/0.870705. All conditional half-FSC values remain above 0.143
+through the sampled limit; no threshold crossing or gold-standard resolution
+is inferred. The earlier checkpoints and resume records remain available.
+
+The complete test suite has 38 passing tests. The development manuscript now
+contains the bootstrap penalty sweep, curvature/power comparison, longer neural
+runs, shared-density derivation, and a more detailed target-specific literature
+appendix. Selected citation metadata are recorded from Crossref/Europe PMC;
+Crossref rate-limit failures are preserved rather than treated as successful
+retrievals. No scientific Fable review has yet been requested.
+
+The full shared-density 64-grid post-audit is now complete for all 12 settings.
+It preserves the reduction, with finer-grid widths about 0.50–0.66 of the same
+fine-grid triangle-bound interval. All 96 saved nonlinear adversaries from the
+coarse class remain below their corresponding tightened coarse upper bounds.
+The assumption-violation diagnostic suite is being run separately; it is not
+included as completed evidence in this checkpoint.

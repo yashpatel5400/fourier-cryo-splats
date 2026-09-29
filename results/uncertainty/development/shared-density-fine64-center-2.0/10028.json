@@ -1,0 +1,67 @@
+{
+  "stage": "development post-audit; same fixed weights; no claim of optimized spectral weights",
+  "dataset": "10028",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "source": "pose-grid-center-2.0",
+    "stress": "nonlinear-stress-center-2.0",
+    "output": "shared-density-fine64-center-2.0",
+    "audit_box": 64
+  },
+  "source_config": {
+    "datasets": "10028,10049,10076",
+    "particles": 128,
+    "coarse_box": 24,
+    "audit_boxes": "24,32,64",
+    "angle": 2.0,
+    "target": "center",
+    "output": "pose-grid-center-2.0",
+    "backend": "direct"
+  },
+  "weights_sha256": "36437e7235110354e2ee99d7dc8cf7617fe6606506849db033b564122b5a631e",
+  "bounds": {
+    "block_triangle": {
+      "density_bias": 5.474380856538387,
+      "total_bias": 6.564031343507747,
+      "half_width": 6.71745456064649,
+      "width_fraction_of_old": 1.0000000000000002,
+      "width_fraction_of_no_data": 0.4151730932522594
+    },
+    "separate_spectral": {
+      "density_bias": 2.11403348770801,
+      "total_bias": 3.20368397467737,
+      "half_width": 3.357107191816114,
+      "width_fraction_of_old": 0.49975882404674216,
+      "width_fraction_of_no_data": 0.20748641685959754
+    },
+    "affine_linear_spectral": {
+      "density_bias": 2.483419728418225,
+      "total_bias": 3.573070215387585,
+      "half_width": 3.7264934325263295,
+      "width_fraction_of_old": 0.5547478436784083,
+      "width_fraction_of_no_data": 0.2303163782349856
+    },
+    "joint_spectral": {
+      "density_bias": 2.498318813245404,
+      "total_bias": 3.5879693002147643,
+      "half_width": 3.7413925173535083,
+      "width_fraction_of_old": 0.5569658095303046,
+      "width_fraction_of_no_data": 0.23123721797844526
+    },
+    "minimum_valid_bound": {
+      "density_bias": 2.11403348770801,
+      "total_bias": 3.20368397467737,
+      "half_width": 3.357107191816114,
+      "width_fraction_of_old": 0.49975882404674216,
+      "width_fraction_of_no_data": 0.20748641685959754
+    }
+  },
+  "noise_sd": 0.09327469303338218,
+  "source_json_sha256": "6b41622576f038a792c8df78647313b8b0d30f2109e3a03be94636ed7cff35b6",
+  "source_hashes": {
+    "scripts/audit_uq_shared_density.py": "4b0595c60b9e60896309751fc75bf480c6eb550bb132309d1f2e470cc4b7ce69",
+    "src/fourier_splats/uq_shared_density.py": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261"
+  },
+  "adversarial_candidates": [],
+  "seconds": 17.942260750045534
+}

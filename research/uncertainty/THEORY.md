@@ -400,3 +400,73 @@ Finite differences check diagonal/mixed rotation and translation entries;
 independent nonlinear projections check the uniform cubic remainder. Whether
 this tighter expansion actually improves useful intervals is an experiment,
 not an assumption from its higher order.
+
+## 11. Auditing pose terms without building full-grid derivative tensors
+
+For fixed image weights, the first and second pose-derivative adjoints can be
+computed from twenty Fourier moment fields. Let f=(k_x,k_y,k_z,q_x,q_y),
+c_q=(w_real+i*w_imag) C_q/noise, and define
+F_r(x)=sum_q c_q f_qr exp(+2*pi*i*k_q'x/box),
+F_rs(x)=sum_q c_q f_qr f_qs exp(+2*pi*i*k_q'x/box).
+There are five first moments and fifteen distinct symmetric second moments.
+
+The positive-phase derivative is linear in f: psi_a(x,q)=M_ar(x) f_qr.
+M contains the cross-product coefficients of x with k for rotation, and scaled
+q components for translation. The rotation phase Hessian similarly has the
+linear form psi_ab=N_abr(x) f_qr. Then
+
+    D_a' w(x) = Re[ i sum_r M_ar F_r ],
+    E_ab' w(x) = Re[ i sum_r N_abr F_r - sum_rs M_ar M_bs F_rs ].
+
+Pilot inner products and supported-voxel Frobenius norms give exactly the same
+structured bounds as the full derivative tensors. This avoids forming their
+large pixel-space Grams when auditing fixed coarse-space weights on a finer
+space. The fields can be evaluated by batched type-1 NUFFTs or direct Fourier
+sums; the direct path is currently selected for at most 128 frequencies. That
+threshold is an implementation heuristic, not an optimal complexity theorem.
+Both paths are tested against explicit column derivatives, including mixed
+rotation/translation curvature. For a new ambient grid, centering and the
+target also use that grid, and physical voxel-volume scaling must be preserved.
+These are larger finite-space guarantees, not assertions about all continuous
+unresolved density.
+
+## 12. Shared-density spectral post-audit and feasible nonlinear adversaries
+
+The earlier sum B*sum_i ||T_i||_F allows a different worst density direction
+per particle. Retain the shared density vector in the linear/quadratic Taylor
+polynomial instead. Let h=A'w-ell, and form blocks H_0=h, H_i=T_i, and
+H_(n+i)=U_i/2. Their coefficient vectors are 1, u_i, and u_i tensor u_i,
+respectively. Every block coefficient has norm at most one. For arbitrary
+positive deterministic block scalings d_j, Cauchy--Schwarz and the operator norm
+give the uniform inequality
+
+    ||sum_j H_j v_j|| <= sqrt(sum_j d_j) ||[H_j/sqrt(d_j)]||_op.
+
+Multiplying by B bounds the combined density residual/interaction, retaining
+its shared direction. This is an elementary classical spectral inequality.
+The pilot-linear, pilot-quadratic and uniform cubic remainder bounds are added
+unchanged. No coverage assumption is removed. The coefficient-one and quadratic
+rank-one constraints are relaxed, so the bound can still be conservative.
+
+The implementation compares the block triangle bound, separate linear and
+quadratic spectral bounds, an affine residual-plus-linear spectral bound, and
+one joint bound. Scales d_j=||H_j||_F are deterministic for fixed weights; zero
+blocks are dropped. The minimum remains a uniform upper bound. All candidates
+are independent of inference noise. Dense symmetric float64 eigensolves have
+a small roundoff pad; no interval-arithmetic claim is made. The original convex
+solver's objective gap does not imply optimality of this post-audited minimum.
+
+A complementary nonlinear stress test eliminates the density ball exactly.
+For each feasible pose u, put h(u)=A(u)'w-ell. The largest signed bias over that
+ball is
+
+    F_sign(u)=sign * rho0'[A(u)'w-A(0)'w] + B||h(u)||.
+
+It is attained by delta=sign*B*h(u)/||h(u)|| when h(u) is nonzero. Projected
+Adam on each pose unit ball therefore finds feasible lower bounds on worst
+bias. Four starts for each sign are used in current development tests, with
+150 iterations per start. This is a local search, not a global optimum or proof
+of worst-case coverage. MPS float32 accelerates the search; every saved pose
+is reprojected onto its ball and recomputed by independent SciPy rotations and
+direct complex Fourier sums in float64. Autograd checks and explicit first
+pose-derivative comparisons validate the search objective and gradient.

@@ -1,0 +1,19 @@
+{
+  "stage": "development reconstruction; supplied consensus poses; half FSC is conditional",
+  "dataset": "10076",
+  "architecture": {
+    "layers": 3,
+    "dim": 256,
+    "domain": "fourier",
+    "positional_encoding": "gaussian"
+  },
+  "epochs": 100,
+  "half_fsc_resolution": {
+    "angstrom": 13.973332722981771,
+    "status": "censored_at_sampled_limit"
+  },
+  "preprocessing": "v0.1.0 per-image background normalization, stock cryoDRGN window, per-half normalization",
+  "training_convergence_assessed": false,
+  "fsc_transform": "full centered 3D FFT; cross-checked with direct neural Fourier predictions",
+  "fsc_epoch": 100
+}

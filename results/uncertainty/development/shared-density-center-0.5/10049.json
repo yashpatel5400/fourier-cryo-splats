@@ -1,0 +1,124 @@
+{
+  "stage": "development post-audit; same fixed weights; no claim of optimized spectral weights",
+  "dataset": "10049",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "source": "pose-grid-center-0.5",
+    "stress": "nonlinear-stress-center-0.5",
+    "output": "shared-density-center-0.5",
+    "audit_box": null
+  },
+  "source_config": {
+    "datasets": "10028,10049,10076",
+    "particles": 128,
+    "coarse_box": 24,
+    "audit_boxes": "24,32,64",
+    "angle": 0.5,
+    "target": "center",
+    "output": "pose-grid-center-0.5",
+    "backend": "direct"
+  },
+  "weights_sha256": "df08c2fbd1ed6198bb667dbb8020ab40c27c8cb618c590bc45f5800914ee9aeb",
+  "bounds": {
+    "block_triangle": {
+      "density_bias": 1.9965207269570153,
+      "total_bias": 2.0564834197318302,
+      "half_width": 2.5353188357750764,
+      "width_fraction_of_old": 1.0000000000000002,
+      "width_fraction_of_no_data": 0.15669568791425528
+    },
+    "separate_spectral": {
+      "density_bias": 1.098364712317201,
+      "total_bias": 1.1583274050920158,
+      "half_width": 1.637162821135274,
+      "width_fraction_of_old": 0.645742380813723,
+      "width_fraction_of_no_data": 0.10118504657699531
+    },
+    "affine_linear_spectral": {
+      "density_bias": 1.2466273657539653,
+      "total_bias": 1.30659005852878,
+      "half_width": 1.7854254745718918,
+      "width_fraction_of_old": 0.7042212795401991,
+      "width_fraction_of_no_data": 0.11034843784140853
+    },
+    "joint_spectral": {
+      "density_bias": 1.249261212395663,
+      "total_bias": 1.309223905170478,
+      "half_width": 1.788059321213595,
+      "width_fraction_of_old": 0.7052601416369648,
+      "width_fraction_of_no_data": 0.1105112230523093
+    },
+    "minimum_valid_bound": {
+      "density_bias": 1.098364712317201,
+      "total_bias": 1.1583274050920158,
+      "half_width": 1.637162821135274,
+      "width_fraction_of_old": 0.645742380813723,
+      "width_fraction_of_no_data": 0.10118504657699531
+    }
+  },
+  "noise_sd": 0.29111126254480574,
+  "source_json_sha256": "03b2127aaa324924af1b0e7b1dab0cd3c48ef4960a862be8348488f0bc1af252",
+  "source_hashes": {
+    "scripts/audit_uq_shared_density.py": "4b0595c60b9e60896309751fc75bf480c6eb550bb132309d1f2e470cc4b7ce69",
+    "src/fourier_splats/uq_shared_density.py": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261"
+  },
+  "adversarial_candidates": [
+    {
+      "sign": -1,
+      "restart": 0,
+      "absolute_bias": 0.8231744287788564,
+      "bias_fraction_of_new_upper": 0.7106578201984823,
+      "analytic_coverage": 0.9974141654211417
+    },
+    {
+      "sign": -1,
+      "restart": 1,
+      "absolute_bias": 0.8239876948750494,
+      "bias_fraction_of_new_upper": 0.7113599240187131,
+      "analytic_coverage": 0.9973917248207024
+    },
+    {
+      "sign": -1,
+      "restart": 2,
+      "absolute_bias": 0.8225614173416235,
+      "bias_fraction_of_new_upper": 0.7101285989830142,
+      "analytic_coverage": 0.9974309648820783
+    },
+    {
+      "sign": -1,
+      "restart": 3,
+      "absolute_bias": 0.8256919973718563,
+      "bias_fraction_of_new_upper": 0.7128312718339462,
+      "analytic_coverage": 0.9973441260238989
+    },
+    {
+      "sign": 1,
+      "restart": 0,
+      "absolute_bias": 0.8169519530535271,
+      "bias_fraction_of_new_upper": 0.7052858712158585,
+      "analytic_coverage": 0.9975801707398612
+    },
+    {
+      "sign": 1,
+      "restart": 1,
+      "absolute_bias": 0.8166171681113694,
+      "bias_fraction_of_new_upper": 0.7049968467650116,
+      "analytic_coverage": 0.9975888226426017
+    },
+    {
+      "sign": 1,
+      "restart": 2,
+      "absolute_bias": 0.8166067648285151,
+      "bias_fraction_of_new_upper": 0.7049878654676612,
+      "analytic_coverage": 0.9975890910473915
+    },
+    {
+      "sign": 1,
+      "restart": 3,
+      "absolute_bias": 0.8174477444366418,
+      "bias_fraction_of_new_upper": 0.7057138947443836,
+      "analytic_coverage": 0.9975673063146782
+    }
+  ],
+  "seconds": 1.9087517080479302
+}

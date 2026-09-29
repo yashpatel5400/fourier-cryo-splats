@@ -9,6 +9,9 @@ The [current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) has bee
 rewritten around uncertainty, ambient-space bias auditing, and conditional pose
 bounds. It is explicitly a **development draft**, not a completed submission.
 Comprehensive validation and independent scientific review remain outstanding.
+Completed development comparisons include source-group bootstrap, nonlinear pose
+curvature, shared-density spectral audits, finite-grid checks, and stock neural
+reconstruction on three stacks. See [reproduction commands](research/uncertainty/REPRODUCE-DEVELOPMENT.md).
 The [earlier reconstruction paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0
 release preserve the original feasibility study.
 

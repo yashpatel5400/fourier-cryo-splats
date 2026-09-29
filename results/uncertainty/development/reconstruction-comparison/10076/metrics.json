@@ -3,12 +3,20 @@
   "dataset": "10076",
   "config": {
     "datasets": "10076",
-    "epochs": "5,10,15,20"
+    "epochs": "70,80,90,100"
   },
   "evaluation_runs": [
     {
       "datasets": "10076",
       "epochs": "5,10,15,20"
+    },
+    {
+      "datasets": "10076",
+      "epochs": "30,40,50,60"
+    },
+    {
+      "datasets": "10076",
+      "epochs": "70,80,90,100"
     }
   ],
   "common_evaluation": "identical exposure-group partitions and 1410 Fourier pairs/image, radius 30 on 64 grid, window and per-image background normalization",
@@ -347,6 +355,638 @@
             "percentile_95": [
               0.005757104741368371,
               0.007498931465666298
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      }
+    },
+    "30": {
+      "epoch": 30,
+      "checkpoint_checks": [
+        {
+          "checkpoint_sha256": "e56958519fc27a79ac73af50b61c967fcc053469831674666a368fcb1f671497",
+          "map_direct_relative_error": 9.721765792392034e-08,
+          "training_normalization": [
+            0.0,
+            65.30900573730469
+          ]
+        },
+        {
+          "checkpoint_sha256": "fad5b6d195c3e4785c4ac3b34e43bc2ee6a92eac809eef1449dc338f6cd26adc",
+          "map_direct_relative_error": 1.7084032322145504e-07,
+          "training_normalization": [
+            0.0,
+            65.08934783935547
+          ]
+        }
+      ],
+      "conditional_half_fsc_resolution": {
+        "angstrom": 13.973332722981771,
+        "status": "censored_at_sampled_limit"
+      },
+      "prediction": {
+        "validation": {
+          "nmse": 0.8712903123316337,
+          "correlation": 0.3588477075099945
+        },
+        "test": {
+          "nmse": 0.8719608145837527,
+          "correlation": 0.3580189049243927
+        }
+      },
+      "validation_comparison": {
+        "source_groups": 32,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.004421307217790549,
+            "percentile_95": [
+              0.0037918286436261937,
+              0.005000387707338669
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.00854610415818946,
+            "percentile_95": [
+              0.007651637175277237,
+              0.009371277426904603
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      },
+      "test_comparison": {
+        "source_groups": 77,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.004475523442876828,
+            "percentile_95": [
+              0.0038465490059351624,
+              0.005168471293860496
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.00867553926176523,
+            "percentile_95": [
+              0.007762330935164352,
+              0.00968489679301508
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      }
+    },
+    "40": {
+      "epoch": 40,
+      "checkpoint_checks": [
+        {
+          "checkpoint_sha256": "de4211bbaa2dfbc2dd29f15c7a347dc30d278ab2980aa1ba7da2e49af683052f",
+          "map_direct_relative_error": 7.893120823609934e-08,
+          "training_normalization": [
+            0.0,
+            65.30900573730469
+          ]
+        },
+        {
+          "checkpoint_sha256": "659fd19d1e206079dc6f6acd15acc3a06b1a01bc65cb44c1e1bc4607798d87fe",
+          "map_direct_relative_error": 1.1851995651568359e-07,
+          "training_normalization": [
+            0.0,
+            65.08934783935547
+          ]
+        }
+      ],
+      "conditional_half_fsc_resolution": {
+        "angstrom": 13.973332722981771,
+        "status": "censored_at_sampled_limit"
+      },
+      "prediction": {
+        "validation": {
+          "nmse": 0.8723601534851104,
+          "correlation": 0.3573242425918579
+        },
+        "test": {
+          "nmse": 0.8727377879895111,
+          "correlation": 0.356886625289917
+        }
+      },
+      "validation_comparison": {
+        "source_groups": 32,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.0033514660643138017,
+            "percentile_95": [
+              0.0026466961162460918,
+              0.004013988306405949
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.007476263004712713,
+            "percentile_95": [
+              0.006496137698956089,
+              0.008387462502938947
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      },
+      "test_comparison": {
+        "source_groups": 77,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.0036985500371184976,
+            "percentile_95": [
+              0.003008767072767349,
+              0.004460121425212093
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.0078985658560069,
+            "percentile_95": [
+              0.006918842853800194,
+              0.008983248533894097
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      }
+    },
+    "50": {
+      "epoch": 50,
+      "checkpoint_checks": [
+        {
+          "checkpoint_sha256": "5e06a2423c20f6d8884ce221a91e496d83e0da6709dcfbb8f314f2c3b7620dae",
+          "map_direct_relative_error": 1.1457691329042063e-07,
+          "training_normalization": [
+            0.0,
+            65.30900573730469
+          ]
+        },
+        {
+          "checkpoint_sha256": "5febf50f90dde05df40805c5402e0d4c4f2f0e7658fdbe9c1024afc73bca3fe8",
+          "map_direct_relative_error": 1.4855120866741345e-07,
+          "training_normalization": [
+            0.0,
+            65.08934783935547
+          ]
+        }
+      ],
+      "conditional_half_fsc_resolution": {
+        "angstrom": 13.973332722981771,
+        "status": "censored_at_sampled_limit"
+      },
+      "prediction": {
+        "validation": {
+          "nmse": 0.870669392069389,
+          "correlation": 0.35969096422195435
+        },
+        "test": {
+          "nmse": 0.8712349797538138,
+          "correlation": 0.35900822281837463
+        }
+      },
+      "validation_comparison": {
+        "source_groups": 32,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.005042227480035244,
+            "percentile_95": [
+              0.004264652532968882,
+              0.005733250349320231
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.009167024420434156,
+            "percentile_95": [
+              0.008111372560108946,
+              0.01010623613261624
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      },
+      "test_comparison": {
+        "source_groups": 77,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.005201358272815759,
+            "percentile_95": [
+              0.004482323410319028,
+              0.005981680195244174
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.009401374091704162,
+            "percentile_95": [
+              0.008391531995116802,
+              0.010505772706717485
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      }
+    },
+    "60": {
+      "epoch": 60,
+      "checkpoint_checks": [
+        {
+          "checkpoint_sha256": "5e8d4bcd795c5f1548f6da56a03eb5d8614b8b21c7f191f52fff92c6d3fb3a79",
+          "map_direct_relative_error": 2.422680154268164e-07,
+          "training_normalization": [
+            0.0,
+            65.30900573730469
+          ]
+        },
+        {
+          "checkpoint_sha256": "b471e767df1ff3e9b98ba42814d0fd9920728fbbc67a75cc441497e6619f0fd6",
+          "map_direct_relative_error": 1.7329266199794802e-07,
+          "training_normalization": [
+            0.0,
+            65.08934783935547
+          ]
+        }
+      ],
+      "conditional_half_fsc_resolution": {
+        "angstrom": 13.973332722981771,
+        "status": "censored_at_sampled_limit"
+      },
+      "prediction": {
+        "validation": {
+          "nmse": 0.870304228114301,
+          "correlation": 0.3601924479007721
+        },
+        "test": {
+          "nmse": 0.870843122605912,
+          "correlation": 0.35954996943473816
+        }
+      },
+      "validation_comparison": {
+        "source_groups": 32,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.005407391435123254,
+            "percentile_95": [
+              0.004678911708341826,
+              0.006038976370179597
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.009532188375522166,
+            "percentile_95": [
+              0.00850853273910949,
+              0.010408778801134657
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      },
+      "test_comparison": {
+        "source_groups": 77,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.005593215420717557,
+            "percentile_95": [
+              0.004886713127969786,
+              0.0063709451135616595
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.00979323123960596,
+            "percentile_95": [
+              0.008805569770407196,
+              0.010898082817097894
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      }
+    },
+    "70": {
+      "epoch": 70,
+      "checkpoint_checks": [
+        {
+          "checkpoint_sha256": "67ad011cdc0a1c34d997e887b9b748aa343727e3649b136d23661f2e66596b8a",
+          "map_direct_relative_error": 1.2268607463283843e-07,
+          "training_normalization": [
+            0.0,
+            65.30900573730469
+          ]
+        },
+        {
+          "checkpoint_sha256": "e5e799f021a71379d14ebc39d053644d469e3cebf395b3d4ba7afbf0eae95e5e",
+          "map_direct_relative_error": 1.4541561199621356e-07,
+          "training_normalization": [
+            0.0,
+            65.08934783935547
+          ]
+        }
+      ],
+      "conditional_half_fsc_resolution": {
+        "angstrom": 13.973332722981771,
+        "status": "censored_at_sampled_limit"
+      },
+      "prediction": {
+        "validation": {
+          "nmse": 0.8704505413575445,
+          "correlation": 0.3599865138530731
+        },
+        "test": {
+          "nmse": 0.871058378856608,
+          "correlation": 0.3592348098754883
+        }
+      },
+      "validation_comparison": {
+        "source_groups": 32,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.005261078191879709,
+            "percentile_95": [
+              0.004562783261000855,
+              0.005881989348330679
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.00938587513227862,
+            "percentile_95": [
+              0.008401728373488394,
+              0.01025620131344813
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      },
+      "test_comparison": {
+        "source_groups": 77,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.005377959170021596,
+            "percentile_95": [
+              0.0046301918176474164,
+              0.0061970802004959495
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.009577974988909999,
+            "percentile_95": [
+              0.00854674011989153,
+              0.010744431275299093
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      }
+    },
+    "80": {
+      "epoch": 80,
+      "checkpoint_checks": [
+        {
+          "checkpoint_sha256": "4f9773ef454e6db63b2fab5cca088410ac65e267bb68ccec829c1bed84c349f1",
+          "map_direct_relative_error": 1.595188052760932e-07,
+          "training_normalization": [
+            0.0,
+            65.30900573730469
+          ]
+        },
+        {
+          "checkpoint_sha256": "f53e8f56e67e0cb534d1316b88bb98c2cf7d389afab8941b25b8e44c043825e5",
+          "map_direct_relative_error": 1.5826630317405943e-07,
+          "training_normalization": [
+            0.0,
+            65.08934783935547
+          ]
+        }
+      ],
+      "conditional_half_fsc_resolution": {
+        "angstrom": 13.973332722981771,
+        "status": "censored_at_sampled_limit"
+      },
+      "prediction": {
+        "validation": {
+          "nmse": 0.8718093743313498,
+          "correlation": 0.3581244945526123
+        },
+        "test": {
+          "nmse": 0.872159967325993,
+          "correlation": 0.357708215713501
+        }
+      },
+      "validation_comparison": {
+        "source_groups": 32,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.0039022452180744738,
+            "percentile_95": [
+              0.003146401183147474,
+              0.00458747424769648
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.008027042158473385,
+            "percentile_95": [
+              0.006984487920105908,
+              0.008965945265781967
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      },
+      "test_comparison": {
+        "source_groups": 77,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.004276370700636578,
+            "percentile_95": [
+              0.0035049588178451634,
+              0.0051136746065886095
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.008476386519524981,
+            "percentile_95": [
+              0.007414075782245183,
+              0.009650718584563317
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      }
+    },
+    "90": {
+      "epoch": 90,
+      "checkpoint_checks": [
+        {
+          "checkpoint_sha256": "03027d14c4ce3db8d294922174578bf2445a731c60934d0171cf641e64780726",
+          "map_direct_relative_error": 1.3495160544607643e-07,
+          "training_normalization": [
+            0.0,
+            65.30900573730469
+          ]
+        },
+        {
+          "checkpoint_sha256": "2eaa20ff89021ea36932d7442a67548a73578b739855a02624b00b4942957a68",
+          "map_direct_relative_error": 1.7752208236743172e-07,
+          "training_normalization": [
+            0.0,
+            65.08934783935547
+          ]
+        }
+      ],
+      "conditional_half_fsc_resolution": {
+        "angstrom": 13.973332722981771,
+        "status": "censored_at_sampled_limit"
+      },
+      "prediction": {
+        "validation": {
+          "nmse": 0.8704375609960886,
+          "correlation": 0.36000436544418335
+        },
+        "test": {
+          "nmse": 0.8709988757764792,
+          "correlation": 0.3593132197856903
+        }
+      },
+      "validation_comparison": {
+        "source_groups": 32,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.0052740585533356255,
+            "percentile_95": [
+              0.004443099154000807,
+              0.005998968089986744
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.009398855493734537,
+            "percentile_95": [
+              0.008295153117596538,
+              0.010373296502154643
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      },
+      "test_comparison": {
+        "source_groups": 77,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.005437462250150404,
+            "percentile_95": [
+              0.004665771112633901,
+              0.006278243774136151
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.009637478069038807,
+            "percentile_95": [
+              0.008585987491099617,
+              0.010806938184520973
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      }
+    },
+    "100": {
+      "epoch": 100,
+      "checkpoint_checks": [
+        {
+          "checkpoint_sha256": "23687f0a78f95767b524e2116d8e3fd168b2df68fe8a294c024fe9f2000e2a3e",
+          "map_direct_relative_error": 1.4497814504466078e-07,
+          "training_normalization": [
+            0.0,
+            65.30900573730469
+          ]
+        },
+        {
+          "checkpoint_sha256": "2afea2338e02a13d27f7c256e0c16debdca52b2c24e64b97ffd0fd89010b543f",
+          "map_direct_relative_error": 1.8084152486608218e-07,
+          "training_normalization": [
+            0.0,
+            65.08934783935547
+          ]
+        }
+      ],
+      "conditional_half_fsc_resolution": {
+        "angstrom": 13.973332722981771,
+        "status": "censored_at_sampled_limit"
+      },
+      "prediction": {
+        "validation": {
+          "nmse": 0.8701626344952931,
+          "correlation": 0.36038628220558167
+        },
+        "test": {
+          "nmse": 0.8707045747533538,
+          "correlation": 0.35972678661346436
+        }
+      },
+      "validation_comparison": {
+        "source_groups": 32,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.00554898505413115,
+            "percentile_95": [
+              0.00477809761591054,
+              0.006211471344100347
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.009673781994530062,
+            "percentile_95": [
+              0.008607374291745674,
+              0.01058920159030607
+            ]
+          }
+        },
+        "interpretation": "exposure-group resampling of held-out prediction errors; not density uncertainty"
+      },
+      "test_comparison": {
+        "source_groups": 77,
+        "resamples": 2000,
+        "seed": 609327,
+        "paired_differences": {
+          "gaussian_minus_neural_nmse": {
+            "estimate": 0.005731763273275736,
+            "percentile_95": [
+              0.004974942769744412,
+              0.006568472491768101
+            ]
+          },
+          "voxel_minus_neural_nmse": {
+            "estimate": 0.009931779092164139,
+            "percentile_95": [
+              0.008886526326410122,
+              0.011089070946461587
             ]
           }
         },

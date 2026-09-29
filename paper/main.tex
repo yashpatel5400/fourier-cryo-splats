@@ -138,6 +138,16 @@ H(q,x)&=\tfrac{2\pi}{d}a^2\norm{k}\norm{x}.
 \end{align}
 The absolute second derivative of its complex Fourier column is bounded uniformly by $|C_i(q)|[L(q,x)^2+H(q,x)]$ before whitening. Summing this column bound against $|\rho_0(x)|$ gives the pilot bound; its frequency/voxel Frobenius norm gives the operator bound. Analytic first derivatives supply the full-density interaction. Thus the implemented joint certificate covers the stated ambient density ball and local pose balls simultaneously. Fixed CTFs and known whitened Gaussian noise remain assumptions; CTF error, window correlations and heterogeneous densities are not covered by assertion.
 
+\subsection{Curvature and shared-density post-audits}
+Retaining the quadratic pose terms replaces the second-order remainder with a uniform cubic one (Appendix~\ref{sec:curvature}). It adds structured pilot and density Hessian terms, and can substantially reduce width. The density component can be tightened further: it is one shared error across particles, not one independent error per image. Let $h=\A^*w-\ell$ and collect blocks $H_0=h$, $H_i=T_i(w)$ and $H_{n+i}=U_i(w)/2$, where $U_i$ contains all ordered second-derivative adjoint columns. Their coefficients are $1,u_i,u_i\otimes u_i$, each of norm at most one. For any positive fixed block scales $d_j$,
+\begin{equation}\label{eq:shared}
+\left\|\sum_j H_jv_j\right\|\le
+\sqrt{\sum_jd_j}\,\big\|[H_j/\sqrt{d_j}]_j\big\|_{\rm op}.
+\end{equation}
+Multiplication by $B$ bounds the combined density residual and interactions. The pilot and cubic remainder terms remain unchanged. Equation~\eqref{eq:shared} is an elementary operator-norm inequality. We compare it with separate spectral and triangle bounds, use $d_j=\norm{H_j}_F$ for nonzero blocks, and retain the smallest valid bound. This post-audit uses fixed weights and preserves coverage; it does not inherit an optimality certificate for the new width.
+
+First and second derivative adjoints require only five first and fifteen distinct second Fourier moment fields per particle. Direct summation or batched nonuniform transforms evaluate these fields on a larger supported grid without its pixel-space derivative Grams. Physical voxel-volume scaling, the inference center and the target all use that audit grid. This verifies larger finite density spaces, not arbitrary unresolved continuous density.
+
 \section{Development Experiments}
 All results below are exploratory. A confirmatory protocol has not been frozen. Experimental particle pools have already been inspected during the earlier reconstruction study and subsequent development; their partitions must not be described as untouched final tests.
 
@@ -151,11 +161,7 @@ A noiseless projection audit with 256 particles per split and a radius-six frequ
 
 The bounded-model coverage benchmark has 48 settings: 12 seeds, broad versus preferred orientations, and rotation radii $0.5^\circ$ or $2^\circ$. Each setting uses 96 particles, 40 coefficients, 20 random bounded signals and estimator-specific adversarial controls. We report exact Gaussian noise-marginal coverage and cross-check with 2,000 paired noise draws per signal. Shared designs and paired noise do not constitute independent voxel trials.
 
-\begin{figure*}[t]
-\centering\includegraphics[width=.92\textwidth]{../results/uncertainty/development/coverage-summary/coverage-width.png}
-\caption{Exact-dictionary development tests with known bounds and an independent fixed pilot. Minimum coverage is over the finite tested set, including adversarial signals; it is not an empirical proof of the worst case. Widths count each independent design once. Gaussian posterior methods separately pass their correctly matched prior-predictive coverage check at 0.95. Their fixed-parameter boundary failures do not contradict Bayesian prior-average calibration.}
-\label{fig:coverage}
-\end{figure*}
+The exact-dictionary comparison is plotted in Appendix~\ref{sec:extraexperiments}.
 The structured certificate's smallest tested coverage was 0.991 at nominal 0.95; omitting the quadratic remainder gave 0.932. Median width relative to the no-data bound was 0.557 for broad views at $0.5^\circ$, and approximately one for preferred views. This is a usefulness limitation, not a calibration success to conceal with pooled averages.
 
 \subsection{Ambient-space audit}
@@ -168,29 +174,45 @@ The initial dictionary has 33 non-null Gaussian modes. Two targets, a central av
 We combine the full supported voxel space with the nonlinear pose bound, using the broad axial contrast, 128 particles per geometry and the same prescribed density radius. Rotation radii are $0.1^\circ$, $0.5^\circ$ and $2^\circ$, with a shift radius of 0.01 working pixels in their joint unit ball. Signal cases include random density/pose boundaries, estimator-directed adversaries and the independent voxel reference under a coherent rotation. Table~\ref{tab:ambientpose} shows that a valid but conservative interval can still be uninformative at a large nuisance radius. Fixed-pose intervals reach coverage as low as 0.904 on these allowed perturbed cases. The nonlinear certificate's smallest tested analytic coverage is 0.9997; its conservatism requires scrutiny rather than being interpreted as superior calibration.
 \input{uncertainty-pose-results.tex}
 
-We also compute the probability that the entire interval has the correct sign. For a positive true target and expected center $m$, this is $\Phi((m-q)/s)$, with the analogous negative-sign formula. The deposited-map axial contrasts are too small for the present bounds, despite high coverage. Central averages are easier (Table~\ref{tab:power}). The averaging standard deviation is 0.07 times the field, or approximately 16.5--33.8\,\AA; these coarse features do not establish ligand- or atomic-scale utility. Artificial perturbations directed along the target can be detected more readily, but are not substitutes for the deposited-map cases.
-\input{uncertainty-power-results.tex}
+The completed curvature comparison spans three geometries, two targets and three pose radii. All 18 quadratic solves reach the 0.5\% objective-gap tolerance. At $0.5^\circ$, their width/no-data ratios are 0.128--0.178, versus 0.423--0.532 at $2^\circ$. Figure~\ref{fig:curvature} shows the full comparison, including probability of establishing the correct target sign. Central averages become detectable at the intermediate radius; the deposited-map axial contrasts remain too small. Their averaging standard deviation is 0.07 times the field (16.5--33.8\,\AA), so this does not establish atomic-scale utility.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=.92\textwidth]{../results/uncertainty/development/comparison-summary/pose-curvature-width-power.png}
+\caption{Curvature retained versus a first-order expansion with bounded second-order remainder, under the same density and pose classes. Dashed curves use the first-order procedure; solid curves retain curvature. The lower panels use the independent deposited-map generator under a coherent allowed rotation. Sign power and interval width expose limitations that high coverage alone conceals. These intervals precede the shared-density post-audit.}
+\label{fig:curvature}
+\end{figure*}
+
+For both targets at $0.5^\circ$ and $2^\circ$, the shared-density post-audit reduces the same weights' interval widths to 0.50--0.65 of their original values. Independent local nonlinear stress tests optimize pose errors while eliminating the density ball exactly. Four starts for each bias sign find feasible adversaries, recomputed in float64 after MPS search; they supply lower bounds on worst bias, not global solutions. Their comparisons with the upper bounds are retained in the repository.
+
+A finer-feature development probe uses a $32^3$ grid, frequency radius 12 and averaging width 0.03 times the field. At $0.5^\circ$ on EMPIAR-10028, the first-order bound equals the no-data interval; retaining curvature reduces its relative width to 0.449. The expanded comparison is still running and no multi-dataset high-bandwidth conclusion follows from this probe.
+
+\subsection{Bootstrap tradeoff and finite-grid stability}
+A fixed-pose benchmark fits 33- and 123-mode Gaussian models and all 2,517 supported voxels. It uses 999 source-group bootstrap resamples, four prescribed ridge strengths and 1,000 independent Gaussian measurement-noise replications per setting. Percentile/basic intervals, sampling covariance, posterior covariance and a same-estimator ambient bias audit are recorded. The group-resampling plan is reused across noise draws; binomial error bars are conditional on that plan.
+
+Weakly regularized full-voxel bootstrap intervals have center coverage 0.938, 0.956 and 0.958 across the three geometries, with widths smaller than the robust audit. Strong regularization can cause substantial undercoverage: EMPIAR-10028 center coverage drops to approximately 0.338. A conservative bias audit therefore does not dominate bootstrap width in every setting. Figure~\ref{fig:bootstrap} retains the regularization sweep, including cases favorable to bootstrap.
+
+A fixed-pose refinement study audits 48 coarse-grid solutions on a common $64^3$ supported space. Grids 16, 24, 32 and 48 preserve physical field, density-energy norm and noise units. Width ratios between fine audit and original calculation range from 0.72--1.45 at grid 16 and approximately 0.999--1.006 at grid 32. Nonlinear Fourier-moment audits additionally cover both targets, both pose radii and all three geometries on grids 24, 32 and 64. Discretizations are not identical nested classes; ratios need not increase monotonically. Agreement is a numerical sensitivity check, not a continuous-density guarantee.
 
 \subsection{Experimental reconstruction controls}
 We execute stock cryoDRGN 4.3.1 homogeneous neural training on both exposure-group halves of all three stacks: three hidden layers, width 256, batch size eight, fixed consensus poses and CTFs. These are actual neural fits; they are not ab initio inference or uncertainty estimates. Gaussian and voxel ridge fits use the same halves. All methods are evaluated on identical held-out particles and 1,410 Fourier pairs per image inside radius 30 of the 64-pixel grid, with the same window and image-background normalization. Neural training itself uses the stock radius-32 loss and per-half global scaling, so training objectives are not identical.
 
-Table~\ref{tab:reconstruction} records the completed 20-epoch checkpoint comparison. Continued improvement on tuning groups motivates longer neural runs. Exposure-group bootstrap comparisons, checkpoint hashes and direct-network versus map-Fourier checks are recorded with the results. FSC assesses conditional map agreement; neither it nor image prediction labels true experimental density coverage.
+Table~\ref{tab:reconstruction} selects checkpoints using tuning-group error only, from runs through 60 epochs for EMPIAR-10028/10049 and 100 epochs for EMPIAR-10076. The selected epochs are 60, 50 and 100. The development plateau check motivated these budgets; it is not a preregistered stopping rule or a proof of global convergence. Exposure-group bootstrap comparisons, checkpoint hashes and direct-network versus map-Fourier checks are recorded with the results. FSC assesses conditional map agreement; neither it nor image prediction labels true experimental density coverage.
 \input{uncertainty-reconstruction-results.tex}
 
 \subsection{Baselines and numerical checks}
 Implemented matched mathematical baselines include full Gaussian posterior covariance, diagonal variational covariance, regularized sampling covariance, joint Gaussian pose covariance, identifiable unregularized estimation, fixed-pose bias-aware intervals, coarse and structured nuisance bounds, and the no-data interval. These are not executions of every external paper's original code. Full Gaussian posteriors pass their exactly matched linear prior-predictive identity at 0.95. Narrow priors can nevertheless fail bounded fixed-signal tests; wider priors and unregularized estimation can produce very wide intervals.
 
-Independent conic optimization checks the majorization, primal-dual and ambient solvers on small instances. Derivative finite differences, nonlinear remainder tests, direct Fourier sums, adjoint identities and independent Gaussian-integral checks validate implementation components. The current suite has 35 passing tests, including a three-dimensional Fourier-transform check for externally generated maps. Tight FINUFFT tolerances are numerical checks, not interval-arithmetic guarantees on roundoff.
+Independent conic optimization checks the majorization, primal-dual and ambient solvers on small instances. Derivative finite differences, nonlinear remainder tests, direct Fourier sums, adjoint identities and independent Gaussian-integral checks validate implementation components. The current suite has 38 passing tests, including a three-dimensional Fourier-transform check for externally generated maps. Tight FINUFFT tolerances are numerical checks, not interval-arithmetic guarantees on roundoff.
 
 \section{Limitations and Work Remaining}
 The current evidence does not establish an end-to-end uncertainty method with estimated poses, noise law and density class. Local pose radii and the total density bound are assumptions. Selecting them from the same inference residuals would require new analysis; a narrow residual does not rule out an almost invisible density error. Learned support can exclude true structure. Gauge and hand ambiguity must be fixed or included in the target class.
 
-The next validation must freeze the method before fresh simulations and additional source groups, include higher bandwidth and grid refinement, complete bootstrap and neural convergence comparisons, and test correlated noise, CTF errors, heterogeneity and support violations. The power analysis above is only an initial coarse-feature check. Simultaneous maps need multiplicity correction. Real-data prediction and stability cannot supply unavailable density-coverage labels. Comprehensive literature screening and independent review of a complete candidate remain outstanding.
+The next validation must freeze the method before fresh simulations and additional source groups, extend higher-bandwidth and independent-generator comparisons, and test correlated noise, CTF errors, heterogeneity and support violations. Bootstrap, curvature, grid-sensitivity and neural-checkpoint development comparisons are now available. The power analysis above is only an initial coarse-feature check. Simultaneous maps need multiplicity correction. Real-data prediction and stability cannot supply unavailable density-coverage labels. Comprehensive literature screening and independent review of a complete candidate remain outstanding.
 
 \section*{Reproducibility and Impact}
 The active research branch is \texttt{uncertainty-study} at \url{https://github.com/yashpatel5400/fourier-cryo-splats}. It preserves failed development approaches and distinguishes them from completed outputs. The earlier reconstruction release v0.1.0 remains available with its conditional FSC results; it is not the uncertainty study's accuracy claim. No new conference submission or acceptance is implied by this format. Background PDFs are retained locally with source hashes rather than redistributed. Prematurely calibrated-looking maps can mislead structural interpretation; explicit assumptions and negative controls are central outputs of this work.
 
-\bibliography{references,uncertainty-references}
+\bibliography{references,uncertainty-references,survey-references}
 \bibliographystyle{icml2026}
 \clearpage
 \appendix
@@ -228,7 +250,7 @@ On an interval of possible distances, $g_0$ is largest at the lower endpoint; $g
 
 The product rule bounds the second derivative by the sum of squared-speed times $g_2$, acceleration times $g_1$, twice speed times phase-speed times $g_1$, and squared phase-speed times $g_0$. Sum conjugate-pair bounds and apply the fixed CTF/noise scale. A coefficient-column Frobenius bound controls the operator term; the pilot-weighted bound controls its pilot term. Taylor's integral formula gives Equation~\eqref{eq:pose}. Evaluating a Hessian only at the nominal pose would not establish this uniform result.
 
-\subsection{Retaining quadratic pose terms}
+\subsection{Retaining quadratic pose terms}\label{sec:curvature}
 The isotropic quadratic remainder can dominate an interval. A development extension retains the curvature and uses a cubic remainder instead. Put $E_{iab}=\partial^2 A_i/\partial u_{ia}\partial u_{ib}$ at zero, $Q_i(w)_{ab}=w_i^\top E_{iab}\rho_0$, and let $U_i(w)$ collect columns $E_{iab}^\top w_i$ over all ordered pairs. Since $\norm{u_i\otimes u_i}_F\le1$, a valid bias bound is
 \begin{align}
 b_2(w)&=B\norm{\ell-\A^*w}+\sum_i\norm{J_i^\top w_i}\nonumber\\
@@ -237,7 +259,7 @@ b_2(w)&=B\norm{\ell-\A^*w}+\sum_i\norm{J_i^\top w_i}\nonumber\\
 \end{align}
 For a Fourier voxel column, define $T(q,x)=2\pi a^3\norm{k}\norm{x}/d$. Its third derivative along any allowed pose segment is bounded by $|C|[L^3+3LH+T]$ before whitening. The three summands follow by differentiating the phase exponential three times. Pilot contraction and a column Frobenius bound give $H_{3i}$ and $K_{3i}$, hence $\gamma_{3i}=(H_{3i}+BK_{3i})/6$. Taylor's integral remainder and Cauchy--Schwarz then give Theorem~\ref{thm:coverage} with $b_2$. Sharing of density errors and rank-one quadratic pose constraints are still relaxed.
 
-Analytic column Hessians and pixel-space Gram factors implement these Euclidean groups. Mixed finite differences and independent nonlinear projections test the implementation. The initial EMPIAR-10028 contrast probe reduces width/no-data from 0.200 to 0.143 at $0.5^\circ$ and from 0.865 to 0.478 at $2^\circ$. Broader comparisons are running; a single favorable probe is not the final evaluation.
+Analytic column Hessians and pixel-space Gram factors implement these Euclidean groups. Mixed finite differences and independent nonlinear projections test the implementation. The full three-geometry, two-target comparison is shown in Figure~\ref{fig:curvature}. The spectral post-audit follows Equation~\eqref{eq:shared}; its proof is the operator-norm bound applied to the concatenated vectors $[\sqrt{d_j}v_j]_j$, whose squared norm is at most $\sum_jd_j$.
 
 \subsection{An independent noise-scale upper bound}
 Known noise is not necessary if an independently calibrated upper bound is available. A standard construction assumes independent calibration coordinates $z_j=\mu_j+\sigma e_j$, $e_j\sim N(0,1)$, with arbitrary fixed means and independent inference noise. For $\nu$ coordinates, set
@@ -252,7 +274,40 @@ This extension does not justify independence of windowed Fourier pixels or estim
 For $K$ targets and parameter-budget choices fixed independently of inference noise, applying Theorem~\ref{thm:coverage} with $\alpha/K$ gives simultaneous coverage by the union bound. Correlated Gaussian maxima can reduce the noise component if the joint weight covariance is accounted for. Selecting the most favorable point on a sensitivity surface after inspecting inference data requires such simultaneous control. A density radius supplied by simulation truth is an oracle control and cannot be reported as a practical calibration method.
 
 \section{Survey and Experimental Audit Trail}
-The repository's living survey distinguishes density uncertainty, pose uncertainty, conformational variability/populations, map-processing confidence and atomic-model uncertainty. Its broad Europe PMC retrieval ledger contains 16,969 deduplicated records, mostly application papers; that count is not a count of reviewed methods. The curated list contains 86 candidate works at this draft checkpoint, with local full-text availability recorded separately. Recent items include LocScale-2.0, CryoDiff, CryoSplat, GEM, measurement-limited heterogeneity, population-counting work and the CAHRA dataset-construction preprint. Preprints and final publications are distinguished, and titles/versions are checked against primary sources.
+The repository's living survey distinguishes density uncertainty, pose uncertainty, conformational variability/populations, map-processing confidence and atomic-model uncertainty. Its broad Europe PMC retrieval ledger contains 16,969 deduplicated records, mostly application papers; that count is not a count of reviewed methods. The curated list contains 89 candidate works at this draft checkpoint, with local full-text availability recorded separately. Recent items include LocScale-2.0, CryoDiff, CryoSplat, GEM, measurement-limited heterogeneity, population-counting work and the CAHRA dataset-construction preprint. Preprints and final publications are distinguished, and titles/versions are checked against primary sources.
 
 The full experimental protocol draft records unimplemented comparisons and required failure controls. Fixed-pose resampling must be distinguished from rerunning alignment; a mathematical diagonal-Gaussian control must be distinguished from reproducing Ullrich et al.'s full software; cryoDRGN backprojection must be distinguished from training a neural model. Exposure-group splits do not undo the dependence introduced by full-data consensus poses. All development results, including the initially incomplete covariance-factor benchmark, remain identifiable by filename and status.
+\section{Uncertainty Targets in the Recent Literature}
+The following distinctions guide baseline selection. They do not rank methods that solve different problems on one inappropriate score.
+
+\paragraph{Pose inference versus pose confidence.} Posterior-averaged orientation estimation \citep{bayespose2026} and probabilistic orientation search in SIMPLE \citep{simple2025} improve pose estimation through different statistical or optimization constructions. Neither an orientation distribution nor a stochastic search neighborhood should be relabeled a calibrated per-particle confidence ball without verifying its guarantee. Our prescribed local balls avoid that claim, but consequently do not solve practical pose calibration.
+
+\paragraph{Physical heterogeneity versus estimation error.} RECOVAR estimates covariance and uses kernel regression to account for noisy latent coordinates \citep{recovar2025}. DynaMight and 3DFlex represent motion \citep{dynamight2024,flex2023}. Particle-counting work explicitly studies when assignments misestimate state populations \citep{counting2026}. These motivate separate tests of population recovery, structural variation and uncertainty in a homogeneous density. The present bounded-density target covers only the last. CryoDRGN-AI addresses joint ab initio reconstruction \citep{drgnai2025}; fixed-pose homogeneous training does not reproduce that task.
+
+\paragraph{Map validation and learned priors.} False-discovery confidence maps test density significance against a noise reference \citep{beckers2019}. Directional resolution measures acquisition anisotropy \citep{monodir2020}; independent-particle tests assess map fit \citep{independent2020}. Bias/variance analyses explain why validation requires more than internal agreement \citep{sorzano2022}. Blush introduces learned reconstruction regularization \citep{blush2024}, while LocScale-2.0 attaches confidence to enhancement relative to its stated proxy \citep{locscale2026}. Matched evaluations must retain these targets. A sharper-looking map or a significant positive voxel is not itself a bound on error relative to unknown density.
+
+\paragraph{Atomic ensembles and independent modalities.} Experiment-guided AlphaFold3 conditions structural generation on reconstructed ESP maps and other measurements \citep{guidedaf32026}. Its atomic-ensemble target differs from raw-particle density inference. The multimodal examples also illustrate why improved map agreement need not imply improved fit to a separate measurement modality. Independent evidence is relevant to assessing structural interpretations that the density measurements alone leave ambiguous.
+
+\paragraph{Simultaneous inverse inference.} Constrained test-inversion methods already address joint confidence regions for multiple functionals \citep{batlle2025}. A single data-consistency region can support simultaneous projections, whereas separately calibrated marginal intervals generally require an appropriate correction. Our present scalar-target theorem is not a new general framework for simultaneous inference, and a colored map of marginal intervals must not be presented as simultaneous coverage.
+
+\section{Additional Development Comparisons}\label{sec:extraexperiments}
+\begin{figure*}[t]
+\centering\includegraphics[width=.92\textwidth]{../results/uncertainty/development/coverage-summary/coverage-width.png}
+\caption{Exact-dictionary development tests with known bounds and an independent fixed pilot. Minimum coverage is over the finite tested set, including adversarial signals; it is not an empirical proof of the worst case. Widths count each independent design once. Gaussian posterior methods separately pass their correctly matched prior-predictive coverage check at 0.95. Their fixed-parameter boundary failures do not contradict Bayesian prior-average calibration.}
+\label{fig:coverage}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering\includegraphics[width=.96\textwidth]{../results/uncertainty/development/comparison-summary/bootstrap-center.png}
+\caption{Central-average coverage and widths across all four ridge penalties. Each geometry uses its own fixed independent deposited-map generator. Error bars are binomial 95\% intervals over independent measurement-noise draws, conditional on the reused group-bootstrap plan. Weak-regularization bootstrap can be narrow and near nominal; stronger regularization exposes bias. These tests do not establish empirical coverage for unknown experimental density.}
+\label{fig:bootstrap}
+\end{figure*}
+\begin{figure*}[t]
+\centering\includegraphics[width=.96\textwidth]{../results/uncertainty/development/comparison-summary/bootstrap-contrast.png}
+\caption{The same complete regularization comparison for the axial contrast. Both the estimand and the unknown simulation signal are fixed before noise replication. The full results also retain the smaller 33-mode dictionary, basic bootstrap and Gaussian covariance controls.}
+\end{figure*}
+\begin{figure*}[t]
+\centering\includegraphics[width=.96\textwidth]{../results/uncertainty/development/comparison-summary/neural-convergence.png}
+\caption{Development tuning error at all evaluated neural checkpoints, with the classical reconstruction controls. Checkpoint selection minimizes this tuning error; the test-group error is not used to select the checkpoint. Different training objectives and supplied consensus poses limit this comparison.}
+\end{figure*}
 \end{document}

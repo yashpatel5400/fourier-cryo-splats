@@ -92,12 +92,13 @@ reconstruction_rows=[]
 for dataset in ['10028','10049','10076']:
     source=json.loads((ROOT/'results/uncertainty/development/reconstruction-comparison'/dataset/'metrics.json').read_text())
     values=[source['controls'][method]['test']['nmse'] for method in ['gaussian','voxel']]
-    values.append(source['epochs']['20']['prediction']['test']['nmse'])
-    limit=source['epochs']['20']['conditional_half_fsc_resolution']['angstrom']
+    selected=min(source['epochs'],key=lambda e:(source['epochs'][e]['prediction']['validation']['nmse'],int(e)))
+    values.append(source['epochs'][selected]['prediction']['test']['nmse'])
+    limit=source['epochs'][selected]['conditional_half_fsc_resolution']['angstrom']
     reconstruction_rows.append(dataset+' & '+' & '.join(f'{v:.4f}' for v in values)+f' & {limit:.2f}'+r' \\')
 (ROOT/'paper/uncertainty-reconstruction-results.tex').write_text(r'''\begin{table}[t]
 \centering
-\caption{Experimental-image prediction error on development test groups (normalized MSE; lower is better). Neural runs are 20-epoch checkpoints; convergence is still being assessed. All half-map FSCs remain above 0.143 through the sampled limit in the last column, which is not a measured crossing.}
+\caption{Experimental-image prediction error on development test groups (normalized MSE; lower is better). Neural checkpoints minimize tuning-group error among completed runs: epochs 60, 50 and 100 respectively. All half-map FSCs remain above 0.143 through the sampled limit in the last column, which is not a measured crossing.}
 \label{tab:reconstruction}
 \begin{tabular}{lrrrr}
 \toprule

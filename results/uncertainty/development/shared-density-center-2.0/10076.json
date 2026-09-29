@@ -1,0 +1,124 @@
+{
+  "stage": "development post-audit; same fixed weights; no claim of optimized spectral weights",
+  "dataset": "10076",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "source": "pose-grid-center-2.0",
+    "stress": "nonlinear-stress-center-2.0",
+    "output": "shared-density-center-2.0",
+    "audit_box": null
+  },
+  "source_config": {
+    "datasets": "10028,10049,10076",
+    "particles": 128,
+    "coarse_box": 24,
+    "audit_boxes": "24,32,64",
+    "angle": 2.0,
+    "target": "center",
+    "output": "pose-grid-center-2.0",
+    "backend": "direct"
+  },
+  "weights_sha256": "0b33e248e8734859ed558e5b413e13893ee50066c91ed46d6dd832315586cc89",
+  "bounds": {
+    "block_triangle": {
+      "density_bias": 5.49419546041703,
+      "total_bias": 6.832412619707731,
+      "half_width": 7.223073469321998,
+      "width_fraction_of_old": 0.9999999999999999,
+      "width_fraction_of_no_data": 0.44642293117528353
+    },
+    "separate_spectral": {
+      "density_bias": 2.1462319786385797,
+      "total_bias": 3.484449137929281,
+      "half_width": 3.8751099875436164,
+      "width_fraction_of_old": 0.5364904571443266,
+      "width_fraction_of_no_data": 0.23950164242593816
+    },
+    "affine_linear_spectral": {
+      "density_bias": 2.491657160443839,
+      "total_bias": 3.8298743197345404,
+      "half_width": 4.220535169348807,
+      "width_fraction_of_old": 0.5843129226463444,
+      "width_fraction_of_no_data": 0.26085068765137776
+    },
+    "joint_spectral": {
+      "density_bias": 2.504284629149002,
+      "total_bias": 3.8425017884397032,
+      "half_width": 4.23316263805397,
+      "width_fraction_of_old": 0.5860611353370769,
+      "width_fraction_of_no_data": 0.26163112988509246
+    },
+    "minimum_valid_bound": {
+      "density_bias": 2.1462319786385797,
+      "total_bias": 3.484449137929281,
+      "half_width": 3.8751099875436164,
+      "width_fraction_of_old": 0.5364904571443266,
+      "width_fraction_of_no_data": 0.23950164242593816
+    }
+  },
+  "noise_sd": 0.23750493248344937,
+  "source_json_sha256": "6e7469863da34e469bafde862308cf1f8b1c4108cc0a9339e3986f5849ae3b0c",
+  "source_hashes": {
+    "scripts/audit_uq_shared_density.py": "4b0595c60b9e60896309751fc75bf480c6eb550bb132309d1f2e470cc4b7ce69",
+    "src/fourier_splats/uq_shared_density.py": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261"
+  },
+  "adversarial_candidates": [
+    {
+      "sign": -1,
+      "restart": 0,
+      "absolute_bias": 1.318374849454032,
+      "bias_fraction_of_new_upper": 0.3783596193450275,
+      "analytic_coverage": 1.0
+    },
+    {
+      "sign": -1,
+      "restart": 1,
+      "absolute_bias": 1.3144339840341484,
+      "bias_fraction_of_new_upper": 0.3772286327058523,
+      "analytic_coverage": 1.0
+    },
+    {
+      "sign": -1,
+      "restart": 2,
+      "absolute_bias": 1.3213626576008506,
+      "bias_fraction_of_new_upper": 0.37921708864033027,
+      "analytic_coverage": 1.0
+    },
+    {
+      "sign": -1,
+      "restart": 3,
+      "absolute_bias": 1.3189691080766703,
+      "bias_fraction_of_new_upper": 0.37853016527613886,
+      "analytic_coverage": 1.0
+    },
+    {
+      "sign": 1,
+      "restart": 0,
+      "absolute_bias": 1.2982368569679819,
+      "bias_fraction_of_new_upper": 0.3725802287759869,
+      "analytic_coverage": 1.0
+    },
+    {
+      "sign": 1,
+      "restart": 1,
+      "absolute_bias": 1.3106807276719123,
+      "bias_fraction_of_new_upper": 0.37615148787931985,
+      "analytic_coverage": 1.0
+    },
+    {
+      "sign": 1,
+      "restart": 2,
+      "absolute_bias": 1.29516825963776,
+      "bias_fraction_of_new_upper": 0.3716995738406575,
+      "analytic_coverage": 1.0
+    },
+    {
+      "sign": 1,
+      "restart": 3,
+      "absolute_bias": 1.305743718342216,
+      "bias_fraction_of_new_upper": 0.3747346184878411,
+      "analytic_coverage": 1.0
+    }
+  ],
+  "seconds": 2.473925833008252
+}

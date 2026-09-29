@@ -1,0 +1,67 @@
+{
+  "stage": "development post-audit; same fixed weights; no claim of optimized spectral weights",
+  "dataset": "10049",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "source": "pose-grid-contrast-0.5",
+    "stress": "nonlinear-stress-contrast-0.5",
+    "output": "shared-density-fine64-contrast-0.5",
+    "audit_box": 64
+  },
+  "source_config": {
+    "datasets": "10028,10049,10076",
+    "particles": 128,
+    "coarse_box": 24,
+    "audit_boxes": "24,32,64",
+    "angle": 0.5,
+    "target": "contrast",
+    "output": "pose-grid-contrast-0.5",
+    "backend": "direct"
+  },
+  "weights_sha256": "f0de89e31c02b655be94eda29467d796518b3cb0f7f8297b628561fa40aee6ed",
+  "bounds": {
+    "block_triangle": {
+      "density_bias": 2.7562039314460645,
+      "total_bias": 2.8225979112214605,
+      "half_width": 3.4103280029771796,
+      "width_fraction_of_old": 0.9999999999999998,
+      "width_fraction_of_no_data": 0.17454309221579606
+    },
+    "separate_spectral": {
+      "density_bias": 1.553359067257993,
+      "total_bias": 1.6197530470333894,
+      "half_width": 2.2074831387889775,
+      "width_fraction_of_old": 0.6472934969486419,
+      "width_fraction_of_no_data": 0.11298060852859194
+    },
+    "affine_linear_spectral": {
+      "density_bias": 1.7488362186090907,
+      "total_bias": 1.815230198384487,
+      "half_width": 2.4029602901402067,
+      "width_fraction_of_old": 0.7046126613165794,
+      "width_fraction_of_no_data": 0.12298527272059724
+    },
+    "joint_spectral": {
+      "density_bias": 1.7522113709006684,
+      "total_bias": 1.8186053506760647,
+      "half_width": 2.406335442431785,
+      "width_fraction_of_old": 0.7056023468508247,
+      "width_fraction_of_no_data": 0.12315801549406566
+    },
+    "minimum_valid_bound": {
+      "density_bias": 1.553359067257993,
+      "total_bias": 1.6197530470333894,
+      "half_width": 2.2074831387889775,
+      "width_fraction_of_old": 0.6472934969486419,
+      "width_fraction_of_no_data": 0.11298060852859194
+    }
+  },
+  "noise_sd": 0.3573145246030207,
+  "source_json_sha256": "3a7b99a6e0abad74ea92cce45f553fc9663d8fe39444e2521453601f00c07ede",
+  "source_hashes": {
+    "scripts/audit_uq_shared_density.py": "4b0595c60b9e60896309751fc75bf480c6eb550bb132309d1f2e470cc4b7ce69",
+    "src/fourier_splats/uq_shared_density.py": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261"
+  },
+  "adversarial_candidates": [],
+  "seconds": 17.608540916990023
+}

@@ -1,0 +1,124 @@
+{
+  "stage": "development post-audit; same fixed weights; no claim of optimized spectral weights",
+  "dataset": "10028",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "source": "pose-grid-contrast-0.5",
+    "stress": "nonlinear-stress-contrast-0.5",
+    "output": "shared-density-contrast-0.5",
+    "audit_box": null
+  },
+  "source_config": {
+    "datasets": "10028,10049,10076",
+    "particles": 128,
+    "coarse_box": 24,
+    "audit_boxes": "24,32,64",
+    "angle": 0.5,
+    "target": "contrast",
+    "output": "pose-grid-contrast-0.5",
+    "backend": "direct"
+  },
+  "weights_sha256": "b41e6ff27c9bf255de9ef0c806ba901c868eaec85214637f16facda07687fcf0",
+  "bounds": {
+    "block_triangle": {
+      "density_bias": 2.468017773533248,
+      "total_bias": 2.533292096001835,
+      "half_width": 2.8035036212079123,
+      "width_fraction_of_old": 0.9999999999999999,
+      "width_fraction_of_no_data": 0.143485371999322
+    },
+    "separate_spectral": {
+      "density_bias": 1.2117285711424073,
+      "total_bias": 1.2770028936109943,
+      "half_width": 1.5472144188170707,
+      "width_fraction_of_old": 0.5518860068924899,
+      "width_fraction_of_no_data": 0.0791875690001893
+    },
+    "affine_linear_spectral": {
+      "density_bias": 1.4257768417748122,
+      "total_bias": 1.4910511642433992,
+      "half_width": 1.7612626894494818,
+      "width_fraction_of_old": 0.6282362812467591,
+      "width_fraction_of_no_data": 0.09014271651816191
+    },
+    "joint_spectral": {
+      "density_bias": 1.4304585446335099,
+      "total_bias": 1.4957328671020969,
+      "half_width": 1.7659443923081786,
+      "width_fraction_of_old": 0.6299062283883574,
+      "width_fraction_of_no_data": 0.09038232950499335
+    },
+    "minimum_valid_bound": {
+      "density_bias": 1.2117285711424073,
+      "total_bias": 1.2770028936109943,
+      "half_width": 1.5472144188170707,
+      "width_fraction_of_old": 0.5518860068924899,
+      "width_fraction_of_no_data": 0.0791875690001893
+    }
+  },
+  "noise_sd": 0.1642769428103333,
+  "source_json_sha256": "65b657b93d2f0700ffaabacea187cc284afc5bcb12788991344060abbe6e2ac4",
+  "source_hashes": {
+    "scripts/audit_uq_shared_density.py": "4b0595c60b9e60896309751fc75bf480c6eb550bb132309d1f2e470cc4b7ce69",
+    "src/fourier_splats/uq_shared_density.py": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261"
+  },
+  "adversarial_candidates": [
+    {
+      "sign": -1,
+      "restart": 0,
+      "absolute_bias": 0.8664441151881944,
+      "bias_fraction_of_new_upper": 0.6784981612204037,
+      "analytic_coverage": 0.9999829380278179
+    },
+    {
+      "sign": -1,
+      "restart": 1,
+      "absolute_bias": 0.8673195854372215,
+      "bias_fraction_of_new_upper": 0.6791837275988412,
+      "analytic_coverage": 0.9999825368914096
+    },
+    {
+      "sign": -1,
+      "restart": 2,
+      "absolute_bias": 0.8687390314904654,
+      "bias_fraction_of_new_upper": 0.6802952724985009,
+      "analytic_coverage": 0.9999818674149545
+    },
+    {
+      "sign": -1,
+      "restart": 3,
+      "absolute_bias": 0.8657924028973509,
+      "bias_fraction_of_new_upper": 0.6779878160253348,
+      "analytic_coverage": 0.9999832309404386
+    },
+    {
+      "sign": 1,
+      "restart": 0,
+      "absolute_bias": 0.8690070214313945,
+      "bias_fraction_of_new_upper": 0.6805051310213514,
+      "analytic_coverage": 0.9999817383138283
+    },
+    {
+      "sign": 1,
+      "restart": 1,
+      "absolute_bias": 0.8679000059732759,
+      "bias_fraction_of_new_upper": 0.6796382453912113,
+      "analytic_coverage": 0.9999822660254661
+    },
+    {
+      "sign": 1,
+      "restart": 2,
+      "absolute_bias": 0.8703574350927464,
+      "bias_fraction_of_new_upper": 0.6815626177883025,
+      "analytic_coverage": 0.9999810743789782
+    },
+    {
+      "sign": 1,
+      "restart": 3,
+      "absolute_bias": 0.868068127645264,
+      "bias_fraction_of_new_upper": 0.6797698987123034,
+      "analytic_coverage": 0.99998218682565
+    }
+  ],
+  "seconds": 1.7203511249972507
+}

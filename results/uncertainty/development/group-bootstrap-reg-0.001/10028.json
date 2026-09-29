@@ -1,0 +1,518 @@
+{
+  "stage": "development fixed-pose known Gaussian simulation; group bootstrap does not refit poses",
+  "dataset": "10028",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "box": 24,
+    "particles": 128,
+    "replicates": 1000,
+    "bootstrap": 999,
+    "models": "gaussian33,gaussian123,ambient",
+    "regularization": 0.001,
+    "seed": 609336,
+    "output": "group-bootstrap-reg-0.001"
+  },
+  "source_groups": 46,
+  "particles": 128,
+  "noise_std": 0.44190904010328,
+  "resampling_note": "Group-count plan reused across independent measurement-noise replicates; binomial intervals are conditional on this plan.",
+  "regularization_note": "Ridge multiplier fixed before inference; bootstrap ridge scales with resampled particle count.",
+  "reference_pilot_distance": 1.320635617979707,
+  "models": [
+    {
+      "model": "gaussian33",
+      "parameters": 33,
+      "ridge": 11.845860916799532,
+      "group_gram_GB": 0.000400752,
+      "seconds": 0.1332044590380974,
+      "results": [
+        {
+          "target": "center",
+          "method": "percentile",
+          "covered": 0,
+          "replicates": 1000,
+          "coverage": 0.0,
+          "interval_95": [
+            0.0,
+            0.0036820838968656708
+          ],
+          "median_width_fraction_of_no_data": 0.008750447333066423,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0029773195940175877,
+          "noise_sd": 0.0005037127921467418
+        },
+        {
+          "target": "center",
+          "method": "basic",
+          "covered": 0,
+          "replicates": 1000,
+          "coverage": 0.0,
+          "interval_95": [
+            0.0,
+            0.0036820838968656708
+          ],
+          "median_width_fraction_of_no_data": 0.008750447333066423,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0029773195940175877,
+          "noise_sd": 0.0005037127921467418
+        },
+        {
+          "target": "center",
+          "method": "sampling_covariance",
+          "covered": 0,
+          "replicates": 1000,
+          "coverage": 0.0,
+          "interval_95": [
+            0.0,
+            0.0036820838968656708
+          ],
+          "median_width_fraction_of_no_data": 0.007174182102443304,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0029773195940175877,
+          "noise_sd": 0.0005037127921467418,
+          "analytic_coverage": 3.894772949664116e-05
+        },
+        {
+          "target": "center",
+          "method": "Gaussian_posterior",
+          "covered": 0,
+          "replicates": 1000,
+          "coverage": 0.0,
+          "interval_95": [
+            0.0,
+            0.0036820838968656708
+          ],
+          "median_width_fraction_of_no_data": 0.007176821700067135,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0029773195940175877,
+          "noise_sd": 0.0005037127921467418,
+          "analytic_coverage": 3.9065261628556947e-05
+        },
+        {
+          "target": "center",
+          "method": "same_estimator_ambient_audit",
+          "covered": 1000,
+          "replicates": 1000,
+          "coverage": 1.0,
+          "interval_95": [
+            0.9963179161031344,
+            1.0
+          ],
+          "median_width_fraction_of_no_data": 0.41701463362213437,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0029773195940175877,
+          "noise_sd": 0.0005037127921467418,
+          "analytic_coverage": 1.0
+        },
+        {
+          "target": "contrast",
+          "method": "percentile",
+          "covered": 929,
+          "replicates": 1000,
+          "coverage": 0.929,
+          "interval_95": [
+            0.9112835591132127,
+            0.9441353517501025
+          ],
+          "median_width_fraction_of_no_data": 0.008683615120489784,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": 0.0006221199496126454,
+          "noise_sd": 0.0005590566205412998
+        },
+        {
+          "target": "contrast",
+          "method": "basic",
+          "covered": 919,
+          "replicates": 1000,
+          "coverage": 0.919,
+          "interval_95": [
+            0.9003283010315127,
+            0.935156460291505
+          ],
+          "median_width_fraction_of_no_data": 0.008683615120489784,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": 0.0006221199496126454,
+          "noise_sd": 0.0005590566205412998
+        },
+        {
+          "target": "contrast",
+          "method": "sampling_covariance",
+          "covered": 803,
+          "replicates": 1000,
+          "coverage": 0.803,
+          "interval_95": [
+            0.7769717429246101,
+            0.8272302494643351
+          ],
+          "median_width_fraction_of_no_data": 0.0065936707184838005,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": 0.0006221199496126454,
+          "noise_sd": 0.0005590566205412998,
+          "analytic_coverage": 0.8004868493994571
+        },
+        {
+          "target": "contrast",
+          "method": "Gaussian_posterior",
+          "covered": 803,
+          "replicates": 1000,
+          "coverage": 0.803,
+          "interval_95": [
+            0.7769717429246101,
+            0.8272302494643351
+          ],
+          "median_width_fraction_of_no_data": 0.006596684419938158,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": 0.0006221199496126454,
+          "noise_sd": 0.0005590566205412998,
+          "analytic_coverage": 0.800739558662563
+        },
+        {
+          "target": "contrast",
+          "method": "same_estimator_ambient_audit",
+          "covered": 1000,
+          "replicates": 1000,
+          "coverage": 1.0,
+          "interval_95": [
+            0.9963179161031344,
+            1.0
+          ],
+          "median_width_fraction_of_no_data": 0.6015671003312644,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": 0.0006221199496126454,
+          "noise_sd": 0.0005590566205412998,
+          "analytic_coverage": 1.0
+        }
+      ]
+    },
+    {
+      "model": "gaussian123",
+      "parameters": 123,
+      "ridge": 9.319015186786135,
+      "group_gram_GB": 0.005567472,
+      "seconds": 0.895709500007797,
+      "results": [
+        {
+          "target": "center",
+          "method": "percentile",
+          "covered": 793,
+          "replicates": 1000,
+          "coverage": 0.793,
+          "interval_95": [
+            0.7665430496307405,
+            0.8177190971426537
+          ],
+          "median_width_fraction_of_no_data": 0.00805645349421469,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0006919467536391916,
+          "noise_sd": 0.0005639121445183072
+        },
+        {
+          "target": "center",
+          "method": "basic",
+          "covered": 773,
+          "replicates": 1000,
+          "coverage": 0.773,
+          "interval_95": [
+            0.7457540049781715,
+            0.7986281005145828
+          ],
+          "median_width_fraction_of_no_data": 0.00805645349421469,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0006919467536391916,
+          "noise_sd": 0.0005639121445183072
+        },
+        {
+          "target": "center",
+          "method": "sampling_covariance",
+          "covered": 792,
+          "replicates": 1000,
+          "coverage": 0.792,
+          "interval_95": [
+            0.765501474871813,
+            0.8167666804261166
+          ],
+          "median_width_fraction_of_no_data": 0.008031577672093544,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0006919467536391916,
+          "noise_sd": 0.0005639121445183072,
+          "analytic_coverage": 0.7674766857867825
+        },
+        {
+          "target": "center",
+          "method": "Gaussian_posterior",
+          "covered": 793,
+          "replicates": 1000,
+          "coverage": 0.793,
+          "interval_95": [
+            0.7665430496307405,
+            0.8177190971426537
+          ],
+          "median_width_fraction_of_no_data": 0.008043796329743353,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0006919467536391916,
+          "noise_sd": 0.0005639121445183072,
+          "analytic_coverage": 0.7683924274288139
+        },
+        {
+          "target": "center",
+          "method": "same_estimator_ambient_audit",
+          "covered": 1000,
+          "replicates": 1000,
+          "coverage": 1.0,
+          "interval_95": [
+            0.9963179161031344,
+            1.0
+          ],
+          "median_width_fraction_of_no_data": 0.21446565486163188,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0006919467536391916,
+          "noise_sd": 0.0005639121445183072,
+          "analytic_coverage": 1.0
+        },
+        {
+          "target": "contrast",
+          "method": "percentile",
+          "covered": 770,
+          "replicates": 1000,
+          "coverage": 0.77,
+          "interval_95": [
+            0.7426430824967702,
+            0.7957569815143822
+          ],
+          "median_width_fraction_of_no_data": 0.009002584966239992,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -0.000990112441885735,
+          "noise_sd": 0.0006961038605870397
+        },
+        {
+          "target": "contrast",
+          "method": "basic",
+          "covered": 807,
+          "replicates": 1000,
+          "coverage": 0.807,
+          "interval_95": [
+            0.7811499964179454,
+            0.8310278967302052
+          ],
+          "median_width_fraction_of_no_data": 0.009002584966239992,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -0.000990112441885735,
+          "noise_sd": 0.0006961038605870397
+        },
+        {
+          "target": "contrast",
+          "method": "sampling_covariance",
+          "covered": 723,
+          "replicates": 1000,
+          "coverage": 0.723,
+          "interval_95": [
+            0.694133923415823,
+            0.7505465579929897
+          ],
+          "median_width_fraction_of_no_data": 0.008210044338858193,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -0.000990112441885735,
+          "noise_sd": 0.0006961038605870397,
+          "analytic_coverage": 0.7042143193019204
+        },
+        {
+          "target": "contrast",
+          "method": "Gaussian_posterior",
+          "covered": 723,
+          "replicates": 1000,
+          "coverage": 0.723,
+          "interval_95": [
+            0.694133923415823,
+            0.7505465579929897
+          ],
+          "median_width_fraction_of_no_data": 0.008224497147864822,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -0.000990112441885735,
+          "noise_sd": 0.0006961038605870397,
+          "analytic_coverage": 0.7054089595869886
+        },
+        {
+          "target": "contrast",
+          "method": "same_estimator_ambient_audit",
+          "covered": 1000,
+          "replicates": 1000,
+          "coverage": 1.0,
+          "interval_95": [
+            0.9963179161031344,
+            1.0
+          ],
+          "median_width_fraction_of_no_data": 0.2895394650729038,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -0.000990112441885735,
+          "noise_sd": 0.0006961038605870397,
+          "analytic_coverage": 1.0
+        }
+      ]
+    },
+    {
+      "model": "ambient",
+      "parameters": 2517,
+      "ridge": 0.8022893624090143,
+      "group_gram_GB": 2.331386352,
+      "seconds": 53.27434608398471,
+      "results": [
+        {
+          "target": "center",
+          "method": "percentile",
+          "covered": 938,
+          "replicates": 1000,
+          "coverage": 0.938,
+          "interval_95": [
+            0.9212200503389675,
+            0.9521381518866388
+          ],
+          "median_width_fraction_of_no_data": 0.022282984136919055,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0003138317547784035,
+          "noise_sd": 0.00165709618361066
+        },
+        {
+          "target": "center",
+          "method": "basic",
+          "covered": 931,
+          "replicates": 1000,
+          "coverage": 0.931,
+          "interval_95": [
+            0.9134848906542884,
+            0.9459206642067437
+          ],
+          "median_width_fraction_of_no_data": 0.022282984136919055,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0003138317547784035,
+          "noise_sd": 0.00165709618361066
+        },
+        {
+          "target": "center",
+          "method": "sampling_covariance",
+          "covered": 951,
+          "replicates": 1000,
+          "coverage": 0.951,
+          "interval_95": [
+            0.9357339468598304,
+            0.9635329408279522
+          ],
+          "median_width_fraction_of_no_data": 0.023601365635009326,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0003138317547784035,
+          "noise_sd": 0.00165709618361066,
+          "analytic_coverage": 0.9458811890373676
+        },
+        {
+          "target": "center",
+          "method": "Gaussian_posterior",
+          "covered": 999,
+          "replicates": 1000,
+          "coverage": 0.999,
+          "interval_95": [
+            0.9944410757201734,
+            0.9999746825125088
+          ],
+          "median_width_fraction_of_no_data": 0.041971853974871694,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0003138317547784035,
+          "noise_sd": 0.00165709618361066,
+          "analytic_coverage": 0.9993909317202744
+        },
+        {
+          "target": "center",
+          "method": "same_estimator_ambient_audit",
+          "covered": 1000,
+          "replicates": 1000,
+          "coverage": 1.0,
+          "interval_95": [
+            0.9963179161031344,
+            1.0
+          ],
+          "median_width_fraction_of_no_data": 0.05152965484352444,
+          "true_increment": 0.019428623055074527,
+          "estimator_bias": -0.0003138317547784035,
+          "noise_sd": 0.00165709618361066,
+          "analytic_coverage": 0.9999744832342565
+        },
+        {
+          "target": "contrast",
+          "method": "percentile",
+          "covered": 947,
+          "replicates": 1000,
+          "coverage": 0.947,
+          "interval_95": [
+            0.9312448167100368,
+            0.9600507476399807
+          ],
+          "median_width_fraction_of_no_data": 0.01749392073706768,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -9.371989135859883e-05,
+          "noise_sd": 0.0015496764721735152
+        },
+        {
+          "target": "contrast",
+          "method": "basic",
+          "covered": 936,
+          "replicates": 1000,
+          "coverage": 0.936,
+          "interval_95": [
+            0.919004925632949,
+            0.9503669107081509
+          ],
+          "median_width_fraction_of_no_data": 0.01749392073706768,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -9.371989135859883e-05,
+          "noise_sd": 0.0015496764721735152
+        },
+        {
+          "target": "contrast",
+          "method": "sampling_covariance",
+          "covered": 950,
+          "replicates": 1000,
+          "coverage": 0.95,
+          "interval_95": [
+            0.9346095120845064,
+            0.9626646023953382
+          ],
+          "median_width_fraction_of_no_data": 0.018277319330911906,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -9.371989135859883e-05,
+          "noise_sd": 0.0015496764721735152,
+          "analytic_coverage": 0.9495809279703351
+        },
+        {
+          "target": "contrast",
+          "method": "Gaussian_posterior",
+          "covered": 1000,
+          "replicates": 1000,
+          "coverage": 1.0,
+          "interval_95": [
+            0.9963179161031344,
+            1.0
+          ],
+          "median_width_fraction_of_no_data": 0.043127005455327494,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -9.371989135859883e-05,
+          "noise_sd": 0.0015496764721735152,
+          "analytic_coverage": 0.9999960949366334
+        },
+        {
+          "target": "contrast",
+          "method": "same_estimator_ambient_audit",
+          "covered": 1000,
+          "replicates": 1000,
+          "coverage": 1.0,
+          "interval_95": [
+            0.9963179161031344,
+            1.0
+          ],
+          "median_width_fraction_of_no_data": 0.05104202739903575,
+          "true_increment": 0.0037194154616790745,
+          "estimator_bias": -9.371989135859883e-05,
+          "noise_sd": 0.0015496764721735152,
+          "analytic_coverage": 0.9999999533573883
+        }
+      ]
+    }
+  ]
+}

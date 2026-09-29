@@ -1,0 +1,58 @@
+cmd:
+- /Users/yash/Documents/New project/fourier-splats/.venv/bin/cryodrgn
+- train_nn
+- /Users/yash/Documents/New project/fourier-splats/data/10076/cryodrgn/particles.mrcs
+- --poses
+- /Users/yash/Documents/New project/fourier-splats/data/10076/cryodrgn/poses.pkl
+- --ctf
+- /Users/yash/Documents/New project/fourier-splats/data/10076/cryodrgn/ctf.pkl
+- --ind
+- /Users/yash/Documents/New project/fourier-splats/data/10076/uq-neural-half0.pkl
+- -o
+- /Users/yash/Documents/New project/fourier-splats/results/uncertainty/development/neural-reconstruction/10076/half0
+- --layers
+- '3'
+- --dim
+- '256'
+- --num-epochs
+- '100'
+- --checkpoint
+- '10'
+- --batch-size
+- '8'
+- --no-amp
+- --seed
+- '609322'
+- --shuffle-seed
+- '609322'
+- --uninvert-data
+- --load
+- /Users/yash/Documents/New project/fourier-splats/results/uncertainty/development/neural-reconstruction/10076/half0/weights.60.pkl
+dataset_args:
+  ctf: /Users/yash/Documents/New project/fourier-splats/data/10076/cryodrgn/ctf.pkl
+  datadir: null
+  do_pose_sgd: false
+  ind: /Users/yash/Documents/New project/fourier-splats/data/10076/uq-neural-half0.pkl
+  invert_data: false
+  norm:
+  - 0.0
+  - 65.30900573730469
+  particles: /Users/yash/Documents/New project/fourier-splats/data/10076/cryodrgn/particles.mrcs
+  poses: /Users/yash/Documents/New project/fourier-splats/data/10076/cryodrgn/poses.pkl
+  window: true
+  window_r: 0.85
+lattice_args:
+  D: 65
+  extent: 0.5
+  ignore_DC: true
+model_args:
+  activation: relu
+  dim: 256
+  domain: fourier
+  feat_sigma: 0.5
+  layers: 3
+  pe_dim: null
+  pe_type: gaussian
+seed: 609322
+time: 2026-09-29 10:35:32.442463
+version: 4.3.1

@@ -124,3 +124,39 @@ terms required for the paper's full variational objective. Thus merely running
 that tutorial cannot be labeled a faithful complete uncertainty reproduction.
 The project currently uses explicitly identified mathematical covariance
 controls. No external-code reproduction is claimed from this inspection.
+
+## Batlle et al.: simultaneous constrained inverse inference
+
+Source: https://arxiv.org/abs/2510.11708v1, primary full text checked for setup,
+single-versus-multiple functional distinction, strict bounds, test inversion,
+and the Bonferroni comparison. The paper develops constrained finite-sample
+regions for multiple linear functionals and distinguishes their joint geometry
+from a product of marginal intervals. A generic data-consistency region can
+cover all functionals simultaneously; applying a second Bonferroni adjustment
+to projections of that same region is unnecessary. Its sharper test-inversion
+regions go beyond the elementary correction appropriate to separate marginal
+certificates. We cannot present simultaneous feature inference or test inversion
+as an unexplored contribution. Our present nonlinear pose treatment uses an
+explicit bounded perturbation relaxation; their principal forward-model setup
+is linear with structural parameter constraints.
+
+## Experiment-guided AlphaFold3: the atomic-ensemble target
+
+Source: https://www.nature.com/articles/s41587-026-03166-5, published 29 June
+2026. Checked cryo-EM examples, inputs, and ESP forward/guidance models. Cryo-EM
+inputs are reconstructed ESP maps plus sequence/reference-model information;
+the guidance uses density fit and optimal transport, with separate alignment.
+This is atomic ensemble inference conditioned on maps, not raw-particle density
+coverage. The multimodal examples show that a better map fit need not imply a
+better fit to independent NMR constraints. This supports keeping measurement
+fit, structural ensembles and calibrated reconstruction uncertainty distinct.
+
+## CryoDiff: evidence-access boundary
+
+The primary bioRxiv abstract at
+https://www.biorxiv.org/content/10.64898/2026.06.04.730282v1 was retrieved through
+search on 29 September 2026. It describes diffusion map enhancement and voxel
+confidence from Monte Carlo sampling. Direct full-text access returned HTTP403.
+The full calibration target and procedures remain unverified; do not equate
+its confidence score with frequentist raw-particle density coverage or claim
+to have critically reviewed/reproduced the full method from this abstract.
