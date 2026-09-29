@@ -1,0 +1,61 @@
+{
+  "method": "cryoDRGN 4.3.1 backproject_voxel; classical, fixed-pose",
+  "commands": [
+    [
+      "/Users/yash/Documents/New project/fourier-splats/.venv/bin/cryodrgn",
+      "backproject_voxel",
+      "/Users/yash/Documents/New project/fourier-splats/data/10049/cryodrgn/particles.mrcs",
+      "--poses",
+      "/Users/yash/Documents/New project/fourier-splats/data/10049/cryodrgn/poses.pkl",
+      "--ctf",
+      "/Users/yash/Documents/New project/fourier-splats/data/10049/cryodrgn/ctf.pkl",
+      "--ind",
+      "/Users/yash/Documents/New project/fourier-splats/data/10049/cryodrgn/half0.pkl",
+      "-o",
+      "/Users/yash/Documents/New project/fourier-splats/results/main/10049/cryodrgn-backproject-half0",
+      "--no-half-maps",
+      "--ctf-alg",
+      "mul",
+      "--reg-weight",
+      "1.0",
+      "-b",
+      "64"
+    ],
+    [
+      "/Users/yash/Documents/New project/fourier-splats/.venv/bin/cryodrgn",
+      "backproject_voxel",
+      "/Users/yash/Documents/New project/fourier-splats/data/10049/cryodrgn/particles.mrcs",
+      "--poses",
+      "/Users/yash/Documents/New project/fourier-splats/data/10049/cryodrgn/poses.pkl",
+      "--ctf",
+      "/Users/yash/Documents/New project/fourier-splats/data/10049/cryodrgn/ctf.pkl",
+      "--ind",
+      "/Users/yash/Documents/New project/fourier-splats/data/10049/cryodrgn/half1.pkl",
+      "-o",
+      "/Users/yash/Documents/New project/fourier-splats/results/main/10049/cryodrgn-backproject-half1",
+      "--no-half-maps",
+      "--ctf-alg",
+      "mul",
+      "--reg-weight",
+      "1.0",
+      "-b",
+      "64"
+    ]
+  ],
+  "seconds": [
+    7.778426885604858,
+    6.953986883163452
+  ],
+  "default_real_space_window_retained": true,
+  "uses_all_in_band_fourier_pixels": true,
+  "half_fsc_resolution": {
+    "angstrom": 7.872000122070313,
+    "status": "censored_at_sampled_limit"
+  },
+  "cross_method_mean_fsc": 0.983503268936039,
+  "cross_method_threshold_0.5": {
+    "angstrom": 7.872000122070313,
+    "status": "censored_at_sampled_limit"
+  },
+  "analysis_sphere_radius": 30.0
+}

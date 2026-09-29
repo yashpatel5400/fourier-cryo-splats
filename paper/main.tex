@@ -1,20 +1,21 @@
 \documentclass{article}
 \usepackage{microtype,graphicx,booktabs,amsmath,amssymb,amsthm,hyperref}
-\usepackage{icml2026}
+\usepackage[preprint]{icml2026}
 \newtheorem{proposition}{Proposition}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 \icmltitlerunning{Conjugate-Paired Fourier Gaussian Splats for Cryo-EM}
 \begin{document}
 \twocolumn[
-\icmltitle{Conjugate-Paired Fourier Gaussian Splats\\for Cryo-EM Reconstruction}
+\icmltitle{Conjugate-Paired Fourier Gaussian Splats\\for Cryo-EM Reconstruction: A Feasibility Study}
 \begin{icmlauthorlist}\icmlauthor{Anonymous Authors}{anon}\end{icmlauthorlist}
-\icmlaffiliation{anon}{Research manuscript; authorship to be finalized}
+\icmlaffiliation{anon}{Fourier Cryo Splats research project}
+\icmlcorrespondingauthor{Project repository}{\url{https://github.com/yashpatel5400/fourier-cryo-splats}}
 \icmlkeywords{cryo-EM, inverse problems, Gaussian splatting, Fourier reconstruction}
 \vskip 0.3in]
 \printAffiliationsAndNotice{}
 \begin{abstract}
-We investigate a direct Fourier-domain Gaussian representation for single-particle cryogenic electron microscopy (cryo-EM). Complex-valued Gaussian kernels are paired under conjugate reflection, enforcing the Hermitian symmetry of a real electrostatic potential. We derive the exact restriction of each anisotropic kernel to a projection plane, including its attenuation away from that plane, and incorporate contrast transfer and translations analytically. With fixed geometry, reconstruction reduces to regularized linear least squares; variable projection provides a route to learning kernel geometry. The method differs from projecting real-space Gaussian mixtures and from coordinate-network decoders. This manuscript initially records the method and evaluation protocol before experiments. Empirical results will be inserted only from completed runs; no accuracy, speed, or novelty claim is presumed.
+We study a direct Fourier-domain Gaussian representation for single-particle cryogenic electron microscopy. Complex Gaussian kernels are paired under conjugate reflection, enforcing the Hermitian symmetry of a real electrostatic potential. We derive the exact restriction of anisotropic kernels to projection planes, including plane-distance attenuation, contrast transfer, and translations. Fixed geometry yields a regularized linear least-squares problem, while a differentiable formulation supports geometry learning. We evaluate the stationary model on 24,576 experimental particle images from three EMPIAR accessions, using supplied consensus poses and $64\times64$ images. Conditional half-map FSC remains above 0.143 through the sampled limits of 7.87--16.08 \AA. Mean shell-wise agreement with classical cryoDRGN backprojection is 0.984--0.995; these correlations measure agreement, not independent accuracy. Held-out image error is modestly lower than for a matched Fourier-voxel solver, but the reference implementation is slower. A separate low-frequency real-data experiment fits centers and anisotropic precisions. The results support feasibility at the evaluated bandwidth, without establishing ab initio inference, a speed advantage, or near-atomic heterogeneous reconstruction.
 \end{abstract}
 
 \section{Introduction}
@@ -22,7 +23,7 @@ Single-particle cryo-EM estimates molecular structure from many noisy projection
 
 Gaussian representations are already established in cryo-EM. E2GMM models heterogeneity using Gaussian mixtures \citep{chen2021}; CryoSPIRE introduces hierarchical parts \citep{shekar2025}; CryoGS/CryoSplat and GEM exploit real-space Gaussian rendering \citep{chen2025,qu2025}. Merely substituting Gaussians for a neural network is therefore not a new contribution. Our specific proposal is to put complex kernels at nonzero \emph{Fourier frequencies}, pair their coefficients by conjugation, and fit their plane restrictions. We do not claim that Fourier transforms themselves lose information: discretization, interpolation, and statistical estimation are the relevant approximations.
 
-The initial scope is homogeneous reconstruction with supplied poses. This isolates the representation and its numerical conditioning. We distinguish the implemented stationary dictionary from proposed adaptive geometry and latent-variable extensions. The latter require additional validation. A successful reconstruction under known poses would not establish ab initio recovery, biological validity, or high-resolution heterogeneous reconstruction.
+The scope is homogeneous reconstruction with supplied poses. This isolates the representation and its numerical conditioning. We distinguish the implemented stationary dictionary from proposed adaptive geometry and latent-variable extensions. The high-resolution adaptive and latent-variable extensions require additional validation. Reconstruction under known poses does not establish ab initio recovery, biological validity, or high-resolution heterogeneous reconstruction.
 
 \section{Related Work}
 CryoDRGN learns a latent-conditioned frequency-domain density \citep{zhong2021}; cryoDRGN2 jointly estimates poses and structure through multiresolution pose search \citep{zhong2021b}. Classical Bayesian methods estimate voxel volumes and nuisance parameters \citep{scheres2012}. These are different inference problems unless poses, particle selection, resolution, and compute budgets are controlled.
@@ -42,7 +43,7 @@ Define $g(k;\mu,\Lambda)=\exp[-\frac12(k-\mu)^\top\Lambda(k-\mu)]$ with positive
 \begin{equation}\label{eq:pair}
 F_\theta(k)=\sum_{j=1}^K \left[c_jg(k;\mu_j,\Lambda_j)+\bar c_jg(k;-\mu_j,\Lambda_j)\right].
 \end{equation}
-Here $c_j\in\C$, $\mu_j\in\R^3$, and $\Lambda_j=L_jL_j^\top+\delta I$. A zero-centered component has a real coefficient; it must not be counted twice. No opacity, transmittance, depth sorting, or view-dependent color appears.
+Here $c_j\in\C$, $\mu_j\in\R^3$, and $\Lambda_j=L_jL_j^\top+\delta I$. A zero-centered component has a real coefficient and is included separately so that it is not counted twice. No opacity, transmittance, depth sorting, or view-dependent color appears.
 
 \begin{proposition}
 Equation~\eqref{eq:pair} satisfies $F_\theta(-k)=\overline{F_\theta(k)}$, and hence its inverse Fourier transform is real.
@@ -86,22 +87,25 @@ Dense evaluation costs $O(KM)$ for $M$ Fourier samples. Culling yields cost prop
 
 \section{Experimental Protocol}
 \subsection{Data and matched baselines}
-We select EMPIAR-10028 (Pf80S ribosome), EMPIAR-10049 (RAG complex), and EMPIAR-10076 (assembling 50S subunit), using deposited experimental particle images and public cryoDRGN poses/CTFs. These are extracted images, not a fresh movie-motion-correction and particle-picking pipeline. The report must state particle counts, selection indices, original and working pixel sizes, Fourier crop size, signs, seeds, and downloaded byte-range hashes. Different dataset accessions are not replaced by three synthetic stacks.
+We select EMPIAR-10028 (Pf80S ribosome), EMPIAR-10049 (RAG complex), and EMPIAR-10076 (assembling 50S subunit) \citep{empiar10028,empiar10049,empiar10076}, using deposited experimental particle images and public cryoDRGN poses/CTFs. These are extracted images, not a fresh movie-motion-correction and particle-picking pipeline. We record particle counts, selection indices, original and working pixel sizes, Fourier crop size, signs, seeds, and downloaded byte-range hashes. Different dataset accessions are not replaced by three synthetic stacks.
 
-For a controlled known-pose comparison, fit a classical Fourier voxel representation with trilinear interpolation and the same likelihood, particle partitions, and frequency support. Also report CTF-weighted backprojection if run. An actual cryoDRGN baseline, if completed, must be identified by version and invocation; no classical baseline will be relabeled as cryoDRGN. Ab initio comparisons require independent pose estimation and are a distinct experiment.
+For a controlled known-pose comparison, we fit a classical Fourier voxel representation with trilinear interpolation and the same objective, particle partitions, and frequency support. We additionally run cryoDRGN's classical CTF-weighted backprojection, with its version and invocation recorded. Ab initio comparisons require independent pose estimation and are a distinct experiment.
 
 \subsection{FSC and safeguards}
-For two Fourier volumes and shell $S_r$, report
+For two Fourier volumes and shell $S_r$, we compute
 \begin{equation}
 \operatorname{FSC}(r)=\frac{\operatorname{Re}\sum_{k\in S_r}F_1(k)\bar F_2(k)}{\sqrt{\sum_{k\in S_r}|F_1(k)|^2\sum_{k\in S_r}|F_2(k)|^2}}.
 \end{equation}
-Independently fitted particle halves with consensus poses give \emph{conditional half-map FSC}; they are not fully independent gold-standard reconstructions \citep{schereschen2012,chen2013}. Method--baseline FSC measures agreement, not resolution. Use unmasked FSC as the primary transparent diagnostic; common masks can inflate correlation and require noise-substitution correction. Report the first sustained crossing of 0.143, the sampled frequency limit, and censor a curve with no crossing rather than claim super-Nyquist resolution. Do not optimize map alignment, sharpening, masking, or hyperparameters on the FSC being reported. Assess held-out image prediction and noise controls alongside FSC, because shared bias can inflate agreement.
+Independently fitted particle halves with consensus poses give \emph{conditional half-map FSC}; they are not fully independent gold-standard reconstructions \citep{schereschen2012,chen2013}. Method--baseline FSC measures agreement, not resolution. We use unmasked FSC as the primary transparent diagnostic; common masks can inflate correlation and require noise-substitution correction. We report the first sustained crossing of 0.143 and the sampled frequency limit, censoring curves with no crossing. Alignment, sharpening, masks, and hyperparameters are not optimized on the reported FSC. Held-out image prediction and noise controls complement FSC, because shared bias can inflate agreement.
 
 \section{Results}
 \input{results.tex}
 
 \section{Discussion}
-The proposed spectral representation yields an exact central-plane restriction and a convex coefficient-fitting subproblem. Its practical value depends on conditioning, truncation error, predictive performance, and measured cost. Fixed-pose, downsampled consensus reconstructions cannot resolve the full heterogeneous distributions modeled by cryoDRGN, and favorable correlation at a coarse frequency limit would not establish near-atomic accuracy. Adaptive anisotropy, independent pose inference, and heterogeneous extensions remain hypotheses until their own experiments are completed.
+The proposed spectral representation yields an exact central-plane restriction and a convex coefficient-fitting subproblem. Its practical value depends on conditioning, truncation error, predictive performance, and measured cost. Fixed-pose, downsampled consensus reconstructions cannot resolve the full heterogeneous distributions modeled by cryoDRGN, and favorable correlation at a coarse frequency limit would not establish near-atomic accuracy. High-resolution adaptive anisotropy, independent pose inference, and heterogeneous extensions require further experiments.
+
+\section*{Code and Data Availability}
+The code, source-index manifests, complete FSC curves, software environment, and manuscript are available at \url{https://github.com/yashpatel5400/fourier-cryo-splats}. Reconstructed half maps and coefficient checkpoints are distributed as release artifacts. The original experimental images remain available from the cited EMPIAR accessions; background papers are linked rather than redistributed.
 
 \section*{Impact Statement}
 This work studies a computational representation for structural biology. Reconstructions may contain artifacts and should not be treated as validated atomic structures or used for biological inference without independent validation. We release provenance, failed runs where informative, and evaluation code to reduce the risk of overstated resolution claims.

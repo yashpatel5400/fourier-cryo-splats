@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{microtype,graphicx,booktabs,amsmath,amssymb,amsthm,hyperref}
-\usepackage{icml2026}
+\usepackage[preprint]{icml2026}
 \newtheorem{proposition}{Proposition}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
@@ -10,6 +10,7 @@
 \icmltitle{Conjugate-Paired Fourier Gaussian Splats\\for Cryo-EM Reconstruction}
 \begin{icmlauthorlist}\icmlauthor{Anonymous Authors}{anon}\end{icmlauthorlist}
 \icmlaffiliation{anon}{Research manuscript; authorship to be finalized}
+\icmlcorrespondingauthor{Research draft}{contact details pending}
 \icmlkeywords{cryo-EM, inverse problems, Gaussian splatting, Fourier reconstruction}
 \vskip 0.3in]
 \printAffiliationsAndNotice{}
@@ -98,7 +99,7 @@ For two Fourier volumes and shell $S_r$, report
 Independently fitted particle halves with consensus poses give \emph{conditional half-map FSC}; they are not fully independent gold-standard reconstructions \citep{schereschen2012,chen2013}. Method--baseline FSC measures agreement, not resolution. Use unmasked FSC as the primary transparent diagnostic; common masks can inflate correlation and require noise-substitution correction. Report the first sustained crossing of 0.143, the sampled frequency limit, and censor a curve with no crossing rather than claim super-Nyquist resolution. Do not optimize map alignment, sharpening, masking, or hyperparameters on the FSC being reported. Assess held-out image prediction and noise controls alongside FSC, because shared bias can inflate agreement.
 
 \section{Results}
-\input{results.tex}
+\input{initial-results.tex}
 
 \section{Discussion}
 The proposed spectral representation yields an exact central-plane restriction and a convex coefficient-fitting subproblem. Its practical value depends on conditioning, truncation error, predictive performance, and measured cost. Fixed-pose, downsampled consensus reconstructions cannot resolve the full heterogeneous distributions modeled by cryoDRGN, and favorable correlation at a coarse frequency limit would not establish near-atomic accuracy. Adaptive anisotropy, independent pose inference, and heterogeneous extensions remain hypotheses until their own experiments are completed.
