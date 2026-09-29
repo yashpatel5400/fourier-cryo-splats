@@ -1,0 +1,40 @@
+{
+  "stage": "metadata-only selection before fresh image access or outcome evaluation",
+  "dataset": "10028",
+  "seed": 619449,
+  "count": 4096,
+  "selected_groups": 115,
+  "excluded_development_groups": 229,
+  "eligible_new_group_particles": 73504,
+  "group_overlap": 0,
+  "policy": "random permutation of source blocks of 64; published filter and source exclusions; omit every previously seen source group; retain first 4096 eligible particles, sort source indices",
+  "selection_csv_sha256": "d1cdb487f5244ffc42949b387bcc8f12dc2f51fca1b0539e2cd78fbdb1934a63",
+  "indices_npy_sha256": "4290503cf09bf02b6f6612345673a4dc6ec6939d28f72b19b27621bc0d6e3ca8",
+  "development_split_sha256": "efb3924563827a3891447d3132904d831752a3b88e0f582e6c1c886862027084",
+  "source_metadata_sha256": "416ae7177335c237d46e26f8171fc3f114080669ac388f538805e50fba325658",
+  "source_groups": {
+    "source": "background/cryodrgn_empiar/empiar10028/inputs/shiny_2sets.star",
+    "sha256": "ad8895567b94c9c117ca337b4239b180bade64cf65437547e69ff8a28a511a63",
+    "field": "rlnMicrographName",
+    "all_source_groups": 1081,
+    "identity_validation": "Joined by original source stack path and zero-based image index, not by row order."
+  },
+  "source_exclusions": [
+    {
+      "metadata_path_suffix": "MRC_1901/276_particles_shiny_nb50_new.mrcs",
+      "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/276_particles_shiny_nb50_new.mrcs",
+      "observed_date": "2026-09-29",
+      "reason": "The source file served by EMPIAR is truncated: its MRC header declares 113 float32 particles of 360 by 360 pixels, but the HTTP Content-Range reports a total file length of 4096 bytes.",
+      "declared_mrc_shape": [
+        113,
+        360,
+        360
+      ],
+      "expected_file_bytes": 58580224,
+      "observed_file_bytes": 4096,
+      "confirmation_content_range": "bytes 0-4095/4096",
+      "affected_particles_in_original_selection": 32,
+      "recovery": "Exclude this source before selection, then continue the original seeded block-order procedure until 8192 usable particles are selected. Remap verified images by original source particle identity."
+    }
+  ]
+}

@@ -49,7 +49,7 @@ def get_range(url, start, end):
 
 
 def run(args):
-    directory = ROOT / "data" / args.dataset
+    directory = Path(args.output_directory).resolve() if args.output_directory else ROOT / "data" / args.dataset
     directory.mkdir(parents=True, exist_ok=True)
     source = ROOT / "background/cryodrgn_empiar" / ("empiar" + args.dataset) / "inputs"
     cs = np.load(next(source.glob("*.cs")), allow_pickle=False)
@@ -86,6 +86,13 @@ def run(args):
         if len(selected) >= args.count:
             break
     selected = np.sort(selected[: args.count])
+    if args.indices_file:
+        selected = np.asarray(np.load(args.indices_file, allow_pickle=False), dtype=np.int64)
+        if (selected.ndim != 1 or len(selected) != args.count or len(np.unique(selected)) != len(selected)
+                or np.any(selected < 0) or np.any(selected >= n) or not np.all(valid[selected])):
+            raise ValueError("Explicit selection fails count/uniqueness/source eligibility checks")
+        if np.any(np.diff(selected) <= 0):
+            raise ValueError("Explicit source indices must be strictly increasing")
     progress_file = directory / "download-progress.json"
     records = []
     if args.resume and progress_file.exists():
@@ -264,7 +271,8 @@ def run(args):
         "eligible_after_source_exclusions": int(valid.sum()),
         "box": D,
         "seed": args.seed,
-        "selection": "randomly permuted contiguous source blocks of 64, applying published filter; sorted before output",
+        "selection": "explicit frozen indices" if args.indices_file else "randomly permuted contiguous source blocks of 64, applying published filter; sorted before output",
+        "selection_file_sha256": hashlib.sha256(Path(args.indices_file).read_bytes()).hexdigest() if args.indices_file else None,
         "raw_pixel_size_A": float(cs["blob/psize_A"][0]),
         "raw_box": int(cs["blob/shape"][0, 0]),
         "pixel_size_A": float(cs["blob/psize_A"][0]) * int(cs["blob/shape"][0, 0]) / D,
@@ -290,4 +298,6 @@ if __name__ == "__main__":
     p.add_argument("--seed", type=int, default=20260928)
     p.add_argument("--workers", type=int, default=4)
     p.add_argument("--resume", action="store_true")
+    p.add_argument("--indices-file", help="Prespecified eligible source indices in a numeric NPY array")
+    p.add_argument("--output-directory", help="Separate output pool; default is data/DATASET")
     run(p.parse_args())

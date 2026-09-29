@@ -22,10 +22,11 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def groups_for(dataset):
+def groups_for(dataset, selected=None):
     p=ROOT/'background/cryodrgn_empiar'/('empiar'+dataset)/'inputs'
     cs=np.load(next(p.glob('*.cs')))
-    selected=np.load(ROOT/'data'/dataset/'indices.npy')
+    if selected is None:selected=np.load(ROOT/'data'/dataset/'indices.npy')
+    selected=np.asarray(selected,dtype=int)
     if dataset=='10076':
         path=ROOT/'data/10076/Frealign9Parameter_0_r1.par'
         url='https://ftp.ebi.ac.uk/empiar/world_availability/10076/data/Frealign9Parameter_0_r1.par'
