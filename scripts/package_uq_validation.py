@@ -42,7 +42,8 @@ def main():
                   'pose-optimized-diagnostics','noise-metric-design','directional-noise-audit','joint-bias-*','two-pose-modulus*',
                   'ball-remainder-probe*','expanded-cube-remainder-probe*',
                   'pose-optimized-ambiguity*','pose-adaptive-*','pilot-selected-*','sign-class-probe',
-                  'higher-order-remainder-probe','cubic-pose-probe','cubic-weight-probe','cubic-coordinate-probe','cubic-subspace-probe','relion-evaluation-*']
+                  'higher-order-remainder-probe','cubic-pose-probe','cubic-weight-probe','cubic-coordinate-probe','cubic-subspace-probe','relion-evaluation-*',
+                  'mixture-validation-preflight-*','mixture-common-scale-*']
         additions=set()
         for pattern in patterns:
             for folder in development.glob(pattern):

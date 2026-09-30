@@ -157,9 +157,12 @@ all local-removal controls. With an unknown shared viewing law and supplied
 noise, full local removal is detected in 14/16, 9/16 and 0/16 repeats.
 Independent variance profiling removes all those detections. No continuous
 pose or experimental result follows. A shared-noise-scale follow-up uses a
-convex precision chord bound, checked against independent calculations; it
-will reuse every original case as explicit post-outcome development. The
-initial loose-bound test and a prior result-serialization failure are retained.
+convex precision chord bound, checked against independent calculations. All
+192 reused cases are complete as explicit post-outcome development; full
+local-removal counts are 14/16, 8/16 and 0/16. Every outer likelihood gap is
+below one log unit. Half-removal counts remain zero. A practical independently
+learned numerator and continuous-pose bounds are still missing. The initial
+loose-bound test and a prior result-serialization failure are retained.
 
 ## Historical status (29 September 2026)
 

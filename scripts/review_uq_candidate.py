@@ -220,7 +220,8 @@ REVIEW_RUNNERS = [
     'audit_uq_oracle_pose_information.py',
     'prepare_uq_splits.py', 'prepare_uq_fresh_cohort.py', 'prepare_uq_noise_cohort.py',
     'download_data.py', 'confirm_uq_continuous.py', 'confirm_uq_continuous_moments.py',
-    'evaluate_uq_fresh_prediction.py', 'audit_uq_ctf_sensitivity.py', 'probe_uq_continuous_support.py']
+    'evaluate_uq_fresh_prediction.py', 'audit_uq_ctf_sensitivity.py', 'probe_uq_continuous_support.py',
+    'probe_uq_mixture_validation.py', 'probe_uq_mixture_common_scale.py']
 
 
 def remove_duplicated_baseline_rows(file, value):
@@ -319,7 +320,10 @@ def main():
                  'CUBIC-COORDINATE-FOLLOWUP-PROTOCOL.md','FOURIER-POSE-BASELINE-PROTOCOL.md',
                  'FOURIER-POSE-BASELINE-RESULTS.md','RELION-RUNTIME-PROTOCOL.md','RELION-BASELINE-PROTOCOL.md','RELION-ALIGNMENT-NOTES.md',
                  'RELION-CONTINUATION-PROTOCOL.md','CUBIC-SUBSPACE-PROTOCOL.md',
-                 'ORACLE-POSE-INFORMATION-PROTOCOL.md','ORACLE-POSE-INFORMATION-RESULTS.md']],
+                 'ORACLE-POSE-INFORMATION-PROTOCOL.md','ORACLE-POSE-INFORMATION-RESULTS.md',
+                 'MIXTURE-VALIDATION-CANDIDATE.md','MIXTURE-VALIDATION-PREFLIGHT-PROTOCOL.md',
+                 'MIXTURE-VALIDATION-PREFLIGHT-RETRY.md','MIXTURE-VALIDATION-PREFLIGHT-RESULTS.md',
+                 'MIXTURE-COMMON-SCALE-PROTOCOL.md','MIXTURE-COMMON-SCALE-RESULTS.md']],
              ROOT/'research/uncertainty/reviews/cubic-audit-01/review.md',
              ROOT/'research/uncertainty/reviews/cubic-audit-01/response.md',
              *sorted((ROOT/'research/uncertainty/reviews/cubic-design-audit-01').glob('*.md')),
@@ -370,6 +374,8 @@ def main():
              *sorted((ROOT/'results/uncertainty/development/cubic-coordinate-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/cubic-subspace-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/oracle-pose-information-v1').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('mixture-validation-preflight-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('mixture-common-scale-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/cubic-preconditioner-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/relion-runtime-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('relion-reconstruction-*/*/*.json')),
