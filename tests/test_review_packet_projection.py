@@ -68,3 +68,21 @@ def test_snapshot_copy_accepts_only_exact_content_addressed_paths():
     good = 'provenance/uncertainty/source-snapshots/'+'a'*64+'.txt'
     bad = 'provenance/uncertainty/source-snapshots/../../'+'a'*64+'.txt'
     assert list(module.snapshot_references({'sources': [{'snapshot': good}, {'snapshot': bad}]})) == [good]
+
+
+def test_png_transport_modes_preserve_all_rgb_pixels():
+    import io
+    from PIL import Image
+    # All gray levels, a small colored palette, and an image exceeding 256 colors.
+    for pixels in [[(i, i, i) for i in range(256)],
+                   [(i % 4 * 70, (i // 4) % 4 * 70, 0) for i in range(256)],
+                   [(i % 256, i // 256, i % 37) for i in range(1024)]]:
+        original = Image.new('RGB', (len(pixels), 1)); original.putdata(pixels)
+        buffer = io.BytesIO(); original.save(buffer, format='PNG')
+        data, mode, pixel_hash = module.lossless_png_encoding(buffer.getvalue())
+        with Image.open(io.BytesIO(data)) as restored:
+            assert restored.size == original.size
+            assert restored.convert('RGB').tobytes() == original.tobytes()
+            assert restored.mode == mode
+        assert pixel_hash == module.digest(original.tobytes())
+        assert len(data) <= len(buffer.getvalue())

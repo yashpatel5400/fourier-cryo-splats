@@ -93,6 +93,33 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def lossless_png_encoding(data):
+    """Choose a smaller PNG mode only when every decoded RGB pixel is identical."""
+    from PIL import Image
+    with Image.open(io.BytesIO(data)) as original:
+        original.load()
+        if original.mode != 'RGB':
+            raise ValueError('The review renderer must produce opaque RGB pages')
+        pixels = original.tobytes()
+        candidates = [(data, original.mode)]
+        representations = [original]
+        gray = original.convert('L')
+        if gray.convert('RGB').tobytes() == pixels:
+            representations.append(gray)
+        if original.getcolors(maxcolors=256) is not None:
+            representations.append(original.quantize(colors=256, dither=Image.Dither.NONE))
+        for representation in representations:
+            compressed = io.BytesIO()
+            representation.save(compressed, format='PNG', optimize=True, compress_level=9)
+            candidate = compressed.getvalue()
+            with Image.open(io.BytesIO(candidate)) as verified:
+                if verified.size != original.size or verified.convert('RGB').tobytes() != pixels:
+                    raise RuntimeError('Lossless review-page encoding changed rendered pixels')
+            candidates.append((candidate, representation.mode))
+        selected, mode = min(candidates, key=lambda pair: len(pair[0]))
+        return selected, mode, digest(pixels)
+
+
 def current_manuscript_sources():
     """Follow literal TeX inputs from the rendered main manuscript only.
 
@@ -467,21 +494,12 @@ def main():
         data = page.read_bytes()
         rendered_digest = digest(data)
         # Compress transport bytes only; preserve every rendered RGB pixel.
-        from PIL import Image
-        with Image.open(io.BytesIO(data)) as original:
-            original.load(); pixels = original.tobytes()
-            pixel_digest = digest(pixels)
-            compressed = io.BytesIO()
-            original.save(compressed, format='PNG', optimize=True, compress_level=9)
-            candidate = compressed.getvalue()
-            with Image.open(io.BytesIO(candidate)) as verified:
-                if verified.mode != original.mode or verified.size != original.size or verified.tobytes() != pixels:
-                    raise RuntimeError('Lossless review-page compression changed rendered pixels')
-            if len(candidate) < len(data):
-                data = candidate; page.write_bytes(data)
+        data, encoding_mode, pixel_digest = lossless_png_encoding(data)
+        page.write_bytes(data)
         metadata['rendered_pages'][str(page.relative_to(output))] = {
             'page': number, 'sha256': digest(data), 'bytes': len(data),
             'original_render_png_sha256': rendered_digest, 'decoded_pixels_sha256': pixel_digest,
+            'encoding_mode': encoding_mode, 'pixel_hash_mode': 'RGB',
             'transport_reencoded_losslessly': digest(data) != rendered_digest}
         content.extend([{'type': 'text', 'text': f'Manuscript rendered page {number}:'},
                         {'type': 'image', 'source': {'type': 'base64', 'media_type': 'image/png',
