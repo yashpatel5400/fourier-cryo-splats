@@ -1,0 +1,97 @@
+{
+  "duration_api_ms": 426998,
+  "stop_reason": "end_turn",
+  "session_id": "d428940a-96f4-4ff0-b5c2-01ce1e803964",
+  "total_cost_usd": 3.12478275,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 75049,
+    "cache_read_input_tokens": 531,
+    "output_tokens": 32473,
+    "output_tokens_details": {
+      "thinking_tokens": 28487
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 75049,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 32473,
+        "cache_read_input_tokens": 531,
+        "cache_creation_input_tokens": 75049,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 75049
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 2,
+      "outputTokens": 32473,
+      "cacheReadInputTokens": 531,
+      "cacheCreationInputTokens": 75049,
+      "webSearchRequests": 0,
+      "costUSD": 3.12478275,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 28487,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I audited the packet as written, without running anything. Summary first: the core mathematics checks out. The robust-norm surrogate is convex, the residual-controlled inequality is a correct chain of weak duality plus an exact algebraic identity, the sign conventions in the witness, cuts and cross vector agree, the same-event minimization is legitimate, and the independent S-lemma and trust-region SDP tests are correctly assembled. I found no validity error in the bound. The findings below are robustness, bookkeeping, test-coverage and design-quality issues, plus a list of what the packet does not establish.\n\n## Identities verified\n\n- **Convexity.** For fixed v, ell minus A\\*w minus F(w)v is affine in w since F is linear in w. A norm of an affine map is convex and a supremum of convex functions is convex. The bound by the triangle term follows from the triangle inequality.\n- **Gram and cross accounting.** Expanding the squared norm gives H\u00b2 plus v'G_cont v minus 2(F_cont\\*h)'v. Replacing G_cont by G costs at most L\u00b2 \u03b5_G, and replacing F_cont\\*h by b costs at most 2L \u03b5_b by Cauchy\u2013Schwarz on the ball. The implementation maps \u03b5_G to the degree-6 kernel pad and \u03b5_b to the cross pad, and does not substitute H for the cross error.\n- **Completing the square.** With D = \u03bbI \u2212 G \u227b 0, v'Gv \u2212 2b'v = \u03bb\u2016v\u2016\u00b2 \u2212 (v'Dv + 2b'v) \u2264 \u03bbL\u00b2 + b'D\u207b\u00b9b, since v'Dv + 2b'v \u2265 \u2212b'D\u207b\u00b9b at v = \u2212D\u207b\u00b9b. Correct for any \u03bb > \u03bb_max(G).\n- **Resolvent identity.** For r = b \u2212 Dx, r'D\u207b\u00b9r = b'D\u207b\u00b9b \u2212 2b'x + x'Dx, so b'D\u207b\u00b9b = 2b'x \u2212 x'Dx + r'D\u207b\u00b9r for every x. The code computes Dx as \u03bbx \u2212 GQy using the stored images, so the identity needs only that the images are exact operator actions, not orthogonality or Lanczos structure. The bound r'D\u207b\u00b9r \u2264 \u2016r\u2016\u00b2/(\u03bb\u2212U) needs only \u03bb_max(G) \u2264 U and \u03bb > U, both enforced. Clipping a negative value to zero is valid because the true quantity is nonnegative.\n- **Witness signs.** Maximizing v'Gv \u2212 2b'v on the ball is the trust-region problem with A = \u2212G. The KKT solution is v = \u2212(\u03bcI \u2212 G)\u207b\u00b9b with \u03bc \u2265 \u03bb_max, matching v = \u2212c/(gaps + shift). The returned direction has b'v \u2264 0, so both terms of the objective are nondecreasing under scaling to the boundary, which makes the post-failure boundary extension sound. The hard-case branch adds a top-eigenvector component to reach the boundary, and the analytic test value 5\u00b74 + 1/3 is correct.\n- **Cuts and cross vector.** The augmented cut matrix gives \u2016(A\\* + F(\u00b7)v)Qx \u2212 ell\u2016 = \u2016h \u2212 Fv\u2016. The audit cross vector F\\*ell \u2212 F_Q\\*(A\\*w)_Q equals F\\*h up to the padded quadrature error. Signs are consistent throughout.\n- **Same-event minimization.** For fixed weights and fixed U, every \u03bb, x, the triangle value and the earlier joint/triangle bounds are deterministic functions, so taking their minimum costs no probability. The spectral event is drawn from the spatial Gram, whose nonzero spectrum equals that of G, so U bounds \u03bb_max(G).\n- **S-lemma SDP.** Applying the Schur complement to the unit-ball block yields, for all (s,u), \u2016hs \u2212 fu\u2016\u00b2 \u2264 t\u00b2s\u00b2 + t\u03bb(\u2016u\u2016\u00b2 \u2212 s\u00b2), which by the S-lemma with u = 0 strictly feasible is equivalent to sup_{\u2016u\u2016\u22641}\u2016h \u2212 fu\u2016 \u2264 t. The first unscaled attempt was also correct, just badly conditioned. The trust-region dual in the other test is the standard Schur form and strong duality holds for this problem class. The hard-case construction using the minimum eigenvector for b is valid because it is orthogonal to the top eigenvector and the unconstrained solution is well inside the ball.\n- **Probability.** The threshold c = \u221a2\u00b7erfinv(\u03b4^{1/m}) is correct for m independent standard Gaussian coordinates, and the power bound holds simultaneously for all p on the one event. Splitting \u03b1 into \u03b1\u2212\u03b4 for noise and \u03b4 for the spectral event is a valid union bound.\n\n## Findings\n\n**T1. Medium. Audit aborts instead of falling back to the retained triangle bound.**\nLocation: `quadratic_dual_upper` and `resolvent_upper` in `src/fourier_splats/uq_trust_region.py`, called from `audit_joint_cubic`. The grid starts at log-shift \u221220, where \u03bb\u2212U is about 2\u00d710\u207b\u2079 times the scale. If the Krylov space contains the leading eigenvector and U is tight, the reduced system is nearly singular. In floating point this can trigger a LinAlgError from `np.linalg.solve` or the FloatingPointError guard on a negative value. Either exception propagates out of the whole audit, after the design phase has consumed its budget, and the script then refuses to overwrite the failed output path. This is not a validity error, since the triangle value remains valid, but the code has a valid fallback it never uses. Fix: wrap each \u03bb evaluation, record failures, skip them, and keep the minimum with the triangle bound. Test: feed a rank-complete basis with U equal to \u03bb_max and check the routine returns the triangle value rather than raising.\n\n**T2. Low. Selection minimizes a lower diagnostic, and the reported gap does not belong to the selected weights.**\nLocation: `design_joint_cubic` in `uq_joint_cubic_design.py`. The guide value at x is B times the larger of the Krylov witness norm and the best retained cut, both of which under-estimate the quadrature supremum. Choosing the evaluation with the smallest such value can prefer a point where the oracle was weakest, especially early when few cuts exist. Also, `gap` is computed from the current value, unlike `optimize_reduced_cubic` which uses the best value, and the returned `restricted_guide_gap` is the last record's gap, which need not refer to `selected_evaluation`. The final fresh audit makes this a design-efficacy issue only. Fix: after the loop, re-evaluate every checkpoint against the full final cut set before selecting, and report the gap for the selected evaluation. Test: construct a case where an early evaluation has a small guide value only because its cut set was small and verify the re-scored selection changes.\n\n**T3. Low. Secular root tolerance is absolute in the dimensionless shift.**\nLocation: `dense_quadratic_witness`, the `brentq` call. `xtol=1e-14` is absolute, so a root near 10\u207b\u2079 is resolved to about five relative digits. That is the mechanism behind the retained first failure, and the boundary extension covers it correctly. The refinement is still a guide-quality loss in near-hard cases. Fix: solve in log \u03b4, or set `xtol` to a small multiple of `low` and rely on `rtol`. Test: repeat the near-hard case without the boundary extension and check the value matches the SDP to 1e-10.\n\n**T4. Low. Test coverage leaves the production path untested for tightness and independence.**\nLocation: `tests/test_uq_trust_region.py` and `tests/test_uq_joint_cubic_design.py`.\n- The dual-versus-SDP test uses U exact to 10\u207b\u00b9\u2070 and `steps=6` on a 6-dimensional problem, so the Krylov space is complete. Production uses 40 columns out of 7040 and a power-iteration U that may exceed \u03bb_max by tens of percent. With loose U, the optimal \u03bb may lie below U and the resolvent bound must sit above U with a residual penalty, so the resolvent value could exceed the old cross bound. Validity is unaffected because of the minimum, but usefulness is unverified. Add a test with U at 1.5\u00d7\u03bb_max and `steps=3`, and record whether the resolvent value beats the triangle value.\n- The robust-norm SDP test shares `pilot_root`, `remainder_roots` and `residual_coefficients` with the implementation. Independence is established only for the joint term. State this in the prerequisites record.\n- The \"covers direct sampled worst case\" assertion compares a continuous bound including nonnegative pilot and quartic terms against a quadrature-order-4 guide, so it can pass with slack even if the joint term were wrong. Compare the joint term alone with those terms zeroed.\n- With two starts, `krylov_cache` alternates chains, so the effective depth from b is about half the column count. This matches the protocol wording but should be recorded in the cache diagnostics.\n\n**T5. Low. PSD pads inflate cut values and are reported as the guide norm.**\nLocation: `add_cut` and `witness` in `uq_joint_cubic_design.py`, and `psd_root` in `uq_cubic_subspace.py`. The pad is added to every diagonal entry of the augmented Gram, including the target entry, so each cut norm equals the true norm plus pad times (\u2016x\u2016\u00b2 + 1). When an old cut beats the Krylov witness, `joint_norm_guide` is the padded value. This is ordinary floating point at the 10\u207b\u00b9\u00b3 relative level and is disclosed as a heuristic pad, but the master and guide are then compared on a slightly padded problem. Fix: report the unpadded norm alongside, or exclude the target entry from the pad, since only the weight block needs the guard for conic feasibility.\n\n**T6. Low. Missing consistency guards in the joint routines.**\nLocation: `design_joint_cubic` and `audit_joint_cubic`. Unlike `optimize_reduced_cubic`, neither checks that `objective.z` equals the critical value implied by \u03b1\u2212\u03b4, nor that the seeds differ. The script passes consistent values, and the tests use the fixture's z, so nothing is wrong today. Additionally, `audit_joint_cubic` calls `objective.audit` with a zero support, which computes and then discards the old dual lower bound. That computation includes a raise if the discarded lower exceeds the upper. The derivation with zero support is valid, so the raise should not fire, but it is dead computation with a failure path. Fix: add the z and seed checks, and add a flag to skip the dual computation.\n\n**T7. Low. Conservative relaxations worth stating explicitly.**\nThe cross-vector pad uses the degree-6 kernel error although the product of the density field and a cubic column has monomial degree at most 3. The reduced remainder majorant uses a per-column triangle inequality on amplitudes. Both are valid, disclosed as majorants, and only loosen the guide or the bound. No fix needed beyond a sentence in the theory note.\n\n## What remains unverified\n\n- The tensor Gauss kernel constant in `polynomial_kernel_error`, the eta majorant, the lifted-ball radius and the quartic remainder are inherited from earlier modules and are used here as premises. I did not re-derive them.\n- Whether the resolvent bound is ever tighter than the retained cross and triangle bounds at production Krylov rank and realistic U looseness.\n- Floating-point and NUFFT roundoff in the Krylov images, the reduced Gram symmetry defect, and the spectral power iteration, all disclosed as heuristic.\n- Runtime feasibility of the design plus the audit inside the alarm.\n- All experimental premises: normal noise, the density ball, the pose class and calibration. The protocol is prospective and carries no empirical result.",
+  "ttft_ms": 376356,
+  "type": "result",
+  "duration_ms": 427110,
+  "uuid": "5fe0dd87-a620-4df6-a7d7-700bc36bf864",
+  "ttft_stream_ms": 1397,
+  "time_to_request_ms": 71,
+  "first_content_frame_ms": 1397,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

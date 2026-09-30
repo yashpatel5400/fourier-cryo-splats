@@ -49,3 +49,33 @@ and nominal/coherent/random-boundary generator checks in both original and
 pilot-registered frames, with the original reference-check seed. No reference
 enters design. No real experimental interval is implied by this protocol;
 that application, if performed later, must retain its calibration conditions.
+
+## Pre-fit audit amendment
+
+The authentic focused `joint-trust-audit-01` finds no mathematical validity
+error, but recommends numerical and selection safeguards. The scheduling wait
+was cancelled before the result directory existed; no empirical fit or outcome
+preceded this amendment. The cancellation record and original protocol/version
+remain available. The first actual fit uses the following corrections:
+
+- Record every failed shifted solve and skip it; if all fail, retain the old
+  cross/triangle upper on the same spectral event. A failure is not silently
+  recorded as a successful resolvent calculation.
+- Solve the witness's secular equation in log shift; keep the feasible boundary
+  extension and record its pre-extension norm.
+- At termination, rescore every evaluated coefficient vector against all final
+  pose cuts, retaining its original oracle value as well. Select the smallest
+  final score, and report its gap against the last master separately from the
+  last iteration's gap. This remains a numerical guide, not a convergence bound.
+- Report both padded and unpadded cut norms and the accepted depths of each
+  Krylov start. Preserve the original PSD guard and conservative remainder.
+- Validate distinct design/audit seeds and the alpha/delta critical value in
+  both APIs. Compute the inherited upper components without an unrelated
+  triangle-objective lower-certificate calculation.
+
+The independent SDP tests isolate independence of the joint term; their pilot
+and remainder roots are shared with the existing implementation. Additional
+checks isolate the pure joint term using higher-order direct integration,
+exercise a three-column Krylov cache with U=1.5 lambda_max, and force all
+Galerkin solves to fail. Earlier failures and all corrected test outcomes are
+retained. No class, target, seed, empirical data or compute budget changes.

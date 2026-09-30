@@ -29,19 +29,22 @@ def dense_quadratic_witness(gram, cross, radius):
         v[np.flatnonzero(mask)[-1]] = np.sqrt(max(0., L*L-float(v@v)))
         shift = 0.
     else:
-        # Search in a dimensionless positive shift to avoid an absolute root
-        # tolerance that is much larger than a small empirical Gram eigenvalue.
-        def secular(delta):
-            return float(np.linalg.norm(c/(gaps+scale*delta))/L-1.)
-        low = np.finfo(float).tiny
-        high = max(1., float(np.linalg.norm(c)/(L*scale)))
-        while secular(high) > 0: high *= 2.
-        if secular(low) <= 0:
-            # Numerically near-hard: use a feasible direction; no upper claim.
-            delta = low
+        # Solve for the logarithm of the dimensionless shift. Log-sum-exp
+        # avoids both absolute tiny-root tolerance loss and endpoint overflow.
+        from scipy.special import logsumexp
+        active = c != 0
+        loggap = np.full_like(gaps, -np.inf)
+        loggap[gaps > 0] = np.log(gaps[gaps > 0])
+        def secular_log(logdelta):
+            denominator = np.logaddexp(loggap[active],np.log(scale)+logdelta)
+            return float(.5*logsumexp(2*(np.log(abs(c[active]))-denominator))-np.log(L))
+        low = -745.; high = np.log(max(1.,float(np.linalg.norm(c)/(L*scale))))
+        while secular_log(high) > 0: high += np.log(2.)
+        if secular_log(low) <= 0:
+            logdelta = low
         else:
-            delta = brentq(secular, low, high, xtol=1e-14, rtol=1e-14)
-        shift = float(scale*delta); v = -c/(gaps+shift)
+            logdelta = brentq(secular_log,low,high,xtol=1e-13,rtol=1e-14)
+        shift = float(scale*np.exp(logdelta)); v = -c/(gaps+shift)
     v = u@v
     length = float(np.linalg.norm(v))
     # For a PSD maximization the selected direction has b'v<=0, so
@@ -49,7 +52,7 @@ def dense_quadratic_witness(gram, cross, radius):
     # avoids loss of near-hard-case accuracy from a tiny secular root error.
     if length > 0: v *= np.nextafter(L, 0.)/length
     return v, {'hard_case': bool(hard), 'value': float(v@g@v-2*b@v),
-        'radius': L, 'witness_norm': float(np.linalg.norm(v)), 'shift_above_ritz': shift,
+        'radius': L, 'witness_norm': float(np.linalg.norm(v)), 'pre_boundary_norm': length, 'shift_above_ritz': shift,
         'largest_ritz_value': top, 'scope': 'Feasible numerical guide, not an upper certificate.'}
 
 
@@ -62,9 +65,10 @@ def krylov_cache(matvec, start, steps=30, extras=()):
     b = np.asarray(start, float)
     if b.ndim != 1 or not b.size or not np.isfinite(b).all() or steps < 1:
         raise ValueError('Finite nonempty start and positive step count required')
-    vectors = []; images = []; pending = [b.copy(), *[np.asarray(x, float).copy() for x in extras]]
+    vectors = []; images = []; chains = []
+    pending = [(b.copy(),'cross',0), *[(np.asarray(x,float).copy(),f'extra_{j}',0) for j,x in enumerate(extras)]]
     while pending and len(vectors) < min(steps, b.size):
-        raw = pending.pop(0)
+        raw,origin,depth = pending.pop(0)
         if raw.shape != b.shape or not np.isfinite(raw).all(): raise ValueError('Compatible finite extra starts required')
         norm = float(np.linalg.norm(raw)); q = raw.copy()
         if vectors:
@@ -74,13 +78,14 @@ def krylov_cache(matvec, start, steps=30, extras=()):
         if norm == 0 or length <= 1e-12*norm: continue
         q /= length; gq = np.asarray(matvec(q), float)
         if gq.shape != b.shape or not np.isfinite(gq).all(): raise FloatingPointError('Invalid Gram action')
-        vectors.append(q); images.append(gq); pending.append(gq.copy())
+        vectors.append(q); images.append(gq); chains.append({'origin':origin,'depth':depth}); pending.append((gq.copy(),origin,depth+1))
     q = np.column_stack(vectors) if vectors else np.zeros((b.size, 0))
     gq = np.column_stack(images) if images else np.zeros_like(q)
     reduced = q.T@gq
     return q, gq, {'rank': q.shape[1], 'requested_steps': steps,
         'orthogonality_defect': float(np.linalg.norm(q.T@q-np.eye(q.shape[1]))),
-        'reduced_symmetry_defect': float(np.linalg.norm(reduced-reduced.T))}
+        'reduced_symmetry_defect': float(np.linalg.norm(reduced-reduced.T)), 'accepted_chains': chains,
+        'scope': 'Multiple starts alternate chains; requested_steps counts total accepted columns, not each chain depth.'}
 
 
 def resolvent_upper(cross, spectral_upper, shift, basis, images):
@@ -120,20 +125,31 @@ def quadratic_dual_upper(cross, radius, spectral_upper, basis, images):
     b = np.asarray(cross, float); L = float(radius); U = float(spectral_upper)
     if not np.isfinite(L) or L <= 0 or not np.isfinite(U) or U < 0: raise ValueError('Positive radius and nonnegative upper required')
     scale = max(U, float(np.linalg.norm(b)/L), 1e-300)
-    records = []
+    triangle_quadratic = float(U*L*L+2*L*np.linalg.norm(b))
+    records = []; failures = []
     def evaluate(logshift):
         lam = U+scale*np.exp(logshift)
-        item = resolvent_upper(b,U,lam,basis,images)
+        try:
+            item = resolvent_upper(b,U,lam,basis,images)
+        except (np.linalg.LinAlgError,FloatingPointError) as exc:
+            failures.append({'lambda':float(lam),'log_shift':float(logshift),'error':repr(exc),
+                'scalar_search_fallback':triangle_quadratic})
+            return triangle_quadratic
         item['quadratic_upper'] = float(lam*L*L+item['upper'])
         item['log_shift'] = float(logshift); records.append(item)
         return item['quadratic_upper']
-    grid = np.linspace(-20., 10., 61)
-    values = np.array([evaluate(x) for x in grid]); j = int(np.argmin(values))
-    opt = minimize_scalar(evaluate, bounds=(grid[max(0,j-1)],grid[min(len(grid)-1,j+1)]),
-        method='bounded', options={'xatol': 1e-7, 'maxiter': 100})
-    selected = min(records, key=lambda row: row['quadratic_upper'])
-    triangle_quadratic = float(U*L*L+2*L*np.linalg.norm(b))
-    return {'quadratic_upper': min(selected['quadratic_upper'],triangle_quadratic),
-        'resolvent_quadratic_upper': selected['quadratic_upper'], 'old_cross_quadratic_upper': triangle_quadratic,
-        'selected': selected, 'evaluations': records, 'scalar_success': bool(opt.success),
-        'scope': 'Conditional on the supplied spectral event, in real arithmetic; no validated floating-point enclosure.'}
+    grid = np.linspace(-20.,10.,61)
+    values = np.array([evaluate(x) for x in grid]); scalar_success = False
+    if records:
+        j = int(np.argmin(values))
+        opt = minimize_scalar(evaluate,bounds=(grid[max(0,j-1)],grid[min(len(grid)-1,j+1)]),
+            method='bounded',options={'xatol':1e-7,'maxiter':100})
+        scalar_success = bool(opt.success)
+    selected = min(records,key=lambda row:row['quadratic_upper']) if records else None
+    candidate = selected['quadratic_upper'] if selected else np.inf
+    return {'quadratic_upper':min(candidate,triangle_quadratic),
+        'resolvent_quadratic_upper':selected['quadratic_upper'] if selected else None,
+        'old_cross_quadratic_upper':triangle_quadratic,'selected':selected,'evaluations':records,
+        'failed_evaluations':failures,'scalar_success':scalar_success,
+        'uses_old_cross_fallback':bool(candidate>=triangle_quadratic),
+        'scope':'Conditional on the supplied spectral event, in real arithmetic; no validated floating-point enclosure.'}

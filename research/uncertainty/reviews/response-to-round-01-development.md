@@ -59,8 +59,10 @@ The adaptive triangle-objective enrichment is under final audit. A separate
 joint density/pose design is prospectively declared and queued behind it. Its
 residual-controlled trust-region proposition and independent small robust-norm
 SDP agree, but no empirical improvement is claimed. A focused Fable audit of
-this new mathematics is running; it is not full review round 2. The latest full
-regression run gives 240 passed, one skipped and one intentional warning;
+this mathematics finds no validity error and seven numerical/design notes.
+Its corrections precede the first empirical joint fit; it is not full review
+round 2. The latest full regression run gives 246 passed, one skipped and one
+intentional warning;
 all 116 locked fresh-calibration files and 47 earlier source files verify.
 
 ## Major concerns

@@ -187,13 +187,15 @@ def main():
             original_optimized_array_sha256=sha(original_array))
         save(); progress({'stage': 'reduced_basis_ready', 'seconds': result['basis_seconds'], 'rank': basis.shape[1]})
         designed = design_joint_cubic(objective, basis, initial_weights, centers, signs, width,
-            optimization_seed=CONFIG['optimization_seed'], evaluations=CONFIG['evaluations'],
+            optimization_seed=CONFIG['optimization_seed'], certificate_seed=CONFIG['certificate_seed'],
+            alpha=CONFIG['alpha_total'], delta=CONFIG['delta'], evaluations=CONFIG['evaluations'],
             krylov_steps=CONFIG['krylov_steps'], design_seconds=CONFIG['design_seconds'],
             separation_tolerance=CONFIG['separation_tolerance'], callback=progress, checkpoint_callback=checkpoint)
         w = designed.pop('weights'); result['design'] = designed
         save(); progress({'stage': 'fresh_joint_audit', 'selected_evaluation': designed['selected_evaluation']})
         fitted = audit_joint_cubic(objective, w, centers, signs, width,
-            certificate_seed=CONFIG['certificate_seed'], delta=CONFIG['delta'], alpha=CONFIG['alpha_total'],
+            certificate_seed=CONFIG['certificate_seed'], optimization_seed=CONFIG['optimization_seed'],
+            delta=CONFIG['delta'], alpha=CONFIG['alpha_total'],
             probes=CONFIG['probes'], power_iterations=CONFIG['power_iterations'],
             krylov_steps=CONFIG['audit_krylov_steps'], callback=progress)
         vector = fitted.pop('residual_cross_vector'); result['fit'] = fitted

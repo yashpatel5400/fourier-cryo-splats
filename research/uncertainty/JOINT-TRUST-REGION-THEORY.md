@@ -83,3 +83,20 @@ robust-norm S-lemma SDP against the joint cutting-plane design. A first near-har
 witness test exposed root-tolerance sensitivity; the feasible maximizing
 PSD direction is now extended to the ball boundary, and both attempts are
 retained. Passing finite checks does not validate experimental premises.
+
+## Focused audit scope and retained relaxations
+
+The authentic focused Fable audit checks the new identities and finds no
+validity error; it does not re-derive the inherited quadrature/radius/remainder
+premises or establish experimental usefulness. The degree-six cross-error pad
+is conservative for its actual degree-three product. The reduced remainder
+uses a per-column amplitude triangle majorant. The kernel/operator numerical
+premises remain unchanged. The independent robust-norm SDP isolates the joint
+term; pilot/remainder matrices are shared, so the whole objective is not an
+independently reimplemented physical forward model.
+
+The pre-fit amendment rescores all candidates against final pose cuts and
+labels padded/unpadded guides separately. This reduces an avoidable selection
+weakness but does not turn approximate separation into a global certificate.
+The residual upper calculation records failed shifts and safely retains the
+old bound. Its minimum remains conditional on one unchanged-weight event.

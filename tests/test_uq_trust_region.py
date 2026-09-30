@@ -59,3 +59,39 @@ def test_joint_dual_against_independent_semidefinite_program():
         assert got['quadratic_upper']<=expected+2e-6
         assert got['quadratic_upper']<=got['old_cross_quadratic_upper']
         assert cache['orthogonality_defect']<1e-12
+
+
+def test_singular_galerkin_cache_retains_valid_old_bound(monkeypatch):
+    g=np.diag([2.,1.]);b=np.array([.1,1.]);q=np.array([[1.,1.],[0.,0.]])
+    result=quadratic_dual_upper(b,1.,2.,q,g@q)
+    assert result['uses_old_cross_fallback'] and result['failed_evaluations']
+    assert result['quadratic_upper']==result['old_cross_quadratic_upper']
+    # LAPACK may numerically solve some rank-deficient shifts. Force the
+    # actual all-solve-fail branch instead of assuming each factorization fails.
+    def fail(*args,**kwargs):raise np.linalg.LinAlgError('injected solve failure')
+    monkeypatch.setattr(np.linalg,'solve',fail)
+    result=quadratic_dual_upper(b,1.,2.,np.eye(2),g)
+    assert result['selected'] is None and len(result['failed_evaluations'])==61
+    assert result['quadratic_upper']==result['old_cross_quadratic_upper']
+
+
+def test_near_hard_log_root_is_accurate_before_boundary_extension():
+    for epsilon in [1e-8,1e-10,1e-12]:
+        b=np.array([epsilon,1.]);g=np.diag([5.,2.]);L=2.
+        v,r=dense_quadratic_witness(g,b,L)
+        assert not r['hard_case']
+        np.testing.assert_allclose(r['pre_boundary_norm'],L,rtol=2e-12)
+        raw=v*r['pre_boundary_norm']/np.linalg.norm(v)
+        expected=20+1/3+2*np.sqrt(4-1/9)*epsilon
+        np.testing.assert_allclose(raw@g@raw-2*b@raw,expected,atol=1e-10,rtol=0)
+
+
+def test_truncated_cache_and_loose_spectral_upper_report_realistic_slack():
+    rng=np.random.default_rng(953107);m=rng.normal(size=(23,23));g=m.T@m/23;b=rng.normal(size=23)
+    q,gq,cache=krylov_cache(lambda x:g@x,b,steps=3,extras=[rng.normal(size=23)])
+    U=1.5*np.linalg.eigvalsh(g)[-1]
+    result=quadratic_dual_upper(b,1.4,U,q,gq);v,_=dense_quadratic_witness(g,b,1.4)
+    assert result['quadratic_upper']>=v@g@v-2*b@v-1e-10
+    assert result['quadratic_upper']<=result['old_cross_quadratic_upper']
+    assert [row['origin'] for row in cache['accepted_chains']]==['cross','extra_0','cross']
+    print('LOOSE_TRUNCATED_AUDIT',result['quadratic_upper'],result['old_cross_quadratic_upper'],result['uses_old_cross_fallback'])
