@@ -16,6 +16,9 @@ pose/noise/class calibration, useful fine-scale inference and substantive novelt
 remain open; neither passing numerical checks nor approximate-map inclusion
 establishes experimental density coverage.
 
+The compact [evidence and open-decisions table](research/uncertainty/CURRENT-EVIDENCE.md)
+distinguishes completed outcomes from the remaining running fits.
+
 Current evidence includes:
 
 - Original-code CryoLike scoring completes all 24 declared three-stack cases.
@@ -46,7 +49,8 @@ Current evidence includes:
   reduce this to 0.180, with a large remaining optimization gap. A separately
   declared reference-frame check changes its simulated minimum sign power from
   0.00654 to 0.95725 without changing the estimator. Its subsequent experimental
-  interval still contains zero: calibrated noise is much larger than simulated.
+  interval still contains zero: the experimental SD upper bound is much larger
+  than the supplied simulation SD and is not a pure-noise measurement.
   [All three fixed-estimator outcomes](research/uncertainty/REGISTERED-TARGET-SENSITIVITY-RESULTS.md)
   are retained. The coordinate follow-up completed with a
   worse width of 0.223. The reduced convex design selected the original weights

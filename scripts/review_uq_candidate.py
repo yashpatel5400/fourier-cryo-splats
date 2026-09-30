@@ -311,7 +311,7 @@ def main():
     files = [*active_manuscript,
              *[ROOT/'research/uncertainty'/name for name in [
                  'THEORY.md', 'CONTINUOUS-MOMENT-REMAINDER.md', 'FIXED-LENGTH-LOWER-BOUND.md', 'SURVEY.md',
-                 'PRIMARY-ANNOTATIONS.md', 'REPRODUCE-DEVELOPMENT.md', 'COMPUTE.md',
+                 'PRIMARY-ANNOTATIONS.md', 'REPRODUCE-DEVELOPMENT.md', 'COMPUTE.md', 'CURRENT-EVIDENCE.md',
                  'MATRIX-FREE-POSE-REVISION.md', 'EXPERIMENTAL-CALIBRATION-ATTEMPT.md',
                  'CTF-SENSITIVITY.md', 'CONTINUOUS-SUPPORT-REVISION.md',
                  'FOURIER-VARIATIONAL-BASELINE.md', 'DIRECTIONAL-NOISE-CALIBRATION.md',

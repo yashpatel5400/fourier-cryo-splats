@@ -510,7 +510,7 @@ PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts
 PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_mixture_refinement.py
 ```
 
-The last command is the separately declared ongoing envelope-guided refinement;
+The last command is the separately declared, now completed envelope-guided refinement;
 it does not replace the completed first calculation. Its protocol is
 `CONTINUOUS-MIXTURE-REFINEMENT-PROTOCOL.md`. The additional tests are
 `test_uq_mixture_anchor.py`, `test_uq_mixture_curvature.py`,
@@ -555,3 +555,35 @@ The separate cubic-enrichment protocol was committed before the ongoing fit;
 it is not a completed outcome in this increment. Its isolated FINUFFT CPU
 runtime uses `PYTHONPATH=tmp/nufft-openmp:src`, two threads and its declared
 three-hour alarm. No source or settings are changed during that run.
+
+
+## Latest post-v0.6.1 development commands
+
+The enrichment is now complete; the joint final audit and RELION 10076 are
+still running at this checkpoint. See CURRENT-EVIDENCE.md for current status.
+These commands describe reproduction in a fresh output checkout, with the
+recorded inputs and source versions. Runners reject existing output directories.
+The isolated two-thread FINUFFT runtime below must not import PyTorch; the
+experimental application instead uses the normal no-OpenMP FINUFFT environment.
+
+```bash
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/run_uq_cubic_enrichment_probe.py
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/run_uq_joint_cubic_probe.py
+# Only after both successful completed fit records exist:
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/apply_uq_joint_enriched_experimental.py
+.venv/bin/python scripts/plot_uq_cubic_comparison.py
+```
+
+The plot keeps every design and both declared experimental calibration
+procedures. It requires all completed records; it does not silently plot an
+incomplete joint fit. This is reused-data development, not fresh confirmation.
+The artifact packager takes an explicit hash-locked file/owner specification:
+
+```bash
+.venv/bin/python scripts/package_uq_increment.py specification.json --output output/artifacts/increment.tar.gz
+```
+
+It verifies every archive member by streaming it back without extraction.
+This command creates local files only and does not publish a GitHub release.
+The next release's exact specification and completed verification will identify
+which new arrays are available; do not infer that prior release assets contain them.
