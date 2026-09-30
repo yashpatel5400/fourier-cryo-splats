@@ -217,3 +217,59 @@ width $0.179695$, minimum reference sign power $0.00663$ and full-space gap
 $0.940164$. The small numerical metric changes do not reflect an improved
 estimator. Total runtime is 1,934 seconds; the restricted guide does not certify
 full-space convergence.
+
+
+\subsection{Joint density--pose trust-region development}
+\label{sec:jointtrust}
+The preceding designs optimize a triangle bound, even though final auditing
+retains residual/pose cross terms. A new, separately declared design uses
+\[
+ J_{\rm joint}(w)=B\sup_{\|v\|\le L}\|h(w)-F(w)v\|.
+\]
+Here $h(w)=\ell-A_0^*w$. For fixed $v$, this is a norm of an affine function of $w$, so the supremum
+is convex. It is no larger than $B(\|h(w)\|+L\|F(w)\|)$, with the same
+enlarged pose ball and unchanged known-pilot, noise and quartic terms.
+Robust least squares and trust-region methods are classical
+\citep{elghaoui1997,adachi2017}; the following residual form supports the
+continuous Fourier implementation, not a general optimization novelty claim.
+
+\begin{samepage}
+\begin{proposition}[Residual-controlled joint upper bound]
+For fixed weights, suppose $\|h\|\le H$, $G=F_Q^*F_Q\succeq0$,
+$\lambda_{\max}(G)\le U$, $\|G_{\rm cont}-G\|\le\epsilon_G$, and
+$\|F_{\rm cont}^*h-b\|\le\epsilon_b$. For any $\lambda>U$ and any $x$, put
+$D=\lambda I-G$ and $r=b-Dx$. Then
+\[
+\begin{aligned}
+ \sup_{\|v\|\le L}\|h-F_{\rm cont}v\|^2
+ &\le H^2+L^2\epsilon_G+2L\epsilon_b+\lambda L^2\\
+ &\quad+2b^\top x-x^\top Dx+\frac{\|r\|^2}{\lambda-U}.
+\end{aligned}
+\]
+\end{proposition}
+\end{samepage}
+\begin{proof}
+The integration errors reduce the pose-dependent term to
+$v^\top Gv-2b^\top v$. Completing the square bounds it by
+$\lambda L^2+b^\top D^{-1}b$. The identity
+$b^\top D^{-1}b=2b^\top x-x^\top Dx+r^\top D^{-1}r$ and
+$D\succeq(\lambda-U)I$ give the result.
+\end{proof}
+Any reduced solve supplies $x$; its residual is charged explicitly. A Krylov
+cache stores actual $GQ$ actions, without assuming an exact Lanczos recurrence.
+All choices of $x,\lambda$ and the preceding joint upper bound are valid on
+the same fixed-weight spectral event. Their minimum requires no extra failure
+allowance; selecting new weights after seeing those probes would invalidate
+that argument. Multiply the square root by $B$ and add the original known-
+pilot and quartic terms. Real-arithmetic validity still does not enclose
+floating-point/NUFFT error or calibrate experimental assumptions.
+
+A reduced conic master accumulates feasible pose witnesses; sampled target
+quadrature and approximate separation guide selection only. A fresh final
+spectral audit follows fixed weights. The independent robust-norm SDP check
+gives 1.796133293662 versus guide 1.796133292859. Its first unscaled SCS
+attempt reaches the solver limit; an equivalent unit-ball CLARABEL formulation
+succeeds. Analytic hard-case and explicit-residual tests also pass after a
+near-hard root-tolerance issue is corrected. These are small numerical checks.
+The bounded empirical joint-design experiment is queued behind the earlier
+enrichment fit at this revision; no improved empirical result is claimed.

@@ -1,4 +1,4 @@
-\section{Reference Registration and the First Converged RELION Baseline}
+\section{Reference Registration and Completed RELION Baselines}
 \label{sec:referenceframe}
 The first completed unknown-pose RELION continuation on 10028 reports
 convergence and preserves the exposure half labels. It takes 5,492 seconds for
@@ -6,7 +6,13 @@ the remaining pilot-only initializer and 4,012 seconds for auto-refinement.
 Native half-map FSC crosses 0.5 at 21.21\,\AA; its 0.143 crossing is censored at
 the sampled 16.08\,\AA\ limit. RELION joins halves below $1/40$\,\AA$^{-1}$,
 which must be distinguished from independent high-frequency agreement.
-The other two declared continuations remain in progress at this revision.
+On 10049, the remaining initializer takes 4,547 seconds and refinement 921
+seconds. It reports convergence with verified exposure halves, but is weaker:
+native half FSC crosses 0.5/0.143 at 22.73/18.95\,\AA. Registered-reference
+FSC crosses at 45.43/19.85\,\AA; its mean is only 0.202. Local angular and
+translation accuracy estimates are 8.87 degrees and 4.579\,\AA, not calibrated
+uniform pose bounds. Convergence does not establish correct reconstruction.
+The 10076 continuation remains in progress.
 
 Initially, every method's deposited-map FSC on 10028 is weak despite strong
 cross-method agreement. This motivates a separately declared frame audit,
@@ -18,8 +24,9 @@ reference FSC select a transform. This is post-outcome development with a local
 search, not fresh confirmation or guaranteed global registration.
 
 Table~\ref{tab:referenceframe} retains the mean shell FSC for both frames
-and every completed method. Every registered 0.143 curve on these two stacks is censored
-at its sampling limit, which is not a measured resolution. On heterogeneous
+and every completed method. The Gaussian, voxel and neural registered 0.143 curves on 10028/10049,
+and RELION on 10028, are censored at their sampling limits; these are not
+measured resolutions. On heterogeneous
 10076, means increase only from about 0.086 to 0.127, and 0.143 crossings remain
 51.5--52.3\,\AA. EMD-8434 represents a particular Class A assembly intermediate;
 it is not truth for the heterogeneous consensus. State mismatch, search limits
@@ -37,8 +44,8 @@ Stack & Frame & G & V & N & R\\
 \midrule
 10028 & Original & .070 & .071 & .072 & .075\\
  & Registered & .727 & .707 & .736 & .702\\
-10049 & Original & .052 & .050 & .051 & --\\
- & Registered & .757 & .692 & .799 & --\\
+10049 & Original & .052 & .050 & .051 & .074\\
+ & Registered & .757 & .692 & .799 & .202\\
 10076 & Original & .086 & .086 & .087 & --\\
  & Registered & .127 & .127 & .127 & --\\
 \bottomrule
@@ -46,7 +53,7 @@ Stack & Frame & G & V & N & R\\
 \end{table}
 
 These results show that an unverified reference frame can dominate a comparison.
-All ten completed method/stack cases and both reference curves are retained.
+All eleven completed method/stack cases and both reference curves are retained.
 Reference agreement remains affected by pilot selection, interpolation,
 preprocessing and partial data dependence, and is not independent accuracy or
 density coverage. Historical reference-based uncertainty simulations keep their
@@ -129,3 +136,18 @@ experimental assumptions. The two procedures are separately reported
 alternatives; their unadjusted minimum is never used. These outcomes motivate
 the separately declared, still-running adaptive subspace-enrichment study;
 that ongoing fit has no result in this revision.
+
+
+\paragraph{A finite family of projected calibration designs.}
+A further declared diagnostic compares seven noise-independent orthogonal
+contrasts: no projection, mean removal, two CTF-design spans and three
+pilot-prediction spans. Each bound receives $\beta/7$, so their minimum
+retains the original total allowance by a union bound under the same Gaussian
+and fixed-design premises. Every contrast is retained. Selected SD bounds
+are 0.981--1.030 times the separately reported centered bounds: four fixed
+estimators improve and eight worsen. Exclusion counts and the five Class A
+reference disagreements are unchanged. Cubic half-widths are 3.11643,
+3.64233 and 3.11534, all slightly worse than centering alone. This diagnostic
+does not improve experimental conclusions. Upstream metadata independence
+remains unverified, and no unadjusted minimum across historical procedures
+is used.

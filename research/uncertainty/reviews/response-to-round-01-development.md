@@ -11,7 +11,7 @@ This file also supports local packet-size/layout checks without invoking a model
 
 ## Registered-reference follow-up, 30 September
 
-A pilot-only frame registration was frozen before the ten reconstruction FSC
+A pilot-only frame registration was frozen before the eleven completed reconstruction FSC
 comparisons and before the subsequent target sensitivity. That sensitivity
 retains all original results: the unchanged cubic estimator's simulated power
 on the previously selected 10049 region rises from .00654 to .95725. This
@@ -41,6 +41,27 @@ centered fixed-weight intervals exclude the registered reference, all on
 heterogeneous 10076 (regions 1 and 3 at fixed/shift-only poses, center at fixed
 poses). These discrepancies are retained; a single Class A reference is not
 a ground-truth coverage label for that population.
+
+The seven-contrast projected-calibration follow-up allocates beta/7 to each
+noise-independent design and retains every result. Its SD bounds are .981–1.030
+times the separate mean-only bounds; counts and five reference discrepancies
+are unchanged, and all three cubic intervals become slightly wider. This is
+negative calibration evidence, not a resolution of R1.
+
+Two unknown-pose RELION continuations now finish with verified exposure halves.
+The 10028 registered-reference mean FSC is .702; 10049 is much weaker at .202,
+despite reporting convergence. Its native half FSC crosses .143 at 18.95 A.
+Every curve and the earlier timed-out initializers remain. The 10076 continuation
+is running. These are conventional reconstruction comparisons, not density
+coverage or calibrated pose-radius evidence.
+
+The adaptive triangle-objective enrichment is under final audit. A separate
+joint density/pose design is prospectively declared and queued behind it. Its
+residual-controlled trust-region proposition and independent small robust-norm
+SDP agree, but no empirical improvement is claimed. A focused Fable audit of
+this new mathematics is running; it is not full review round 2. The latest full
+regression run gives 240 passed, one skipped and one intentional warning;
+all 116 locked fresh-calibration files and 47 earlier source files verify.
 
 ## Major concerns
 
@@ -219,7 +240,7 @@ the full Rangan Hessian method or an independently calibrated pose posterior.
 It does not resolve R1, R2 or R7.
 
 - M1: the paper is a public development preprint, not an anonymized submission.
-- M2: the current curated count is 116 candidates; historical counts and targeted
+- M2: the current curated count is 117 candidates; historical counts and targeted
   reading versus retrieval are distinguished.
 - M3: the manuscript uses the source-summary value 0.339 for the strong-ridge
   bootstrap control, alongside all favorable weak-ridge comparisons.
@@ -254,5 +275,5 @@ only against the old pilot and published before comparing inference maps.
 All original curves remain. On 10076, the Class A reference is not truth for the
 heterogeneous consensus and registered agreement remains weak. Historical
 reference-generator power/coverage numbers are conditional studies in their
-original frame, not biological localization evidence. A registered feature study
-has not yet been run; these changes do not close the experimental-input objection.
+original frame, not biological localization evidence. The subsequently completed registered feature sensitivity is summarized at the
+top of this response; these changes do not close the experimental-input objection.

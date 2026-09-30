@@ -225,7 +225,10 @@ REVIEW_RUNNERS = [
     'evaluate_uq_fresh_prediction.py', 'audit_uq_ctf_sensitivity.py', 'probe_uq_continuous_support.py',
     'probe_uq_mixture_validation.py', 'probe_uq_mixture_common_scale.py',
     'probe_uq_continuous_mixture.py', 'probe_uq_continuous_mixture_anchors.py',
-    'probe_uq_mixture_curvature.py', 'probe_uq_mixture_refinement.py']
+    'probe_uq_mixture_curvature.py', 'probe_uq_mixture_refinement.py',
+    'probe_uq_registered_targets.py', 'apply_uq_cubic_experimental.py',
+    'probe_uq_centered_noise.py', 'probe_uq_projected_noise.py',
+    'run_uq_cubic_enrichment_probe.py', 'run_uq_joint_cubic_probe.py']
 
 
 def remove_duplicated_baseline_rows(file, value):
@@ -285,6 +288,8 @@ def main():
     parser.add_argument('--response-file', type=Path)
     parser.add_argument('--read-only-evidence', action='store_true',
                         help='Give the reviewer Read/Glob/Grep access to an immutable evidence copy; inline summaries and index every raw case')
+    parser.add_argument('--render-dpi', type=int, choices=[125,150], default=150,
+                        help='Render every page at this explicit resolution; never crop or omit pages')
     parser.add_argument('--preview-dir', type=Path,
                         help='Build a local packet without consuming a review-round directory; cannot invoke')
     args = parser.parse_args()
@@ -335,10 +340,14 @@ def main():
                  'CONTINUOUS-MIXTURE-REFINEMENT-PROTOCOL.md','CUBIC-COORDINATE-RESULTS.md',
                  'CUBIC-SUBSPACE-RESULTS.md','REGISTERED-TARGET-SENSITIVITY-PROTOCOL.md',
                  'REGISTERED-TARGET-SENSITIVITY-RESULTS.md','CUBIC-EXPERIMENTAL-APPLICATION-PROTOCOL.md','CENTERED-NOISE-CALIBRATION-PROTOCOL.md',
-                 'CENTERED-NOISE-CALIBRATION-RESULTS.md','CUBIC-ENRICHMENT-PROTOCOL.md','CRYOLIKE-BASELINE-PROTOCOL.md','CRYOLIKE-BASELINE-RESULTS.md',
+                 'CENTERED-NOISE-CALIBRATION-RESULTS.md','CUBIC-ENRICHMENT-PROTOCOL.md',
+                 'PROJECTED-NOISE-CALIBRATION-PROTOCOL.md','PROJECTED-NOISE-CALIBRATION-RESULTS.md',
+                 'JOINT-TRUST-REGION-THEORY.md','JOINT-CUBIC-DESIGN-PROTOCOL.md',
+                 'RELION-10049-CONTINUATION-RESULTS.md','distributional-stability-followup-sources.json','CRYOLIKE-BASELINE-PROTOCOL.md','CRYOLIKE-BASELINE-RESULTS.md',
                  'CONTINUOUS-MIXTURE-DISK-THEORY.md','CONTINUOUS-MIXTURE-DISK-PROTOCOL.md',
                  'REFERENCE-REGISTRATION-PROTOCOL.md','REFERENCE-REGISTRATION-RESULTS.md']],
              *sorted((ROOT/'research/uncertainty/reviews/mixture-audit-01').glob('*.md')),
+             *sorted((ROOT/'research/uncertainty/reviews/joint-trust-audit-01').glob('*.md')),
              ROOT/'research/uncertainty/reviews/cubic-audit-01/review.md',
              ROOT/'research/uncertainty/reviews/cubic-audit-01/response.md',
              *sorted((ROOT/'research/uncertainty/reviews/cubic-design-audit-01').glob('*.md')),
@@ -397,6 +406,9 @@ def main():
              *sorted((ROOT/'results/uncertainty/development').glob('registered-target-sensitivity-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('cubic-experimental-application-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('centered-noise-calibration-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('projected-noise-calibration-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development/cubic-enrichment-probe').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/joint-cubic-design-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('reference-registered-comparison-*/*.json')),
              ROOT/'paper/figures/locked-target-locations.json',
              ROOT/'paper/figures/cryolike-comparison.json',
@@ -498,7 +510,7 @@ def main():
                 'excluded_runner_sources': excluded_runners,
                 'archived_manuscript_sources': archived_manuscript,
                 'pdf_sha256': digest(pdf.read_bytes()), 'command': command,
-                'pdf_sent': False, 'rendered_pdf_pages_sent': True,
+                'pdf_sent': False, 'rendered_pdf_pages_sent': True, 'render_dpi': args.render_dpi,
                 'review_input': 'Source manuscript, code/evidence, unmodified earlier reviews and rendered manuscript pages.',
                 'invoked': bool(args.invoke), 'read_only_evidence': bool(args.read_only_evidence)}
     output.mkdir(parents=True)
@@ -517,7 +529,7 @@ def main():
     (output/'prompt.txt').write_bytes(packet)
     pages = output/'pages'; pages.mkdir()
     renderer = '/Users/yash/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/pdftoppm'
-    subprocess.run([renderer, '-r', '150', '-png', str(pdf), str(pages/'page')], check=True)
+    subprocess.run([renderer, '-r', str(args.render_dpi), '-png', str(pdf), str(pages/'page')], check=True)
     content = [{'type': 'text', 'text': packet.decode()}]
     metadata['rendered_pages'] = {}
     for number, page in enumerate(sorted(pages.glob('page-*.png')), 1):
@@ -531,7 +543,7 @@ def main():
             'original_render_png_sha256': rendered_digest, 'decoded_pixels_sha256': pixel_digest,
             'encoding_mode': encoding_mode, 'pixel_hash_mode': 'RGB',
             'transport_reencoded_losslessly': digest(data) != rendered_digest}
-        content.extend([{'type': 'text', 'text': f'Manuscript rendered page {number}:'},
+        content.extend([{'type': 'text', 'text': f'Manuscript rendered page {number}, {args.render_dpi} dpi, uncropped:'},
                         {'type': 'image', 'source': {'type': 'base64', 'media_type': 'image/png',
                                                     'data': base64.b64encode(data).decode()}}])
     if not metadata['rendered_pages']:

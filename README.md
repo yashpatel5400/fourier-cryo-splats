@@ -61,7 +61,9 @@ Current evidence includes:
 - A [known-map information diagnostic](research/uncertainty/ORACLE-POSE-INFORMATION-RESULTS.md)
   distinguishes individual pose information from collective reconstruction.
   The native RELION CPU comparison has completed a converged unknown-pose
-  reconstruction on 10028; the other two continuations remain in progress.
+  reconstruction on 10028 and a weaker converged result on 10049; the 10076
+  continuation remains in progress. The second result has registered-reference
+  mean FSC 0.202 despite its convergence flag.
   Pilot-only reference registration improves cross-method reference FSC on
   10028 and 10049; the Class A reference on heterogeneous 10076 remains a
   weak match to the consensus. Both original and registered curves are kept.
