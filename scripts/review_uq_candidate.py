@@ -13,6 +13,7 @@ import datetime
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 import subprocess
 import tempfile
@@ -91,6 +92,38 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def current_manuscript_sources():
+    """Follow literal TeX inputs from the rendered main manuscript only.
+
+    Archived reconstruction drafts remain in the evidence copy, explicitly
+    labeled as history. They must not be confused with current paper claims.
+    TeX inputs here resolve from the paper build directory, as in build_paper.sh.
+    """
+    paper = ROOT/'paper'; pending = [paper/'main.tex']; found = []
+    while pending:
+        path = pending.pop(0).resolve()
+        path.relative_to(paper.resolve())
+        if path in found:
+            continue
+        text = re.sub(r'(?<!\\)%.*', '', path.read_text())
+        found.append(path)
+        for command, names in re.findall(r'\\(input|include|bibliography)\{([^}]+)\}', text):
+            for name in names.split(','):
+                if '\\' in name or '#' in name:
+                    raise ValueError('Manuscript source dependency must be literal')
+                suffix = '.bib' if command == 'bibliography' else '.tex'
+                child = paper/name.strip()
+                if not child.suffix:
+                    child = child.with_suffix(suffix)
+                if child.suffix == '.bib':
+                    child = child.resolve(); child.relative_to(paper.resolve())
+                    if child not in found:
+                        child.read_bytes(); found.append(child)
+                else:
+                    pending.append(child)
+    return found
+
+
 def compact_evidence(value, seen_snapshots=None):
     if seen_snapshots is None:
         seen_snapshots = set()
@@ -154,6 +187,7 @@ REVIEW_RUNNERS = [
     'apply_uq_fresh_noise.py', 'freeze_uq_noise_models.py', 'probe_uq_sign_class.py',
     'run_uq_cubic_weight_probe.py', 'audit_uq_cubic_pose_probe.py', 'probe_uq_higher_remainder.py',
     'check_uq_cubic_design_numerics.py', 'probe_uq_cubic_preconditioner.py', 'run_uq_cubic_coordinate_probe.py',
+    'benchmark_uq_fourier_pose.py',
     'prepare_uq_splits.py', 'prepare_uq_fresh_cohort.py', 'prepare_uq_noise_cohort.py',
     'download_data.py', 'confirm_uq_continuous.py', 'confirm_uq_continuous_moments.py',
     'evaluate_uq_fresh_prediction.py', 'audit_uq_ctf_sensitivity.py', 'probe_uq_continuous_support.py']
@@ -227,9 +261,10 @@ def main():
         summary = json.loads((ROOT/f'results/uncertainty/confirmation/{study}/summary/summary.json').read_text())
         if summary['audit_settings'] != settings or not summary['status'].startswith('complete'):
             raise AssertionError('Frozen study is incomplete')
-    files = [*sorted((ROOT/'paper').glob('*.tex')),
-             *sorted((ROOT/'paper/tables').glob('*.tex')),
-             *sorted((ROOT/'paper').glob('*.bib')),
+    active_manuscript = current_manuscript_sources()
+    archived_manuscript = {str(p.relative_to(ROOT)): {'sha256': digest(p.read_bytes()), 'bytes': p.stat().st_size}
+        for p in sorted((ROOT/'paper').rglob('*.tex')) if p.resolve() not in active_manuscript}
+    files = [*active_manuscript,
              *[ROOT/'research/uncertainty'/name for name in [
                  'THEORY.md', 'CONTINUOUS-MOMENT-REMAINDER.md', 'FIXED-LENGTH-LOWER-BOUND.md', 'SURVEY.md',
                  'PRIMARY-ANNOTATIONS.md', 'REPRODUCE-DEVELOPMENT.md', 'COMPUTE.md',
@@ -245,7 +280,7 @@ def main():
                  'SOBOLEV-WEIGHT-DESIGN-NOTES.md','CUBIC-WEIGHT-DESIGN-THEORY.md',
                  'CUBIC-WEIGHT-OPTIMIZATION-PROTOCOL.md','DIFFPOSE-READING-NOTE.md',
                  'CUBIC-DESIGN-NUMERICAL-CHECK.md','CUBIC-PRECONDITIONER-DEVELOPMENT.md',
-                 'CUBIC-COORDINATE-FOLLOWUP-PROTOCOL.md']],
+                 'CUBIC-COORDINATE-FOLLOWUP-PROTOCOL.md','FOURIER-POSE-BASELINE-PROTOCOL.md']],
              ROOT/'research/uncertainty/reviews/cubic-audit-01/review.md',
              ROOT/'research/uncertainty/reviews/cubic-audit-01/response.md',
              *sorted((ROOT/'research/uncertainty/reviews/cubic-design-audit-01').glob('*.md')),
@@ -292,6 +327,8 @@ def main():
              *sorted((ROOT/'results/uncertainty/development/higher-order-remainder-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/cubic-pose-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/cubic-weight-probe').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/cubic-coordinate-probe').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/cubic-preconditioner-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/audit-regressions').glob('*.json')),
              ROOT/'results/uncertainty/development/pose-metadata-inventory.json',
              *sorted((ROOT/'results/uncertainty/development/pose-optimized-diagnostics').glob('*/*.json'))]
@@ -351,10 +388,16 @@ def main():
     if args.read_only_evidence:
         for name in excluded_runners:
             originals[name] = (ROOT/name).read_bytes()
+        for name in archived_manuscript:
+            originals[name] = (ROOT/name).read_bytes()
         deferred = {name: {'sha256': row['sha256'], 'bytes': row['bytes']}
                     for name, row in manifest.items() if not inline_with_read_tools(name)}
         parts.append('\nPer-case evidence available under evidence/ (not automatically inspected):\n'+json.dumps(deferred, separators=(',', ':')))
     parts.append('\nRunner source omitted from initial text (not automatically inspected):\n'+json.dumps(excluded_runners, separators=(',', ':')))
+    parts.append('\nHistorical manuscript sources, not part of the rendered current paper. '
+        'These are indexed and retained, and available under evidence/ in read-only mode; '
+        'do not interpret their superseded claims as current manuscript claims:\n'
+        +json.dumps(archived_manuscript, separators=(',', ':')))
     packet = '\n'.join(parts).encode()
     pdf = ROOT/'output/pdf/fourier-cryo-splats.pdf'
     command = ['/Users/yash/.local/bin/claude', '-p', '--model', MODEL,
@@ -369,6 +412,7 @@ def main():
                 'working_tree_status': subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True),
                 'packet_sha256': digest(packet), 'packet_bytes': len(packet), 'files': manifest,
                 'excluded_runner_sources': excluded_runners,
+                'archived_manuscript_sources': archived_manuscript,
                 'pdf_sha256': digest(pdf.read_bytes()), 'command': command,
                 'pdf_sent': False, 'rendered_pdf_pages_sent': True,
                 'review_input': 'Source manuscript, code/evidence, unmodified earlier reviews and rendered manuscript pages.',

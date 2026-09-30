@@ -1,80 +1,60 @@
 # Fourier Cryo Splats
 
-**Active research branch:** the uncertainty-focused study is under development.
-See the [research plan](research/uncertainty/PLAN.md),
-[literature synthesis](research/uncertainty/SURVEY.md),
-[theory audit](research/uncertainty/THEORY.md), and
-[development results and failures](research/uncertainty/DEVELOPMENT-LOG.md).
-The [current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) has been
-rewritten around uncertainty, ambient-space bias auditing, and conditional pose
-bounds. Both frozen conditional-uncertainty studies and the fresh-exposure
-prediction comparison are complete. The first authentic **Claude Fable 5.1 review
-recommends rejection** and does not consider the work a strong ICML contender.
-Read the [unaltered review](research/uncertainty/reviews/round-01/review.md) and
-[revision plan](research/uncertainty/reviews/round-01/response-plan.md).
-The manuscript is under substantive revision, with no claim of end-to-end
-experimental calibration or conference acceptance. The continuous pose procedures remain conservative;
-the moment refinement reduces no-data fallbacks from 48 to 16, but map-like
-feature detection remains weak. Current work optimizes weights with pose
-uncertainty included and tests physically narrower density assumptions. A
-10,000-particle, radius-12 shared-field audit has completed on the Mac using
-1.95 GB peak memory; its broad-feature interval remains wide. The experimental
-noise-calibration refinement on three stacks detects one broad feature at fixed
-pose, but none at nonzero pose budgets; the nuisance assumptions remain unverified.
-A [Fourier variational baseline](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md)
-now compares diagonal and full Gaussian uncertainty on all three geometries,
-with explicit prior and interpolation limitations. The completed frozen
-studies remain unchanged and public.
-A [joint density/pose post-audit](research/uncertainty/JOINT-DENSITY-POSE-BIAS.md)
-tightens the completed same-weight cases; fine-feature usefulness and
-experimental nuisance calibration remain open. New full-weight conic probes
-improve optimization lower bounds while preserving failed candidate outcomes.
-Focused [mathematical reviews](research/uncertainty/reviews/README.md) and their
-regression fixes are also preserved. They distinguish a joint rotation/shift
-ball from the larger product set and do not replace the full-paper review.
-A [known-pilot refinement](research/uncertainty/PILOT-POSE-PAIRING.md) further
-reduces widths without narrowing the unknown density class. Its two-degree
-full-weight example reaches 0.510 of the no-data width, but still has negligible
-reference sign power. A 1,024-particle fixed-pose fit with a 10 Å Gaussian
-standard-deviation target is precise, but its one-degree pose audit returns
-the no-data interval because the cubic remainder dominates. These developments do not establish
-experimental coverage or ICML readiness.
-A [two-pose ambiguity construction](research/uncertainty/TWO-POSE-MODULUS.md)
-now supplies fixed-length lower bounds on the same continuous class. Its
-30-case three-stack grid is complete and mathematically audited, but selected
-pose pairs do not determine the global unknown-pose limit.
-A bounded [alternating ambiguity probe](research/uncertainty/POSE-OPTIMIZED-AMBIGUITY-PROTOCOL.md)
-raises one feasible lower width from 0.126 to 0.150 of no data over three
-prespecified density/pose refits. Its signed witnesses are not asserted to be
-molecular structures. A new [pilot-selected target study](research/uncertainty/pilot-selected-targets-v1/EXPERIMENT.md)
-has locked three regions and a matched-scale center control per stack before
-reference evaluation. It is running; no outcome or experimental calibration
-claim is made for it yet.
-A [fresh noise-calibration cohort](research/uncertainty/confirmation/noise-calibration-v1/PROTOCOL.md)
-reserves 128 unused exposures per stack. Its download is gated on freezing all
-twelve estimators; only calibration will be fresh, not the old inference images.
-The [matched Fourier baseline](research/uncertainty/pilot-selected-targets-v1/BASELINES.md)
-retains favorable results from broader priors as well as its original prior
-sweep. A [sign/total-norm ablation](research/uncertainty/SIGN-CONSTRAINED-DENSITY-PROPOSAL.md)
-does not rescue the fine-feature one-degree interval with the same weights.
-An [enclosing-domain remainder refinement](research/uncertainty/BALL-SOBOLEV-REMAINDER-PROPOSAL.md)
-retains Fourier cancellation: on that higher-band case it reduces the cubic
-bias from 56.493 to 21.110 and the interval to 0.751 of no-data width. Reference
-feature detection remains zero; this is a conservative-bound improvement,
-not experimental calibration. Both exploratory enclosure attempts are retained.
-Completed development comparisons include source-group bootstrap, nonlinear pose
-curvature, shared-density spectral audits, finite-grid and continuous-density
-checks, joint continuous-pose bounds, assumption-violation controls, and stock neural
-reconstruction on three stacks. See [reproduction commands](research/uncertainty/REPRODUCE-DEVELOPMENT.md).
-An [additional-exposure prediction protocol](research/uncertainty/confirmation/prediction-v1/PROTOCOL.md)
-was frozen before new particle downloads, with models locked by checksum.
-Exact frozen models and selected audit weights are available in the
-[interim uncertainty checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev).
-Completed revision arrays are in the separate
-[v0.5 development checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.5.0-dev),
-with 500 verified arrays and the 38-page preprint. The v0.4 release remains unchanged.
-The [earlier reconstruction paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0
-release preserve the original feasibility study.
+**Active research; not an acceptance-ready paper.** The
+[current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) studies
+uncertainty in cryo-EM density features through continuous Fourier-slice bias
+and pose auditing. The original Gaussian reconstruction work remains available
+in the [earlier paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0 release.
+
+The first authentic **Claude Fable 5.1 full review recommends rejection**, with
+confidence 4/5, and does not consider the work a strong ICML contender. The
+[unaltered review](research/uncertainty/reviews/round-01/review.md),
+[current response](research/uncertainty/reviews/response-to-round-01-development.md)
+and [focused mathematical audits](research/uncertainty/reviews/README.md) are
+public. Focused audits do not replace a full acceptance assessment. Experimental
+pose/noise/class calibration, useful fine-scale inference and substantive novelty
+remain open; neither passing numerical checks nor approximate-map inclusion
+establishes experimental density coverage.
+
+Current evidence includes:
+
+- Two completed frozen conditional-uncertainty studies and an additional-exposure
+  prediction comparison on three EMPIAR stacks. Stock neural prediction wins
+  all six prescribed contrasts; this is prediction, not density uncertainty.
+- A 10,000-particle, radius-12 matrix-free audit using 1.95 GB peak memory on
+  the Mac. The completed eighteen-case pose-aware design grid retains failed
+  convergence and unfavorable power results; its two-degree bounds still miss
+  the full review's usefulness and tightness criteria.
+- All twelve locked pilot-selected fixed-pose feature fits are complete. Eleven
+  have high known-noise reference sign power; one does not. Nonlinear pose
+  audits and the complete experimental application are running. All twelve
+  estimators and 116 files were frozen and published before downloading the
+  new calibration cohort: 128 particles from unused exposures per stack.
+  All three downloads are verified; the old inference images remain development
+  data, and the full fresh-calibration application is pending.
+- A completed cubic audit reduces one selected one-degree width from 0.473
+  to 0.252 of no-data width, without useful sign power. A bounded cubic weight
+  fit is running. A separately declared coordinate follow-up will run only if
+  its final surrogate optimization gap remains above 0.005. No successful
+  empirical outcome is inferred from their prerequisite numerical checks.
+- Matched bootstrap and [Fourier Gaussian baselines](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md),
+  including favorable broader-prior results. Positivity/support controls,
+  two-pose ambiguity witnesses, higher-band and nuisance-sensitivity failures
+  remain reported; they do not rescue the current practical limitations.
+
+The [research plan](research/uncertainty/PLAN.md),
+[critical survey](research/uncertainty/SURVEY.md),
+[theory](research/uncertainty/THEORY.md),
+[development log](research/uncertainty/DEVELOPMENT-LOG.md) and
+[reproduction commands](research/uncertainty/REPRODUCE-DEVELOPMENT.md) give the
+full methods, sources, protocols and outcomes. The survey distinguishes curated
+candidates, targeted reading and retrieval; a download is not a full reading.
+
+Exact early frozen models are in the
+[v0.2 uncertainty checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev).
+The immutable [v0.5 development checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.5.0-dev)
+contains 500 verified arrays and its historical 38-page preprint. Newer outcomes
+are committed on this branch; the next array bundle awaits completed studies.
 
 On macOS, installing the optional uncertainty tools requires the FINUFFT build
 configuration in [COMPUTE.md](research/uncertainty/COMPUTE.md) to avoid conflicting

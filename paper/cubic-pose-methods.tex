@@ -184,3 +184,13 @@ paths are checked separately. A fresh rerun of the zero-weight boundary gives
 2.528968168770 versus analytic optimum 2.528968168766 while retaining the
 \texttt{optimal\_inaccurate} warning. Final-weight two-tolerance operator
 checks are declared and pending; none of these tests validates all NUFFT error.
+
+A separate block-plus-low-rank coordinate metric includes noise, nominal-density
+and quartic-penalty curvature, while omitting the shared spectral and pilot
+curvature. Its nonsymmetric forward map requires the transpose map for gradients.
+A compute-only probe at the original weights verifies whitening to
+$3.58\times10^{-13}$ relative error in 22.59 seconds; a small conic comparison
+checks the resulting solver. These are numerical checks, not speedup or
+usefulness findings. A declared single follow-up waits for the original fit and
+runs only if its final relative surrogate gap exceeds 0.005, with the same
+starting weights and iteration budget. Both outcomes will be retained.
