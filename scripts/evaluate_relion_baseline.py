@@ -44,19 +44,24 @@ def model_diagnostics(source):
 
 
 def main():
-    p = argparse.ArgumentParser(); p.add_argument('dataset', choices=['10028','10049','10076']); args = p.parse_args()
-    ds = args.dataset; source = BASE/'relion-reconstruction-v2'/ds
+    p = argparse.ArgumentParser(); p.add_argument('dataset', choices=['10028','10049','10076'])
+    p.add_argument('--continuation', action='store_true', help='Evaluate the separate v3 CPU continuation')
+    args = p.parse_args()
+    ds = args.dataset; source = BASE/('relion-reconstruction-v3' if args.continuation else 'relion-reconstruction-v2')/ds
     fitpath = source/'record.json'; fit = json.loads(fitpath.read_text())
     if not fit.get('complete'): raise RuntimeError('Fit still running; do not evaluate checkpoints adaptively')
-    out = BASE/'relion-evaluation-v1'/ds
+    out = BASE/('relion-evaluation-v2' if args.continuation else 'relion-evaluation-v1')/ds
     if out.exists(): raise RuntimeError('Preserve previous evaluation, including failures')
     out.mkdir(parents=True); path = out/'metrics.json'
-    result = {'complete':False,'dataset':ds,'fit_record_sha256':sha(fitpath),
+    protocols = ['research/uncertainty/RELION-BASELINE-PROTOCOL.md',
+                 'research/uncertainty/RELION-ALIGNMENT-NOTES.md']
+    if args.continuation: protocols.append('research/uncertainty/RELION-CONTINUATION-PROTOCOL.md')
+    result = {'complete':False,'dataset':ds,'fit_record':str(fitpath.relative_to(ROOT)),
+        'fit_record_sha256':sha(fitpath), 'continuation':args.continuation,
         'refinement_converged':fit.get('refinement_converged',False),
         'half_labels_verified':fit.get('half_labels_verified',False),
         'scope':'Development reconstruction comparisons; FSC is not density confidence coverage.',
-        'source_snapshot':source_snapshot(ROOT,Path(__file__),['research/uncertainty/RELION-BASELINE-PROTOCOL.md',
-            'research/uncertainty/RELION-ALIGNMENT-NOTES.md'])}
+        'source_snapshot':source_snapshot(ROOT,Path(__file__),protocols)}
     def save(): path.write_text(json.dumps(result,indent=2)+'\n')
     save(); start = time.perf_counter()
     try:
