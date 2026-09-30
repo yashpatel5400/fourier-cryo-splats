@@ -3,7 +3,7 @@
 Research cutoff: 2026-09-30. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 109 candidates; this is not a full-reading count.
+The current ledger contains 113 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -377,11 +377,23 @@ angular spread from a confidence region with specified coverage. This newly
 added preprint raises the candidate count to 105; the PDF remained inaccessible,
 while the author-uploaded HTML supplied the targeted methods text.
 
-## 15. Additional Gaussian representation and access checks
+## 18. Additional Gaussian representation and access checks
 
 [GaussianEM](GAUSSIANEM-READING-NOTE.md) adds a directly relevant representation
-and validation comparison. The ledger now contains 109 candidates.
+and validation comparison. The ledger now contains 113 candidates.
 [CryoDiff access follow-up](cryodiff-access-followup.json) retrieved publisher API
 metadata, but full text and XML returned access errors; calibration details
 remain unchecked. No corresponding author code repository was identified in
 the targeted search. This is not proof that none exists.
+
+## 19. Latent orientations, collective information and moment validation
+
+The [targeted primary-reading note](MOMENTS-AND-IDENTIFIABILITY-READING.md)
+adds four candidates, bringing the ledger to 113. It separates generic
+identifiability, numerical conditioning, reconstruction and structural testing.
+These are important alternatives to our local-pose analysis. Weak information
+about one image's pose is not an impossibility theorem for reconstruction
+from the image distribution. A useful open question is how to calibrate
+structural tests after moment compression or orientation marginalization while
+controlling experimental acquisition errors. Existing ranking metrics and
+synthetic reconstructions do not automatically answer that question.

@@ -102,3 +102,21 @@ Experimental references use the recorded experimental normalization, rather
 than the unit-norm generators of the known-noise checks.
 \input{tables/pilot-fixed-family}
 \input{tables/fresh-noise-targets}
+
+\paragraph{Known-map pose information diagnostic.}
+For the same 128 particles per stack, we also compute the classical local
+Gaussian information $I_i=J_i^\top J_i$, with analytic constant-cell derivatives,
+supplied simulation noise and a separately known unit-norm map. All five
+coordinates (three degrees, two \AA) are jointly unknown; all 768 matrices
+across the two prescribed maps meet the numerical full-rank threshold.
+For the deposited-map generators, median rotational RMS scales
+$\sqrt{\operatorname{tr}[(I_i^{-1})_{\rm rot,rot}]}$ are 2.443, 9.121 and
+6.214 degrees on 10028, 10049 and 10076; translational RMS scales are
+2.090, 3.216 and 5.089\,\AA. The corresponding pilot scales are
+3.299, 4.737 and 7.576 degrees, and 3.303, 1.856 and 5.105\,\AA.
+All per-particle matrices and quantiles are retained. These are local
+Cram\'er--Rao variance scales under regularity/local unbiasedness, or tangent
+Gaussian covariances, not high-probability pose radii. They concern only the
+radius-twelve band above. Deposited consensus poses used other information
+and higher frequencies; their actual errors cannot be inferred from this
+diagnostic. It does not calibrate the experimental sensitivity budgets.

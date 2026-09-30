@@ -61,7 +61,7 @@ theorems. A cryo-EM-specific contribution must go beyond rebranding them.
 ## Current status (30 September 2026)
 
 The full round-1 Fable rejection remains the latest acceptance assessment.
-The survey contains 109 curated candidates, with targeted reading distinguished
+The survey contains 113 curated candidates, with targeted reading distinguished
 from retrieval. The 10,000-particle audit, expanded Fourier variational baseline,
 three rounds of alternating pose/density ambiguity, and enclosing-domain
 remainder refinements are complete. Their improved numerical bounds have not
@@ -133,14 +133,23 @@ halves as the existing neural comparison. It has explicit per-stage wall limits,
 retains failures, and has no converged baseline result yet. The first initializer
 times out at thirty minutes, with its last saved checkpoint at iteration forty;
 its evaluation records missing paired maps and reports no FSC. The second
-initializer also times out at thirty minutes with iteration forty saved; its
-evaluation likewise reports no paired-map FSC. A separate
+initializer also times out at thirty minutes with iteration forty saved; the
+third reaches the same wall limit with iteration thirty saved. All three
+evaluations retain diagnostics and report no paired-map FSC. A separate
 published continuation protocol resumes wall-limited attempts with eight CPU
 worker threads and larger, bounded time allowances; its first continuation is
 running. Original v2 outcomes remain unchanged. Global map alignment
 is selected only against the old pilot, with all 48 local starts retained; two
 analytic-phantom checks pass. This is preparation for an external reconstruction
 comparison, not a new density-uncertainty guarantee.
+
+The known-map pose-information diagnostic is complete on all 768 particle/map
+cases. Median reference rotational RMS scales are 2.443, 9.121 and 6.214 degrees
+within the radius-twelve simulation band. These are local variance scales,
+not confidence radii or estimates of the deposited full-data pose errors.
+Four additional targeted moment/identifiability readings clarify that weak
+individual pose information does not preclude collective latent-pose recovery.
+The study's negative pose-audit results do not establish that impossibility.
 
 ## Historical status (29 September 2026)
 

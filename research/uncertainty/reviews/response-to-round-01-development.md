@@ -34,6 +34,12 @@ The paper explicitly identifies 10076's heterogeneous population as incompatible
 with treating homogeneity as experimentally established. No end-to-end coverage
 claim follows from the new covariance algebra or deposited-map inclusion.
 
+A separate known-map information calculation retains all 768 particle/map
+cases at the simulation's limited radius-twelve band. Its local variance
+scales do not calibrate pose balls or diagnose deposited full-data alignment
+errors. Targeted moment and orbit-likelihood readings also make clear that
+our negative local-pose audit is not a general reconstruction impossibility.
+
 **R2 — Useful fine-scale inference: still open.** The 1,024-particle/radius-12
 10 A sigma fit is precise at fixed poses but fails sign detection under a
 one-degree/0.5 A audit. An enclosing-cube remainder improves its width to 0.751
@@ -159,7 +165,7 @@ the full Rangan Hessian method or an independently calibrated pose posterior.
 It does not resolve R1, R2 or R7.
 
 - M1: the paper is a public development preprint, not an anonymized submission.
-- M2: the current curated count is 109 candidates; historical counts and targeted
+- M2: the current curated count is 113 candidates; historical counts and targeted
   reading versus retrieval are distinguished.
 - M3: the manuscript uses the source-summary value 0.339 for the strong-ridge
   bootstrap control, alongside all favorable weak-ridge comparisons.
