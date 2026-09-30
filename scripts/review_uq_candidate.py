@@ -188,7 +188,7 @@ REVIEW_RUNNERS = [
     'apply_uq_fresh_noise.py', 'freeze_uq_noise_models.py', 'probe_uq_sign_class.py',
     'run_uq_cubic_weight_probe.py', 'audit_uq_cubic_pose_probe.py', 'probe_uq_higher_remainder.py',
     'check_uq_cubic_design_numerics.py', 'probe_uq_cubic_preconditioner.py', 'run_uq_cubic_coordinate_probe.py',
-    'benchmark_uq_fourier_pose.py', 'profile_relion_abinit.py', 'run_relion_baseline.py',
+    'benchmark_uq_fourier_pose.py', 'profile_relion_abinit.py', 'run_relion_baseline.py', 'evaluate_relion_baseline.py',
     'prepare_uq_splits.py', 'prepare_uq_fresh_cohort.py', 'prepare_uq_noise_cohort.py',
     'download_data.py', 'confirm_uq_continuous.py', 'confirm_uq_continuous_moments.py',
     'evaluate_uq_fresh_prediction.py', 'audit_uq_ctf_sensitivity.py', 'probe_uq_continuous_support.py']
@@ -333,6 +333,7 @@ def main():
              *sorted((ROOT/'results/uncertainty/development/cubic-preconditioner-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/relion-runtime-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('relion-reconstruction-*/*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('relion-evaluation-*/*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/audit-regressions').glob('*.json')),
              ROOT/'results/uncertainty/development/pose-metadata-inventory.json',
              *sorted((ROOT/'results/uncertainty/development/pose-optimized-diagnostics').glob('*/*.json'))]

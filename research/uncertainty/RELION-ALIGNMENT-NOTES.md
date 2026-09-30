@@ -28,3 +28,11 @@ The independent check renders an asymmetric multi-Gaussian phantom twice from
 analytic coordinates, with a known rotation, translation, and each handedness.
 It does not generate test inputs with the interpolation being tested. This is
 an implementation check, not an experimental alignment validation.
+
+The comparator checkpoints remain the previously frozen neural epochs
+60/50/100 for 10028/10049/10076, and the previously frozen Gaussian/voxel half
+fits. Their hashes are checked against the existing prediction-study model lock.
+No new epoch selection is performed. The native reference fields match the
+particle fields; the evaluator verifies this before resampling. Unconverged
+last paired refinement maps may be evaluated descriptively, with that status
+retained; an initializer without paired refinement maps yields a skipped record.

@@ -42,7 +42,7 @@ def main():
                   'pose-optimized-diagnostics','noise-metric-design','directional-noise-audit','joint-bias-*','two-pose-modulus*',
                   'ball-remainder-probe*','expanded-cube-remainder-probe*',
                   'pose-optimized-ambiguity*','pose-adaptive-*','pilot-selected-*','sign-class-probe',
-                  'higher-order-remainder-probe','cubic-pose-probe','cubic-weight-probe','cubic-coordinate-probe']
+                  'higher-order-remainder-probe','cubic-pose-probe','cubic-weight-probe','cubic-coordinate-probe','relion-evaluation-*']
         additions=set()
         for pattern in patterns:
             for folder in development.glob(pattern):
@@ -86,7 +86,7 @@ def main():
     manifest = {'version': args.version, 'archive': archive.name, 'bytes': archive.stat().st_size,
                 'sha256': sha(archive), 'files': entries,
                 'source_git_head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-                'scope': 'Exact selected estimator weights, nonlinear stress poses and frozen prediction errors; no particle pixels or third-party PDFs.',
+                'scope': 'Exact selected estimator weights, nonlinear stress poses frozen prediction errors and derived reconstruction comparison maps; no particle pixels or third-party PDFs.',
                 'required_prior_checkpoint': 'https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev',
                 'reproduction': 'Extract at repository root; fetch original particle selections/maps using recorded protocols.'}
     if args.include_post_review:
