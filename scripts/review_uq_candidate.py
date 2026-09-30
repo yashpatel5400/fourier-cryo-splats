@@ -415,6 +415,7 @@ def main():
              *sorted((ROOT/'results/uncertainty/development/joint-enriched-experimental-v1').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('reference-registered-comparison-*/*.json')),
              ROOT/'paper/figures/locked-target-locations.json',
+             ROOT/'provenance/uncertainty/exposure-block-metadata-feasibility.json',
              ROOT/'paper/figures/cryolike-comparison.json',
              *sorted((ROOT/'results/uncertainty/development/cubic-preconditioner-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/relion-runtime-probe').glob('*.json')),
