@@ -36,8 +36,8 @@ Current evidence includes:
 - A completed cubic audit reduces one selected one-degree width from 0.473
   to 0.252 of no-data width, without useful sign power. Optimized cubic weights
   reduce this to 0.180, with minimum reference sign power only 0.00654 and a
-  large remaining optimization gap. A coordinate follow-up and a separately
-  declared reduced convex design are being evaluated; no improvement is assumed.
+  large remaining optimization gap. The coordinate follow-up completed with a
+  worse width of 0.223; the separately declared reduced convex design is running.
 - Matched bootstrap and [Fourier Gaussian baselines](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md),
   including favorable broader-prior results. A completed
   [local Gaussian pose comparison](research/uncertainty/FOURIER-POSE-BASELINE-RESULTS.md)

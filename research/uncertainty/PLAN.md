@@ -105,8 +105,10 @@ error. Focused Fable audits support the real-arithmetic argument but do not
 constitute an acceptance review.
 A separate pose-penalty coordinate metric passed its compute-only probe and a
 small independent conic optimization check. The original gap triggers the
-previously declared empirical follow-up using that metric; it is now running
-from the same original weights, with no asserted convergence improvement.
+previously declared empirical follow-up using that metric. It is complete:
+relative width 0.222993 and minimum reference sign power 7.73395e-7, worse
+than the original fit. Its 0.976593 surrogate gap and iteration limit preclude
+a convergence claim. The original outcome and all follow-up checkpoints remain.
 
 A separate reduced convex design is now specified: twelve Fourier-shell
 restrictions of the original fixed-pose weights plus the original optimized
@@ -114,9 +116,12 @@ cubic weights form a thirteen-column span. Classical spectral supporting cuts
 and small conic masters avoid a large ill-conditioned line search. An independent
 dense conic check agrees within 5.2e-8 in a two-particle test; 204 tests pass,
 including the inherited intentional conic warning. No empirical reduced-design
-result exists yet. Its declared fit is scheduled after the coordinate run ends;
+result exists yet. Its declared fit is now running after the coordinate run ended;
 the latter's outcomes do not choose the new span. A fresh spectral upper audit
 remains required, and reduced numerical stopping is not full-space optimality.
+Its first queued startup stopped at the source-publication guard before fitting;
+that log is archived, and the unchanged protocol restarted after the unrelated
+new module was committed.
 
 The local Gaussian pose-marginalization baseline is complete: 48 solves across
 the same twelve targets and two broader priors, with 384 analytic conditional
