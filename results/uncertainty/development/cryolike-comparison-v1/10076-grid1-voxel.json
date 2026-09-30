@@ -1,0 +1,997 @@
+{
+  "complete": true,
+  "dataset": "10076",
+  "method": "voxel",
+  "viewing_distance": 0.2,
+  "source_snapshot": {
+    "git_head_at_snapshot": "e3ed24a2c687a51a291af4ccd0ce157d7d0eb56b",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/benchmark_uq_cryolike.py": {
+        "sha256": "3006dc020830b3cafbb0f765e24601cbeb09671472c8d7d176351cd0565a1f7f",
+        "snapshot": "provenance/uncertainty/source-snapshots/3006dc020830b3cafbb0f765e24601cbeb09671472c8d7d176351cd0565a1f7f.txt"
+      },
+      "research/uncertainty/CRYOLIKE-BASELINE-PROTOCOL.md": {
+        "sha256": "28de27defdec734227a898a4f99f8360d6a58aba4662797c5ec09d1f1bd0be2d",
+        "snapshot": "provenance/uncertainty/source-snapshots/28de27defdec734227a898a4f99f8360d6a58aba4662797c5ec09d1f1bd0be2d.txt"
+      },
+      "src/fourier_splats/uq_cryolike_adapter.py": {
+        "sha256": "fd7484f0b550f1de0c7cec28e52e2bdc755ae61f0ea6d8795a1df1aea5b9f3d4",
+        "snapshot": "provenance/uncertainty/source-snapshots/fd7484f0b550f1de0c7cec28e52e2bdc755ae61f0ea6d8795a1df1aea5b9f3d4.txt"
+      },
+      "tests/test_uq_cryolike_adapter.py": {
+        "sha256": "6ad2f843e05bfeaee46af15a7841cfa861f54066ae2ad3e7bd596a6eb79aa984",
+        "snapshot": "provenance/uncertainty/source-snapshots/6ad2f843e05bfeaee46af15a7841cfa861f54066ae2ad3e7bd596a6eb79aa984.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_ball_remainder.py": {
+        "sha256": "76444922eeccb57368130aec2f9b6075e8e1bcf2c5bdc4270f9df7afdf706865",
+        "snapshot": "provenance/uncertainty/source-snapshots/76444922eeccb57368130aec2f9b6075e8e1bcf2c5bdc4270f9df7afdf706865.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_block_preconditioner.py": {
+        "sha256": "4550882d170334e5fb9e0f793eb211241700f9cf43170af10811e18b6a68a0eb",
+        "snapshot": "provenance/uncertainty/source-snapshots/4550882d170334e5fb9e0f793eb211241700f9cf43170af10811e18b6a68a0eb.txt"
+      },
+      "src/fourier_splats/uq_cell_moments.py": {
+        "sha256": "52750091417da8c8f4b0d2a1a15055a2be66306a0efef57cd21362d737fd3532",
+        "snapshot": "provenance/uncertainty/source-snapshots/52750091417da8c8f4b0d2a1a15055a2be66306a0efef57cd21362d737fd3532.txt"
+      },
+      "src/fourier_splats/uq_cell_pose_pair.py": {
+        "sha256": "b706dfc0c7723880a4617463c21b084de49e82397c84586d6d3cc57818f82951",
+        "snapshot": "provenance/uncertainty/source-snapshots/b706dfc0c7723880a4617463c21b084de49e82397c84586d6d3cc57818f82951.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_mixture.py": {
+        "sha256": "948be418bc40fe32ff8701c01b5b8d7d04b87bb0260f0ae120ec7143ff913b9c",
+        "snapshot": "provenance/uncertainty/source-snapshots/948be418bc40fe32ff8701c01b5b8d7d04b87bb0260f0ae120ec7143ff913b9c.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_ctf_uncertainty.py": {
+        "sha256": "17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e",
+        "snapshot": "provenance/uncertainty/source-snapshots/17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e.txt"
+      },
+      "src/fourier_splats/uq_cubic_coordinate_solver.py": {
+        "sha256": "d670adadc476def9ffd65ee9f4c18ef055b1ab671b31d190f551bb1718b236ab",
+        "snapshot": "provenance/uncertainty/source-snapshots/d670adadc476def9ffd65ee9f4c18ef055b1ab671b31d190f551bb1718b236ab.txt"
+      },
+      "src/fourier_splats/uq_cubic_design.py": {
+        "sha256": "2f98cca0577f6b1acd88a814e3d882814d260185cb27a79c61dc9ba0231b2c85",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f98cca0577f6b1acd88a814e3d882814d260185cb27a79c61dc9ba0231b2c85.txt"
+      },
+      "src/fourier_splats/uq_cubic_design_api.py": {
+        "sha256": "9e150e9853f2d3c0454e1b357891017922db2064dd1cf49d38bd51a4e43894fd",
+        "snapshot": "provenance/uncertainty/source-snapshots/9e150e9853f2d3c0454e1b357891017922db2064dd1cf49d38bd51a4e43894fd.txt"
+      },
+      "src/fourier_splats/uq_cubic_optimization.py": {
+        "sha256": "b9117c5cb4d32a3ad9b75197c532d7199c7d4a7557c7c49ff08a35e46b189688",
+        "snapshot": "provenance/uncertainty/source-snapshots/b9117c5cb4d32a3ad9b75197c532d7199c7d4a7557c7c49ff08a35e46b189688.txt"
+      },
+      "src/fourier_splats/uq_cubic_pose.py": {
+        "sha256": "960fabebcff8792320f7e07e5ab2ca6dab73451eb304a08b763e187991f16be1",
+        "snapshot": "provenance/uncertainty/source-snapshots/960fabebcff8792320f7e07e5ab2ca6dab73451eb304a08b763e187991f16be1.txt"
+      },
+      "src/fourier_splats/uq_cubic_subspace.py": {
+        "sha256": "303f0018b65c41bf242c0e98fdc0df8aaa786b98b644f0fe4f58f501b8bd2442",
+        "snapshot": "provenance/uncertainty/source-snapshots/303f0018b65c41bf242c0e98fdc0df8aaa786b98b644f0fe4f58f501b8bd2442.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_dual_mixture.py": {
+        "sha256": "1bee7c71afe2fb2cc2a85c985cb0fc41ecdb992df4a6fa066a0ac407dfab75c8",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bee7c71afe2fb2cc2a85c985cb0fc41ecdb992df4a6fa066a0ac407dfab75c8.txt"
+      },
+      "src/fourier_splats/uq_fourier_pose_baseline.py": {
+        "sha256": "7eebc3da5bffc68704f64ae97b6f7c2f0c82d76819ac97071be1c2590a11fa60",
+        "snapshot": "provenance/uncertainty/source-snapshots/7eebc3da5bffc68704f64ae97b6f7c2f0c82d76819ac97071be1c2590a11fa60.txt"
+      },
+      "src/fourier_splats/uq_fourier_variational.py": {
+        "sha256": "f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668",
+        "snapshot": "provenance/uncertainty/source-snapshots/f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668.txt"
+      },
+      "src/fourier_splats/uq_group_noise.py": {
+        "sha256": "1688b6af4f92f92ba8cb279a727a63fa764ea11fc1b986374dd44dd82e541b8c",
+        "snapshot": "provenance/uncertainty/source-snapshots/1688b6af4f92f92ba8cb279a727a63fa764ea11fc1b986374dd44dd82e541b8c.txt"
+      },
+      "src/fourier_splats/uq_higher_remainder.py": {
+        "sha256": "566bcc70dd9dd4efcd1ec6f7c2d1e5cc2d990a41088f9df936cca6091014064c",
+        "snapshot": "provenance/uncertainty/source-snapshots/566bcc70dd9dd4efcd1ec6f7c2d1e5cc2d990a41088f9df936cca6091014064c.txt"
+      },
+      "src/fourier_splats/uq_intervals.py": {
+        "sha256": "559096dddfa91fbb5f3d50d57e06f08b47806889002a7ef00e6530ee28762113",
+        "snapshot": "provenance/uncertainty/source-snapshots/559096dddfa91fbb5f3d50d57e06f08b47806889002a7ef00e6530ee28762113.txt"
+      },
+      "src/fourier_splats/uq_joint_bias.py": {
+        "sha256": "a580d40a4d23b565b4ffeee26a68bdc74324bfde2025a7b478a169469de87f23",
+        "snapshot": "provenance/uncertainty/source-snapshots/a580d40a4d23b565b4ffeee26a68bdc74324bfde2025a7b478a169469de87f23.txt"
+      },
+      "src/fourier_splats/uq_map_alignment.py": {
+        "sha256": "f3672ec02952d8367ab71cd5dab2ead4b3f331479e25d66e6941e0824fb75679",
+        "snapshot": "provenance/uncertainty/source-snapshots/f3672ec02952d8367ab71cd5dab2ead4b3f331479e25d66e6941e0824fb75679.txt"
+      },
+      "src/fourier_splats/uq_mixture_anchor.py": {
+        "sha256": "38fe825edfcd6a3a01a0aba683e6cd847bcc8b2570292deacbcf33db12f6eccc",
+        "snapshot": "provenance/uncertainty/source-snapshots/38fe825edfcd6a3a01a0aba683e6cd847bcc8b2570292deacbcf33db12f6eccc.txt"
+      },
+      "src/fourier_splats/uq_mixture_curvature.py": {
+        "sha256": "18c830f7f97f2f7351e318846a043f8e10c6ebaf657eaddf330228febf1269d7",
+        "snapshot": "provenance/uncertainty/source-snapshots/18c830f7f97f2f7351e318846a043f8e10c6ebaf657eaddf330228febf1269d7.txt"
+      },
+      "src/fourier_splats/uq_mixture_fast.py": {
+        "sha256": "4a88f0bfea4f1a909955a4d49c054d8957df871103736316fa219d3c1c5dd0ac",
+        "snapshot": "provenance/uncertainty/source-snapshots/4a88f0bfea4f1a909955a4d49c054d8957df871103736316fa219d3c1c5dd0ac.txt"
+      },
+      "src/fourier_splats/uq_mixture_refinement.py": {
+        "sha256": "2b5eeee4d4d6ecc0de5dbe28a699e299a78ef140209253d38e6b7e40c43d9dbc",
+        "snapshot": "provenance/uncertainty/source-snapshots/2b5eeee4d4d6ecc0de5dbe28a699e299a78ef140209253d38e6b7e40c43d9dbc.txt"
+      },
+      "src/fourier_splats/uq_mixture_scale.py": {
+        "sha256": "7ff983aa37fa48ea3e91b3db8c65d705b91a40f8cf6269754f859222baaa03df",
+        "snapshot": "provenance/uncertainty/source-snapshots/7ff983aa37fa48ea3e91b3db8c65d705b91a40f8cf6269754f859222baaa03df.txt"
+      },
+      "src/fourier_splats/uq_mixture_validation.py": {
+        "sha256": "acfb0ff094d2ebd24d6002c231a8c601164aba47160c27baa7c59158212f2199",
+        "snapshot": "provenance/uncertainty/source-snapshots/acfb0ff094d2ebd24d6002c231a8c601164aba47160c27baa7c59158212f2199.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_noise_calibration.py": {
+        "sha256": "fe682c20ad84439ee8ea53db70756fd6bfc5f3c2bb86a9944c0e7aabbc80ac88",
+        "snapshot": "provenance/uncertainty/source-snapshots/fe682c20ad84439ee8ea53db70756fd6bfc5f3c2bb86a9944c0e7aabbc80ac88.txt"
+      },
+      "src/fourier_splats/uq_noise_design.py": {
+        "sha256": "0cd9be354e54be2db44d60b48155c83db386308efcbac9030f417b91edee2f34",
+        "snapshot": "provenance/uncertainty/source-snapshots/0cd9be354e54be2db44d60b48155c83db386308efcbac9030f417b91edee2f34.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_pilot_targets.py": {
+        "sha256": "27315b6e53d278d400875a73e647ddff1fde3c2fe306527c881ee8820199aa67",
+        "snapshot": "provenance/uncertainty/source-snapshots/27315b6e53d278d400875a73e647ddff1fde3c2fe306527c881ee8820199aa67.txt"
+      },
+      "src/fourier_splats/uq_planned_transforms.py": {
+        "sha256": "4e3d2b1a36306e8ade316c639341708714978071efc9fc9b8867346dd0e3fa25",
+        "snapshot": "provenance/uncertainty/source-snapshots/4e3d2b1a36306e8ade316c639341708714978071efc9fc9b8867346dd0e3fa25.txt"
+      },
+      "src/fourier_splats/uq_polynomial_trace.py": {
+        "sha256": "99629830a06e74b672350894794b286442af422b8f36b6ff3ac184b2e1976b0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/99629830a06e74b672350894794b286442af422b8f36b6ff3ac184b2e1976b0e.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_pose_exchange.py": {
+        "sha256": "d38df2b6c49691327012c1311f11798c747bf93c708cff358a738d8efe57b934",
+        "snapshot": "provenance/uncertainty/source-snapshots/d38df2b6c49691327012c1311f11798c747bf93c708cff358a738d8efe57b934.txt"
+      },
+      "src/fourier_splats/uq_pose_operator.py": {
+        "sha256": "bef8b42a4e9b8ff18475add7646785e19f4274620c1ec2a6ee87ed36f351ef1c",
+        "snapshot": "provenance/uncertainty/source-snapshots/bef8b42a4e9b8ff18475add7646785e19f4274620c1ec2a6ee87ed36f351ef1c.txt"
+      },
+      "src/fourier_splats/uq_pose_optimization.py": {
+        "sha256": "b9bfbe18c40dd80e649f80ae684085dfefc8df8201260697eb219858a9faadcf",
+        "snapshot": "provenance/uncertainty/source-snapshots/b9bfbe18c40dd80e649f80ae684085dfefc8df8201260697eb219858a9faadcf.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_random_spectral.py": {
+        "sha256": "55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e",
+        "snapshot": "provenance/uncertainty/source-snapshots/55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_shift_only.py": {
+        "sha256": "f3522f7d5876752ceed1b617a6323730ecc5ae63e8a1fe9b0809adba96b892ee",
+        "snapshot": "provenance/uncertainty/source-snapshots/f3522f7d5876752ceed1b617a6323730ecc5ae63e8a1fe9b0809adba96b892ee.txt"
+      },
+      "src/fourier_splats/uq_sign_class.py": {
+        "sha256": "96a75825463085f1c475cda8c16224ebf2117faa7cb78c50437de725c17eefac",
+        "snapshot": "provenance/uncertainty/source-snapshots/96a75825463085f1c475cda8c16224ebf2117faa7cb78c50437de725c17eefac.txt"
+      },
+      "src/fourier_splats/uq_sobolev_penalty.py": {
+        "sha256": "c96acb96a5e7da0ed502fd8aea9c4f6bec8326d2703bbbb7ffe087b76681e044",
+        "snapshot": "provenance/uncertainty/source-snapshots/c96acb96a5e7da0ed502fd8aea9c4f6bec8326d2703bbbb7ffe087b76681e044.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      },
+      "src/fourier_splats/uq_support.py": {
+        "sha256": "771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a",
+        "snapshot": "provenance/uncertainty/source-snapshots/771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a.txt"
+      },
+      "src/fourier_splats/uq_target_projection.py": {
+        "sha256": "d0c88fcd3b813747a606b1999d525a9a2a52bd57e9788e067dde83729d33e6e5",
+        "snapshot": "provenance/uncertainty/source-snapshots/d0c88fcd3b813747a606b1999d525a9a2a52bd57e9788e067dde83729d33e6e5.txt"
+      },
+      "src/fourier_splats/uq_two_pose_modulus.py": {
+        "sha256": "d768bcfa0c75d8c8ae5f1b45bc347697ff9dd098a77f1a63cc87b7e0d6bfb71d",
+        "snapshot": "provenance/uncertainty/source-snapshots/d768bcfa0c75d8c8ae5f1b45bc347697ff9dd098a77f1a63cc87b7e0d6bfb71d.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "author_source_sha256": "8b12a57d68a54e9f9a076f7aabcaffd91ab980b7ec746ae4c389b725bcabcb05",
+  "author_commit": "a413ffd265e2815c9f81c492a3d8bfedaf35d737",
+  "input_hashes": {
+    "research/uncertainty/confirmation/prediction-v1/locked-models.json": "54d2157ae45e416aa4041c562442603effaee2a26c826fdf4392fed2686f9800",
+    "research/uncertainty/confirmation/prediction-v1/10076-selection.csv": "cbbefde6354a6a23fc6e533a28fa70490e7c1f210dd818cf63bd3ac5eb9b9760",
+    "data/uncertainty/confirmation/prediction-v1/10076/images.npy": "779bd6e0572088309e084fc1d0be08857756b7bcd1031400b0b08aaa477d836d",
+    "data/uncertainty/confirmation/prediction-v1/10076/metadata.npz": "40d2d2422ad0509b3f907ba9a73a60e25db5921b6b7103062aa05a1372214fd7",
+    "data/uncertainty/confirmation/prediction-v1/10076/indices.npy": "fd3763eb5f2709d61b61e86978b2ecc5316e88fe55240b11a20d5d6950d6b9a7",
+    "data/uncertainty/confirmation/prediction-v1/10076/manifest.json": "ce50e5dc2e67e2a030d5a60a406f62ddce74a46a7ee221721497254da36a03d2",
+    "results/uncertainty/development/group-reconstruction/10076/voxel-half0.npz": "7607c4a547a89e41c1f8f6b9b7430ec76c65d6970579a0c50a1d238c1779a615",
+    "results/uncertainty/development/group-reconstruction/10076/voxel-half1.npz": "578924a218030ce3fb718985f625fadbc516e3cdeb5caf0e4b59a0b0eacea696"
+  },
+  "groups": [
+    "1006",
+    "1007",
+    "1008",
+    "1009",
+    "1010",
+    "1050",
+    "1051",
+    "1052",
+    "1059",
+    "1060",
+    "1091",
+    "1092",
+    "1093",
+    "1115",
+    "1116",
+    "115",
+    "116",
+    "117",
+    "1230",
+    "1231",
+    "1243",
+    "1244",
+    "1257",
+    "1258",
+    "1314",
+    "1315",
+    "1316",
+    "1321",
+    "1337",
+    "1347",
+    "1348",
+    "1350",
+    "1376",
+    "1377",
+    "1437",
+    "1450",
+    "1451",
+    "151",
+    "1519",
+    "152",
+    "1522",
+    "1533",
+    "1534",
+    "1544",
+    "1585",
+    "1586",
+    "1593",
+    "1594",
+    "160",
+    "1609",
+    "161",
+    "1610",
+    "162",
+    "1637",
+    "1648",
+    "1649",
+    "1652",
+    "1739",
+    "1740",
+    "1746",
+    "1747",
+    "1765",
+    "1766",
+    "1775",
+    "1776",
+    "1797",
+    "1798",
+    "1799",
+    "1805",
+    "1806",
+    "1828",
+    "1829",
+    "1830",
+    "1831",
+    "1866",
+    "1867",
+    "1868",
+    "1890",
+    "1891",
+    "1918",
+    "1919",
+    "1920",
+    "1958",
+    "1959",
+    "197",
+    "198",
+    "1986",
+    "199",
+    "1990",
+    "1991",
+    "200",
+    "2000",
+    "2001",
+    "2050",
+    "2051",
+    "23",
+    "242",
+    "243",
+    "266",
+    "267",
+    "278",
+    "279",
+    "281",
+    "330",
+    "331",
+    "374",
+    "375",
+    "393",
+    "394",
+    "395",
+    "408",
+    "409",
+    "47",
+    "479",
+    "48",
+    "480",
+    "481",
+    "483",
+    "486",
+    "492",
+    "504",
+    "505",
+    "516",
+    "534",
+    "54",
+    "549",
+    "550",
+    "553"
+  ],
+  "positions": [
+    2553,
+    2578,
+    2585,
+    2588,
+    2599,
+    2602,
+    2607,
+    2614,
+    2615,
+    2623,
+    2646,
+    2650,
+    2683,
+    2686,
+    2697,
+    284,
+    288,
+    318,
+    2719,
+    2755,
+    2760,
+    2777,
+    2793,
+    2828,
+    2837,
+    2850,
+    2854,
+    2860,
+    2862,
+    2905,
+    2938,
+    2945,
+    2990,
+    3010,
+    3015,
+    3062,
+    3092,
+    330,
+    3102,
+    378,
+    3144,
+    3190,
+    3214,
+    3233,
+    3277,
+    3281,
+    3319,
+    3352,
+    382,
+    3366,
+    400,
+    3380,
+    428,
+    3410,
+    3427,
+    3451,
+    3475,
+    3507,
+    3531,
+    3538,
+    3559,
+    3577,
+    3590,
+    3622,
+    3633,
+    3668,
+    3676,
+    3693,
+    3697,
+    3705,
+    3729,
+    3740,
+    3763,
+    3795,
+    3802,
+    3804,
+    3821,
+    3830,
+    3843,
+    3850,
+    3852,
+    3875,
+    3888,
+    3905,
+    432,
+    455,
+    3931,
+    479,
+    3967,
+    3987,
+    503,
+    4008,
+    4020,
+    4052,
+    4090,
+    0,
+    513,
+    550,
+    560,
+    586,
+    587,
+    619,
+    636,
+    682,
+    715,
+    721,
+    722,
+    769,
+    771,
+    788,
+    803,
+    817,
+    27,
+    841,
+    36,
+    867,
+    943,
+    959,
+    1009,
+    1060,
+    1108,
+    1114,
+    1157,
+    1209,
+    46,
+    1248,
+    1263,
+    1293
+  ],
+  "indices": [
+    70208,
+    70260,
+    70337,
+    70346,
+    70393,
+    72583,
+    72606,
+    72638,
+    73024,
+    73040,
+    74625,
+    74634,
+    74684,
+    76161,
+    76185,
+    8704,
+    8709,
+    8751,
+    82560,
+    82616,
+    83393,
+    83431,
+    84160,
+    84212,
+    87552,
+    87574,
+    87591,
+    87870,
+    88640,
+    89216,
+    89270,
+    89409,
+    91201,
+    91256,
+    94849,
+    95744,
+    95791,
+    11137,
+    100299,
+    11193,
+    100480,
+    101184,
+    101216,
+    101760,
+    104256,
+    104267,
+    104769,
+    104811,
+    11712,
+    105792,
+    11735,
+    105808,
+    11771,
+    107456,
+    108161,
+    108192,
+    108480,
+    113730,
+    113774,
+    114177,
+    114211,
+    115458,
+    115475,
+    116032,
+    116048,
+    117187,
+    117199,
+    117240,
+    117575,
+    117592,
+    118528,
+    118546,
+    118589,
+    118642,
+    120064,
+    120067,
+    120108,
+    120963,
+    121005,
+    121985,
+    121991,
+    122033,
+    124483,
+    124506,
+    14208,
+    14241,
+    126336,
+    14336,
+    126592,
+    126622,
+    14374,
+    127233,
+    127248,
+    130496,
+    130554,
+    1793,
+    17793,
+    17842,
+    19650,
+    19709,
+    20800,
+    20841,
+    21056,
+    24512,
+    24565,
+    27264,
+    27265,
+    28352,
+    28356,
+    28391,
+    29249,
+    29275,
+    3201,
+    33960,
+    3239,
+    34056,
+    34155,
+    34368,
+    34624,
+    35136,
+    36288,
+    36295,
+    37312,
+    39040,
+    3840,
+    40385,
+    40411,
+    40704
+  ],
+  "particles": 128,
+  "field_A": 419.20001220703125,
+  "pixel_size_A": 6.550000190734863,
+  "frequency_radius": 12,
+  "templates": 470,
+  "inplanes": 128,
+  "radial_shells": 25,
+  "max_shift_pixels_per_axis": 2.0,
+  "shift_points_per_axis": 5,
+  "progress": [
+    {
+      "template_end": 8,
+      "image_end": 128,
+      "seconds": 0.23173358396161348
+    },
+    {
+      "template_end": 16,
+      "image_end": 128,
+      "seconds": 0.46216783398995176
+    },
+    {
+      "template_end": 24,
+      "image_end": 128,
+      "seconds": 0.7216025000088848
+    },
+    {
+      "template_end": 32,
+      "image_end": 128,
+      "seconds": 0.9671717089950107
+    },
+    {
+      "template_end": 40,
+      "image_end": 128,
+      "seconds": 1.203860999958124
+    },
+    {
+      "template_end": 48,
+      "image_end": 128,
+      "seconds": 1.4756477089831606
+    },
+    {
+      "template_end": 56,
+      "image_end": 128,
+      "seconds": 1.7253201249986887
+    },
+    {
+      "template_end": 64,
+      "image_end": 128,
+      "seconds": 2.001574249996338
+    },
+    {
+      "template_end": 72,
+      "image_end": 128,
+      "seconds": 2.2219716669642366
+    },
+    {
+      "template_end": 80,
+      "image_end": 128,
+      "seconds": 2.4819744169944897
+    },
+    {
+      "template_end": 88,
+      "image_end": 128,
+      "seconds": 2.7215161669882946
+    },
+    {
+      "template_end": 96,
+      "image_end": 128,
+      "seconds": 2.9683650420047343
+    },
+    {
+      "template_end": 104,
+      "image_end": 128,
+      "seconds": 3.2113707090029493
+    },
+    {
+      "template_end": 112,
+      "image_end": 128,
+      "seconds": 3.451741291966755
+    },
+    {
+      "template_end": 120,
+      "image_end": 128,
+      "seconds": 3.7044354589888826
+    },
+    {
+      "template_end": 128,
+      "image_end": 128,
+      "seconds": 3.962059416982811
+    },
+    {
+      "template_end": 136,
+      "image_end": 128,
+      "seconds": 4.201733458961826
+    },
+    {
+      "template_end": 144,
+      "image_end": 128,
+      "seconds": 4.464255917002447
+    },
+    {
+      "template_end": 152,
+      "image_end": 128,
+      "seconds": 4.7091592499637045
+    },
+    {
+      "template_end": 160,
+      "image_end": 128,
+      "seconds": 4.955814541957807
+    },
+    {
+      "template_end": 168,
+      "image_end": 128,
+      "seconds": 5.200688167009503
+    },
+    {
+      "template_end": 176,
+      "image_end": 128,
+      "seconds": 5.432672333961818
+    },
+    {
+      "template_end": 184,
+      "image_end": 128,
+      "seconds": 5.687139916990418
+    },
+    {
+      "template_end": 192,
+      "image_end": 128,
+      "seconds": 5.952767291979399
+    },
+    {
+      "template_end": 200,
+      "image_end": 128,
+      "seconds": 6.192449708993081
+    },
+    {
+      "template_end": 208,
+      "image_end": 128,
+      "seconds": 6.4327109169680625
+    },
+    {
+      "template_end": 216,
+      "image_end": 128,
+      "seconds": 6.686590166995302
+    },
+    {
+      "template_end": 224,
+      "image_end": 128,
+      "seconds": 6.934999249991961
+    },
+    {
+      "template_end": 232,
+      "image_end": 128,
+      "seconds": 7.187573749979492
+    },
+    {
+      "template_end": 240,
+      "image_end": 128,
+      "seconds": 7.415394708979875
+    },
+    {
+      "template_end": 248,
+      "image_end": 128,
+      "seconds": 7.6827973339823075
+    },
+    {
+      "template_end": 256,
+      "image_end": 128,
+      "seconds": 7.9600375419831835
+    },
+    {
+      "template_end": 264,
+      "image_end": 128,
+      "seconds": 8.21066995896399
+    },
+    {
+      "template_end": 272,
+      "image_end": 128,
+      "seconds": 8.436772624962032
+    },
+    {
+      "template_end": 280,
+      "image_end": 128,
+      "seconds": 8.641512917005457
+    },
+    {
+      "template_end": 288,
+      "image_end": 128,
+      "seconds": 8.890231249970384
+    },
+    {
+      "template_end": 296,
+      "image_end": 128,
+      "seconds": 9.141194791998714
+    },
+    {
+      "template_end": 304,
+      "image_end": 128,
+      "seconds": 9.392865624977276
+    },
+    {
+      "template_end": 312,
+      "image_end": 128,
+      "seconds": 9.637299124966376
+    },
+    {
+      "template_end": 320,
+      "image_end": 128,
+      "seconds": 9.87731149996398
+    },
+    {
+      "template_end": 328,
+      "image_end": 128,
+      "seconds": 10.117611249967013
+    },
+    {
+      "template_end": 336,
+      "image_end": 128,
+      "seconds": 10.347251333994791
+    },
+    {
+      "template_end": 344,
+      "image_end": 128,
+      "seconds": 10.624764500011224
+    },
+    {
+      "template_end": 352,
+      "image_end": 128,
+      "seconds": 10.875457583984826
+    },
+    {
+      "template_end": 360,
+      "image_end": 128,
+      "seconds": 11.11732470896095
+    },
+    {
+      "template_end": 368,
+      "image_end": 128,
+      "seconds": 11.3625936669996
+    },
+    {
+      "template_end": 376,
+      "image_end": 128,
+      "seconds": 11.61660337500507
+    },
+    {
+      "template_end": 384,
+      "image_end": 128,
+      "seconds": 11.876771749986801
+    },
+    {
+      "template_end": 392,
+      "image_end": 128,
+      "seconds": 12.112627416965552
+    },
+    {
+      "template_end": 400,
+      "image_end": 128,
+      "seconds": 12.352522666973528
+    },
+    {
+      "template_end": 408,
+      "image_end": 128,
+      "seconds": 12.600599791971035
+    },
+    {
+      "template_end": 416,
+      "image_end": 128,
+      "seconds": 12.841296624974348
+    },
+    {
+      "template_end": 424,
+      "image_end": 128,
+      "seconds": 13.082866084005218
+    },
+    {
+      "template_end": 432,
+      "image_end": 128,
+      "seconds": 13.316245249996427
+    },
+    {
+      "template_end": 440,
+      "image_end": 128,
+      "seconds": 13.547711333958432
+    },
+    {
+      "template_end": 448,
+      "image_end": 128,
+      "seconds": 13.78709987498587
+    },
+    {
+      "template_end": 456,
+      "image_end": 128,
+      "seconds": 14.024674042011611
+    },
+    {
+      "template_end": 464,
+      "image_end": 128,
+      "seconds": 14.274588959000539
+    },
+    {
+      "template_end": 470,
+      "image_end": 128,
+      "seconds": 14.47587433399167
+    }
+  ],
+  "scope": "Original CryoLike normalized structural scores on reused experimental particles; no e-value or density coverage.",
+  "template_setup_seconds": 60.84370566700818,
+  "scientific_run_complete": true,
+  "arrays_file": "results/uncertainty/development/cryolike-comparison-v1/10076-grid1-voxel-arrays.npz",
+  "arrays_sha256": "a71728820f80c1b37966256e5cc5c9faa5289908045ff75dbd6a4ebe042fcc81",
+  "seconds": 75.33823629200924,
+  "means": {
+    "cross_correlation_M": 0.31975009886331907,
+    "integrated_log_score": 11423.261062534537
+  },
+  "peak_resident_bytes": 1514831872
+}
