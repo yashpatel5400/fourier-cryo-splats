@@ -8,6 +8,7 @@ import re
 import time
 import mrcfile
 import numpy as np
+import starfile
 from fourier_splats.fsc import fsc, resolution
 from fourier_splats.physics import fft_volume_center, volume_from_fourier
 from fourier_splats.uq_data import VoxelReference
@@ -20,6 +21,26 @@ BASE = ROOT/'results/uncertainty/development'
 
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+
+
+def model_diagnostics(source):
+    """Retain every saved model's local diagnostics, including failed starts."""
+    rows = []
+    for file in sorted(source.glob('*_model.star')):
+        blocks = starfile.read(file, always_dict=True)
+        general = blocks.get('model_general', {})
+        classes = blocks.get('model_classes')
+        fields = ['rlnClassDistribution','rlnAccuracyRotations',
+                  'rlnAccuracyTranslationsAngst','rlnEstimatedResolution',
+                  'rlnOverallFourierCompleteness']
+        rows.append({'file':file.name, 'sha256':sha(file),
+            'general':{k:general.get(k) for k in ['rlnCurrentResolution',
+                'rlnAveragePmax','rlnSigmaOffsetsAngst','rlnOriginalImageSize','rlnPixelSize']},
+            'classes': [] if classes is None else classes.reindex(columns=fields).replace({np.nan:None}).to_dict('records')})
+    return {'records':rows,
+        'units':{'rlnAccuracyRotations':'degrees','rlnAccuracyTranslationsAngst':'angstrom',
+                 'rlnEstimatedResolution':'angstrom','rlnCurrentResolution':'angstrom'},
+        'interpretation':'RELION local model diagnostics; not calibrated uniform pose radii or independent reconstruction accuracy. Missing values remain null.'}
 
 
 def main():
@@ -39,6 +60,7 @@ def main():
     def save(): path.write_text(json.dumps(result,indent=2)+'\n')
     save(); start = time.perf_counter()
     try:
+        result['model_diagnostics'] = model_diagnostics(source)
         # Prefer the converged unfiltered maps; otherwise the last paired iterate.
         halves = [source/f'refine_half{h}_class001_unfil.mrc' for h in [1,2]]
         if not all(p.exists() for p in halves):
@@ -48,7 +70,8 @@ def main():
                 other = file.with_name(file.name.replace('half1','half2'))
                 if match and other.exists(): candidates.append((int(match.group(1)),file,other))
             if not candidates:
-                result.update(complete=True, skipped=True, reason='No paired refinement maps; initializer is not a converged baseline')
+                result.update(complete=True, skipped=True, seconds=time.perf_counter()-start,
+                    reason='No paired refinement maps; initializer is not a converged baseline')
                 save(); return
             iteration, *halves = max(candidates)
             result['evaluated_iteration'] = iteration
