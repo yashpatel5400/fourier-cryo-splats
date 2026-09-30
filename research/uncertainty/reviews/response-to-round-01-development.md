@@ -9,6 +9,39 @@ results remain conditional and do not resolve experimental calibration. The eigh
 pose-optimization grid and its post-audits are complete.
 This file also supports local packet-size/layout checks without invoking a model.
 
+## Registered-reference follow-up, 30 September
+
+A pilot-only frame registration was frozen before the ten reconstruction FSC
+comparisons and before the subsequent target sensitivity. That sensitivity
+retains all original results: the unchanged cubic estimator's simulated power
+on the previously selected 10049 region rises from .00654 to .95725. This
+supersedes the interpretation of the old generator as correctly located
+relative to the consensus, not its numerical output. The subspace fit remains
+the same estimator and the large optimization gap remains unresolved.
+All twelve fixed-pose target powers are at least .9563 after registration;
+the original one-/two-degree fixed-weight audits remain uninformative.
+
+A separate predeclared application reuses the existing experimental calibration
+pool for all three cubic estimators. None excludes zero. The original cubic
+interval is centered at 2.46178 with half-width 4.30107, and its noise SD bound
+is 4.55146 times the simulation SD. The registered approximate reference value
+2.48846 lies inside, which is not a density coverage label. Thus the frame audit
+corrects a material interpretation error but does not resolve R1/R2/R7 or
+constitute an acceptance assessment. Details and all alternatives are in
+REGISTERED-TARGET-SENSITIVITY-RESULTS.md. Earlier paragraphs below retain the
+historical reference-frame outcomes with this explicit superseding context.
+
+A subsequent deterministic Helmert-contrast calibration uses 127 rather than
+128 independent Gaussian rows and permits arbitrary means. It reduces the
+original cubic half-width to 3.07893, which still contains zero; fixed/shift-only
+exclusions rise to ten/six, rotational exclusions remain zero. This is a
+classical Gaussian projection argument and reused-data sensitivity, not a
+new coverage principle or evidence that experimental assumptions hold. Five
+centered fixed-weight intervals exclude the registered reference, all on
+heterogeneous 10076 (regions 1 and 3 at fixed/shift-only poses, center at fixed
+poses). These discrepancies are retained; a single Class A reference is not
+a ground-truth coverage label for that population.
+
 ## Major concerns
 
 **R1 — Experimental inputs: still open.** We implemented the noncentral Gaussian

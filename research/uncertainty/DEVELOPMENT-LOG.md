@@ -1015,3 +1015,24 @@ the reference magnitude; it is not a valid replacement interval or a proof
 that other estimators cannot work. The next methodological issue is designing
 weights against the improved nuisance penalty, not reporting this component
 reduction as success. The original one-case protocol is complete.
+
+
+## 30 September: registered targets and experimental cubic application
+
+The pilot-only frame audit materially changes reference-based interpretation.
+All twelve original nominal target centers replay, and the registered generator
+raises the unchanged original cubic estimator's minimum simulated sign power
+from .00654 to .95725. All 120 conditional fixed-weight checks, nine cubic
+checks and 48 unchanged real intervals are retained. No weights or interval
+bounds change. The 20 A scale and large cubic optimization gap remain.
+
+The following independently declared application retains all three completed
+cubic designs and the original experimental inference images. All three
+intervals contain zero: half-widths 4.30107, 4.82603, 4.29998 about centers
+2.46178, 2.48844, 2.46178. The grouped calibrated noise is much larger than
+supplied simulation noise; the 128 inference particles occupy 26 exposures.
+Both reference-frame targets lie inside. These reused-pixel outcomes are
+conditional sensitivity results, not established experimental density coverage.
+Exact records, source snapshots and protocols remain public. v0.6 retains the
+preceding 50-page manuscript; the branch corrects its stale main-text RELION
+status and incorporates these later target/interval results.

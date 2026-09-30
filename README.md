@@ -29,18 +29,26 @@ Current evidence includes:
   the Mac. The completed eighteen-case pose-aware design grid retains failed
   convergence and unfavorable power results; its two-degree bounds still miss
   the full review's usefulness and tightness criteria.
-- All twelve locked pilot-selected fixed-pose feature fits are complete. Eleven
-  have high known-noise reference sign power; one does not. Their nonlinear
+- All twelve locked pilot-selected fixed-pose feature fits are complete. Their
+  known-noise reference sign power depends on correct map registration. Their nonlinear
   audits and 48 experimental intervals are complete. All twelve
   estimators and 116 files were frozen and published before downloading the
   new calibration cohort: 128 particles from unused exposures per stack.
   All three downloads and the fresh recalibration are complete. Six fixed-pose
   intervals and four shift-only intervals exclude zero; none with rotational
-  uncertainty do. Approximate-reference inclusion is not density coverage.
+  uncertainty do. A later, separately declared centered-noise procedure raises
+  those counts to ten and six, with rotational exclusions still zero.
+  [All centered outcomes](research/uncertainty/CENTERED-NOISE-CALIBRATION-RESULTS.md)
+  retain the original procedure and five new disagreements with the Class A
+  reference on heterogeneous 10076. Approximate-reference inclusion is not density coverage.
 - A completed cubic audit reduces one selected one-degree width from 0.473
   to 0.252 of no-data width, without useful sign power. Optimized cubic weights
-  reduce this to 0.180, with minimum reference sign power only 0.00654 and a
-  large remaining optimization gap. The coordinate follow-up completed with a
+  reduce this to 0.180, with a large remaining optimization gap. A separately
+  declared reference-frame check changes its simulated minimum sign power from
+  0.00654 to 0.95725 without changing the estimator. Its subsequent experimental
+  interval still contains zero: calibrated noise is much larger than simulated.
+  [All three fixed-estimator outcomes](research/uncertainty/REGISTERED-TARGET-SENSITIVITY-RESULTS.md)
+  are retained. The coordinate follow-up completed with a
   worse width of 0.223. The reduced convex design selected the original weights
   and left the full-space optimization gap unresolved.
 - Matched bootstrap and [Fourier Gaussian baselines](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md),
@@ -52,8 +60,11 @@ Current evidence includes:
   remain reported; they do not rescue the current practical limitations.
 - A [known-map information diagnostic](research/uncertainty/ORACLE-POSE-INFORMATION-RESULTS.md)
   distinguishes individual pose information from collective reconstruction.
-  The native RELION CPU comparison is continuing all three wall-limited
-  initializations under a separately published, bounded protocol.
+  The native RELION CPU comparison has completed a converged unknown-pose
+  reconstruction on 10028; the other two continuations remain in progress.
+  Pilot-only reference registration improves cross-method reference FSC on
+  10028 and 10049; the Class A reference on heterogeneous 10076 remains a
+  weak match to the consensus. Both original and registered curves are kept.
 - A separate [likelihood-validation candidate](research/uncertainty/MIXTURE-VALIDATION-CANDIDATE.md)
   targets structural compatibility. Its discrete-view, oracle-predictor screen
   and shared-scale follow-up detect full local removal on two of three simulated
@@ -73,9 +84,13 @@ candidates, targeted reading and retrieval; a download is not a full reading.
 
 Exact early frozen models are in the
 [v0.2 uncertainty checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev).
-The immutable [v0.5 development checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.5.0-dev)
-contains 500 verified arrays and its historical 38-page preprint. Newer outcomes
-are committed on this branch; the next array bundle awaits completed studies.
+The immutable [v0.6 development checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.6.0-dev)
+contains 905 verified arrays and its historical 50-page preprint. The
+[v0.6.1 increment](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.6.1-dev)
+adds seven verified arrays and the corrected 52-page manuscript with registered
+and centered-calibration outcomes. The historical v0.6 main-text statement that
+no converged ab initio comparison had run is corrected: 10028's completed
+RELION result was already described in that release's appendix.
 
 On macOS, installing the optional uncertainty tools requires the FINUFFT build
 configuration in [COMPUTE.md](research/uncertainty/COMPUTE.md) to avoid conflicting

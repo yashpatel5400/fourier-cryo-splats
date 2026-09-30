@@ -3,7 +3,7 @@
 Research cutoff: 2026-09-30. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 116 candidates; this is not a full-reading count.
+The current ledger contains 117 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -402,3 +402,25 @@ from the image distribution. A useful open question is how to calibrate
 structural tests after moment compression or orientation marginalization while
 controlling experimental acquisition errors. Existing ranking metrics and
 synthetic reconstructions do not automatically answer that question.
+
+
+## 30 September follow-up: distributional stability and encoder generalization
+
+The [28 September revision of stochastic inverse cryo-EM](https://arxiv.org/abs/2509.05541v2)
+was read selectively: introduction, Section 4, Section 5.4, and Supplement
+S1.4–S1.5. It distinguishes observable image discrepancies from latent
+Wasserstein error. Its recovery bound assumes local inverse stability and
+retains optimization/model-mismatch terms; acquisition observability provides
+an upper bound on stability, not a certified lower bound. The matched
+Gaussian-mixture baseline wins in its specified synthetic mixture case; the
+particle method is more flexible under distribution-family mismatch. These
+results do not establish experimental density coverage. Our inference is that
+feature-specific stability, with state/view dependence explicit, remains more
+relevant to calibrated claims than image agreement alone.
+
+A new candidate, CryoNOO, is identified by its author's
+[publication page](https://minkyujeon.github.io/publications/) as an MLSB 2025
+workshop oral on self-distillation for amortized heterogeneous reconstruction.
+The linked OpenReview PDF returned a browser-verification page. Full-text
+methods, current main-conference status and calibration claims are unverified;
+this addition is a bibliographic candidate, not a completed reading or baseline.

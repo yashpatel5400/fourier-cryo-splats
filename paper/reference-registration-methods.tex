@@ -53,3 +53,79 @@ density coverage. Historical reference-based uncertainty simulations keep their
 original unregistered generators and numerical outcomes. They are conditional
 implementation studies, not evidence that those simulated features were in the
 correct biological location of the consensus reconstruction.
+
+\paragraph{Fixed-estimator target sensitivity.}
+A subsequent protocol retains all twelve locked 20\,\AA-SD targets, their
+weights, noise levels, bias bounds and fallback rules. All original nominal
+reference centers replay before changing the generator to the registered
+64-cube reference with unit constant-cell $L^2$ norm. All 120 conditional
+target/pose checks are retained. Fixed-pose sign powers are at least 0.9563;
+every original one-/two-degree fixed-weight audit remains uninformative.
+Recomputing only the reference targets, with their amplitude fitted on the
+old pilot pool, leaves all 48 experimental intervals unchanged and still
+containing the approximate reference. This is sensitivity to a comparison
+frame, not improved estimation or density calibration.
+
+On the already selected 10049 region 1, minimum simulated sign power across
+the three declared poses changes from 0.00654 to 0.95725 for the original
+cubic estimator, from $7.73\times10^{-7}$ to 0.26042 for the coordinate design,
+and from 0.00663 to 0.95770 for the reduced-subspace design. Their widths do
+not change. Original and reduced-subspace weights are identical to numerical
+precision; separate numerical audits explain their small width difference.
+The larger power results from the generator's frame and does not resolve the
+optimization gap, the 20\,\AA\ target scale, or experimental input conditions.
+
+\paragraph{Experimental cubic application.}
+Another declared protocol then applies all three completed cubic estimators
+to the original inference images using the previously collected 128
+noise-calibration exposure representatives. It replays the published fixed
+estimator's observed center, calibrated standard deviation and half-width
+before computing new outcomes. The group-noise bound permits arbitrary
+within-exposure dependence: these 128 inference particles occupy only 26
+exposures, with maximum group size twelve. The Gaussian tail, calibration
+and spectral allowances are $(.045-10^{-6})/12$, $.005/12$ and $10^{-6}/12$ per
+procedure. Under the required fixed-design assumptions, a union bound for
+these three alternatives is $.0125$; inspected-data reuse precludes treating
+this calculation as fresh experimental coverage validation.
+
+The original cubic center is 2.46178 and its half-width is 4.30107 (0.35374
+of no data). The coordinate design gives $2.48844\pm4.82603$ (0.39692), and
+the reduced-subspace design gives $2.46178\pm4.29998$ (0.35365). None excludes
+zero or uses the no-data fallback. All contain the registered approximate
+target 2.48846 and the old-frame target 0.71012. The original cubic noise SD
+upper is 1.01002, 4.55146 times its supplied simulation SD. These results
+locate a practical obstacle: useful power under supplied noise does not
+transfer to this experimental noise bound. Reference inclusion is only
+agreement, and the underlying pose, covariance and density-class conditions
+remain unverified. Both protocols, all alternatives and exact arrays are kept.
+
+\paragraph{Centered calibration with arbitrary means.}
+The uncentered SD bound includes signal energy. A separately declared follow-up
+uses fixed orthogonal contrasts to remove a common component. If independent
+rows satisfy $Y_i\sim N(\mu_i,\Sigma)$ with arbitrary fixed means, choose
+$Q\in\mathbb R^{(n-1)\times n}$ with $QQ^\top=I$ and $Q\mathbf1=0$.
+Rows of $QY$ are independent Gaussian vectors with covariance $\Sigma$:
+their cross-covariance is $(QQ^\top)_{ij}\Sigma$. Their means need not vanish.
+The previous noncentral trace bound therefore applies with $n-1$ rows, and
+$\|QY\|_F^2=\sum_i\|Y_i-\bar Y\|^2$. Apply the same contrast to the
+group-inflated weight projections. This is a classical Gaussian orthogonal-
+contrast argument, not a new general coverage principle. The matrix $Q$ is
+fixed; an image-fitted contrast would need separate justification.
+
+All uncentered SD bounds replay before this follow-up. On the same inspected
+calibration cohorts, centered/uncentered SD ratios are 0.437--0.823 across all
+twelve fixed estimators. Fixed-pose zero exclusions increase from six to ten
+and shift-only exclusions from four to six; rotational exclusions remain zero
+and all sixteen no-data fallbacks remain. Five registered reference targets
+now lie outside: 10076 regions 1 and 3 at fixed/shift-only poses, and its
+matched center at fixed poses. The other 43 fixed-weight intervals contain
+the reference. This is disagreement with one Class A assembly state, not
+a ground-truth coverage label for the heterogeneous population. Original, coordinate and reduced-subspace cubic intervals
+become $2.46178\pm3.07893$, $2.48844\pm3.60408$ and $2.46178\pm3.07784$,
+respectively. None excludes zero. For the original cubic fit, the SD upper
+falls from 1.01002 to 0.55294, still exceeding the supplied simulation SD
+0.22191. A smaller bound does not identify pure noise or establish the
+experimental assumptions. The two procedures are separately reported
+alternatives; their unadjusted minimum is never used. These outcomes motivate
+the separately declared, still-running adaptive subspace-enrichment study;
+that ongoing fit has no result in this revision.

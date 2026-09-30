@@ -516,3 +516,42 @@ it does not replace the completed first calculation. Its protocol is
 `test_uq_mixture_anchor.py`, `test_uq_mixture_curvature.py`,
 `test_uq_mixture_fast.py` and `test_uq_mixture_refinement.py`. Outcome JSON files
 are public; the large array bundle remains pending its next release.
+
+
+## 30 September completed external, frame, and fixed-estimator checks
+
+The refinement, complex-disk diagnostic, 24 original-code CryoLike cases,
+three pilot-only reference registrations, and ten registered reconstruction
+comparisons are complete. Their arrays are in release v0.6.0-dev (905 verified
+members). The remaining RELION reconstructions are running and excluded from
+that completed snapshot. Use each protocol's exact author commit/environment;
+CryoLike uses its original CPU kernels and is not the local Gaussian baseline.
+
+Subsequent target-frame and cubic experimental studies retain the earlier
+outcomes. Reproduce in a fresh output checkout; both runners reject overwrite:
+
+```bash
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_registered_targets.py
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/apply_uq_cubic_experimental.py
+```
+
+Their protocols require committed source before execution. The latter reuses
+already analyzed experimental pixels, so it is development, not new confirmation.
+Neither changes the frozen estimators or earlier 48 observed intervals. See
+REGISTERED-TARGET-SENSITIVITY-RESULTS.md for all three cubic alternatives and
+for the distinction between reference agreement and density calibration.
+
+
+The v0.6.1-dev increment adds seven verified arrays for registered targets,
+the cubic experimental application and centered calibration. It requires v0.6
+and includes transformed Fourier observations from public EMPIAR particles.
+The centered runner uses the same frozen inputs and refuses overwrite:
+
+```bash
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_centered_noise.py
+```
+
+The separate cubic-enrichment protocol was committed before the ongoing fit;
+it is not a completed outcome in this increment. Its isolated FINUFFT CPU
+runtime uses `PYTHONPATH=tmp/nufft-openmp:src`, two threads and its declared
+three-hour alarm. No source or settings are changed during that run.
