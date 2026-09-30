@@ -219,6 +219,14 @@ estimator. Total runtime is 1,934 seconds; the restricted guide does not certify
 full-space convergence.
 
 
+A subsequent adaptive enrichment grows this span from 13 to 19 columns.
+Seven evaluations and five improving checkpoints complete in 3,477 seconds
+at 2.76\,GB peak resident memory. Its audited relative width is 0.178365,
+only 0.79\% smaller than the original 0.179785, and the full-space triangle
+gap remains 0.927173. Original-/registered-frame minimum sign powers are
+0.00817/0.96413 under supplied simulation noise. These are modest numerical
+changes, not full-space convergence or experimental calibration.
+
 \subsection{Joint density--pose trust-region development}
 \label{sec:jointtrust}
 The preceding designs optimize a triangle bound, even though final auditing
@@ -264,12 +272,14 @@ that argument. Multiply the square root by $B$ and add the original known-
 pilot and quartic terms. Real-arithmetic validity still does not enclose
 floating-point/NUFFT error or calibrate experimental assumptions.
 
-A reduced conic master accumulates feasible pose witnesses; sampled target
-quadrature and approximate separation guide selection only. A fresh final
+A reduced conic master accumulates feasible pose witnesses and rescores all
+evaluated weights against the final cut set. Sampled target quadrature and
+approximate separation guide selection only. A fresh final
 spectral audit follows fixed weights. The independent robust-norm SDP check
 gives 1.796133293662 versus guide 1.796133292859. Its first unscaled SCS
 attempt reaches the solver limit; an equivalent unit-ball CLARABEL formulation
 succeeds. Analytic hard-case and explicit-residual tests also pass after a
 near-hard root-tolerance issue is corrected. These are small numerical checks.
-The bounded empirical joint-design experiment is queued behind the earlier
-enrichment fit at this revision; no improved empirical result is claimed.
+Failed shifted solves retain the older valid upper bound. The bounded
+empirical joint-design experiment is running at this revision; no improved
+empirical result is claimed.

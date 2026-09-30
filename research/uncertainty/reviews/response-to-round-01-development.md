@@ -55,8 +55,11 @@ Every curve and the earlier timed-out initializers remain. The 10076 continuatio
 is running. These are conventional reconstruction comparisons, not density
 coverage or calibrated pose-radius evidence.
 
-The adaptive triangle-objective enrichment is under final audit. A separate
-joint density/pose design is prospectively declared and queued behind it. Its
+The adaptive triangle-objective enrichment completes in 3,476.62 seconds.
+Its width improves by only .79 percent to .178365 of no data; its full-space
+gap remains .927173. Registered-frame simulated power is .964129, with no
+experimental application yet. A separately declared joint density/pose design
+starts from the original weights and thirteen-column basis and is running. Its
 residual-controlled trust-region proposition and independent small robust-norm
 SDP agree, but no empirical improvement is claimed. A focused Fable audit of
 this mathematics finds no validity error and seven numerical/design notes.

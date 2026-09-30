@@ -228,7 +228,8 @@ REVIEW_RUNNERS = [
     'probe_uq_mixture_curvature.py', 'probe_uq_mixture_refinement.py',
     'probe_uq_registered_targets.py', 'apply_uq_cubic_experimental.py',
     'probe_uq_centered_noise.py', 'probe_uq_projected_noise.py',
-    'run_uq_cubic_enrichment_probe.py', 'run_uq_joint_cubic_probe.py']
+    'run_uq_cubic_enrichment_probe.py', 'run_uq_joint_cubic_probe.py',
+    'apply_uq_joint_enriched_experimental.py']
 
 
 def remove_duplicated_baseline_rows(file, value):
@@ -343,6 +344,7 @@ def main():
                  'CENTERED-NOISE-CALIBRATION-RESULTS.md','CUBIC-ENRICHMENT-PROTOCOL.md',
                  'PROJECTED-NOISE-CALIBRATION-PROTOCOL.md','PROJECTED-NOISE-CALIBRATION-RESULTS.md',
                  'JOINT-TRUST-REGION-THEORY.md','JOINT-CUBIC-DESIGN-PROTOCOL.md',
+                 'CUBIC-ENRICHMENT-RESULTS.md','JOINT-ENRICHED-EXPERIMENTAL-PROTOCOL.md',
                  'RELION-10049-CONTINUATION-RESULTS.md','distributional-stability-followup-sources.json','CRYOLIKE-BASELINE-PROTOCOL.md','CRYOLIKE-BASELINE-RESULTS.md',
                  'CONTINUOUS-MIXTURE-DISK-THEORY.md','CONTINUOUS-MIXTURE-DISK-PROTOCOL.md',
                  'REFERENCE-REGISTRATION-PROTOCOL.md','REFERENCE-REGISTRATION-RESULTS.md']],
@@ -409,6 +411,7 @@ def main():
              *sorted((ROOT/'results/uncertainty/development').glob('projected-noise-calibration-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/cubic-enrichment-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/joint-cubic-design-probe').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/joint-enriched-experimental-v1').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('reference-registered-comparison-*/*.json')),
              ROOT/'paper/figures/locked-target-locations.json',
              ROOT/'paper/figures/cryolike-comparison.json',
