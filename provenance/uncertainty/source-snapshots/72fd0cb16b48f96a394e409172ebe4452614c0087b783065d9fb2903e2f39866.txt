@@ -45,27 +45,3 @@ and the coordinate-gradient duality identity. Record errors and the declared
 not a fit, a new interval, a coverage check or evidence of faster convergence.
 Commit its source before running it. No optimized weights are produced or
 substituted into the ongoing protocol.
-
-## Completed computation and solver check
-
-The committed probe completed in 22.59 s, including 8.67 s for metric setup,
-with 2.591 GB peak resident memory. All four inverse and independent whitening
-checks passed; maximum relative errors were 2.30e-13 and 3.58e-13, respectively.
-Both low-rank factors retained 1,024 directions. These are numerical identities
-on this fixed geometry, not measurements of optimization convergence.
-
-The separate `uq_cubic_coordinate_solver.py` now accepts fixed coordinate maps
-and uses their transpose for gradients. It preserves the cubic objective,
-records every approximate Ritz evaluation, and performs a separately seeded
-final spectral audit. It requires explicit distinct design/certificate seeds;
-the caller must also ensure the final matrix does not depend on those audit
-probes. No empirical fitting run has used this solver yet.
-
-An eight-coordinate, two-particle numerical check uses a deliberately
-nonsymmetric transform and the independently assembled conic formulation.
-SCS obtains 1.9982265820361278; the coordinate solver obtains a design objective
-1.998226582036483 in 27 iterations. Its continuous dual lower bound is
-1.9982265745144088 and separately audited upper is 1.9994574224318309.
-Their relative gap is 0.000615591; this includes spectral audit looseness.
-This checks coordinate handling against a small independent optimization
-problem, not empirical usefulness or a speed improvement over the old solver.

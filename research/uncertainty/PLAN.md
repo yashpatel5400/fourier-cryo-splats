@@ -61,19 +61,23 @@ theorems. A cryo-EM-specific contribution must go beyond rebranding them.
 ## Current status (30 September 2026)
 
 The full round-1 Fable rejection remains the latest acceptance assessment.
-The survey contains 101 curated candidates, with targeted reading distinguished
+The survey contains 105 curated candidates, with targeted reading distinguished
 from retrieval. The 10,000-particle audit, expanded Fourier variational baseline,
 three rounds of alternating pose/density ambiguity, and enclosing-domain
 remainder refinements are complete. Their improved numerical bounds have not
-established fine-scale experimental usefulness. The current test suite has
-138 passing tests; this is verification, not evidence of scientific acceptance.
+established fine-scale experimental usefulness. Numerical tests verify
+implementation; their count is not evidence of scientific acceptance.
 
-The remaining pose-aware comparison and the twelve locked pilot-selected feature
-fits/audits are running. The latter uses three dataset processes, each with two
+The eighteen-case pose-aware comparison is complete. Its two-degree results
+do not meet the reviewer's usefulness or bound-tightness criteria. All twelve
+locked pilot-selected fixed-pose fits are complete; their nonlinear audits and
+experimental applications are running. The latter uses three dataset processes, each with two
 FINUFFT threads, to exploit local resources without changing the protocol.
 A fresh noise-calibration cohort reserves 128 previously unused exposures per
-stack. No pixels from that cohort have been downloaded. All twelve weights and
-evaluation code must be frozen and committed before download. The old inference
+stack. All twelve estimators and 116 files were frozen and published in commit
+60efd9b before any reserved pixels were accessed. All three stacks are now
+downloaded and verified. The coordinator awaits the complete original
+twelve-feature application before running the frozen recalibration. The old inference
 images are still development data, and pose/density assumptions remain open.
 
 The metadata availability audit finds zero-valued pose/shift ESS fields in all
@@ -88,6 +92,15 @@ produce favorable reference results and are not omitted. A same-weight continuou
 sign/total-norm ablation is also complete: stronger sign constraints exclude
 the processed reference, and all one-degree cases still lack sign power.
 These are development comparisons, not new frozen density calibration.
+
+A completed fixed-weight cubic audit reduces one selected one-degree width
+from 0.473 to 0.252 of no data, without useful sign power. Its separately
+declared cubic weight fit is running with the original nominal-Gram coordinates.
+Focused Fable audits support the real-arithmetic argument but do not constitute
+an acceptance review; finite-precision sensitivity checks await final weights.
+A separate pose-penalty coordinate metric passed its compute-only probe and a
+small independent conic optimization check. It has not been used for an
+empirical fit, and no convergence improvement is asserted.
 
 ## Historical status (29 September 2026)
 

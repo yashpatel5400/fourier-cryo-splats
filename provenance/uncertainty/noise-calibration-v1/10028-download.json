@@ -1,0 +1,2741 @@
+{
+  "complete": true,
+  "dataset": "10028",
+  "model_lock_sha256": "e8f9c06f65921241e0e261cb6ea701b3b30cc40eae5a05f6e299b4b3ff35654a",
+  "selection_csv_sha256": "dcd3feb6f7f8c8f31ec17f3b8a53d02a3269a9fe33c082445f4f0ed6f1cd2ead",
+  "cached_files": {
+    "data/uncertainty/confirmation/noise-calibration-v1/10028/images.npy": "a19ed434fd419b03678c75e3677fe4b420d454ef2a8b513be409c0955d3c476c",
+    "data/uncertainty/confirmation/noise-calibration-v1/10028/indices.npy": "25e48e87156530fb70ae3a31bd739f71f2f630f9bed0af30b0578953440fc802",
+    "data/uncertainty/confirmation/noise-calibration-v1/10028/metadata.npz": "6cf5c2f2542eb547081cf4acfe7ac3e944e99fb8ff55775e3f47f1660d81a654",
+    "data/uncertainty/confirmation/noise-calibration-v1/10028/manifest.json": "5bc54193bbb14aaca883df3625b2448cb2bc93dba64bfb94de17a4dcceebd9b0"
+  },
+  "download_manifest": {
+    "dataset": "10028",
+    "count": 128,
+    "available_particles": 105247,
+    "published_filtered_count": 93852,
+    "eligible_after_source_exclusions": 93752,
+    "box": 64,
+    "seed": 20260928,
+    "selection": "explicit frozen indices",
+    "selection_file_sha256": "25e48e87156530fb70ae3a31bd739f71f2f630f9bed0af30b0578953440fc802",
+    "raw_pixel_size_A": 1.340000033378601,
+    "raw_box": 360,
+    "pixel_size_A": 7.537500187754631,
+    "data_sign": -1,
+    "source": "experimental extracted particle images; not raw movies",
+    "metadata_repository": "https://github.com/zhonge/cryodrgn_empiar",
+    "source_exclusions": [
+      {
+        "metadata_path_suffix": "MRC_1901/276_particles_shiny_nb50_new.mrcs",
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/276_particles_shiny_nb50_new.mrcs",
+        "observed_date": "2026-09-29",
+        "reason": "The source file served by EMPIAR is truncated: its MRC header declares 113 float32 particles of 360 by 360 pixels, but the HTTP Content-Range reports a total file length of 4096 bytes.",
+        "declared_mrc_shape": [
+          113,
+          360,
+          360
+        ],
+        "expected_file_bytes": 58580224,
+        "observed_file_bytes": 4096,
+        "confirmation_content_range": "bytes 0-4095/4096",
+        "affected_particles_in_original_selection": 32,
+        "recovery": "Exclude this source before selection, then continue the original seeded block-order procedure until 8192 usable particles are selected. Remap verified images by original source particle identity."
+      }
+    ],
+    "elapsed_seconds": 694.7241268157959,
+    "resumed_from_ranges": 0,
+    "downloaded_bytes": 66355200,
+    "payload_accounting": "verified unique byte ranges; interrupted attempts, retries, HTTP headers and duplicate recovery transfers are not included",
+    "ranges": [
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/002_particles_shiny_nb50_new.mrcs",
+        "start": 38362624,
+        "end": 38881023,
+        "bytes": 518400,
+        "sha256": "157b156f9d9195e2cede5dabd6b1651909ef17561eb20c1560194efbb8988926",
+        "etag": "\"2c00500-592a8b2b63580\"",
+        "content_range": "bytes 38362624-38881023/46138624",
+        "header_sha256": "6e9834457dc6aefaf7c3f97fa252c34c5291bafad6c10a6a90f369ba3f94ee68",
+        "source_shape": [
+          89,
+          360,
+          360
+        ],
+        "source_indices": [
+          74
+        ],
+        "output_indices": [
+          53
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/004_particles_shiny_nb50_new.mrcs",
+        "start": 40954624,
+        "end": 41473023,
+        "bytes": 518400,
+        "sha256": "23d5e10e1f14434e4005e481683a2832122737ea578f57c7210f14583637c1e5",
+        "etag": "\"2e79200-592a8b30280c0\"",
+        "content_range": "bytes 40954624-41473023/48730624",
+        "header_sha256": "aad3b0be1a5318c214c414f03d3e09fd9ae892adbdd9816b341204f743a5ea0b",
+        "source_shape": [
+          94,
+          360,
+          360
+        ],
+        "source_indices": [
+          79
+        ],
+        "output_indices": [
+          54
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/006_particles_shiny_nb50_new.mrcs",
+        "start": 19700224,
+        "end": 20218623,
+        "bytes": 518400,
+        "sha256": "41cbdbbda7e0918a602f89cce7e6bc6be0f35922f37ee06440957292f03cb4df",
+        "etag": "\"2398c00-592a8acfd5d80\"",
+        "content_range": "bytes 19700224-20218623/37325824",
+        "header_sha256": "5d3ea360b3adae0d3458e5c04d75a49d4ebe9d39909344b5a036749df452e6df",
+        "source_shape": [
+          72,
+          360,
+          360
+        ],
+        "source_indices": [
+          38
+        ],
+        "output_indices": [
+          55
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/009_particles_shiny_nb50_new.mrcs",
+        "start": 25402624,
+        "end": 25921023,
+        "bytes": 518400,
+        "sha256": "55844c2196feb83a018050946583db12c83da379fed6acc1bb5a4843f6945215",
+        "etag": "\"2d7c000-592a8b74d22c0\"",
+        "content_range": "bytes 25402624-25921023/47693824",
+        "header_sha256": "138df49fbc30cc0daeebe7decea6a0424fd9f5ab59722ca43c5515fcac33e1ff",
+        "source_shape": [
+          92,
+          360,
+          360
+        ],
+        "source_indices": [
+          49
+        ],
+        "output_indices": [
+          57
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/007_particles_shiny_nb50_new.mrcs",
+        "start": 13479424,
+        "end": 13997823,
+        "bytes": 518400,
+        "sha256": "b5b972d7e9a29979856419de51c97d3a17378859142de03cbc7ccb90ef608474",
+        "etag": "\"2b03300-592a8b016d280\"",
+        "content_range": "bytes 13479424-13997823/45101824",
+        "header_sha256": "28239685f4836ee917642a5d5de554c4d34dfd74940e96275f687c935e6039af",
+        "source_shape": [
+          87,
+          360,
+          360
+        ],
+        "source_indices": [
+          26
+        ],
+        "output_indices": [
+          56
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/029_particles_shiny_nb50_new.mrcs",
+        "start": 37325824,
+        "end": 37844223,
+        "bytes": 518400,
+        "sha256": "5186b53ea0e8edc4be6fa6a410b8f633d58624f6cb8d6070edf3d3097742e7ce",
+        "etag": "\"31ef100-592a8b9356ac0\"",
+        "content_range": "bytes 37325824-37844223/52359424",
+        "header_sha256": "23c8215ad966069610fce0c2c61f554ead70432f13e9443d96ebd36617496581",
+        "source_shape": [
+          101,
+          360,
+          360
+        ],
+        "source_indices": [
+          72
+        ],
+        "output_indices": [
+          58
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/035_particles_shiny_nb50_new.mrcs",
+        "start": 15034624,
+        "end": 15553023,
+        "bytes": 518400,
+        "sha256": "2afe42a627196f09e83df365a2ad054633261d643fa89ab8103d745fc540e92d",
+        "etag": "\"3170800-592a8b61bf5c0\"",
+        "content_range": "bytes 15034624-15553023/51841024",
+        "header_sha256": "065216e903df00b65669ae941f56fe96d66f87cdf6ada53f8cf54c9bd7450c23",
+        "source_shape": [
+          100,
+          360,
+          360
+        ],
+        "source_indices": [
+          29
+        ],
+        "output_indices": [
+          59
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/036_particles_shiny_nb50_new.mrcs",
+        "start": 24884224,
+        "end": 25402623,
+        "bytes": 518400,
+        "sha256": "aaff2148bebb6e3b1f5103121bde2290fc31ed6175e779f904ba54882eeb4c9f",
+        "etag": "\"2908f00-592a8b147ff80\"",
+        "content_range": "bytes 24884224-25402623/43028224",
+        "header_sha256": "81ed3268d4bb8f3a0b583db25de094b3226d34fb5479b3af741b515bf315d91f",
+        "source_shape": [
+          83,
+          360,
+          360
+        ],
+        "source_indices": [
+          48
+        ],
+        "output_indices": [
+          60
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/111_particles_shiny_nb50_new.mrcs",
+        "start": 3111424,
+        "end": 3629823,
+        "bytes": 518400,
+        "sha256": "065b16e30d94aae786dbb7440a747e7c51b0f767c6a16e0ca5af358fd5a05901",
+        "etag": "\"2987800-592a8ab8f2780\"",
+        "content_range": "bytes 3111424-3629823/43546624",
+        "header_sha256": "5c1f80dbf94da67eec7116959959f0c67425bdc2b30891184beff2ad39aaf561",
+        "source_shape": [
+          84,
+          360,
+          360
+        ],
+        "source_indices": [
+          6
+        ],
+        "output_indices": [
+          63
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/058_particles_shiny_nb50_new.mrcs",
+        "start": 34215424,
+        "end": 34733823,
+        "bytes": 518400,
+        "sha256": "c52eb7e03261394254ff9fb23cfa088773fc97319dbb37d4589117f9e2d95aae",
+        "etag": "\"2908f00-592a8ac928dc0\"",
+        "content_range": "bytes 34215424-34733823/43028224",
+        "header_sha256": "3b6df7f0f538031f8014c268a03b415cd717bb9b511bb5ccde426105f1f0aef4",
+        "source_shape": [
+          83,
+          360,
+          360
+        ],
+        "source_indices": [
+          66
+        ],
+        "output_indices": [
+          61
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/079_particles_shiny_nb50_new.mrcs",
+        "start": 17626624,
+        "end": 18145023,
+        "bytes": 518400,
+        "sha256": "7e4ba1fd19a1eac1949a228ee02d0cabc0bcb124bf4fd7da912f99a4be6fa914",
+        "etag": "\"2c7ee00-592a8b0631dc0\"",
+        "content_range": "bytes 17626624-18145023/46657024",
+        "header_sha256": "79a06b06e641a1c082d67b5a0df242f978708661fd751da82bcd3884bd3b2f3d",
+        "source_shape": [
+          90,
+          360,
+          360
+        ],
+        "source_indices": [
+          34
+        ],
+        "output_indices": [
+          62
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/141_particles_shiny_nb50_new.mrcs",
+        "start": 19181824,
+        "end": 19700223,
+        "bytes": 518400,
+        "sha256": "bce42e7b51f96a78c78a138abe5983b7ebdf85286f7e0c2fd2966b51a4a9abd8",
+        "etag": "\"32ec300-592a8b8ac1680\"",
+        "content_range": "bytes 19181824-19700223/53396224",
+        "header_sha256": "08f7072fecdf02ee15a03956e73e0cc18e9821c6e9850732c218e6fc30251df4",
+        "source_shape": [
+          103,
+          360,
+          360
+        ],
+        "source_indices": [
+          37
+        ],
+        "output_indices": [
+          65
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/157_particles_shiny_nb50_new.mrcs",
+        "start": 10369024,
+        "end": 10887423,
+        "bytes": 518400,
+        "sha256": "d8a4ba4df0ffab77d550ffbd8170ac213079f3779529e6b11c36773df48b8a04",
+        "etag": "\"2398c00-592a8ac64c700\"",
+        "content_range": "bytes 10369024-10887423/37325824",
+        "header_sha256": "34e85b4694e56be4f25e1e06b243f1441028fc92b5298587b27c9e0337949799",
+        "source_shape": [
+          72,
+          360,
+          360
+        ],
+        "source_indices": [
+          20
+        ],
+        "output_indices": [
+          67
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/117_particles_shiny_nb50_new.mrcs",
+        "start": 2593024,
+        "end": 3111423,
+        "bytes": 518400,
+        "sha256": "5cf2b7aea1cde4100ef37819a2885dd1889650b1ce3f1c6ffc1c77cc78540db2",
+        "etag": "\"2908f00-592a8af5fb780\"",
+        "content_range": "bytes 2593024-3111423/43028224",
+        "header_sha256": "116ffac1466b09f121917aa9d74618caeed55667d1a385cc8d9d425dc85f8ead",
+        "source_shape": [
+          83,
+          360,
+          360
+        ],
+        "source_indices": [
+          5
+        ],
+        "output_indices": [
+          64
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/146_particles_shiny_nb50_new.mrcs",
+        "start": 25921024,
+        "end": 26439423,
+        "bytes": 518400,
+        "sha256": "8fabdde944ca59627dfb46a40b73ec56ab7c4872c7e205a1245819ab933666c3",
+        "etag": "\"2d7c000-592a8ae7ad5c0\"",
+        "content_range": "bytes 25921024-26439423/47693824",
+        "header_sha256": "3a6c7ec8641b12cae90e403fb9e88494066f5bc3e7d69ecef6e2e37d65d204cb",
+        "source_shape": [
+          92,
+          360,
+          360
+        ],
+        "source_indices": [
+          50
+        ],
+        "output_indices": [
+          66
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/168_particles_shiny_nb50_new.mrcs",
+        "start": 38362624,
+        "end": 38881023,
+        "bytes": 518400,
+        "sha256": "5b916857f4efbd628afc973cc8761bdb64ebebe2ad59882957661e5d1dc49019",
+        "etag": "\"2f76400-592a8b48f3b40\"",
+        "content_range": "bytes 38362624-38881023/49767424",
+        "header_sha256": "6750e9cb59421b1fcb4aac9d7ccf59a3d4fe5c4d0057465b50ddcd495e3371a3",
+        "source_shape": [
+          96,
+          360,
+          360
+        ],
+        "source_indices": [
+          74
+        ],
+        "output_indices": [
+          70
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/158_particles_shiny_nb50_new.mrcs",
+        "start": 45620224,
+        "end": 46138623,
+        "bytes": 518400,
+        "sha256": "6be0ae7b53878b904842d8ca8039c3fe855eb198b5af070f6785ee795d605990",
+        "etag": "\"2ef7b00-592a8b2c577c0\"",
+        "content_range": "bytes 45620224-46138623/49249024",
+        "header_sha256": "3305ca1a132f6e4cd42918786096c8a5e2dbb96ea928b230e26e3299272dbb30",
+        "source_shape": [
+          95,
+          360,
+          360
+        ],
+        "source_indices": [
+          88
+        ],
+        "output_indices": [
+          68
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/160_particles_shiny_nb50_new.mrcs",
+        "start": 29549824,
+        "end": 30068223,
+        "bytes": 518400,
+        "sha256": "2ddd7c0114adfb5280269b89888d53ad8bf9efb730eb69f86935056dc6cc0ba0",
+        "etag": "\"2a84a00-592a8af5fb780\"",
+        "content_range": "bytes 29549824-30068223/44583424",
+        "header_sha256": "8d4db3e28612d0ba0a970f410fa0c3f6432cd841f2e129fd9820463cff82b616",
+        "source_shape": [
+          86,
+          360,
+          360
+        ],
+        "source_indices": [
+          57
+        ],
+        "output_indices": [
+          69
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/200_particles_shiny_nb50_new.mrcs",
+        "start": 9850624,
+        "end": 10369023,
+        "bytes": 518400,
+        "sha256": "05c2b6bbcfcdbd05f2db983b2141e76ad6b7dad12972457ea355f8f73ad151d3",
+        "etag": "\"3170800-592a8af22ae80\"",
+        "content_range": "bytes 9850624-10369023/51841024",
+        "header_sha256": "740e1e1d25f0ee5b7b50b18ab420aea83cfa426f1b7e140eb22b75e2a2fb5c1e",
+        "source_shape": [
+          100,
+          360,
+          360
+        ],
+        "source_indices": [
+          19
+        ],
+        "output_indices": [
+          72
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/196_particles_shiny_nb50_new.mrcs",
+        "start": 6221824,
+        "end": 6740223,
+        "bytes": 518400,
+        "sha256": "6b0c2668b05eddd62c5345394a3d068e7a5318e9f30a08c813384659ea8939d4",
+        "etag": "\"2c00500-592a8b2b63580\"",
+        "content_range": "bytes 6221824-6740223/46138624",
+        "header_sha256": "a64e5ffe2586f7e138b1164fe16ddcdaaf2497253b81dd01705b620e17be6adc",
+        "source_shape": [
+          89,
+          360,
+          360
+        ],
+        "source_indices": [
+          12
+        ],
+        "output_indices": [
+          71
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/247_particles_shiny_nb50_new.mrcs",
+        "start": 35252224,
+        "end": 35770623,
+        "bytes": 518400,
+        "sha256": "d02d3cbbb5c19d2b15e43df2e3ee4d170b6dc8352ff9c2414171952364404188",
+        "etag": "\"278d400-592a8ae00c3c0\"",
+        "content_range": "bytes 35252224-35770623/41473024",
+        "header_sha256": "e7e0a5436c56fa9d31f271c4195435bc60ac522d9b56b703db95ecfb4d38b2dc",
+        "source_shape": [
+          80,
+          360,
+          360
+        ],
+        "source_indices": [
+          68
+        ],
+        "output_indices": [
+          76
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/203_particles_shiny_nb50_new.mrcs",
+        "start": 18145024,
+        "end": 18663423,
+        "bytes": 518400,
+        "sha256": "d9f1e817e7afe6fb1cb2a90265664bd80485ddede39bbb060a90351f2c36f2dd",
+        "etag": "\"2987800-592a8ae8a1800\"",
+        "content_range": "bytes 18145024-18663423/43546624",
+        "header_sha256": "b11071b4b635c71966244840101f7c7c70d546062cb63b5c7ba93ef8ce8cd7f2",
+        "source_shape": [
+          84,
+          360,
+          360
+        ],
+        "source_indices": [
+          35
+        ],
+        "output_indices": [
+          73
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/205_particles_shiny_nb50_new.mrcs",
+        "start": 16589824,
+        "end": 17108223,
+        "bytes": 518400,
+        "sha256": "8d0fa5ef53f4f5bf49a4e4a190f9dc5d74f092c85c205b818b6698f9438dc064",
+        "etag": "\"2c00500-592a8b081a240\"",
+        "content_range": "bytes 16589824-17108223/46138624",
+        "header_sha256": "ca4f94ae18f40612aebc5e0237dfbb7c2fcd86886b14a84cf0fe7633398e07d9",
+        "source_shape": [
+          89,
+          360,
+          360
+        ],
+        "source_indices": [
+          32
+        ],
+        "output_indices": [
+          74
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/213_particles_shiny_nb50_new.mrcs",
+        "start": 29549824,
+        "end": 30068223,
+        "bytes": 518400,
+        "sha256": "5fe08a1a3ba3e6618803495380ab4704c06ab0fe245b53066934cbc5a887061f",
+        "etag": "\"385c600-592a8b1efd840\"",
+        "content_range": "bytes 29549824-30068223/59098624",
+        "header_sha256": "5a916d4a5b7b5e3954a38dd5f34884445e21f9710edd8567118147eb69ba5cd2",
+        "source_shape": [
+          114,
+          360,
+          360
+        ],
+        "source_indices": [
+          57
+        ],
+        "output_indices": [
+          75
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/253_particles_shiny_nb50_new.mrcs",
+        "start": 18663424,
+        "end": 19181823,
+        "bytes": 518400,
+        "sha256": "89bc567e838db72982bf7186103e92166f83bfa10c0be3e40bc7e41b94a8b6e1",
+        "etag": "\"31ef100-592a8b0af6900\"",
+        "content_range": "bytes 18663424-19181823/52359424",
+        "header_sha256": "af7c0d1e041a8ba6756c148e201e24426c010a5d94794e01081148402b6a5121",
+        "source_shape": [
+          101,
+          360,
+          360
+        ],
+        "source_indices": [
+          36
+        ],
+        "output_indices": [
+          79
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/250_particles_shiny_nb50_new.mrcs",
+        "start": 49249024,
+        "end": 49767423,
+        "bytes": 518400,
+        "sha256": "4aad8a8d87d474d8e2fceaf6b5eab05bbd82a30ace27dd5eee6562e232bda94b",
+        "etag": "\"3170800-592a8b78a2bc0\"",
+        "content_range": "bytes 49249024-49767423/51841024",
+        "header_sha256": "ae3fa70885324413b2f03d6e44bd13be745678468bf83442013b2e56c9860a37",
+        "source_shape": [
+          100,
+          360,
+          360
+        ],
+        "source_indices": [
+          95
+        ],
+        "output_indices": [
+          78
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/262_particles_shiny_nb50_new.mrcs",
+        "start": 12442624,
+        "end": 12961023,
+        "bytes": 518400,
+        "sha256": "5eece688f68ca91151b2a155886fe6a5d7aa06d692adfddab883bd6087ee4abb",
+        "etag": "\"288a600-592a8b38bd500\"",
+        "content_range": "bytes 12442624-12961023/42509824",
+        "header_sha256": "77e8e7cf887c8dcb7ea2b68c8df779b7a741525b82d8dee0e3880d7eab729bd1",
+        "source_shape": [
+          82,
+          360,
+          360
+        ],
+        "source_indices": [
+          24
+        ],
+        "output_indices": [
+          81
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/269_particles_shiny_nb50_new.mrcs",
+        "start": 13479424,
+        "end": 13997823,
+        "bytes": 518400,
+        "sha256": "83f535b17aaf55a91fb4fe7f211e7809991fff13e8601f47f42684632e6bbe9c",
+        "etag": "\"2cfd700-592a8af22ae80\"",
+        "content_range": "bytes 13479424-13997823/47175424",
+        "header_sha256": "7171146ec883b68fdb97db23f6c030789caced34d541e8486abc8bf0b8c75210",
+        "source_shape": [
+          91,
+          360,
+          360
+        ],
+        "source_indices": [
+          26
+        ],
+        "output_indices": [
+          82
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/248_particles_shiny_nb50_new.mrcs",
+        "start": 9850624,
+        "end": 10369023,
+        "bytes": 518400,
+        "sha256": "4184e8831e2b8f897ed8306b3f053cb4e6cffde10de5563147b65a27174a4672",
+        "etag": "\"1839d00-592a8ac5584c0\"",
+        "content_range": "bytes 9850624-10369023/25402624",
+        "header_sha256": "2bb1bf3f53f26163bff89b09b0a40bf950d4c35b7c56053c163594e3ce287c2b",
+        "source_shape": [
+          49,
+          360,
+          360
+        ],
+        "source_indices": [
+          19
+        ],
+        "output_indices": [
+          77
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/279_particles_shiny_nb50_new.mrcs",
+        "start": 19700224,
+        "end": 20218623,
+        "bytes": 518400,
+        "sha256": "5bbfe8fe87282d30a6360075729dbc4eb3689e84e1fd7f268cd7ae22dee1f32f",
+        "etag": "\"2ef7b00-592a8b2792c80\"",
+        "content_range": "bytes 19700224-20218623/49249024",
+        "header_sha256": "21bacd7524c8d7b1ce076d1367c991849aefca0374a83ceb24a83fb572cc24aa",
+        "source_shape": [
+          95,
+          360,
+          360
+        ],
+        "source_indices": [
+          38
+        ],
+        "output_indices": [
+          83
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/283_particles_shiny_nb50_new.mrcs",
+        "start": 3111424,
+        "end": 3629823,
+        "bytes": 518400,
+        "sha256": "3dfb0ac7782f66d9f70dde4cc91fa46e804a3e3d1c3f38b57e753715b9162607",
+        "etag": "\"2b03300-592a8ab70a300\"",
+        "content_range": "bytes 3111424-3629823/45101824",
+        "header_sha256": "7a562c6bfb3b01f923c36889a25fd568685dcec8f14a74df554d6076e3ab8116",
+        "source_shape": [
+          87,
+          360,
+          360
+        ],
+        "source_indices": [
+          6
+        ],
+        "output_indices": [
+          84
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/259_particles_shiny_nb50_new.mrcs",
+        "start": 26439424,
+        "end": 26957823,
+        "bytes": 518400,
+        "sha256": "9a6075bab60addf85c7f382523bf58f3756d96d9227103589c2ebc1b69654bf8",
+        "etag": "\"30f1f00-592a8af042a00\"",
+        "content_range": "bytes 26439424-26957823/51322624",
+        "header_sha256": "863a92f4f9387e34f8ed3ba988b610ba47ad8c8aa6de03c38a4ce733d13c7289",
+        "source_shape": [
+          99,
+          360,
+          360
+        ],
+        "source_indices": [
+          51
+        ],
+        "output_indices": [
+          80
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/285_particles_shiny_nb50_new.mrcs",
+        "start": 13479424,
+        "end": 13997823,
+        "bytes": 518400,
+        "sha256": "9102b41053c9c5abe0c86e656f303bcbef27410969649cf9be27839ae6021f26",
+        "etag": "\"2c00500-592a8aee5a580\"",
+        "content_range": "bytes 13479424-13997823/46138624",
+        "header_sha256": "bc4ed6ccd090ce4b5f6a5f1152c9447ea2cb95429b37046c95e334fe462555e5",
+        "source_shape": [
+          89,
+          360,
+          360
+        ],
+        "source_indices": [
+          26
+        ],
+        "output_indices": [
+          85
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/306_particles_shiny_nb50_new.mrcs",
+        "start": 42509824,
+        "end": 43028223,
+        "bytes": 518400,
+        "sha256": "7c6b9ab553eb36223e23fcbd176a792822cab7880591bc881f62283169e95f3d",
+        "etag": "\"2a84a00-592a8b1944ac0\"",
+        "content_range": "bytes 42509824-43028223/44583424",
+        "header_sha256": "4dcd4e39ae25f7ee10103c32d4a9bd40497dd41e2d24cd08321aa12c84403d48",
+        "source_shape": [
+          86,
+          360,
+          360
+        ],
+        "source_indices": [
+          82
+        ],
+        "output_indices": [
+          88
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/286_particles_shiny_nb50_new.mrcs",
+        "start": 9332224,
+        "end": 9850623,
+        "bytes": 518400,
+        "sha256": "445cbe06eacfb2ecc4c3cce1316bdf983b0441a9f128f5552a14d7f1f59c4e1b",
+        "etag": "\"2f76400-592a8af5fb780\"",
+        "content_range": "bytes 9332224-9850623/49767424",
+        "header_sha256": "7f12f9194ec27abf2bb3a1b109dfa6ca9749e04f38fe3bd160165daa4fd06166",
+        "source_shape": [
+          96,
+          360,
+          360
+        ],
+        "source_indices": [
+          18
+        ],
+        "output_indices": [
+          86
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/289_particles_shiny_nb50_new.mrcs",
+        "start": 21255424,
+        "end": 21773823,
+        "bytes": 518400,
+        "sha256": "81c17977b9d0b13883a1fd40820d8ff18117a4dbf4cfe92530f9f91836071728",
+        "etag": "\"2c7ee00-592a8af7e3c00\"",
+        "content_range": "bytes 21255424-21773823/46657024",
+        "header_sha256": "d31bfb0f439e21a660a5dd94bc23895ee2c7ddcd7b7c92e16e525872b9eca81a",
+        "source_shape": [
+          90,
+          360,
+          360
+        ],
+        "source_indices": [
+          41
+        ],
+        "output_indices": [
+          87
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/320_particles_shiny_nb50_new.mrcs",
+        "start": 17626624,
+        "end": 18145023,
+        "bytes": 518400,
+        "sha256": "7bf00b06a010e6f6798f17a0eb487daff604a29df284db268551fbd4919ed999",
+        "etag": "\"2b03300-592a8ad49a8c0\"",
+        "content_range": "bytes 17626624-18145023/45101824",
+        "header_sha256": "87dccd681829398a59ca32df0ac327a367534351a58fcbb9080e803d14bd8b84",
+        "source_shape": [
+          87,
+          360,
+          360
+        ],
+        "source_indices": [
+          34
+        ],
+        "output_indices": [
+          90
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/328_particles_shiny_nb50_new.mrcs",
+        "start": 38362624,
+        "end": 38881023,
+        "bytes": 518400,
+        "sha256": "7a5e4950d6174c38f2cbbb7ffea3b906d0461387eec961b75fd1c6d3d286d3b1",
+        "etag": "\"2b03300-592a8ada53640\"",
+        "content_range": "bytes 38362624-38881023/45101824",
+        "header_sha256": "2b1d32d38c8a34a7475a17ed8519224454ae43a95513594e98755dabe5801c4f",
+        "source_shape": [
+          87,
+          360,
+          360
+        ],
+        "source_indices": [
+          74
+        ],
+        "output_indices": [
+          92
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/314_particles_shiny_nb50_new.mrcs",
+        "start": 1037824,
+        "end": 1556223,
+        "bytes": 518400,
+        "sha256": "e831dfe2f17438bee4fc07373f3358865cdbeadb280ad6e9182a0f6ea489ffcb",
+        "etag": "\"2690200-592a8abdb72c0\"",
+        "content_range": "bytes 1037824-1556223/40436224",
+        "header_sha256": "e27144c3ca7f694445f1f21b626b6905ba0298b67087b13cf707208e1dd04cbf",
+        "source_shape": [
+          78,
+          360,
+          360
+        ],
+        "source_indices": [
+          2
+        ],
+        "output_indices": [
+          89
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/324_particles_shiny_nb50_new.mrcs",
+        "start": 7258624,
+        "end": 7777023,
+        "bytes": 518400,
+        "sha256": "fdf6d2afd4daa170aee79e32fad611f2ff02b885dfc5be10eea7e91047258b34",
+        "etag": "\"2c00500-592a8af507540\"",
+        "content_range": "bytes 7258624-7777023/46138624",
+        "header_sha256": "e5cabe43c663b1d4e295eb61e50d66aa64feb1d5916f77003d84e3632a776f0f",
+        "source_shape": [
+          89,
+          360,
+          360
+        ],
+        "source_indices": [
+          14
+        ],
+        "output_indices": [
+          91
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/339_particles_shiny_nb50_new.mrcs",
+        "start": 24884224,
+        "end": 25402623,
+        "bytes": 518400,
+        "sha256": "cea71ccad0a72e509f9a77d1c1307fb6bc5446427883491e986df9ac775346a0",
+        "etag": "\"30f1f00-592a8b0fbb440\"",
+        "content_range": "bytes 24884224-25402623/51322624",
+        "header_sha256": "957b5c06d32f817a73f447b79a14a8d3eb557d1d49f912f230f57f0f7747dbb0",
+        "source_shape": [
+          99,
+          360,
+          360
+        ],
+        "source_indices": [
+          48
+        ],
+        "output_indices": [
+          93
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/348_particles_shiny_nb50_new.mrcs",
+        "start": 15553024,
+        "end": 16071423,
+        "bytes": 518400,
+        "sha256": "bea003703839e980a4226b36ce4a50695fad95ced484b8672283e6b38974c2c3",
+        "etag": "\"2e79200-592a8b3210540\"",
+        "content_range": "bytes 15553024-16071423/48730624",
+        "header_sha256": "183f74dfd0098b98efa04bb8dc53d06753dcd267ceb9213f299cc4430d6db435",
+        "source_shape": [
+          94,
+          360,
+          360
+        ],
+        "source_indices": [
+          30
+        ],
+        "output_indices": [
+          95
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/347_particles_shiny_nb50_new.mrcs",
+        "start": 3629824,
+        "end": 4148223,
+        "bytes": 518400,
+        "sha256": "49c5a89ebc1591d13352e4f1d1590f0dbdc8c26588b5c1333af463b0cccf9575",
+        "etag": "\"30f1f00-592a8b9ec85c0\"",
+        "content_range": "bytes 3629824-4148223/51322624",
+        "header_sha256": "fe89aa2eed0d37b93ccd9711b7ca6b86e1cade045b15ad5b00bf4dc0763c3ac4",
+        "source_shape": [
+          99,
+          360,
+          360
+        ],
+        "source_indices": [
+          7
+        ],
+        "output_indices": [
+          94
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/357_particles_shiny_nb50_new.mrcs",
+        "start": 8295424,
+        "end": 8813823,
+        "bytes": 518400,
+        "sha256": "e249728ee69d9b9b0bc44ffb370a934be3aef4fd4801c52a74d4ba7171065a61",
+        "etag": "\"2a06100-592a8b090e480\"",
+        "content_range": "bytes 8295424-8813823/44065024",
+        "header_sha256": "8bb8180ea94fb3a754f6aaf9bfe14843f124116f201d9ca6b8202a15b1b7bdd5",
+        "source_shape": [
+          85,
+          360,
+          360
+        ],
+        "source_indices": [
+          16
+        ],
+        "output_indices": [
+          96
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/365_particles_shiny_nb50_new.mrcs",
+        "start": 39399424,
+        "end": 39917823,
+        "bytes": 518400,
+        "sha256": "3fc2ae48d21d841254d044ca08f0b110decc28bbaca92d350257e97d36ee4304",
+        "etag": "\"34e6700-592a8b4246b80\"",
+        "content_range": "bytes 39399424-39917823/55469824",
+        "header_sha256": "4fcaced76dbc77f7ccb792140638cbc1b5ec3d096ab7565c05b7ed225f8bc176",
+        "source_shape": [
+          107,
+          360,
+          360
+        ],
+        "source_indices": [
+          76
+        ],
+        "output_indices": [
+          97
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/384_particles_shiny_nb50_new.mrcs",
+        "start": 12442624,
+        "end": 12961023,
+        "bytes": 518400,
+        "sha256": "cd4428ad0118ab12b0224dea76c9ef8ed5961f1207d943571495910f43799be1",
+        "etag": "\"2dfa900-592a8b7f4fb80\"",
+        "content_range": "bytes 12442624-12961023/48212224",
+        "header_sha256": "b36c17d82431dd618a62a5c4e7f2e93c710cbc1f9b3e4b7abfa1e823eeb40d5e",
+        "source_shape": [
+          93,
+          360,
+          360
+        ],
+        "source_indices": [
+          24
+        ],
+        "output_indices": [
+          99
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/367_particles_shiny_nb50_new.mrcs",
+        "start": 43546624,
+        "end": 44065023,
+        "bytes": 518400,
+        "sha256": "3b9d1fc6ca992af5a4b664eb1080637723b408a5a7d9c62d37fcd5ec74445e21",
+        "etag": "\"3073600-592a8b73de080\"",
+        "content_range": "bytes 43546624-44065023/50804224",
+        "header_sha256": "36843bb53c6fe996fef951c5f9feb023971a51314333015ed7e7da0422b3c1fc",
+        "source_shape": [
+          98,
+          360,
+          360
+        ],
+        "source_indices": [
+          84
+        ],
+        "output_indices": [
+          98
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/391_particles_shiny_nb50_new.mrcs",
+        "start": 2593024,
+        "end": 3111423,
+        "bytes": 518400,
+        "sha256": "b7e5ddd88477366c2dcd96203209ea035cfc60bc55a1b730e8e07ae7111fd719",
+        "etag": "\"2a06100-592a8af136c40\"",
+        "content_range": "bytes 2593024-3111423/44065024",
+        "header_sha256": "28becabc1ea6950d9a0b45cf653b8ab82f51910a088d17c6d0abbb9c2e13364b",
+        "source_shape": [
+          85,
+          360,
+          360
+        ],
+        "source_indices": [
+          5
+        ],
+        "output_indices": [
+          101
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/390_particles_shiny_nb50_new.mrcs",
+        "start": 519424,
+        "end": 1037823,
+        "bytes": 518400,
+        "sha256": "78999c917054a70b49750a53e6c8192b69549931b927407619223d5f0dc32c47",
+        "etag": "\"270eb00-592a8acee1b40\"",
+        "content_range": "bytes 519424-1037823/40954624",
+        "header_sha256": "33c9a1d29a4637461c6b1e24b87fe9f87712c50700d5c206095cfaa3a3f355cf",
+        "source_shape": [
+          79,
+          360,
+          360
+        ],
+        "source_indices": [
+          1
+        ],
+        "output_indices": [
+          100
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/405_particles_shiny_nb50_new.mrcs",
+        "start": 14516224,
+        "end": 15034623,
+        "bytes": 518400,
+        "sha256": "0f840b9a389e9daafab923518c19f1ff3769a0d99844018ba336ae0c9fa8d7b0",
+        "etag": "\"2b03300-592a8aea89c80\"",
+        "content_range": "bytes 14516224-15034623/45101824",
+        "header_sha256": "58e79dba6cc4ff0fadc4028c3959debb6cc891d8b10bd45f9a2959a7b8e1dc65",
+        "source_shape": [
+          87,
+          360,
+          360
+        ],
+        "source_indices": [
+          28
+        ],
+        "output_indices": [
+          102
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/423_particles_shiny_nb50_new.mrcs",
+        "start": 39917824,
+        "end": 40436223,
+        "bytes": 518400,
+        "sha256": "e8282088f4f7acfbca6c53a2e20e8b0c359e496b6b29b86170d895bc31d01a6b",
+        "etag": "\"385c600-592a8ba75da00\"",
+        "content_range": "bytes 39917824-40436223/59098624",
+        "header_sha256": "84091a6e7e07d3fd64e947434c6797da00f931db9f8202fbe4dd1fc9da683972",
+        "source_shape": [
+          114,
+          360,
+          360
+        ],
+        "source_indices": [
+          77
+        ],
+        "output_indices": [
+          104
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/406_particles_shiny_nb50_new.mrcs",
+        "start": 44583424,
+        "end": 45101823,
+        "bytes": 518400,
+        "sha256": "250589737a8ef6a912437227db86f32b79fb4d2a796054984ac057411bb64cee",
+        "etag": "\"3073600-592a8b0beab40\"",
+        "content_range": "bytes 44583424-45101823/50804224",
+        "header_sha256": "7db55bb74d4c1b933d2891605377d111e83d303f88f0883864154519c1de0c62",
+        "source_shape": [
+          98,
+          360,
+          360
+        ],
+        "source_indices": [
+          86
+        ],
+        "output_indices": [
+          103
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/430_particles_shiny_nb50_new.mrcs",
+        "start": 18145024,
+        "end": 18663423,
+        "bytes": 518400,
+        "sha256": "9cd5f720cf0ebb973a6caa2ee0a6dd012a959a77255a4588bfbcc4a840a9143b",
+        "etag": "\"2cfd700-592a8af6ef9c0\"",
+        "content_range": "bytes 18145024-18663423/47175424",
+        "header_sha256": "f029cc6638bccbd8a6865b78b64c6f60cbef746990ac7bbff95a5c87778cad3e",
+        "source_shape": [
+          91,
+          360,
+          360
+        ],
+        "source_indices": [
+          35
+        ],
+        "output_indices": [
+          105
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/453_particles_shiny_nb50_new.mrcs",
+        "start": 9850624,
+        "end": 10369023,
+        "bytes": 518400,
+        "sha256": "2e7c33619f05aeaa1f643564f777fa8ef76ce3d99747a09a0268f51b8cb98679",
+        "etag": "\"2b81c00-592a8b0449940\"",
+        "content_range": "bytes 9850624-10369023/45620224",
+        "header_sha256": "e3231f6854a018e24287ae82933554c0db47d75afdc1096f96b8e75c63d99add",
+        "source_shape": [
+          88,
+          360,
+          360
+        ],
+        "source_indices": [
+          19
+        ],
+        "output_indices": [
+          107
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/434_particles_shiny_nb50_new.mrcs",
+        "start": 26957824,
+        "end": 27476223,
+        "bytes": 518400,
+        "sha256": "5f2e914c893fd85822559c7f454eab3382f1005b1098b38653ef115c3d1a1c09",
+        "etag": "\"326da00-592a8b9dd4380\"",
+        "content_range": "bytes 26957824-27476223/52877824",
+        "header_sha256": "5d98efe84551e2ed98295b27f39c2d823e93c781e84135d76b47c7ee590796af",
+        "source_shape": [
+          102,
+          360,
+          360
+        ],
+        "source_indices": [
+          52
+        ],
+        "output_indices": [
+          106
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/468_particles_shiny_nb50_new.mrcs",
+        "start": 2593024,
+        "end": 3111423,
+        "bytes": 518400,
+        "sha256": "119e7edbd45c6398077ea9a45f5aeaf230f76d86090bcaddb6fb52980b9dba3c",
+        "etag": "\"2c7ee00-592a8afca8740\"",
+        "content_range": "bytes 2593024-3111423/46657024",
+        "header_sha256": "35699e8e24f13e14eb75f5cb2070b32fa2f354b2508f7f83069c1e5fe194be58",
+        "source_shape": [
+          90,
+          360,
+          360
+        ],
+        "source_indices": [
+          5
+        ],
+        "output_indices": [
+          109
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/455_particles_shiny_nb50_new.mrcs",
+        "start": 23329024,
+        "end": 23847423,
+        "bytes": 518400,
+        "sha256": "4329abcbb93bb5d64e0d4f8b2d1e67b537994e68c263e74df3f06ce23388b971",
+        "etag": "\"30f1f00-592a8b1ff1a80\"",
+        "content_range": "bytes 23329024-23847423/51322624",
+        "header_sha256": "02ccb94464ec5ac2563de5f3f59852dc888c31e86b37ab18605f9d7be20c8b7e",
+        "source_shape": [
+          99,
+          360,
+          360
+        ],
+        "source_indices": [
+          45
+        ],
+        "output_indices": [
+          108
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/503_particles_shiny_nb50_new.mrcs",
+        "start": 34733824,
+        "end": 35252223,
+        "bytes": 518400,
+        "sha256": "e65074c5799a6e79015835049f3b673caafee4559dda74020058c7153e335dda",
+        "etag": "\"2593000-592a8abadac00\"",
+        "content_range": "bytes 34733824-35252223/39399424",
+        "header_sha256": "98cddc954bee7b917b8d1ec2c2976c810f80183eff2312eb29c9a99ae1f3c444",
+        "source_shape": [
+          76,
+          360,
+          360
+        ],
+        "source_indices": [
+          67
+        ],
+        "output_indices": [
+          111
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/497_particles_shiny_nb50_new.mrcs",
+        "start": 41473024,
+        "end": 41991423,
+        "bytes": 518400,
+        "sha256": "807f702e9964b4a63fd8820d1a83209b97981ec38cadbc84d578ff3f868d8f5a",
+        "etag": "\"2a84a00-592a8b147ff80\"",
+        "content_range": "bytes 41473024-41991423/44583424",
+        "header_sha256": "4fc9108d4ac854062f21233441ce0da727bb5e840d3c3d30f11130be10243f63",
+        "source_shape": [
+          86,
+          360,
+          360
+        ],
+        "source_indices": [
+          80
+        ],
+        "output_indices": [
+          110
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/520_particles_shiny_nb50_new.mrcs",
+        "start": 15034624,
+        "end": 15553023,
+        "bytes": 518400,
+        "sha256": "462ce2f9e07d9a102c0a484268100309c582ff43069a5f0fb44fc8d10e29ce35",
+        "etag": "\"2c00500-592a8af31f0c0\"",
+        "content_range": "bytes 15034624-15553023/46138624",
+        "header_sha256": "6494a644f8de644e167b2464e320cc6d26e7da559161729d4eb76d08281b6505",
+        "source_shape": [
+          89,
+          360,
+          360
+        ],
+        "source_indices": [
+          29
+        ],
+        "output_indices": [
+          115
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/517_particles_shiny_nb50_new.mrcs",
+        "start": 37844224,
+        "end": 38362623,
+        "bytes": 518400,
+        "sha256": "ed825ba628e8828325d63f9905b33ab6ce7bcd959d0edad52fe0f97371a975fc",
+        "etag": "\"2b81c00-592a8ae100600\"",
+        "content_range": "bytes 37844224-38362623/45620224",
+        "header_sha256": "613fa4c118f779320e61e27efbe37a64691e7fd0df2c8ef3cef56e76e10de594",
+        "source_shape": [
+          88,
+          360,
+          360
+        ],
+        "source_indices": [
+          73
+        ],
+        "output_indices": [
+          113
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/519_particles_shiny_nb50_new.mrcs",
+        "start": 3629824,
+        "end": 4148223,
+        "bytes": 518400,
+        "sha256": "d5f8beb4131f71a00cbd8fdc12f4350d96a42e11441d8338dd7f5e4d814a67d5",
+        "etag": "\"2b81c00-592a8ac5584c0\"",
+        "content_range": "bytes 3629824-4148223/45620224",
+        "header_sha256": "896f528a3f5e27704cef888970a138eca5d3dffa998b69d86838d703d44ffeab",
+        "source_shape": [
+          88,
+          360,
+          360
+        ],
+        "source_indices": [
+          7
+        ],
+        "output_indices": [
+          114
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/516_particles_shiny_nb50_new.mrcs",
+        "start": 35252224,
+        "end": 35770623,
+        "bytes": 518400,
+        "sha256": "10d79f1eb7c053e28d2542a7c6ec231ee2cb1fb294c1e03ca25ed35c7dae410b",
+        "etag": "\"2c7ee00-592a8afe90bc0\"",
+        "content_range": "bytes 35252224-35770623/46657024",
+        "header_sha256": "c38aab39c0b0ad7038f15303ac73c528355fb2183a09c7e2425df3a5c9dfce9d",
+        "source_shape": [
+          90,
+          360,
+          360
+        ],
+        "source_indices": [
+          68
+        ],
+        "output_indices": [
+          112
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/523_particles_shiny_nb50_new.mrcs",
+        "start": 2074624,
+        "end": 2593023,
+        "bytes": 518400,
+        "sha256": "0a8e462f5a11fe9580067930935a1a38e8abeb5ffde80a94b81018e3a9e9d654",
+        "etag": "\"2cfd700-592a8b4eac8c0\"",
+        "content_range": "bytes 2074624-2593023/47175424",
+        "header_sha256": "352b66d4f0b3646827f3c5712ea7f47bd02d34540ecec89ca793e3954567c17f",
+        "source_shape": [
+          91,
+          360,
+          360
+        ],
+        "source_indices": [
+          4
+        ],
+        "output_indices": [
+          116
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/539_particles_shiny_nb50_new.mrcs",
+        "start": 7777024,
+        "end": 8295423,
+        "bytes": 518400,
+        "sha256": "56bc520b74b10b5d8b403fa86ef11c6d07c265c9c985739ad203f2842add3e53",
+        "etag": "\"280bd00-592a8af9cc080\"",
+        "content_range": "bytes 7777024-8295423/41991424",
+        "header_sha256": "5869008e1e92c03b35a834f2fa43abed7c8b1262f3232fcec261b13d5e729375",
+        "source_shape": [
+          81,
+          360,
+          360
+        ],
+        "source_indices": [
+          15
+        ],
+        "output_indices": [
+          119
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/535_particles_shiny_nb50_new.mrcs",
+        "start": 14516224,
+        "end": 15034623,
+        "bytes": 518400,
+        "sha256": "b7fa25b437926da5f25656cb4bd9b2e3a4fb9cd46eeafd419797bebb55794e7e",
+        "etag": "\"211ff00-592a8ad1be200\"",
+        "content_range": "bytes 14516224-15034623/34733824",
+        "header_sha256": "5d98e8faae29985500443983266d85e526dc93daead4108e5e70866f415a2ce2",
+        "source_shape": [
+          67,
+          360,
+          360
+        ],
+        "source_indices": [
+          28
+        ],
+        "output_indices": [
+          117
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/537_particles_shiny_nb50_new.mrcs",
+        "start": 35770624,
+        "end": 36289023,
+        "bytes": 518400,
+        "sha256": "609e9c7438a4185c3d79e9c0de5f2fe89e81ec5038b89bba59ad603c544e372c",
+        "etag": "\"270eb00-592a8ac464280\"",
+        "content_range": "bytes 35770624-36289023/40954624",
+        "header_sha256": "92443760cbe389f6f89308456bdc78c4664a0e98d4275f1b4bafedbfc9adff86",
+        "source_shape": [
+          79,
+          360,
+          360
+        ],
+        "source_indices": [
+          69
+        ],
+        "output_indices": [
+          118
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/549_particles_shiny_nb50_new.mrcs",
+        "start": 49767424,
+        "end": 50285823,
+        "bytes": 518400,
+        "sha256": "a4bfea7d97595fc422d9f2d36a4588064fc2acb8e34bdb23b0a7cb06ca07fb97",
+        "etag": "\"3073600-592a8b0fbb440\"",
+        "content_range": "bytes 49767424-50285823/50804224",
+        "header_sha256": "6d7c0c09079a36473fee7e0ce73570444216a5577a1923517e4c56f729869553",
+        "source_shape": [
+          98,
+          360,
+          360
+        ],
+        "source_indices": [
+          96
+        ],
+        "output_indices": [
+          120
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/564_particles_shiny_nb50_new.mrcs",
+        "start": 23329024,
+        "end": 23847423,
+        "bytes": 518400,
+        "sha256": "e8432279a0e3ce4140934ac41f6154dbfc010919974871ead8b5b9661a2d3df8",
+        "etag": "\"3662200-592a8b30280c0\"",
+        "content_range": "bytes 23329024-23847423/57025024",
+        "header_sha256": "44660c71ec3a8c4636f970eba37021d4262a7e33419b83aa4c70b0fefdc24804",
+        "source_shape": [
+          110,
+          360,
+          360
+        ],
+        "source_indices": [
+          45
+        ],
+        "output_indices": [
+          123
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/557_particles_shiny_nb50_new.mrcs",
+        "start": 20218624,
+        "end": 20737023,
+        "bytes": 518400,
+        "sha256": "67aaacc744d9e4a3a4eb8f124a03b7e647e4b52ee61de9586c5ca343db2763bf",
+        "etag": "\"221d100-592a8ab7fe540\"",
+        "content_range": "bytes 20218624-20737023/35770624",
+        "header_sha256": "536985e05ff32695469a39c5a966d9f88e287c1dc028f10dff40d491d871e4cd",
+        "source_shape": [
+          69,
+          360,
+          360
+        ],
+        "source_indices": [
+          39
+        ],
+        "output_indices": [
+          121
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/559_particles_shiny_nb50_new.mrcs",
+        "start": 19700224,
+        "end": 20218623,
+        "bytes": 518400,
+        "sha256": "1117fb70d103ca80b08923efbd87571b466051ecb8d31d15b06fe83a3749661b",
+        "etag": "\"229ba00-592a8ac5584c0\"",
+        "content_range": "bytes 19700224-20218623/36289024",
+        "header_sha256": "6bb5c6d28224871551b10864d0c947f3a00f0fcf3ab34c43c89e681056121670",
+        "source_shape": [
+          70,
+          360,
+          360
+        ],
+        "source_indices": [
+          38
+        ],
+        "output_indices": [
+          122
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/581_particles_shiny_nb50_new.mrcs",
+        "start": 13479424,
+        "end": 13997823,
+        "bytes": 518400,
+        "sha256": "6345947890626e81541ef2fbe1f1c86fcf3cac10b35c9d5e2f5dc9ad039312dc",
+        "etag": "\"2495e00-592a8acded900\"",
+        "content_range": "bytes 13479424-13997823/38362624",
+        "header_sha256": "9ae05a438ef8e54794de34094a6625d1ad0d46340d41b0e60dd3535dfafb2d6e",
+        "source_shape": [
+          74,
+          360,
+          360
+        ],
+        "source_indices": [
+          26
+        ],
+        "output_indices": [
+          124
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/590_particles_shiny_nb50_new.mrcs",
+        "start": 27476224,
+        "end": 27994623,
+        "bytes": 518400,
+        "sha256": "28c7844555d7cdfeb6c99b4315f9f9da78c8b85080c1fbecac9a796b54317574",
+        "etag": "\"2690200-592a8ac64c700\"",
+        "content_range": "bytes 27476224-27994623/40436224",
+        "header_sha256": "a2e7ab1fe0236c189b3e9859ee7e07e861381a62efce8ba03f361e9d5d28fd99",
+        "source_shape": [
+          78,
+          360,
+          360
+        ],
+        "source_indices": [
+          53
+        ],
+        "output_indices": [
+          126
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/582_particles_shiny_nb50_new.mrcs",
+        "start": 32660224,
+        "end": 33178623,
+        "bytes": 518400,
+        "sha256": "8cf322eb34fefe4fc0a4fb5b277a72e93fbe460dc190dd4455a25950632f5f7c",
+        "etag": "\"231a300-592a8acee1b40\"",
+        "content_range": "bytes 32660224-33178623/36807424",
+        "header_sha256": "37d59bcc78bb4053d423a044e0be5274fdc352c0f8d12958e2100064fb67f26b",
+        "source_shape": [
+          71,
+          360,
+          360
+        ],
+        "source_indices": [
+          63
+        ],
+        "output_indices": [
+          125
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_0601/595_particles_shiny_nb50_new.mrcs",
+        "start": 1024,
+        "end": 519423,
+        "bytes": 518400,
+        "sha256": "c65f29f997a0cf016e8707cb5324d9cbb96c57faff712628117b8cbe5e125098",
+        "etag": "\"1e28900-592a8abbcee40\"",
+        "content_range": "bytes 1024-519423/31623424",
+        "header_sha256": "04c145697e4096baaad86d1abe7e36338a44687792d8f50dc7882ba94323121c",
+        "source_shape": [
+          61,
+          360,
+          360
+        ],
+        "source_indices": [
+          0
+        ],
+        "output_indices": [
+          127
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/018_particles_shiny_nb50_new.mrcs",
+        "start": 34215424,
+        "end": 34733823,
+        "bytes": 518400,
+        "sha256": "79e92236efd54d0b738810fedfe037520d5129bfd1850ccb31562a08abee6ef6",
+        "etag": "\"2dfa900-592a8aec72100\"",
+        "content_range": "bytes 34215424-34733823/48212224",
+        "header_sha256": "454f90dcd75bc50ca77ab714213940c9102f745e5ebbebb1b4c1479301ebeb92",
+        "source_shape": [
+          93,
+          360,
+          360
+        ],
+        "source_indices": [
+          66
+        ],
+        "output_indices": [
+          0
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/031_particles_shiny_nb50_new.mrcs",
+        "start": 24884224,
+        "end": 25402623,
+        "bytes": 518400,
+        "sha256": "93a1b0988c15a0e27f116717268639b5ca26c89a8ca241dfaec7d3c8fe00f044",
+        "etag": "\"336ac00-592a8af8d7e40\"",
+        "content_range": "bytes 24884224-25402623/53914624",
+        "header_sha256": "2b950e99fa215be99160ec0a5488f5c4d48d563d2e25bcb20a235f82527091da",
+        "source_shape": [
+          104,
+          360,
+          360
+        ],
+        "source_indices": [
+          48
+        ],
+        "output_indices": [
+          1
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/059_particles_shiny_nb50_new.mrcs",
+        "start": 8813824,
+        "end": 9332223,
+        "bytes": 518400,
+        "sha256": "aadaa3466fd062e2772248bca0d681634ac88ccaa5ed101895f41b74849778c1",
+        "etag": "\"3b53c00-592a8b30280c0\"",
+        "content_range": "bytes 8813824-9332223/62209024",
+        "header_sha256": "e6fa03c22a3ee6c5321395c78c6487a1344d006539fafe7619f8385059cf5148",
+        "source_shape": [
+          120,
+          360,
+          360
+        ],
+        "source_indices": [
+          17
+        ],
+        "output_indices": [
+          3
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/032_particles_shiny_nb50_new.mrcs",
+        "start": 44583424,
+        "end": 45101823,
+        "bytes": 518400,
+        "sha256": "ed4fd2b0bd468bed1ce2a8c2315842692f06cf1ae6d754ea3d3599358dc918a9",
+        "etag": "\"36e0b00-592a8b97273c0\"",
+        "content_range": "bytes 44583424-45101823/57543424",
+        "header_sha256": "3e9c834ec30e1e6b9358bef8b3a658706c78a41e4fe63f549e0bc709995dfc6a",
+        "source_shape": [
+          111,
+          360,
+          360
+        ],
+        "source_indices": [
+          86
+        ],
+        "output_indices": [
+          2
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/072_particles_shiny_nb50_new.mrcs",
+        "start": 9332224,
+        "end": 9850623,
+        "bytes": 518400,
+        "sha256": "0f24e0144bad8b16e91344e258f2bc68bf28e7e6a628ed8fee50fa51749a0a85",
+        "etag": "\"3959800-592a8b5559880\"",
+        "content_range": "bytes 9332224-9850623/60135424",
+        "header_sha256": "cf743c7db70721e0b44bfc58f40a0420c9e33577cc02c3c5ea8bc07c105bce53",
+        "source_shape": [
+          116,
+          360,
+          360
+        ],
+        "source_indices": [
+          18
+        ],
+        "output_indices": [
+          4
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/094_particles_shiny_nb50_new.mrcs",
+        "start": 7258624,
+        "end": 7777023,
+        "bytes": 518400,
+        "sha256": "90f9c5e419f4b7c53839f2bc5e6a354c5de4e6913e7b52f089e81c37077650dd",
+        "etag": "\"2e79200-592a8b1668400\"",
+        "content_range": "bytes 7258624-7777023/48730624",
+        "header_sha256": "1b1a68b5f1d24d7863e7d14fcae816da4988f00015babde2aab6302e0c4f0ade",
+        "source_shape": [
+          94,
+          360,
+          360
+        ],
+        "source_indices": [
+          14
+        ],
+        "output_indices": [
+          6
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/087_particles_shiny_nb50_new.mrcs",
+        "start": 51841024,
+        "end": 52359423,
+        "bytes": 518400,
+        "sha256": "2fff034e12fb89032ca7aec96bc11c9d5ee247ddd8f9d3b67b920d8ca6d10223",
+        "etag": "\"3467e00-592a8b69607c0\"",
+        "content_range": "bytes 51841024-52359423/54951424",
+        "header_sha256": "7c5c501cd52541d7ccfff81b31631df6439d7bfb8e24800f67405045ddadb4ee",
+        "source_shape": [
+          106,
+          360,
+          360
+        ],
+        "source_indices": [
+          100
+        ],
+        "output_indices": [
+          5
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/100_particles_shiny_nb50_new.mrcs",
+        "start": 3111424,
+        "end": 3629823,
+        "bytes": 518400,
+        "sha256": "52edab9e354d7462c613f9262a8a874a09c12cb19d3b1977b0187749a4feef26",
+        "etag": "\"3ad5300-592a8b8043dc0\"",
+        "content_range": "bytes 3111424-3629823/61690624",
+        "header_sha256": "3c7d49cdbffe8d264a173afb260a74032e001d1e3cecb1f20e0b1ff3c12b50d3",
+        "source_shape": [
+          119,
+          360,
+          360
+        ],
+        "source_indices": [
+          6
+        ],
+        "output_indices": [
+          7
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/104_particles_shiny_nb50_new.mrcs",
+        "start": 24365824,
+        "end": 24884223,
+        "bytes": 518400,
+        "sha256": "08f0da6a8950f8f4761d4b17c905e6bcada9f0708b502252751a59978608965d",
+        "etag": "\"3565000-592a8b5b12600\"",
+        "content_range": "bytes 24365824-24884223/55988224",
+        "header_sha256": "2ad1259bb44fa73080c9f771dee248bd42917866b6605ca724d65281ebee10b3",
+        "source_shape": [
+          108,
+          360,
+          360
+        ],
+        "source_indices": [
+          47
+        ],
+        "output_indices": [
+          8
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/106_particles_shiny_nb50_new.mrcs",
+        "start": 16589824,
+        "end": 17108223,
+        "bytes": 518400,
+        "sha256": "fdbd7050d75e6d011922166fb6b920215380d7dca25de757da2e99c3fd1985a4",
+        "etag": "\"31ef100-592a8b442f000\"",
+        "content_range": "bytes 16589824-17108223/52359424",
+        "header_sha256": "65ebe17f1695d1dec795c3388c78fd1d99b777975d5e29f8f3c9e295108434fc",
+        "source_shape": [
+          101,
+          360,
+          360
+        ],
+        "source_indices": [
+          32
+        ],
+        "output_indices": [
+          10
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/108_particles_shiny_nb50_new.mrcs",
+        "start": 48212224,
+        "end": 48730623,
+        "bytes": 518400,
+        "sha256": "05b88a325eb3ecf3eb7e67bf4deb5b9c6c8fdc0d23297646a8e4e0bfaa18dd51",
+        "etag": "\"33e9500-592a8b147ff80\"",
+        "content_range": "bytes 48212224-48730623/54433024",
+        "header_sha256": "105bd229425bb6e3f849609bace8f391eeedb23c25c6812ac88b43e7aa03a80c",
+        "source_shape": [
+          105,
+          360,
+          360
+        ],
+        "source_indices": [
+          93
+        ],
+        "output_indices": [
+          11
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/105_particles_shiny_nb50_new.mrcs",
+        "start": 4666624,
+        "end": 5185023,
+        "bytes": 518400,
+        "sha256": "5f7111573b2857871283d17c503719a82820732a3b65af7b14b0b0b11fd24808",
+        "etag": "\"2c7ee00-592a8b24b65c0\"",
+        "content_range": "bytes 4666624-5185023/46657024",
+        "header_sha256": "d33efc48e1ce0489c9215153748ec22a5b877863517c3570eb6b7656547af5e8",
+        "source_shape": [
+          90,
+          360,
+          360
+        ],
+        "source_indices": [
+          9
+        ],
+        "output_indices": [
+          9
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/112_particles_shiny_nb50_new.mrcs",
+        "start": 9850624,
+        "end": 10369023,
+        "bytes": 518400,
+        "sha256": "00a25c626ae39da16028de667ff0b93cd90882cc45d6254615a7e278a3261121",
+        "etag": "\"33e9500-592a8b0449940\"",
+        "content_range": "bytes 9850624-10369023/54433024",
+        "header_sha256": "faf0af57147273681d71e42cffe2252b3068d84c4756240ace63f11411b2832e",
+        "source_shape": [
+          105,
+          360,
+          360
+        ],
+        "source_indices": [
+          19
+        ],
+        "output_indices": [
+          12
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/115_particles_shiny_nb50_new.mrcs",
+        "start": 23847424,
+        "end": 24365823,
+        "bytes": 518400,
+        "sha256": "59c473bb4a48b6612762110f28293956b3e26f212488f0bfb567b577cdb9b649",
+        "etag": "\"3662200-592a8b3e76280\"",
+        "content_range": "bytes 23847424-24365823/57025024",
+        "header_sha256": "4a8def54ccd00cb0396b7bd4ca4c7b65a1b67ce4d03ec67a6328da2bc45a01e8",
+        "source_shape": [
+          110,
+          360,
+          360
+        ],
+        "source_indices": [
+          46
+        ],
+        "output_indices": [
+          13
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/133_particles_shiny_nb50_new.mrcs",
+        "start": 20218624,
+        "end": 20737023,
+        "bytes": 518400,
+        "sha256": "425161e000f4f81274de79fc3e322bb2743260225e67fc70a48be7d53f92c97c",
+        "etag": "\"33e9500-592a8b686c580\"",
+        "content_range": "bytes 20218624-20737023/54433024",
+        "header_sha256": "c790dc36296f6f6e57ee0e3e32764304d76afee33c0b132323adecd7227374ae",
+        "source_shape": [
+          105,
+          360,
+          360
+        ],
+        "source_indices": [
+          39
+        ],
+        "output_indices": [
+          14
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/137_particles_shiny_nb50_new.mrcs",
+        "start": 24884224,
+        "end": 25402623,
+        "bytes": 518400,
+        "sha256": "8958201b7b5340d2e716724962d977ff31f1f3a5787503a92ce6706d300b0c10",
+        "etag": "\"3170800-592a8b269ea40\"",
+        "content_range": "bytes 24884224-25402623/51841024",
+        "header_sha256": "70602c204eef41185064f418c28878783ac7d2a07fa08d4fd0583340cc5a8b47",
+        "source_shape": [
+          100,
+          360,
+          360
+        ],
+        "source_indices": [
+          48
+        ],
+        "output_indices": [
+          16
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/136_particles_shiny_nb50_new.mrcs",
+        "start": 45620224,
+        "end": 46138623,
+        "bytes": 518400,
+        "sha256": "12276c8fc4d76e24993a2b4d19ad0b36de0691b64e4aaded5db122ebddf76dd0",
+        "etag": "\"2ef7b00-592a8b21d9f00\"",
+        "content_range": "bytes 45620224-46138623/49249024",
+        "header_sha256": "da6579e1761159d9b673a19811aeeb27ad352c4373e5ed0e4339c00c280d00e5",
+        "source_shape": [
+          95,
+          360,
+          360
+        ],
+        "source_indices": [
+          88
+        ],
+        "output_indices": [
+          15
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/140_particles_shiny_nb50_new.mrcs",
+        "start": 21773824,
+        "end": 22292223,
+        "bytes": 518400,
+        "sha256": "2ca22f556d52af0c561f8622c80f6c13d4de2f377ad833d0faafaf5dc285c137",
+        "etag": "\"2b81c00-592a8b147ff80\"",
+        "content_range": "bytes 21773824-22292223/45620224",
+        "header_sha256": "38507f80e5c3a2d2b32dc0a454c71e9b98b5342b0bebbfe3d0d22e37ac4c4b65",
+        "source_shape": [
+          88,
+          360,
+          360
+        ],
+        "source_indices": [
+          42
+        ],
+        "output_indices": [
+          17
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/143_particles_shiny_nb50_new.mrcs",
+        "start": 2593024,
+        "end": 3111423,
+        "bytes": 518400,
+        "sha256": "501abf3e0704deac5b00c5c5b8de17a4e499b84ce66ef26b6d3994cef0156ed9",
+        "etag": "\"336ac00-592a8b74d22c0\"",
+        "content_range": "bytes 2593024-3111423/53914624",
+        "header_sha256": "5e21045184a8659cd588294d490ca44567f7e27e0aea97e1c02047c7608f4a21",
+        "source_shape": [
+          104,
+          360,
+          360
+        ],
+        "source_indices": [
+          5
+        ],
+        "output_indices": [
+          18
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/152_particles_shiny_nb50_new.mrcs",
+        "start": 43028224,
+        "end": 43546623,
+        "bytes": 518400,
+        "sha256": "a911dcbf02f96deb8ef3f44bf7950a27063782b2394bc3c3e2f3c94d6917fdbf",
+        "etag": "\"2dfa900-592a8b4246b80\"",
+        "content_range": "bytes 43028224-43546623/48212224",
+        "header_sha256": "e460066de73de57227cca1f0b0eb46e1792d58ef43f426cfe6b8f77325fd9f95",
+        "source_shape": [
+          93,
+          360,
+          360
+        ],
+        "source_indices": [
+          83
+        ],
+        "output_indices": [
+          19
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/154_particles_shiny_nb50_new.mrcs",
+        "start": 45101824,
+        "end": 45620223,
+        "bytes": 518400,
+        "sha256": "918ff9278b76237214db1a080a32260a70b50fc0c03b65cc4be15d5bb75e0e8a",
+        "etag": "\"2ef7b00-592a8af5fb780\"",
+        "content_range": "bytes 45101824-45620223/49249024",
+        "header_sha256": "12953c7492a66fec1df9313dac3d07599aa2c284ec3f0fd12129eb9dc07154ab",
+        "source_shape": [
+          95,
+          360,
+          360
+        ],
+        "source_indices": [
+          87
+        ],
+        "output_indices": [
+          20
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/164_particles_shiny_nb50_new.mrcs",
+        "start": 3111424,
+        "end": 3629823,
+        "bytes": 518400,
+        "sha256": "d13c2ec88a2ca018745891ca94ae242b5d00c604f164e48a6e00ab28155a11d0",
+        "etag": "\"2b81c00-592a8b0355700\"",
+        "content_range": "bytes 3111424-3629823/45620224",
+        "header_sha256": "ee55e1f47c0b781736b9147e252af5d2a55c0b13ba10dfcce7dc3a8d9dead9b2",
+        "source_shape": [
+          88,
+          360,
+          360
+        ],
+        "source_indices": [
+          6
+        ],
+        "output_indices": [
+          22
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/162_particles_shiny_nb50_new.mrcs",
+        "start": 10887424,
+        "end": 11405823,
+        "bytes": 518400,
+        "sha256": "0b739736d0a9b170d1063dbdd25a163d80301cfc2dd52be0b379f16fe4d03482",
+        "etag": "\"2c7ee00-592a8b1efd840\"",
+        "content_range": "bytes 10887424-11405823/46657024",
+        "header_sha256": "b8db7aeae084a74bda20760e6c5cebc739466c766cd73570d510ce7d6f9ebd5f",
+        "source_shape": [
+          90,
+          360,
+          360
+        ],
+        "source_indices": [
+          21
+        ],
+        "output_indices": [
+          21
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/176_particles_shiny_nb50_new.mrcs",
+        "start": 35770624,
+        "end": 36289023,
+        "bytes": 518400,
+        "sha256": "3f3f40fbdaeb209100937e7d2dde5684bd62f2cb65035263e8b5600999a40596",
+        "etag": "\"2f76400-592a8b907a400\"",
+        "content_range": "bytes 35770624-36289023/49767424",
+        "header_sha256": "33c86d58212a4db3eeff0ba8cc9cbdeb85ae39fe6f4a08380d1412f22e9a3013",
+        "source_shape": [
+          96,
+          360,
+          360
+        ],
+        "source_indices": [
+          69
+        ],
+        "output_indices": [
+          23
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/181_particles_shiny_nb50_new.mrcs",
+        "start": 38881024,
+        "end": 39399423,
+        "bytes": 518400,
+        "sha256": "ab6214e1b2a161887aeb990efa48912ac72160a8c3b43fe1655d7e0d9c1b352e",
+        "etag": "\"31ef100-592a8aff84e00\"",
+        "content_range": "bytes 38881024-39399423/52359424",
+        "header_sha256": "ac6aafe862acf0dc872230ebd422d0a3235d6c33c99a76d215fd9a8acb6c4312",
+        "source_shape": [
+          101,
+          360,
+          360
+        ],
+        "source_indices": [
+          75
+        ],
+        "output_indices": [
+          24
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/184_particles_shiny_nb50_new.mrcs",
+        "start": 16589824,
+        "end": 17108223,
+        "bytes": 518400,
+        "sha256": "4d75879efc29358622eae2f8950df4c5a4d8f20d8891e51fb04410b480670551",
+        "etag": "\"3170800-592a8b75c6500\"",
+        "content_range": "bytes 16589824-17108223/51841024",
+        "header_sha256": "cf107826a4478fb667f91592ce70885ef34f7ed1732a0e758f0c44bf10caa763",
+        "source_shape": [
+          100,
+          360,
+          360
+        ],
+        "source_indices": [
+          32
+        ],
+        "output_indices": [
+          25
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/186_particles_shiny_nb50_new.mrcs",
+        "start": 32141824,
+        "end": 32660223,
+        "bytes": 518400,
+        "sha256": "0d807ce42a8bb7ea1d371ae9c68a27cbd3bc8a1591b3c68b9a3554ce69a3ea80",
+        "etag": "\"35e3900-592a8b7e5b940\"",
+        "content_range": "bytes 32141824-32660223/56506624",
+        "header_sha256": "d4f5cb5bb4d109e0927628104bb422a128dfdaf6edc0ce9fadde0cd7b0f85d3e",
+        "source_shape": [
+          109,
+          360,
+          360
+        ],
+        "source_indices": [
+          62
+        ],
+        "output_indices": [
+          26
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/187_particles_shiny_nb50_new.mrcs",
+        "start": 26957824,
+        "end": 27476223,
+        "bytes": 518400,
+        "sha256": "f28bdf6b464823f92284ccc03c797edbc85aa82dadcdf9dc85c1d78ba9f125f7",
+        "etag": "\"2ff4d00-592a8ae5c5140\"",
+        "content_range": "bytes 26957824-27476223/50285824",
+        "header_sha256": "ff5c185fd59885b6909753d1965445bfb4a7937a1835d015de5cd4cfbebf980d",
+        "source_shape": [
+          97,
+          360,
+          360
+        ],
+        "source_indices": [
+          52
+        ],
+        "output_indices": [
+          27
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/188_particles_shiny_nb50_new.mrcs",
+        "start": 18663424,
+        "end": 19181823,
+        "bytes": 518400,
+        "sha256": "245368b5ce4eebb69d20d38be606bd18db4d6834f665b24ad01254b35d87ce62",
+        "etag": "\"2dfa900-592a8b0079040\"",
+        "content_range": "bytes 18663424-19181823/48212224",
+        "header_sha256": "55f80dd9a4949e3a41e47c079197023baf3582385a61e739513fdbde0c1f5856",
+        "source_shape": [
+          93,
+          360,
+          360
+        ],
+        "source_indices": [
+          36
+        ],
+        "output_indices": [
+          28
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/190_particles_shiny_nb50_new.mrcs",
+        "start": 27994624,
+        "end": 28513023,
+        "bytes": 518400,
+        "sha256": "871d778be932ee21badb39d292b91240b2fa3c0dd09e81052fce6efaee3651e1",
+        "etag": "\"3170800-592a8b0ec7200\"",
+        "content_range": "bytes 27994624-28513023/51841024",
+        "header_sha256": "f52dfc2de1d5b875a42742b4ad6eb8f3cb50c2945638f054ada2daa9c342155e",
+        "source_shape": [
+          100,
+          360,
+          360
+        ],
+        "source_indices": [
+          54
+        ],
+        "output_indices": [
+          29
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/213_particles_shiny_nb50_new.mrcs",
+        "start": 44583424,
+        "end": 45101823,
+        "bytes": 518400,
+        "sha256": "9d37bfc7e5610df226a6caff849dbe42b8fc705b1c5f2bb6da7fccc9ff8a5038",
+        "etag": "\"3073600-592a8b0fbb440\"",
+        "content_range": "bytes 44583424-45101823/50804224",
+        "header_sha256": "2815c2b03bfae13bc3ff65c57e49c664498b7f819c587400c930f88ba8985412",
+        "source_shape": [
+          98,
+          360,
+          360
+        ],
+        "source_indices": [
+          86
+        ],
+        "output_indices": [
+          32
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/192_particles_shiny_nb50_new.mrcs",
+        "start": 4148224,
+        "end": 4666623,
+        "bytes": 518400,
+        "sha256": "7349148a895e0975f18f34fd2ceb61a5f3c056f789fd6f9f148c4709fcaad873",
+        "etag": "\"2dfa900-592a8b3f6a4c0\"",
+        "content_range": "bytes 4148224-4666623/48212224",
+        "header_sha256": "b3bcbe1a1f95119ea641b0db76d3d2be84d421a138bac771b34d45db5a69a012",
+        "source_shape": [
+          93,
+          360,
+          360
+        ],
+        "source_indices": [
+          8
+        ],
+        "output_indices": [
+          30
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/197_particles_shiny_nb50_new.mrcs",
+        "start": 3111424,
+        "end": 3629823,
+        "bytes": 518400,
+        "sha256": "7371604fe081bfa2f348842f5241ee2e7a03d87ea79b990931b39cd6915159cb",
+        "etag": "\"2c7ee00-592a8b1ff1a80\"",
+        "content_range": "bytes 3111424-3629823/46657024",
+        "header_sha256": "b8ac92fb9f9b2ec28f044cc1fcbab56520e09f0b690017fb5803c67bf20ee528",
+        "source_shape": [
+          90,
+          360,
+          360
+        ],
+        "source_indices": [
+          6
+        ],
+        "output_indices": [
+          31
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/243_particles_shiny_nb50_new.mrcs",
+        "start": 53914624,
+        "end": 54433023,
+        "bytes": 518400,
+        "sha256": "c34d6dadffddb1c09841e414e59af21aca7828b31c989998dd90c8aee8ab9ebd",
+        "etag": "\"41c1100-592a8b4617480\"",
+        "content_range": "bytes 53914624-54433023/68948224",
+        "header_sha256": "28da522dee56143a5e05f8accdcd441da6a19492685bc31e89d0b1e39cb1c1d7",
+        "source_shape": [
+          133,
+          360,
+          360
+        ],
+        "source_indices": [
+          104
+        ],
+        "output_indices": [
+          33
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/258_particles_shiny_nb50_new.mrcs",
+        "start": 49767424,
+        "end": 50285823,
+        "bytes": 518400,
+        "sha256": "ba74b297f5b8341a7a47b2970122297ec7aed301be4c81589df3e12653548310",
+        "etag": "\"38daf00-592a8b48f3b40\"",
+        "content_range": "bytes 49767424-50285823/59617024",
+        "header_sha256": "d774156a3dd664561f245928cd424bd4873909781e45fb207df5fb4d9104835a",
+        "source_shape": [
+          115,
+          360,
+          360
+        ],
+        "source_indices": [
+          96
+        ],
+        "output_indices": [
+          34
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/281_particles_shiny_nb50_new.mrcs",
+        "start": 1037824,
+        "end": 1556223,
+        "bytes": 518400,
+        "sha256": "7a0ef2a4660f63f48b75ac359e5bcf8a55fb71ea41efa8cd9c0fff616d25dc46",
+        "etag": "\"42be300-592a8b5188f80\"",
+        "content_range": "bytes 1037824-1556223/69985024",
+        "header_sha256": "0829263a7cdfe32fb7b0187ef0ee06f7d9c45d1ab6c8947d5a3ef4d42e519110",
+        "source_shape": [
+          135,
+          360,
+          360
+        ],
+        "source_indices": [
+          2
+        ],
+        "output_indices": [
+          36
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/296_particles_shiny_nb50_new.mrcs",
+        "start": 37325824,
+        "end": 37844223,
+        "bytes": 518400,
+        "sha256": "45847bde1fae0b133d430485456072d1b6167483d756d373a05ef601d5d2abf4",
+        "etag": "\"3ad5300-592a8b916e640\"",
+        "content_range": "bytes 37325824-37844223/61690624",
+        "header_sha256": "29c11ecb387b324c13c3a4fb02bbe9cf617a1075dbd2c986fee8a5c51c11cb19",
+        "source_shape": [
+          119,
+          360,
+          360
+        ],
+        "source_indices": [
+          72
+        ],
+        "output_indices": [
+          37
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/264_particles_shiny_nb50_new.mrcs",
+        "start": 11924224,
+        "end": 12442623,
+        "bytes": 518400,
+        "sha256": "f52c7ef66b5f6031e3a787cea56228661e3ddfb2693dc1d0571c03bb690a2aaa",
+        "etag": "\"3c50e00-592a8b2a6f340\"",
+        "content_range": "bytes 11924224-12442623/63245824",
+        "header_sha256": "461bca1eee286ef6d5d03a27fe0694189988e07c0c99d5f03544037a2023b6fe",
+        "source_shape": [
+          122,
+          360,
+          360
+        ],
+        "source_indices": [
+          23
+        ],
+        "output_indices": [
+          35
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/313_particles_shiny_nb50_new.mrcs",
+        "start": 27994624,
+        "end": 28513023,
+        "bytes": 518400,
+        "sha256": "3d4127f1308703f197ca2cf7aea340890ceccc703078842e191900aef2485cce",
+        "etag": "\"39d8100-592a8b5c06840\"",
+        "content_range": "bytes 27994624-28513023/60653824",
+        "header_sha256": "841bb84fd8193bc90e71e787000a62d55176d0109b4fc0dc066ab76529671f52",
+        "source_shape": [
+          117,
+          360,
+          360
+        ],
+        "source_indices": [
+          54
+        ],
+        "output_indices": [
+          38
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/322_particles_shiny_nb50_new.mrcs",
+        "start": 52877824,
+        "end": 53396223,
+        "bytes": 518400,
+        "sha256": "9eb41cd326133c5df018cb231057eae10257930dec0b474a61defcece884570d",
+        "etag": "\"385c600-592a8b1d153c0\"",
+        "content_range": "bytes 52877824-53396223/59098624",
+        "header_sha256": "2eb606161cd6ea3d2bfadbd03d0a1f8657d92352adb10ac8fa2f04b7289d4043",
+        "source_shape": [
+          114,
+          360,
+          360
+        ],
+        "source_indices": [
+          102
+        ],
+        "output_indices": [
+          39
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/364_particles_shiny_nb50_new.mrcs",
+        "start": 9332224,
+        "end": 9850623,
+        "bytes": 518400,
+        "sha256": "73fe6f0ac9af306730aa55a6ffb1fbedf522216392f534029d2cb70a260948ac",
+        "etag": "\"3fc6d00-592a8b5b12600\"",
+        "content_range": "bytes 9332224-9850623/66874624",
+        "header_sha256": "4b77e77d330231c148af1b6e6eba7b9d2b373347b561285d66a72f7f798d970f",
+        "source_shape": [
+          129,
+          360,
+          360
+        ],
+        "source_indices": [
+          18
+        ],
+        "output_indices": [
+          42
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/343_particles_shiny_nb50_new.mrcs",
+        "start": 40954624,
+        "end": 41473023,
+        "bytes": 518400,
+        "sha256": "c8669a5b87a5f6056ea54d60b2f1fd1aa87d0659cc2a83f1b5e58dfb57a936a2",
+        "etag": "\"2a06100-592a8af22ae80\"",
+        "content_range": "bytes 40954624-41473023/44065024",
+        "header_sha256": "40ddb092b740830d005bbc5deb49b764573c114a3095a79f2ed218743520a227",
+        "source_shape": [
+          85,
+          360,
+          360
+        ],
+        "source_indices": [
+          79
+        ],
+        "output_indices": [
+          40
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/346_particles_shiny_nb50_new.mrcs",
+        "start": 45101824,
+        "end": 45620223,
+        "bytes": 518400,
+        "sha256": "0abbc588ebad3b55afd9fccc90b3f8ba3fe29e707aba80aae36d6eea64545272",
+        "etag": "\"3959800-592a8b3c8de00\"",
+        "content_range": "bytes 45101824-45620223/60135424",
+        "header_sha256": "7e9101f79e9b13f85cb19fb10a19f502bbef93474593cb0a7c43f4812704e69a",
+        "source_shape": [
+          116,
+          360,
+          360
+        ],
+        "source_indices": [
+          87
+        ],
+        "output_indices": [
+          41
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/365_particles_shiny_nb50_new.mrcs",
+        "start": 20218624,
+        "end": 20737023,
+        "bytes": 518400,
+        "sha256": "4c37c2c97cfa7829db1c8e90de9323a8bd66d8127278b9e9ec9dce394bfc80ed",
+        "etag": "\"3d4e000-592a8b4246b80\"",
+        "content_range": "bytes 20218624-20737023/64282624",
+        "header_sha256": "9ba6ff4ea59a7172c1c0cd1afa69d421178dd884cc7d840497c1628dd23885dd",
+        "source_shape": [
+          124,
+          360,
+          360
+        ],
+        "source_indices": [
+          39
+        ],
+        "output_indices": [
+          43
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/389_particles_shiny_nb50_new.mrcs",
+        "start": 46657024,
+        "end": 47175423,
+        "bytes": 518400,
+        "sha256": "4d27428dc549738012d82a17aa456116059736e3f2a064cb118b5a601e2862ef",
+        "etag": "\"2ff4d00-592a8b02614c0\"",
+        "content_range": "bytes 46657024-47175423/50285824",
+        "header_sha256": "6229a50eac724480574530f0f5e478927d92106901dc154e8c59953f00e6e87d",
+        "source_shape": [
+          97,
+          360,
+          360
+        ],
+        "source_indices": [
+          90
+        ],
+        "output_indices": [
+          45
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/379_particles_shiny_nb50_new.mrcs",
+        "start": 45101824,
+        "end": 45620223,
+        "bytes": 518400,
+        "sha256": "93d5aad781d2537c8fa1ed0b00a142e67010c73324ea6b41634318a2e7ee03f9",
+        "etag": "\"38daf00-592a8b5835f40\"",
+        "content_range": "bytes 45101824-45620223/59617024",
+        "header_sha256": "8e6005b350535dc91088d5f80b95a17c20692deccc2d279b67701e7932382249",
+        "source_shape": [
+          115,
+          360,
+          360
+        ],
+        "source_indices": [
+          87
+        ],
+        "output_indices": [
+          44
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/407_particles_shiny_nb50_new.mrcs",
+        "start": 46138624,
+        "end": 46657023,
+        "bytes": 518400,
+        "sha256": "5dcef702cd01cbf82155ffbd1bb00e678a79020926bf7d36b217304cf965ec60",
+        "etag": "\"3565000-592a8b47ff900\"",
+        "content_range": "bytes 46138624-46657023/55988224",
+        "header_sha256": "ae27973183d502c0542f9a78526df6bd07e7eb332fe0af2a3d33d314af80c569",
+        "source_shape": [
+          108,
+          360,
+          360
+        ],
+        "source_indices": [
+          89
+        ],
+        "output_indices": [
+          47
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/392_particles_shiny_nb50_new.mrcs",
+        "start": 4666624,
+        "end": 5185023,
+        "bytes": 518400,
+        "sha256": "b48e346999f94b8bba5d270cf28c398efb6f40d6f433d37893e065416777b913",
+        "etag": "\"34e6700-592a8b39b1740\"",
+        "content_range": "bytes 4666624-5185023/55469824",
+        "header_sha256": "86b082a2b61da51d6c36902ff7161108195bb1c8123631140cbd5af45495cd2a",
+        "source_shape": [
+          107,
+          360,
+          360
+        ],
+        "source_indices": [
+          9
+        ],
+        "output_indices": [
+          46
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/440_particles_shiny_nb50_new.mrcs",
+        "start": 41473024,
+        "end": 41991423,
+        "bytes": 518400,
+        "sha256": "08d472831e5a4a77aab95c3b2b1491b3bca30eaafbc8f8de2657c27cae7419be",
+        "etag": "\"40c3f00-592a8b4246b80\"",
+        "content_range": "bytes 41473024-41991423/67911424",
+        "header_sha256": "8c77a4f0b9862138e9ac8bdac94675afdc395c783fc301920ce2d7b980750dd3",
+        "source_shape": [
+          131,
+          360,
+          360
+        ],
+        "source_indices": [
+          80
+        ],
+        "output_indices": [
+          48
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/451_particles_shiny_nb50_new.mrcs",
+        "start": 22292224,
+        "end": 22810623,
+        "bytes": 518400,
+        "sha256": "1070e4942b3998c9d9fbf30439fb5387a7b8822b9c175700de27595ec815650f",
+        "etag": "\"3073600-592a8b6f19540\"",
+        "content_range": "bytes 22292224-22810623/50804224",
+        "header_sha256": "da390979fa0b94de8d06edad86e3b58746d93c2af67f6378b36db4fe57f9bc5e",
+        "source_shape": [
+          98,
+          360,
+          360
+        ],
+        "source_indices": [
+          43
+        ],
+        "output_indices": [
+          49
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/461_particles_shiny_nb50_new.mrcs",
+        "start": 9332224,
+        "end": 9850623,
+        "bytes": 518400,
+        "sha256": "680d8593d4bdd1995a34534798d609bdbf9cc9a0a8ede10c1b318b3cb04ca048",
+        "etag": "\"35e3900-592a8b15741c0\"",
+        "content_range": "bytes 9332224-9850623/56506624",
+        "header_sha256": "a0bf129d224d5642372f289158285b9bbbe1cdf83a2ab2a66246a349717f070a",
+        "source_shape": [
+          109,
+          360,
+          360
+        ],
+        "source_indices": [
+          18
+        ],
+        "output_indices": [
+          51
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/460_particles_shiny_nb50_new.mrcs",
+        "start": 47175424,
+        "end": 47693823,
+        "bytes": 518400,
+        "sha256": "2a43a993d3fb4b73434c40c7f520c7ad1d5dfe6ef8106b7fdf5d532a21dbe811",
+        "etag": "\"39d8100-592a8b8ac1680\"",
+        "content_range": "bytes 47175424-47693823/60653824",
+        "header_sha256": "0a4c2d51989097ef8bff5e688d789014facc73cea408f39212c9036c03ceb255",
+        "source_shape": [
+          117,
+          360,
+          360
+        ],
+        "source_indices": [
+          91
+        ],
+        "output_indices": [
+          50
+        ]
+      },
+      {
+        "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/464_particles_shiny_nb50_new.mrcs",
+        "start": 34215424,
+        "end": 34733823,
+        "bytes": 518400,
+        "sha256": "a0e263a62dd988fee4ff56118915c3956cb42698019b037e9e18a2698ea11df7",
+        "etag": "\"2d7c000-592a8b0a026c0\"",
+        "content_range": "bytes 34215424-34733823/47693824",
+        "header_sha256": "71475de935b1d563a3d1e96325f09cf06e3ff0674f4c69c6f0b9bc1dbc75c4ec",
+        "source_shape": [
+          92,
+          360,
+          360
+        ],
+        "source_indices": [
+          66
+        ],
+        "output_indices": [
+          52
+        ]
+      }
+    ]
+  }
+}

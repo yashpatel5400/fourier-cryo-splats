@@ -22,7 +22,8 @@ Only one broad fixed-pose feature excludes zero; none at one/two degrees.
 The already inspected second calibration pool is explicitly exploratory reuse.
 The new cohort reserves 128 unused exposures per stack. All twelve estimators
 and 116 files were locked and published in commit 60efd9b before downloading
-any reserved pixels; downloads are now running. Old inference images
+any reserved pixels; all three downloads are complete and verified. The frozen
+calibration application awaits the complete original twelve-feature results. Old inference images
 remain development data. The all-row metadata inventory finds zero-valued
 pose/shift ESS fields throughout; these are not calibrated zero-error bounds.
 The paper explicitly identifies 10076's heterogeneous population as incompatible
