@@ -54,3 +54,49 @@ declared refinement change; they do not establish a useful continuous test.
 All three outcome families retain source/input hashes, stopping statuses,
 arrays for replay, and every prescribed case. The arithmetic bounds remain
 real-arithmetic results evaluated in ordinary floating point.
+
+
+## Envelope-guided refinement and reviewer-motivated disks
+
+The separately declared refinement completes on all three geometries. The
+first two stop at the 900-second wall budget; the third exhausts 32,768
+additional splits. Final saved-anchor replay is included in the reported upper.
+
+| Geometry | Added splits | Leaves | Feasible lower | Upper | Gap | Solver seconds |
+|---|---:|---:|---:|---:|---:|---:|
+| 10028 | 30528 | 38752 | -80927.973 | -65036.414 | 15891.560 | 900.70 |
+| 10049 | 32000 | 40224 | -80990.141 | -66500.405 | 14489.736 | 901.48 |
+| 10076 | 32768 | 40992 | -80419.801 | -67521.974 | 12897.827 | 896.49 |
+
+Total runner time is 2,718.27 seconds. None reaches the one-log-unit target.
+The final envelope EM fits are also nonconverged, with finite-relaxation gaps
+69.12, 52.14 and 89.67; those are distinct from the much larger spatial gaps.
+Considering the previously reported oracle-support feasible values changes
+the final upper-to-best-feasible gaps to 15,450.350, 14,485.974 and 12,897.827.
+The optimizer did not receive those oracle values or rotations. Wall exit in
+the first run occurs between scheduled feasible refits, as disclosed in L6 of
+the focused review; this can only weaken the retained lower, not the upper.
+
+The focused Fable audit motivated a separately declared per-frequency Taylor
+disk diagnostic. All three independent implementation tests pass; all 54
+prescribed local boxes and 285 prescribed coarse-cover cells complete in
+14.10 seconds, including the fixed-map orientation-contrast evaluation.
+No coarse-cell improvement exceeds 1e-9 on any of 36,480 image/cell coordinates;
+the three unchanged-anchor cover uppers remain exactly unchanged. At two-degree
+local boxes, median gaps change from 23.261 to 22.920 and 29.836 to 27.710 on
+10028/10049. The corresponding 10076 median and all other reported budget
+medians are unchanged. This local improvement does not solve the global problem.
+
+All three half-plane frequency arrays pass the no-DC/no-duplicate/no-conjugate
+check. From 256 independently seeded Haar orientation evaluations per map,
+the median best-recorded-center minus 99th-percentile random-orientation log
+kernel is 26.995, 22.760 and 7.513, against median envelope-minus-best-center
+slacks of 166.454, 141.461 and 128.417. These finite diagnostics support the
+coarse-enclosure diagnosis, not an impossibility statement at arbitrary budgets.
+
+Historical anchor labels are clarified without overwriting the files:
+`independent_image` is the sum of per-image maximum log envelopes plus Gaussian
+normalization; `row_max` is the scaled Lindsay upper *using row maxima as
+anchors*. The latter can be smaller, since its scale correction is nonpositive.
+The difference between the independent-image upper and the fitted envelope
+upper is 289.525, 253.101 and 110.083, small relative to the spatial gaps.

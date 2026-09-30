@@ -78,3 +78,14 @@ specified structural hypotheses, while retaining a calibrated noise model?
 This might avoid externally supplied small pose balls, but it changes the
 inference target and still faces model error, dependence and computational
 limits. It is a research direction, not an implemented result in this paper.
+
+
+## 30 September: original-code CPU experiment completed
+
+The subsequent protocol executes the unchanged author comparator and
+integrated-score kernels on all 24 prescribed real-particle/map/grid cases.
+See CRYOLIKE-BASELINE-PROTOCOL.md and CRYOLIKE-BASELINE-RESULTS.md, the pinned
+commit, adapter tests and saved per-image arrays. Earlier statements that
+original code had not yet been executed describe the reading-stage status;
+this dated follow-up supersedes that status without changing the interpretation
+of the score's normalization or claiming a matched e-value baseline.

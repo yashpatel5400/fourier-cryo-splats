@@ -18,6 +18,10 @@ establishes experimental density coverage.
 
 Current evidence includes:
 
+- Original-code CryoLike scoring completes all 24 declared three-stack cases.
+  Both metrics and both viewing grids are retained; their rankings differ.
+  These reused-particle scores do not establish density calibration.
+
 - Two completed frozen conditional-uncertainty studies and an additional-exposure
   prediction comparison on three EMPIAR stacks. Stock neural prediction wins
   all six prescribed contrasts; this is prediction, not density uncertainty.
@@ -37,7 +41,8 @@ Current evidence includes:
   to 0.252 of no-data width, without useful sign power. Optimized cubic weights
   reduce this to 0.180, with minimum reference sign power only 0.00654 and a
   large remaining optimization gap. The coordinate follow-up completed with a
-  worse width of 0.223; the separately declared reduced convex design is running.
+  worse width of 0.223. The reduced convex design selected the original weights
+  and left the full-space optimization gap unresolved.
 - Matched bootstrap and [Fourier Gaussian baselines](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md),
   including favorable broader-prior results. A completed
   [local Gaussian pose comparison](research/uncertainty/FOURIER-POSE-BASELINE-RESULTS.md)
@@ -54,7 +59,8 @@ Current evidence includes:
   and shared-scale follow-up detect full local removal on two of three simulated
   geometries, with all weaker-change failures retained. The first full-orientation
   denominator calculation and two diagnostics completed with unresolved large
-  gaps; a separately declared refinement is running. These are development feasibility tests;
+  gaps; the completed refinement still leaves gaps of 12,898--15,892. A reviewer-
+  motivated disk diagnostic does not improve sampled coarse cells. These are development feasibility tests;
   a practical independent predictor and experimental calibration remain missing.
 
 The [research plan](research/uncertainty/PLAN.md),

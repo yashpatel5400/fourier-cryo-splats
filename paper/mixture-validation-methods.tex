@@ -131,3 +131,33 @@ common-scale continuous optimization and acquisition-model validation remain
 required. Likelihood-based structural comparison itself is longstanding prior
 art, including BioEM and CryoLike; an integrated score cannot automatically
 replace a normalized predictive density \citep{bioem2013,cryolike2025}.
+
+
+The separately declared envelope-guided refinement adds 30,528, 32,000 and
+32,768 splits, retaining complete covers of 38,752, 40,224 and 40,992 cells.
+The first two hit their 900-second wall limits; the third hits its split limit.
+Final upper-to-feasible gaps remain 15,892, 14,490 and 12,898 log units.
+Runner time is 2,718 seconds. The last finite envelope fits themselves have
+gaps 69.1, 52.1 and 89.7, distinct from the larger continuous gaps. No case
+reaches the target. Historical anchor result labels use ``row max'' for the
+scaled dual with row maxima as anchors; the independent-image upper is the
+sum of those maxima, which can be larger.
+
+A focused mathematical review suggests preserving per-frequency Taylor errors.
+For complex-frequency residual blocks $r_q$, let their error disks have radii
+$\epsilon_q=H^2|C_q|(K_q^2 B_{2q}+K_qB_{1q})/2$. Every realified vector $u$
+gives the squared-residual lower bound
+\begin{align*}
+ D(u)={}&2u^\top r-\|u\|^2-2\sum_q\epsilon_q\|u_q\|\\
+ &-2\sum_jh_j|(J^\top u)_j|.
+\end{align*}
+This follows by minimizing the elementary squared-norm Fenchel bound over
+the product of disks and the Euler box. Independent conic primal checks and
+dual replay verify implementation; no new statistical inference principle is
+claimed. Retaining old bounds avoids worsening the upper when finite dual
+iterates are suboptimal. The declared diagnostic repeats all 54 local boxes
+and evaluates 95 prescribed coarse cells per geometry, retaining all outcomes.
+At two degrees the first two local median gaps decrease slightly, from 23.26
+to 22.92 and 29.84 to 27.71. No coarse-cell improvement occurs on any of the
+36,480 image/cell coordinates, and all three cover uppers are unchanged.
+Thus neither refinement establishes a practical continuous likelihood test.

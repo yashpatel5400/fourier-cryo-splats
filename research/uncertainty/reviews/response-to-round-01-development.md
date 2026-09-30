@@ -68,7 +68,9 @@ do not validate all operator error. Its gap triggers the previously declared
 coordinate-metric follow-up from the same original weights; that fit completed without improvement: relative width 0.223, minimum reference
 sign power 7.73e-7, relative surrogate gap 0.977 and no convergence at the
 thirty-iteration budget. A separate declared thirteen-dimensional convex
-design is still running.
+design is complete and selected the original weights to relative difference
+4.61e-16; it supplies no estimator improvement. The fresh full-space gap remains
+0.940164.
 Focused Fable mathematics checks and their responses do not constitute a new
 acceptance review. Its sigma
 is not its sampled frequency-band resolution. These tests do not satisfy the
@@ -145,7 +147,9 @@ profiling preserves similar counts. This is neither a practical learned test
 nor a new general statistical principle. Three continuous-SO(3) computations
 and two diagnostics are now complete, but their best recorded global gaps
 remain 17,077--20,253 log units. They do not resolve the practical objection.
-An envelope-guided refinement is running under a separate declared protocol.
+The declared envelope-guided refinement completes but leaves continuous gaps
+of 12,898--15,892 log units. The subsequent reviewer-motivated disk diagnostic
+does not improve any of the 285 sampled coarse cells.
 The new paper appendix includes these outcomes and explicit assumptions; R1,
 R2 and R7 remain open. Source and failed-attempt provenance is retained.
 
@@ -202,3 +206,20 @@ It does not resolve R1, R2 or R7.
 No proposed or running experiment in this response is represented as completed.
 Before a full new review, update this response, finish the declared studies,
 rebuild/inspect the paper, and attach exact completed-artifact provenance.
+
+
+The original-code CryoLike comparison completes all 24 cases on the three
+experimental stacks, retaining both viewing grids, both metrics and all paired
+contrasts. Its rankings differ by metric. This supplies an external scoring
+comparison but does not resolve R1/R2/R7 or provide matched uncertainty power.
+The focused mixture audit and response remain separate from the full review.
+
+
+A new reference-frame audit, motivated by the first converged RELION run,
+finds a large registration effect on 10028/10049. Three transforms were selected
+only against the old pilot and published before comparing inference maps.
+All original curves remain. On 10076, the Class A reference is not truth for the
+heterogeneous consensus and registered agreement remains weak. Historical
+reference-generator power/coverage numbers are conditional studies in their
+original frame, not biological localization evidence. A registered feature study
+has not yet been run; these changes do not close the experimental-input objection.

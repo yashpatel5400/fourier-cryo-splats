@@ -1,0 +1,3609 @@
+{
+  "complete": true,
+  "dataset": "10028",
+  "fit_record": "results/uncertainty/development/relion-reconstruction-v3/10028/record.json",
+  "fit_record_sha256": "0068585c03b3845a588bfeca6deb6a7cdf4469000049a8ef92fe1f64ae73fb1d",
+  "continuation": true,
+  "refinement_converged": true,
+  "half_labels_verified": true,
+  "scope": "Development reconstruction comparisons; FSC is not density confidence coverage.",
+  "source_snapshot": {
+    "git_head_at_snapshot": "50a34e24f614f7302ca2d29dcc3e146e5f8b2d7e",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/evaluate_relion_baseline.py": {
+        "sha256": "2046f9e7e60aedb32ed9ff58430fca7b78bfdf117554f2ed7146ea186bb4caf1",
+        "snapshot": "provenance/uncertainty/source-snapshots/2046f9e7e60aedb32ed9ff58430fca7b78bfdf117554f2ed7146ea186bb4caf1.txt"
+      },
+      "research/uncertainty/RELION-BASELINE-PROTOCOL.md": {
+        "sha256": "4ead858b1f742339e78e899f2bba0e5b212acbd50436a8c70a97dd38c94ca985",
+        "snapshot": "provenance/uncertainty/source-snapshots/4ead858b1f742339e78e899f2bba0e5b212acbd50436a8c70a97dd38c94ca985.txt"
+      },
+      "research/uncertainty/RELION-ALIGNMENT-NOTES.md": {
+        "sha256": "a490b8deafd238592defb3ac94c0f88d1be679ba702a9cc497c1c9fb791b4266",
+        "snapshot": "provenance/uncertainty/source-snapshots/a490b8deafd238592defb3ac94c0f88d1be679ba702a9cc497c1c9fb791b4266.txt"
+      },
+      "research/uncertainty/RELION-CONTINUATION-PROTOCOL.md": {
+        "sha256": "02e36211513c52ba41464c071407f055a98446788330bd79e3c59fa058e27207",
+        "snapshot": "provenance/uncertainty/source-snapshots/02e36211513c52ba41464c071407f055a98446788330bd79e3c59fa058e27207.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_ball_remainder.py": {
+        "sha256": "76444922eeccb57368130aec2f9b6075e8e1bcf2c5bdc4270f9df7afdf706865",
+        "snapshot": "provenance/uncertainty/source-snapshots/76444922eeccb57368130aec2f9b6075e8e1bcf2c5bdc4270f9df7afdf706865.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_block_preconditioner.py": {
+        "sha256": "4550882d170334e5fb9e0f793eb211241700f9cf43170af10811e18b6a68a0eb",
+        "snapshot": "provenance/uncertainty/source-snapshots/4550882d170334e5fb9e0f793eb211241700f9cf43170af10811e18b6a68a0eb.txt"
+      },
+      "src/fourier_splats/uq_cell_moments.py": {
+        "sha256": "52750091417da8c8f4b0d2a1a15055a2be66306a0efef57cd21362d737fd3532",
+        "snapshot": "provenance/uncertainty/source-snapshots/52750091417da8c8f4b0d2a1a15055a2be66306a0efef57cd21362d737fd3532.txt"
+      },
+      "src/fourier_splats/uq_cell_pose_pair.py": {
+        "sha256": "b706dfc0c7723880a4617463c21b084de49e82397c84586d6d3cc57818f82951",
+        "snapshot": "provenance/uncertainty/source-snapshots/b706dfc0c7723880a4617463c21b084de49e82397c84586d6d3cc57818f82951.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_mixture.py": {
+        "sha256": "948be418bc40fe32ff8701c01b5b8d7d04b87bb0260f0ae120ec7143ff913b9c",
+        "snapshot": "provenance/uncertainty/source-snapshots/948be418bc40fe32ff8701c01b5b8d7d04b87bb0260f0ae120ec7143ff913b9c.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_cryolike_adapter.py": {
+        "sha256": "fd7484f0b550f1de0c7cec28e52e2bdc755ae61f0ea6d8795a1df1aea5b9f3d4",
+        "snapshot": "provenance/uncertainty/source-snapshots/fd7484f0b550f1de0c7cec28e52e2bdc755ae61f0ea6d8795a1df1aea5b9f3d4.txt"
+      },
+      "src/fourier_splats/uq_ctf_uncertainty.py": {
+        "sha256": "17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e",
+        "snapshot": "provenance/uncertainty/source-snapshots/17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e.txt"
+      },
+      "src/fourier_splats/uq_cubic_coordinate_solver.py": {
+        "sha256": "d670adadc476def9ffd65ee9f4c18ef055b1ab671b31d190f551bb1718b236ab",
+        "snapshot": "provenance/uncertainty/source-snapshots/d670adadc476def9ffd65ee9f4c18ef055b1ab671b31d190f551bb1718b236ab.txt"
+      },
+      "src/fourier_splats/uq_cubic_design.py": {
+        "sha256": "2f98cca0577f6b1acd88a814e3d882814d260185cb27a79c61dc9ba0231b2c85",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f98cca0577f6b1acd88a814e3d882814d260185cb27a79c61dc9ba0231b2c85.txt"
+      },
+      "src/fourier_splats/uq_cubic_design_api.py": {
+        "sha256": "9e150e9853f2d3c0454e1b357891017922db2064dd1cf49d38bd51a4e43894fd",
+        "snapshot": "provenance/uncertainty/source-snapshots/9e150e9853f2d3c0454e1b357891017922db2064dd1cf49d38bd51a4e43894fd.txt"
+      },
+      "src/fourier_splats/uq_cubic_optimization.py": {
+        "sha256": "b9117c5cb4d32a3ad9b75197c532d7199c7d4a7557c7c49ff08a35e46b189688",
+        "snapshot": "provenance/uncertainty/source-snapshots/b9117c5cb4d32a3ad9b75197c532d7199c7d4a7557c7c49ff08a35e46b189688.txt"
+      },
+      "src/fourier_splats/uq_cubic_pose.py": {
+        "sha256": "960fabebcff8792320f7e07e5ab2ca6dab73451eb304a08b763e187991f16be1",
+        "snapshot": "provenance/uncertainty/source-snapshots/960fabebcff8792320f7e07e5ab2ca6dab73451eb304a08b763e187991f16be1.txt"
+      },
+      "src/fourier_splats/uq_cubic_subspace.py": {
+        "sha256": "303f0018b65c41bf242c0e98fdc0df8aaa786b98b644f0fe4f58f501b8bd2442",
+        "snapshot": "provenance/uncertainty/source-snapshots/303f0018b65c41bf242c0e98fdc0df8aaa786b98b644f0fe4f58f501b8bd2442.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_dual_mixture.py": {
+        "sha256": "1bee7c71afe2fb2cc2a85c985cb0fc41ecdb992df4a6fa066a0ac407dfab75c8",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bee7c71afe2fb2cc2a85c985cb0fc41ecdb992df4a6fa066a0ac407dfab75c8.txt"
+      },
+      "src/fourier_splats/uq_fourier_pose_baseline.py": {
+        "sha256": "7eebc3da5bffc68704f64ae97b6f7c2f0c82d76819ac97071be1c2590a11fa60",
+        "snapshot": "provenance/uncertainty/source-snapshots/7eebc3da5bffc68704f64ae97b6f7c2f0c82d76819ac97071be1c2590a11fa60.txt"
+      },
+      "src/fourier_splats/uq_fourier_variational.py": {
+        "sha256": "f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668",
+        "snapshot": "provenance/uncertainty/source-snapshots/f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668.txt"
+      },
+      "src/fourier_splats/uq_group_noise.py": {
+        "sha256": "1688b6af4f92f92ba8cb279a727a63fa764ea11fc1b986374dd44dd82e541b8c",
+        "snapshot": "provenance/uncertainty/source-snapshots/1688b6af4f92f92ba8cb279a727a63fa764ea11fc1b986374dd44dd82e541b8c.txt"
+      },
+      "src/fourier_splats/uq_higher_remainder.py": {
+        "sha256": "566bcc70dd9dd4efcd1ec6f7c2d1e5cc2d990a41088f9df936cca6091014064c",
+        "snapshot": "provenance/uncertainty/source-snapshots/566bcc70dd9dd4efcd1ec6f7c2d1e5cc2d990a41088f9df936cca6091014064c.txt"
+      },
+      "src/fourier_splats/uq_intervals.py": {
+        "sha256": "559096dddfa91fbb5f3d50d57e06f08b47806889002a7ef00e6530ee28762113",
+        "snapshot": "provenance/uncertainty/source-snapshots/559096dddfa91fbb5f3d50d57e06f08b47806889002a7ef00e6530ee28762113.txt"
+      },
+      "src/fourier_splats/uq_joint_bias.py": {
+        "sha256": "a580d40a4d23b565b4ffeee26a68bdc74324bfde2025a7b478a169469de87f23",
+        "snapshot": "provenance/uncertainty/source-snapshots/a580d40a4d23b565b4ffeee26a68bdc74324bfde2025a7b478a169469de87f23.txt"
+      },
+      "src/fourier_splats/uq_map_alignment.py": {
+        "sha256": "f3672ec02952d8367ab71cd5dab2ead4b3f331479e25d66e6941e0824fb75679",
+        "snapshot": "provenance/uncertainty/source-snapshots/f3672ec02952d8367ab71cd5dab2ead4b3f331479e25d66e6941e0824fb75679.txt"
+      },
+      "src/fourier_splats/uq_mixture_anchor.py": {
+        "sha256": "38fe825edfcd6a3a01a0aba683e6cd847bcc8b2570292deacbcf33db12f6eccc",
+        "snapshot": "provenance/uncertainty/source-snapshots/38fe825edfcd6a3a01a0aba683e6cd847bcc8b2570292deacbcf33db12f6eccc.txt"
+      },
+      "src/fourier_splats/uq_mixture_curvature.py": {
+        "sha256": "18c830f7f97f2f7351e318846a043f8e10c6ebaf657eaddf330228febf1269d7",
+        "snapshot": "provenance/uncertainty/source-snapshots/18c830f7f97f2f7351e318846a043f8e10c6ebaf657eaddf330228febf1269d7.txt"
+      },
+      "src/fourier_splats/uq_mixture_disks.py": {
+        "sha256": "ce142f9d432e2dec73b87b86d24395050b9d17aca75b158548a15416c871cb78",
+        "snapshot": "provenance/uncertainty/source-snapshots/ce142f9d432e2dec73b87b86d24395050b9d17aca75b158548a15416c871cb78.txt"
+      },
+      "src/fourier_splats/uq_mixture_fast.py": {
+        "sha256": "4a88f0bfea4f1a909955a4d49c054d8957df871103736316fa219d3c1c5dd0ac",
+        "snapshot": "provenance/uncertainty/source-snapshots/4a88f0bfea4f1a909955a4d49c054d8957df871103736316fa219d3c1c5dd0ac.txt"
+      },
+      "src/fourier_splats/uq_mixture_refinement.py": {
+        "sha256": "2b5eeee4d4d6ecc0de5dbe28a699e299a78ef140209253d38e6b7e40c43d9dbc",
+        "snapshot": "provenance/uncertainty/source-snapshots/2b5eeee4d4d6ecc0de5dbe28a699e299a78ef140209253d38e6b7e40c43d9dbc.txt"
+      },
+      "src/fourier_splats/uq_mixture_scale.py": {
+        "sha256": "7ff983aa37fa48ea3e91b3db8c65d705b91a40f8cf6269754f859222baaa03df",
+        "snapshot": "provenance/uncertainty/source-snapshots/7ff983aa37fa48ea3e91b3db8c65d705b91a40f8cf6269754f859222baaa03df.txt"
+      },
+      "src/fourier_splats/uq_mixture_validation.py": {
+        "sha256": "acfb0ff094d2ebd24d6002c231a8c601164aba47160c27baa7c59158212f2199",
+        "snapshot": "provenance/uncertainty/source-snapshots/acfb0ff094d2ebd24d6002c231a8c601164aba47160c27baa7c59158212f2199.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_noise_calibration.py": {
+        "sha256": "fe682c20ad84439ee8ea53db70756fd6bfc5f3c2bb86a9944c0e7aabbc80ac88",
+        "snapshot": "provenance/uncertainty/source-snapshots/fe682c20ad84439ee8ea53db70756fd6bfc5f3c2bb86a9944c0e7aabbc80ac88.txt"
+      },
+      "src/fourier_splats/uq_noise_design.py": {
+        "sha256": "0cd9be354e54be2db44d60b48155c83db386308efcbac9030f417b91edee2f34",
+        "snapshot": "provenance/uncertainty/source-snapshots/0cd9be354e54be2db44d60b48155c83db386308efcbac9030f417b91edee2f34.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_pilot_targets.py": {
+        "sha256": "27315b6e53d278d400875a73e647ddff1fde3c2fe306527c881ee8820199aa67",
+        "snapshot": "provenance/uncertainty/source-snapshots/27315b6e53d278d400875a73e647ddff1fde3c2fe306527c881ee8820199aa67.txt"
+      },
+      "src/fourier_splats/uq_planned_transforms.py": {
+        "sha256": "4e3d2b1a36306e8ade316c639341708714978071efc9fc9b8867346dd0e3fa25",
+        "snapshot": "provenance/uncertainty/source-snapshots/4e3d2b1a36306e8ade316c639341708714978071efc9fc9b8867346dd0e3fa25.txt"
+      },
+      "src/fourier_splats/uq_polynomial_trace.py": {
+        "sha256": "99629830a06e74b672350894794b286442af422b8f36b6ff3ac184b2e1976b0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/99629830a06e74b672350894794b286442af422b8f36b6ff3ac184b2e1976b0e.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_pose_exchange.py": {
+        "sha256": "d38df2b6c49691327012c1311f11798c747bf93c708cff358a738d8efe57b934",
+        "snapshot": "provenance/uncertainty/source-snapshots/d38df2b6c49691327012c1311f11798c747bf93c708cff358a738d8efe57b934.txt"
+      },
+      "src/fourier_splats/uq_pose_operator.py": {
+        "sha256": "bef8b42a4e9b8ff18475add7646785e19f4274620c1ec2a6ee87ed36f351ef1c",
+        "snapshot": "provenance/uncertainty/source-snapshots/bef8b42a4e9b8ff18475add7646785e19f4274620c1ec2a6ee87ed36f351ef1c.txt"
+      },
+      "src/fourier_splats/uq_pose_optimization.py": {
+        "sha256": "b9bfbe18c40dd80e649f80ae684085dfefc8df8201260697eb219858a9faadcf",
+        "snapshot": "provenance/uncertainty/source-snapshots/b9bfbe18c40dd80e649f80ae684085dfefc8df8201260697eb219858a9faadcf.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_random_spectral.py": {
+        "sha256": "55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e",
+        "snapshot": "provenance/uncertainty/source-snapshots/55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_shift_only.py": {
+        "sha256": "f3522f7d5876752ceed1b617a6323730ecc5ae63e8a1fe9b0809adba96b892ee",
+        "snapshot": "provenance/uncertainty/source-snapshots/f3522f7d5876752ceed1b617a6323730ecc5ae63e8a1fe9b0809adba96b892ee.txt"
+      },
+      "src/fourier_splats/uq_sign_class.py": {
+        "sha256": "96a75825463085f1c475cda8c16224ebf2117faa7cb78c50437de725c17eefac",
+        "snapshot": "provenance/uncertainty/source-snapshots/96a75825463085f1c475cda8c16224ebf2117faa7cb78c50437de725c17eefac.txt"
+      },
+      "src/fourier_splats/uq_sobolev_penalty.py": {
+        "sha256": "c96acb96a5e7da0ed502fd8aea9c4f6bec8326d2703bbbb7ffe087b76681e044",
+        "snapshot": "provenance/uncertainty/source-snapshots/c96acb96a5e7da0ed502fd8aea9c4f6bec8326d2703bbbb7ffe087b76681e044.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      },
+      "src/fourier_splats/uq_support.py": {
+        "sha256": "771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a",
+        "snapshot": "provenance/uncertainty/source-snapshots/771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a.txt"
+      },
+      "src/fourier_splats/uq_target_projection.py": {
+        "sha256": "d0c88fcd3b813747a606b1999d525a9a2a52bd57e9788e067dde83729d33e6e5",
+        "snapshot": "provenance/uncertainty/source-snapshots/d0c88fcd3b813747a606b1999d525a9a2a52bd57e9788e067dde83729d33e6e5.txt"
+      },
+      "src/fourier_splats/uq_two_pose_modulus.py": {
+        "sha256": "d768bcfa0c75d8c8ae5f1b45bc347697ff9dd098a77f1a63cc87b7e0d6bfb71d",
+        "snapshot": "provenance/uncertainty/source-snapshots/d768bcfa0c75d8c8ae5f1b45bc347697ff9dd098a77f1a63cc87b7e0d6bfb71d.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "model_diagnostics": {
+    "records": [
+      {
+        "file": "initial_it040_model.star",
+        "sha256": "6e26919416fbca9d1b197941358bb9b869e0228af8ff6954545934c0f7fcc4c5",
+        "general": {
+          "rlnCurrentResolution": 32.16,
+          "rlnAveragePmax": 0.562616,
+          "rlnSigmaOffsetsAngst": 3.934682,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 2.76,
+            "rlnAccuracyTranslationsAngst": 3.70845,
+            "rlnEstimatedResolution": 32.16,
+            "rlnOverallFourierCompleteness": 0.905854
+          }
+        ]
+      },
+      {
+        "file": "initial_it050_model.star",
+        "sha256": "62750886860a9f6939be5d4e0c76f38ffea27bf6ca787f31132ce57c7a768f2d",
+        "general": {
+          "rlnCurrentResolution": 22.971429,
+          "rlnAveragePmax": 0.769813,
+          "rlnSigmaOffsetsAngst": 3.90559,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.54,
+            "rlnAccuracyTranslationsAngst": 2.487375,
+            "rlnEstimatedResolution": 22.971429,
+            "rlnOverallFourierCompleteness": 0.801128
+          }
+        ]
+      },
+      {
+        "file": "initial_it060_model.star",
+        "sha256": "24d83aa50b83aa4ed5de439ee236270ae1be64bdded1e0fe0d704330a7fc7fa6",
+        "general": {
+          "rlnCurrentResolution": 17.866667,
+          "rlnAveragePmax": 0.799377,
+          "rlnSigmaOffsetsAngst": 3.537591,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.295,
+            "rlnAccuracyTranslationsAngst": 2.276325,
+            "rlnEstimatedResolution": 17.866667,
+            "rlnOverallFourierCompleteness": 0.697421
+          }
+        ]
+      },
+      {
+        "file": "initial_it070_model.star",
+        "sha256": "5b3214dd698cd9a4b70ce3166ea04ea9eded729b08eb4a4d1590bd4661194fc6",
+        "general": {
+          "rlnCurrentResolution": 16.08,
+          "rlnAveragePmax": 0.831806,
+          "rlnSigmaOffsetsAngst": 3.333344,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.299,
+            "rlnAccuracyTranslationsAngst": 2.298937,
+            "rlnEstimatedResolution": 16.08,
+            "rlnOverallFourierCompleteness": 0.678493
+          }
+        ]
+      },
+      {
+        "file": "initial_it080_model.star",
+        "sha256": "363047cf503db0219605a3a4908e0dab5b6a1834966b3669e9e48fd92a4f3b9c",
+        "general": {
+          "rlnCurrentResolution": 16.08,
+          "rlnAveragePmax": 0.837838,
+          "rlnSigmaOffsetsAngst": 3.169698,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.442,
+            "rlnAccuracyTranslationsAngst": 2.434612,
+            "rlnEstimatedResolution": 16.08,
+            "rlnOverallFourierCompleteness": 0.636006
+          }
+        ]
+      },
+      {
+        "file": "initial_it090_model.star",
+        "sha256": "c53c456cd2068db5811557d13edcbabc481cdc403c45cc1473d336c162588b7a",
+        "general": {
+          "rlnCurrentResolution": 17.866667,
+          "rlnAveragePmax": 0.820928,
+          "rlnSigmaOffsetsAngst": 3.081187,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.485,
+            "rlnAccuracyTranslationsAngst": 2.427075,
+            "rlnEstimatedResolution": 17.866667,
+            "rlnOverallFourierCompleteness": 0.71038
+          }
+        ]
+      },
+      {
+        "file": "initial_it100_model.star",
+        "sha256": "6cca5bbad272cbdf67fabde9fe9216d886dd14b336766a4c9cbe02af07b3be8e",
+        "general": {
+          "rlnCurrentResolution": 18.553846,
+          "rlnAveragePmax": 0.822248,
+          "rlnSigmaOffsetsAngst": 3.050884,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.422,
+            "rlnAccuracyTranslationsAngst": 2.419537,
+            "rlnEstimatedResolution": 18.553846,
+            "rlnOverallFourierCompleteness": 0.728983
+          }
+        ]
+      },
+      {
+        "file": "refine_it000_half1_model.star",
+        "sha256": "ce566124318b88182f770eba144a2df3244b801a7e70aede65d1af56d4864315",
+        "general": {
+          "rlnCurrentResolution": Infinity,
+          "rlnAveragePmax": 0.0,
+          "rlnSigmaOffsetsAngst": 10.0,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 48.239999,
+            "rlnOverallFourierCompleteness": 0.0
+          }
+        ]
+      },
+      {
+        "file": "refine_it000_half2_model.star",
+        "sha256": "9a6c39922d979b1b8904bb81c7428f42eb426170a5e91acc747205699c612b7b",
+        "general": {
+          "rlnCurrentResolution": Infinity,
+          "rlnAveragePmax": 0.0,
+          "rlnSigmaOffsetsAngst": 10.0,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 48.239999,
+            "rlnOverallFourierCompleteness": 0.0
+          }
+        ]
+      },
+      {
+        "file": "refine_it001_half1_model.star",
+        "sha256": "90c94ac507e2b713b6c662b50a0068ec5232d9d9e8ecb2bc9785b7158345f854",
+        "general": {
+          "rlnCurrentResolution": 48.239999,
+          "rlnAveragePmax": 1.0,
+          "rlnSigmaOffsetsAngst": 16.172793,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 48.239999,
+            "rlnOverallFourierCompleteness": 1.0
+          }
+        ]
+      },
+      {
+        "file": "refine_it001_half2_model.star",
+        "sha256": "702d93afc1fde27bad4523a1444f13d4956633e083fb97f88b0b07899b5657fb",
+        "general": {
+          "rlnCurrentResolution": 48.239999,
+          "rlnAveragePmax": 1.0,
+          "rlnSigmaOffsetsAngst": 15.562975,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 48.239999,
+            "rlnOverallFourierCompleteness": 1.0
+          }
+        ]
+      },
+      {
+        "file": "refine_it002_half1_model.star",
+        "sha256": "fa606d59a1f00f111183bcbd4ee560605de9d1b9d3f3927d5647d90c1e2223ff",
+        "general": {
+          "rlnCurrentResolution": 28.37647,
+          "rlnAveragePmax": 0.566762,
+          "rlnSigmaOffsetsAngst": 16.557025,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 8.255,
+            "rlnAccuracyTranslationsAngst": 7.921913,
+            "rlnEstimatedResolution": 28.37647,
+            "rlnOverallFourierCompleteness": 0.827294
+          }
+        ]
+      },
+      {
+        "file": "refine_it002_half2_model.star",
+        "sha256": "e23501f93d8e43df3f9400ad5bdf97f9d3dcfb24f7071f7afe9a46e976c033d6",
+        "general": {
+          "rlnCurrentResolution": 28.37647,
+          "rlnAveragePmax": 0.566762,
+          "rlnSigmaOffsetsAngst": 15.988923,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 28.37647,
+            "rlnOverallFourierCompleteness": 0.822062
+          }
+        ]
+      },
+      {
+        "file": "refine_it003_half1_model.star",
+        "sha256": "a5042cc815841c0e14051a8c2787cb3a93ff8d4e9bdfad4c0d7b781806767881",
+        "general": {
+          "rlnCurrentResolution": 26.8,
+          "rlnAveragePmax": 0.807089,
+          "rlnSigmaOffsetsAngst": 16.84205,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 5.255,
+            "rlnAccuracyTranslationsAngst": 5.223487,
+            "rlnEstimatedResolution": 26.8,
+            "rlnOverallFourierCompleteness": 0.85905
+          }
+        ]
+      },
+      {
+        "file": "refine_it003_half2_model.star",
+        "sha256": "01bd6b9eacb12693fd59fc7c5d190f49950f17601d387c2c7b952f00c1877161",
+        "general": {
+          "rlnCurrentResolution": 26.8,
+          "rlnAveragePmax": 0.807089,
+          "rlnSigmaOffsetsAngst": 16.176372,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 26.8,
+            "rlnOverallFourierCompleteness": 0.853721
+          }
+        ]
+      },
+      {
+        "file": "refine_it004_half1_model.star",
+        "sha256": "c1fd9b4aeed5327da57bea69b8561af886935d2349d2e51d4d27d9c1dad52ddb",
+        "general": {
+          "rlnCurrentResolution": 26.8,
+          "rlnAveragePmax": 0.892871,
+          "rlnSigmaOffsetsAngst": 17.271575,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 3.85,
+            "rlnAccuracyTranslationsAngst": 4.032563,
+            "rlnEstimatedResolution": 26.8,
+            "rlnOverallFourierCompleteness": 0.844122
+          }
+        ]
+      },
+      {
+        "file": "refine_it004_half2_model.star",
+        "sha256": "abb37c692dfc17eb97ec0ee7b32f2e9383cbd57f8c13fba1089ce76562870572",
+        "general": {
+          "rlnCurrentResolution": 26.8,
+          "rlnAveragePmax": 0.892871,
+          "rlnSigmaOffsetsAngst": 16.529914,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 26.8,
+            "rlnOverallFourierCompleteness": 0.839247
+          }
+        ]
+      },
+      {
+        "file": "refine_it005_half1_model.star",
+        "sha256": "0fdf4d336fb6dbb15a32f5cec6cb8b7cd062ab31590961e85844dabbcfc428f8",
+        "general": {
+          "rlnCurrentResolution": 24.12,
+          "rlnAveragePmax": 0.329856,
+          "rlnSigmaOffsetsAngst": 16.541388,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 3.775,
+            "rlnAccuracyTranslationsAngst": 4.002413,
+            "rlnEstimatedResolution": 24.12,
+            "rlnOverallFourierCompleteness": 0.958101
+          }
+        ]
+      },
+      {
+        "file": "refine_it005_half2_model.star",
+        "sha256": "4aa948b10ff0102d3955907e759ddc97023d1426ecb592c44d6e61066a3efe7e",
+        "general": {
+          "rlnCurrentResolution": 24.12,
+          "rlnAveragePmax": 0.329856,
+          "rlnSigmaOffsetsAngst": 15.806666,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 24.12,
+            "rlnOverallFourierCompleteness": 0.960127
+          }
+        ]
+      },
+      {
+        "file": "refine_it006_half1_model.star",
+        "sha256": "4673375c2bcede09a5aacdef201b444cec2992cc0569289d2434daa50c58ac8a",
+        "general": {
+          "rlnCurrentResolution": 22.971428,
+          "rlnAveragePmax": 0.563886,
+          "rlnSigmaOffsetsAngst": 16.765656,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 2.414,
+            "rlnAccuracyTranslationsAngst": 2.80395,
+            "rlnEstimatedResolution": 22.971428,
+            "rlnOverallFourierCompleteness": 0.895936
+          }
+        ]
+      },
+      {
+        "file": "refine_it006_half2_model.star",
+        "sha256": "bdb666f6b4a864e8bf40ac1fafbb367a99411fd8226151f48076befdd8bfdd0a",
+        "general": {
+          "rlnCurrentResolution": 22.971428,
+          "rlnAveragePmax": 0.563886,
+          "rlnSigmaOffsetsAngst": 15.982526,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 22.971428,
+            "rlnOverallFourierCompleteness": 0.899292
+          }
+        ]
+      },
+      {
+        "file": "refine_it007_half1_model.star",
+        "sha256": "71933ea686c07494405363fd4171270d7197f6495e429069519c2012f53c51d1",
+        "general": {
+          "rlnCurrentResolution": 22.971428,
+          "rlnAveragePmax": 0.632387,
+          "rlnSigmaOffsetsAngst": 16.922395,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 2.087,
+            "rlnAccuracyTranslationsAngst": 2.517525,
+            "rlnEstimatedResolution": 22.971428,
+            "rlnOverallFourierCompleteness": 0.892275
+          }
+        ]
+      },
+      {
+        "file": "refine_it007_half2_model.star",
+        "sha256": "19c21258db06bf93944cfa9864047b5dffa2f53918d9558958b8e66981d780b6",
+        "general": {
+          "rlnCurrentResolution": 22.971428,
+          "rlnAveragePmax": 0.632387,
+          "rlnSigmaOffsetsAngst": 16.156976,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 22.971428,
+            "rlnOverallFourierCompleteness": 0.896925
+          }
+        ]
+      },
+      {
+        "file": "refine_it008_half1_model.star",
+        "sha256": "1860bf98adb27608171aae1aa08ad9eff061e5c4edfa715d2d513426b317840a",
+        "general": {
+          "rlnCurrentResolution": 22.971428,
+          "rlnAveragePmax": 0.643683,
+          "rlnSigmaOffsetsAngst": 17.049605,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 2.011,
+            "rlnAccuracyTranslationsAngst": 2.464762,
+            "rlnEstimatedResolution": 22.971428,
+            "rlnOverallFourierCompleteness": 0.911857
+          }
+        ]
+      },
+      {
+        "file": "refine_it008_half2_model.star",
+        "sha256": "917f0330af335316bdd6499641acda14fd486a7ee0bc996ffcd197f6411f6e72",
+        "general": {
+          "rlnCurrentResolution": 22.971428,
+          "rlnAveragePmax": 0.643683,
+          "rlnSigmaOffsetsAngst": 16.289163,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 22.971428,
+            "rlnOverallFourierCompleteness": 0.914164
+          }
+        ]
+      },
+      {
+        "file": "refine_it009_half1_model.star",
+        "sha256": "2d236305fc5dad4efca0669c595dc2563edb089b15f730c91e5b479c9fa0d971",
+        "general": {
+          "rlnCurrentResolution": 22.971428,
+          "rlnAveragePmax": 0.662586,
+          "rlnSigmaOffsetsAngst": 17.096875,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.934,
+            "rlnAccuracyTranslationsAngst": 2.366775,
+            "rlnEstimatedResolution": 22.971428,
+            "rlnOverallFourierCompleteness": 0.920563
+          }
+        ]
+      },
+      {
+        "file": "refine_it009_half2_model.star",
+        "sha256": "15d0e1c71fc334cec917951cc2837b2677d1678c0b810121821a9f375d951342",
+        "general": {
+          "rlnCurrentResolution": 22.971428,
+          "rlnAveragePmax": 0.662586,
+          "rlnSigmaOffsetsAngst": 16.383243,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 22.971428,
+            "rlnOverallFourierCompleteness": 0.924093
+          }
+        ]
+      },
+      {
+        "file": "refine_it010_half1_model.star",
+        "sha256": "c4d0b54217f5112ab5952ce9da0825d76099fefb11174ce8830c7f27d463014f",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.607595,
+          "rlnSigmaOffsetsAngst": 17.1596,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.892,
+            "rlnAccuracyTranslationsAngst": 2.344162,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.900807
+          }
+        ]
+      },
+      {
+        "file": "refine_it010_half2_model.star",
+        "sha256": "80032e8b3aae1fcf54575130d2f43579894f6f273502758cd7ddfa73530dde69",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.607595,
+          "rlnSigmaOffsetsAngst": 16.420858,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.903219
+          }
+        ]
+      },
+      {
+        "file": "refine_it011_half1_model.star",
+        "sha256": "1d9c1efc03c947dcb58c74d8766af5a221f02921c9e477b877ddfe4a6c1a642a",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.647757,
+          "rlnSigmaOffsetsAngst": 17.217742,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.672,
+            "rlnAccuracyTranslationsAngst": 2.14065,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.898715
+          }
+        ]
+      },
+      {
+        "file": "refine_it011_half2_model.star",
+        "sha256": "e7d11044d9f09571bc6b15ef3600d9be07dd6d941f7aaa852f5986ad24bdbec4",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.647757,
+          "rlnSigmaOffsetsAngst": 16.470755,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.901162
+          }
+        ]
+      },
+      {
+        "file": "refine_it012_half1_model.star",
+        "sha256": "b18990343e900a447ec2e3209c8ff71d153ddce2fbcd01b77d7acecf5f545e95",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.42418,
+          "rlnSigmaOffsetsAngst": 17.240508,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.631,
+            "rlnAccuracyTranslationsAngst": 2.125575,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.915026
+          }
+        ]
+      },
+      {
+        "file": "refine_it012_half2_model.star",
+        "sha256": "5e94b83166e546323429b14a721b1bcda7164376a11e2d698edd860d73ba36fd",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.42418,
+          "rlnSigmaOffsetsAngst": 16.493053,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.916918
+          }
+        ]
+      },
+      {
+        "file": "refine_it013_half1_model.star",
+        "sha256": "6753ba6a77425ad5f21af11c0bd1882a20561988af858d500845621f1e05fc23",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.486681,
+          "rlnSigmaOffsetsAngst": 17.262531,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.543,
+            "rlnAccuracyTranslationsAngst": 2.042662,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.910164
+          }
+        ]
+      },
+      {
+        "file": "refine_it013_half2_model.star",
+        "sha256": "15ee401fd9d132a8939ffdefc47e49aed2e186cae5996356387f1509409ce981",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.486681,
+          "rlnSigmaOffsetsAngst": 16.526412,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.911996
+          }
+        ]
+      },
+      {
+        "file": "refine_it014_half1_model.star",
+        "sha256": "e3d58d63a863b2eca9bdc37a5511652cde16e10faacc2556f29e9dc5e007761a",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.451296,
+          "rlnSigmaOffsetsAngst": 17.261697,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.535,
+            "rlnAccuracyTranslationsAngst": 2.0502,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.909317
+          }
+        ]
+      },
+      {
+        "file": "refine_it014_half2_model.star",
+        "sha256": "b5b33d3767a987be6701d87abeb74bac223e0c22d786dc63683e450f276f0f14",
+        "general": {
+          "rlnCurrentResolution": 21.927272,
+          "rlnAveragePmax": 0.451296,
+          "rlnSigmaOffsetsAngst": 16.538688,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 21.927272,
+            "rlnOverallFourierCompleteness": 0.911339
+          }
+        ]
+      },
+      {
+        "file": "refine_model.star",
+        "sha256": "e2294d88185580accaf642ab312f55bd03742064ddc32d05f7c5ebb6296809de",
+        "general": {
+          "rlnCurrentResolution": 15.56129,
+          "rlnAveragePmax": 0.462023,
+          "rlnSigmaOffsetsAngst": 16.91404,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 7.5375
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 1.51,
+            "rlnAccuracyTranslationsAngst": 2.012512,
+            "rlnEstimatedResolution": 15.075,
+            "rlnOverallFourierCompleteness": 0.958064
+          }
+        ]
+      }
+    ],
+    "units": {
+      "rlnAccuracyRotations": "degrees",
+      "rlnAccuracyTranslationsAngst": "angstrom",
+      "rlnEstimatedResolution": "angstrom",
+      "rlnCurrentResolution": "angstrom"
+    },
+    "interpretation": "RELION local model diagnostics; not calibrated uniform pose radii or independent reconstruction accuracy. Missing values remain null."
+  },
+  "evaluated_iteration": "final_unfiltered",
+  "alignment": {
+    "matrix": [
+      [
+        0.23819681501729598,
+        0.04445616426853931,
+        -0.9701989109322606
+      ],
+      [
+        -0.48855919570867895,
+        0.8688429897107786,
+        -0.0801359564672777
+      ],
+      [
+        -0.8393879851440013,
+        -0.49308772920137117,
+        -0.22867510075854314
+      ]
+    ],
+    "offset": [
+      55.18031687593743,
+      22.442616697227937,
+      84.88001948037646
+    ],
+    "selected_start": 0,
+    "starts": [
+      {
+        "start": 0,
+        "permutation": [
+          0,
+          1,
+          2
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.2924822996744968,
+        "selected_correlation": 0.3004929452892487,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.05122652614770849,
+          -0.044367310534122725,
+          -0.05432739115939898,
+          0.32470264583285524,
+          0.3134403444230171,
+          0.15234563521170696
+        ],
+        "matrix": [
+          [
+            0.23819681501729598,
+            0.04445616426853931,
+            -0.9701989109322606
+          ],
+          [
+            -0.48855919570867895,
+            0.8688429897107786,
+            -0.0801359564672777
+          ],
+          [
+            -0.8393879851440013,
+            -0.49308772920137117,
+            -0.22867510075854314
+          ]
+        ],
+        "working_offset": [
+          27.590158437968714,
+          11.221308348613968,
+          42.44000974018823
+        ]
+      },
+      {
+        "start": 1,
+        "permutation": [
+          0,
+          1,
+          2
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.24285954684850555,
+        "selected_correlation": 0.2540096940419453,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.23381590845332412,
+          0.4795952334908261,
+          0.04326737843025253,
+          -0.20307643768255684,
+          0.05622141370504785,
+          -0.980664094953626
+        ],
+        "matrix": [
+          [
+            0.6224777383022445,
+            0.23031413646760251,
+            0.7479818606499122
+          ],
+          [
+            -0.5076463012388013,
+            0.846216029812142,
+            0.1619063424561893
+          ],
+          [
+            -0.5956649210392427,
+            -0.4804933188215614,
+            0.6436687598533538
+          ]
+        ],
+        "working_offset": [
+          -8.220689430763699,
+          8.130733096611156,
+          24.469296084611653
+        ]
+      },
+      {
+        "start": 2,
+        "permutation": [
+          0,
+          1,
+          2
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.20818196631597072,
+        "selected_correlation": 0.25138016260532275,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.8288169115748325,
+          -0.2589182888375289,
+          -0.508357865075655,
+          -0.11147012881307598,
+          -0.5588134653330221,
+          0.002315432068233092
+        ],
+        "matrix": [
+          [
+            0.578562191207653,
+            0.5335598373783346,
+            -0.6169114124749223
+          ],
+          [
+            -0.5991563038717832,
+            -0.23517691994587409,
+            -0.7653127072350726
+          ],
+          [
+            -0.5534234494812299,
+            0.8124073585717803,
+            0.1836212659326807
+          ]
+        ],
+        "working_offset": [
+          8.942489838980872,
+          41.598019277550705,
+          10.216305095912691
+        ]
+      },
+      {
+        "start": 3,
+        "permutation": [
+          0,
+          1,
+          2
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.20889424060137923,
+        "selected_correlation": 0.2391489430668673,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.07452480007300188,
+          -0.09845095869338603,
+          -0.44916525556383324,
+          0.031130083959619838,
+          0.2520655478281495,
+          0.04779626231534381
+        ],
+        "matrix": [
+          [
+            0.04670539765063721,
+            -0.20826274758484062,
+            0.9769571299697385
+          ],
+          [
+            -0.7563423381176515,
+            -0.6462376196708345,
+            -0.10160318150972736
+          ],
+          [
+            -0.6525066079366714,
+            0.7341686229270404,
+            0.1877007184546521
+          ]
+        ],
+        "working_offset": [
+          3.536999790196509,
+          40.49871152671109,
+          12.42822064624498
+        ]
+      },
+      {
+        "start": 4,
+        "permutation": [
+          0,
+          1,
+          2
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.21627172847869824,
+        "selected_correlation": 0.2456216875019464,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.14471838309424734,
+          -0.04768677090868359,
+          0.5808841848822727,
+          1.288289706727938,
+          0.18537583619233333,
+          0.18994477221245631
+        ],
+        "matrix": [
+          [
+            -0.13252113360582343,
+            -0.17241395937342,
+            -0.9760694523244788
+          ],
+          [
+            -0.15854411549049027,
+            0.9757626789853605,
+            -0.1508342061425425
+          ],
+          [
+            0.9784180663658893,
+            0.13476134799152797,
+            -0.15664439503646738
+          ]
+        ],
+        "working_offset": [
+          37.43193924825597,
+          5.507349020586712,
+          0.40061420564654426
+        ]
+      },
+      {
+        "start": 5,
+        "permutation": [
+          0,
+          1,
+          2
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.20969500561605323,
+        "selected_correlation": 0.23100821021336307,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.27356581593235124,
+          -0.08932868541021724,
+          -0.1391408272917891,
+          0.17716784905229593,
+          0.009321641450410787,
+          -0.5261111374538716
+        ],
+        "matrix": [
+          [
+            -0.2656926983263349,
+            0.27008277032083583,
+            0.9254526931355775
+          ],
+          [
+            0.5269359233259316,
+            0.8445570950053618,
+            -0.09519372870495701
+          ],
+          [
+            0.8073078240452771,
+            -0.4623619907085003,
+            0.3667089674160604
+          ]
+        ],
+        "working_offset": [
+          2.193883175396767,
+          -4.44044175879829,
+          5.681290928480669
+        ]
+      },
+      {
+        "start": 6,
+        "permutation": [
+          0,
+          1,
+          2
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1875558755979234,
+        "selected_correlation": 0.2008407008162901,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.2549758017209156,
+          -0.20285460409776648,
+          0.21744029469247553,
+          0.16683588441336947,
+          -0.09468639750609634,
+          -0.05836866072982261
+        ],
+        "matrix": [
+          [
+            -0.02649421223628571,
+            0.22186931597594617,
+            -0.9747164014965299
+          ],
+          [
+            0.7300072278906617,
+            -0.6618322769734808,
+            -0.1704918894947501
+          ],
+          [
+            0.6829256943074928,
+            0.7160670665408819,
+            0.1444314794986381
+          ]
+        ],
+        "working_offset": [
+          28.955877042909464,
+          17.690456786509458,
+          -7.813604070556785
+        ]
+      },
+      {
+        "start": 7,
+        "permutation": [
+          0,
+          1,
+          2
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.18050877957790662,
+        "selected_correlation": 0.21923926362064436,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.5700653320184625,
+          -0.8312999109633873,
+          0.010013880634066552,
+          -0.7248402351031048,
+          0.10022724275692135,
+          0.13959275163742393
+        ],
+        "matrix": [
+          [
+            -0.8357267746004312,
+            0.3297230864031055,
+            0.4391394362941796
+          ],
+          [
+            0.18090680775979917,
+            -0.5897308870387954,
+            0.7870770024455009
+          ],
+          [
+            0.5184915477827186,
+            0.7372246381973716,
+            0.43320474110129
+          ]
+        ],
+        "working_offset": [
+          16.895431164177978,
+          10.281490522772005,
+          -9.860713109605975
+        ]
+      },
+      {
+        "start": 8,
+        "permutation": [
+          0,
+          2,
+          1
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.2033798505024422,
+        "selected_correlation": 0.2235370779310815,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.4135964561288799,
+          0.0020043963315996595,
+          0.04809792474429684,
+          0.011782967363148404,
+          0.3019247830232967,
+          0.3517191546154146
+        ],
+        "matrix": [
+          [
+            0.3184461519558032,
+            -0.8621534476309117,
+            -0.3940602505235391
+          ],
+          [
+            -0.44286373625028447,
+            -0.5028557182376876,
+            0.7422990217898031
+          ],
+          [
+            -0.8381311111150694,
+            -0.06186727223494232,
+            -0.5419489655006523
+          ]
+        ],
+        "working_offset": [
+          32.010822186392474,
+          19.393551798689614,
+          40.25227759645717
+        ]
+      },
+      {
+        "start": 9,
+        "permutation": [
+          0,
+          2,
+          1
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.18530175222574144,
+        "selected_correlation": 0.2166487614551007,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.4090862730717243,
+          -0.17732586853351695,
+          0.20550445224827202,
+          0.4627668484573666,
+          -0.178719274075541,
+          -0.23596008002238408
+        ],
+        "matrix": [
+          [
+            -0.05702707876826869,
+            0.9498520103158722,
+            -0.30745580297996244
+          ],
+          [
+            -0.6356913527255862,
+            0.20291616260563802,
+            0.7447963043834984
+          ],
+          [
+            -0.769834018706028,
+            -0.23792055281605679,
+            -0.5922409933385474
+          ]
+        ],
+        "working_offset": [
+          7.228703330598226,
+          11.701367261130702,
+          42.74906568321871
+        ]
+      },
+      {
+        "start": 10,
+        "permutation": [
+          0,
+          2,
+          1
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.18659495578916918,
+        "selected_correlation": 0.25666739478223916,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          1.0471975511288047,
+          0.048180329472212284,
+          0.0413913936848787,
+          0.15195104547569052,
+          0.2654804148077624,
+          -0.05173570643002075
+        ],
+        "matrix": [
+          [
+            0.2786019683298702,
+            -0.38315224810020104,
+            -0.8806675297854939
+          ],
+          [
+            -0.5224395844246984,
+            0.7089705344543563,
+            -0.47372741307808336
+          ],
+          [
+            -0.8058770525761803,
+            -0.5920769680128303,
+            0.0026533148819939956
+          ]
+        ],
+        "working_offset": [
+          32.344658967769725,
+          20.59356414050581,
+          39.61531395984453
+        ]
+      },
+      {
+        "start": 11,
+        "permutation": [
+          0,
+          2,
+          1
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.19982348057771365,
+        "selected_correlation": 0.251890291773386,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.6730612386680158,
+          0.09655847366318906,
+          -0.6001832983239915,
+          -0.18855517263252308,
+          -0.6351824254610204,
+          -0.03076967552766177
+        ],
+        "matrix": [
+          [
+            0.5939275108630534,
+            0.5514615992219888,
+            -0.5857817139716331
+          ],
+          [
+            -0.6015601503823466,
+            -0.17906506103786557,
+            -0.7784992545837629
+          ],
+          [
+            -0.5342054822930845,
+            0.8147550604316811,
+            0.22538565657330814
+          ]
+        ],
+        "working_offset": [
+          7.9914352026151185,
+          40.890463622370746,
+          9.235382910778146
+        ]
+      },
+      {
+        "start": 12,
+        "permutation": [
+          0,
+          2,
+          1
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.19114430216860911,
+        "selected_correlation": 0.23096724249804845,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.40596017420633534,
+          0.2574423410496425,
+          -0.3545973599232314,
+          0.18582333951630092,
+          0.33608698254024527,
+          0.21748714573629427
+        ],
+        "matrix": [
+          [
+            -0.497503003995611,
+            -0.8122397156819829,
+            -0.3045610042080149
+          ],
+          [
+            0.5597894970447594,
+            -0.5688157134635156,
+            0.6025648538666749
+          ],
+          [
+            0.662666190486371,
+            -0.129287773535796,
+            -0.737670788089401
+          ]
+        ],
+        "working_offset": [
+          42.86544650837595,
+          6.710232268974114,
+          20.32095767923615
+        ]
+      },
+      {
+        "start": 13,
+        "permutation": [
+          0,
+          2,
+          1
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.21098263908654816,
+        "selected_correlation": 0.23445942030742684,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.3651145050814609,
+          0.14360614618113382,
+          -0.33936773748360183,
+          -0.2581077793957821,
+          -0.467283086375645,
+          0.28499513083482786
+        ],
+        "matrix": [
+          [
+            0.04847601485021229,
+            0.9667515035589932,
+            -0.2510808761149838
+          ],
+          [
+            0.6293856537479614,
+            0.16562673216466886,
+            0.7592374361480764
+          ],
+          [
+            0.7755796379743954,
+            -0.19483150658679121,
+            -0.6004306031512946
+          ]
+        ],
+        "working_offset": [
+          4.7804755345181675,
+          -8.647902451791623,
+          17.574252059816377
+        ]
+      },
+      {
+        "start": 14,
+        "permutation": [
+          0,
+          2,
+          1
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.20469092736253863,
+        "selected_correlation": 0.24103042073375455,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.17503279905322383,
+          -0.20961896356995413,
+          -0.4954883413519945,
+          0.5820626035536731,
+          0.15936336334352783,
+          0.06053818004612566
+        ],
+        "matrix": [
+          [
+            -0.5329765847554595,
+            -0.7828733635793942,
+            -0.3210066303058112
+          ],
+          [
+            0.625271010899626,
+            -0.10881172320584748,
+            -0.7727846865858136
+          ],
+          [
+            0.5700632623060067,
+            -0.6125922832446224,
+            0.5475021200672869
+          ]
+        ],
+        "working_offset": [
+          43.246375665603935,
+          19.997480544764812,
+          8.67967621173954
+        ]
+      },
+      {
+        "start": 15,
+        "permutation": [
+          0,
+          2,
+          1
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.20726285677164333,
+        "selected_correlation": 0.25574532563718555,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.3215723522167748,
+          -0.2849569800816657,
+          -0.28954658135652367,
+          0.3690455953974257,
+          -0.35851218725762035,
+          -0.14111692240478682
+        ],
+        "matrix": [
+          [
+            -0.032591928417597435,
+            0.9588865322275945,
+            0.2819120155554932
+          ],
+          [
+            0.7344704015428738,
+            0.21427747002095923,
+            -0.6439242153381617
+          ],
+          [
+            0.6778576513247255,
+            -0.18606929933214497,
+            0.7112574923236819
+          ]
+        ],
+        "working_offset": [
+          -2.4569503841653777,
+          11.011232796767233,
+          -2.468732593175652
+        ]
+      },
+      {
+        "start": 16,
+        "permutation": [
+          1,
+          0,
+          2
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.16732833918595705,
+        "selected_correlation": 0.2392411793018748,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.5254374885238408,
+          0.24881657438914162,
+          -0.4244527541755123,
+          0.5022802943153643,
+          0.14453826066119324,
+          0.03231021053876735
+        ],
+        "matrix": [
+          [
+            -0.4081696981442694,
+            -0.5304326875012033,
+            -0.742993042731267
+          ],
+          [
+            -0.6860774076500701,
+            0.7151470756846869,
+            -0.13365048017796743
+          ],
+          [
+            0.6022418851499587,
+            0.4551986645080279,
+            -0.6558192491846608
+          ]
+        ],
+        "working_offset": [
+          43.788608510798106,
+          18.054168501269494,
+          10.154264695885974
+        ]
+      },
+      {
+        "start": 17,
+        "permutation": [
+          1,
+          0,
+          2
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1696546814013574,
+        "selected_correlation": 0.22557663417372065,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.26786909644200624,
+          -0.17367138296186835,
+          -1.0017917517404273,
+          -0.7462979308399975,
+          0.04932995294306202,
+          -0.26021681758296966
+        ],
+        "matrix": [
+          [
+            -0.4712535242958902,
+            -0.2503707793843754,
+            0.8457154300763133
+          ],
+          [
+            -0.18334083982495636,
+            0.9657259986117576,
+            0.18373739972472702
+          ],
+          [
+            0.862731854222958,
+            0.06846728003787528,
+            0.5010049693099188
+          ]
+        ],
+        "working_offset": [
+          14.473239349625135,
+          0.5282579984162918,
+          -5.169655523820872
+        ]
+      },
+      {
+        "start": 18,
+        "permutation": [
+          1,
+          0,
+          2
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.15945282222308346,
+        "selected_correlation": 0.264520762219277,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.17787771700663133,
+          -0.08896548240409372,
+          1.0471945092625539,
+          1.0275293907371774,
+          0.15032341019105935,
+          -0.013521728316657107
+        ],
+        "matrix": [
+          [
+            0.30523847056042436,
+            -0.13104783838540474,
+            -0.9432157442199773
+          ],
+          [
+            -0.03504954220710078,
+            0.9882685549349751,
+            -0.148649900497139
+          ],
+          [
+            -0.9516307086685496,
+            -0.07843294831414581,
+            -0.297064415468674
+          ]
+        ],
+        "working_offset": [
+          28.544844973104993,
+          3.1294736733631154,
+          39.18580674853428
+        ]
+      },
+      {
+        "start": 19,
+        "permutation": [
+          1,
+          0,
+          2
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.1674836727361341,
+        "selected_correlation": 0.22588881991427123,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.8734798704005017,
+          0.3358953074083677,
+          -0.007076075127603192,
+          -0.2788046264945626,
+          -0.22136646969030094,
+          -0.16182782337479754
+        ],
+        "matrix": [
+          [
+            0.3729609497536629,
+            0.5571178846631107,
+            0.7419702100134118
+          ],
+          [
+            0.7524254694826442,
+            0.28631070834153954,
+            -0.5931965029927175
+          ],
+          [
+            -0.542914397334118,
+            0.7795164147581928,
+            -0.3124069722171143
+          ]
+        ],
+        "working_offset": [
+          -9.887183982842433,
+          9.217286168496305,
+          18.085199673278304
+        ]
+      },
+      {
+        "start": 20,
+        "permutation": [
+          1,
+          0,
+          2
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.16331996813565794,
+        "selected_correlation": 0.18238412267234982,
+        "local_converged": true,
+        "message": "Optimization terminated successfully.",
+        "evaluations": 236,
+        "parameters": [
+          0.10825240452797136,
+          -0.07878646726724398,
+          0.6177288787352271,
+          1.0288129943537165,
+          -0.25243391949660304,
+          0.2866476701674939
+        ],
+        "matrix": [
+          [
+            -0.15407990412511707,
+            0.28542967693372595,
+            -0.9459330222961366
+          ],
+          [
+            -0.37051310855946384,
+            -0.9041960659778687,
+            -0.2124841421277112
+          ],
+          [
+            0.9159581974797745,
+            -0.3177410483328448,
+            -0.2450738800320163
+          ]
+        ],
+        "working_offset": [
+          30.047829231927757,
+          40.26959880948449,
+          10.391653752881725
+        ]
+      },
+      {
+        "start": 21,
+        "permutation": [
+          1,
+          0,
+          2
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.17271761922325773,
+        "selected_correlation": 0.22970508764932276,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.5330931197856068,
+          -0.30637057026064324,
+          0.14643626851931685,
+          0.11500607285640495,
+          -1.1061009970906346,
+          0.4945102444953684
+        ],
+        "matrix": [
+          [
+            -0.3753043531500387,
+            0.5850203696596074,
+            0.7189560553955763
+          ],
+          [
+            -0.7753082516400345,
+            -0.6232260487795261,
+            0.10240315943140094
+          ],
+          [
+            0.507980075835169,
+            -0.518980210803838,
+            0.6874705690780515
+          ]
+        ],
+        "working_offset": [
+          1.988144784800177,
+          36.32878100333638,
+          5.225087309869279
+        ]
+      },
+      {
+        "start": 22,
+        "permutation": [
+          1,
+          0,
+          2
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.15875556011314482,
+        "selected_correlation": 0.21020820389701694,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.6852270876161161,
+          0.49967699254284176,
+          -0.11067379686658578,
+          0.0579202576553146,
+          0.15361538702082328,
+          -0.6006985364897884
+        ],
+        "matrix": [
+          [
+            -0.3097388276887639,
+            0.8072093133434239,
+            -0.5024688876673142
+          ],
+          [
+            0.6613110368293927,
+            -0.19681292180414922,
+            -0.723831738996397
+          ],
+          [
+            -0.6831760909089427,
+            -0.5564870153584467,
+            -0.47285582427186446
+          ]
+        ],
+        "working_offset": [
+          16.15013385396517,
+          19.91021600362583,
+          44.24314709402195
+        ]
+      },
+      {
+        "start": 23,
+        "permutation": [
+          1,
+          0,
+          2
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.16570914918352092,
+        "selected_correlation": 0.25172863948978974,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.8669410371118932,
+          0.05850899694677471,
+          0.47923743037677197,
+          0.8813946144896418,
+          0.3276491873777055,
+          -0.3198132014743987
+        ],
+        "matrix": [
+          [
+            -0.17728706981301623,
+            0.8309826333915032,
+            0.5272922888482598
+          ],
+          [
+            0.9841587188693809,
+            0.1502132759712297,
+            0.09416787029221371
+          ],
+          [
+            0.0009544372659721288,
+            -0.5356340492572457,
+            0.8444496754252395
+          ]
+        ],
+        "working_offset": [
+          -2.3517551936418357,
+          -4.353077261656665,
+          12.510536619525006
+        ]
+      },
+      {
+        "start": 24,
+        "permutation": [
+          1,
+          2,
+          0
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1554832267060814,
+        "selected_correlation": 0.2063577337962338,
+        "local_converged": true,
+        "message": "Optimization terminated successfully.",
+        "evaluations": 220,
+        "parameters": [
+          0.31235942648541837,
+          0.32273235753942686,
+          0.21119213605578335,
+          0.03637608521468824,
+          -0.9871217291194359,
+          -0.18726997223816538
+        ],
+        "matrix": [
+          [
+            0.9482256653923377,
+            0.12347752764520209,
+            -0.29261132523859557
+          ],
+          [
+            0.27092559788339177,
+            0.16629770057317084,
+            0.9481267822372718
+          ],
+          [
+            -0.16573294151370568,
+            0.978314047200951,
+            -0.12423452477677077
+          ]
+        ],
+        "working_offset": [
+          4.10690074795083,
+          -5.6362004129588215,
+          6.825739223328279
+        ]
+      },
+      {
+        "start": 25,
+        "permutation": [
+          1,
+          2,
+          0
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.17127141734495077,
+        "selected_correlation": 0.24210777351803814,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -1.032520281229264,
+          -0.5615291803078125,
+          -0.14169003105471928,
+          -0.06921602425403314,
+          -0.18978655269095515,
+          0.651251285511465
+        ],
+        "matrix": [
+          [
+            -0.9313261805968843,
+            -0.2564798060884314,
+            -0.25855300114997815
+          ],
+          [
+            -0.2600537577725852,
+            0.9653680289023108,
+            -0.020895258831256036
+          ],
+          [
+            0.25495801302013915,
+            0.047777377932534754,
+            -0.9657710565940122
+          ]
+        ],
+        "working_offset": [
+          39.75760680676255,
+          5.3477564956289605,
+          28.216943468603432
+        ]
+      },
+      {
+        "start": 26,
+        "permutation": [
+          1,
+          2,
+          0
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.16384245209621226,
+        "selected_correlation": 0.25125881359508495,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.4026899637415741,
+          0.4911039579600556,
+          0.9428218006689606,
+          -0.16251072673451952,
+          -0.5403518933769229,
+          -0.06774728544644931
+        ],
+        "matrix": [
+          [
+            0.5810008798161206,
+            0.5641546919508479,
+            -0.5866578740652322
+          ],
+          [
+            -0.6171376107707321,
+            -0.16457756266218013,
+            -0.7694513598924685
+          ],
+          [
+            -0.5306403179415289,
+            0.8091005558136889,
+            0.2525413699909248
+          ]
+        ],
+        "working_offset": [
+          7.923410914428565,
+          40.77184360492325,
+          8.779506013461894
+        ]
+      },
+      {
+        "start": 27,
+        "permutation": [
+          1,
+          2,
+          0
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1830293448197077,
+        "selected_correlation": 0.2081579273365969,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.06961738566047318,
+          0.4011647752161966,
+          -0.15358797845256497,
+          0.04902993654648712,
+          -0.7634196118775359,
+          -0.06797592664227597
+        ],
+        "matrix": [
+          [
+            -0.9365976134038216,
+            -0.1336315189947482,
+            0.3239251884269298
+          ],
+          [
+            -0.33654006930032127,
+            0.6005297508251489,
+            -0.7253308211631572
+          ],
+          [
+            0.09759965328627265,
+            0.7883569213909659,
+            0.6074270920640256
+          ]
+        ],
+        "working_offset": [
+          28.466147611399528,
+          23.944563007239537,
+          -6.338710178119964
+        ]
+      },
+      {
+        "start": 28,
+        "permutation": [
+          1,
+          2,
+          0
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.1505668926134682,
+        "selected_correlation": 0.2172688494559899,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.12865895942509542,
+          -0.2909185507771444,
+          0.7038078925387217,
+          0.1495058197507076,
+          -0.6204772074488142,
+          -0.07122216406197747
+        ],
+        "matrix": [
+          [
+            0.5075227017417502,
+            0.7894237422004854,
+            0.345298222507641
+          ],
+          [
+            0.21946323581523766,
+            -0.50596332076175,
+            0.8341684519143888
+          ],
+          [
+            0.8332206162489383,
+            -0.34757916119054705,
+            -0.4300373604279232
+          ]
+        ],
+        "working_offset": [
+          -9.342060801349998,
+          7.1975262951651615,
+          15.733014186843118
+        ]
+      },
+      {
+        "start": 29,
+        "permutation": [
+          1,
+          2,
+          0
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1697457825914055,
+        "selected_correlation": 0.18176900055738335,
+        "local_converged": true,
+        "message": "Optimization terminated successfully.",
+        "evaluations": 209,
+        "parameters": [
+          0.5662923056009433,
+          0.8256944812397093,
+          0.27784502562705604,
+          1.3898093740587316,
+          0.08731968446934402,
+          -0.937226818433559
+        ],
+        "matrix": [
+          [
+            -0.6092724721604686,
+            -0.35813686395659966,
+            0.7074779440680843
+          ],
+          [
+            0.6428589952365071,
+            -0.7454252186694421,
+            0.1762769287658576
+          ],
+          [
+            -0.4642406347046535,
+            -0.5622092404496275,
+            -0.6843985703097819
+          ]
+        ],
+        "working_offset": [
+          22.283688147754695,
+          14.416218271101021,
+          44.42675942580914
+        ]
+      },
+      {
+        "start": 30,
+        "permutation": [
+          1,
+          2,
+          0
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.15968751522282695,
+        "selected_correlation": 0.20857514675489108,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.4662081033232722,
+          -0.8194317373080966,
+          0.4935921086683413,
+          -0.5875290029810025,
+          -0.007214222102052942,
+          -0.6232269700061409
+        ],
+        "matrix": [
+          [
+            0.41951695593613086,
+            0.4594482261727275,
+            0.7828875086171813
+          ],
+          [
+            0.809444690978739,
+            0.2010163767276656,
+            -0.5517170547786386
+          ],
+          [
+            0.4108586325348622,
+            -0.8651587968425308,
+            0.2875681489970122
+          ]
+        ],
+        "working_offset": [
+          -9.325377237103257,
+          8.969470950014873,
+          20.123710791853725
+        ]
+      },
+      {
+        "start": 31,
+        "permutation": [
+          1,
+          2,
+          0
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.1755761420195738,
+        "selected_correlation": 0.21264396455676962,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.216604251486189,
+          0.3284708560974834,
+          0.12437090900466503,
+          -0.056005686607423597,
+          -0.2241871027686671,
+          0.4394112668364872
+        ],
+        "matrix": [
+          [
+            -0.9595246046693275,
+            0.03252233146262218,
+            0.2797406495138063
+          ],
+          [
+            -0.23762448895908908,
+            -0.626620456904066,
+            -0.7422138541123248
+          ],
+          [
+            0.15115268863339,
+            -0.7786456838290285,
+            0.6089858485821507
+          ]
+        ],
+        "working_offset": [
+          26.732622580036278,
+          42.108063626746244,
+          16.900688133040223
+        ]
+      },
+      {
+        "start": 32,
+        "permutation": [
+          2,
+          0,
+          1
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.15851396673990242,
+        "selected_correlation": 0.25663346305453916,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          1.0118703841931282,
+          -0.55432901396096,
+          -0.27861143541064115,
+          -0.7457461012803965,
+          0.22634075098509543,
+          0.20516896328883102
+        ],
+        "matrix": [
+          [
+            0.19726533082455328,
+            -0.32800672989945157,
+            -0.9238495409942832
+          ],
+          [
+            -0.9786681040877684,
+            -0.01070885827802062,
+            -0.20516837572012675
+          ],
+          [
+            -0.05740323419401866,
+            -0.944614686258397,
+            0.32312221094969185
+          ]
+        ],
+        "working_offset": [
+          33.84644790142205,
+          34.61632751330959,
+          28.013065078428987
+        ]
+      },
+      {
+        "start": 33,
+        "permutation": [
+          2,
+          0,
+          1
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.16642754557109712,
+        "selected_correlation": 0.2575586020114137,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.805382369784682,
+          -0.605078557148397,
+          0.018894385697301792,
+          -0.774251697395541,
+          -0.7260479190623707,
+          -0.35201643726273923
+        ],
+        "matrix": [
+          [
+            0.18501780141976057,
+            0.561320711939287,
+            -0.8066520138856471
+          ],
+          [
+            -0.9824894363696705,
+            0.08729756623615878,
+            -0.16460146521599237
+          ],
+          [
+            -0.021975454029577495,
+            0.8229812836737028,
+            0.567643273670162
+          ]
+        ],
+        "working_offset": [
+          17.72693263718068,
+          32.383354803182606,
+          -4.204784901583544
+        ]
+      },
+      {
+        "start": 34,
+        "permutation": [
+          2,
+          0,
+          1
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.15031738643371667,
+        "selected_correlation": 0.22205052273966344,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          1.0279664360748804,
+          -0.458610583364253,
+          0.08992231549377386,
+          -0.3274928050577116,
+          0.3622699717154741,
+          -0.0669005222678951
+        ],
+        "matrix": [
+          [
+            0.4565258308121695,
+            -0.3058763073866079,
+            -0.8354782165806549
+          ],
+          [
+            0.6512715010151343,
+            -0.5248834148849132,
+            0.5480354301906463
+          ],
+          [
+            -0.6061597130845571,
+            -0.7943154822602201,
+            -0.04041431522322081
+          ]
+        ],
+        "working_offset": [
+          27.724558966394063,
+          5.896348775042494,
+          40.167445664229604
+        ]
+      },
+      {
+        "start": 35,
+        "permutation": [
+          2,
+          0,
+          1
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.14330697129018322,
+        "selected_correlation": 0.19207733127105564,
+        "local_converged": true,
+        "message": "Optimization terminated successfully.",
+        "evaluations": 213,
+        "parameters": [
+          -0.9545816762450441,
+          -0.20867780981499318,
+          -0.2948604707142699,
+          0.298643262592738,
+          -0.736868243132254,
+          -0.22947240502041424
+        ],
+        "matrix": [
+          [
+            0.30761435689646566,
+            0.41799980396883274,
+            -0.854780422864955
+          ],
+          [
+            0.8364033033520868,
+            0.30951697955191,
+            0.4523590979639741
+          ],
+          [
+            -0.4536550689377241,
+            0.854093322331395,
+            0.2544045502266591
+          ]
+        ],
+        "working_offset": [
+          18.592692406753027,
+          -9.308210391152883,
+          7.250109146685174
+        ]
+      },
+      {
+        "start": 36,
+        "permutation": [
+          2,
+          0,
+          1
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.1688791298138679,
+        "selected_correlation": 0.1940963248587953,
+        "local_converged": true,
+        "message": "Optimization terminated successfully.",
+        "evaluations": 235,
+        "parameters": [
+          -0.14437337833021738,
+          -0.12407650792700242,
+          -0.21404609430677538,
+          -0.5657132997628638,
+          0.519102480636216,
+          -0.06346595767083185
+        ],
+        "matrix": [
+          [
+            -0.1997447937910323,
+            -0.939103335738258,
+            0.27961928073481435
+          ],
+          [
+            -0.8209751534456403,
+            0.004619531846914072,
+            -0.5709452314805892
+          ],
+          [
+            0.5348848612349072,
+            -0.34360381943568713,
+            -0.7719032325952018
+          ]
+        ],
+        "working_offset": [
+          30.764296242161983,
+          37.877055691525435,
+          26.708898862177286
+        ]
+      },
+      {
+        "start": 37,
+        "permutation": [
+          2,
+          0,
+          1
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1892855923095401,
+        "selected_correlation": 0.21505019926180277,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.7739426675121972,
+          -0.6643224143633919,
+          -0.12270393072607043,
+          0.2639753166078163,
+          -0.2034913646672323,
+          0.8699644413857176
+        ],
+        "matrix": [
+          [
+            0.10677153641357319,
+            0.8476202403910736,
+            -0.5197497158164337
+          ],
+          [
+            -0.45638401295461817,
+            -0.42263734770648725,
+            -0.7830014719290541
+          ],
+          [
+            0.8833535372269272,
+            -0.3208077312082809,
+            -0.34171468781085734
+          ]
+        ],
+        "working_offset": [
+          10.118862014988444,
+          43.523034759709674,
+          13.45848427217651
+        ]
+      },
+      {
+        "start": 38,
+        "permutation": [
+          2,
+          0,
+          1
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1606571583240546,
+        "selected_correlation": 0.2127863564392673,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.6397440590984295,
+          0.19843603687780753,
+          0.2090654783829928,
+          -0.2054198718035155,
+          0.39538775737124937,
+          -0.4948307601352206
+        ],
+        "matrix": [
+          [
+            0.3773686523592583,
+            -0.6622898154977916,
+            0.6472751350889809
+          ],
+          [
+            0.7794685647018923,
+            -0.1502356439645332,
+            -0.6081595250624088
+          ],
+          [
+            -0.5000216563891303,
+            -0.7340309609072789,
+            -0.4595398694035233
+          ]
+        ],
+        "working_offset": [
+          11.472999151350644,
+          15.78376830861797,
+          44.07419177293815
+        ]
+      },
+      {
+        "start": 39,
+        "permutation": [
+          2,
+          0,
+          1
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.17103923880009772,
+        "selected_correlation": 0.21311474432070818,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.7660183854838719,
+          -0.6871694005441566,
+          -0.024952255901328255,
+          -0.0721089472438814,
+          -0.07489798652722691,
+          0.4342448375099108
+        ],
+        "matrix": [
+          [
+            0.08627791933946083,
+            0.8625556979609991,
+            -0.49855169095036395
+          ],
+          [
+            0.985861850981376,
+            -0.0017684137881545056,
+            0.16755083853042985
+          ],
+          [
+            0.14364028478818128,
+            -0.5059590305822079,
+            -0.8505133320285363
+          ]
+        ],
+        "working_offset": [
+          9.558530662741976,
+          -2.225241430213032,
+          36.7436337776817
+        ]
+      },
+      {
+        "start": 40,
+        "permutation": [
+          2,
+          1,
+          0
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.18693420537422467,
+        "selected_correlation": 0.24329782422832116,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.3688716826429885,
+          -0.9141289525752557,
+          0.2695732848267933,
+          0.005456805999736549,
+          0.5674646123478345,
+          -0.34770033365964104
+        ],
+        "matrix": [
+          [
+            0.7210280017491553,
+            0.44243139492456607,
+            0.5332664263562099
+          ],
+          [
+            -0.480087248418196,
+            0.8739274851700037,
+            -0.0759406648027185
+          ],
+          [
+            -0.49963472117124297,
+            -0.20125906550895067,
+            0.8425318593089514
+          ]
+        ],
+        "working_offset": [
+          -10.691423050837784,
+          10.518765870581193,
+          15.137592947042545
+        ]
+      },
+      {
+        "start": 41,
+        "permutation": [
+          2,
+          1,
+          0
+        ],
+        "signs": [
+          -1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.17359638167808558,
+        "selected_correlation": 0.23797103561196237,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.2968635649955902,
+          0.8480102138100991,
+          0.2877993552927765,
+          -0.8224454585381713,
+          -0.2213499985764524,
+          -0.04845016289361337
+        ],
+        "matrix": [
+          [
+            -0.7628987818793224,
+            -0.35043715281894394,
+            0.5433040129901477
+          ],
+          [
+            0.20875712305328326,
+            0.6618171564728332,
+            0.720012857505149
+          ],
+          [
+            0.6118871727545551,
+            -0.6627155146232548,
+            0.43174325066649494
+          ]
+        ],
+        "working_offset": [
+          25.021845361592213,
+          -8.940541222104933,
+          11.311837606664714
+        ]
+      },
+      {
+        "start": 42,
+        "permutation": [
+          2,
+          1,
+          0
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1642002467420317,
+        "selected_correlation": 0.22281391500958042,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.25369071559139983,
+          0.8274932185084148,
+          -0.5583141717373818,
+          -0.35838535716311304,
+          0.19192404777889321,
+          0.7046258363495566
+        ],
+        "matrix": [
+          [
+            0.39396988222136,
+            -0.5117037639429779,
+            -0.7635096527674534
+          ],
+          [
+            0.060781562939577545,
+            -0.814370372630857,
+            0.5771537904126612
+          ],
+          [
+            0.9171114073596021,
+            0.2737885208471472,
+            0.28973524525542493
+          ]
+        ],
+        "working_offset": [
+          31.456764369987727,
+          18.861324594057894,
+          -6.661997108813928
+        ]
+      },
+      {
+        "start": 43,
+        "permutation": [
+          2,
+          1,
+          0
+        ],
+        "signs": [
+          -1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.15814575900263517,
+        "selected_correlation": 0.22023085779786877,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          -0.33116304086471715,
+          -0.9046032149627004,
+          0.19634814424781516,
+          -0.0073143421564163735,
+          -0.2199386202546437,
+          -0.19629957511175927
+        ],
+        "matrix": [
+          [
+            -0.427134269832947,
+            -0.43322123927453865,
+            -0.7936470710433626
+          ],
+          [
+            -0.30765816676390084,
+            -0.7557373343100572,
+            0.5781068534046323
+          ],
+          [
+            -0.8502368893183542,
+            0.49110125164915014,
+            0.18951726219763412
+          ]
+        ],
+        "working_offset": [
+          42.77892593824278,
+          23.970329590358496,
+          19.782470354227655
+        ]
+      },
+      {
+        "start": 44,
+        "permutation": [
+          2,
+          1,
+          0
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          -1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.166502783654435,
+        "selected_correlation": 0.24908094019158594,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.5754146688539188,
+          -1.0448762656724064,
+          0.09240677670639935,
+          -0.4780496019862072,
+          0.11658513723158284,
+          -0.21804368552905196
+        ],
+        "matrix": [
+          [
+            0.3059447435195327,
+            -0.1992447368708275,
+            0.9309668891760019
+          ],
+          [
+            0.025078005306826898,
+            0.9792030531408888,
+            0.20132678502721144
+          ],
+          [
+            0.9517189225620125,
+            0.038248079021526674,
+            -0.30457868751533623
+          ]
+        ],
+        "working_offset": [
+          0.34874423569953805,
+          -3.224923930217301,
+          6.383998980050526
+        ]
+      },
+      {
+        "start": 45,
+        "permutation": [
+          2,
+          1,
+          0
+        ],
+        "signs": [
+          1.0,
+          -1.0,
+          1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.168313793059631,
+        "selected_correlation": 0.2657837488033704,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.38595453223617426,
+          -0.8147205833432423,
+          0.13502503412850436,
+          -0.781100047099417,
+          0.09649602946951244,
+          0.007716062871290501
+        ],
+        "matrix": [
+          [
+            -0.7950242185915236,
+            -0.09090222760677477,
+            -0.599727668920706
+          ],
+          [
+            -0.03443001769258257,
+            0.9938757853742585,
+            -0.10500236725136192
+          ],
+          [
+            0.605599757046373,
+            -0.06283079072260261,
+            -0.7932850849490028
+          ]
+        ],
+        "working_offset": [
+          39.706533885734565,
+          2.3242405861592204,
+          21.45882145448894
+        ]
+      },
+      {
+        "start": 46,
+        "permutation": [
+          2,
+          1,
+          0
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          -1.0
+        ],
+        "hand_determinant": 1,
+        "initial_correlation": 0.1525843993366746,
+        "selected_correlation": 0.15802283364341868,
+        "local_converged": true,
+        "message": "Optimization terminated successfully.",
+        "evaluations": 252,
+        "parameters": [
+          -0.23370729049492422,
+          -0.03338709740020042,
+          -0.15242568838482184,
+          0.07967558852861603,
+          -0.33097542677944863,
+          -0.042640447460952025
+        ],
+        "matrix": [
+          [
+            0.9690893929848341,
+            -0.07545570056342897,
+            0.23488760217765464
+          ],
+          [
+            -0.0007457210142600597,
+            -0.9529719208078546,
+            -0.30305768766351593
+          ],
+          [
+            0.24670871955497425,
+            0.29351482995629075,
+            -0.923571249168831
+          ]
+        ],
+        "working_offset": [
+          -1.5858212023885265,
+          36.04503360618564,
+          23.105966345038674
+        ]
+      },
+      {
+        "start": 47,
+        "permutation": [
+          2,
+          1,
+          0
+        ],
+        "signs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "hand_determinant": -1,
+        "initial_correlation": 0.1430400500774748,
+        "selected_correlation": 0.22877344624580745,
+        "local_converged": false,
+        "message": "Maximum number of function evaluations has been exceeded.",
+        "evaluations": 300,
+        "parameters": [
+          0.7441429584156314,
+          -0.9348874910060977,
+          -0.13814241993985707,
+          0.37469445938359036,
+          0.10327574626589106,
+          -0.7284993366198702
+        ],
+        "matrix": [
+          [
+            -0.7173145745428656,
+            0.2056515483818686,
+            -0.6657080755079722
+          ],
+          [
+            0.571944481519331,
+            -0.37186654347006265,
+            -0.7311598894272113
+          ],
+          [
+            0.39791872437467884,
+            0.9052197050969274,
+            -0.1491240232030387
+          ]
+        ],
+        "working_offset": [
+          35.12072053277963,
+          24.00549251686473,
+          -1.916673242738053
+        ]
+      }
+    ],
+    "source_principal_values": [
+      23.207066295086925,
+      18.219840298383875,
+      16.34533444872592
+    ],
+    "pilot_principal_values": [
+      20.106275931683278,
+      17.14888986165595,
+      15.712769566238647
+    ],
+    "config": {
+      "working_box": 32,
+      "pixel_size_A": 7.537500187754631,
+      "lowpass_A": 40.0,
+      "max_evaluations_per_start": 300,
+      "full_map_interpolation_order": 1
+    },
+    "scope": "Pilot-selected rigid frame and hand from 48 local searches; no reference access or global optimality claim"
+  },
+  "neural_epoch_from_previous_lock": 60,
+  "fsc": {
+    "relion_half_native": {
+      "threshold_0143": {
+        "angstrom": 16.080000400543213,
+        "status": "censored_at_sampled_limit"
+      },
+      "threshold_05": {
+        "angstrom": 21.208833663265114,
+        "status": "crossing",
+        "shell": 23
+      },
+      "mean_fsc": 0.7561696858376796,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    },
+    "relion_half_aligned": {
+      "threshold_0143": {
+        "angstrom": 16.080000400543213,
+        "status": "censored_at_sampled_limit"
+      },
+      "threshold_05": {
+        "angstrom": 21.061497119507308,
+        "status": "crossing",
+        "shell": 23
+      },
+      "mean_fsc": 0.7603243671757939,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    },
+    "relion_vs_reference": {
+      "threshold_0143": {
+        "angstrom": 101.65581613204235,
+        "status": "crossing",
+        "shell": 5
+      },
+      "threshold_05": {
+        "angstrom": 205.704270501248,
+        "status": "crossing",
+        "shell": 3
+      },
+      "mean_fsc": 0.0748238780676154,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    },
+    "gaussian_vs_reference": {
+      "threshold_0143": {
+        "angstrom": 104.63069429812975,
+        "status": "crossing",
+        "shell": 5
+      },
+      "threshold_05": {
+        "angstrom": 205.63460600967778,
+        "status": "crossing",
+        "shell": 3
+      },
+      "mean_fsc": 0.07037898370627732,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    },
+    "voxel_vs_reference": {
+      "threshold_0143": {
+        "angstrom": 104.88763143682957,
+        "status": "crossing",
+        "shell": 5
+      },
+      "threshold_05": {
+        "angstrom": 204.74243124782882,
+        "status": "crossing",
+        "shell": 3
+      },
+      "mean_fsc": 0.07061770771331284,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    },
+    "neural_vs_reference": {
+      "threshold_0143": {
+        "angstrom": 105.54097728089774,
+        "status": "crossing",
+        "shell": 5
+      },
+      "threshold_05": {
+        "angstrom": 203.9504935516443,
+        "status": "crossing",
+        "shell": 3
+      },
+      "mean_fsc": 0.07160863570044766,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    },
+    "relion_vs_gaussian": {
+      "threshold_0143": {
+        "angstrom": 16.080000400543213,
+        "status": "censored_at_sampled_limit"
+      },
+      "threshold_05": {
+        "angstrom": 21.772731411700512,
+        "status": "crossing",
+        "shell": 23
+      },
+      "mean_fsc": 0.6993136252546729,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    },
+    "relion_vs_voxel": {
+      "threshold_0143": {
+        "angstrom": 16.080000400543213,
+        "status": "censored_at_sampled_limit"
+      },
+      "threshold_05": {
+        "angstrom": 22.146697858499312,
+        "status": "crossing",
+        "shell": 22
+      },
+      "mean_fsc": 0.6860708146075818,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    },
+    "relion_vs_neural": {
+      "threshold_0143": {
+        "angstrom": 16.080000400543213,
+        "status": "censored_at_sampled_limit"
+      },
+      "threshold_05": {
+        "angstrom": 21.674838599284843,
+        "status": "crossing",
+        "shell": 23
+      },
+      "mean_fsc": 0.695070804612678,
+      "shared_low_frequency_limit_inverse_A": 0.025,
+      "interpretation": "Half FSC below 1/40 A is coupled by fitting; aligned/reference comparisons have additional interpolation/frame-selection dependence."
+    }
+  },
+  "seconds": 18.81392191699706,
+  "input_hashes": {
+    "results/uncertainty/development/relion-reconstruction-v3/10028/refine_half1_class001_unfil.mrc": "e710fda617529157cf13a3bd9d38ba0b3af2a5b818a30ca9a8cb87be153eee21",
+    "results/uncertainty/development/relion-reconstruction-v3/10028/refine_half2_class001_unfil.mrc": "661ec28c0c748dbf232da64e26e9e53ffe3861b9aa507e2ee887631423b50e73",
+    "results/uncertainty/development/representation/10028/real_particles-spacing-2.0.npz": "44dffa6a614a5b34f73046854a300b19806f46231047abfc9b6d2cd6c81f372f",
+    "data/uncertainty/references/emd_2660.map": "20196866c5b3f451e477bcd6f5d93d6eae5210c04ed5f8ce5e4dccfccc0f6edb",
+    "research/uncertainty/confirmation/prediction-v1/locked-models.json": "54d2157ae45e416aa4041c562442603effaee2a26c826fdf4392fed2686f9800",
+    "results/uncertainty/development/group-reconstruction/10028/gaussian-half0.npz": "77d23284210b43bacbe08d92cb0fb41a78b8d0b5499c6a718ec8df6aa15e785e",
+    "results/uncertainty/development/group-reconstruction/10028/gaussian-half1.npz": "93d3fe44415d2acef3e790dd1c2f3ddd551b8d7d44f6c92934a907f231791fca",
+    "results/uncertainty/development/group-reconstruction/10028/voxel-half0.npz": "c8c0fc76cad429f56120699b24fd9a28e060c6bfc99e075cd64d315552f5bbb3",
+    "results/uncertainty/development/group-reconstruction/10028/voxel-half1.npz": "29d30237e62b3703f5f1f85e7cbddb04a05194833aab23be1dbcfdd0bf2051da",
+    "results/uncertainty/development/neural-reconstruction/10028/half0/reconstruct.60.mrc": "1f5eb8971e220313158e21aea2ea45e98be5ea9a4265996a601cb93ec0ef2cd6",
+    "results/uncertainty/development/neural-reconstruction/10028/half1/reconstruct.60.mrc": "ef62ba4a4d4fb5f9c84449b66006c535f526121b38804f3a3165d4b804a46d59"
+  },
+  "array_sha256": "dbb23d7b5aa79153289f9ff26b3dbc9a8a02c8d1c059faf0b1ebf3f3434fb7b0",
+  "alignment_reference_access": false,
+  "note": "Convergence status is inherited and never inferred from a favorable FSC. Deposited maps are approximate references, not ground truth."
+}

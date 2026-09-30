@@ -1,0 +1,55 @@
+\section{Reference Registration and the First Converged RELION Baseline}
+\label{sec:referenceframe}
+The first completed unknown-pose RELION continuation on 10028 reports
+convergence and preserves the exposure half labels. It takes 5,492 seconds for
+the remaining pilot-only initializer and 4,012 seconds for auto-refinement.
+Native half-map FSC crosses 0.5 at 21.21\,\AA; its 0.143 crossing is censored at
+the sampled 16.08\,\AA\ limit. RELION joins halves below $1/40$\,\AA$^{-1}$,
+which must be distinguished from independent high-frequency agreement.
+The other two declared continuations remain in progress at this revision.
+
+Initially, every method's deposited-map FSC on 10028 is weak despite strong
+cross-method agreement. This motivates a separately declared frame audit,
+retaining every original comparison. Register each deposited map to the old
+independent Gaussian pilot only, using the same fixed 48-start rigid/hand search
+at 40\,\AA\ lowpass. All three transforms are committed before their subsequent
+reconstruction comparisons. Neither inference-half maps, interval outcomes nor
+reference FSC select a transform. This is post-outcome development with a local
+search, not fresh confirmation or guaranteed global registration.
+
+Table~\ref{tab:referenceframe} retains the mean shell FSC for both frames
+and every completed method. Every registered 0.143 curve on these two stacks is censored
+at its sampling limit, which is not a measured resolution. On heterogeneous
+10076, means increase only from about 0.086 to 0.127, and 0.143 crossings remain
+51.5--52.3\,\AA. EMD-8434 represents a particular Class A assembly intermediate;
+it is not truth for the heterogeneous consensus. State mismatch, search limits
+and reconstruction error are not separated by this experiment.
+
+
+\begin{table}[t]
+\centering\small\setlength{\tabcolsep}{3pt}
+\caption{Mean shell FSC before and after pilot-only reference registration.
+G/V/N denote Gaussian/voxel/neural; R is RELION. Dashes mark running baselines.}
+\label{tab:referenceframe}
+\begin{tabular}{llrrrr}
+\toprule
+Stack & Frame & G & V & N & R\\
+\midrule
+10028 & Original & .070 & .071 & .072 & .075\\
+ & Registered & .727 & .707 & .736 & .702\\
+10049 & Original & .052 & .050 & .051 & --\\
+ & Registered & .757 & .692 & .799 & --\\
+10076 & Original & .086 & .086 & .087 & --\\
+ & Registered & .127 & .127 & .127 & --\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These results show that an unverified reference frame can dominate a comparison.
+All ten completed method/stack cases and both reference curves are retained.
+Reference agreement remains affected by pilot selection, interpolation,
+preprocessing and partial data dependence, and is not independent accuracy or
+density coverage. Historical reference-based uncertainty simulations keep their
+original unregistered generators and numerical outcomes. They are conditional
+implementation studies, not evidence that those simulated features were in the
+correct biological location of the consensus reconstruction.

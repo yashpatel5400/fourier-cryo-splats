@@ -110,18 +110,17 @@ relative width 0.222993 and minimum reference sign power 7.73395e-7, worse
 than the original fit. Its 0.976593 surrogate gap and iteration limit preclude
 a convergence claim. The original outcome and all follow-up checkpoints remain.
 
-A separate reduced convex design is now specified: twelve Fourier-shell
-restrictions of the original fixed-pose weights plus the original optimized
-cubic weights form a thirteen-column span. Classical spectral supporting cuts
-and small conic masters avoid a large ill-conditioned line search. An independent
-dense conic check agrees within 5.2e-8 in a two-particle test; 204 tests pass,
-including the inherited intentional conic warning. No empirical reduced-design
-result exists yet. Its declared fit is now running after the coordinate run ended;
-the latter's outcomes do not choose the new span. A fresh spectral upper audit
-remains required, and reduced numerical stopping is not full-space optimality.
-Its first queued startup stopped at the source-publication guard before fitting;
-that log is archived, and the unchanged protocol restarted after the unrelated
-new module was committed.
+The reduced convex design is complete. Twelve shell-restricted directions plus
+the original cubic weights form a rank-thirteen span. Its first restricted
+master has numerical guide gap 0.000365, below the declared stopping threshold,
+so it selects the initial point. Saved weights differ from the original by only
+4.61e-16 relatively. The fresh full-space audit still has relative gap 0.940164,
+relative width 0.179695 and minimum reference sign power 0.00662750. This does
+not improve the estimator. Total runtime is 1,934.45 seconds; all source hashes,
+checkpoints and the earlier provenance-guard startup failure are retained.
+The restricted guide is numerical, not a rigorous full-space convergence result.
+The expanded full suite now passes 226 tests with the same intentional conic
+warning; that count concerns implementation, not scientific calibration.
 
 The local Gaussian pose-marginalization baseline is complete: 48 solves across
 the same twelve targets and two broader priors, with 384 analytic conditional
@@ -176,8 +175,11 @@ the scaled mixture dual is credited to Lindsay (1983). Each of the three
 geometry probes exhausted its 8,192-split allowance. After optimizing envelope
 weights, the upper-to-best-recorded-feasible gaps remain 17,077--20,253 log units.
 All 54 local curvature diagnostics complete: they improve small boxes but not
-the large boxes. A separately declared envelope-guided refinement is running
-on the same observations, with a 900-second cap per geometry. None of these
+the large boxes. The separately declared refinement completes on all three geometries under its
+900-second / 32,768-split caps. Gaps remain 12,898--15,892 log units. The focused
+Fable audit supports the identities but identifies statistical assumptions and
+coarse-cell slack. Its suggested disk refinement completes all declared local
+and sampled-cover checks without improving any coarse cell. None of these
 computations reports a validation ratio or establishes practical usefulness.
 Three additional targeted readings cover viewing-law misspecification,
 classical mixture likelihood geometry and scalable finite-mixture solvers.
@@ -274,3 +276,15 @@ and nonlinear tests pass (109 tests total). This moves the numerical bound but
 does not settle R1/R2/R7 of the full review. The next meaningful objective remains
 useful precision with defensible experimental nuisance/noise/class assumptions,
 rather than the number of tests, probes or appendix pages.
+
+
+The original-code CryoLike comparison is complete on all 24 declared cases.
+Both scores and both viewing grids are retained; maximum correlation and
+integrated log score rank some maps differently. Total time is 1,219 seconds
+with 1.51 GB peak RSS. This exploratory reuse of experimental particles is
+not density calibration or a matched e-value comparison. RELION has converged
+on 10028 with verified exposure halves; its declared evaluation is complete. Native half FSC is censored at the
+16.08 A sampled limit. A separately declared pilot-only reference registration
+resolves a large frame discrepancy on 10028/10049; it leaves weak agreement on
+heterogeneous 10076, whose Class A deposited map is not consensus truth.
+The remaining two continuation stacks are still in progress.

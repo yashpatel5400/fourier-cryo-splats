@@ -68,3 +68,15 @@ Remaining statistical development includes a normalized independent predictive
 numerator, translation and noise nuisance treatment, heterogeneous maps and
 experimental acquisition validation. Neither this audit nor the new numerical
 tests resolve the full review's usefulness and novelty objections.
+
+
+## Completed diagnostic follow-up
+
+All 54 local boxes and 285 sampled coarse cells complete. Two-degree median
+local gaps improve slightly on 10028/10049; every coarse-cell envelope remains
+unchanged across all 36,480 image/cell coordinates. All three frequency guards
+pass. The declared Haar contrast diagnostic and all source/array hashes are
+retained in continuous-mixture-disks-v1. The larger ongoing refinement has
+also completed with gaps 12,898--15,892. These results confirm that the tested
+changes do not resolve the coarse global enclosure; no acceptance or useful
+continuous-test claim follows.
