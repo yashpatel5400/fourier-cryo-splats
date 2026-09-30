@@ -25,12 +25,11 @@ def main():
     source_files = [Path(__file__), PROTOCOL,
         ROOT/'src/fourier_splats/uq_mixture_validation.py',
         ROOT/'tests/test_uq_mixture_validation.py',
-        ROOT/'research/uncertainty/MIXTURE-VALIDATION-CANDIDATE.md',
-        ROOT/'research/uncertainty/MIXTURE-VALIDATION-PREFLIGHT-RETRY.md']
+        ROOT/'research/uncertainty/MIXTURE-VALIDATION-CANDIDATE.md']
     for path in source_files:
         if subprocess.check_output(['git', 'show', f'HEAD:{path.relative_to(ROOT)}'], cwd=ROOT) != path.read_bytes():
             raise ValueError('Commit the protocol and implementation before outcomes')
-    out = BASE/'mixture-validation-preflight-v2'
+    out = BASE/'mixture-validation-preflight-v1'
     if out.exists():
         raise RuntimeError('Preserve previous outcomes')
     out.mkdir()
@@ -104,7 +103,7 @@ def main():
                         if name == 'true_map' and max(e.values()) > 1e-7:
                             raise ArithmeticError('Matched oracle-null ratio exceeds its pointwise upper control')
                         cases.append(dict(candidate=name, noise_scope=noise_scope,
-                            log_evalues=e, rejected_at_005={k:bool(v>=np.log(20)) for k,v in e.items()},
+                            log_evalues=e, rejected_at_005={k:v>=np.log(20) for k,v in e.items()},
                             envelope_primal=fitted.envelope_primal,
                             envelope_dual=fitted.log_likelihood_upper, gap=fitted.dual_gap,
                             iterations=fitted.iterations, converged=fitted.converged,
