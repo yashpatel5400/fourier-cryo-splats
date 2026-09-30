@@ -784,3 +784,16 @@ bound must not be used as a lower bound for the tighter joint-bias objective.
 Current new inner candidates still have larger ambient objectives than the
 input, so a follow-up checks recent-candidate convex averages with fresh
 final spectral probes. Averages are only candidate-generation heuristics.
+
+The full-cube 10049 support control also completed (6,324.04 seconds).
+Its nominal sum-objective gap is 0.001867, but after pose auditing every
+tested tail allowance uses the no-data interval; the cubic bias is 115.36.
+This completes the three support-size sweep. Smaller-support improvements
+must still be interpreted against the declared outside-density allowance,
+and the original uncropped reference violates the smaller-support classes.
+
+The 34-page revision was built without final-pass overflow/undefined-reference
+warnings, and new cross-term formulas and the six-row result table were
+rendered and visually inspected. Source/results checkpoint 1b91132 was pushed
+publicly; a separate v0.4 archive packages completed numerical array owners
+and excludes active/failed post-review checkpoints.

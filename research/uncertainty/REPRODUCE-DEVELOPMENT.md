@@ -215,8 +215,15 @@ bound cannot justify adaptive candidate selection using reused probes.
 The conservative calibration lemma and CTF sensitivity proof are documented in
 EXPERIMENTAL-CALIBRATION-ATTEMPT.md and CTF-SENSITIVITY.md. Neither establishes
 the unknown empirical pose bounds or a physical density-energy radius. New
-weights are not yet included in the immutable v0.3 release; a later checkpoint
-will package the completed revision arrays.
+weights are not included in the immutable v0.3 release. The separate
+[v0.4 completed-revision checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.4.0-dev)
+packages 331 arrays (112 post-review additions), with complete owning records
+and individual hashes in `provenance/uncertainty/validation-arrays-v0.4.0-dev.json`.
+It excludes active and failed post-review array owners. Its archive SHA256 is
+`25ace73b0e8753accfe7a32b4927f87668f8c58b7729f2893ad5c5db9ddb8aab`.
+Extract at the repository root; original models still require v0.2 and the
+recorded particle/reference acquisition protocols. A development release does
+not signal acceptance by the independent reviewer.
 
 ### Fourier variational baseline and explicit support development
 
