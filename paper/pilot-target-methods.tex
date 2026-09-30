@@ -1,0 +1,61 @@
+\subsection{Pilot-selected targets and a matched prior-sensitivity comparison}
+To avoid evaluating only a central feature that may miss the pilot's strongest
+density, a development protocol locks three regions per stack using only the
+old independent pilot. Candidate centers are the $24^3$ cell centers inside
+radius $0.30$ of the field. Greedy descending positive pilot scores, with
+lexicographic ties and $40\,\AA$ minimum separation, select three Gaussian
+averages of standard deviation $20\,\AA$. A matched-width central average is
+retained as a fourth target. All twelve target definitions and pilot hashes
+are locked before evaluating these feature outcomes. The reference volumes
+have been examined elsewhere in development; this is not a new confirmation.
+The sampled radius-12 band endpoints are $40.2$, $19.68$, and $34.93\,\AA$,
+so the target sigma is not a claim of $20\,\AA$ reconstruction resolution.
+
+The matched Fourier baseline uses the same 128 particles, geometry seed,
+prescribed white-noise scale, pilot, reference generator, and target definitions
+as this feature study. We evaluate the full and diagonal posteriors on the
+same $33^3$ Hermitian grid as above, retaining prior RMS deviation norms
+$s=0.5,1,2$, or coordinate SD $s/\sqrt{33^3}$. Each marginal credible interval
+uses $\alpha=0.05/12$ for a family of twelve targets at a fixed prior scale.
+The variance identity agrees to $2.4\times10^{-13}$ relative error, and the
+full matched prior-predictive coverage is $0.995833$ throughout.
+Pointwise coverage for a fixed density answers a different question.
+
+After the original three-prior outcomes showed poor pointwise coverage at
+several targets, we declared a separate sensitivity using coordinate SDs
+$0.1$ and $1$, retaining both on all targets. Their RMS deviation norms are
+approximately $19.0$ and $189.6$, much broader than a hard radius-two class.
+The original outcomes remain unchanged; these extra priors are post-outcome
+development, not a selected replacement. Broadening the prior substantially
+improves many nominal-reference results (Table~\ref{tab:pilot-fourier} and
+Figure~\ref{fig:pilot-fourier}). At coordinate SD one, nominal full-posterior
+coverage ranges from $0.9872$ to $0.9998$, with relative half-widths
+$0.016$--$0.074$. This is a material favorable baseline result.
+Finite interpolation discrepancy is still $16.8\%$, $16.3\%$, and $25.1\%$
+on the respective continuous generators. Matched-model and continuous-signal
+checks are retained separately, including the prescribed pose perturbations.
+Diagonal VI is wider on every tested target, by factors $1.003$--$1.732$
+across all five priors. These checks neither refute Bayesian calibration nor
+validate any of the intervals for unknown experimental density.
+
+\input{tables/pilot-selected-fourier}
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{figures/pilot-selected-fourier.pdf}
+\caption{Analytic known-noise pointwise coverage at nominal poses for the four
+locked targets per stack. Values are rounded; $1.000$ need not equal one.
+The first three columns are the original prior sweep; starred columns are
+the separately declared broader-prior sensitivity after those outcomes.
+Full matched prior-predictive coverage is $0.995833$ for every prior, whereas
+these fixed-reference probabilities need not match it. The improving broader
+priors and wider diagonal intervals are retained without selecting a winner.}
+\label{fig:pilot-fourier}
+\end{figure*}
+
+The corresponding continuous feature fits and nonlinear audits are still
+running at this development checkpoint. Their full-family comparison and
+conditional experimental application cannot yet be reported. A further
+calibration-only cohort reserves one particle from each of 128 previously
+unused exposures per stack, excluding both existing image pools. Its pixels
+will be accessed only after all twelve estimators are frozen. The old inference
+images remain development data, and neither a fresh calibration pool nor
+approximate-map inclusion will establish the unknown density or pose bounds.

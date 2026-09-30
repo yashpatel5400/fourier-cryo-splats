@@ -404,3 +404,39 @@ predates those keys). NPZ companions retain each particle's original, enclosure
 and selected remainder. This selection does not choose among random spectral
 certificates: the original event is unchanged. Neither probe gives experimental
 density coverage or useful reference-feature detection.
+
+### Locked pilot targets, matched baselines, and a sign-class sensitivity
+
+The target definitions and their checksum are in
+`research/uncertainty/pilot-selected-targets-v1/locked-targets.json`.
+The new continuous fits/audits are still running. Their orchestration permits
+three independent dataset workers using two CPU-only FINUFFT threads each;
+it does not change the scientific settings. Exact source snapshots preserve
+the initial separately timed feature and later workers.
+
+The completed Fourier baseline uses the same 128-particle geometry and targets.
+The original three-prior results remain alongside the separately declared
+broader-prior sensitivity. Run in a fresh output checkout because these runners
+refuse to overwrite scientific results:
+
+```bash
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/benchmark_uq_pilot_fourier.py
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/benchmark_uq_pilot_fourier.py --prior-coordinate-sds .1,1 --output pilot-selected-fourier-baselines-weak
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/summarize_uq_pilot_fourier.py
+OPENBLAS_NUM_THREADS=1 .venv/bin/python -m pytest -q tests/test_uq_sign_class.py
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_sign_class.py
+```
+
+The sign-class probe uses the existing 1,024-particle higher-band weights and
+guarded expanded-cube remainder record. Its origin-centered density class and
+affine/fallback centers differ from the original pilot ball. It is a bounded
+same-weight sensitivity, not an experimentally calibrated prior or a newly
+optimized sign-constrained estimator. Projection arrays retain all grid sizes.
+
+The reserved fresh-calibration cohort has no pixels downloaded yet. Follow
+`confirmation/noise-calibration-v1/PROTOCOL.md`: only after all twelve fixed
+fits complete, run `freeze_uq_noise_models.py`, commit its lock, then run
+`download_uq_noise_cohort.py`. The downloader refuses an uncommitted or changed
+lock. `apply_uq_fresh_noise.py` additionally requires every original four-pose
+experimental application to be complete. No comparison silently replaces the
+earlier calibration outcomes.

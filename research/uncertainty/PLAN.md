@@ -66,7 +66,7 @@ from retrieval. The 10,000-particle audit, expanded Fourier variational baseline
 three rounds of alternating pose/density ambiguity, and enclosing-domain
 remainder refinements are complete. Their improved numerical bounds have not
 established fine-scale experimental usefulness. The current test suite has
-130 passing tests; this is verification, not evidence of scientific acceptance.
+138 passing tests; this is verification, not evidence of scientific acceptance.
 
 The remaining pose-aware comparison and the twelve locked pilot-selected feature
 fits/audits are running. The latter uses three dataset processes, each with two
@@ -81,6 +81,13 @@ three archived CS files; these are not zero-error bounds. In particular, the
 single-density inference model is not experimentally validated for heterogeneous
 EMPIAR-10076. R1, R2 and R7 remain material scientific objections. The goal is
 active, with no claim of an acceptance-ready submission.
+
+The matched pilot-target Fourier baseline now retains both its original prior
+sweep and a declared post-outcome broader-prior sensitivity. Broader priors
+produce favorable reference results and are not omitted. A same-weight continuous
+sign/total-norm ablation is also complete: stronger sign constraints exclude
+the processed reference, and all one-degree cases still lack sign power.
+These are development comparisons, not new frozen density calibration.
 
 ## Historical status (29 September 2026)
 

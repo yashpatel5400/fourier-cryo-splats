@@ -41,7 +41,7 @@ def main():
                   'matrix-free-pose-*','pose-aware-*','pose-exchange-*','pose-dual-*',
                   'pose-optimized-diagnostics','noise-metric-design','directional-noise-audit','joint-bias-*','two-pose-modulus*',
                   'ball-remainder-probe*','expanded-cube-remainder-probe*',
-                  'pose-optimized-ambiguity*','pose-adaptive-*','pilot-selected-*']
+                  'pose-optimized-ambiguity*','pose-adaptive-*','pilot-selected-*','sign-class-probe']
         additions=set()
         for pattern in patterns:
             for folder in development.glob(pattern):
@@ -52,6 +52,15 @@ def main():
                     # A nearest checkpoint descriptor cannot authorize packaging
                     # active weights; use the corresponding completed case record.
                     owners=[j for j in owners if not j.stem.endswith('-checkpoint')]
+                    if not owners and folder.name == 'sign-class-probe':
+                        # Shared spatial projections are named by grid size,
+                        # not pose case. Their explicit hashes identify owners.
+                        array_digest=sha(array)
+                        owners=[j for j in array.parent.glob('*.json')
+                                if array_digest in {r.get('source_projection_sha256')
+                                    for r in json.loads(j.read_text()).get('records', [])}]
+                        if len(owners)>1:
+                            raise ValueError(f'Ambiguous sign-projection owner: {array}')
                     if not owners:continue
                     owner=owners[0];record=json.loads(owner.read_text())
                     if record.get('complete') is not True or any(record.get(key) for key in ['error','numerical_failure','audit_failure','reference_coverage_failure']):continue

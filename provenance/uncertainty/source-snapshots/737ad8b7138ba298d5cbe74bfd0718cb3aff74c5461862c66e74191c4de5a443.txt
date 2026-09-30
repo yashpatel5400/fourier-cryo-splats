@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Matched full/diagonal Fourier posteriors for every locked pilot target."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import time
+import numpy as np
+from scipy.stats import norm
+from fourier_splats.uq_data import particle_geometry, VoxelReference
+from fourier_splats.uq_continuous import cell_target_coefficients, cell_forward
+from fourier_splats.uq_continuous_pose import pose_cell_forward
+from fourier_splats.uq_fourier_variational import HermitianTrilinearOperator, diagonal_variational_variances
+from fourier_splats.uq_baselines import gaussian_reference_operator
+from fourier_splats.uq_pilot_targets import read_target_lock, verify_pilot_scores, LOCK_SHA256
+from fourier_splats.uq_provenance import source_snapshot
+from audit_uq_grid_refinement import model
+
+ROOT = Path(__file__).resolve().parents[1]; BASE = ROOT/'results/uncertainty/development'
+MAPS = {'10028': '2660', '10049': '6487', '10076': '8434'}
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def run(locked, snapshot, args):
+    dataset = locked['dataset']; out = BASE/args.output; out.mkdir(exist_ok=True)
+    path = out/f'{dataset}.json'
+    if path.exists():
+        raise RuntimeError('Preserve previous baseline outcomes')
+    start = time.perf_counter(); alpha = .05/12; z = norm.ppf(1-alpha/2)
+    scales = [.5, 1., 2.] if args.prior_coordinate_sds is None else [float(s)*np.sqrt(33**3) for s in args.prior_coordinate_sds.split(',')]
+    if not scales or any(not np.isfinite(s) or s <= 0 for s in scales):
+        raise ValueError('Finite positive prior scales required')
+    result = {'complete': False, 'dataset': dataset, 'target_lock_sha256': LOCK_SHA256,
+        'source_snapshot': snapshot, 'alpha_per_feature': alpha, 'family_size_per_prior_scale': 12,
+        'scope': 'Known-noise fixed-pose Fourier Gaussian baselines on locked development targets; no experimental coverage claim',
+        'source': 'https://proceedings.mlr.press/v115/ullrich20a.html',
+        'config': {'particles': 128, 'radius': 12, 'geometry_seed': 609315, 'box': 33,
+                   'prior_deviation_norms': scales, 'reference_pose_seed': 610281+int(dataset),
+                   'prior_scale_source': 'original matched family' if args.prior_coordinate_sds is None else 'declared post-outcome weak-prior sensitivity'}, 'records': []}
+    def save():
+        path.write_text(json.dumps(result, indent=2)+'\n')
+    save()
+    try:
+        g = particle_geometry(ROOT, dataset, 'inference_half0', radius=12, count=128, seed=609315)
+        noise_path = BASE/'continuous-quadrature-optimized'/f'{dataset}-center-0.07-weights.npz'
+        noise = float(np.load(noise_path)['noise_std'])
+        cp = BASE/f'representation/{dataset}/real_particles-spacing-2.0.npz'
+        if sha(cp) != locked['pilot_checkpoint_sha256']:
+            raise ValueError('Pilot differs from target lock')
+        old_op, pilot, _, _ = model(g, np.load(cp), 24, noise=noise)
+        pilot = old_op.expand(pilot); verify_pilot_scores(locked, pilot)
+        rp = ROOT/f'data/uncertainty/references/emd_{MAPS[dataset]}.map'
+        ref = VoxelReference.from_mrc(rp, box=64).volume.ravel(); ref /= np.linalg.norm(ref)
+        op = HermitianTrilinearOperator(g['k'], g['ctf'], noise, box=33)
+        pilot_x = op.project_cells(pilot, 24); ref_x = op.project_cells(ref, 64)
+        pilot_signal = op.matrix@pilot_x; exact = cell_forward(g['k'], g['ctf'], ref, 64, noise)
+        matched = op.matrix@ref_x
+        signals = [('matched_fourier_model', matched), ('nominal', exact)]
+        for angle in [0., 1., 2.]:
+            rng = np.random.default_rng(610281+int(dataset))
+            for scenario in ['coherent_x', 'random_boundary']:
+                u = np.zeros((128, 5))
+                if scenario == 'coherent_x':
+                    u[:, 0] = 1.
+                else:
+                    u = rng.normal(size=u.shape); u /= np.linalg.norm(u, axis=1)[:, None]
+                signal = pose_cell_forward(g['k'], g['q'], g['ctf'], ref, 64, noise, u,
+                                           np.deg2rad(angle), .5/g['field_A'])
+                signals.append((f'{angle:g}deg_{scenario}', signal))
+        result.update(noise_std_supplied=noise, noise_source_sha256=sha(noise_path),
+            field_A=g['field_A'], band_endpoint_A=g['field_A']/12,
+            geometry_indices_sha256=hashlib.sha256(g['indices'].tobytes()).hexdigest(),
+            reference_sha256=sha(rp), pilot_checkpoint_sha256=sha(cp),
+            forward_interpolation_relative_error=float(np.linalg.norm(matched-exact)/np.linalg.norm(exact)),
+            prior_center_norm=float(np.linalg.norm(pilot_x)), setup_seconds=time.perf_counter()-start)
+        save()
+        for feature in locked['features']:
+            name = feature['name']; centers = [feature['center_fraction_field']]
+            width = locked['width_fraction_field']; ell, norm2 = op.target(centers, [1], width)
+            truth = float(cell_target_coefficients(64, centers, [1], width)@ref)
+            matched_truth = float(ell@ref_x); prior_target = float(ell@pilot_x)
+            no_data = 2*np.sqrt(norm2)
+            for prior_scale in scales:
+                tick = time.perf_counter(); tau = prior_scale/np.sqrt(op.shape[1])
+                fit = gaussian_reference_operator(op.matrix, ell, tau, alpha=alpha,
+                    gram_diagonal=op.gram_diagonal, rtol=1e-10)
+                w = fit.pop('weights'); residual = fit.pop('density_bias_direction')
+                vi_variance = float(ell@(diagonal_variational_variances(op.gram_diagonal, tau)*ell))
+                vi_half = float(z*np.sqrt(vi_variance)); full_half = fit['posterior_half_width']
+                sampling_sd = float(np.linalg.norm(w))
+                prior_variance = float(w@w+tau**2*(residual@residual))
+                posterior_variance = (full_half/z)**2
+                error = abs(prior_variance-posterior_variance)/max(posterior_variance, 1e-300)
+                wp = out/f'{dataset}-{name}-prior{prior_scale:g}.npz'
+                np.savez(wp, weights=w, indices=g['indices'], noise_std=noise,
+                    target_coefficients=ell, prior_center_coefficients=pilot_x)
+                row = {'target': name, 'centers_fraction_field': centers, 'width_A': 20.,
+                    'prior_deviation_norm': prior_scale, 'prior_coordinate_sd': tau,
+                    'full_posterior': fit, 'diagonal_vi_half_width': vi_half,
+                    'continuous_target_norm': float(np.sqrt(norm2)), 'model_target_norm': float(np.linalg.norm(ell)),
+                    'continuous_pilot_feature': feature['pilot_expected_feature'], 'projected_prior_feature': prior_target,
+                    'vi_over_full_width': vi_half/full_half,
+                    'prior_variance_identity_relative_error': error, 'numerical_failure': bool(error > 1e-7),
+                    'full_prior_predictive_coverage': float(2*norm.cdf(full_half/np.sqrt(prior_variance))-1),
+                    'diagonal_prior_predictive_coverage': float(2*norm.cdf(vi_half/np.sqrt(prior_variance))-1),
+                    'weights_sha256': sha(wp), 'checks': []}
+                for scenario, signal in signals:
+                    actual = matched_truth if scenario == 'matched_fourier_model' else truth
+                    mean = float(prior_target+w@(signal-pilot_signal)); bias = mean-actual
+                    for method, half in [('diagonal_fourier_vi', vi_half), ('full_fourier_gaussian', full_half)]:
+                        coverage = norm.cdf((half-bias)/sampling_sd)-norm.cdf((-half-bias)/sampling_sd)
+                        power = norm.cdf((np.sign(actual)*mean-half)/sampling_sd)
+                        row['checks'].append({'scenario': scenario, 'method': method,
+                            'true_target': actual, 'expected_center': mean, 'bias': bias,
+                            'noise_sd': sampling_sd, 'half_width': half, 'relative_half_width': half/no_data,
+                            'analytic_fixed_signal_coverage': float(coverage), 'correct_sign_probability': float(power)})
+                row['seconds'] = time.perf_counter()-tick
+                result['records'].append(row); save()
+                if row['numerical_failure']:
+                    raise ArithmeticError('Posterior identity failed; outcome preserved')
+                print('DONE', dataset, name, prior_scale, 'VI/full width', row['vi_over_full_width'], flush=True)
+        result.update(complete=True, seconds=time.perf_counter()-start); save()
+    except Exception as exc:
+        result.update(error=repr(exc), seconds=time.perf_counter()-start); save(); raise
+
+
+def main():
+    p = argparse.ArgumentParser(); p.add_argument('--datasets', default='10028,10049,10076')
+    p.add_argument('--prior-coordinate-sds')
+    p.add_argument('--output', default='pilot-selected-fourier-baselines-v1'); args = p.parse_args()
+    lock = read_target_lock(ROOT/'research/uncertainty/pilot-selected-targets-v1/locked-targets.json')
+    if set(args.datasets.split(','))-{d['dataset'] for d in lock['datasets']}:
+        raise ValueError('Unknown dataset')
+    snapshot = source_snapshot(ROOT, Path(__file__), ['scripts/audit_uq_grid_refinement.py',
+        'research/uncertainty/pilot-selected-targets-v1/BASELINES.md',
+        'research/uncertainty/pilot-selected-targets-v1/locked-targets.json'])
+    for row in lock['datasets']:
+        if row['dataset'] in args.datasets.split(','):
+            run(row, snapshot, args)
+
+
+if __name__ == '__main__':
+    main()

@@ -388,6 +388,22 @@ Thus reducing this avoidable noise conservatism does not resolve the
 pose/density precision problem. No experimental density-coverage inference
 follows from deposited-map agreement or this conditional fixed-pose detection.
 
+\paragraph{Repeated particles within an inference exposure.}
+The calibration can retain one independent representative per calibration
+exposure while allowing arbitrary jointly Gaussian dependence among inference
+particles from the same exposure. If exposure $g$ has $n_g$ particles and
+$X_i=v_i^\top\epsilon_i$, Cauchy--Schwarz gives
+\[
+ \operatorname{Var}\!\left(\sum_{i\in g}X_i\right)
+ \le\left(\sum_{i\in g}\sqrt{v_i^\top\Sigma v_i}\right)^2
+ \le n_g\sum_{i\in g}v_i^\top\Sigma v_i.
+\]
+Thus replace row $v_i$ of $V$ by $\sqrt{n_g}v_i$ in the trace calibration.
+This elementary extension removes within-exposure independence; it retains
+between-exposure independence, a common marginal raw covariance, Gaussianity,
+and independence of the weights and supplied design from the relevant noise.
+It does not establish those conditions for the archive particles.
+
 \paragraph{Refitting with an independent covariance guide.}
 We also use the first exposure half's uncentered second moment $\widehat C$
 to form $C=0.8\widehat C+0.2\operatorname{tr}(\widehat C)I/m$; the second half
@@ -487,6 +503,42 @@ adding pose sensitivity. Its integrated cubic term alone is 115.4 in the
 normalized density units. A converged nominal fit therefore does not establish
 a useful pose-aware interval.
 
+\paragraph{Signs and a total-norm bound.}
+A separate same-weight ablation uses the alternative class
+$\mathcal C(R,\eta)=\{f:\norm f\le R,\norm{f_-}\le\eta\}$,
+where $0\le\eta\le R$ and $f_-=\max(-f,0)$. This is a different
+origin-centered class, not a substituted radius in the old pilot interval.
+For $h=\ell-\A_0^*w$, put $a=\norm{h_+}$ and $b=\norm{h_-}$.
+Its elementary support function is
+\[
+ S_\eta(h)=\begin{cases}
+ R\sqrt{a^2+b^2},& Rb\le\eta\sqrt{a^2+b^2},\\
+ \sqrt{R^2-\eta^2}\,a+\eta b,&\text{otherwise}.
+ \end{cases}
+\]
+The optimal positive/negative components align with $h_+$ and $h_-$;
+maximizing their two norm contributions proves the formula. For an orthogonal
+constant-cell projection $P_m$, Jensen gives
+$\norm{(P_mh)_\pm}\le\norm{h_\pm}$. Combining these lower bounds with
+the continuous $\norm h$ upper bound yields conservative support endpoints,
+without restricting the unknown density to cells. If $U\ge S_\eta(h)$,
+$L\ge S_\eta(-h)$ and the nuisance-field norm is at most $d$, the estimator
+$w^\top y+(U-L)/2$ has bias at most $(U+L)/2+Rd$. The no-data interval
+for our positive target is $[-\eta\norm\ell,R\norm\ell]$; both its center
+and width replace the fitted interval on fallback. Projection error guards
+are numerical checks, not validated floating-point bounds.
+
+We retain all $R=1,2,3$, $\eta/R=0,0.1,0.25,0.5,1$ and cell sizes
+24, 48, 96 on the saved 1,024-particle, 10\,\AA\ 10049 fit. Its unit-normalized
+processed reference has negative-part norm 0.4579, so several stronger sign
+constraints exclude that comparator; this is not evidence about the sign of
+the underlying physical density. At $R=1,\eta=0.5,m=96$, the nominal support
+half-width decreases from 0.1090 to 0.1061. The inherited one-degree nuisance
+field bound remains 9.1621 per unit density norm. All pose-sensitive cases
+still have zero sign power, including every class containing the reference.
+This diagnoses this same-weight bound, not impossibility under sign information
+or an experimentally calibrated density norm.
+
 \subsection{A closer Fourier variational comparison}
 We independently implement the fixed-pose Gaussian variational objective of
 \citet{ullrich2020}, Equation~14, in a Hermitian Fourier grid with trilinear
@@ -544,3 +596,5 @@ which is 0.95 throughout. Diagonal VI is wider here; prior and forward-model
 discrepancy remain important. No prior scale is selected using these outcomes.}
 \label{fig:fouriervi}
 \end{figure*}
+
+\input{pilot-target-methods}

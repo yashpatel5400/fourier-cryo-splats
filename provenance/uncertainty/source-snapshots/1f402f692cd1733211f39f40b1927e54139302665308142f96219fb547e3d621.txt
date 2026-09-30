@@ -1,0 +1,39 @@
+# Matched Fourier Gaussian baselines for the locked target family
+
+Development comparison specified before its baseline outcomes. Evaluate every
+locked pilot target on exactly the 128 inference particles, radius-12 samples,
+prescribed noise scale, unit-L2 pilot, and unit-L2 64-cell reference used by the
+continuous fit. Geometry seed is 609315. The first continuous 10049 region-1
+fit is already complete; its targets were locked earlier and are not revised.
+This is an extension of the completed Fourier VI baseline to the new estimands,
+not another frozen confirmation and not experimental-density calibration.
+
+Use the existing Hermitian trilinear operator on an odd 33-cubed Fourier grid.
+The Gaussian prior mean is the orthogonal projection of the continuous pilot
+onto that finite Fourier basis. Prior coordinate SD is s/sqrt(33^3) with all
+three previously used deviation-norm scales s=0.5, 1, 2. Retain every scale;
+do not select one using reference performance. This prior does not assert a
+hard density-radius bound. Normalizing widths by 2 times the continuous target
+norm is only a common display scale, not an equivalence of prior assumptions.
+
+Compare the exact full Gaussian posterior and the exact diagonal-Gaussian VI
+optimum for the same likelihood, prior mean and prior scale. As in the existing
+baseline, this implements Ullrich et al.'s equation-14 objective independently,
+with CTFs and the project's real Fourier coordinates; it is not execution of
+the original authors' full pipeline. Use alpha=0.05/12 per target for each fixed
+prior scale. Do not claim a family guarantee across selected prior scales.
+
+Report the analytic prior-predictive variance identity and coverage as a model
+check. Separately report fixed-reference expected centers, widths, coverage and
+correct-sign probability for the model-matched reference, the continuous
+reference at nominal poses, and coherent/random-boundary perturbations at
+0/1/2 degrees with 0.5 A shifts. Reuse the pose audit's exact random-boundary
+seed 610281 + accession for every angle, including the shift-only case. The
+coherent-x case has only a rotation component and duplicates nominal poses
+when its rotation budget is zero; it is retained, not counted as new evidence.
+
+These fixed-pose baselines do not claim robustness to unknown poses or uniform
+frequentist coverage over a density ball. Reference failures measure a different
+property from prior-predictive coverage. Retain interpolation error, all prior
+scales, all targets and every numerical failure. No additional Monte Carlo
+replicates are needed for the analytic Gaussian probabilities.

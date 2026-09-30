@@ -136,7 +136,7 @@ def main():
                  'NOISE-METRIC-DESIGN.md', 'POSE-SPECTRAL-EXCHANGE.md', 'JOINT-DENSITY-POSE-BIAS.md',
                  'PILOT-POSE-PAIRING.md','TWO-POSE-MODULUS.md','BALL-SOBOLEV-REMAINDER-PROPOSAL.md',
                  'POSE-OPTIMIZED-AMBIGUITY-PROTOCOL.md','POSE-PRIOR-VALIDATION-NOTES.md',
-                 'INVARIANTS-AND-THERMODYNAMICS-NOTES.md']],
+                 'INVARIANTS-AND-THERMODYNAMICS-NOTES.md','SIGN-CONSTRAINED-DENSITY-PROPOSAL.md']],
              *sorted((ROOT/'research/uncertainty/pilot-selected-targets-v1').glob('*.md')),
              ROOT/'research/uncertainty/pilot-selected-targets-v1/locked-targets.json',
              *sorted((ROOT/'research/uncertainty/confirmation').glob('*/PROTOCOL.md')),
@@ -176,6 +176,7 @@ def main():
              *sorted((ROOT/'results/uncertainty/development').glob('pose-optimized-ambiguity*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('pose-adaptive-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('pilot-selected-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development/sign-class-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/audit-regressions').glob('*.json')),
              ROOT/'results/uncertainty/development/pose-metadata-inventory.json',
              *sorted((ROOT/'results/uncertainty/development/pose-optimized-diagnostics').glob('*/*.json'))]
