@@ -168,6 +168,14 @@ strongest saved feasible nonlinear bias reaches 0.521 of its upper bound.
 This establishes progress on the original objective, not useful reference
 sign detection or optimality of the subsequent joint expression.
 
+A further sixty rounds use the sharp cubic constants and therefore reset
+the lower bound for the changed objective. They take 4,666 seconds and give
+upper/lower values 9.8961/9.5935 (3.06\% gap), with relative width 0.607.
+The subsequent cross-term and known-pilot audits reduce that width to 0.548
+and 0.503, respectively. The strongest saved nonlinear bias is 0.630 of the
+last upper, but minimum reference sign power remains below $10^{-118}$.
+Those later widths do not inherit the sum-objective optimization gap.
+
 \paragraph{Retaining the density/pose cross term.}
 Let $h=\ell-A_0^*w$ and write the existing nonlinear adjoint perturbation as
 $D=Fv+e$, where $\norm v\le L=\sqrt{\sum d}$ and $\norm e\le r$.
@@ -205,7 +213,7 @@ where $T$ is the absolute Fourier coefficient sum and $m$ contains the
 scaled column coefficient bounds. Ordinary numerical roundoff remains
 subject to the preceding caveat.
 
-Table~\ref{tab:joint-bias} retains the ten completed same-weight audits at
+Table~\ref{tab:joint-bias} retains the completed same-weight audits at
 this revision cutoff; the machine-readable summary lists every attempt and
 its source certificate seed. Each row uses its own source spectral event,
 without selecting a minimum over repeated random certificates.
@@ -233,6 +241,56 @@ moments, the analytic cross-product quadrature pad, and the distinction
 between joint and product pose lifts. The original fit and every previous
 bound are retained. Neither refinement establishes useful fine-feature
 detection at one or two degrees.
+
+\paragraph{Using the known pilot.}
+The pilot term need not pay its full norm bound. If
+$p\ge\norm{F^*\rho_0}$, Cauchy--Schwarz also gives
+$|\langle\rho_0,Fv\rangle|\le Lp$. Hence the same spectral event supports
+\begin{equation}
+ b_{\rm pilot}=B\sqrt{\norm h^2+2Lc+f^2}
+       +\min(Pf,Lp)+(B+P)r.
+ \label{eq:pilot-cross-bias}
+\end{equation}
+The triangle alternative replaces the square root by $\norm h+f$;
+their minimum remains valid. This changes neither the unknown density class
+nor the weights. It is an elementary refinement of the known-function term,
+not a new general coverage theorem or an optimization-gap certificate.
+
+For the known orthonormal constant-cell pilot on an $m^3$ grid, write
+$x=c+z$ inside each cell. For a uniform offset
+$z\in[-1/(2m),1/(2m)]$, with $\operatorname{sinc}(u)=\sin(\pi u)/(\pi u)$,
+\begin{align*}
+ \mathbb E e^{2\pi i k z}&=\operatorname{sinc}(k/m),\\
+ \mathbb E z e^{2\pi i k z}&=\frac{\operatorname{sinc}'(k/m)}{2\pi i m},\\
+ \mathbb E z^2 e^{2\pi i k z}&=-\frac{\operatorname{sinc}''(k/m)}{4\pi^2m^2}.
+\end{align*}
+Expanding $x^\beta=(c+z)^\beta$ gives all ten degree-at-most-two
+Fourier moments from ten transforms of center-weighted cell coefficients.
+The orthonormal basis supplies $m^{-3/2}$ and the centered Fourier grid
+requires phase $\exp(i\pi\sum_a k_a/m)$. Thus the known discontinuous
+pilot is integrated over its cells, without replacing the unknown density
+by a cell representation. Near zero we evaluate the sinc derivatives by
+their Taylor series.
+
+Independent composite cell quadrature and nonlinear finite differences
+check normalization and pose signs. Direct exponential sums over the actual
+$24^3$ centers check all twenty lifted columns for three selected particles
+in each of the first ten archived audits. The largest relative pairing
+discrepancy is $3.49\times10^{-13}$; this selected-column check is not a
+global floating-point error bound. The analytic formula has no quadrature
+error, but its NUFFT and floating-point evaluation remain numerically
+checked rather than interval-validated.
+
+Table~\ref{tab:pilot-pairing} reports this separate same-weight variant.
+For the full-weight two-degree fit, the width falls from 0.557 to 0.510,
+and the saved feasible-over-upper ratio rises to 0.667. Its minimum
+reference sign power is still below $5\times10^{-122}$. The 10076 broad
+central feature has power 0.997 at half a degree and 0.214 at one degree;
+its two-degree width is 0.427, with negligible power. These conditional
+improvements leave fine-scale usefulness and experimental calibration open.
+\input{tables/pilot-pairing}
+
+\input{two-pose-methods}
 
 \subsection{An experimental noise-calibration attempt}
 The following elementary conservative calculation allows nonzero calibration
@@ -349,6 +407,25 @@ vacuous. Nine of eighteen settings now use no data, including every two-degree
 setting. Only the same broad 10076 fixed-pose interval excludes zero. Thus
 better noise-guided fixed-pose fitting can amplify pose sensitivity; it does
 not substitute for joint pose-aware design.
+
+\paragraph{A larger physical 10\,\AA\ target.}
+On 1,024 particles from 10049 at Fourier radius 12, with target Gaussian
+standard deviation $10\,\AA$ and sampled band ending at $19.68\,\AA$, an order-80 continuous
+fixed-pose fit reaches sum-objective gap 0.000992 in 3,583 seconds, with
+relative half-width 0.01378. The independent normalized reference-map central
+value is 1.9245; conditional sign power is one at fixed pose. Keeping those
+weights and auditing a joint ball of one degree and $0.5\,\AA$ changes the
+conclusion: even with sharp cube constants, residual cross terms and the
+known-pilot refinement, the result uses the no-data interval and has zero
+sign power. The polynomial pose term is 6.376 and the cubic remainder is
+56.493; the final unselected half-width is 61.223, exceeding the no-data
+half-width 34.390. The pose audit takes 1,491 seconds and 1.08 GB peak
+resident memory. Thus increasing the particle count and band does not by
+itself control the nonlinear remainder. These are conditional development
+results under supplied noise and nuisance bounds; the 128- and 1,024-particle
+subsets are not nested, and the latter fit is not pose-optimized.
+
+\input{enclosing-domain}
 
 \subsection{Uniform CTF sensitivities}
 For fixed voltage, spherical aberration and amplitude contrast $a$,

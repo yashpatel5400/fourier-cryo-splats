@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+"""Post-audit completed pose estimators with a residual/pose cross-term bound."""
+import argparse
+import hashlib
+import json
+import time
+from pathlib import Path
+import numpy as np
+from fourier_splats.uq_data import particle_geometry
+from fourier_splats.uq_pose_operator import PolynomialPoseFieldOperator
+from fourier_splats.uq_joint_bias import residual_pose_cross_bound,joint_density_pose_bias,sharp_cube_cubic_coefficients,pose_scale_record,scaled_pose_radius,pair_pose_fourier_moments
+from fourier_splats.uq_cell_moments import cell_fourier_moments
+from fourier_splats.uq_intervals import bias_aware_half_width_stable,reference_interval_summary
+from fourier_splats.uq_provenance import source_snapshot
+
+ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'results/uncertainty/development'
+
+
+def recover_reference_centers(previous,g,w,noise,dataset,target,angle,shift):
+    """Recover missing pre-fallback centers from the archived pilot and geometry.
+
+    Older diagnostics saved only the selected estimator. Reconstruct all three
+    signal means when needed, rather than treating a fallback mean as affine.
+    """
+    if 'pilot_target' in previous and all('raw_expected_center' in row for row in previous['reference_checks']):
+        return previous['pilot_target'],{r['scenario']:r['raw_expected_center'] for r in previous['reference_checks']}
+    from fourier_splats.uq_data import VoxelReference
+    from fourier_splats.uq_continuous import cell_forward,cell_target_coefficients
+    from fourier_splats.uq_continuous_pose import pose_cell_forward
+    from audit_uq_grid_refinement import model
+    # Archived fits have uniform radii. The older nonlinear projection helper
+    # expects scalars; do not pass the operator's broadcast (n,) arrays to it.
+    angle_array=np.asarray(angle);shift_array=np.asarray(shift)
+    if not np.all(angle_array==angle_array.flat[0]) or not np.all(shift_array==shift_array.flat[0]):
+        raise ValueError('Legacy-center recovery currently requires uniform pose radii')
+    angle=float(angle_array.flat[0]);shift=float(shift_array.flat[0])
+    centers=[[0,0,0]] if target=='center' else [[0,0,.08],[0,0,-.08]];signs=[1] if target=='center' else [1,-1]
+    checkpoint=np.load(BASE/'representation'/dataset/'real_particles-spacing-2.0.npz')
+    operator,pilot,_,check_noise=model(g,checkpoint,24);pilot=operator.expand(pilot)
+    np.testing.assert_allclose(noise,check_noise)
+    pilot_target=float(cell_target_coefficients(24,centers,signs,.07)@pilot)
+    if not previous['uses_no_data']:
+        return pilot_target,{r['scenario']:r['expected_center'] for r in previous['reference_checks']}
+    maps={'10028':'2660','10049':'6487','10076':'8434'}
+    rho=VoxelReference.from_mrc(ROOT/f'data/uncertainty/references/emd_{maps[dataset]}.map',box=64).volume.ravel()
+    rho/=np.linalg.norm(rho);nominal=cell_forward(g['k'],g['ctf'],pilot,24,noise)
+    rng=np.random.default_rng(609711+int(dataset));means={}
+    for scenario in ['nominal','coherent_x','random_boundary']:
+        pose=np.zeros((len(g['k']),5))
+        if scenario=='coherent_x':pose[:,0]=1.
+        if scenario=='random_boundary':
+            pose=rng.normal(size=pose.shape);pose/=np.linalg.norm(pose,axis=1)[:,None]
+        signal=pose_cell_forward(g['k'],g['q'],g['ctf'],rho,64,noise,pose,angle,shift)
+        means[scenario]=float(pilot_target+w@(signal-nominal))
+    return pilot_target,means
+
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--fit',required=True);p.add_argument('--sharp-cubic',action='store_true')
+    p.add_argument('--pilot-pairing',action='store_true',help='Evaluate known constant-cell pilot pairings instead of charging only its norm')
+    p.add_argument('--pose-set',choices=['joint','product'],default='joint');p.add_argument('--output');args=p.parse_args()
+    source=ROOT/args.fit;prior=json.loads(source.read_text())
+    if not prior.get('complete') or prior.get('error') or prior.get('numerical_failure'):raise ValueError('Successful completed fit required')
+    dataset=prior['dataset'];target=prior['target'];fit=prior['fit']
+    folder=args.output or ('joint-bias'+('-pilot' if args.pilot_pairing else '')+('-sharp' if args.sharp_cubic else '')+'-audit'+('-product' if args.pose_set=='product' else ''))
+    out=BASE/folder/source.parent.name;out.mkdir(parents=True,exist_ok=True);path=out/source.name
+    if path.exists():raise RuntimeError('Preserve previous audit')
+    result={'stage':'Exploratory same-weight continuous cross-term audit; old spectral event reused, nuisance assumptions unchanged',
+            'config':vars(args),'dataset':dataset,'target':target,'source_snapshot':source_snapshot(ROOT,Path(__file__),['scripts/audit_uq_grid_refinement.py']),
+            'source_fit_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'complete':False}
+    result['pose_set']=args.pose_set+'_scaled_pose_ball'
+    result['certificate_seed']=fit['spectral_upper_certificate']['seed']
+    result['certificate_selection']='Reuse this source run\'s certificate; no minimization over repeat certificates'
+    def save():path.write_text(json.dumps(result,indent=2)+'\n')
+    save();start=time.perf_counter()
+    try:
+        g=particle_geometry(ROOT,dataset,'inference_half0',radius=5,count=128,seed=prior['source_geometry_config']['seed'])
+        wp=source.with_name(source.stem+'-weights.npz');saved=np.load(wp);w=saved['weights'];noise=float(saved['noise_std'])
+        result['source_weights_sha256']=hashlib.sha256(wp.read_bytes()).hexdigest()
+        np.testing.assert_array_equal(saved['indices'],g['indices'])
+        initial=np.load(BASE/'continuous-quadrature-optimized'/f'{dataset}-{target}-0.07-weights.npz')['weights']
+        op=PolynomialPoseFieldOperator(g['k'],g['q'],g['ctf'],initial,noise,np.deg2rad(prior['rotation_radius_degrees']),
+               prior['translation_radius_A']/g['field_A'],order=fit.get('pose_quadrature_order',32))
+        scaling=op.establish_group_scaling();scale_sum=float(np.where(scaling['group_scales']>0,scaling['group_scales'],1.).sum())
+        np.testing.assert_allclose(scale_sum,fit['initial_group_scale_sum'],rtol=1e-8)
+        result['pose_scaling']=pose_scale_record(scaling['group_scales'],op.denominators)
+        if 'pose_scaling' in fit:
+            np.testing.assert_allclose(scaling['group_scales'],fit['pose_scaling']['group_scales'],rtol=1e-9,atol=0)
+            np.testing.assert_allclose(op.denominators,fit['pose_scaling']['column_denominators'],rtol=1e-9,atol=0)
+            result['scale_verification']='Full vectors compared with source fit; reconstructed vectors and hashes stored'
+        else:
+            result['scale_verification']='Legacy fit stored only sum; reconstructed full vectors saved here, not retroactively verified against an absent archived vector'
+        op.set_weights(w);centers=[[0,0,0]] if target=='center' else [[0,0,.08],[0,0,-.08]];signs=[1] if target=='center' else [1,-1]
+        cross=residual_pose_cross_bound(op,w,noise,centers,signs,.07);vector=cross.pop('cross_vector')
+        bound=joint_density_pose_bias(fit['density_bias']/2,fit['pose_polynomial_bias']/3,cross['norm_upper'],np.sqrt(scale_sum),2.,1.,fit['cubic_bias']/3)
+        np.testing.assert_allclose(bound['triangle_bias_upper'],fit['bias'],rtol=1e-8)
+        radius=scaled_pose_radius(scaling['group_scales'],args.pose_set)
+        field=fit['pose_polynomial_bias']/3*radius/np.sqrt(scale_sum)
+        cubic=fit['cubic_bias']
+        if args.sharp_cubic:
+            wr=w.reshape(op.n,2*op.nq);amp=np.hypot(wr[:,:op.nq],wr[:,op.nq:])
+            sharp=sharp_cube_cubic_coefficients(g['k'],g['q'],g['ctf']/noise,op.angle,op.shift,3.)
+            cubic=float(np.sum(sharp*amp))
+            result['cubic_refinement']={'original_bias':fit['cubic_bias'],'sharp_bias':cubic}
+        bound=joint_density_pose_bias(fit['density_bias']/2,field,cross['norm_upper'],radius,2.,1.,cubic/3)
+        pilot_vector=None
+        if args.pilot_pairing:
+            from audit_uq_grid_refinement import model
+            checkpoint_path=BASE/'representation'/dataset/'real_particles-spacing-2.0.npz'
+            checkpoint=np.load(checkpoint_path);cellop,pilot,_,check_noise=model(g,checkpoint,24);pilot=cellop.expand(pilot)
+            np.testing.assert_allclose(check_noise,noise)
+            np.testing.assert_allclose(np.linalg.norm(pilot),1.,rtol=1e-12)
+            moments=cell_fourier_moments(g['k'],pilot,24,nthreads=op.nthreads)
+            pilot_vector=pair_pose_fourier_moments(op,moments)
+            pilot_cross=float(np.linalg.norm(pilot_vector))
+            result['pilot_refinement']={'pilot_checkpoint_sha256':hashlib.sha256(checkpoint_path.read_bytes()).hexdigest(),
+                'pilot_norm':float(np.linalg.norm(pilot)),'pairing_norm_numerical':pilot_cross,
+                'previous_bias_upper':bound['bias_upper'],'previous_pilot_polynomial_upper':field,
+                'new_pilot_polynomial_upper':min(field,radius*pilot_cross),
+                'scope':'Analytic constant-cell Fourier moments; ordinary NUFFT/roundoff checks, no interval arithmetic'}
+            bound=joint_density_pose_bias(fit['density_bias']/2,field,cross['norm_upper'],radius,2.,1.,cubic/3,pilot_cross)
+        half=bias_aware_half_width_stable(fit['noise_sd'],bound['bias_upper'],fit['alpha_noise']);no_data=2*fit['target_norm']
+        checks=[];diagnostic=BASE/'pose-optimized-diagnostics'/source.parent.name/source.name
+        if diagnostic.exists():
+            previous=json.loads(diagnostic.read_text());result['source_diagnostic_sha256']=hashlib.sha256(diagnostic.read_bytes()).hexdigest()
+            if not previous.get('complete') or previous.get('audit_failure') or previous.get('error'):
+                raise ValueError('Source diagnostics are incomplete or failed')
+            # Avoid expensive reconstruction when neither interval uses fallback.
+            if half<no_data and not previous['uses_no_data']:
+                pilot_target=previous.get('pilot_target')
+                means={r['scenario']:r.get('raw_expected_center',r['expected_center']) for r in previous['reference_checks']}
+            else:
+                pilot_target,means=recover_reference_centers(previous,g,w,noise,dataset,target,op.angle,op.shift)
+            for row in previous['reference_checks']:
+                check=reference_interval_summary(row['true_target'],means[row['scenario']],fit['noise_sd'],pilot_target,half,no_data)
+                checks.append({'scenario':row['scenario'],**check})
+            result['existing_feasible_over_new_upper']=max(x['feasible_bias_numerical'] for x in previous['candidates'])/bound['bias_upper']
+            result['stress_scope']='Saved joint-ball poses remain feasible for either set; no new product-ball adversaries searched'
+        result.update(seconds=time.perf_counter()-start,cross=cross,bound=bound,
+            rotation_radius_degrees=prior['rotation_radius_degrees'],translation_radius_A=prior['translation_radius_A'],
+            old_selected_relative_half_width=prior['selected_relative_half_width'],new_half_width=half,
+            new_selected_relative_half_width=float(min(1.,half/no_data)),relative_width_change=float(half/fit['half_width']),
+            alpha_noise=fit['alpha_noise'],alpha_numerical=fit['alpha_numerical'],reference_checks=checks,
+            numerical_failure=bool(result.get('existing_feasible_over_new_upper',0.)>1.000001))
+        result['uses_no_data']=bool(half>=no_data)
+        result['complete']=not result['numerical_failure']
+        arrays={'residual_pose_cross':vector}
+        if pilot_vector is not None:arrays['pilot_pose_cross']=pilot_vector
+        np.savez(path.with_suffix('.npz'),**arrays);save()
+        if result['numerical_failure']:raise AssertionError('Existing feasible bias exceeds new upper; all results retained')
+        print('DONE',source.parent.name,source.stem,result['new_selected_relative_half_width'],result['relative_width_change'],flush=True)
+    except Exception as exc:
+        result.update(complete=False,error=repr(exc),seconds=time.perf_counter()-start);save();raise
+
+
+if __name__=='__main__':main()

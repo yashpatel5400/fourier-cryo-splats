@@ -133,7 +133,8 @@ def main():
                  'MATRIX-FREE-POSE-REVISION.md', 'EXPERIMENTAL-CALIBRATION-ATTEMPT.md',
                  'CTF-SENSITIVITY.md', 'CONTINUOUS-SUPPORT-REVISION.md',
                  'FOURIER-VARIATIONAL-BASELINE.md', 'DIRECTIONAL-NOISE-CALIBRATION.md',
-                 'NOISE-METRIC-DESIGN.md', 'POSE-SPECTRAL-EXCHANGE.md', 'JOINT-DENSITY-POSE-BIAS.md']],
+                 'NOISE-METRIC-DESIGN.md', 'POSE-SPECTRAL-EXCHANGE.md', 'JOINT-DENSITY-POSE-BIAS.md',
+                 'PILOT-POSE-PAIRING.md','TWO-POSE-MODULUS.md']],
              *sorted((ROOT/'research/uncertainty/confirmation').glob('*/PROTOCOL.md')),
              *sorted((ROOT/'src/fourier_splats').glob('*.py')),
              *sorted((ROOT/'tests').glob('test*.py')),
@@ -148,7 +149,8 @@ def main():
                  'continuous-fixed-length-lower/summary.json',
                  'critical-value-revision.json', 'pose-optimizer-conic.json',
                  'higher-band-ctf-sensitivity.json',
-                 'revision-diagnostics-summary/summary.json']],
+                 'revision-diagnostics-summary/summary.json','joint-bias-summary/summary.json',
+                 'two-pose-modulus-summary/summary.json']],
              *sorted((ROOT/'results/uncertainty/development/experimental-noise-grouped').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/fourier-variational-baseline').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/fourier-variational-continuous-audit').glob('*.json')),
@@ -160,8 +162,10 @@ def main():
              *sorted((ROOT/'results/uncertainty/development/noise-metric-design').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/pose-dual-mixture').glob('*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/pose-dual-joint').glob('*/*.json')),
-             *sorted((ROOT/'results/uncertainty/development/joint-bias-audit').glob('*/*.json')),
-             *sorted((ROOT/'results/uncertainty/development/joint-bias-sharp-audit').glob('*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('joint-bias-*/*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('continuous-high-band-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development/two-pose-modulus-v3').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/audit-regressions').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/pose-optimized-diagnostics').glob('*/*.json'))]
     if args.round > 1:
         if args.response_file is None:

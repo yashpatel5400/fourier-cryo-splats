@@ -797,3 +797,90 @@ warnings, and new cross-term formulas and the six-row result table were
 rendered and visually inspected. Source/results checkpoint 1b91132 was pushed
 publicly; a separate v0.4 archive packages completed numerical array owners
 and excludes active/failed post-review checkpoints.
+
+### Known-pilot refinement, larger-band fit, and ambiguity diagnostics
+
+The 60-round adaptive full-weight average changes weights, reaches an old
+triangle-objective upper/lower pair 10.5226/9.84465 (gap 0.06443), and has
+relative width 0.64566. Joint and sharp-moment post-audits reduce this to
+0.58103 and 0.55686. Using the actual known pilot pairing instead of only its
+norm reduces it further to 0.51016, on the same density class, weights and
+spectral event. Saved feasible nonlinear bias reaches 0.66665 of the last
+upper bound, but reference sign power remains below 5e-122. The elementary
+pilot-pairing derivation and analytic constant-cell moments are in
+PILOT-POSE-PAIRING.md. All prior values remain available.
+
+Focused Fable audits 03 and 04 prompted a real legacy-fallback regression,
+explicit missing-center handling, expanded attempt accounting, selected-column
+direct exponential-sum checks, and a source-bias guard. The archive-scale pilot
+check has maximum relative discrepancy 3.4818e-13 across sixty columns per
+case in the initial ten cases. This is not an all-column numerical error pad.
+The original full-paper rejection remains unchanged.
+
+The physical 10 Å, 1,024-particle fixed-pose fit on 10049 completes at a
+sum-objective gap 0.000992 and relative half-width 0.013777. The reference-map
+central value is 1.92452 and its conditional sign power is one. This is known-
+noise/fixed-pose development; its one-degree, 0.5 Å pose post-audit is still
+running and may remove the apparent precision. The 128- and 1,024-particle
+subsets are not nested, so their difference is not an isolated count effect.
+
+The wide-Ritz 10028 half-degree optimization was interrupted after its best
+checkpoint at evaluation 131 plateaued near objective 2.37284. Its original
+record, checkpoint and traceback are preserved. A new bounded run resumes
+with maxfun 100, ftol 1e-5 and a fresh final certificate seed; its first case
+has width 0.14610 but objective gap 0.66745. A valid final upper bound is not
+convergence. Other source-grid and conic-continuation cases remain active.
+
+A new prospective two-pose ambiguity protocol supplies constructive lower
+bounds for arbitrary deterministic-length confidence intervals by classical
+Gaussian testing. Independent small-Hilbert-space conic and direct-Fourier
+checks pass; the full suite now has 98 passing tests. The first development
+attempt hit a NumPy-boolean JSON serialization bug after its first fit. That
+failed attempt and traceback are retained; the scalar conversion is fixed
+and the identical prespecified grid reruns in `two-pose-modulus-v2`.
+The grid and its focused mathematical review are in progress. Neither its
+selected pose pairs nor any eventual numerical convergence should be called
+a global optimization over the unknown-pose class.
+
+The larger-band pose audit completed in 1,491.42 seconds using 1.08 GB peak
+memory. At one degree and 0.5 Å it returns no data: the polynomial pose bias
+is 6.3760, cubic bias 56.4927, final unselected half-width 61.2227 and no-data
+half-width 34.3900. The target's Gaussian standard deviation is 10 Å; the
+sampled Fourier band ends at 19.68 Å, so this is not a 10 Å reconstruction
+resolution claim. The saved fixed-pose reference power of one does not survive
+this pose bound.
+
+The 60-round sharp-cubic conic continuation also completed, in 4,666.18 seconds,
+with sum-objective upper/lower 9.89606/9.59349 (3.057% gap) and width 0.60696.
+The joint and known-pilot post-audits give 0.54750 and 0.50264. The strongest
+saved feasible stress reaches 0.63008 of the last upper; reference power is
+9.32e-119. This is progress on a conditional bound, not practical detection.
+
+The two-pose v3 grid is complete: thirty cases, all fixed-pair brackets below
+0.4831%. The focused review confirms its real-arithmetic argument; its tests
+now exercise inconsistent norms, nonzero quadrature pads, nonlinear pilot
+projections, and distinct best-upper/lower iterates. All prior attempts remain.
+The full suite passes 102 tests in 7.78 seconds. The two main pose-optimization
+grids are still active; no full second-round acceptance assessment has occurred.
+
+The enclosing-domain remainder refinement has now been implemented and checked
+against independent spherical/cube integration of derivative tensors and direct
+nonlinear pose fields, including distorted embeddings. Its ball probe reduces
+the 1,024-particle cubic bias from 56.4927 to 32.6233 but still returns no data.
+The subsequent expanded-cube probe reduces it to 21.1103, with half-width
+25.8403 (0.75139 of no data), still zero reference sign power. Each probe takes
+about five seconds and preserves the existing polynomial certificate. They do
+not narrow the unknown density class. Source snapshots and both outcomes remain;
+this is exploratory refinement, not a frozen confirmation. All 109 tests pass
+in 6.48 seconds. The exact requested Fable model is conducting a focused proof
+and code audit; no second full-paper review has occurred.
+
+The enclosing-domain focused Fable audit is complete. Its conditional pose-set
+objection does not invalidate the actual joint-ball source case, but revealed a
+missing guard. New guards require the source pose/density class and recompute
+both original bias branches before substitution. Guarded v2 replays reproduce
+both bounds. New tests cover a near-tight closed-form translation, antipodal
+frequencies, scaled detector embeddings, product directions, large angles and
+finite differences. Six independent 60-decimal derivative-norm checks have
+maximum relative discrepancy 4.501e-16. The suite passes 116 tests in 6.57 s.
+These fixes leave the first full-paper rejection and usefulness limitations intact.

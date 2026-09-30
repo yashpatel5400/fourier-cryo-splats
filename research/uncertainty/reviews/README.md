@@ -32,7 +32,7 @@ or ask for approval regardless of scientific merit.
 The research goal is not complete merely because a review was requested or a
 fixed batch of computations finished.
 
-Two subsequent focused mathematical audits are separate from full review
+Four subsequent focused mathematical audits are separate from full review
 rounds. `bound-audit-01` contains an authentic but incomplete terminal response;
 its missing beginning is disclosed in `COMPLETENESS.md`. The complete
 `bound-audit-02` checks the cross-term, moment and conic refinements and flags
@@ -41,3 +41,23 @@ Its response plan links the fixes and limitations. Neither audit is an ICML
 acceptance assessment. Future invocations preserve every assistant text message
 in the event stream, including any continuation, rather than only the terminal
 result string.
+
+`bound-audit-03` found a legacy fallback broadcasting bug, which is fixed and
+checked by replaying an actual archived case. `bound-audit-04` confirms the
+known-pilot moment refinement and requests an updated inventory, an archive-scale
+direct-sum numerical check, and a fixed-pose source guard. Its response records
+the fixes and explicitly limits the numerical check to selected columns.
+None of these reports changes the full round-1 verdict.
+
+The separate `modulus-audit-01` checks the later two-pose ambiguity lower bound.
+It confirms the real-arithmetic construction and testing argument, then requests
+failure guards, exact-continuous integration-pad tests, distinct upper/lower
+witness records and clearer numerical disclosures. Its evidence-linked response
+preserves the original report and distinguishes that check from a full review.
+
+`enclosure-audit-01` independently checks the later Fourier-cancellation Taylor
+remainder. Its report confirms the identities but flags missing source-class
+and bias-decomposition guards plus test gaps. The response documents the new
+fail-closed checks, unchanged guarded replays, deterministic and near-tight
+controls, and six independent 60-decimal spot checks. It is also separate from
+full review rounds and does not alter the rejected scientific assessment.

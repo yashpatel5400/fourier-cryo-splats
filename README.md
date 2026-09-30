@@ -32,6 +32,22 @@ improve optimization lower bounds while preserving failed candidate outcomes.
 Focused [mathematical reviews](research/uncertainty/reviews/README.md) and their
 regression fixes are also preserved. They distinguish a joint rotation/shift
 ball from the larger product set and do not replace the full-paper review.
+A [known-pilot refinement](research/uncertainty/PILOT-POSE-PAIRING.md) further
+reduces widths without narrowing the unknown density class. Its two-degree
+full-weight example reaches 0.510 of the no-data width, but still has negligible
+reference sign power. A 1,024-particle fixed-pose fit with a 10 Å Gaussian
+standard-deviation target is precise, but its one-degree pose audit returns
+the no-data interval because the cubic remainder dominates. These developments do not establish
+experimental coverage or ICML readiness.
+A [two-pose ambiguity construction](research/uncertainty/TWO-POSE-MODULUS.md)
+now supplies fixed-length lower bounds on the same continuous class. Its
+30-case three-stack grid is complete and mathematically audited, but selected
+pose pairs do not determine the global unknown-pose limit.
+An [enclosing-domain remainder refinement](research/uncertainty/BALL-SOBOLEV-REMAINDER-PROPOSAL.md)
+retains Fourier cancellation: on that higher-band case it reduces the cubic
+bias from 56.493 to 21.110 and the interval to 0.751 of no-data width. Reference
+feature detection remains zero; this is a conservative-bound improvement,
+not experimental calibration. Both exploratory enclosure attempts are retained.
 Completed development comparisons include source-group bootstrap, nonlinear pose
 curvature, shared-density spectral audits, finite-grid and continuous-density
 checks, joint continuous-pose bounds, assumption-violation controls, and stock neural

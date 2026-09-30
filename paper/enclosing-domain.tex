@@ -1,0 +1,77 @@
+\subsection{Fourier cancellation in the nonlinear remainder}
+\label{app:enclosing-domain}
+The higher-band failure motivates a further exploratory refinement of the
+\emph{same} continuous-density class. The preceding frequency-wise Taylor
+bound discards cancellation in the known adjoint field. For one particle let
+\(f(x)=\operatorname{Re}\sum_q c_q\exp(2\pi i k_q^T x)\), where
+\(c_q=(w_{Rq}+i w_{Iq})C_q/\sigma\). Let \(R=\sqrt{3}/2\), let \(a\) be
+the rotation radius, and let \(s_i\) bound the norm of the three-dimensional
+translation dual to the detector shift. For exact isometric detector
+embeddings, \(s_i=s\); in computation we use the embedding pseudoinverse and
+an explicit residual-phase correction, as recorded with the implementation.
+
+For a joint scaled pose ball, the path \(y(t)=\exp(t\Omega)x+tb\),
+\(0\leq t\leq1\), satisfies
+\begin{equation}
+ L=\sqrt{a^2R^2+s_i^2},\qquad H=a^2R,\qquad T=a^3R
+\end{equation}
+as bounds on its first, second and third derivative norms. An enclosing ball
+has radius \(R+s_i\). An alternative enclosing coordinate cube has half-side
+\begin{equation}
+ r_i=\tfrac12+2R\sin\{\min(a,\pi)/2\}+s_i.
+\end{equation}
+Indeed, \(\norm{(\exp(t\Omega)-I)x}\leq
+2R\sin\{\min(a,\pi)/2\}\), and translation adds at most \(s_i\).
+This enlarges the integration domain of a \emph{known} field; it imposes no
+new support or smoothness condition on the unknown density.
+
+\begin{proposition}[Enclosing-domain remainder]
+Let \(D_i\) contain every transformed unit cube along every allowed path,
+and let \(S_m=\norm{D^m f}_{L^2(D_i),F}\) be the Frobenius derivative-tensor
+norm. The second-order pose Taylor remainder has \(L^2\) norm at most
+\begin{equation}
+ r_{\mathrm{enc},i}=\tfrac16\{L^3 S_3+3LH S_2+T S_1\}.
+ \label{eq:enclosing-remainder}
+\end{equation}
+\end{proposition}
+\begin{proof}
+The third chain-rule derivative is the sum of the cubic derivative contraction,
+three Hessian contractions with \(y'\) and \(y''\), and the gradient
+contraction with \(y'''\). Cauchy--Schwarz bounds each contraction by its
+Frobenius norm. The map from \(x\) to \(y(t)\) is rigid and has Jacobian one;
+enlarging its image to \(D_i\) increases each nonnegative squared integral.
+Minkowski's inequality and Taylor's integral remainder give
+\eqref{eq:enclosing-remainder}.
+\end{proof}
+
+For either symmetric domain, write \(K_D(v)=\int_D e^{2\pi i v^Tx}\,dx\).
+The exact real-arithmetic identity retaining cross-frequency terms is
+\begin{align}
+ S_m^2={}&\tfrac12(2\pi)^{2m}\operatorname{Re}
+ \sum_{q,l}(k_q^Tk_l)^m\bigl[
+ c_q\overline{c_l}K_D(k_q-k_l)\nonumber\\
+ &\hspace{32mm}+(-1)^m c_qc_l K_D(k_q+k_l)\bigr].
+\end{align}
+The sum over ordered tensor derivatives yields \((k_q^Tk_l)^m\);
+the sum-frequency sign is \(i^{2m}=(-1)^m\). For a ball of radius \(r\),
+\(K_D(v)=4\pi r^3j_1(z)/z\), \(z=2\pi r\norm{v}\), with value
+\(4\pi r^3/3\) at zero. For the coordinate cube,
+\(K_D(v)=\prod_j 2r\operatorname{sinc}(2rv_j)\).
+The scalar density bias receives \((B+P)\sum_i r_{\mathrm{enc},i}\).
+Taking the smaller valid remainder for each particle is deterministic and
+uses the original spectral event; no new random certificate is selected.
+Magnitude-based roundoff guards remain heuristic, not validated arithmetic.
+
+Independent spherical and tensor-product quadrature checks all ordered
+derivative tensors through degree three. Direct nonlinear cube integration
+also checks allowed joint poses and deliberately nonplanar frequency
+embeddings. On the saved 1,024-particle higher-band example, the ball enclosure
+reduces the cubic contribution from 56.493 to 32.623 after particle-wise
+selection, still yielding no data. The subsequent expanded-cube probe reduces
+it to 21.110, with total half-width 25.840, or 0.751 of no data. All particles
+improve in that probe; its extra embedding-residual bias is below
+\(5\times10^{-14}\). Both probes take approximately five CPU seconds and
+retain the previous polynomial certificate and estimator weights. Nevertheless,
+the three reference scenarios still have numerically zero feature-detection
+power. This inexpensive refinement reduces a conservative remainder; it does
+not solve the fine-feature usefulness or experimental calibration problem.

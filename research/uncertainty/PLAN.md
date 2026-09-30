@@ -118,3 +118,35 @@ guide the next methodological decision. The signed density class remains too
 broad for the desired fine-feature interpretation; any support/positivity or
 energy refinement must be explicit, physically motivated and independently
 validated rather than chosen to turn a negative outcome positive.
+
+### Subsequent revision checkpoint
+
+The 10,000-particle matrix-free scale test is complete (1.95 GB peak memory).
+The curated survey now contains 98 candidates, not 98 full readings. Four
+focused mathematical audits and their responses follow the unchanged full
+round-1 rejection. Pilot-specific analytic moments reduce a two-degree
+full-weight example to 0.510 of no-data width, without useful reference sign
+power. A 10 Å Gaussian-width, 1,024-particle fixed-pose fit is precise, but its
+one-degree pose audit returns no data; the cubic remainder dominates. The
+three-stack pose-aware grid is not complete.
+
+The newest prospective component constructs two-pose/density pairs to lower-
+bound the width any deterministic-length interval needs on the declared
+class. It is a classical testing specialization intended to diagnose the gap
+between intrinsic ambiguity and conservative upper bounds. Independent conic
+checks pass and the initial 30-case three-stack grid is complete. A dedicated
+Fable mathematics audit confirms the argument and identifies numerical and
+recording gaps. These are fixed; the unchanged grid reruns with additional
+witness records and error guards; all 30 revised cases are now complete, with
+fixed-pair brackets below 0.5 percent. One hundred and two tests pass; that does not resolve
+the scientific usefulness or experimental-assumption objections. No full
+second-round acceptance assessment has occurred, and the goal remains active.
+
+The current enclosing-domain remainder refinement retains Fourier cancellation
+within each particle. The ball and expanded-cube probes reduce the fine-target
+cubic term from 56.493 to 32.623 and 21.110, respectively; the latter interval
+has width 0.751 of no data but still no useful sign power. Independent integration
+and nonlinear tests pass (109 tests total). This moves the numerical bound but
+does not settle R1/R2/R7 of the full review. The next meaningful objective remains
+useful precision with defensible experimental nuisance/noise/class assumptions,
+rather than the number of tests, probes or appendix pages.

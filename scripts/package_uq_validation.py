@@ -39,7 +39,8 @@ def main():
         development=ROOT/'results/uncertainty/development'
         patterns=['experimental-noise-grouped','fourier-variational-*','continuous-support-probe','continuous-high-band-*',
                   'matrix-free-pose-*','pose-aware-*','pose-exchange-*','pose-dual-*',
-                  'pose-optimized-diagnostics','noise-metric-design','directional-noise-audit','joint-bias-*']
+                  'pose-optimized-diagnostics','noise-metric-design','directional-noise-audit','joint-bias-*','two-pose-modulus*',
+                  'ball-remainder-probe*','expanded-cube-remainder-probe*']
         additions=set()
         for pattern in patterns:
             for folder in development.glob(pattern):

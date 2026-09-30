@@ -19,7 +19,8 @@ from fourier_splats.uq_continuous import cell_forward,cell_target_coefficients
 from fourier_splats.uq_continuous_pose import polynomial_kernel_error,pose_cell_forward
 from fourier_splats.uq_pose_operator import PolynomialPoseFieldOperator
 from fourier_splats.uq_joint_bias import (pose_scale_record,scaled_pose_radius,
-    sharp_cube_cubic_coefficients,residual_pose_cross_bound,joint_density_pose_bias)
+    sharp_cube_cubic_coefficients,residual_pose_cross_bound,joint_density_pose_bias,pair_pose_fourier_moments)
+from fourier_splats.uq_cell_moments import cell_fourier_moments,check_cell_pose_pairings
 from fourier_splats.uq_random_spectral import gaussian_power_upper
 from fourier_splats.uq_intervals import bias_aware_half_width_stable,reference_interval_summary
 from fourier_splats.uq_provenance import source_snapshot
@@ -35,6 +36,7 @@ def main():
     p.add_argument('--order',type=int,default=80);p.add_argument('--design-order',type=int,default=12)
     p.add_argument('--iterations',type=int,default=40);p.add_argument('--threads',type=int,default=2)
     p.add_argument('--certificate-seed',type=int,default=610271)
+    p.add_argument('--pilot-pairing',action='store_true')
     p.add_argument('--output',default='continuous-high-band-pose-1024-10A');args=p.parse_args()
     source=ROOT/args.fit;prior=json.loads(source.read_text())
     if not prior.get('complete') or prior.get('error'):raise ValueError('Completed fixed-pose fit required')
@@ -43,6 +45,8 @@ def main():
     rows=[r for r in prior['targets'] if r['target']==args.target]
     if len(rows)!=1:raise ValueError('Source must contain exactly one requested target/width')
     row=rows[0];fit=row['fit'];cfg=prior['config'];dataset=prior['dataset'];width=row['width_fraction_field']
+    if 'pose_polynomial_bias' in fit or 'cubic_bias' in fit or 'fixed poses/CTFs' not in prior.get('stage',''):
+        raise ValueError('Source bias must be a fixed-pose density residual only')
     out=BASE/args.output;out.mkdir(parents=True,exist_ok=True);path=out/f'{dataset}-{args.target}-{args.angle:g}.json'
     if path.exists():raise RuntimeError('Preserve previous outcome')
     result={'complete':False,'stage':'Conditional known-noise higher-band fixed-weight pose post-audit; not pose-optimized or experimentally calibrated',
@@ -74,17 +78,29 @@ def main():
         cubic=float(np.sum(sharp_cube_cubic_coefficients(g['k'],g['q'],g['ctf']/noise,angle,shift,B+P)*amp))
         cross=residual_pose_cross_bound(op,w,noise,centers,signs,width);vector=cross.pop('cross_vector')
         joint=joint_density_pose_bias(fit['bias']/B,field,cross['norm_upper'],L,B,P,cubic/(B+P))
+        checkpoint=np.load(BASE/'representation'/dataset/'real_particles-spacing-2.0.npz')
+        cellop,pilot,_,check_noise=model(g,checkpoint,24,noise=noise);pilot=cellop.expand(pilot)
+        np.testing.assert_allclose(check_noise,noise);np.testing.assert_allclose(np.linalg.norm(pilot),P,rtol=1e-12)
+        pilot_vector=None
+        if args.pilot_pairing:
+            pilot_moments=cell_fourier_moments(g['k'],pilot,24,nthreads=args.threads)
+            pilot_vector=pair_pose_fourier_moments(op,pilot_moments)
+            result['pilot_numerical_check']=check_cell_pose_pairings(op,pilot,24,pilot_vector,pilot_moments)
+            if not result['pilot_numerical_check']['passed']:
+                save();raise AssertionError('Pilot direct-sum check failed; preserve outcome')
+            result['original_joint_bound']=joint
+            joint=joint_density_pose_bias(fit['bias']/B,field,cross['norm_upper'],L,B,P,cubic/(B+P),float(np.linalg.norm(pilot_vector)))
         half=bias_aware_half_width_stable(fit['noise_sd'],joint['bias_upper'],.05-delta);no_data=B*fit['target_norm']
         result.update(spectral_upper_certificate=spectral,pose_integration_pad=pad,cross=cross,bound=joint,
+            density_radius=B,pilot_norm_bound=P,
             noise_sd=fit['noise_sd'],density_bias=fit['bias'],pose_polynomial_bias=(B+P)*field,cubic_bias=cubic,
             alpha_noise=.05-delta,alpha_numerical=delta,alpha_total=.05,
             half_width=half,selected_relative_half_width=min(1.,half/no_data),uses_no_data=bool(half>=no_data),
             particles=len(g['k']),fourier_pairs_per_particle=op.nq,target_width_A=width*g['field_A'],reference_checks=[])
-        np.savez(path.with_suffix('.npz'),residual_pose_cross=vector)
+        arrays={'residual_pose_cross':vector}
+        if pilot_vector is not None:arrays['pilot_pose_cross']=pilot_vector
+        np.savez(path.with_suffix('.npz'),**arrays)
         save()
-        checkpoint=np.load(BASE/'representation'/dataset/'real_particles-spacing-2.0.npz')
-        cellop,pilot,_,check_noise=model(g,checkpoint,24,noise=noise);pilot=cellop.expand(pilot)
-        np.testing.assert_allclose(check_noise,noise)
         pilot_target=float(cell_target_coefficients(24,centers,signs,width)@pilot)
         nominal=cell_forward(g['k'],g['ctf'],pilot,24,noise)
         rho=VoxelReference.from_mrc(ROOT/f'data/uncertainty/references/emd_{MAPS[dataset]}.map',box=64).volume.ravel()

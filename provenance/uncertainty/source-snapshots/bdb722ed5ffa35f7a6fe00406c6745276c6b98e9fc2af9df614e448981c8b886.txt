@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+"""Development grid of constructive two-pose fixed-length lower bounds."""
+import argparse
+import hashlib
+import json
+import sys
+import time
+from pathlib import Path
+import numpy as np
+import finufft
+from scipy.stats import norm
+from fourier_splats.uq_data import particle_geometry
+from fourier_splats.uq_continuous import cell_forward
+from fourier_splats.uq_continuous_pose import perturbed_geometry
+from fourier_splats.uq_planned_transforms import PlannedQuadratureObservationGram
+from fourier_splats.uq_two_pose_modulus import PhaseRotatedGram,optimize_two_pose_modulus
+from fourier_splats.uq_provenance import source_snapshot
+from audit_uq_grid_refinement import model
+
+ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'results/uncertainty/development'
+
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--datasets',default='10028,10049,10076')
+    p.add_argument('--targets',default='center,contrast');p.add_argument('--angles',default='1,2')
+    p.add_argument('--scenarios',default='nominal,coherent_x,random_boundary')
+    p.add_argument('--maxiter',type=int,default=25);p.add_argument('--threads',type=int,default=2)
+    p.add_argument('--preconditioner-rank',type=int,default=1024);p.add_argument('--shift-A',type=float,default=.5)
+    p.add_argument('--output',default='two-pose-modulus');args=p.parse_args()
+    if args.threads>1 and sys.platform=='darwin' and ('tmp/nufft-openmp' not in finufft.__file__ or 'torch' in sys.modules):
+        raise RuntimeError('Threaded Mac run requires isolated CPU-only FINUFFT')
+    out=BASE/args.output;out.mkdir(exist_ok=True);snapshot=source_snapshot(ROOT,Path(__file__),['scripts/audit_uq_grid_refinement.py','research/uncertainty/TWO-POSE-MODULUS.md'])
+    for dataset in args.datasets.split(','):
+        base=json.loads((BASE/'continuous-quadrature-optimized'/f'{dataset}.json').read_text())
+        g=particle_geometry(ROOT,dataset,'inference_half0',radius=5,count=128,seed=base['config']['seed'])
+        noise=float(np.load(BASE/'continuous-quadrature-optimized'/f'{dataset}-center-0.07-weights.npz')['noise_std'])
+        checkpoint=BASE/'representation'/dataset/'real_particles-spacing-2.0.npz'
+        cellop,pilot,_,check_noise=model(g,np.load(checkpoint),24);pilot=cellop.expand(pilot)
+        np.testing.assert_allclose(noise,check_noise);P=float(np.linalg.norm(pilot));np.testing.assert_allclose(P,1.,rtol=1e-12)
+        random_pose=np.random.default_rng(610341+int(dataset)).normal(size=(len(g['k']),5))
+        random_pose/=np.linalg.norm(random_pose,axis=1)[:,None]
+        for scenario in args.scenarios.split(','):
+            if scenario not in ['nominal','coherent_x','random_boundary']:raise ValueError('Unknown prespecified scenario')
+            for degrees in ([0.] if scenario=='nominal' else list(map(float,args.angles.split(',')))):
+                begin=time.perf_counter();pose=np.zeros_like(random_pose)
+                if scenario=='coherent_x':pose[:,0]=1.
+                if scenario=='random_boundary':pose=random_pose.copy()
+                angle=np.deg2rad(degrees);shift=args.shift_A/g['field_A'];grams=[];means=[]
+                # Complete each setup before target fits; report setup failures as their own retained case.
+                setup_path=out/f'{dataset}-{scenario}-{degrees:g}-setup.json'
+                if setup_path.exists():raise RuntimeError('Preserve all earlier modulus attempts')
+                setup={'complete':False,'config':vars(args),'dataset':dataset,'scenario':scenario,'degrees':degrees,'source_snapshot':snapshot}
+                setup_path.write_text(json.dumps(setup,indent=2)+'\n')
+                try:
+                    for direction in [-1.,1.]:
+                        k,translations=perturbed_geometry(g['k'],g['q'],direction*pose,angle,shift)
+                        gram=PlannedQuadratureObservationGram(k,g['ctf'],noise,order=40,preconditioner_rank=args.preconditioner_rank)
+                        gram.nthreads=args.threads;wrapped=PhaseRotatedGram(gram,translations);grams.append(wrapped)
+                        means.append(wrapped.rotate(cell_forward(k,g['ctf'],pilot,24,noise)))
+                    setup.update(complete=True,seconds=time.perf_counter()-begin)
+                except Exception as exc:
+                    setup.update(error=repr(exc),seconds=time.perf_counter()-begin);setup_path.write_text(json.dumps(setup,indent=2)+'\n');continue
+                setup_path.write_text(json.dumps(setup,indent=2)+'\n')
+                for target in args.targets.split(','):
+                    if target not in ['center','contrast']:raise ValueError('Unknown target')
+                    path=out/f'{dataset}-{target}-{scenario}-{degrees:g}.json'
+                    if path.exists():raise RuntimeError('Preserve earlier modulus attempts')
+                    start=time.perf_counter();alpha=.05;tau=float(.9999*2*norm.isf(alpha))
+                    result={'complete':False,'stage':'Constructive conditional two-pose fixed-length lower bound; not a coverage estimator',
+                        'config':vars(args),'dataset':dataset,'target':target,'scenario':scenario,'rotation_radius_degrees':degrees,
+                        'translation_radius_A':args.shift_A,'pose_set':'joint_scaled_five_dimensional_ball',
+                        'density_radius':2.,'pilot_norm':P,'pilot_checkpoint_sha256':hashlib.sha256(checkpoint.read_bytes()).hexdigest(),
+                        'noise_std':noise,'field_A':g['field_A'],'width_fraction_field':.07,'alpha':alpha,'distance_budget':tau,
+                        'source_geometry_config':base['config'],'source_snapshot':snapshot,'shared_setup_seconds':setup['seconds']}
+                    def save():path.write_text(json.dumps(result,indent=2)+'\n')
+                    save()
+                    try:
+                        wp=BASE/'continuous-quadrature-optimized'/f'{dataset}-{target}-0.07-weights.npz'
+                        initial=np.load(wp);np.testing.assert_array_equal(initial['indices'],g['indices'])
+                        centers=[[0,0,0]] if target=='center' else [[0,0,.08],[0,0,-.08]];signs=[1] if target=='center' else [1,-1]
+                        def progress(row):print(path.stem,row,flush=True)
+                        fit=optimize_two_pose_modulus(grams,centers,signs,.07,means,initial['weights'],2.,P,tau,
+                                maxiter=args.maxiter,callback=progress)
+                        weights=fit.pop('weights');witness=fit['witness']
+                        np.savez(path.with_suffix('.npz'),weights=weights,pose0=-pose,pose1=pose,
+                                 residual_amplitudes=witness['residual_amplitudes'],common_density_scale=witness['common_density_scale'],
+                                 indices=g['indices'],noise_std=noise)
+                        testing_error=float(2*norm.sf(witness['mean_distance_upper']/2))
+                        failure=bool(testing_error<=2*alpha or witness['mean_distance_upper']>tau+1e-10)
+                        result.update(fit=fit,numerical_failure=failure,complete=not failure,
+                            minimum_sum_testing_error=testing_error,relative_half_width_lower=witness['fixed_length_half_width_lower']/(2*fit['target_norm']),
+                            seconds=time.perf_counter()-start);save()
+                        if failure:raise AssertionError('Testing-distance feasibility check failed')
+                        print('DONE',path.stem,result['relative_half_width_lower'],fit['relative_modulus_gap'],flush=True)
+                    except Exception as exc:
+                        result.update(complete=False,error=repr(exc),seconds=time.perf_counter()-start);save();print('FAILED',path.stem,repr(exc),flush=True)
+
+
+if __name__=='__main__':main()

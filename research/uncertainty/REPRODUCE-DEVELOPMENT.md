@@ -348,14 +348,59 @@ The exchange state permits continuation with `--continue-exchange`; adding
 rather than reusing a lower bound from the preceding objective. This continuation
 was launched separately and is not declared complete by these commands.
 
-After the 1,024-particle physical-10-Angstrom fit completes, its prepared pose
-post-audit command is:
+The completed 1,024-particle fit with a 10-Angstrom Gaussian standard-deviation
+target has a separate completed pose post-audit:
 
 ```bash
-PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/audit_uq_high_band_pose.py --fit results/uncertainty/development/continuous-high-band-1024-10A/10049.json
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/audit_uq_high_band_pose.py --fit results/uncertainty/development/continuous-high-band-1024-10A/10049.json --pilot-pairing
 ```
 
 The small design quadrature chooses positive block scales only. The actual
 spectral audit and analytic integration pad use order 80; a low-order sampled
-field norm is never used as a continuous upper bound. Prepared code does not
-constitute a completed higher-band pose experiment.
+field norm is never used as a continuous upper bound. The actual result is
+no-data fallback: its cubic remainder dominates despite precise fixed-pose
+fitting. The stored output is immutable; choose a new output directory to rerun.
+
+Known-pilot moments and their archive-scale direct-sum regression:
+
+```bash
+PYTHONPATH=src python scripts/audit_uq_joint_bias.py --fit results/uncertainty/development/pose-exchange-adaptive-average/10049-center-2.json --sharp-cubic --pilot-pairing
+PYTHONPATH=src python scripts/validate_uq_pilot_pairings.py
+PYTHONPATH=src python scripts/summarize_uq_joint_bias.py
+```
+
+The lower-bound development grid and its focused review are separate from the
+original frozen studies. The v2 grid is complete; v3 reruns the unchanged
+protocol with post-review numerical guards and separate witness records:
+
+```bash
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/run_uq_two_pose_modulus.py --output two-pose-modulus-v3
+PYTHONPATH=src python -m pytest -q tests/test_uq_two_pose_modulus.py
+```
+
+Every result is conditional on the stated white Gaussian noise, continuous
+density ball and pose class. The lower bound applies to deterministic-length
+intervals; selected poses do not globally maximize ambiguity. Arrays are saved
+for both the constructive lower witness and the potentially different dual
+upper iterate. All failed or earlier numerical variants remain available.
+
+### Enclosing-domain remainder probes
+
+The probes reuse the completed higher-band fit, weights and spectral event.
+They alter only a deterministic Taylor remainder, leaving the continuous class
+unchanged. The first ball attempt and subsequent expanded-cube attempt are both
+preserved. Their source snapshots differ because the second enclosure was added
+after inspecting the first result. `--output` must name a fresh directory.
+
+```bash
+OPENBLAS_NUM_THREADS=1 .venv/bin/python -m pytest tests/test_uq_ball_remainder.py -q
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_ball_remainder.py --output ball-remainder-probe
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_ball_remainder.py --domain cube --output expanded-cube-remainder-probe
+```
+
+The legacy output key `ball_cubic_bias` identifies the enclosing-domain total;
+read `config.domain`/`domain` for the cube probe (the original ball-only record
+predates those keys). NPZ companions retain each particle's original, enclosure
+and selected remainder. This selection does not choose among random spectral
+certificates: the original event is unchanged. Neither probe gives experimental
+density coverage or useful reference-feature detection.

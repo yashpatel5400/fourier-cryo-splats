@@ -1,0 +1,97 @@
+{
+  "duration_api_ms": 253610,
+  "stop_reason": "end_turn",
+  "session_id": "ab5d6a22-6945-43f4-8cf3-bc7f8805afdf",
+  "total_cost_usd": 1.6431705,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 32801,
+    "cache_read_input_tokens": 3322,
+    "output_tokens": 19726,
+    "output_tokens_details": {
+      "thinking_tokens": 16300
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 32801,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 19726,
+        "cache_read_input_tokens": 3322,
+        "cache_creation_input_tokens": 32801,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 32801
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 2,
+      "outputTokens": 19726,
+      "cacheReadInputTokens": 3322,
+      "cacheCreationInputTokens": 32801,
+      "webSearchRequests": 0,
+      "costUSD": 1.6431705,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 16300,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I audited the enclosed source text without running anything. Findings below.\n\n## Identities that check out\n\n- **Derivative-tensor identity.** With `f = Re \u03a3 c_q e_q`, write `Re A = (A + \u0100)/2` and expand `\u222b\u2016D^m f\u2016\u00b2_F`. The cross pairing gives `<k_q^{\u2297m}, k_l^{\u2297m}>_F = (k_q\u00b7k_l)^m`, the phase factors give `(2\u03c0i)^m(\u22122\u03c0i)^m = (2\u03c0)^{2m}` for the difference term and `(2\u03c0i)^{2m} = (\u22121)^m(2\u03c0)^{2m}` for the sum term. The four blocks pair into conjugates, so the quarter becomes a half of a real part. The identity in the proposal and in `ball_sobolev_norms` is correct, and the sign `(\u22121)^m` on the sum-frequency term is right. Both kernels are real because both domains are origin-symmetric, which the identity needs.\n- **Ball kernel.** The indicator transform is `4\u03c0r\u00b3(sin z \u2212 z cos z)/z\u00b3 = 4\u03c0r\u00b3 j_1(z)/z`. I expanded `sin z \u2212 z cos z` by hand through `z\u00b9\u00b9`; the five series coefficients in the code are correct and the dropped term is about `z\u00b9\u2070/5.2e8`, negligible below `z = 0.05`.\n- **Cube kernel.** `\u03a0_j sin(2\u03c0r v_j)/(\u03c0 v_j)` equals `\u03a0_j 2r\u00b7sinc(2r v_j)` with numpy's normalized sinc. Correct.\n- **Path derivatives.** For `y(t) = R(t a u_r) x + t b` the derivatives are `a[u]_\u00d7 R x + b`, `a\u00b2[u]_\u00d7\u00b2 R x`, `a\u00b3[u]_\u00d7\u00b3 R x`. With a unit joint five-vector, `\u2016y'\u2016 \u2264 aR\u2016u_r\u2016 + s_i\u2016u_t\u2016 \u2264 hypot(aR, s_i)` by Cauchy\u2013Schwarz, and `H = a\u00b2R`, `T = a\u00b3R` follow from `\u2016u_r\u2016 \u2264 1`. See E1 for the condition on the pose set.\n- **Chain rule and change of variables.** `g''' = D\u00b3f[y',y',y'] + 3D\u00b2f[y'',y'] + Df[y''']`, pointwise Frobenius bounds, then Minkowski in L2 and a determinant-one rigid map onto a superset with nonnegative integrand. Sound. The Taylor factor `\u222b(1\u2212t)\u00b2/2 dt = 1/6` is right.\n- **Enclosures.** Ball: `\u2016Rx + tb\u2016 \u2264 R + s_i`. Cube: `|(Rx + tb)_j| \u2264 \u00bd + 2 sin(\u03b8/2)\u2016x\u2016 + s_i` with `\u03b8 \u2264 a`, monotone up to `\u03c0`, so the `min(angle, \u03c0)` cap is right for any angle.\n- **Dual translation.** `k\u00b7b = q\u00b7\u03c4` needs `E b = \u03c4`, so `b = E\u207a\u03c4` and `\u2016b\u2016 \u2264 shift/\u03c3_min(E)`. The code's `lstsq`, `pinv`, spectral norm and the residual `2\u03c0\u2016q \u2212 kE\u207a\u2016\u00b7shift` implement exactly this.\n- **Phase-residual bound.** Leibniz on `(e^{it\u03b4} \u2212 1)M(t)` with `|e^{it\u03b4} \u2212 1| \u2264 e` for `|t| \u2264 1` and `|M'| \u2264 v`, `|M''| \u2264 v\u00b2 + h`, `|M'''| \u2264 v\u00b3 + 3vh + j` gives exactly the recorded expression. Correct.\n- **Pose convention.** `pose_derivative_fields`, `perturbed_geometry` and the test all use row `k @ exp(angle[u]_\u00d7)`, and the linearization matrix entries match `d/du_a (k\u00b7(e_a \u00d7 x))`. The Hessian symmetric vectorization with `\u221a2` is consumed correctly in the test.\n\n## Issues\n\n**E1. Pose-set mismatch between the two per-particle bounds. Severity: high, conditional.**\nLocation: `particle_ball_remainder`, default `joint_ball=True`; probe never passes it.\nThe old bound in `sharp_cube_cubic_coefficients` uses the sum speed `a\u2016k\u2016c + s\u2016q\u2016`, valid for a product pose set, and the docstring of `scaled_pose_radius` says the cubic remainder covers both sets. The ball bound uses `hypot(aR, s_i)`, which is only valid when `\u2016u_r\u2016\u00b2 + \u2016u_t\u2016\u00b2 \u2264 1`. If the source audit was run with `pose_set='product'`, the per-particle minimum mixes a valid bound with an unproven one, and the recorded improvement is not a bound on the audited class. Nothing in the packet shows which set the source audit used.\nFix: pass `joint_ball = (audit['config']['pose_set'] == 'joint')`, raise if the key is absent, record the flag in the result JSON. Test: a product-set case with `\u2016u_r\u2016 = \u2016u_t\u2016 = 1` where the direct remainder is compared against the sum-speed bound, and a regression test that the joint bound is strictly below the sum bound so the flag actually matters.\n\n**E2. Radii hard-coded and additivity assumed. Severity: medium.**\nLocation: probe, `B, P = 2., 1.` and `bias = bias_upper \u2212 cubic_bias + selected`.\nThe 1e-12 check on the old cubic sum only verifies `B + P = 3`, not `B` alone, and `no_data = B\u00b7target_norm` depends on `B` individually. The subtraction is exact only if the source `bias_upper` is `min(joint, triangle)` with `(B+P)r` added to both branches, as in `joint_density_pose_bias`. The audit's `bound` dict is not shown, so this is assumed.\nFix: read `B`, `P` from the audit config; recompute `bias_upper` from the stored components with the old and new remainder and assert equality before use.\n\n**E3. Missing targeted falsification tests. Severity: medium.**\nLocation: `tests/test_uq_ball_remainder.py`.\n- Only eight random directions per case at one small angle. A bound that is loose by a large factor passes. Add a near-tight case: rotation zero, one frequency, real coefficient, where `g''' = \u2212\u03b8\u00b3 sin(\u00b7)` and the remainder norm has a closed form, and assert the ratio bound over actual lies in a known band.\n- No test exercises `s_i = s/\u03c3_min(E) > s`. Both nonlinear cases use an orthonormal embedding, so a missing `\u2016E\u207a\u2016` factor would not be caught. Add a case with `E` scaled by about `0.3` and a large shift.\n- No test above `angle = \u03c0` or near it, so the sine cap is untested.\n- No test for `joint_ball=False`.\n- The sum-frequency sign is only checked incidentally. Add a two-frequency case with `k_l = \u2212k_q`, where `K(k_q + k_l) = K(0)` makes a wrong sign fail by a large margin.\n- Add a coarse maximization over directions rather than random draws.\n\n**E4. Test independence is partial. Severity: low.**\nThe nonlinear test subtracts `pose_derivative_fields(backend='direct')`, project code. The direct exponentials for the actual field are independent, so a wrong polynomial field would usually inflate the residual and fail, but this is indirect. A finite-difference check of the first and second fields along random directions would close the gap.\n\n**E5. Floating-point guards are heuristic. Severity: low, disclosed.**\nLocation: `ball_sobolev_norms` pad `128\u00b7eps\u00b7N\u00b7mass`.\nThe pad ignores kernel evaluation error in `spherical_jn` and the relative error amplification in `dot**m` for `m = 3` at high band, where `(2\u03c0)^6\u2016k\u2016^6` is large. Recorded relative pads near 2e-11 mean cancellation is mild, so this is conservatism accounting, not a bug. A spot check of a few particles' `S_3\u00b2` in extended precision would substantiate the guard.\n\n**E6. Forward-model sign convention unverified. Severity: low.**\n`pose_cell_forward` applies `exp(\u22122\u03c0i \u03c4)` while the adjoint fields use `+`. This is consistent only if `cell_forward` uses `exp(\u22122\u03c0i k\u00b7x)`. That module is not in the packet.\n\n**E7. Provenance gaps. Severity: low.**\nThe ball-probe JSON lacks `domain` and neither result records `joint_ball` or the per-particle `path_speed_bound`. The proposal's first section still states `L = aR + s_i` and is only corrected later. The `isinstance(m, int)` check rejects numpy integers.\n\n## Selection probability and event reuse\n\nThe per-particle minimum introduces no unaccounted selection probability. Both bounds are deterministic functions of the fixed weights, geometry, transfer and known noise scale. They do not depend on inference-set noise. The minimum of two valid deterministic upper bounds on the same quantity is a valid bound, and choosing to run the cube probe after seeing the ball result changes nothing for coverage. The noise event and the residual-norm event used by the source audit are untouched, so reusing them is legitimate. This holds only if E1 is resolved so both bounds cover the same pose class, and only under the source audit's assumption that weights were fit independently of the inference half.\n\n## What the probes show\n\nBoth retained results are consistent with the code as read. The cube enclosure gives a smaller half-width than the no-data fallback, but the half-width still exceeds the target by more than an order of magnitude, and every reference scenario has zero correct-sign probability. Valid mathematics here changes a remainder constant; it does not change the density class, the assumed nuisance radii, or the absence of experimental calibration.\n\n## Unverified\n\n- The source audit's pose set and its `bound` decomposition.\n- `cell_forward` sign convention.\n- Accuracy of `spherical_jn` and pairwise summation at the recorded magnitudes.\n- Weight independence from the inference half.\n- The test log itself, which I did not run.",
+  "ttft_ms": 211621,
+  "type": "result",
+  "duration_ms": 253686,
+  "uuid": "ff9c8e95-9396-401c-bd3c-6def1cefec91",
+  "ttft_stream_ms": 992,
+  "time_to_request_ms": 57,
+  "first_content_frame_ms": 993,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

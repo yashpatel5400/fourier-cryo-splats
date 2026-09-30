@@ -1,0 +1,97 @@
+{
+  "duration_api_ms": 330844,
+  "stop_reason": "end_turn",
+  "session_id": "eeb9caa3-3089-4aaf-b8d1-a2a41f13959f",
+  "total_cost_usd": 2.0489305,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 39259,
+    "cache_read_input_tokens": 3322,
+    "output_tokens": 25258,
+    "output_tokens_details": {
+      "thinking_tokens": 20939
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 39259,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 25258,
+        "cache_read_input_tokens": 3322,
+        "cache_creation_input_tokens": 39259,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 39259
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 2,
+      "outputTokens": 25258,
+      "cacheReadInputTokens": 3322,
+      "cacheCreationInputTokens": 39259,
+      "webSearchRequests": 0,
+      "costUSD": 2.0489305,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 20939,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I reviewed the protocol, module, script, tests and the two completed records by hand, without executing anything.\n\n## Identities that check out\n\n**Dual signs.** Write rho_j = pilot + d_j and p = A1 pilot minus A0 pilot. The observation constraint gives w'(A1 d1 minus A0 d0) <= tau||w|| minus w'p for every w. Splitting ell'd1 minus ell'd0 through the adjoints yields ell'(d1 minus d0) <= B||ell minus A1*w|| + B||ell minus A0*w|| + tau||w|| minus w'p. That is exactly G(w) and the code's `B*residuals.sum()-w@p+tau*norm(w)`. Padded residual norms only enlarge G, so the reported upper stays a valid upper bound on the fixed-pair modulus. Weak duality suffices; strong duality is not needed for validity.\n\n**Construction and scaling.** rho1 = pilot + a1 h1 and rho0 = pilot minus a0 h0 with a_j = B/upper(||h_j||) sit inside the ball. Feature gap a1(||ell||^2 minus w'A1 ell) + a0(||ell||^2 minus w'A0 ell) and mean difference p + a1(A1 ell minus A1A1*w) + a0(A0 ell minus A0A0*w) match the code's `target` and `action` terms. For lambda in [0,1], ||lambda rho minus pilot|| <= lambda B + (1 minus lambda)P <= B when P <= B, and the script asserts P = 1 while the module rejects B < P. Scaling multiplies both the image distance and the feature by lambda, which the code does.\n\n**Testing threshold.** Whitened Gaussian means at distance D have minimum summed error 2Phi(minus D/2). The contradiction needs Phi(minus D/2) > alpha, that is D < 2 Phi^{-1}(1 minus alpha), so tau uses the 0.95 quantile and not 0.975. The 0.9999 factor makes the inequality strict. The deterministic-length restriction is what lets membership of the first feature bound the type II error by alpha; the argument extends only to lengths bounded almost surely by something below the gap. The script tests against `mean_distance_upper`, an upper bound on D, and 2Phi(minus D/2) is decreasing in D, so the recorded testing error is a lower bound on the true one. Correct direction.\n\n**Phase-rotated Gram.** Translation multiplies each complex Fourier sample by a unit phase, which is a real orthogonal rotation of each (cos, sin) pair. matvec = R G R*, target = R A ell, action-error norm and coefficient absolute sums are invariant under R, and the preconditioner is conjugated consistently. The test's explicit matrix uses phase minus 2pi(k.x + t) with cosine and sine rows, which matches e^{minus i phi} = cos phi minus i sin phi and the base adjoint convention with isign = +1. Sign conventions do not affect validity of the lower bound because both signs of the pose are used and the pose ball is symmetric; they only matter for class comparison with the upper audit.\n\n**Arithmetic on the records.** Both records are internally consistent to the digits shown:\n\n| quantity | nominal center | coherent_x contrast |\n|---|---|---|\n| B/residual = amplitude | 2/0.612079 = 3.26755 | 2/0.929739 = 2.15114, 2/0.930757 = 2.14879 |\n| scale = tau/unscaled distance | 3.28938/3.30780 = 0.99443 | 3.28938/3.29779 = 0.99745 |\n| relative half-width = gap/2 / (2||ell||) | 1.40502/16.1799 = 0.08684 | 2.10279/19.5386 = 0.10762 |\n| roundoff pad 64 eps magnitude | implies magnitude 260, so w'a and w'Gw near 65 | implies magnitude 379, w'a near 94 |\n| mean pad = sum a times action error | 2 times 3.26755 times 3.77e-17 = 2.46e-16 | consistent |\n\nThe nominal case has p = 0, equal residuals and equal amplitudes, as identical operators require. In both records the unscaled feature exceeds the dual upper, which is not a contradiction because the unscaled pair violates the tau constraint. The scaled features are below the duals by the reported relative gaps. tau = 0.9999 times 2 times 1.64485 = 3.289378 and 2Phi(minus tau/2) = 0.10003 both reproduce. Module hashes are identical across the v1 and v2 records; only the script hash changed, consistent with the stated serialization-only fix.\n\n## Issues\n\n**T1. Silent clipping of an inconsistent residual square.** Severity: medium. Location: `two_pose_witness`, the `residuals.append(np.sqrt(max(0., ...)))` line. Unlike `continuous_residual_norm` in `uq_continuous.py`, which raises when the padded square is negative, this function clips to zero. A zero residual then gives amplitude B/tiny of order 1e307, the mean sum can overflow to inf, scale becomes 0 or nan, and the feature can become 0 times inf = nan. The only finiteness guard is on the CG iterate, not on the witness. A nan feature would fail the `>` comparison silently and the case would report the previous best without any error. Fix: raise when the padded square is below zero, and add `np.isfinite` checks on amplitude, distance, scale and feature before returning. Falsification test: pass a DenseGram with `target` returning a slightly wrong norm2 so the square is negative, and assert a raise rather than a returned record.\n\n**T2. Integration-pad paths are never exercised by a test.** Severity: medium. Location: `tests/test_uq_two_pose_modulus.py`. `DenseGram.quadrature_error` returns zeros, so the tests cannot detect a wrong sign or wrong scale in `squared_field_norm`, `gram_action_norm`, or the way `two_pose_witness` combines them, and `PhaseRotatedGram.target`, `quadrature_error` and `preconditioner` are untested. The third test verifies the quadrature Gram against a matrix built from the same quadrature, so it also does not check that the pad covers the gap to the exact continuous Gram. Fix: build a tiny problem with a deliberately crude `QuadratureObservationGram` of order 3 or 4 so `kernel_error` is large, build the exact `ContinuousObservationGram` on the same frequencies, and assert that the exact ||A_j* w|| is at most `residual_norms_upper[j]` and the exact ||A1 rho1 minus A0 rho0|| is at most `mean_distance_upper`, for both scaled and unscaled witnesses. Also assert `PhaseRotatedGram(...).target` equals the explicit rotated matrix times ell.\n\n**T3. The pilot-mean path is not tested against the nonlinear projection.** Severity: low. Location: `run_uq_two_pose_modulus.py`, the line `means.append(wrapped.rotate(cell_forward(k,...)))`. The protocol promises a comparison of the phase wrapper with constant-cell projections, but the tests only compare against an explicit Fourier matrix. `pose_cell_forward` in `uq_continuous_pose.py` computes the same quantity and would lock the sign convention. Fix: add `assert_allclose(wrapped.rotate(cell_forward(rotated_k,...)), pose_cell_forward(k,q,ctf,pilot,box,noise,pose,angle,shift))`.\n\n**T4. Dual-upper weights and pair diagnostics are not saved.** Severity: low. Location: `optimize_two_pose_modulus` return value and the `np.savez` call. `best_weights` are the weights of the best feasible lower, while `dual_upper` is the minimum over all iterations and may come from a different iterate. In both shown records the last iterate achieved both, but that is not guaranteed. ||p|| is not recorded anywhere, although it determines whether the pose pair alone already separates the observations. The final history row lacks CG fields by construction, and the JSON does not record a hash of its npz companion. Fix: save the iteration index and weights of the best upper, store ||p|| and ||w|| in the witness, and hash the npz into the JSON. Falsification test: a case where the dual at the best-lower weights differs from `dual_upper` by more than the tolerance; assert the record exposes both.\n\n**T5. Feature gap carries no downward floating-point pad.** Severity: low, already disclosed. Location: `two_pose_witness`, `feature=...`. Residual squares and the image distance are padded upward, but the reported gap is the plain floating value of a length 2n nq inner product. The lower bound therefore has real-arithmetic validity only up to unvalidated roundoff, as the `numerical_scope` field says. Since the dual-to-lower gaps are 0.2 to 0.5 percent and the roundoff scale is 1e-12, this cannot change any conclusion here, but a symmetric downward pad of the same 64 eps magnitude form would make the reporting uniform. No test needed; document in the protocol that the feature gap is unpadded.\n\n**T6. Normalization of the relative half-width is unverified against the upper audit.** Severity: low. Location: `relative_half_width_lower=... /(2*fit['target_norm'])`. Dividing by twice the target norm is a convention that must match whatever the pose-aware upper widths divide by. Nothing in the packet shows that definition. If the conventions differ by the factor two, every lower-versus-upper comparison in the grid is off by that factor. Fix: import the same normalizer from the upper-width code or compare unnormalized half-widths.\n\n**T7. Pose class identity between the two audits is asserted, not shown.** Severity: low. Location: `perturbed_geometry` and the `pose_set` field. The lower bound is valid for any class containing the two scaled pairs, so it remains valid for a superset class. It becomes uninformative for comparison if the upper audit's class is smaller, for instance separate rotation and translation balls with different radii, or a different radius scaling for the unit five-vector. The upper audit code shown uses the same row convention k @ exp(angle [u]_x) and the same `shift` scaling of q, which is consistent, but the joint-ball definition used by its spectral bound is not in the packet.\n\n**T8. Whitening assumptions behind the threshold.** Severity: low, already disclosed. The 2Phi(minus D/2) formula needs identity covariance on the packed real and imaginary components after dividing by one scalar noise level. If the true covariance is not identity, for example through Friedel-related duplication or frequency-dependent noise, the correct distance is the Mahalanobis one and the recorded testing error is not a bound in either direction. This is the calibration gap the protocol declines to address; the lower bound is conditional on the declared noise model.\n\n**T9. The v1 record was edited after the crash.** Severity: informational. The file in `two-pose-modulus/` contains `error`, `failure_log` and `failure_log_sha256` fields that the crashed script could not have written. The content is consistent with the trace, the pre-fit `save()` succeeding, and the v2 iterations reproducing the same four rows to all digits. The record should state that these fields were added by hand.\n\nOne interpretive remark. Under `coherent_x` every particle rotates the same way, so the class contains a near-global rotation of the density. That is a genuine ambiguity of the declared class, not an artefact, and the isotropic center target is nearly invariant to it while the z-contrast target is not. The larger contrast gap in the second record is therefore expected, and neither number says anything about tightness of the upper widths, as the protocol correctly states.\n\n## What remains unverified\n\n- Any execution result. I did not run the tests, the script or the conic comparison; the test log line is taken as reported.\n- The Gauss remainder constant in `kernel_error` and the tensor summation argument, which are pre-existing and not part of this construction.\n- That `cellop.expand` returns coefficients in an orthonormal cell basis so the asserted pilot norm is the L2 norm of the class.\n- The exact pose-class definition and the relative-width normalization used by the pose-aware upper audit, per T6 and T7.\n- The noise-model claim that whitened observations have identity covariance, per T8.\n- The full running grid: only two completed cases were checked, so the `random_boundary` and 2 degree scenarios, the other two stacks, failure counts, and CG convergence statistics across the grid are unexamined.\n- Which numpy boolean caused the v1 serialization failure, since the v1 script is not in the packet.",
+  "ttft_ms": 276047,
+  "type": "result",
+  "duration_ms": 330904,
+  "uuid": "f047da0a-13c6-4985-b523-efaedc94cb73",
+  "ttft_stream_ms": 1038,
+  "time_to_request_ms": 37,
+  "first_content_frame_ms": 1038,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

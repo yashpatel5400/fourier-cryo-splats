@@ -1,0 +1,77 @@
+\subsection{Constructive ambiguity from two feasible pose designs}
+Wide upper bounds alone cannot distinguish intrinsic ambiguity from a loose
+audit. We therefore construct lower bounds from two allowed pose designs,
+using the classical Gaussian testing argument \citep{donoho1994}. This is a
+diagnostic on the same declared class, not a new minimax principle.
+
+Let $A_0,A_1$ be two allowed observation operators, and let
+$\rho_j$ belong to $\mathcal C=\{\rho:\norm{\rho-\rho_0^{\rm pilot}}\le B\}$.
+Both designs have identity observation covariance. If
+\begin{equation}
+ D=\norm{A_1\rho_1-A_0\rho_0}<2\Phi^{-1}(1-\alpha),
+ \label{eq:two-pose-distance}
+\end{equation}
+then every uniformly $1-\alpha$ valid interval whose length is deterministic
+must have half-length at least
+$|\langle\ell,\rho_1-\rho_0\rangle|/2$. Indeed, if a shorter interval
+contained either feature with probability at least $1-\alpha$, its membership
+test for one feature would distinguish the two hypotheses with both error
+probabilities at most $\alpha$. The minimum sum of errors for their Gaussian
+distributions is $2\Phi(-D/2)>2\alpha$, a contradiction. This conclusion does
+not bound the expected length of arbitrary variable-length intervals.
+
+Write $p=A_1\rho_0^{\rm pilot}-A_0\rho_0^{\rm pilot}$ and choose a distance
+budget $\tau<2\Phi^{-1}(1-\alpha)$. For any observation weights $w$,
+\begin{equation}
+ G(w)=B\sum_{j=0}^1\norm{\ell-A_j^*w}-w^\top p+\tau\norm w
+ \label{eq:two-pose-dual}
+\end{equation}
+upper-bounds the largest feasible feature gap for this fixed pair of pose
+designs. To see this, insert $A_j^*w$ into the two feature pairings, apply
+the density-ball bounds, and use
+$w^\top(A_1\rho_1-A_0\rho_0)\le\tau\norm w$.
+
+The same weights yield explicit continuous witnesses. Put
+$h_j=\ell-A_j^*w$, choose $r_j\ge\norm{h_j}$, and set
+\begin{equation}
+ \widetilde\rho_1=\rho_0^{\rm pilot}+Bh_1/r_1,\qquad
+ \widetilde\rho_0=\rho_0^{\rm pilot}-Bh_0/r_0.
+\end{equation}
+If $r_j=0$, its perturbation is set to zero. Their mean difference is
+$p+\sum_j(B/r_j)(A_j\ell-A_jA_j^*w)$ and their feature difference is
+$\sum_j(B/r_j)(\norm\ell^2-w^\top A_j\ell)$. Let $\overline D$ bound the
+mean-distance norm. Multiplying both densities by
+$\lambda=\min(1,\tau/\overline D)$ (one if $\overline D=0$) makes them feasible for
+Equation~\eqref{eq:two-pose-distance}. This scaling preserves the original
+class when $\norm{\rho_0^{\rm pilot}}\le B$, because zero is in the ball
+and the ball is convex. Thus the scaled feature gap supplies a constructive
+lower bound even if optimization is incomplete.
+
+We minimize Equation~\eqref{eq:two-pose-dual} by iteratively reweighted
+quadratic solves and retain both the best feasible pair and the best dual
+weights, which may occur at different iterations. Continuous Gram integration
+errors pad each residual norm and the mean-distance norm. Translation is a
+real orthogonal rotation of each Fourier cosine/sine pair, so the phase-wrapped
+Gram and target preserve those error norms. The witnesses are continuous
+target/adjoint fields plus the known pilot; they are not restricted to a voxel
+representation. Floating-point magnitude guards are additional numerical
+checks, not validated interval arithmetic.
+
+The prespecified development grid uses the existing 128-particle, radius-5
+geometries and broad targets on three stacks. It includes identical nominal
+poses, antipodal coherent rotations, and antipodal random joint-ball poses at
+one and two degrees with $0.5\,\AA$ translation radius. The same random unit
+vectors are used at both angular budgets. Independent conic programs check
+small Hilbert-space cases; deliberately crude quadrature is checked against
+the exact continuous sinc Gram; nonlinear constant-cell projections check
+the phase convention. A serialization failure and the first complete grid
+remain archived. The final rerun adds the numerical guards and separate
+witness records requested by the focused mathematical audit.
+
+\input{tables/two-pose-modulus}
+The fixed-pair problems are solved to relative brackets below 0.5\%. Their
+lower bounds remain substantially smaller than several pose-aware upper
+intervals. This leaves a gap: the selected configurations need not maximize
+ambiguity, so these results do not prove that the larger upper bounds can be
+attained or substantially reduced. The testing statement also retains the
+declared white-Gaussian noise, density and nuisance assumptions.

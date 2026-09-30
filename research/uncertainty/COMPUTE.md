@@ -70,3 +70,30 @@ This establishes that the stock unknown-pose path executes locally. It neither
 demonstrates convergence nor measures GPU throughput. Linear particle-count
 extrapolation from this tiny run would ignore changing search difficulty,
 batching, memory, and convergence, so it is not a cloud cost quotation.
+
+## Larger continuous audit and transform reuse
+
+A physical 10 Å central-target fit on 1,024 particles from 10049, Fourier
+radius 12 and order-80 quadrature completed its solve/reference checks in
+3,583 seconds under concurrent Mac load. Its fixed-pose sum-objective gap is
+0.000992; this is not a pose-robust fit. The separate pose audit completed in
+1,491 seconds at 1.08 GB peak memory, but returns the no-data interval at one
+degree and 0.5 Å because its cubic remainder dominates.
+
+Reusable CPU FINUFFT plans were checked against fresh plans on the same real
+acquisition coordinates and seeded coefficients. Outputs agreed to working
+precision. With 1,024 particles, radius 12 and order 80, mean warm matvec time
+improved by factors 1.111 for the observation Gram and 1.055 for the pose
+operator (three calls per variant, the first treated as cold). At 128 particles
+the factors were 1.317 and 1.009. These concurrent-load probes are not isolated
+performance benchmarks and do not justify a large speedup claim. Optional
+subclasses preserve the frozen implementations; they are used in the new
+two-pose development test, while existing running jobs retain their original
+source snapshots. The API is documented at
+https://finufft.readthedocs.io/en/latest/python.html.
+
+Current GPU documentation includes type-3 transforms:
+https://finufft.readthedocs.io/en/latest/python_gpu.html. Any GPU port still
+requires double-precision conformance and measured-memory tests on actual
+hardware. No CUDA speedup or GPU-hour requirement has been measured here,
+and no GPU rental has been made.

@@ -125,7 +125,7 @@ A matrix-free variant integrates only the finite Fourier adjoint field with Gaus
 \begin{equation}\label{eq:continuouspose}
 b\le B\norm{h}+(B+P)\left(L_{12}+\tfrac16\sum_iK_{3i}\norm{w_i}\right).
 \end{equation}
-Here $K_{3i}$ uniformly bounds the continuous third-derivative operator. Appendix~\ref{sec:continuouspose} derives the constants and integration error. The frozen studies post-audit fixed-pose weights. The post-review implementation also optimizes a continuous pose-aware objective (Appendix~\ref{sec:revision}); it retains a conservative pilot norm and does not claim nonlinear optimality.
+Here $K_{3i}$ uniformly bounds the continuous third-derivative operator. Appendix~\ref{sec:continuouspose} derives the constants and integration error. The frozen studies post-audit fixed-pose weights. The post-review implementation also optimizes a continuous pose-aware objective and tightens the subsequent audit using residual/pose cross terms and exact known-pilot pairings (Appendix~\ref{sec:revision}); it does not claim nonlinear optimality.
 
 An integrated-moment refinement replaces the spatial-maximum cubic remainder by
 \begin{equation}
