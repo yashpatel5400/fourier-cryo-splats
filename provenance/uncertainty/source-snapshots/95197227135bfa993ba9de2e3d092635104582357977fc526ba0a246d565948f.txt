@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+"""Execute the declared three-stack CPU reconstruction batch, retaining failures."""
+import argparse
+import csv
+import hashlib
+import json
+import os
+from pathlib import Path
+import signal
+import subprocess
+import time
+import mrcfile
+import numpy as np
+import pandas as pd
+import starfile
+from fourier_splats.uq_provenance import source_snapshot
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = ROOT/'results/uncertainty/development/relion-reconstruction-v1'
+DATA = ROOT/'data/uncertainty/relion-reconstruction-v1'
+BIN = ROOT/'tmp/relion-env/bin'
+PROTOCOL = ROOT/'research/uncertainty/RELION-BASELINE-PROTOCOL.md'
+
+
+def sha(p):
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+
+
+def save(p, record):
+    temporary = p.with_suffix('.json.tmp')
+    temporary.write_text(json.dumps(record, indent=2)+'\n'); temporary.replace(p)
+
+
+def prepare(ds):
+    out = BASE/ds; data = DATA/ds
+    if out.exists() or data.exists():
+        raise RuntimeError('Refuse to replace an existing attempt')
+    out.mkdir(parents=True); data.mkdir(parents=True)
+    source = ROOT/'data'/ds
+    manifest = json.loads((source/'manifest.json').read_text())
+    meta = np.load(source/'metadata.npz'); images = np.load(source/'images.npy', mmap_mode='r')
+    rows = list(csv.DictReader((ROOT/f'research/uncertainty/splits/{ds}.csv').open()))
+    names = ('pilot', 'inference_half0', 'inference_half1')
+    selected = [r for r in rows if r['split'] in names]
+    ids = np.array([int(r['output_index']) for r in selected]); n = len(ids)
+    labels = np.array([r['split'] for r in selected]); groups = np.array([r['source_group'] for r in selected])
+    assert not set(groups[labels == names[1]]) & set(groups[labels == names[2]])
+    box = images.shape[-1]; pixel = manifest['pixel_size_A']; field = pixel*box
+    yy, xx = np.meshgrid(np.arange(box)-box//2, np.arange(box)-box//2, indexing='ij')
+    background = xx**2+yy**2 > (.43*box)**2
+    raw = np.asarray(images[ids], dtype=np.float64)
+    mean = raw[:, background].mean(axis=1); scale = raw[:, background].std(axis=1)
+    assert np.isfinite(raw).all() and np.min(scale) > 0
+    values = (-manifest['data_sign']*(raw-mean[:, None, None])/scale[:, None, None]).astype(np.float32)
+    with mrcfile.new(data/'particles.mrcs') as m:
+        m.set_data(values); m.voxel_size = pixel
+    np.testing.assert_allclose(values[:, background].mean(axis=1), 0, atol=1e-6)
+    np.testing.assert_allclose(values[:, background].std(axis=1), 1, atol=1e-6)
+    params = meta['ctf'][ids].astype(float)
+    assert np.all(params[:, [5, 6, 7]] == params[0, [5, 6, 7]])
+    optics = pd.DataFrame({'rlnOpticsGroupName': ['opticsGroup1'], 'rlnOpticsGroup': [1],
+        'rlnVoltage': [params[0, 5]], 'rlnSphericalAberration': [params[0, 6]],
+        'rlnAmplitudeContrast': [params[0, 7]], 'rlnImagePixelSize': [pixel],
+        'rlnImageSize': [box], 'rlnImageDimensionality': [2]})
+    particles = pd.DataFrame({'rlnImageName': [f'{i+1:06d}@particles.mrcs' for i in range(n)],
+        'rlnOpticsGroup': np.ones(n, dtype=int), 'rlnDefocusU': params[:, 2], 'rlnDefocusV': params[:, 3],
+        'rlnDefocusAngle': params[:, 4], 'rlnPhaseShift': params[:, 8]})
+    for name, mask in [('pilot', labels == 'pilot'), ('refinement', labels != 'pilot')]:
+        table = particles.loc[mask].copy()
+        if name == 'refinement': table['rlnRandomSubset'] = np.where(labels[mask] == 'inference_half0', 1, 2)
+        starfile.write({'optics': optics, 'particles': table}, data/f'{name}.star')
+        back = starfile.read(data/f'{name}.star')['particles']
+        assert len(back) == int(mask.sum()) and not any('AngleRot' in k or 'Origin' in k for k in back)
+        if name == 'refinement': np.testing.assert_array_equal(back.rlnRandomSubset, table.rlnRandomSubset)
+    table_path = data/'selection.csv'
+    with table_path.open('w') as f:
+        w = csv.writer(f, lineterminator='\n');w.writerow(['stack_index','output_index','split','source_group'])
+        w.writerows(zip(np.arange(n)+1, ids, labels, groups))
+    files = [source/'manifest.json', source/'metadata.npz', source/'images.npy',
+        ROOT/f'research/uncertainty/splits/{ds}.csv', data/'particles.mrcs', data/'pilot.star',
+        data/'refinement.star', table_path, PROTOCOL, Path(__file__)]
+    record = {'complete': False, 'stage': 'prepared', 'dataset': ds, 'pixel_size_A': pixel, 'box': box,
+        'seed': 670100+int(ds), 'field_A': field, 'counts': {name: int(np.sum(labels == name)) for name in names},
+        'input_hashes': {str(p.relative_to(ROOT)): sha(p) for p in files},
+        'supplied_poses_or_density': False, 'source_snapshot': source_snapshot(ROOT, Path(__file__), [str(PROTOCOL.relative_to(ROOT))]),
+        'executables': {name: sha(BIN/name) for name in ['relion_refine','relion_refine_mpi','mpirun']},
+        'runs': []}
+    save(out/'record.json', record); return record
+
+
+def execute(ds):
+    out = BASE/ds; data = DATA/ds; path = out/'record.json'; record = json.loads(path.read_text())
+    if record['stage'] != 'prepared' or record['runs']: raise RuntimeError('Do not overwrite earlier execution')
+    for name, digest in record['input_hashes'].items():
+        if sha(ROOT/name) != digest: raise RuntimeError(f'Locked input changed: {name}')
+    for name, digest in record['executables'].items():
+        if sha(BIN/name) != digest: raise RuntimeError('Executable changed')
+    common = ['--ctf','--K','1','--sym','C1','--flatten_solvent','--zero_mask',
+        '--dont_combine_weights_via_disc','--preread_images','--pool','30',
+        '--particle_diameter',str(.8*record['field_A']), '--oversampling','1','--offset_step','2',
+        '--j','2','--random_seed',str(record['seed'])]
+    initializer = [str(BIN/'relion_refine'),'--i','pilot.star','--o',str(out/'initial'),
+        '--grad','--denovo_3dref','--iter','100','--healpix_order','1','--offset_range','6',
+        '--auto_sampling','--tau2_fudge','4','--pad','1','--grad_ini_subset','128',
+        '--grad_fin_subset',str(min(1024,record['counts']['pilot'])),'--grad_ini_resol','60',
+        '--grad_fin_resol',str(max(15.,3*record['pixel_size_A'])),'--grad_write_iter','10',*common]
+    refinement = [str(BIN/'mpirun'),'-np','3',str(BIN/'relion_refine_mpi'),
+        '--i','refinement.star','--o',str(out/'refine'),'--auto_refine','--split_random_halves',
+        '--ref',str(out/'initial_it100_class001.mrc'),'--firstiter_cc','--ini_high','50',
+        '--iter','50','--healpix_order','2','--auto_local_healpix_order','4','--offset_range','5',
+        '--low_resol_join_halves','40','--norm','--scale','--pad','2',*common]
+    for stage, command, limit in [('initial',initializer,1800),('refine',refinement,7200)]:
+        run = {'stage': stage, 'command': command, 'wall_limit_seconds': limit, 'complete': False}
+        record['stage'] = stage; record['runs'].append(run); save(path, record)
+        log = ROOT/f'logs/uncertainty/relion-{ds}-{stage}.log'; start = time.perf_counter()
+        with log.open('w') as f:
+            p = subprocess.Popen(command, cwd=data, stdout=f, stderr=subprocess.STDOUT, start_new_session=True,
+                env={**os.environ,'OMP_NUM_THREADS':'2','OPENBLAS_NUM_THREADS':'1'})
+            try:
+                code = p.wait(timeout=limit); status = 'finished' if code == 0 else 'failed'
+            except subprocess.TimeoutExpired:
+                os.killpg(p.pid, signal.SIGTERM)
+                try: p.wait(timeout=10)
+                except subprocess.TimeoutExpired: os.killpg(p.pid, signal.SIGKILL); p.wait()
+                code = p.returncode; status = 'wall_limit'
+        run.update(complete=True, status=status, returncode=code, seconds=time.perf_counter()-start,
+                   log=str(log.relative_to(ROOT)), log_sha256=sha(log))
+        save(path, record); print(ds, stage, status, run['seconds'], flush=True)
+        if status != 'finished': break
+    optimisers = sorted(out.glob('*_optimiser.star'))
+    record['optimiser_status'] = []
+    for file in optimisers:
+        meta = starfile.read(file)
+        record['optimiser_status'].append({'path': str(file.relative_to(ROOT)), 'sha256': sha(file),
+            **{k: meta.get(k) for k in ['rlnCurrentIteration','rlnHasConverged','rlnGradHasConverged']}})
+    final = out/'refine_optimiser.star'
+    record['refinement_converged'] = bool(final.exists() and starfile.read(final).get('rlnHasConverged') == 1)
+    expected = starfile.read(data/'refinement.star')['particles'].set_index('rlnImageName').rlnRandomSubset.to_dict()
+    record['half_label_checks'] = []
+    for file in sorted(out.glob('refine*_data.star')):
+        table = starfile.read(file)['particles']
+        actual = table.set_index('rlnImageName').rlnRandomSubset.to_dict()
+        record['half_label_checks'].append({'path': str(file.relative_to(ROOT)),
+            'sha256': sha(file), 'same_particles_and_halves': actual == expected})
+    record['half_labels_verified'] = bool(record['half_label_checks']) and all(
+        x['same_particles_and_halves'] for x in record['half_label_checks'])
+    record.update(complete=True, stage='fit_execution_complete', evaluation_complete=False,
+        scope='All fit outcomes retained; reconstruction evaluation is a separate pending step.')
+    save(path, record)
+
+
+def main():
+    p = argparse.ArgumentParser(); p.add_argument('--prepare-only', action='store_true'); args = p.parse_args()
+    for ds in ['10028','10049','10076']:
+        if args.prepare_only:
+            r = prepare(ds); print(ds, r['counts'], flush=True)
+        else:
+            try:
+                execute(ds)
+            except Exception as error:
+                # A software/preparation failure must not hide the other stacks.
+                path = BASE/ds/'record.json'
+                record = json.loads(path.read_text())
+                record.update(complete=True, error=repr(error), stage='execution_error',
+                              evaluation_complete=False, refinement_converged=False)
+                save(path, record); print(ds, 'ERROR', repr(error), flush=True)
+
+
+if __name__ == '__main__': main()

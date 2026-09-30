@@ -97,3 +97,15 @@ https://finufft.readthedocs.io/en/latest/python_gpu.html. Any GPU port still
 requires double-precision conformance and measured-memory tests on actual
 hardware. No CUDA speedup or GPU-hour requirement has been measured here,
 and no GPU rental has been made.
+
+## Native conventional reconstruction baseline
+
+An isolated Bioconda Apple Silicon RELION 5.0.1 installation ran five VDAM
+mini-batches on 256 old 10028 pilot particles in 14.794 seconds, with
+267,403,264 bytes peak child-process RSS. It used no supplied poses or density.
+This is a runtime probe, not a converged reconstruction. The analytic CTF
+convention check retains a maximum 0.000409 discrepancy from the distinct
+wavelength constants. The executable, package environment and outcomes are
+hashed. The separately declared three-stack baseline uses pilot-only
+initialization and exposure-separated refinement halves, with explicit runtime
+limits and convergence reporting; GPU throughput is still unmeasured.
