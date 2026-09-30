@@ -1,0 +1,107 @@
+"""Coordinate whitening for a block-diagonal plus low-rank design metric.
+
+This is an optimization device only. It supplies no interval or statistical
+certificate. Forward and gradient maps differ because the whitening is not
+symmetric. Frozen empirical solvers are unchanged.
+"""
+import numpy as np
+
+
+class BlockLowRankCoordinates:
+    """T = D^{-1/2}(I + D^{-1/2}UU' D^{-1/2})^{-1/2}.
+
+    D has separate particle/real-imag frequency blocks. U has one global factor
+    per real/imag coordinate class, matching QuadratureObservationGram packing.
+    """
+    def __init__(self, blocks, factors):
+        blocks = np.asarray(blocks, float)
+        if blocks.ndim != 4 or blocks.shape[1] != 2 or blocks.shape[2] != blocks.shape[3]:
+            raise ValueError('Particle by coordinate by square-frequency blocks required')
+        self.n, _, self.nq, _ = blocks.shape
+        if len(factors) != 2 or not np.isfinite(blocks).all():
+            raise ValueError('Two finite low-rank coordinate factors required')
+        error = np.max(abs(blocks-blocks.swapaxes(-1, -2)))
+        if error > 1e-12*max(1., np.max(abs(blocks))):
+            raise ValueError('Symmetric blocks required')
+        eigenvalues, eigenvectors = np.linalg.eigh(.5*(blocks+blocks.swapaxes(-1, -2)))
+        if np.min(eigenvalues) <= 0:
+            raise ValueError('Strictly positive diagonal blocks required')
+        self.half = np.einsum('ncij,ncj,nckj->ncik', eigenvectors, np.sqrt(eigenvalues), eigenvectors)
+        self.inverse_half = np.einsum('ncij,ncj,nckj->ncik', eigenvectors, 1/np.sqrt(eigenvalues), eigenvectors)
+        self.low_rank = []
+        self.diagnostics = {'minimum_block_eigenvalue': float(eigenvalues.min()),
+            'maximum_block_eigenvalue': float(eigenvalues.max()), 'retained_ranks': [],
+            'low_rank_truncations': []}
+        for coordinate, factor in enumerate(factors):
+            factor = np.asarray(factor, float)
+            if factor.ndim != 2 or factor.shape[0] != self.n*self.nq or not np.isfinite(factor).all():
+                raise ValueError('Finite global frequency-by-rank factors required')
+            transformed = np.einsum('nij,njr->nir', self.inverse_half[:, coordinate], factor.reshape(self.n, self.nq, -1))
+            transformed = transformed.reshape(self.n*self.nq, -1)
+            if transformed.shape[1]:
+                values, vectors = np.linalg.eigh(transformed.T@transformed)
+                # Drop only numerical null directions of the nonnegative Gram.
+                cutoff = 64*np.finfo(float).eps*max(1., values.max())
+                keep = values > cutoff
+                self.diagnostics['low_rank_truncations'].append({'cutoff': float(cutoff),
+                    'minimum_gram_eigenvalue': float(values.min()),
+                    'largest_omitted_positive_eigenvalue': float(max(0., np.max(values[~keep], initial=0.)))})
+                values = values[keep]; transformed = transformed@vectors[:, keep]
+            else:
+                values = np.empty(0)
+                self.diagnostics['low_rank_truncations'].append({'cutoff': 0., 'minimum_gram_eigenvalue': None, 'largest_omitted_positive_eigenvalue': 0.})
+            self.low_rank.append((transformed, values))
+            self.diagnostics['retained_ranks'].append(len(values))
+
+    def _block_action(self, matrix, vector):
+        return np.einsum('ncij,ncj->nci', matrix, np.asarray(vector).reshape(self.n, 2, self.nq)).ravel()
+
+    def _low_rank_power(self, vector, power):
+        packed = np.asarray(vector).reshape(self.n, 2, self.nq); result = np.empty_like(packed)
+        for coordinate, (factor, values) in enumerate(self.low_rank):
+            part = packed[:, coordinate].ravel()
+            # log1p/expm1 avoid cancellation in ((1+lambda)^p-1)/lambda.
+            multiplier = np.expm1(power*np.log1p(values))/values
+            result[:, coordinate] = (part+factor@(multiplier*(factor.T@part))).reshape(self.n, self.nq)
+        return result.ravel()
+
+    def to_weights(self, coordinates):
+        return self._block_action(self.inverse_half, self._low_rank_power(coordinates, -.5))
+
+    def to_coordinates(self, weights):
+        return self._low_rank_power(self._block_action(self.half, weights), .5)
+
+    def gradient_to_coordinates(self, gradient):
+        return self._low_rank_power(self._block_action(self.inverse_half, gradient), -.5)
+
+
+def cubic_remainder_metric(gram, penalty, weights, density_radius, pilot_norm,
+                           density_residual, noise_critical, floor_fraction=1e-8):
+    """Fixed local metric from nominal density, noise and quartic remainder.
+
+    It omits the shared spectral and known-pilot Hessians, and is not asserted
+    to majorize the whole objective. Positive block floors are design choices.
+    """
+    w = np.asarray(weights, float).reshape(penalty.n, 2, penalty.nq)
+    sd = np.linalg.norm(w)
+    finite = np.isfinite([sd, density_radius, pilot_norm, density_residual, noise_critical, floor_fraction]).all()
+    if not (finite and sd > 0 and density_radius > 0 and pilot_norm >= 0 and density_residual > 0
+            and noise_critical > 0 and floor_fraction > 0):
+        raise ValueError('Positive finite design scales required')
+    action = np.einsum('ndcqr,ncr->ndcq', penalty.blocks, w)
+    squared = np.einsum('ndcq,ncq->nd', action, w)
+    norms = np.sqrt(np.maximum(squared, 0.))
+    floors = np.maximum(floor_fraction*np.median(norms, axis=0), 1e-30)
+    factors = (density_radius+pilot_norm)*penalty.multipliers/np.maximum(norms, floors)
+    blocks = np.einsum('nd,ndcqr->ncqr', factors, penalty.blocks)
+    ridge = float(noise_critical/sd)
+    blocks += ridge*np.eye(penalty.nq)[None, None]
+    scale = density_radius/density_residual
+    low_rank = [np.sqrt(scale)*factor for factor, _ in gram.preconditioner_factors]
+    if not low_rank:
+        low_rank = [np.empty((penalty.n*penalty.nq, 0)) for _ in range(2)]
+    transform = BlockLowRankCoordinates(blocks, low_rank)
+    transform.diagnostics.update(noise_ridge=ridge, density_gram_multiplier=float(scale),
+        remainder_norm_floors=floors.tolist(),
+        scope='Local coordinate metric only; excludes spectral/pilot curvature and does not alter any objective or confidence class.')
+    return transform
