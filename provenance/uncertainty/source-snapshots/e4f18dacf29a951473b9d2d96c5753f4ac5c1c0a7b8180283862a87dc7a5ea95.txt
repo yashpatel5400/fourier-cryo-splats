@@ -1,0 +1,71 @@
+# Pose-penalty coordinate metric: development only
+
+30 September 2026. The ongoing cubic run preserves its declared nominal-Gram
+preconditioner. Its early line search explores large rejected guide values
+before a small improvement. This motivates an independently tested coordinate
+metric, not changing that empirical run or announcing a new empirical outcome.
+
+For a local sum of norms, drop negative rank-one Hessian terms to form a
+positive block metric from the noise norm and quartic Sobolev norms. Add the
+nominal density Gram's existing low-rank factor scaled by B/H. The shared
+spectral and pilot curvature are omitted: this is not a Hessian upper bound for
+the whole objective. Fixed positive floors are merely design choices.
+
+Let the resulting metric be H=D+UU^T, with strictly positive frequency blocks D.
+Set K=D^(-1/2)U, R=I+KK^T and T=D^(-1/2)R^(-1/2). Then
+T^T H T=I. Low-rank eigendecomposition applies R powers without a dense global
+matrix. The forward map is w=T x; the gradient map is T^T grad_w, in the reverse
+order. T is generally not symmetric. Initial coordinates use
+T^(-1)w=R^(1/2)D^(1/2)w. These are elementary linear-algebra identities, not a
+statistical contribution or new coverage guarantee.
+
+The implementation is outside the frozen source lock. No empirical fit uses it.
+A new bounded protocol would be required before any further empirical run, and
+all current outcomes must remain preserved. Tests compare the whitening,
+inverse, chain rule and local metric against independently assembled dense
+matrices, including multiple particles, real/imag packing and zero-rank factors.
+
+The implemented spectral factorization discards numerical-null low-rank
+directions and reports each cutoff and the largest omitted positive eigenvalue.
+The exact whitening identity applies to the untruncated real-arithmetic formula;
+finite-precision truncation yields approximate whitening of the supplied metric.
+Remainder norms use the larger of the relative median floor and 1e-30 to handle
+zero derivative Grams without overflow. Neither approximation affects interval
+validity because this component only changes optimization coordinates.
+
+## Bounded compute-only probe, before any further fitting
+
+At the original fixed-pose EMPIAR-10049 pilot_region_1 weights (not any current
+optimized checkpoint), build this metric once with rank 1024, one degree/0.5 A,
+B=2/P=1 and the saved fixed-pose residual. Record setup time and peak memory.
+Use four normalized Gaussian diagnostic pairs with seed 650171 to check inverse
+round trips, T^T H T against an independently applied block/low-rank metric,
+and the coordinate-gradient duality identity. Record errors and the declared
+1e-5 relative threshold; retain failures. This is an operator computation test,
+not a fit, a new interval, a coverage check or evidence of faster convergence.
+Commit its source before running it. No optimized weights are produced or
+substituted into the ongoing protocol.
+
+## Completed computation and solver check
+
+The committed probe completed in 22.59 s, including 8.67 s for metric setup,
+with 2.591 GB peak resident memory. All four inverse and independent whitening
+checks passed; maximum relative errors were 2.30e-13 and 3.58e-13, respectively.
+Both low-rank factors retained 1,024 directions. These are numerical identities
+on this fixed geometry, not measurements of optimization convergence.
+
+The separate `uq_cubic_coordinate_solver.py` now accepts fixed coordinate maps
+and uses their transpose for gradients. It preserves the cubic objective,
+records every approximate Ritz evaluation, and performs a separately seeded
+final spectral audit. It requires explicit distinct design/certificate seeds;
+the caller must also ensure the final matrix does not depend on those audit
+probes. No empirical fitting run has used this solver yet.
+
+An eight-coordinate, two-particle numerical check uses a deliberately
+nonsymmetric transform and the independently assembled conic formulation.
+SCS obtains 1.9982265820361278; the coordinate solver obtains a design objective
+1.998226582036483 in 27 iterations. Its continuous dual lower bound is
+1.9982265745144088 and separately audited upper is 1.9994574224318309.
+Their relative gap is 0.000615591; this includes spectral audit looseness.
+This checks coordinate handling against a small independent optimization
+problem, not empirical usefulness or a speed improvement over the old solver.

@@ -95,12 +95,16 @@ These are development comparisons, not new frozen density calibration.
 
 A completed fixed-weight cubic audit reduces one selected one-degree width
 from 0.473 to 0.252 of no data, without useful sign power. Its separately
-declared cubic weight fit is running with the original nominal-Gram coordinates.
-Focused Fable audits support the real-arithmetic argument but do not constitute
-an acceptance review; finite-precision sensitivity checks await final weights.
+declared cubic weight fit completes in 7,191 seconds with original nominal-Gram
+coordinates. Its relative width is 0.180 and minimum reference sign power 0.00654;
+the iteration limit and 0.940 relative surrogate gap preclude a convergence claim.
+Two-tolerance final-weight checks are stable, without validating all floating-point
+error. Focused Fable audits support the real-arithmetic argument but do not
+constitute an acceptance review.
 A separate pose-penalty coordinate metric passed its compute-only probe and a
-small independent conic optimization check. It has not been used for an
-empirical fit, and no convergence improvement is asserted.
+small independent conic optimization check. The original gap triggers the
+previously declared empirical follow-up using that metric; it is now running
+from the same original weights, with no asserted convergence improvement.
 
 The local Gaussian pose-marginalization baseline is complete: 48 solves across
 the same twelve targets and two broader priors, with 384 analytic conditional

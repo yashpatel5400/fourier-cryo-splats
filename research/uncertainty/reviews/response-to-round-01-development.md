@@ -50,7 +50,12 @@ separate full cubic audit has completed: it reduces one selected width from
 polynomial/density contribution remains too large for useful inference. A new
 single-case cubic weight-optimization protocol and code were committed before
 fitting; prerequisite gradient/support checks and an independent conic solve
-passed. That empirical fit is running, without an asserted successful outcome.
+passed. That empirical fit completes in 7,191 seconds, reducing the relative
+width to 0.180. Minimum reference sign power remains 0.00654; the iteration
+limit and 0.940 relative surrogate gap remain explicit failures of usefulness
+and tight optimization. The final-weight two-tolerance checks are stable but
+do not validate all operator error. Its gap triggers the previously declared
+coordinate-metric follow-up from the same original weights; that fit is running.
 Focused Fable mathematics checks and their responses do not constitute a new
 acceptance review. Its sigma
 is not its sampled frequency-band resolution. These tests do not satisfy the

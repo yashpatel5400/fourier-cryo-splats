@@ -109,8 +109,12 @@ L-BFGS-B to 30 iterations with a requested 40 evaluations. Every evaluation and
 improving checkpoint is retained. Three approximate Ritz modes and a
 log-sum-exp smoothing of 0.002 guide optimization. A fresh four-probe,
 forty-step audit follows weight selection. Both design and final spectral audit
-use order 64, while the nominal Gram uses order 80. This case is running;
-no empirical optimized width or usefulness result is asserted here.
+use order 64, while the nominal Gram uses order 80. The completed run takes
+7,191 seconds and 2.59 GB peak memory. Its refined relative width is 0.180,
+versus 0.252 without reoptimizing, but minimum reference sign power is only
+0.00654. The optimizer reaches its 30-iteration limit; the audited triangle
+objective is 2.322 with dual lower bound 0.139, a 0.940 relative gap. Thus this
+run supplies neither a near-optimal weight design nor useful sign detection.
 
 Let $G=A_0A_0^*$, $a=A_0\ell$, and let $G_Q$ be its quadrature approximation.
 If $E$ is the kernel-error bound and $t$ the transfer vector, set
@@ -182,8 +186,13 @@ relative gap $4.54\times10^{-7}$; a preceding CLARABEL failure on the same
 geometry is retained. Random spatial-mode supports and empty-eigensolver failure
 paths are checked separately. A fresh rerun of the zero-weight boundary gives
 2.528968168770 versus analytic optimum 2.528968168766 while retaining the
-\texttt{optimal\_inaccurate} warning. Final-weight two-tolerance operator
-checks are declared and pending; none of these tests validates all NUFFT error.
+\texttt{optimal\_inaccurate} warning. Final-weight checks tighten NUFFT
+tolerance from $10^{-12}$ to $10^{-14}$: nominal Gram action changes by
+$7.31\times10^{-13}$ relatively, and one cubic forward/adjoint pair by
+$4.04\times10^{-13}$/$5.64\times10^{-13}$. The nominal quadratic change is
+0.170 of the recorded roundoff guard. Fresh spectral upper/Ritz and
+Rayleigh/Ritz ratios are 1.0903 and 0.99952. These empirical checks do not
+validate all operator errors or remedy the optimization gap.
 
 A separate block-plus-low-rank coordinate metric includes noise, nominal-density
 and quartic-penalty curvature, while omitting the shared spectral and pilot
@@ -191,6 +200,6 @@ curvature. Its nonsymmetric forward map requires the transpose map for gradients
 A compute-only probe at the original weights verifies whitening to
 $3.58\times10^{-13}$ relative error in 22.59 seconds; a small conic comparison
 checks the resulting solver. These are numerical checks, not speedup or
-usefulness findings. A declared single follow-up waits for the original fit and
-runs only if its final relative surrogate gap exceeds 0.005, with the same
-starting weights and iteration budget. Both outcomes will be retained.
+usefulness findings. The original gap triggers a previously declared single
+follow-up using the same starting weights and iteration budget. That fit is
+running; no improvement from its different coordinates is asserted.

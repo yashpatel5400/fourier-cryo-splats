@@ -220,7 +220,9 @@ def remove_duplicated_baseline_rows(file, value):
 def inline_with_read_tools(name):
     """Select by document role, never by outcome; all other evidence is readable."""
     path = Path(name)
-    return not name.startswith('results/') or path.name in {'summary.json', 'metrics.json'}
+    # The older calibration study predates summary-directory naming.
+    return not name.startswith('results/') or path.name in {
+        'summary.json', 'metrics.json', 'noise-scale-calibration.json'}
 
 
 def snapshot_references(value):
@@ -278,7 +280,7 @@ def main():
                  'DISCRETIZATION-AND-PERTURBATION-NOTES.md',
                  'HIGHER-ORDER-REMAINDER-PROBE.md','CUBIC-POSE-PROBE.md',
                  'SOBOLEV-WEIGHT-DESIGN-NOTES.md','CUBIC-WEIGHT-DESIGN-THEORY.md',
-                 'CUBIC-WEIGHT-OPTIMIZATION-PROTOCOL.md','DIFFPOSE-READING-NOTE.md',
+                 'CUBIC-WEIGHT-OPTIMIZATION-PROTOCOL.md','CUBIC-WEIGHT-RESULTS.md','DIFFPOSE-READING-NOTE.md',
                  'GAUSSIANEM-READING-NOTE.md','cryodiff-access-followup.json',
                  'CUBIC-DESIGN-NUMERICAL-CHECK.md','CUBIC-PRECONDITIONER-DEVELOPMENT.md',
                  'CUBIC-COORDINATE-FOLLOWUP-PROTOCOL.md','FOURIER-POSE-BASELINE-PROTOCOL.md',
