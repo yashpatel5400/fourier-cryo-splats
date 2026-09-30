@@ -103,9 +103,20 @@ its bias upper bound, and minimum reference sign power is below $10^{-100}$.
 The first completed 100-iteration case in the three-stack grid, 10049 at
 $0.5^\circ$ and 0.5\,\AA\ translation, has relative width 0.221 and a 25.3\%
 gap. Feasible searches reach 0.608 of its bias upper, but minimum reference
-sign power is only $8.44\times10^{-5}$. Longer solves and the remaining grid
-are in progress. These intermediate outcomes cannot support an optimality or
-practical-usefulness claim.
+sign power is only $8.44\times10^{-5}$. Its completed one-degree counterpart
+has width 0.336, an 85.3\% gap and minimum reference power $7.07\times10^{-25}$.
+A feasible convex mixture of twelve spectral dual supports reduces the gap
+only to 85.1\%, without changing the estimator or interval.
+
+The original 10028 half-degree run failed when only seven of eight requested
+eigenvectors converged; the failure and saved weights are retained. Checkpointed
+continuations use an isolated two-thread CPU runtime with unchanged block
+scales and fresh final spectral probes. Available partial modes can guide the
+approximate optimizer, but are never used as upper bounds. The completed
+10076 half-degree continuation has width 0.161, a 5.0\% gap, minimum reference
+sign power 0.670, and feasible stress bias reaching 0.650 of the upper bound.
+This is a broad-target conditional result; the remaining grid is in progress.
+These intermediate outcomes do not establish broad practical usefulness.
 
 \subsection{An experimental noise-calibration attempt}
 The following elementary conservative calculation allows nonzero calibration
@@ -156,6 +167,52 @@ none excludes zero. This is a precision failure, not evidence of density
 calibration. The 10\,\AA\ targets revert to no data at nonzero pose budgets.
 The earlier 128-particle attempt on 10028 is also retained; it additionally
 requires unverified independence within repeated exposure groups.
+
+\paragraph{Independent calibration in the estimator's directions.}
+The trace envelope protects every direction, although a fixed feature estimator
+needs only one scalar variance. Let $V$ contain its raw-coordinate particle
+weight rows $v_i^\top$, chosen independently of a second calibration pool.
+Under the same common-covariance and independence assumptions, its noise
+variance is $s^2=\sum_i v_i^\top\Sigma v_i=\operatorname{tr}(V\Sigma V^\top)$.
+Applying the preceding lemma to $VY_j$ gives the following direct corollary:
+\[
+ s^2\le s_+^2:=\frac{\sum_j\norm{VY_j}^2}{nt}
+ \quad\text{with probability at least }1-\beta.
+\]
+The projected coordinates may be correlated. Combining this event with the
+bias-aware critical width at $\alpha_{\rm noise}$ gives pointwise failure at
+most $\beta+\alpha_{\rm noise}$. Indeed, the width is at least the bias bound,
+and its Gaussian outside probability increases with noise scale. This is an
+elementary specialization of the trace argument, not a new concentration
+principle or a simultaneous guarantee for selected targets.
+
+For the same calibration pool, $\sum_j\norm{VY_j}^2\le
+\norm{V}_F^2\sum_j\norm{Y_j}^2$, so directional calibration cannot exceed
+the original trace envelope for these weights. To preserve independence here,
+we retain weights selected using the original first exposure half and calibrate
+their variance with the second half. The pools therefore differ in the empirical
+comparison. Before projection, weights are pulled back through each particle's
+known centering phase: complex coefficient $w_R+iw_I$ becomes
+$\overline p(w_R+iw_I)/\sigma_{\rm old}$ in raw Fourier coordinates.
+Ignoring this step would be incorrect for colored noise.
+
+\input{tables/directional-noise}
+\begin{figure*}[t]
+\centering\includegraphics[width=.98\textwidth]{figures/directional-noise.pdf}
+\caption{All eighteen experimental directional-noise sensitivity cases.
+Only the calibration bound changes; weights and continuous bias terms are
+held fixed. The single interval excluding zero is the broad 10076 target at
+fixed pose; it does not exclude zero at one degree. Noise, density and pose
+assumptions remain unverified, and the previously inspected diagnostic pool
+makes this exploratory reuse rather than a new frozen confirmation.}
+\label{fig:directionalnoise}
+\end{figure*}
+
+The new standard-deviation bounds are 0.132--0.285 times the original bounds.
+One broad fixed-pose interval excludes zero; none does at one or two degrees.
+Thus reducing this avoidable noise conservatism does not resolve the
+pose/density precision problem. No experimental density-coverage inference
+follows from deposited-map agreement or this conditional fixed-pose detection.
 
 \subsection{Uniform CTF sensitivities}
 For fixed voltage, spherical aberration and amplitude contrast $a$,

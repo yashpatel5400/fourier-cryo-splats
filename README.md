@@ -19,7 +19,8 @@ feature detection remains weak. Current work optimizes weights with pose
 uncertainty included and tests physically narrower density assumptions. A
 10,000-particle, radius-12 shared-field audit has completed on the Mac using
 1.95 GB peak memory; its broad-feature interval remains wide. The experimental
-noise-calibration attempt on three stacks detects none of the tested features.
+noise-calibration refinement on three stacks detects one broad feature at fixed
+pose, but none at nonzero pose budgets; the nuisance assumptions remain unverified.
 A [Fourier variational baseline](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md)
 now compares diagonal and full Gaussian uncertainty on all three geometries,
 with explicit prior and interpolation limitations. The completed frozen

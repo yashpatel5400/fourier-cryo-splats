@@ -1,0 +1,1602 @@
+{
+  "stage": "Post-review pose-aware development; simulation noise and supplied nuisance bounds",
+  "dataset": "10049",
+  "target": "center",
+  "rotation_radius_degrees": 1.0,
+  "translation_radius_A": 0.5,
+  "field_A": 236.16000366210938,
+  "density_radius": 2.0,
+  "pilot_norm_bound": 1.0,
+  "config": {
+    "datasets": "10049",
+    "targets": "center,contrast",
+    "angles": ".5,1,2",
+    "shift_A": 0.5,
+    "maxiter": 100,
+    "power_iterations": 40,
+    "output": "pose-aware-optimized-shift05"
+  },
+  "source_snapshot": {
+    "git_head_at_snapshot": "0717c851191452e1aae9773122377c0a5cbf6739",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/run_uq_pose_optimized_study.py": {
+        "sha256": "5f4bd44200a255072e2a8ef105fab28d8929e7ac6272ff2313e0a6269818485e",
+        "snapshot": "provenance/uncertainty/source-snapshots/5f4bd44200a255072e2a8ef105fab28d8929e7ac6272ff2313e0a6269818485e.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_ctf_uncertainty.py": {
+        "sha256": "17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e",
+        "snapshot": "provenance/uncertainty/source-snapshots/17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_intervals.py": {
+        "sha256": "590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9",
+        "snapshot": "provenance/uncertainty/source-snapshots/590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_noise_calibration.py": {
+        "sha256": "285548378bede8a0fff00325aa99ddbad2f754e88581f9ec1a8944a6e53ffa17",
+        "snapshot": "provenance/uncertainty/source-snapshots/285548378bede8a0fff00325aa99ddbad2f754e88581f9ec1a8944a6e53ffa17.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_pose_operator.py": {
+        "sha256": "9007bb6262c0fb07bd1c874240f4838f438f95ee94b5dffa4f4de820a987a2cc",
+        "snapshot": "provenance/uncertainty/source-snapshots/9007bb6262c0fb07bd1c874240f4838f438f95ee94b5dffa4f4de820a987a2cc.txt"
+      },
+      "src/fourier_splats/uq_pose_optimization.py": {
+        "sha256": "1e4713766e4c99a50b19c08799d9ef0f40986ffbe04049ff943a8aefdc21b2b0",
+        "snapshot": "provenance/uncertainty/source-snapshots/1e4713766e4c99a50b19c08799d9ef0f40986ffbe04049ff943a8aefdc21b2b0.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_random_spectral.py": {
+        "sha256": "55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e",
+        "snapshot": "provenance/uncertainty/source-snapshots/55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "source_geometry_config": {
+    "datasets": "10028,10049,10076",
+    "widths": ".03,.07",
+    "targets": "center,contrast",
+    "maxiter": 100,
+    "seed": 609315,
+    "backend": "quadrature",
+    "quadrature_order": 40,
+    "preconditioner_rank": 1024,
+    "particles": 128,
+    "frequency_radius": 5.0,
+    "skip_exact_check": false,
+    "output": "continuous-quadrature-optimized"
+  },
+  "initial_weights_sha256": "6c283681e29d35025a217571700469a753a471dbae1371b229713edba673d6bd",
+  "complete": true,
+  "fit": {
+    "noise_sd": 0.29048027031490425,
+    "bias": 4.951844819053585,
+    "half_width": 5.429645161749137,
+    "target_norm": 8.089944495523957,
+    "sum_objective_upper": 5.5211781721818705,
+    "dual_lower_bound": 0.809748397345782,
+    "relative_sum_gap": 0.8533377529046877,
+    "density_bias": 2.0668878604630136,
+    "pose_polynomial_bias": 1.8965546711484382,
+    "cubic_bias": 0.9884022874421332,
+    "pose_integration_pad": 1.601867302473438e-08,
+    "initial_group_scale_sum": 8.865468503449227,
+    "optimizer_success": false,
+    "optimizer_message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+    "optimizer_iterations": 100,
+    "optimization_history": [
+      {
+        "evaluation": 1,
+        "surrogate_objective": 8.359613595817954,
+        "noise_term": 0.6745277541848258,
+        "density_term": 1.4285534990539046,
+        "pose_polynomial_term": 3.873651156465747,
+        "cubic_term": 2.382881186113477,
+        "ritz_value": 0.18806009425143216,
+        "gradient_norm": 59.88497390363478,
+        "active_spectral_modes": 1
+      },
+      {
+        "evaluation": 2,
+        "surrogate_objective": 35.95281476399316,
+        "noise_term": 1.3117977401914716,
+        "density_term": 1.8338363321334743,
+        "pose_polynomial_term": 27.35928588267416,
+        "cubic_term": 5.447894808994052,
+        "ritz_value": 9.381349061630702,
+        "gradient_norm": 88.72450667987182,
+        "active_spectral_modes": 1
+      },
+      {
+        "evaluation": 3,
+        "surrogate_objective": 8.282549619795711,
+        "noise_term": 0.6705671886169741,
+        "density_term": 1.4587072683475961,
+        "pose_polynomial_term": 3.9042207266578606,
+        "cubic_term": 2.2490544361732794,
+        "ritz_value": 0.1910400301794266,
+        "gradient_norm": 82.62663337335962,
+        "active_spectral_modes": 1
+      },
+      {
+        "evaluation": 4,
+        "surrogate_objective": 7.889847102944379,
+        "noise_term": 0.6682706854020743,
+        "density_term": 1.468950674340903,
+        "pose_polynomial_term": 3.5813997532175255,
+        "cubic_term": 2.171225989983876,
+        "ritz_value": 0.16075372624596082,
+        "gradient_norm": 40.936567232318524,
+        "active_spectral_modes": 1
+      },
+      {
+        "evaluation": 5,
+        "surrogate_objective": 7.690858002387173,
+        "noise_term": 0.6637925304566563,
+        "density_term": 1.4704362484096907,
+        "pose_polynomial_term": 3.4570169283362673,
+        "cubic_term": 2.099612295184559,
+        "ritz_value": 0.1497794442433932,
+        "gradient_norm": 35.534623721826314,
+        "active_spectral_modes": 2
+      },
+      {
+        "evaluation": 6,
+        "surrogate_objective": 7.368408659653877,
+        "noise_term": 0.6517524532248472,
+        "density_term": 1.4795592480440327,
+        "pose_polynomial_term": 3.2374678523702913,
+        "cubic_term": 1.9996291060147047,
+        "ritz_value": 0.13133417684087395,
+        "gradient_norm": 41.00201589757442,
+        "active_spectral_modes": 2
+      },
+      {
+        "evaluation": 7,
+        "surrogate_objective": 7.174306874521437,
+        "noise_term": 0.6456942249700631,
+        "density_term": 1.4932625526098935,
+        "pose_polynomial_term": 3.095830879506537,
+        "cubic_term": 1.9395192174349436,
+        "ritz_value": 0.12010959593789113,
+        "gradient_norm": 35.41365329151314,
+        "active_spectral_modes": 2
+      },
+      {
+        "evaluation": 8,
+        "surrogate_objective": 6.991987374665236,
+        "noise_term": 0.6420848690731421,
+        "density_term": 1.5070899647070775,
+        "pose_polynomial_term": 2.9836164514329884,
+        "cubic_term": 1.8591960894520279,
+        "ritz_value": 0.1112520652648912,
+        "gradient_norm": 31.703352381083995,
+        "active_spectral_modes": 3
+      },
+      {
+        "evaluation": 9,
+        "surrogate_objective": 6.747926310282207,
+        "noise_term": 0.6371301791759783,
+        "density_term": 1.541043936707426,
+        "pose_polynomial_term": 2.826020799556836,
+        "cubic_term": 1.7437313948419657,
+        "ritz_value": 0.09968664774717877,
+        "gradient_norm": 29.84641037328838,
+        "active_spectral_modes": 3
+      },
+      {
+        "evaluation": 10,
+        "surrogate_objective": 6.619034532367511,
+        "noise_term": 0.633159254131233,
+        "density_term": 1.5621587885646377,
+        "pose_polynomial_term": 2.753806204409355,
+        "cubic_term": 1.669910285262285,
+        "ritz_value": 0.09498021398409132,
+        "gradient_norm": 28.910294970823863,
+        "active_spectral_modes": 3
+      },
+      {
+        "evaluation": 11,
+        "surrogate_objective": 6.486986765497583,
+        "noise_term": 0.6299657023957178,
+        "density_term": 1.5749048437483983,
+        "pose_polynomial_term": 2.6957391924526757,
+        "cubic_term": 1.5863770269007906,
+        "ritz_value": 0.09036380168490456,
+        "gradient_norm": 28.971658715572747,
+        "active_spectral_modes": 3
+      },
+      {
+        "evaluation": 12,
+        "surrogate_objective": 6.367333630657733,
+        "noise_term": 0.6253418733414702,
+        "density_term": 1.5874671681339327,
+        "pose_polynomial_term": 2.6283347682084663,
+        "cubic_term": 1.5261898209738631,
+        "ritz_value": 0.0864133391048214,
+        "gradient_norm": 28.11809540376861,
+        "active_spectral_modes": 3
+      },
+      {
+        "evaluation": 13,
+        "surrogate_objective": 6.283645142498802,
+        "noise_term": 0.6233712925518367,
+        "density_term": 1.6065450857885626,
+        "pose_polynomial_term": 2.568724783512287,
+        "cubic_term": 1.4850039806461162,
+        "ritz_value": 0.08212495412148844,
+        "gradient_norm": 26.430566319149285,
+        "active_spectral_modes": 3
+      },
+      {
+        "evaluation": 14,
+        "surrogate_objective": 6.202673160322205,
+        "noise_term": 0.6217981227956504,
+        "density_term": 1.6213339261971822,
+        "pose_polynomial_term": 2.5295934183045468,
+        "cubic_term": 1.429947693024826,
+        "ritz_value": 0.07965287491594979,
+        "gradient_norm": 28.618107488982208,
+        "active_spectral_modes": 4
+      },
+      {
+        "evaluation": 15,
+        "surrogate_objective": 6.148482193296266,
+        "noise_term": 0.6184605338494166,
+        "density_term": 1.626228707631533,
+        "pose_polynomial_term": 2.503079906772867,
+        "cubic_term": 1.4007130450424492,
+        "ritz_value": 0.07817676004169002,
+        "gradient_norm": 25.964568903167656,
+        "active_spectral_modes": 4
+      },
+      {
+        "evaluation": 16,
+        "surrogate_objective": 6.075315579456591,
+        "noise_term": 0.618591813741238,
+        "density_term": 1.6415476974662853,
+        "pose_polynomial_term": 2.4641595779861714,
+        "cubic_term": 1.351016490262896,
+        "ritz_value": 0.07567920973091533,
+        "gradient_norm": 24.961207221303134,
+        "active_spectral_modes": 4
+      },
+      {
+        "evaluation": 17,
+        "surrogate_objective": 6.013683257801958,
+        "noise_term": 0.6187010900501217,
+        "density_term": 1.661739188118048,
+        "pose_polynomial_term": 2.420861432758457,
+        "cubic_term": 1.3123815468753306,
+        "ritz_value": 0.07291340959394502,
+        "gradient_norm": 24.644051038305967,
+        "active_spectral_modes": 4
+      },
+      {
+        "evaluation": 18,
+        "surrogate_objective": 5.972554356147664,
+        "noise_term": 0.6177177054825244,
+        "density_term": 1.673249078484279,
+        "pose_polynomial_term": 2.3960769569608633,
+        "cubic_term": 1.285510615219997,
+        "ritz_value": 0.07136411394410905,
+        "gradient_norm": 26.44762241663102,
+        "active_spectral_modes": 4
+      },
+      {
+        "evaluation": 19,
+        "surrogate_objective": 5.944223585062635,
+        "noise_term": 0.61460201320998,
+        "density_term": 1.6658512500634586,
+        "pose_polynomial_term": 2.396470687844259,
+        "cubic_term": 1.2672996339449367,
+        "ritz_value": 0.07147305723539163,
+        "gradient_norm": 24.861807763553024,
+        "active_spectral_modes": 3
+      },
+      {
+        "evaluation": 20,
+        "surrogate_objective": 5.901927159861,
+        "noise_term": 0.6145182544987833,
+        "density_term": 1.6781819765688768,
+        "pose_polynomial_term": 2.3699376227901303,
+        "cubic_term": 1.2392893060032097,
+        "ritz_value": 0.06969343217743779,
+        "gradient_norm": 24.154681458060338,
+        "active_spectral_modes": 4
+      },
+      {
+        "evaluation": 21,
+        "surrogate_objective": 5.875300650517294,
+        "noise_term": 0.6150593080032895,
+        "density_term": 1.6959228211193862,
+        "pose_polynomial_term": 2.3368812666251824,
+        "cubic_term": 1.2274372547694357,
+        "ritz_value": 0.06797053436663861,
+        "gradient_norm": 23.627256225544052,
+        "active_spectral_modes": 5
+      },
+      {
+        "evaluation": 22,
+        "surrogate_objective": 5.84798369324325,
+        "noise_term": 0.6143941537063727,
+        "density_term": 1.7026521456615455,
+        "pose_polynomial_term": 2.321770929386864,
+        "cubic_term": 1.2091664644884677,
+        "ritz_value": 0.06710743595633133,
+        "gradient_norm": 23.207360055592527,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 23,
+        "surrogate_objective": 5.824683173832713,
+        "noise_term": 0.613251384192046,
+        "density_term": 1.708864228822523,
+        "pose_polynomial_term": 2.30687277655625,
+        "cubic_term": 1.1956947842618941,
+        "ritz_value": 0.0660880671933971,
+        "gradient_norm": 23.296215344297213,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 24,
+        "surrogate_objective": 5.805012322367255,
+        "noise_term": 0.6122993341031088,
+        "density_term": 1.7150373965752033,
+        "pose_polynomial_term": 2.2938697034808224,
+        "cubic_term": 1.1838058882081208,
+        "ritz_value": 0.06528657678470665,
+        "gradient_norm": 22.994640738200015,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 25,
+        "surrogate_objective": 5.787919616938958,
+        "noise_term": 0.612129653328385,
+        "density_term": 1.7275346606083775,
+        "pose_polynomial_term": 2.275129304302033,
+        "cubic_term": 1.173125998700162,
+        "ritz_value": 0.06401796158306688,
+        "gradient_norm": 22.76524375056196,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 26,
+        "surrogate_objective": 5.7725306295123975,
+        "noise_term": 0.6111637470331761,
+        "density_term": 1.7315871079643672,
+        "pose_polynomial_term": 2.2659632973476085,
+        "cubic_term": 1.1638164771672455,
+        "ritz_value": 0.06363178191971407,
+        "gradient_norm": 22.263855573135533,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 27,
+        "surrogate_objective": 5.758477542588821,
+        "noise_term": 0.6109086788091638,
+        "density_term": 1.740577925513605,
+        "pose_polynomial_term": 2.2526065436723757,
+        "cubic_term": 1.1543843945936776,
+        "ritz_value": 0.06287382369347086,
+        "gradient_norm": 22.130557809372924,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 28,
+        "surrogate_objective": 5.744975888518562,
+        "noise_term": 0.6101056558382648,
+        "density_term": 1.7452389731664295,
+        "pose_polynomial_term": 2.2441347752134795,
+        "cubic_term": 1.145496484300388,
+        "ritz_value": 0.06249556045333617,
+        "gradient_norm": 21.84342475574226,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 29,
+        "surrogate_objective": 5.732630349793998,
+        "noise_term": 0.6093281273243495,
+        "density_term": 1.7556000158757668,
+        "pose_polynomial_term": 2.228794506486846,
+        "cubic_term": 1.138907700107036,
+        "ritz_value": 0.06162128241888474,
+        "gradient_norm": 21.669006946516895,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 30,
+        "surrogate_objective": 5.719935040303637,
+        "noise_term": 0.6080999903809301,
+        "density_term": 1.7630346291725847,
+        "pose_polynomial_term": 2.2161355628678985,
+        "cubic_term": 1.132664857882224,
+        "ritz_value": 0.060931227476887465,
+        "gradient_norm": 21.523340505944688,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 31,
+        "surrogate_objective": 5.707267347891245,
+        "noise_term": 0.6072962835396768,
+        "density_term": 1.771313521297207,
+        "pose_polynomial_term": 2.203149320244197,
+        "cubic_term": 1.1255082228101636,
+        "ritz_value": 0.06014829449054281,
+        "gradient_norm": 21.208862765602795,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 32,
+        "surrogate_objective": 5.6942481072083,
+        "noise_term": 0.6063151598310393,
+        "density_term": 1.7775441521363082,
+        "pose_polynomial_term": 2.192680029213482,
+        "cubic_term": 1.1177087660274703,
+        "ritz_value": 0.05952266655539504,
+        "gradient_norm": 21.00310082567258,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 33,
+        "surrogate_objective": 5.683597842887238,
+        "noise_term": 0.6055534667820032,
+        "density_term": 1.7881486997449385,
+        "pose_polynomial_term": 2.177615873898805,
+        "cubic_term": 1.112279802461491,
+        "ritz_value": 0.058652207846734666,
+        "gradient_norm": 20.881632039293905,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 34,
+        "surrogate_objective": 5.672509982929187,
+        "noise_term": 0.6045876529487232,
+        "density_term": 1.7922231801485546,
+        "pose_polynomial_term": 2.1700595326982457,
+        "cubic_term": 1.1056396171336629,
+        "ritz_value": 0.05832200282317191,
+        "gradient_norm": 20.738337427306686,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 35,
+        "surrogate_objective": 5.662469078224387,
+        "noise_term": 0.6035986452729247,
+        "density_term": 1.800274199689449,
+        "pose_polynomial_term": 2.1578591467421533,
+        "cubic_term": 1.1007370865198607,
+        "ritz_value": 0.05772745095080849,
+        "gradient_norm": 20.610447058711586,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 36,
+        "surrogate_objective": 5.653800504828688,
+        "noise_term": 0.6026159660214744,
+        "density_term": 1.8065891975329198,
+        "pose_polynomial_term": 2.14812451263432,
+        "cubic_term": 1.0964708286399736,
+        "ritz_value": 0.057261368008965176,
+        "gradient_norm": 20.522405137378072,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 37,
+        "surrogate_objective": 5.64486720188528,
+        "noise_term": 0.6019310981255888,
+        "density_term": 1.814808078182805,
+        "pose_polynomial_term": 2.13660150039694,
+        "cubic_term": 1.0915265251799462,
+        "ritz_value": 0.056636724469321616,
+        "gradient_norm": 20.396175723759484,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 38,
+        "surrogate_objective": 5.636399444201876,
+        "noise_term": 0.6011661446433374,
+        "density_term": 1.8209949263681495,
+        "pose_polynomial_term": 2.1268472482752,
+        "cubic_term": 1.0873911249151895,
+        "ritz_value": 0.056121149077431653,
+        "gradient_norm": 20.20038358862016,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 39,
+        "surrogate_objective": 5.628431939437229,
+        "noise_term": 0.600432034952062,
+        "density_term": 1.8263108680656046,
+        "pose_polynomial_term": 2.11847011909693,
+        "cubic_term": 1.083218917322633,
+        "ritz_value": 0.05567800286383083,
+        "gradient_norm": 20.0389028589944,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 40,
+        "surrogate_objective": 5.62108814932215,
+        "noise_term": 0.5994463924321636,
+        "density_term": 1.831188243409774,
+        "pose_polynomial_term": 2.1099774664235325,
+        "cubic_term": 1.0804760470566794,
+        "ritz_value": 0.05524620325814194,
+        "gradient_norm": 19.92323766461341,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 41,
+        "surrogate_objective": 5.613379197399463,
+        "noise_term": 0.5987009510252315,
+        "density_term": 1.8370843495827258,
+        "pose_polynomial_term": 2.1011536104528044,
+        "cubic_term": 1.076440286338701,
+        "ritz_value": 0.054788131777867545,
+        "gradient_norm": 19.739492344776384,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 42,
+        "surrogate_objective": 5.606006816667971,
+        "noise_term": 0.5979282405253062,
+        "density_term": 1.8411520793055964,
+        "pose_polynomial_term": 2.0942554630607897,
+        "cubic_term": 1.072671033776279,
+        "ritz_value": 0.05443566790695574,
+        "gradient_norm": 19.486739413548378,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 43,
+        "surrogate_objective": 5.59887427139457,
+        "noise_term": 0.5969614952202051,
+        "density_term": 1.851934530375151,
+        "pose_polynomial_term": 2.0799195478423362,
+        "cubic_term": 1.0700586979568776,
+        "ritz_value": 0.05365922907264874,
+        "gradient_norm": 19.277331803146097,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 44,
+        "surrogate_objective": 5.591301924614875,
+        "noise_term": 0.596027036310901,
+        "density_term": 1.8576616985574959,
+        "pose_polynomial_term": 2.0709383042760914,
+        "cubic_term": 1.0666748854703867,
+        "ritz_value": 0.053185413102682995,
+        "gradient_norm": 18.90031921725517,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 45,
+        "surrogate_objective": 5.584461473048936,
+        "noise_term": 0.5952834033686691,
+        "density_term": 1.8615421032781256,
+        "pose_polynomial_term": 2.064502461954415,
+        "cubic_term": 1.0631335044477268,
+        "ritz_value": 0.05285182492708337,
+        "gradient_norm": 18.694856098344992,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 46,
+        "surrogate_objective": 5.57847240750373,
+        "noise_term": 0.5947225770675477,
+        "density_term": 1.8646772229329942,
+        "pose_polynomial_term": 2.0595387001753087,
+        "cubic_term": 1.05953390732788,
+        "ritz_value": 0.0525964550587145,
+        "gradient_norm": 18.445389888240125,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 47,
+        "surrogate_objective": 5.572509409008944,
+        "noise_term": 0.5937912672979646,
+        "density_term": 1.8739857701738818,
+        "pose_polynomial_term": 2.0475099806869173,
+        "cubic_term": 1.05722239085018,
+        "ritz_value": 0.051962291101232856,
+        "gradient_norm": 18.422813580855227,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 48,
+        "surrogate_objective": 5.566484843256351,
+        "noise_term": 0.5929250927196954,
+        "density_term": 1.877778155440268,
+        "pose_polynomial_term": 2.040828414636625,
+        "cubic_term": 1.0549531804597634,
+        "ritz_value": 0.05162975806707892,
+        "gradient_norm": 18.199320417387256,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 49,
+        "surrogate_objective": 5.56056828845688,
+        "noise_term": 0.5921912182606526,
+        "density_term": 1.8838819067494088,
+        "pose_polynomial_term": 2.032609092700985,
+        "cubic_term": 1.0518860707458337,
+        "ritz_value": 0.051227302168284944,
+        "gradient_norm": 17.894022622423122,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 50,
+        "surrogate_objective": 5.55557291111219,
+        "noise_term": 0.5917333162938951,
+        "density_term": 1.8851061275259513,
+        "pose_polynomial_term": 2.029916166934705,
+        "cubic_term": 1.0488173003576393,
+        "ritz_value": 0.05111483020452661,
+        "gradient_norm": 17.739117524942557,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 51,
+        "surrogate_objective": 5.551250741476563,
+        "noise_term": 0.5911077526488995,
+        "density_term": 1.8930597409982979,
+        "pose_polynomial_term": 2.020256789423096,
+        "cubic_term": 1.0468264584062708,
+        "ritz_value": 0.050612941484349784,
+        "gradient_norm": 17.67207585786112,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 52,
+        "surrogate_objective": 5.547024650106197,
+        "noise_term": 0.5906419080928424,
+        "density_term": 1.8972663327896782,
+        "pose_polynomial_term": 2.014658529771792,
+        "cubic_term": 1.0444578794518842,
+        "ritz_value": 0.05032439495810377,
+        "gradient_norm": 17.43819762322349,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 53,
+        "surrogate_objective": 5.543093205434388,
+        "noise_term": 0.5900315208910963,
+        "density_term": 1.903882955651361,
+        "pose_polynomial_term": 2.006423479106903,
+        "cubic_term": 1.0427552497850283,
+        "ritz_value": 0.04988516957625136,
+        "gradient_norm": 17.362201933307897,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 54,
+        "surrogate_objective": 5.538931792197905,
+        "noise_term": 0.5893902931370139,
+        "density_term": 1.9063311437823185,
+        "pose_polynomial_term": 2.0020094918962825,
+        "cubic_term": 1.04120086338229,
+        "ritz_value": 0.049658137814135896,
+        "gradient_norm": 17.188659621031558,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 55,
+        "surrogate_objective": 5.5345393623608095,
+        "noise_term": 0.5886633050469479,
+        "density_term": 1.9109913286942,
+        "pose_polynomial_term": 1.9954664680735077,
+        "cubic_term": 1.0394182605461542,
+        "ritz_value": 0.049315992902723885,
+        "gradient_norm": 17.126472133841325,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 56,
+        "surrogate_objective": 5.530406008042997,
+        "noise_term": 0.5878492944291585,
+        "density_term": 1.9153855429976172,
+        "pose_polynomial_term": 1.9889924089998654,
+        "cubic_term": 1.0381787616163547,
+        "ritz_value": 0.04897851879696897,
+        "gradient_norm": 17.09304847390081,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 57,
+        "surrogate_objective": 5.526180052567476,
+        "noise_term": 0.5874313408503635,
+        "density_term": 1.9179658050949646,
+        "pose_polynomial_term": 1.985364810323851,
+        "cubic_term": 1.035418096298296,
+        "ritz_value": 0.04879153861308643,
+        "gradient_norm": 16.817737623711555,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 58,
+        "surrogate_objective": 5.523027133300001,
+        "noise_term": 0.5867280010684784,
+        "density_term": 1.9253705185493801,
+        "pose_polynomial_term": 1.9765420327984513,
+        "cubic_term": 1.034386580883691,
+        "ritz_value": 0.04833147272903847,
+        "gradient_norm": 16.958377708662166,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 59,
+        "surrogate_objective": 5.519350000349757,
+        "noise_term": 0.5865245093903338,
+        "density_term": 1.9260224641393844,
+        "pose_polynomial_term": 1.975173409918066,
+        "cubic_term": 1.0316296169019732,
+        "ritz_value": 0.04828002765746136,
+        "gradient_norm": 16.56979830694369,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 60,
+        "surrogate_objective": 5.515595383905268,
+        "noise_term": 0.5858982620179229,
+        "density_term": 1.9321200934522724,
+        "pose_polynomial_term": 1.9678086331178972,
+        "cubic_term": 1.0297683953171757,
+        "ritz_value": 0.047911106771864796,
+        "gradient_norm": 16.448312239413113,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 61,
+        "surrogate_objective": 5.511973847791004,
+        "noise_term": 0.5853012307851906,
+        "density_term": 1.9381393624773597,
+        "pose_polynomial_term": 1.960583779724258,
+        "cubic_term": 1.0279494748041955,
+        "ritz_value": 0.04755715701883008,
+        "gradient_norm": 16.273180281474946,
+        "active_spectral_modes": 6
+      },
+      {
+        "evaluation": 62,
+        "surrogate_objective": 5.508600033492436,
+        "noise_term": 0.5848026043667136,
+        "density_term": 1.9433459918655662,
+        "pose_polynomial_term": 1.9544502682044644,
+        "cubic_term": 1.0260011690556923,
+        "ritz_value": 0.047268854620673935,
+        "gradient_norm": 16.041589176943152,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 63,
+        "surrogate_objective": 5.5053455482296485,
+        "noise_term": 0.5842088388566445,
+        "density_term": 1.9500588722379575,
+        "pose_polynomial_term": 1.9468997377981483,
+        "cubic_term": 1.0241780993368976,
+        "ritz_value": 0.046908348452351985,
+        "gradient_norm": 15.978679789371311,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 64,
+        "surrogate_objective": 5.501832772121437,
+        "noise_term": 0.5836721546869228,
+        "density_term": 1.9558762243844157,
+        "pose_polynomial_term": 1.940350642485722,
+        "cubic_term": 1.0219337505643769,
+        "ritz_value": 0.04660235491074321,
+        "gradient_norm": 15.680897092056771,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 65,
+        "surrogate_objective": 5.498763233270204,
+        "noise_term": 0.5831541519157682,
+        "density_term": 1.961872235259297,
+        "pose_polynomial_term": 1.9337108840485309,
+        "cubic_term": 1.020025962046608,
+        "ritz_value": 0.046290373648167744,
+        "gradient_norm": 15.481475992312998,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 66,
+        "surrogate_objective": 5.495955453856473,
+        "noise_term": 0.5826994455343164,
+        "density_term": 1.966912595092055,
+        "pose_polynomial_term": 1.9280758437302477,
+        "cubic_term": 1.0182675694998529,
+        "ritz_value": 0.04602753283495562,
+        "gradient_norm": 15.269906461842876,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 67,
+        "surrogate_objective": 5.493430412733428,
+        "noise_term": 0.5823961677097524,
+        "density_term": 1.9695695294728954,
+        "pose_polynomial_term": 1.9248881353972462,
+        "cubic_term": 1.016576580153534,
+        "ritz_value": 0.045879812342945345,
+        "gradient_norm": 14.946310064423807,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 68,
+        "surrogate_objective": 5.49131395479414,
+        "noise_term": 0.5819790600435556,
+        "density_term": 1.9744446711251062,
+        "pose_polynomial_term": 1.9195704165276488,
+        "cubic_term": 1.0153198070978293,
+        "ritz_value": 0.04562428806009083,
+        "gradient_norm": 14.878166023782846,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 69,
+        "surrogate_objective": 5.489350940005605,
+        "noise_term": 0.58168791695301,
+        "density_term": 1.9764732911075238,
+        "pose_polynomial_term": 1.9170225709431394,
+        "cubic_term": 1.0141671610019312,
+        "ritz_value": 0.04550331975439998,
+        "gradient_norm": 14.666902863008572,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 70,
+        "surrogate_objective": 5.4874004307726665,
+        "noise_term": 0.58125827738628,
+        "density_term": 1.9810819282537027,
+        "pose_polynomial_term": 1.9120080021054133,
+        "cubic_term": 1.01305222302727,
+        "ritz_value": 0.045263540572072075,
+        "gradient_norm": 14.61528305980258,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 71,
+        "surrogate_objective": 5.485499463967057,
+        "noise_term": 0.58090220929041,
+        "density_term": 1.9835445927156414,
+        "pose_polynomial_term": 1.9089724648518878,
+        "cubic_term": 1.0120801971091178,
+        "ritz_value": 0.04512189157793053,
+        "gradient_norm": 14.52967456846632,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 72,
+        "surrogate_objective": 5.483496667594901,
+        "noise_term": 0.5804896808019114,
+        "density_term": 1.9871220105037513,
+        "pose_polynomial_term": 1.9048509675397203,
+        "cubic_term": 1.0110340087495182,
+        "ritz_value": 0.04492678793245711,
+        "gradient_norm": 14.400438202712284,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 73,
+        "surrogate_objective": 5.481650738023994,
+        "noise_term": 0.5801469669964648,
+        "density_term": 1.988072816957005,
+        "pose_polynomial_term": 1.9031046034967423,
+        "cubic_term": 1.010326350573782,
+        "ritz_value": 0.04484971917399979,
+        "gradient_norm": 14.23425715306406,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 74,
+        "surrogate_objective": 5.479883329154631,
+        "noise_term": 0.5796088160082977,
+        "density_term": 1.9932945903990569,
+        "pose_polynomial_term": 1.8973234484341186,
+        "cubic_term": 1.0096564743131573,
+        "ritz_value": 0.0445769553223857,
+        "gradient_norm": 14.224144317593865,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 75,
+        "surrogate_objective": 5.478042725091435,
+        "noise_term": 0.579249102860866,
+        "density_term": 1.995162547082674,
+        "pose_polynomial_term": 1.894757935378643,
+        "cubic_term": 1.0088731397692525,
+        "ritz_value": 0.04445823010592399,
+        "gradient_norm": 14.046328386615702,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 76,
+        "surrogate_objective": 5.476268762564011,
+        "noise_term": 0.5790173568248155,
+        "density_term": 1.996672258906818,
+        "pose_polynomial_term": 1.892813514702635,
+        "cubic_term": 1.0077656321297432,
+        "ritz_value": 0.044365088356790164,
+        "gradient_norm": 13.910429196203696,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 77,
+        "surrogate_objective": 5.474397146348838,
+        "noise_term": 0.5784413758131842,
+        "density_term": 2.0020303600172054,
+        "pose_polynomial_term": 1.886803335388643,
+        "cubic_term": 1.0071220751298047,
+        "ritz_value": 0.04407576295837611,
+        "gradient_norm": 14.07483011156147,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 78,
+        "surrogate_objective": 5.47252409918211,
+        "noise_term": 0.5780302668037447,
+        "density_term": 2.004629317566755,
+        "pose_polynomial_term": 1.8835151040182654,
+        "cubic_term": 1.0063494107933448,
+        "ritz_value": 0.04391652821585399,
+        "gradient_norm": 13.790497062403563,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 79,
+        "surrogate_objective": 5.470565288191369,
+        "noise_term": 0.5775614498132626,
+        "density_term": 2.0080307072459793,
+        "pose_polynomial_term": 1.879476198136857,
+        "cubic_term": 1.00549693299527,
+        "ritz_value": 0.04372010800529033,
+        "gradient_norm": 13.658684439404823,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 80,
+        "surrogate_objective": 5.468795587439643,
+        "noise_term": 0.5771421683489598,
+        "density_term": 2.011141874002241,
+        "pose_polynomial_term": 1.8758408888824123,
+        "cubic_term": 1.0046706562060297,
+        "ritz_value": 0.04354164283046883,
+        "gradient_norm": 13.50149525642126,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 81,
+        "surrogate_objective": 5.467003957237338,
+        "noise_term": 0.5768365246778132,
+        "density_term": 2.013240651858852,
+        "pose_polynomial_term": 1.873343009002636,
+        "cubic_term": 1.0035837716980365,
+        "ritz_value": 0.0434178660190982,
+        "gradient_norm": 13.278025305237922,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 82,
+        "surrogate_objective": 5.465350683110753,
+        "noise_term": 0.5761816246398286,
+        "density_term": 2.019070494076481,
+        "pose_polynomial_term": 1.8670594837362677,
+        "cubic_term": 1.0030390806581742,
+        "ritz_value": 0.0431083409392563,
+        "gradient_norm": 13.464185267385156,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 83,
+        "surrogate_objective": 5.4636469028650705,
+        "noise_term": 0.5758617811898523,
+        "density_term": 2.0213731519310403,
+        "pose_polynomial_term": 1.8644084039670312,
+        "cubic_term": 1.0020035657771464,
+        "ritz_value": 0.04297712602250434,
+        "gradient_norm": 13.312651359019416,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 84,
+        "surrogate_objective": 5.461980996011335,
+        "noise_term": 0.5754974793845344,
+        "density_term": 2.024054987159763,
+        "pose_polynomial_term": 1.861393850276473,
+        "cubic_term": 1.0010346791905649,
+        "ritz_value": 0.04282854277805814,
+        "gradient_norm": 13.15254745896172,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 85,
+        "surrogate_objective": 5.460429867060254,
+        "noise_term": 0.5751302553219526,
+        "density_term": 2.0263569310545018,
+        "pose_polynomial_term": 1.858676274761737,
+        "cubic_term": 1.0002664059220634,
+        "ritz_value": 0.04269684813187043,
+        "gradient_norm": 13.014817103762677,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 86,
+        "surrogate_objective": 5.459041139368387,
+        "noise_term": 0.5746928973084942,
+        "density_term": 2.0293097620859974,
+        "pose_polynomial_term": 1.8552623284751755,
+        "cubic_term": 0.9997761514987198,
+        "ritz_value": 0.04253050369083825,
+        "gradient_norm": 13.001930246098091,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 87,
+        "surrogate_objective": 5.457498137942729,
+        "noise_term": 0.5742435084084172,
+        "density_term": 2.032811736247438,
+        "pose_polynomial_term": 1.8514313079042264,
+        "cubic_term": 0.9990115853826473,
+        "ritz_value": 0.042344563168154506,
+        "gradient_norm": 12.890779095272316,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 88,
+        "surrogate_objective": 5.455842065745251,
+        "noise_term": 0.573722767133394,
+        "density_term": 2.036593203740236,
+        "pose_polynomial_term": 1.8472235356400293,
+        "cubic_term": 0.9983025592315903,
+        "ritz_value": 0.042143650531737124,
+        "gradient_norm": 12.767975601026517,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 89,
+        "surrogate_objective": 5.454280510459881,
+        "noise_term": 0.5733019205817199,
+        "density_term": 2.040221788528835,
+        "pose_polynomial_term": 1.8434490038522298,
+        "cubic_term": 0.9973077974970965,
+        "ritz_value": 0.041966613429455284,
+        "gradient_norm": 12.62302818395618,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 90,
+        "surrogate_objective": 5.452814701650279,
+        "noise_term": 0.5729959770724709,
+        "density_term": 2.0430585634254577,
+        "pose_polynomial_term": 1.8405852883901181,
+        "cubic_term": 0.996174872762233,
+        "ritz_value": 0.04183676514179819,
+        "gradient_norm": 12.448578438765585,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 91,
+        "surrogate_objective": 5.451506106790086,
+        "noise_term": 0.57261271028677,
+        "density_term": 2.0466626684802574,
+        "pose_polynomial_term": 1.8369920283357202,
+        "cubic_term": 0.9952386996873388,
+        "ritz_value": 0.04167189019480547,
+        "gradient_norm": 12.387936822796645,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 92,
+        "surrogate_objective": 5.450375060518528,
+        "noise_term": 0.5724029022623145,
+        "density_term": 2.0476746306777454,
+        "pose_polynomial_term": 1.8357562101946945,
+        "cubic_term": 0.994541317383774,
+        "ritz_value": 0.04162357044067414,
+        "gradient_norm": 12.1213852208796,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 93,
+        "surrogate_objective": 5.449241390186787,
+        "noise_term": 0.5719342820977176,
+        "density_term": 2.0513971507513022,
+        "pose_polynomial_term": 1.8319533386366496,
+        "cubic_term": 0.9939566187011171,
+        "ritz_value": 0.04144579840362099,
+        "gradient_norm": 12.135665820704995,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 94,
+        "surrogate_objective": 5.448254858429926,
+        "noise_term": 0.5717283700754706,
+        "density_term": 2.051901072636109,
+        "pose_polynomial_term": 1.831157684646119,
+        "cubic_term": 0.9934677310722265,
+        "ritz_value": 0.04141587090947673,
+        "gradient_norm": 11.92985013522308,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 95,
+        "surrogate_objective": 5.447264730166545,
+        "noise_term": 0.5715154424314122,
+        "density_term": 2.05346624288371,
+        "pose_polynomial_term": 1.8295490956264855,
+        "cubic_term": 0.9927339492249375,
+        "ritz_value": 0.04134214666851378,
+        "gradient_norm": 11.705108687180886,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 96,
+        "surrogate_objective": 5.446328023109786,
+        "noise_term": 0.5710044275568763,
+        "density_term": 2.0574928611407612,
+        "pose_polynomial_term": 1.8255211911384384,
+        "cubic_term": 0.9923095432737099,
+        "ritz_value": 0.04115863244401978,
+        "gradient_norm": 12.019935512359321,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 97,
+        "surrogate_objective": 5.445342151997354,
+        "noise_term": 0.5708951609518513,
+        "density_term": 2.057271820148203,
+        "pose_polynomial_term": 1.8255308410259026,
+        "cubic_term": 0.9916443298713968,
+        "ritz_value": 0.04116644341048937,
+        "gradient_norm": 11.651473213606176,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 98,
+        "surrogate_objective": 5.4441494380494095,
+        "noise_term": 0.5705130477052563,
+        "density_term": 2.0600250884152977,
+        "pose_polynomial_term": 1.82278145893281,
+        "cubic_term": 0.9908298429960458,
+        "ritz_value": 0.04103914148946204,
+        "gradient_norm": 11.533470106986805,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 99,
+        "surrogate_objective": 5.443096274232498,
+        "noise_term": 0.5699495055322228,
+        "density_term": 2.0641558035321683,
+        "pose_polynomial_term": 1.8187630614530432,
+        "cubic_term": 0.9902279037150633,
+        "ritz_value": 0.040855637060482584,
+        "gradient_norm": 11.764813133942893,
+        "active_spectral_modes": 8
+      },
+      {
+        "evaluation": 100,
+        "surrogate_objective": 5.442118746542143,
+        "noise_term": 0.5695636679206646,
+        "density_term": 2.066507741170243,
+        "pose_polynomial_term": 1.8164625766600007,
+        "cubic_term": 0.989584760791234,
+        "ritz_value": 0.04075558854329221,
+        "gradient_norm": 11.598675974218553,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 101,
+        "surrogate_objective": 5.44122956873523,
+        "noise_term": 0.5693769850212169,
+        "density_term": 2.0673181563397525,
+        "pose_polynomial_term": 1.8156167822725287,
+        "cubic_term": 0.9889176451017321,
+        "ritz_value": 0.04072247139589312,
+        "gradient_norm": 11.383838483306912,
+        "active_spectral_modes": 7
+      },
+      {
+        "evaluation": 102,
+        "surrogate_objective": 5.440511020416564,
+        "noise_term": 0.5693333531282855,
+        "density_term": 2.0668878604630136,
+        "pose_polynomial_term": 1.815887519383132,
+        "cubic_term": 0.9884022874421332,
+        "ritz_value": 0.04074118347744977,
+        "gradient_norm": 11.123417628688628,
+        "active_spectral_modes": 7
+      }
+    ],
+    "spectral_modes": 8,
+    "spectral_smoothing": 0.002,
+    "smoothing_additive_objective_bound": 0.037149144057143736,
+    "coordinate_preconditioning": true,
+    "preconditioner_ridge": 2.033933115792849,
+    "pose_quadrature_order": 32,
+    "spectral_upper_certificate": {
+      "eigenvalue_upper": 0.04508025644214919,
+      "rayleigh_lower": 0.040649174020409184,
+      "failure_probability": 1e-06,
+      "probes": 4,
+      "iterations": 40,
+      "seed": 1614611,
+      "projection_threshold": 0.03964365465102093,
+      "history": [
+        {
+          "iteration": 1,
+          "power_upper": 5.332279272369454,
+          "best_upper": 5.332279272369454,
+          "rayleigh_lower": 7.358141922438407e-05,
+          "upper_over_lower": 72467.74156541948
+        },
+        {
+          "iteration": 2,
+          "power_upper": 0.3946585086131599,
+          "best_upper": 0.3946585086131599,
+          "rayleigh_lower": 0.028449536223876665,
+          "upper_over_lower": 13.87222995508578
+        },
+        {
+          "iteration": 3,
+          "power_upper": 0.1764731950601127,
+          "best_upper": 0.1764731950601127,
+          "rayleigh_lower": 0.03549429361052327,
+          "upper_over_lower": 4.9718751131250105
+        },
+        {
+          "iteration": 4,
+          "power_upper": 0.120368741968641,
+          "best_upper": 0.120368741968641,
+          "rayleigh_lower": 0.037879862659720556,
+          "upper_over_lower": 3.1776446247951884
+        },
+        {
+          "iteration": 5,
+          "power_upper": 0.0961338599562026,
+          "best_upper": 0.0961338599562026,
+          "rayleigh_lower": 0.03895670720645795,
+          "upper_over_lower": 2.467710103082487
+        },
+        {
+          "iteration": 6,
+          "power_upper": 0.0829184629158262,
+          "best_upper": 0.0829184629158262,
+          "rayleigh_lower": 0.03949954834271812,
+          "upper_over_lower": 2.0992255961102027
+        },
+        {
+          "iteration": 7,
+          "power_upper": 0.07467773558609347,
+          "best_upper": 0.07467773558609347,
+          "rayleigh_lower": 0.039799505142799355,
+          "upper_over_lower": 1.8763483444870015
+        },
+        {
+          "iteration": 8,
+          "power_upper": 0.06907494273575847,
+          "best_upper": 0.06907494273575847,
+          "rayleigh_lower": 0.03998214572577767,
+          "upper_over_lower": 1.7276447144562281
+        },
+        {
+          "iteration": 9,
+          "power_upper": 0.06502967048310244,
+          "best_upper": 0.06502967048310244,
+          "rayleigh_lower": 0.04010384148222986,
+          "upper_over_lower": 1.6215322043878837
+        },
+        {
+          "iteration": 10,
+          "power_upper": 0.06197724720648037,
+          "best_upper": 0.06197724720648037,
+          "rayleigh_lower": 0.04019104732249112,
+          "upper_over_lower": 1.5420659906963305
+        },
+        {
+          "iteration": 11,
+          "power_upper": 0.05959504925952426,
+          "best_upper": 0.05959504925952426,
+          "rayleigh_lower": 0.0402570072103349,
+          "upper_over_lower": 1.4803646219439988
+        },
+        {
+          "iteration": 12,
+          "power_upper": 0.05768585150131003,
+          "best_upper": 0.05768585150131003,
+          "rayleigh_lower": 0.040308895518373765,
+          "upper_over_lower": 1.431094818140463
+        },
+        {
+          "iteration": 13,
+          "power_upper": 0.05612251931194098,
+          "best_upper": 0.05612251931194098,
+          "rayleigh_lower": 0.04035092585441178,
+          "upper_over_lower": 1.3908607578035241
+        },
+        {
+          "iteration": 14,
+          "power_upper": 0.05481952252635521,
+          "best_upper": 0.05481952252635521,
+          "rayleigh_lower": 0.040385755779470206,
+          "upper_over_lower": 1.3573974652276362
+        },
+        {
+          "iteration": 15,
+          "power_upper": 0.053717261397488954,
+          "best_upper": 0.053717261397488954,
+          "rayleigh_lower": 0.040415157990856806,
+          "upper_over_lower": 1.3291364940263628
+        },
+        {
+          "iteration": 16,
+          "power_upper": 0.05277296379502626,
+          "best_upper": 0.05277296379502626,
+          "rayleigh_lower": 0.04044036454664533,
+          "upper_over_lower": 1.3049576675837349
+        },
+        {
+          "iteration": 17,
+          "power_upper": 0.05195515576131924,
+          "best_upper": 0.05195515576131924,
+          "rayleigh_lower": 0.040462257630521276,
+          "upper_over_lower": 1.2840399622716232
+        },
+        {
+          "iteration": 18,
+          "power_upper": 0.05124017262767655,
+          "best_upper": 0.05124017262767655,
+          "rayleigh_lower": 0.04048148331074457,
+          "upper_over_lower": 1.2657681595890637
+        },
+        {
+          "iteration": 19,
+          "power_upper": 0.05060988478887194,
+          "best_upper": 0.05060988478887194,
+          "rayleigh_lower": 0.04049852361088248,
+          "upper_over_lower": 1.2496723405312584
+        },
+        {
+          "iteration": 20,
+          "power_upper": 0.050050172787946635,
+          "best_upper": 0.050050172787946635,
+          "rayleigh_lower": 0.04051374425843082,
+          "upper_over_lower": 1.2353874889638545
+        },
+        {
+          "iteration": 21,
+          "power_upper": 0.04954987921474098,
+          "best_upper": 0.04954987921474098,
+          "rayleigh_lower": 0.04052742730264376,
+          "upper_over_lower": 1.2226258243515165
+        },
+        {
+          "iteration": 22,
+          "power_upper": 0.049100072401326064,
+          "best_upper": 0.049100072401326064,
+          "rayleigh_lower": 0.04053979384934263,
+          "upper_over_lower": 1.2111574267939265
+        },
+        {
+          "iteration": 23,
+          "power_upper": 0.04869351898821545,
+          "best_upper": 0.04869351898821545,
+          "rayleigh_lower": 0.04055102011912143,
+          "upper_over_lower": 1.2007964003168077
+        },
+        {
+          "iteration": 24,
+          "power_upper": 0.04832429945839135,
+          "best_upper": 0.04832429945839135,
+          "rayleigh_lower": 0.04056124889533777,
+          "upper_over_lower": 1.191390816961405
+        },
+        {
+          "iteration": 25,
+          "power_upper": 0.04798752344181245,
+          "best_upper": 0.04798752344181245,
+          "rayleigh_lower": 0.04057059774475701,
+          "upper_over_lower": 1.1828152925849837
+        },
+        {
+          "iteration": 26,
+          "power_upper": 0.04767911587290935,
+          "best_upper": 0.04767911587290935,
+          "rayleigh_lower": 0.04057916495942919,
+          "upper_over_lower": 1.174965426730162
+        },
+        {
+          "iteration": 27,
+          "power_upper": 0.04739565427021389,
+          "best_upper": 0.04739565427021389,
+          "rayleigh_lower": 0.04058703388052794,
+          "upper_over_lower": 1.167753583810234
+        },
+        {
+          "iteration": 28,
+          "power_upper": 0.04713424343990967,
+          "best_upper": 0.04713424343990967,
+          "rayleigh_lower": 0.040594276068641924,
+          "upper_over_lower": 1.16110565342289
+        },
+        {
+          "iteration": 29,
+          "power_upper": 0.04689241794134435,
+          "best_upper": 0.04689241794134435,
+          "rayleigh_lower": 0.04060095364883641,
+          "upper_over_lower": 1.1549585348887057
+        },
+        {
+          "iteration": 30,
+          "power_upper": 0.04666806539966614,
+          "best_upper": 0.04666806539966614,
+          "rayleigh_lower": 0.04060712106331711,
+          "upper_over_lower": 1.1492581640273989
+        },
+        {
+          "iteration": 31,
+          "power_upper": 0.0464593656500834,
+          "best_upper": 0.0464593656500834,
+          "rayleigh_lower": 0.04061282639716161,
+          "upper_over_lower": 1.1439579505190607
+        },
+        {
+          "iteration": 32,
+          "power_upper": 0.04626474203059403,
+          "best_upper": 0.04626474203059403,
+          "rayleigh_lower": 0.040618112394897085,
+          "upper_over_lower": 1.1390175294410367
+        },
+        {
+          "iteration": 33,
+          "power_upper": 0.046082822087261985,
+          "best_upper": 0.046082822087261985,
+          "rayleigh_lower": 0.040623017251884,
+          "upper_over_lower": 1.1344017555742927
+        },
+        {
+          "iteration": 34,
+          "power_upper": 0.045912405637977584,
+          "best_upper": 0.045912405637977584,
+          "rayleigh_lower": 0.040627575240459554,
+          "upper_over_lower": 1.1300798870284303
+        },
+        {
+          "iteration": 35,
+          "power_upper": 0.04575243863718572,
+          "best_upper": 0.04575243863718572,
+          "rayleigh_lower": 0.040631817213743496,
+          "upper_over_lower": 1.1260249177757722
+        },
+        {
+          "iteration": 36,
+          "power_upper": 0.04560199164958962,
+          "best_upper": 0.04560199164958962,
+          "rayleigh_lower": 0.04063577101789195,
+          "upper_over_lower": 1.1222130282580596
+        },
+        {
+          "iteration": 37,
+          "power_upper": 0.04546024201263998,
+          "best_upper": 0.04546024201263998,
+          "rayleigh_lower": 0.04063946183497151,
+          "upper_over_lower": 1.1186231303269876
+        },
+        {
+          "iteration": 38,
+          "power_upper": 0.04532645897165085,
+          "best_upper": 0.04532645897165085,
+          "rayleigh_lower": 0.040642912472498,
+          "upper_over_lower": 1.1152364880917942
+        },
+        {
+          "iteration": 39,
+          "power_upper": 0.04519999122590851,
+          "best_upper": 0.04519999122590851,
+          "rayleigh_lower": 0.04064614361131908,
+          "upper_over_lower": 1.1120364002581853
+        },
+        {
+          "iteration": 40,
+          "power_upper": 0.04508025644214919,
+          "best_upper": 0.04508025644214919,
+          "rayleigh_lower": 0.040649174020409184,
+          "upper_over_lower": 1.1090079325969882
+        }
+      ],
+      "scope": "Probability over fresh design-only Gaussian probes for a fixed PSD matrix, in real arithmetic; not validated floating point."
+    },
+    "alpha_noise": 0.049999,
+    "alpha_numerical": 1e-06,
+    "alpha_total": 0.05,
+    "scope": "Fixed shared-field scales; approximate Ritz-mode optimization, final independent probabilistic upper audit; no optimization success inferred from validity."
+  },
+  "seconds": 2300.627110709029,
+  "uses_no_data": false,
+  "uncapped_relative_half_width": 0.33557987726326655,
+  "selected_relative_half_width": 0.33557987726326655
+}

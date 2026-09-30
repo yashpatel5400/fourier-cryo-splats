@@ -641,3 +641,65 @@ below 4.5e-15. The profiling process never imports Torch; the existing Mac
 runtime remains unchanged. No running experiment has been silently switched
 to the alternate numerical binary. Threaded execution is a possible next
 optimization, not a completed accelerated end-to-end study.
+
+### Checkpointed CPU continuation and a negative dual diagnostic
+
+The original 10028 center/0.5-degree optimization failed with ARPACK reporting
+seven of eight requested eigenvectors converged after 101 iterations. Its raw
+failure and best-weight checkpoint are preserved. The other original grid
+processes were then deliberately interrupted after validating and backing up
+all saved checkpoints. They continue in isolated two-thread CPU processes,
+with the original fixed-pose weights still defining block scales and entirely
+fresh final-audit seeds. Additional iteration budgets are explicit. The exact
+source/runtime hashes and process migration are recorded in CPU-CONTINUATION.json.
+Completed 10049 center cases at 0.5 and one degree are reused, not rerun silently.
+
+The optimizer now accepts available unit modes from a partial eigensolver
+convergence only as approximate optimization directions. Its final upper bound
+still uses separate randomized probes; Ritz values are never upper bounds.
+A failure with no available mode remains a failure. A regression test forces
+partial convergence and verifies the independent certificate path.
+
+The newly completed original 10049 one-degree center case has relative width
+0.33558, an 85.33% objective gap, and minimum reference sign power 7.07e-25.
+Six nonlinear stress searches reach 0.46458 of its bias upper. It is not a
+converged optimization or a useful detection. A separate feasible dual-mixture
+postprocess reduces the gap only to 85.12%, without changing any estimator,
+interval or upper bound. Thus an inadequate softmax mixture alone does not
+explain the large gap. Twelve unit spectral directions, their feasible mixture
+and the unchanged source fit are retained in the postprocess record.
+
+### Directional noise calibration and the first completed continuation
+
+All eighteen directional-noise re-audits are complete across the three stacks.
+Weights selected using the first fresh-exposure half are held fixed; only the
+second half calibrates their scalar noise variance. Raw-frame weights correctly
+undo each supplied centering phase before projection. The direct trace lemma
+allows correlated projected coordinates and arbitrary signal means. This does
+not establish the remaining common-covariance, pose-independence or density
+assumptions, and this exploratory diagnostic reuse is not a new frozen study.
+
+Noise standard-deviation upper bounds are 0.13250--0.28481 times the original
+ones. Four of eighteen cases still use the no-data fallback. Exactly one broad
+10076 fixed-pose interval excludes zero; none does at one or two degrees. All
+approximate deposited-map values remain inside the intervals, which is not a
+coverage label. Full rows, unchanged-weight hashes, proofs, table and plots are
+retained under directional-noise-audit/summary and DIRECTIONAL-NOISE-CALIBRATION.md.
+
+The completed 10076 center/half-degree CPU continuation has relative width
+0.16056 and a certified sum-objective gap 0.05023. Its optimization stopping
+message alone is not the convergence certificate. Six independently rechecked
+nonlinear candidates reach 0.64983 of the bias upper. Minimum analytic sign
+power on the three reference-generator scenarios is 0.67032. This conditional
+broad-feature result is more useful than previous cases, but does not establish
+performance at one/two degrees or at a finer structural scale.
+
+The complete expanded test suite passes 68 tests in 7.75 seconds. Tests include
+exact correlated/noncentral calibration controls and the raw Fourier-coordinate
+pullback identity; passing them cannot validate archive noise assumptions.
+
+The revised PDF has 33 pages including references and appendices, with the
+main text still ending on page 7. The directional calibration derivation, all
+six plot panels and both experimental tables were rendered and visually
+inspected. The build has no overflow or undefined-reference warnings. No new
+Fable scientific review has yet occurred; the first rejection remains active.

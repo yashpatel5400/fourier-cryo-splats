@@ -1,0 +1,571 @@
+{
+  "stage": "Exploratory independent directional noise calibration of existing fixed estimators; no experimental density coverage claim",
+  "dataset": "10076",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "output": "directional-noise-audit"
+  },
+  "source_snapshot": {
+    "git_head_at_snapshot": "fcbcb43d56697d6ec45a4d114782feaea93da690",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/audit_uq_directional_noise.py": {
+        "sha256": "be9ce9a071aec2c2cb9220c3d46d00acac99fec5b3c2f42811ca0442f6b8b0fa",
+        "snapshot": "provenance/uncertainty/source-snapshots/be9ce9a071aec2c2cb9220c3d46d00acac99fec5b3c2f42811ca0442f6b8b0fa.txt"
+      },
+      "scripts/audit_uq_grid_refinement.py": {
+        "sha256": "83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b",
+        "snapshot": "provenance/uncertainty/source-snapshots/83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_ctf_uncertainty.py": {
+        "sha256": "17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e",
+        "snapshot": "provenance/uncertainty/source-snapshots/17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_dual_mixture.py": {
+        "sha256": "43369a6f23e6b8a6afd16abab9671e4262fae52f8591882b601ced983e60d7c2",
+        "snapshot": "provenance/uncertainty/source-snapshots/43369a6f23e6b8a6afd16abab9671e4262fae52f8591882b601ced983e60d7c2.txt"
+      },
+      "src/fourier_splats/uq_fourier_variational.py": {
+        "sha256": "f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668",
+        "snapshot": "provenance/uncertainty/source-snapshots/f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668.txt"
+      },
+      "src/fourier_splats/uq_intervals.py": {
+        "sha256": "590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9",
+        "snapshot": "provenance/uncertainty/source-snapshots/590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_noise_calibration.py": {
+        "sha256": "fe682c20ad84439ee8ea53db70756fd6bfc5f3c2bb86a9944c0e7aabbc80ac88",
+        "snapshot": "provenance/uncertainty/source-snapshots/fe682c20ad84439ee8ea53db70756fd6bfc5f3c2bb86a9944c0e7aabbc80ac88.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_pose_operator.py": {
+        "sha256": "33a3ba817c67590c2d948178025af0e0d4ea5d6b2196243b97de690b16f3ef03",
+        "snapshot": "provenance/uncertainty/source-snapshots/33a3ba817c67590c2d948178025af0e0d4ea5d6b2196243b97de690b16f3ef03.txt"
+      },
+      "src/fourier_splats/uq_pose_optimization.py": {
+        "sha256": "3c1fc497961df5d761a01c92ab18d7b6661fafb7b71264ca01d2e24636f26fcc",
+        "snapshot": "provenance/uncertainty/source-snapshots/3c1fc497961df5d761a01c92ab18d7b6661fafb7b71264ca01d2e24636f26fcc.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_random_spectral.py": {
+        "sha256": "55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e",
+        "snapshot": "provenance/uncertainty/source-snapshots/55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      },
+      "src/fourier_splats/uq_support.py": {
+        "sha256": "771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a",
+        "snapshot": "provenance/uncertainty/source-snapshots/771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "complete": true,
+  "source_result": "results/uncertainty/development/experimental-noise-grouped/10076.json",
+  "source_sha256": "7a3cb1ab6259ed08cc2d33d259902285ba04a0033cc2ba9ce4bba57de7feb4f7",
+  "weight_selection_calibration_groups": 92,
+  "new_calibration_groups": 93,
+  "calibration_representative_indices": [
+    417,
+    3803,
+    2695,
+    3144,
+    2053,
+    3797,
+    2600,
+    3560,
+    3721,
+    2992,
+    3609,
+    1961,
+    1642,
+    2012,
+    321,
+    1894,
+    3978,
+    3691,
+    3381,
+    3694,
+    2588,
+    604,
+    1570,
+    2337,
+    3199,
+    2542,
+    1448,
+    2743,
+    1527,
+    1745,
+    1665,
+    2381,
+    3675,
+    2614,
+    2301,
+    2022,
+    2511,
+    128,
+    2244,
+    2433,
+    1933,
+    2858,
+    849,
+    3012,
+    2612,
+    716,
+    1706,
+    2851,
+    2086,
+    3902,
+    3769,
+    2648,
+    1425,
+    52,
+    2063,
+    3095,
+    3373,
+    816,
+    2621,
+    586,
+    1490,
+    251,
+    3834,
+    2270,
+    4003,
+    360,
+    779,
+    3362,
+    1921,
+    2897,
+    2408,
+    3812,
+    2171,
+    469,
+    3702,
+    2684,
+    2681,
+    3490,
+    2092,
+    629,
+    2292,
+    3216,
+    2413,
+    2583,
+    3739,
+    2427,
+    1608,
+    1590,
+    943,
+    174,
+    3413,
+    2484,
+    513
+  ],
+  "inference_particles": 93,
+  "inference_indices": [
+    4923,
+    4981,
+    5049,
+    5095,
+    1129,
+    5179,
+    5189,
+    5248,
+    5283,
+    5345,
+    5457,
+    1264,
+    1329,
+    1339,
+    5540,
+    5553,
+    115,
+    1410,
+    5633,
+    1429,
+    139,
+    6044,
+    6054,
+    6158,
+    6249,
+    6297,
+    1549,
+    6396,
+    6537,
+    6741,
+    7039,
+    7146,
+    7152,
+    7281,
+    7292,
+    7316,
+    7365,
+    7383,
+    1703,
+    7454,
+    7513,
+    7554,
+    7585,
+    7645,
+    7681,
+    7702,
+    7725,
+    7756,
+    7795,
+    7805,
+    7872,
+    8156,
+    1938,
+    44,
+    2132,
+    2179,
+    2292,
+    281,
+    2559,
+    2628,
+    2982,
+    3050,
+    60,
+    3231,
+    3261,
+    3504,
+    91,
+    3787,
+    3901,
+    3940,
+    3980,
+    702,
+    723,
+    4045,
+    4089,
+    4152,
+    872,
+    4183,
+    4193,
+    4250,
+    4348,
+    4428,
+    4494,
+    4498,
+    4550,
+    4582,
+    4627,
+    4629,
+    4681,
+    4823,
+    1046,
+    4860,
+    4864
+  ],
+  "noise_alpha": 0.045,
+  "calibration_alpha": 0.005,
+  "guarantee_scope": "Pointwise per fixed estimator, not simultaneous across targets or sensitivities",
+  "unverified_conditions": [
+    "Common Gaussian noise covariance across calibration and inference particles.",
+    "Independence between source groups; original archive preprocessing is not reversed.",
+    "Supplied full-data consensus poses are treated as external, although their inference-noise independence is not established.",
+    "Density L2 radius 2 and pose radii are supplied sensitivities, not estimated confidence bounds.",
+    "Reference map with pilot-pool amplitude alignment is approximate, not biological truth."
+  ],
+  "raw_frame_note": "Calibration uses uncentered image Fourier coordinates; inference weights include the transpose of each supplied centering phase and the original whitening scale.",
+  "post_hoc_note": "The second exposure half was previously used only for aggregate energy diagnostics; this development analysis is not a new frozen confirmation.",
+  "records": [
+    {
+      "sigma_A": 29.343998718261723,
+      "rotation_radius_degrees": 0.0,
+      "translation_radius_A": 0.0,
+      "bias_upper_unchanged": 1.602886046022267,
+      "directional_calibration": {
+        "estimator_variance_upper": 0.32100944586855534,
+        "noise_sd_upper": 0.5665769549395345,
+        "calibration": {
+          "covariance_trace_upper": 0.32100944586855534,
+          "lower_tail_fraction": 0.5953698661132212,
+          "observations": 93,
+          "dimension": 93,
+          "observed_total_energy": 17.774099625129224,
+          "failure_probability": 0.005,
+          "assumptions": "Independent Gaussian vectors with one common covariance and arbitrary fixed means; real arithmetic."
+        },
+        "inference_particles": 93,
+        "raw_coordinate_dimension": 80,
+        "assumptions": "Weights independent of this calibration pool; independent Gaussian calibration and inference particles with a common covariance in the raw coordinate frame; arbitrary fixed means."
+      },
+      "old_noise_sd_upper": 1.989299823679782,
+      "noise_sd_ratio": 0.28481224810621436,
+      "same_calibration_trace_sd_upper": 2.0469902234888933,
+      "half_width_before_fallback": 2.5634593181202923,
+      "old_half_width_before_fallback": 4.98530774519541,
+      "relative_half_width": 0.15843491383275962,
+      "old_relative_half_width": 0.30811754938205727,
+      "interval_center": 4.369664137573606,
+      "interval_half_width": 2.5634593181202923,
+      "uses_no_data": false,
+      "excludes_zero": true,
+      "approximate_reference_target": 2.0798944152346097,
+      "approximate_reference_inside_interval": true,
+      "weights_sha256": "646151b5af8b07cca222a948dc647478465db88a64399b40bfc8a43fe5b74bf9"
+    },
+    {
+      "sigma_A": 29.343998718261723,
+      "rotation_radius_degrees": 1.0,
+      "translation_radius_A": 0.5,
+      "bias_upper_unchanged": 4.119082391896683,
+      "directional_calibration": {
+        "estimator_variance_upper": 0.32100944586855534,
+        "noise_sd_upper": 0.5665769549395345,
+        "calibration": {
+          "covariance_trace_upper": 0.32100944586855534,
+          "lower_tail_fraction": 0.5953698661132212,
+          "observations": 93,
+          "dimension": 93,
+          "observed_total_energy": 17.774099625129224,
+          "failure_probability": 0.005,
+          "assumptions": "Independent Gaussian vectors with one common covariance and arbitrary fixed means; real arithmetic."
+        },
+        "inference_particles": 93,
+        "raw_coordinate_dimension": 80,
+        "assumptions": "Weights independent of this calibration pool; independent Gaussian calibration and inference particles with a common covariance in the raw coordinate frame; arbitrary fixed means."
+      },
+      "old_noise_sd_upper": 1.989299823679782,
+      "noise_sd_ratio": 0.28481224810621436,
+      "same_calibration_trace_sd_upper": 2.0469902234888933,
+      "half_width_before_fallback": 5.0796556639941315,
+      "old_half_width_before_fallback": 7.491736813902313,
+      "relative_half_width": 0.31394873393783035,
+      "old_relative_half_width": 0.4630277017380884,
+      "interval_center": 4.369664137573606,
+      "interval_half_width": 5.0796556639941315,
+      "uses_no_data": false,
+      "excludes_zero": false,
+      "approximate_reference_target": 2.0798944152346097,
+      "approximate_reference_inside_interval": true,
+      "weights_sha256": "646151b5af8b07cca222a948dc647478465db88a64399b40bfc8a43fe5b74bf9"
+    },
+    {
+      "sigma_A": 29.343998718261723,
+      "rotation_radius_degrees": 2.0,
+      "translation_radius_A": 0.5,
+      "bias_upper_unchanged": 10.71081378981254,
+      "directional_calibration": {
+        "estimator_variance_upper": 0.32100944586855534,
+        "noise_sd_upper": 0.5665769549395345,
+        "calibration": {
+          "covariance_trace_upper": 0.32100944586855534,
+          "lower_tail_fraction": 0.5953698661132212,
+          "observations": 93,
+          "dimension": 93,
+          "observed_total_energy": 17.774099625129224,
+          "failure_probability": 0.005,
+          "assumptions": "Independent Gaussian vectors with one common covariance and arbitrary fixed means; real arithmetic."
+        },
+        "inference_particles": 93,
+        "raw_coordinate_dimension": 80,
+        "assumptions": "Weights independent of this calibration pool; independent Gaussian calibration and inference particles with a common covariance in the raw coordinate frame; arbitrary fixed means."
+      },
+      "old_noise_sd_upper": 1.989299823679782,
+      "noise_sd_ratio": 0.28481224810621436,
+      "same_calibration_trace_sd_upper": 2.0469902234888933,
+      "half_width_before_fallback": 11.671387061909991,
+      "old_half_width_before_fallback": 14.083468155924015,
+      "relative_half_width": 0.7213514918654629,
+      "old_relative_half_width": 0.8704304562111757,
+      "interval_center": 4.369664137573606,
+      "interval_half_width": 11.671387061909991,
+      "uses_no_data": false,
+      "excludes_zero": false,
+      "approximate_reference_target": 2.0798944152346097,
+      "approximate_reference_inside_interval": true,
+      "weights_sha256": "646151b5af8b07cca222a948dc647478465db88a64399b40bfc8a43fe5b74bf9"
+    },
+    {
+      "sigma_A": 10.0,
+      "rotation_radius_degrees": 0.0,
+      "translation_radius_A": 0.0,
+      "bias_upper_unchanged": 71.79914734387079,
+      "directional_calibration": {
+        "estimator_variance_upper": 0.2742970541794095,
+        "noise_sd_upper": 0.5237337626880756,
+        "calibration": {
+          "covariance_trace_upper": 0.2742970541794095,
+          "lower_tail_fraction": 0.5953698661132212,
+          "observations": 93,
+          "dimension": 93,
+          "observed_total_energy": 15.18766263925028,
+          "failure_probability": 0.005,
+          "assumptions": "Independent Gaussian vectors with one common covariance and arbitrary fixed means; real arithmetic."
+        },
+        "inference_particles": 93,
+        "raw_coordinate_dimension": 80,
+        "assumptions": "Weights independent of this calibration pool; independent Gaussian calibration and inference particles with a common covariance in the raw coordinate frame; arbitrary fixed means."
+      },
+      "old_noise_sd_upper": 2.7426286447552757,
+      "noise_sd_ratio": 0.19096050925071859,
+      "same_calibration_trace_sd_upper": 2.8221658473229474,
+      "half_width_before_fallback": 72.68708436592438,
+      "old_half_width_before_fallback": 76.44899366831568,
+      "relative_half_width": 0.8937226582000112,
+      "old_relative_half_width": 0.9399771422114328,
+      "interval_center": 3.3644631638705906,
+      "interval_half_width": 72.68708436592438,
+      "uses_no_data": false,
+      "excludes_zero": false,
+      "approximate_reference_target": 2.739355979180596,
+      "approximate_reference_inside_interval": true,
+      "weights_sha256": "ee13700b48e90d35b3617f1856a3f4a1d3abaa1f1cdadc181b6968f6a150285e"
+    },
+    {
+      "sigma_A": 10.0,
+      "rotation_radius_degrees": 1.0,
+      "translation_radius_A": 0.5,
+      "bias_upper_unchanged": 78.09489410258966,
+      "directional_calibration": {
+        "estimator_variance_upper": 0.2742970541794095,
+        "noise_sd_upper": 0.5237337626880756,
+        "calibration": {
+          "covariance_trace_upper": 0.2742970541794095,
+          "lower_tail_fraction": 0.5953698661132212,
+          "observations": 93,
+          "dimension": 93,
+          "observed_total_energy": 15.18766263925028,
+          "failure_probability": 0.005,
+          "assumptions": "Independent Gaussian vectors with one common covariance and arbitrary fixed means; real arithmetic."
+        },
+        "inference_particles": 93,
+        "raw_coordinate_dimension": 80,
+        "assumptions": "Weights independent of this calibration pool; independent Gaussian calibration and inference particles with a common covariance in the raw coordinate frame; arbitrary fixed means."
+      },
+      "old_noise_sd_upper": 2.7426286447552757,
+      "noise_sd_ratio": 0.19096050925071859,
+      "same_calibration_trace_sd_upper": 2.8221658473229474,
+      "half_width_before_fallback": 78.98283112464325,
+      "old_half_width_before_fallback": 82.74474042703456,
+      "relative_half_width": 0.971131892283888,
+      "old_relative_half_width": 1.0,
+      "interval_center": 3.3644631638705906,
+      "interval_half_width": 78.98283112464325,
+      "uses_no_data": false,
+      "excludes_zero": false,
+      "approximate_reference_target": 2.739355979180596,
+      "approximate_reference_inside_interval": true,
+      "weights_sha256": "ee13700b48e90d35b3617f1856a3f4a1d3abaa1f1cdadc181b6968f6a150285e"
+    },
+    {
+      "sigma_A": 10.0,
+      "rotation_radius_degrees": 2.0,
+      "translation_radius_A": 0.5,
+      "bias_upper_unchanged": 96.31036232911171,
+      "directional_calibration": {
+        "estimator_variance_upper": 0.2742970541794095,
+        "noise_sd_upper": 0.5237337626880756,
+        "calibration": {
+          "covariance_trace_upper": 0.2742970541794095,
+          "lower_tail_fraction": 0.5953698661132212,
+          "observations": 93,
+          "dimension": 93,
+          "observed_total_energy": 15.18766263925028,
+          "failure_probability": 0.005,
+          "assumptions": "Independent Gaussian vectors with one common covariance and arbitrary fixed means; real arithmetic."
+        },
+        "inference_particles": 93,
+        "raw_coordinate_dimension": 80,
+        "assumptions": "Weights independent of this calibration pool; independent Gaussian calibration and inference particles with a common covariance in the raw coordinate frame; arbitrary fixed means."
+      },
+      "old_noise_sd_upper": 2.7426286447552757,
+      "noise_sd_ratio": 0.19096050925071859,
+      "same_calibration_trace_sd_upper": 2.8221658473229474,
+      "half_width_before_fallback": 97.1982993511653,
+      "old_half_width_before_fallback": 100.9602086535566,
+      "relative_half_width": 1.0,
+      "old_relative_half_width": 1.0,
+      "interval_center": 4.143117305994494,
+      "interval_half_width": 81.33069437035279,
+      "uses_no_data": true,
+      "excludes_zero": false,
+      "approximate_reference_target": 2.739355979180596,
+      "approximate_reference_inside_interval": true,
+      "weights_sha256": "ee13700b48e90d35b3617f1856a3f4a1d3abaa1f1cdadc181b6968f6a150285e"
+    }
+  ],
+  "seconds": 149.41586691699922
+}

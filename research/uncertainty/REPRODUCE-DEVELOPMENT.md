@@ -255,3 +255,32 @@ This leaves the standard no-OpenMP FINUFFT installation intact for MPS/Torch
 work. The profiler checks that Torch is absent and records the alternate binary
 hash. Do not apply this import path to the general test suite or MPS adversary
 processes. The timing result does not imply that ongoing studies used it.
+
+The grid was subsequently continued from validated checkpoints using the
+isolated CPU runtime. Completed source cases are reused; failed and interrupted
+source records remain unchanged. For each `ID` in 10028, 10049, 10076:
+
+```bash
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/run_uq_pose_optimized_study.py --datasets ID --nufft-threads 2 --resume-from pose-aware-optimized-shift05 --certificate-seed-offset 100000000 --output pose-aware-optimized-shift05-cpu
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/tighten_uq_pose_dual.py --fit results/uncertainty/development/pose-aware-optimized-shift05/10049-center-1.json --threads 2
+```
+
+The second command is a separate dual-only diagnostic for one completed case,
+not a command to repeat for every ID. It does not tighten the reported interval.
+The small convex-mixture optimization returns only feasible mixtures; even an
+unsuccessful optimization cannot make its valid support directions into a
+spectral upper bound. Partial ARPACK modes are recorded explicitly and can guide
+optimization, while independent final randomized audits protect the upper bound.
+
+For independent feature-direction noise calibration of the previously fitted
+experimental estimators, run:
+
+```bash
+OPENBLAS_NUM_THREADS=2 python scripts/audit_uq_directional_noise.py
+```
+
+This uses the original second exposure half, preserves weights and bias terms,
+and explicitly pulls weights back through centering phases. The original first
+half selected weights; it must not also supply a weight-specific calibration
+bound. See DIRECTIONAL-NOISE-CALIBRATION.md for the conditional argument and
+unresolved experimental assumptions.

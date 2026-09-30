@@ -58,3 +58,26 @@ def test_low_rank_gram_power_against_dense_symmetric_power():
         for matrix,part in zip(matrices,[v[:,:nq].ravel(),v[:,nq:].ravel()]):
             e,u=np.linalg.eigh(matrix);expected.append((u*e**power)@(u.T@part))
         np.testing.assert_allclose(gram_spectral_power(gram,vector,3.,power),pack(*expected),rtol=1e-12)
+
+
+def test_partial_modes_keep_independent_final_upper_and_original_scaling(monkeypatch):
+    from scipy.sparse.linalg import ArpackNoConvergence
+    from fourier_splats.uq_continuous_quadrature import QuadratureObservationGram
+    import fourier_splats.uq_pose_optimization as implementation
+    rng=np.random.default_rng(609891);k=.1*rng.normal(size=(1,2,3));q=rng.normal(size=(1,2,2))
+    ctf=np.ones((1,2));original=np.array([.2,.3,-.1,.4]);initial=original*.9
+    gram=QuadratureObservationGram(k,ctf,.7,order=12,preconditioner_rank=0)
+    def partial(operator,**kwargs):
+        v=np.ones(operator.shape[0]);v/=np.linalg.norm(v)
+        raise ArpackNoConvergence('simulated partial convergence',np.array([v@(operator@v)]),v[:,None])
+    monkeypatch.setattr(implementation,'eigsh',partial)
+    fit=implementation.pose_aware_certificate(gram,q,[[0,0,0]],[1],.15,2.,1.,initial,.02,.001,
+          maxiter=1,power_iterations=4,spectral_modes=2,pose_order=4,precondition=False,scaling_weights=original)
+    assert fit['partial_mode_evaluations']>0
+    op=PolynomialPoseFieldOperator(k,q,ctf,original,.7,.02,.001,order=4,backend='direct')
+    scaling=op.establish_group_scaling();op.set_weights(fit['weights'])
+    np.testing.assert_allclose(fit['initial_group_scale_sum'],scaling['sum_group_scales'],rtol=1e-9)
+    dense=np.column_stack([op.matvec(v) for v in np.eye(op.shape[1])])
+    exact=3*np.sqrt(scaling['sum_group_scales'])*np.linalg.svd(dense,compute_uv=False)[0]
+    assert fit['pose_polynomial_bias']>=exact*(1-1e-9)
+    assert fit['dual_lower_bound']<=fit['sum_objective_upper']
