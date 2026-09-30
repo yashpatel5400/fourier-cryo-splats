@@ -34,9 +34,19 @@ Cryo-EM reconstructs molecular density from noisy projections whose orientations
 
 An uncertainty calculation usually inherits its reconstruction space. If a Gaussian dictionary spans $S$, a posterior or confidence interval computed in $S$ need not cover density outside $S$. Improving optimization inside the dictionary does not remove this discrepancy. Independent half reconstructions can also share the same representational restriction. Our question is how to audit feature uncertainty outside the reconstruction representation. Gaussian pilots motivate the initial exclusion tests; the final continuous solver operates directly on Fourier-slice adjoints and does not require a Gaussian dictionary.
 
-We develop three connected components: a continuous Fourier adjoint-residual audit that separates fitting and inference spaces; bounds for local pose errors, including shared density--pose interactions and an integrated nonlinear remainder; and frozen validation protocols that distinguish fixed-parameter coverage, Bayesian prior-predictive coverage and experimental-image prediction. General bias-aware intervals, norm duality, moment inequalities and primal-dual optimization are established tools. The contribution is their explicit continuous Fourier-slice specialization, its computational implementation, and an empirical audit of when the resulting guarantees remain informative.
+We develop three connected components: a continuous Fourier adjoint-residual audit that separates fitting and inference spaces; bounds for local pose errors, including shared density--pose interactions and an integrated nonlinear remainder; and frozen validation protocols that distinguish fixed-parameter coverage, Bayesian prior-predictive coverage and experimental-image prediction. Figure~\ref{fig:workflow} outlines the conditional procedure. General bias-aware intervals, norm duality, moment inequalities and primal-dual optimization are established tools. The contribution is their explicit continuous Fourier-slice specialization, its computational implementation, and an empirical audit of when the resulting guarantees remain informative.
 
 \section{Related Work and Scientific Scope}
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{figures/conditional-workflow.pdf}
+\caption{The conditional procedure. Design choices must be independent of inference noise;
+weights may be fitted in a convenient representation, while the bias audit uses
+the declared continuous class. The gap concerns the conservative objective,
+not the final folded-normal width. A no-data fallback changes both center and
+width. Experimental consensus poses and class/noise assumptions have not been
+independently validated here; this diagram does not assert otherwise.}
+\label{fig:workflow}
+\end{figure*}
 \paragraph{Probabilistic reconstruction.} Bayesian inference is foundational in cryo-EM \citep{scheres2012}. \citet{ullrich2020} already combine differentiable Fourier-slice reconstruction with variational density uncertainty and discuss the distinction between variance and model bias. \citet{rangan2024} examine soft modes of the joint volume/alignment likelihood Hessian. Thus neither a probabilistic Fourier representation nor pose--density ambiguity is a new observation. Our candidate emphasizes a finite-sample, bounded-class statement and a check outside the fitting dictionary.
 
 \paragraph{Representations and heterogeneity.} CryoDRGN learns a latent-conditioned density family \citep{zhong2021}; its latent variation is not automatically calibrated uncertainty in a homogeneous density. Ab initio neural inference \citep{zhong2021b} is a different task from fixed-pose backprojection. Gaussian mixtures and Gaussian splatting are also established \citep{chen2021,chen2025,qu2025,shekar2025}. We use Fourier kernels as a numerical basis, without treating their existence as the contribution. Continuous-state recovery, conformational populations and pose entanglement are substantial separate problems; the living survey records current RECOVAR, DynaMight, cryoDRGN-AI and CAHRA work with source-level distinctions.
