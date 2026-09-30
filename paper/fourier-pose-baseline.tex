@@ -1,0 +1,48 @@
+\subsection{A local Gaussian pose-marginalization baseline}
+The preceding comparison holds poses fixed. A separately declared extension
+includes Gaussian pose errors through the derivative of the same trilinear
+pilot signal. This relates to the need for coupled density/alignment analysis
+identified by \citet{rangan2024}, but is not a reproduction of their volumetric
+Hessian method. In the approximate model
+$y=Ax+Ju+\epsilon$, let $x\sim N(m,\tau^2I)$, $u\sim N(0,I)$ and
+$\epsilon\sim N(0,I)$ independently. Each particle's five columns of $J$
+include its supplied pose standard deviations. With $K=I+JJ^\top$,
+\[
+ Q=A^\top K^{-1}A+\tau^{-2}I,\qquad
+ v=Q^{-1}\ell,\quad w=K^{-1}Av.
+\]
+Ordinary Gaussian conditioning gives posterior feature variance $\ell^\top v$
+and the check
+\[
+ \ell^\top v=\|w\|^2+\|J^\top w\|^2
+                 +\tau^2\|A^\top w-\ell\|^2.
+\]
+Independent small particle blocks apply $K^{-1/2}$ without a dense global
+covariance. Tests compare the resulting posterior with a separately assembled
+joint density/pose precision and check the Jacobian against nonlinear finite
+differences. This is standard Gaussian algebra, not an additional statistical
+contribution.
+
+The bounded comparison retains all twelve features, both previously inspected
+coordinate prior SDs $0.1$ and $1$, and the fixed-pose controls. Local pose SDs
+are one degree per rotation coordinate and $0.5\,\AA$ per detector shift.
+Their norms are Gaussian and unbounded; they are not the audit's hard joint
+unit ball. The target frame remains fixed by the prior. All 48 fits complete,
+with exactly reproduced fixed-pose widths and maximum variance-identity
+relative discrepancy $2.93\times10^{-13}$. Total setup and fitting take
+4.6--8.5 seconds per stack, with cumulative process peak memory at most
+1.27 GB. The 384 analytic reference checks are implementation and sensitivity
+calculations, not independent experimental replicates.
+
+Table~\ref{tab:fourier-pose} retains both favorable and unfavorable results.
+Local pose marginalization increases widths by $0.0066$--$0.2875\%$.
+Some continuous-reference cases remain below nominal coverage, despite exact
+matched-prior calibration. Small width changes apply only to this pilot
+linearization. In the prescribed one-degree coherent/random configurations,
+its forward discrepancy from the nonlinear trilinear pilot is
+$0.71$--$2.41\%$ of signal norm; at two degrees it is $2.00$--$6.71\%$.
+The corresponding one-degree error is $14.1$--$27.3\%$ of the pose-induced
+signal change. Density/pose products are also omitted. These observations do
+not establish that full nonlinear pose uncertainty is negligible, or that
+the Gaussian pose prior is calibrated for the experimental particles.
+\input{tables/pilot-fourier-pose}

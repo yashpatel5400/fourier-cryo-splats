@@ -433,7 +433,9 @@ affine/fallback centers differ from the original pilot ball. It is a bounded
 same-weight sensitivity, not an experimentally calibrated prior or a newly
 optimized sign-constrained estimator. Projection arrays retain all grid sizes.
 
-The reserved fresh-calibration cohort has no pixels downloaded yet. Follow
+The reserved fresh-calibration cohort is now downloaded for all three stacks,
+following publication of the twelve-model/116-file lock in commit 60efd9b.
+For a fresh reproduction, follow
 `confirmation/noise-calibration-v1/PROTOCOL.md`: only after all twelve fixed
 fits complete, run `freeze_uq_noise_models.py`, commit its lock, then run
 `download_uq_noise_cohort.py`. The downloader refuses an uncommitted or changed
@@ -451,3 +453,24 @@ or change the fit jobs. An exclusive coordinator lock prevents duplicate runs;
 partial/error records are preserved and require inspection. Its default waiting
 budget is twelve hours. This command writes to the existing Git remote as part
 of the required publication-before-access sequence.
+
+## Local Gaussian pose baseline
+
+The protocol and source were published in 9df4aac before this comparison.
+Use a fresh output checkout with the same data, pilot checkpoints, target lock
+and completed original weak-prior baseline. The runner refuses to overwrite
+its existing outcomes and checks source bytes against HEAD before fitting.
+
+```bash
+OPENBLAS_NUM_THREADS=1 .venv/bin/python -m pytest -q tests/test_uq_fourier_pose_baseline.py
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/benchmark_uq_fourier_pose.py
+.venv/bin/python scripts/summarize_uq_fourier_pose.py
+```
+
+All 48 solves are complete. The Jacobian differentiates the trilinear pilot
+signal, and the Gaussian nuisance covariance is marginalized with small
+particle blocks. The supplied Gaussian pose SDs are not hard joint confidence
+radii; density/pose products and nonlinear terms are omitted. The separate
+results note and manuscript report these limitations and all prior settings.
+New array files await the next release bundle; raw outcome hashes are already
+in the repository and do not imply that the v0.5 archive contains these files.

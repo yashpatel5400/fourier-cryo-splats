@@ -33,6 +33,15 @@ reviewer inspected it. The prompt requires the reviewer to state that limit.
 This mode has passed local construction checks but has not yet been used for
 the next full model review.
 
+Current manuscript sources are discovered from `main.tex` and its literal
+inputs/bibliographies. Historical reconstruction drafts remain indexed and
+available in the evidence copy, explicitly distinguished from current claims.
+All non-summary result records, including top-level case records, are deferred
+by document role rather than outcome. The page PNGs may be recompressed
+losslessly for transport; every decoded pixel, color mode and dimension is
+checked unchanged, and both original/rendered byte hashes and pixel hashes are
+recorded. Every page remains at 150 dpi.
+
 The review requests a critical verdict with no desired outcome, stable concern
 IDs and a finite prioritized revision plan. It may reject the work. Neither a
 favorable verdict nor repeated reviews establish actual conference acceptance.
@@ -77,3 +86,10 @@ and bias-decomposition guards plus test gaps. The response documents the new
 fail-closed checks, unchanged guarded replays, deterministic and near-tight
 controls, and six independent 60-decimal spot checks. It is also separate from
 full review rounds and does not alter the rejected scientific assessment.
+
+`cubic-audit-01` and `cubic-design-audit-01` check the higher-order field and
+its weight-design objective. They support the real-arithmetic constructions
+while identifying numerical and test gaps. Their unchanged reports and
+evidence-linked responses remain separate from acceptance reviews. The final-
+weight two-tolerance numerical check is pending the original bounded cubic fit;
+an operator tolerance check is not a validated global arithmetic bound.

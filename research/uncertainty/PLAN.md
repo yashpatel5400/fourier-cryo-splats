@@ -102,6 +102,14 @@ A separate pose-penalty coordinate metric passed its compute-only probe and a
 small independent conic optimization check. It has not been used for an
 empirical fit, and no convergence improvement is asserted.
 
+The local Gaussian pose-marginalization baseline is complete: 48 solves across
+the same twelve targets and two broader priors, with 384 analytic conditional
+reference checks. It preserves all fixed-pose controls and both favorable and
+unfavorable outcomes. Its small width inflation is specific to the pilot
+linearization, whose nonlinear error and omitted density/pose products remain
+limitations. This supplies an additional matched control, not new experimental
+calibration or a full nonlinear pose posterior.
+
 ## Historical status (29 September 2026)
 
 The rewritten ICML manuscript now presents a conditional uncertainty audit in

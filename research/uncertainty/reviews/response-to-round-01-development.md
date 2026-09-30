@@ -138,6 +138,16 @@ coordinate SD one ranges from 0.9861 to 0.9999. All five priors and every pose
 pattern remain reported; these selected-pattern probabilities are not uniform
 pose coverage, and some fall below the 0.995833 nominal marginal level.
 
+A separately declared local Gaussian pose-marginalization comparison is now
+complete on the same twelve features and both broader priors. All 48 solves
+complete and fixed-pose controls exactly reproduce their original widths.
+Pose marginalization widens these local-model intervals by 0.0066–0.2875 percent;
+favorable and unfavorable reference probabilities remain reported. Its pilot
+linearization error at one degree is 0.71–2.41 percent of signal norm, and it
+omits density/pose products. This is a classical local Gaussian control, not
+the full Rangan Hessian method or an independently calibrated pose posterior.
+It does not resolve R1, R2 or R7.
+
 - M1: the paper is a public development preprint, not an anonymized submission.
 - M2: the current curated count is 105 candidates; historical counts and targeted
   reading versus retrieval are distinguished.

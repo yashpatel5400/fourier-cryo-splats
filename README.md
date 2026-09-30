@@ -38,7 +38,10 @@ Current evidence includes:
   its final surrogate optimization gap remains above 0.005. No successful
   empirical outcome is inferred from their prerequisite numerical checks.
 - Matched bootstrap and [Fourier Gaussian baselines](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md),
-  including favorable broader-prior results. Positivity/support controls,
+  including favorable broader-prior results. A completed
+  [local Gaussian pose comparison](research/uncertainty/FOURIER-POSE-BASELINE-RESULTS.md)
+  widens its intervals only slightly; this pilot linearization omits nonlinear
+  and density/pose interaction terms. Positivity/support controls,
   two-pose ambiguity witnesses, higher-band and nuisance-sensitivity failures
   remain reported; they do not rescue the current practical limitations.
 

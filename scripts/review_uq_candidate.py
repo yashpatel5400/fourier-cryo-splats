@@ -11,6 +11,7 @@ import argparse
 import base64
 import datetime
 import hashlib
+import io
 import json
 import math
 import re
@@ -219,8 +220,7 @@ def remove_duplicated_baseline_rows(file, value):
 def inline_with_read_tools(name):
     """Select by document role, never by outcome; all other evidence is readable."""
     path = Path(name)
-    return (not name.startswith('results/') or path.name in {'summary.json', 'metrics.json'}
-            or len(path.parts) == 4)
+    return not name.startswith('results/') or path.name in {'summary.json', 'metrics.json'}
 
 
 def snapshot_references(value):
@@ -280,7 +280,8 @@ def main():
                  'SOBOLEV-WEIGHT-DESIGN-NOTES.md','CUBIC-WEIGHT-DESIGN-THEORY.md',
                  'CUBIC-WEIGHT-OPTIMIZATION-PROTOCOL.md','DIFFPOSE-READING-NOTE.md',
                  'CUBIC-DESIGN-NUMERICAL-CHECK.md','CUBIC-PRECONDITIONER-DEVELOPMENT.md',
-                 'CUBIC-COORDINATE-FOLLOWUP-PROTOCOL.md','FOURIER-POSE-BASELINE-PROTOCOL.md']],
+                 'CUBIC-COORDINATE-FOLLOWUP-PROTOCOL.md','FOURIER-POSE-BASELINE-PROTOCOL.md',
+                 'FOURIER-POSE-BASELINE-RESULTS.md']],
              ROOT/'research/uncertainty/reviews/cubic-audit-01/review.md',
              ROOT/'research/uncertainty/reviews/cubic-audit-01/response.md',
              *sorted((ROOT/'research/uncertainty/reviews/cubic-design-audit-01').glob('*.md')),
@@ -438,8 +439,24 @@ def main():
     metadata['rendered_pages'] = {}
     for number, page in enumerate(sorted(pages.glob('page-*.png')), 1):
         data = page.read_bytes()
+        rendered_digest = digest(data)
+        # Compress transport bytes only; preserve every rendered RGB pixel.
+        from PIL import Image
+        with Image.open(io.BytesIO(data)) as original:
+            original.load(); pixels = original.tobytes()
+            pixel_digest = digest(pixels)
+            compressed = io.BytesIO()
+            original.save(compressed, format='PNG', optimize=True, compress_level=9)
+            candidate = compressed.getvalue()
+            with Image.open(io.BytesIO(candidate)) as verified:
+                if verified.mode != original.mode or verified.size != original.size or verified.tobytes() != pixels:
+                    raise RuntimeError('Lossless review-page compression changed rendered pixels')
+            if len(candidate) < len(data):
+                data = candidate; page.write_bytes(data)
         metadata['rendered_pages'][str(page.relative_to(output))] = {
-            'page': number, 'sha256': digest(data), 'bytes': len(data)}
+            'page': number, 'sha256': digest(data), 'bytes': len(data),
+            'original_render_png_sha256': rendered_digest, 'decoded_pixels_sha256': pixel_digest,
+            'transport_reencoded_losslessly': digest(data) != rendered_digest}
         content.extend([{'type': 'text', 'text': f'Manuscript rendered page {number}:'},
                         {'type': 'image', 'source': {'type': 'base64', 'media_type': 'image/png',
                                                     'data': base64.b64encode(data).decode()}}])
