@@ -43,7 +43,7 @@ def main():
                   'ball-remainder-probe*','expanded-cube-remainder-probe*',
                   'pose-optimized-ambiguity*','pose-adaptive-*','pilot-selected-*','sign-class-probe',
                   'higher-order-remainder-probe','cubic-pose-probe','cubic-weight-probe','cubic-coordinate-probe','cubic-subspace-probe','relion-evaluation-*',
-                  'mixture-validation-preflight-*','mixture-common-scale-*']
+                  'mixture-validation-preflight-*','mixture-common-scale-*','continuous-mixture-*']
         additions=set()
         for pattern in patterns:
             for folder in development.glob(pattern):
@@ -65,6 +65,16 @@ def main():
                             raise ValueError(f'Ambiguous sign-projection owner: {array}')
                     if not owners:continue
                     owner=owners[0];record=json.loads(owner.read_text())
+                    if (folder.name.startswith('mixture-validation-preflight-')
+                            and record.get('complete') is True and record.get('error')
+                            and record.get('arrays_file')==str(array.relative_to(ROOT))):
+                        if sha(array)!=record.get('arrays_sha256'):
+                            raise ValueError(f'Archived partial simulation changed: {array}')
+                        additions.add(array)
+                        selected_owners[str(array.relative_to(ROOT))]={
+                            'record':str(owner.relative_to(ROOT)),'sha256':sha(owner),
+                            'retained_failed_attempt':True,'error':record['error']}
+                        continue
                     if record.get('complete') is not True or any(record.get(key) for key in ['error','numerical_failure','audit_failure']):continue
                     additions.add(array)
                     selected_owners[str(array.relative_to(ROOT))]={'record':str(owner.relative_to(ROOT)),'sha256':sha(owner),
@@ -92,7 +102,7 @@ def main():
                 'reproduction': 'Extract at repository root; fetch original particle selections/maps using recorded protocols.'}
     if args.include_post_review:
         manifest['completed_post_review_array_owners']=selected_owners
-        manifest['excludes']='Active or numerically failed post-review case arrays; their status records and source snapshots remain in git. Completed reference-coverage failures are included and flagged, not selected away.'
+        manifest['excludes']='Active or numerically failed post-review case arrays, except explicitly hashed partial simulations from failed mixture-screen attempts, which are included and flagged. Completed reference-coverage failures are included and flagged, not selected away.'
     manifest_path.write_text(json.dumps(manifest, indent=2)+'\n')
     print(json.dumps({k: manifest[k] for k in ['archive', 'bytes', 'sha256']}, indent=2))
 

@@ -61,7 +61,7 @@ theorems. A cryo-EM-specific contribution must go beyond rebranding them.
 ## Current status (30 September 2026)
 
 The full round-1 Fable rejection remains the latest acceptance assessment.
-The survey contains 113 curated candidates, with targeted reading distinguished
+The survey contains 116 curated candidates, with targeted reading distinguished
 from retrieval. The 10,000-particle audit, expanded Fourier variational baseline,
 three rounds of alternating pose/density ambiguity, and enclosing-domain
 remainder refinements are complete. Their improved numerical bounds have not
@@ -163,6 +163,15 @@ local-removal counts are 14/16, 8/16 and 0/16. Every outer likelihood gap is
 below one log unit. Half-removal counts remain zero. A practical independently
 learned numerator and continuous-pose bounds are still missing. The initial
 loose-bound test and a prior result-serialization failure are retained.
+
+The first full-SO(3) denominator calculation is now specified, with Euler
+covering boxes, analytic Fourier Gaussian derivatives, residual dual bounds
+and frequency-coordinate enclosures. Four independent numerical tests pass;
+the scaled mixture dual is credited to Lindsay (1983). Each of the three
+geometry probes has a fifteen-minute solve allowance. It will measure
+continuous likelihood-bracket tightness, not report a validation ratio.
+Three additional targeted readings cover viewing-law misspecification,
+classical mixture likelihood geometry and scalable finite-mixture solvers.
 
 ## Historical status (29 September 2026)
 

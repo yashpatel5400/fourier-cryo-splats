@@ -3,7 +3,7 @@
 Research cutoff: 2026-09-30. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 113 candidates; this is not a full-reading count.
+The current ledger contains 116 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -39,6 +39,11 @@ CryoLike provides recent computational tooling. The targeted
 confidence sets and discusses the established universal-inference alternative.
 Tight global nuisance optimization and defensible image likelihoods remain
 important obstacles to turning validation scores into calibrated tests.
+
+The [mixture reading note](MIXTURE-PRIOR-ART-READING.md) adds recent theory on
+viewing-law misspecification and the classical likelihood geometry behind
+finite mixture certificates. It distinguishes continuous-support control
+from solving a finite grid accurately; both matter for the new candidate.
 
 ## 2. Statistical reconstruction and explicit density uncertainty
 
