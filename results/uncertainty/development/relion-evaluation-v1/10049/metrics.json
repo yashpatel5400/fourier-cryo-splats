@@ -1,40 +1,27 @@
 {
   "complete": true,
-  "stage": "fit_execution_complete",
   "dataset": "10049",
-  "pixel_size_A": 3.690000057220459,
-  "box": 64,
-  "seed": 680149,
-  "field_A": 236.16000366210938,
-  "counts": {
-    "pilot": 1439,
-    "inference_half0": 1677,
-    "inference_half1": 1866
-  },
-  "input_hashes": {
-    "data/10049/manifest.json": "b8e7b44cac1e306e2f84072ae6004a5b7c15d8d99d3cc6952caa0777a0603884",
-    "data/10049/metadata.npz": "4129a4c7bea42697bec05da66fa7d85e0d84306bde2c5b408c1398a29df2d6e9",
-    "data/10049/images.npy": "af212733eb8e248e141de1c56bb866f04f1671dba50cd4c10d4883eb9ded0666",
-    "research/uncertainty/splits/10049.csv": "167ad21d263db6535d18f1fe2b611e64f381bc7c652a6156a358b0756733951b",
-    "data/uncertainty/relion-reconstruction-v2/10049/particles.mrcs": "c7b9c2cbcc9332b22c0e92854c4ba59f754d1065468831750a3a0491ce7ea823",
-    "data/uncertainty/relion-reconstruction-v2/10049/pilot.star": "df3d6c50c6f15f52872dcb782df497b26851b411614206946ab029238fbb3447",
-    "data/uncertainty/relion-reconstruction-v2/10049/refinement.star": "3ac287d6c669c09f989d95865241fe39b444409100a71aed39edf8db5f6e2c5f",
-    "data/uncertainty/relion-reconstruction-v2/10049/selection.csv": "a90840f00e4777ef8d46f5c85e99495c97164f217450f61022fcd50cc03b12c5",
-    "research/uncertainty/RELION-BASELINE-PROTOCOL.md": "4ead858b1f742339e78e899f2bba0e5b212acbd50436a8c70a97dd38c94ca985",
-    "scripts/run_relion_baseline.py": "5cf82de55567cd444232031212b75ed94ff5cfbe0dfe549e125d0153ecc1de38"
-  },
-  "supplied_poses_or_density": false,
+  "fit_record": "results/uncertainty/development/relion-reconstruction-v2/10049/record.json",
+  "fit_record_sha256": "ba02c6d47b663f0d02f214b2745b62dda5e48bcb9a94f5eabdb75b462632490c",
+  "continuation": false,
+  "refinement_converged": false,
+  "half_labels_verified": false,
+  "scope": "Development reconstruction comparisons; FSC is not density confidence coverage.",
   "source_snapshot": {
-    "git_head_at_snapshot": "c3b604dc8aa3e6a55d3da4f2186895f3318e2b02",
+    "git_head_at_snapshot": "8d7519d52bd04681e7d898467041b6c9e7db625a",
     "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
     "sources": {
-      "scripts/run_relion_baseline.py": {
-        "sha256": "5cf82de55567cd444232031212b75ed94ff5cfbe0dfe549e125d0153ecc1de38",
-        "snapshot": "provenance/uncertainty/source-snapshots/5cf82de55567cd444232031212b75ed94ff5cfbe0dfe549e125d0153ecc1de38.txt"
+      "scripts/evaluate_relion_baseline.py": {
+        "sha256": "2046f9e7e60aedb32ed9ff58430fca7b78bfdf117554f2ed7146ea186bb4caf1",
+        "snapshot": "provenance/uncertainty/source-snapshots/2046f9e7e60aedb32ed9ff58430fca7b78bfdf117554f2ed7146ea186bb4caf1.txt"
       },
       "research/uncertainty/RELION-BASELINE-PROTOCOL.md": {
         "sha256": "4ead858b1f742339e78e899f2bba0e5b212acbd50436a8c70a97dd38c94ca985",
         "snapshot": "provenance/uncertainty/source-snapshots/4ead858b1f742339e78e899f2bba0e5b212acbd50436a8c70a97dd38c94ca985.txt"
+      },
+      "research/uncertainty/RELION-ALIGNMENT-NOTES.md": {
+        "sha256": "a490b8deafd238592defb3ac94c0f88d1be679ba702a9cc497c1c9fb791b4266",
+        "snapshot": "provenance/uncertainty/source-snapshots/a490b8deafd238592defb3ac94c0f88d1be679ba702a9cc497c1c9fb791b4266.txt"
       },
       "src/fourier_splats/__init__.py": {
         "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
@@ -120,6 +107,10 @@
         "sha256": "960fabebcff8792320f7e07e5ab2ca6dab73451eb304a08b763e187991f16be1",
         "snapshot": "provenance/uncertainty/source-snapshots/960fabebcff8792320f7e07e5ab2ca6dab73451eb304a08b763e187991f16be1.txt"
       },
+      "src/fourier_splats/uq_cubic_subspace.py": {
+        "sha256": "a795235413ee37c7ccb7ccd95fd97a4afd9caf972b951ff3085950c69eef6d28",
+        "snapshot": "provenance/uncertainty/source-snapshots/a795235413ee37c7ccb7ccd95fd97a4afd9caf972b951ff3085950c69eef6d28.txt"
+      },
       "src/fourier_splats/uq_data.py": {
         "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
         "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
@@ -151,6 +142,10 @@
       "src/fourier_splats/uq_joint_bias.py": {
         "sha256": "a580d40a4d23b565b4ffeee26a68bdc74324bfde2025a7b478a169469de87f23",
         "snapshot": "provenance/uncertainty/source-snapshots/a580d40a4d23b565b4ffeee26a68bdc74324bfde2025a7b478a169469de87f23.txt"
+      },
+      "src/fourier_splats/uq_map_alignment.py": {
+        "sha256": "f3672ec02952d8367ab71cd5dab2ead4b3f331479e25d66e6941e0824fb75679",
+        "snapshot": "provenance/uncertainty/source-snapshots/f3672ec02952d8367ab71cd5dab2ead4b3f331479e25d66e6941e0824fb75679.txt"
       },
       "src/fourier_splats/uq_noise.py": {
         "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
@@ -252,114 +247,118 @@
       "mrcfile": "1.5.4"
     }
   },
-  "executables": {
-    "relion_refine": "d0439264ba058c74b61665918058dcc6d144e8e95c28076b17585adc2171a30d",
-    "relion_refine_mpi": "98d7dba231965b281243488a2e2f5c0ae33a52f503bc482c49cf2f721bc6be0b",
-    "mpirun": "5c0553968701e10f5265ea358f183537012db17190e541542a992b0a695c39c0"
+  "model_diagnostics": {
+    "records": [
+      {
+        "file": "initial_it000_model.star",
+        "sha256": "3714c7da948cb9d1cab9371f6c8f0154ed2fef4102200b0fef03c34d51639a0e",
+        "general": {
+          "rlnCurrentResolution": Infinity,
+          "rlnAveragePmax": 0.0,
+          "rlnSigmaOffsetsAngst": 10.0,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 3.69
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 0.0,
+            "rlnAccuracyTranslationsAngst": 0.0,
+            "rlnEstimatedResolution": 59.04,
+            "rlnOverallFourierCompleteness": 0.0
+          }
+        ]
+      },
+      {
+        "file": "initial_it010_model.star",
+        "sha256": "da49313802721f71073ee7bfaebf60deb38f0b637f1368c7bee8d4b83a8efde8",
+        "general": {
+          "rlnCurrentResolution": 39.36,
+          "rlnAveragePmax": 0.229157,
+          "rlnSigmaOffsetsAngst": 6.454094,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 3.69
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 20.49,
+            "rlnAccuracyTranslationsAngst": 4.2066,
+            "rlnEstimatedResolution": 39.36,
+            "rlnOverallFourierCompleteness": 0.800752
+          }
+        ]
+      },
+      {
+        "file": "initial_it020_model.star",
+        "sha256": "c445896924c19478981e3231c5c0ae6dec563c68923b0329fbc4cad05dff41a6",
+        "general": {
+          "rlnCurrentResolution": 47.232,
+          "rlnAveragePmax": 0.104722,
+          "rlnSigmaOffsetsAngst": 4.77745,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 3.69
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 14.86,
+            "rlnAccuracyTranslationsAngst": 6.56451,
+            "rlnEstimatedResolution": Infinity,
+            "rlnOverallFourierCompleteness": null
+          }
+        ]
+      },
+      {
+        "file": "initial_it030_model.star",
+        "sha256": "5ed5ac8f4230f7393cc2952cef3826bbf282f1347cda3e1cb19aef1a0c3b79cf",
+        "general": {
+          "rlnCurrentResolution": 39.36,
+          "rlnAveragePmax": 0.070688,
+          "rlnSigmaOffsetsAngst": 3.645505,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 3.69
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 9.85,
+            "rlnAccuracyTranslationsAngst": 5.00364,
+            "rlnEstimatedResolution": 39.36,
+            "rlnOverallFourierCompleteness": 0.938563
+          }
+        ]
+      },
+      {
+        "file": "initial_it040_model.star",
+        "sha256": "b7bd21b62ae2aa30d1eb4d7f058457889e3f17812ba505a9e5549935a6e90a4f",
+        "general": {
+          "rlnCurrentResolution": 21.469091,
+          "rlnAveragePmax": 0.272039,
+          "rlnSigmaOffsetsAngst": 3.132188,
+          "rlnOriginalImageSize": 64,
+          "rlnPixelSize": 3.69
+        },
+        "classes": [
+          {
+            "rlnClassDistribution": 1.0,
+            "rlnAccuracyRotations": 5.03,
+            "rlnAccuracyTranslationsAngst": 3.01842,
+            "rlnEstimatedResolution": 21.469091,
+            "rlnOverallFourierCompleteness": 0.899665
+          }
+        ]
+      }
+    ],
+    "units": {
+      "rlnAccuracyRotations": "degrees",
+      "rlnAccuracyTranslationsAngst": "angstrom",
+      "rlnEstimatedResolution": "angstrom",
+      "rlnCurrentResolution": "angstrom"
+    },
+    "interpretation": "RELION local model diagnostics; not calibrated uniform pose radii or independent reconstruction accuracy. Missing values remain null."
   },
-  "runs": [
-    {
-      "stage": "initial",
-      "command": [
-        "/Users/yash/Documents/New project/fourier-splats/tmp/relion-env/bin/relion_refine",
-        "--i",
-        "pilot.star",
-        "--o",
-        "/Users/yash/Documents/New project/fourier-splats/results/uncertainty/development/relion-reconstruction-v2/10049/initial",
-        "--grad",
-        "--denovo_3dref",
-        "--iter",
-        "100",
-        "--healpix_order",
-        "1",
-        "--offset_range",
-        "6",
-        "--auto_sampling",
-        "--tau2_fudge",
-        "4",
-        "--pad",
-        "1",
-        "--grad_ini_subset",
-        "128",
-        "--grad_fin_subset",
-        "1024",
-        "--grad_ini_resol",
-        "60",
-        "--grad_fin_resol",
-        "15.0",
-        "--grad_write_iter",
-        "10",
-        "--ctf",
-        "--K",
-        "1",
-        "--sym",
-        "C1",
-        "--flatten_solvent",
-        "--zero_mask",
-        "--dont_combine_weights_via_disc",
-        "--preread_images",
-        "--pool",
-        "30",
-        "--particle_diameter",
-        "188.92800292968752",
-        "--oversampling",
-        "1",
-        "--offset_step",
-        "2",
-        "--j",
-        "2",
-        "--random_seed",
-        "680149"
-      ],
-      "wall_limit_seconds": 1800,
-      "complete": true,
-      "status": "wall_limit",
-      "returncode": -15,
-      "seconds": 1800.024730834004,
-      "log": "logs/uncertainty/relion-10049-initial.log",
-      "log_sha256": "3d2742046752cd50f029d5776b49fe922fe428f027c29c4e20faa90775df65f7"
-    }
-  ],
-  "optimiser_status": [
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10049/initial_it000_optimiser.star",
-      "sha256": "058bf00601d8bf7eae49532c8f84e18e2805e0bfbd446cf282e63baf7820651d",
-      "rlnCurrentIteration": 0,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    },
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10049/initial_it010_optimiser.star",
-      "sha256": "8a20e5b933ab08f084bf4a558ec6232e3852a7897fbe4dd49a336802b6f286de",
-      "rlnCurrentIteration": 10,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    },
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10049/initial_it020_optimiser.star",
-      "sha256": "b96f1a9a24537745439ada668bb40fb6c111953c46ec397c63ad24096eebc273",
-      "rlnCurrentIteration": 20,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    },
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10049/initial_it030_optimiser.star",
-      "sha256": "1ac90580c554b02cf9d145ecd29c53bfb4c47db52522d1c543872b3e9ea4328d",
-      "rlnCurrentIteration": 30,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    },
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10049/initial_it040_optimiser.star",
-      "sha256": "8cf967ead367d78ff678ef0e0a17e2db78b9d98b7f808936e04e7cb8d50d7fed",
-      "rlnCurrentIteration": 40,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    }
-  ],
-  "refinement_converged": false,
-  "half_label_checks": [],
-  "half_labels_verified": false,
-  "evaluation_complete": false,
-  "scope": "All fit outcomes retained; reconstruction evaluation is a separate pending step."
+  "skipped": true,
+  "seconds": 0.04667662503197789,
+  "reason": "No paired refinement maps; initializer is not a converged baseline"
 }

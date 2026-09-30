@@ -1,0 +1,198 @@
+"""Reduced convex cubic design with spectral supporting cuts.
+
+This is a classical cutting-plane construction, not a new coverage theorem.
+Ritz values and conic stopping diagnostics guide design only. A separately
+randomized final upper audit remains necessary. Earlier study code is unchanged.
+"""
+import time
+from numbers import Integral
+import numpy as np
+from scipy.sparse.linalg import LinearOperator, eigsh
+from scipy.stats import norm
+from .uq_random_spectral import gaussian_power_upper
+from .uq_intervals import bias_aware_half_width_stable
+
+
+def orthonormal_basis(columns, relative_tolerance=1e-12):
+    columns = np.asarray(columns, float)
+    if columns.ndim != 2 or not np.isfinite(columns).all():
+        raise ValueError('Finite matrix of candidate weight columns required')
+    u, singular, _ = np.linalg.svd(columns, full_matrices=False)
+    if not len(singular) or singular[0] <= 0: raise ValueError('Nonzero span required')
+    keep = singular > relative_tolerance*singular[0]
+    q = u[:, keep]
+    return q, {'input_columns':columns.shape[1], 'rank':int(keep.sum()),
+        'singular_values':singular.tolist(), 'relative_rank_tolerance':relative_tolerance,
+        'relative_projection_residual':float(np.linalg.norm(columns-q@(q.T@columns))/np.linalg.norm(columns))}
+
+
+def psd_root(matrix):
+    """Recorded ordinary-floating-point majorant; no interval-arithmetic claim."""
+    matrix = np.asarray(matrix, float); matrix = .5*(matrix+matrix.T)
+    values, vectors = np.linalg.eigh(matrix)
+    scale = max(np.linalg.norm(matrix, ord=np.inf), np.finfo(float).tiny)
+    if values[0] < -1e-9*scale: raise FloatingPointError('Substantially indefinite reduced Gram')
+    pad = max(0., -float(values[0]))+64*np.finfo(float).eps*len(matrix)*scale
+    root = np.sqrt(np.maximum(values+pad, 0.))[:, None]*vectors.T
+    return root, {'minimum_eigenvalue':float(values[0]), 'diagonal_pad':float(pad),
+        'infinity_norm':float(scale),
+        'relative_factor_residual':float(np.linalg.norm(root.T@root-matrix-pad*np.eye(len(matrix)))/scale)}
+
+
+class ReducedCubicDesign:
+    """Norm objective in a fixed orthonormal weight subspace.
+
+    The triangle bound on coefficient amplitudes affects only integration and
+    embedding-error pads. Density, pilot and derivative norms keep full cross
+    terms. The final original-objective audit need not use this extra relaxation.
+    """
+    def __init__(self, objective, basis):
+        self.obj = objective; self.Q = np.asarray(basis, float)
+        m, self.p = self.Q.shape
+        if m != objective.a.size or not np.isfinite(self.Q).all():
+            raise ValueError('Finite weight basis of the correct dimension required')
+        np.testing.assert_allclose(self.Q.T@self.Q, np.eye(self.p), rtol=1e-10, atol=1e-10)
+        if objective.smoothing != 0: raise ValueError('Use the unsmoothed norm objective')
+        self.noise_root, noise_diag = psd_root(self.Q.T@self.Q)
+        actions = np.column_stack([objective.gram.matvec(q) for q in self.Q.T])
+        gram = self.Q.T@actions+objective.eta*(self.Q.T@self.Q)
+        cross = self.Q.T@objective.a
+        augmented = np.block([[gram,-cross[:,None]],[-cross[None],np.array([[objective.target_norm2]])]])
+        self.density_root, density_diag = psd_root(augmented)
+        pilots = []
+        for q in self.Q.T:
+            objective.op.set_weights(q); pilots.append(objective.op.pair_moments(objective.moments))
+        pilots = np.column_stack(pilots)
+        self.pilot_root, pilot_diag = psd_root(pilots.T@pilots)
+        q = self.Q.reshape(objective.n, 2, objective.nq, self.p)
+        amplitude = np.hypot(q[:,0],q[:,1])
+        mass = np.einsum('naj,njp->nap',objective.coefficients,amplitude).reshape(-1,self.p)
+        mass *= np.sqrt(objective.kernel_error)
+        self.mass_root, mass_diag = psd_root(mass.T@mass)
+        self.remainder_roots = []; remainder_diag = []
+        remainder = objective.remainder
+        for i in range(objective.n):
+            for d in range(remainder.order):
+                gram = sum(q[i,c].T@remainder.blocks[i,d,c]@q[i,c] for c in range(2))
+                root, diag = psd_root(gram)
+                self.remainder_roots.append((objective.B+objective.P)*remainder.multipliers[i,d]*root)
+                remainder_diag.append(dict(particle=i,order=d+1,**diag))
+        self.residual_coefficients = (objective.B+objective.P)*np.einsum('nj,njp->p',remainder.residual,amplitude)
+        self.diagnostics = {'rank':self.p,'density':density_diag,'noise':noise_diag,
+            'pilot':pilot_diag,'mass':mass_diag,'remainder':remainder_diag,
+            'scope':'Reduced Gram factorizations use recorded heuristic PSD pads; not validated floating-point bounds.'}
+
+    def value(self, coefficient, spectral_norm):
+        x = np.asarray(coefficient,float)
+        if x.shape != (self.p,) or spectral_norm < 0: raise ValueError('Invalid reduced design inputs')
+        obj = self.obj
+        terms = {'noise':obj.z*np.linalg.norm(self.noise_root@x),
+            'density':obj.B*np.linalg.norm(self.density_root@np.r_[x,1.]),
+            'pose':obj.B*obj.L*np.hypot(spectral_norm,np.linalg.norm(self.mass_root@abs(x))),
+            'pilot':obj.L*np.linalg.norm(self.pilot_root@x),
+            'remainder':sum(np.linalg.norm(root@x) for root in self.remainder_roots)+self.residual_coefficients@abs(x)}
+        return float(sum(terms.values())), {k:float(v) for k,v in terms.items()}
+
+    def solve_master(self, cuts, solver='CLARABEL'):
+        import cvxpy as cp
+        x = cp.Variable(self.p); absolute = cp.Variable(self.p,nonneg=True); spectral = cp.Variable(nonneg=True)
+        constraints = [absolute >= x,absolute >= -x]
+        if cuts:
+            a = np.asarray(cuts); constraints += [a@x <= spectral,-a@x <= spectral]
+        obj = self.obj
+        cost = obj.z*cp.norm(self.noise_root@x)+obj.B*cp.norm(self.density_root@cp.hstack([x,1.]))
+        cost += obj.B*obj.L*cp.norm(cp.hstack([spectral,self.mass_root@absolute]))
+        cost += obj.L*cp.norm(self.pilot_root@x)
+        cost += sum(cp.norm(root@x) for root in self.remainder_roots)+self.residual_coefficients@absolute
+        problem = cp.Problem(cp.Minimize(cost),constraints)
+        begin = time.perf_counter()
+        options = dict(tol_gap_abs=1e-8,tol_gap_rel=1e-8,tol_feas=1e-8,max_iter=500) if solver=='CLARABEL' else dict(eps=1e-7,max_iters=100000)
+        value = problem.solve(solver=solver,**options)
+        if problem.status not in ('optimal','optimal_inaccurate') or x.value is None or not np.isfinite(x.value).all():
+            raise RuntimeError(f'Reduced conic solve failed: {problem.status}')
+        return x.value, {'solver':solver,'status':problem.status,'objective':float(value),
+            'coefficients':x.value.tolist(),
+            'spectral_epigraph':float(spectral.value),'seconds':time.perf_counter()-begin,
+            'iterations':problem.solver_stats.num_iters,
+            'scope':'Numerical restricted-master optimum diagnostic, not a full-space or rigorous floating-point lower certificate.'}
+
+    def spectral_directions(self, coefficients, *, initial, modes=3, tolerance=1e-4, maxiter=150,
+                            subspace=17, dense=False):
+        op = self.obj.op; op.set_weights(self.Q@coefficients)
+        if np.linalg.norm(coefficients) == 0:
+            v = np.zeros(op.shape[0]); v[0] = 1.
+            return 0., [np.zeros(self.p)], v[:,None], initial.copy(), [0.]
+        if dense:
+            matrix = np.column_stack([op.matvec(e) for e in np.eye(op.shape[1])])
+            _,_,right = np.linalg.svd(matrix,full_matrices=False)
+            vectors = right[:modes].T
+        else:
+            # Work on the smaller pose-column Gram, preserving the nonzero spectrum.
+            operator = LinearOperator((op.shape[1],)*2,matvec=lambda v:op.rmatvec(op.matvec(v)),dtype=float)
+            values,vectors = eigsh(operator,k=modes,which='LA',v0=initial,tol=tolerance,ncv=subspace,maxiter=maxiter)
+            vectors = vectors[:,np.argsort(values)[::-1]]
+        cuts=[]; spatial=[]; singular=[]
+        for u in vectors.T:
+            u = u/np.linalg.norm(u); v = op.matvec(u); length=np.linalg.norm(v)
+            if length == 0: continue
+            v /= length; u2 = op.rmatvec(v); sigma=np.linalg.norm(u2)
+            cuts.append(self.Q.T@op.weight_gradient(u2/sigma,v))
+            spatial.append(v);singular.append(float(sigma))
+        if not cuts: raise FloatingPointError('No nonzero spectral direction; retain failed case')
+        return max(singular), cuts, np.column_stack(spatial), vectors[:,0], singular
+
+
+def optimize_reduced_cubic(objective, basis, initial_weights, *, optimization_seed, certificate_seed,
+                          max_evaluations=20, separation_tolerance=1e-3, modes=3,
+                          ritz_tolerance=1e-4, ritz_subspace=17, ritz_maxiter=150,
+                          power_probes=4,power_iterations=40,alpha=.05/12,numerical_delta=1e-6/12,
+                          dense_oracle=False,callback=None,checkpoint_callback=None):
+    for seed in [optimization_seed,certificate_seed]:
+        if isinstance(seed,bool) or not isinstance(seed,Integral) or seed < 0:
+            raise ValueError('Explicit nonnegative integer seeds required')
+    if optimization_seed == certificate_seed: raise ValueError('Independent certificate seed required')
+    if max_evaluations < 1 or not 0 <= separation_tolerance < 1: raise ValueError('Invalid design limits')
+    if not 0 < numerical_delta < alpha < .5: raise ValueError('Invalid error budget')
+    if abs(objective.z-norm.isf((alpha-numerical_delta)/2)) > 1e-12: raise ValueError('Critical value disagrees')
+    begin=time.perf_counter(); reduced=ReducedCubicDesign(objective,basis)
+    x=reduced.Q.T@initial_weights
+    np.testing.assert_allclose(reduced.Q@x,initial_weights,rtol=1e-9,atol=1e-11)
+    mode=np.random.default_rng(optimization_seed).normal(size=objective.op.shape[1]);mode/=np.linalg.norm(mode)
+    best={'value':np.inf};history=[];cuts=[];master=None;stopped=False
+    for evaluation in range(1,max_evaluations+1):
+        stamp=time.perf_counter()
+        spectral,newcuts,spatial,mode,singular=reduced.spectral_directions(x,initial=mode,modes=modes,
+            tolerance=ritz_tolerance,maxiter=ritz_maxiter,subspace=ritz_subspace,dense=dense_oracle)
+        value,terms=reduced.value(x,spectral)
+        row={'evaluation':evaluation,'guide_objective':value,'terms':terms,'coefficients':x.tolist(),
+            'spectral_lower_diagnostics':singular,'cuts_before':len(cuts),'master':master,
+            'seconds':time.perf_counter()-stamp,'elapsed_seconds':time.perf_counter()-begin}
+        cuts.extend(newcuts);history.append(row)
+        if value < best['value']:
+            weights=reduced.Q@x
+            _,_,_,support=objective.evaluate(weights,spatial)
+            best.update(value=value,weights=weights.copy(),support=support.copy(),evaluation=evaluation)
+            if checkpoint_callback:checkpoint_callback(weights.copy(),row)
+        if callback:callback(row)
+        x,master=reduced.solve_master(cuts)
+        gap=max(0.,best['value']-master['objective'])/max(best['value'],np.finfo(float).tiny)
+        row['next_master']=master;row['restricted_guide_gap']=gap
+        if callback:callback({'stage':'conic_master','evaluation':evaluation,'restricted_guide_gap':gap,**master})
+        if gap <= separation_tolerance:
+            stopped=True;break
+    optimization_seconds=time.perf_counter()-begin
+    weights=best['weights'];objective.op.set_weights(weights)
+    if callback:callback({'stage':'fresh_spectral_audit','evaluations':len(history),'selected_evaluation':best['evaluation']})
+    spectral=gaussian_power_upper(objective.op.spatial_gram,objective.op.shape[0],numerical_delta,
+        power_probes,power_iterations,certificate_seed,callback=callback)
+    audit=objective.audit(weights,best['support'],spectral['eigenvalue_upper'])
+    audit.update(weights=weights,half_width=bias_aware_half_width_stable(audit['noise_sd'],audit['bias'],alpha-numerical_delta),
+        optimization_history=history,selected_evaluation=best['evaluation'],selected_approximate_objective=best['value'],
+        optimization_seconds=optimization_seconds,certification_seconds=time.perf_counter()-begin-optimization_seconds,
+        spectral_upper_certificate=spectral,reduced_diagnostics=reduced.diagnostics,
+        stopped_on_restricted_guide_gap=stopped,restricted_guide_gap=history[-1]['restricted_guide_gap'],
+        optimization_seed=optimization_seed,certificate_seed=certificate_seed,
+        alpha_total=alpha,alpha_noise=alpha-numerical_delta,alpha_numerical=numerical_delta,
+        gap_scope='Restricted-master gap uses numerical conic solves and Ritz lower diagnostics; it is not a convergence certificate. relative_sum_gap remains the original full-space audited surrogate gap.',
+        numerical_scope='Recorded heuristic PSD/floating-point guards; analytic quadrature bounds hold in real arithmetic.')
+    return audit

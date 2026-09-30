@@ -108,6 +108,16 @@ small independent conic optimization check. The original gap triggers the
 previously declared empirical follow-up using that metric; it is now running
 from the same original weights, with no asserted convergence improvement.
 
+A separate reduced convex design is now specified: twelve Fourier-shell
+restrictions of the original fixed-pose weights plus the original optimized
+cubic weights form a thirteen-column span. Classical spectral supporting cuts
+and small conic masters avoid a large ill-conditioned line search. An independent
+dense conic check agrees within 5.2e-8 in a two-particle test; 204 tests pass,
+including the inherited intentional conic warning. No empirical reduced-design
+result exists yet. Its declared fit is scheduled after the coordinate run ends;
+the latter's outcomes do not choose the new span. A fresh spectral upper audit
+remains required, and reduced numerical stopping is not full-space optimality.
+
 The local Gaussian pose-marginalization baseline is complete: 48 solves across
 the same twelve targets and two broader priors, with 384 analytic conditional
 reference checks. It preserves all fixed-pose controls and both favorable and
@@ -122,7 +132,9 @@ is running: pilot-only VDAM initialization, then refinement on the same exposure
 halves as the existing neural comparison. It has explicit per-stage wall limits,
 retains failures, and has no converged baseline result yet. The first initializer
 times out at thirty minutes, with its last saved checkpoint at iteration forty;
-its evaluation records missing paired maps and reports no FSC. A separate
+its evaluation records missing paired maps and reports no FSC. The second
+initializer also times out at thirty minutes with iteration forty saved; its
+evaluation likewise reports no paired-map FSC. A separate
 published continuation protocol resumes wall-limited attempts with eight CPU
 worker threads and larger, bounded time allowances; its first continuation is
 running. Original v2 outcomes remain unchanged. Global map alignment

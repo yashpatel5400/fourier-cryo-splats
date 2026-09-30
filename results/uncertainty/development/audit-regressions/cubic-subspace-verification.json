@@ -1,0 +1,36 @@
+{
+  "complete": true,
+  "empirical_fit_executed": false,
+  "full_suite": "204 passed, 1 retained conic warning in 134.62 seconds",
+  "initial_failure": "Independent conic test assembled a scalar block with an extra Python-list nesting level. Converted that scalar block to a 1x1 NumPy array; no scientific algorithm changed to resolve this fixture error.",
+  "independent_dense_conic_objective": 2.252785078032232,
+  "reduced_selected_guide_objective": 2.2527851293463823,
+  "small_case_spectral_queries": 4,
+  "checks": [
+    "Reduced majorant dominates the exact objective at independent weights",
+    "Spectral cuts remain below independently assembled dense operator norms",
+    "Pose-column Ritz oracle agrees with dense SVD",
+    "Reduced selected guide agrees with independent dense SDP within 5.2e-8"
+  ],
+  "scope": "Implementation checks only. Conic/Ritz guide stopping is not full-space optimality or a statistical calibration result.",
+  "logs": {
+    "logs/uncertainty/cubic-subspace-tests-initial.log": {
+      "sha256": "554aa1e186c52e17b2a56e1d4a9082b247247bf60c4661d8b2bd9127f11f986d",
+      "bytes": 4885
+    },
+    "logs/uncertainty/cubic-subspace-tests-v2.log": {
+      "sha256": "372c988d56bb1240c5ca862ff52093f964a4c7968a65d05f9f134d9cb9beb563",
+      "bytes": 86
+    },
+    "logs/uncertainty/cubic-subspace-full-tests.log": {
+      "sha256": "c69b4c87db02cc8f9344e9a319b45e68f84300d2212640aff3df0a586b6b4720",
+      "bytes": 883
+    }
+  },
+  "source_hashes": {
+    "src/fourier_splats/uq_cubic_subspace.py": "303f0018b65c41bf242c0e98fdc0df8aaa786b98b644f0fe4f58f501b8bd2442",
+    "scripts/run_uq_cubic_subspace_probe.py": "1eb1536695b3575da3cf39bf27f569213ea429520f2fa82d70fcfd407ed4f3e5",
+    "tests/test_uq_cubic_subspace.py": "bf3fa8d2f479864431121fa84776f70e517ef734bfcff5beaeb1e034d03f22ec",
+    "research/uncertainty/CUBIC-SUBSPACE-PROTOCOL.md": "8e67e7301ace78c140784ed225f8359c56702bfba8a27d89256f3d83fa21053c"
+  }
+}
