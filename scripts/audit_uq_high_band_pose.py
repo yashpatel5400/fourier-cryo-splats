@@ -81,6 +81,10 @@ def main():
         w=saved['weights'];noise=float(saved['noise_std']);np.testing.assert_array_equal(saved['indices'],g['indices'])
         result['source_weights_sha256']=hashlib.sha256(wp.read_bytes()).hexdigest()
         angle=np.deg2rad(args.angle);shift=args.shift_A/g['field_A'];B=2.;P=1.;delta=args.delta
+        explicit_class='density_radius' in prior and 'pilot_norm_bound' in prior
+        legacy_class=prior.get('class')=='radius 2 around a unit-L2 constant-cell pilot; independent unit-L2 64-cell reference generator'
+        if not explicit_class and not legacy_class:
+            raise ValueError('Source must explicitly identify its continuous density class')
         if prior.get('density_radius',2.)!=B or prior.get('pilot_norm_bound',1.)!=P:
             raise ValueError('This runner requires the declared B=2/P=1 class')
         result.update(centers_fraction_field=centers,signs=signs,target_lock_sha256=prior.get('target_lock_sha256'))

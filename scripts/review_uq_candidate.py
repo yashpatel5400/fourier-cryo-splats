@@ -135,15 +135,18 @@ def main():
                  'FOURIER-VARIATIONAL-BASELINE.md', 'DIRECTIONAL-NOISE-CALIBRATION.md',
                  'NOISE-METRIC-DESIGN.md', 'POSE-SPECTRAL-EXCHANGE.md', 'JOINT-DENSITY-POSE-BIAS.md',
                  'PILOT-POSE-PAIRING.md','TWO-POSE-MODULUS.md','BALL-SOBOLEV-REMAINDER-PROPOSAL.md',
-                 'POSE-OPTIMIZED-AMBIGUITY-PROTOCOL.md','POSE-PRIOR-VALIDATION-NOTES.md']],
+                 'POSE-OPTIMIZED-AMBIGUITY-PROTOCOL.md','POSE-PRIOR-VALIDATION-NOTES.md',
+                 'INVARIANTS-AND-THERMODYNAMICS-NOTES.md']],
              *sorted((ROOT/'research/uncertainty/pilot-selected-targets-v1').glob('*.md')),
              ROOT/'research/uncertainty/pilot-selected-targets-v1/locked-targets.json',
              *sorted((ROOT/'research/uncertainty/confirmation').glob('*/PROTOCOL.md')),
+             *sorted((ROOT/'research/uncertainty/confirmation/noise-calibration-v1').glob('*.json')),
              *sorted((ROOT/'src/fourier_splats').glob('*.py')),
              *sorted((ROOT/'tests').glob('test*.py')),
              *sorted((ROOT/'scripts').glob('*.py')),
              *sorted((ROOT/'results/uncertainty/confirmation').glob('*/summary/summary.json')),
              *sorted((ROOT/'results/uncertainty/confirmation/prediction-v1').glob('*/metrics.json')),
+             *sorted((ROOT/'results/uncertainty/confirmation/noise-calibration-v1').glob('*.json')),
              *[ROOT/'results/uncertainty/development'/name for name in [
                  'continuous-summary/summary.json', 'continuous-summary/continuous-pose-summary.json',
                  'comparison-summary/summary.json', 'continuous-pose-moments/summary.json',
@@ -174,6 +177,7 @@ def main():
              *sorted((ROOT/'results/uncertainty/development').glob('pose-adaptive-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('pilot-selected-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/audit-regressions').glob('*.json')),
+             ROOT/'results/uncertainty/development/pose-metadata-inventory.json',
              *sorted((ROOT/'results/uncertainty/development/pose-optimized-diagnostics').glob('*/*.json'))]
     if args.round > 1:
         if args.response_file is None:

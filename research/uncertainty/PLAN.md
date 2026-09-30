@@ -58,7 +58,31 @@ linear-functional confidence tools. Any use of these must explicitly credit
 that literature; standard Gaussian posterior or conformal formulas are not new
 theorems. A cryo-EM-specific contribution must go beyond rebranding them.
 
-## Current status (updated 29 September 2026)
+## Current status (30 September 2026)
+
+The full round-1 Fable rejection remains the latest acceptance assessment.
+The survey contains 101 curated candidates, with targeted reading distinguished
+from retrieval. The 10,000-particle audit, expanded Fourier variational baseline,
+three rounds of alternating pose/density ambiguity, and enclosing-domain
+remainder refinements are complete. Their improved numerical bounds have not
+established fine-scale experimental usefulness. The current test suite has
+130 passing tests; this is verification, not evidence of scientific acceptance.
+
+The remaining pose-aware comparison and the twelve locked pilot-selected feature
+fits/audits are running. The latter uses three dataset processes, each with two
+FINUFFT threads, to exploit local resources without changing the protocol.
+A fresh noise-calibration cohort reserves 128 previously unused exposures per
+stack. No pixels from that cohort have been downloaded. All twelve weights and
+evaluation code must be frozen and committed before download. The old inference
+images are still development data, and pose/density assumptions remain open.
+
+The metadata availability audit finds zero-valued pose/shift ESS fields in all
+three archived CS files; these are not zero-error bounds. In particular, the
+single-density inference model is not experimentally validated for heterogeneous
+EMPIAR-10076. R1, R2 and R7 remain material scientific objections. The goal is
+active, with no claim of an acceptance-ready submission.
+
+## Historical status (29 September 2026)
 
 The rewritten ICML manuscript now presents a conditional uncertainty audit in
 continuous L2 density space, with explicit nonlinear pose bounds, an integrated

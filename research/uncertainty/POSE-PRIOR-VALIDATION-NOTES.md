@@ -3,7 +3,7 @@
 The two primary XMLs are retained locally with hashes in the background manifest.
 Reading covered the listed methods, validation and discussion sections; this is
 not a claim to have reviewed all supplementary results. The curated ledger now
-contains 100 candidates, not 100 fully read papers.
+contained 100 candidates at this reading checkpoint, not 100 fully read papers.
 
 CryoPROS (2025) uses generated auxiliary images during alignment and reconstructs
 from experimental particles afterward. Its preferred-orientation experiments
@@ -34,3 +34,15 @@ These additions strengthen two open questions in the survey: how to validate
 prior-assisted pose corrections against acquisition interventions, and how to
 separate uncertainty from a structural prior from evidence supplied by the
 particles. The current conditional audit does not resolve either question.
+
+## Archived pose-summary availability
+
+A separate source-file inventory checks all 105,247 / 108,544 / 131,899 metadata
+rows in EMPIAR-10028/10049/10076. Both `alignments3D/pose_ess` and
+`alignments3D/shift_ess` are identically zero in every file. These stored zeros
+must not be interpreted as zero alignment uncertainty. The nonzero alignment
+error fields do not have a verified conversion here to an angular confidence
+radius. Thus the metadata inventory does not supply the independently calibrated
+pose bounds requested by the reviewer. Exact metadata hashes and field summaries
+are in `results/uncertainty/development/pose-metadata-inventory.json`; reproduce
+with `scripts/audit_uq_pose_metadata.py` in a fresh output checkout.

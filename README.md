@@ -50,6 +50,9 @@ molecular structures. A new [pilot-selected target study](research/uncertainty/p
 has locked three regions and a matched-scale center control per stack before
 reference evaluation. It is running; no outcome or experimental calibration
 claim is made for it yet.
+A [fresh noise-calibration cohort](research/uncertainty/confirmation/noise-calibration-v1/PROTOCOL.md)
+reserves 128 unused exposures per stack. Its download is gated on freezing all
+twelve estimators; only calibration will be fresh, not the old inference images.
 An [enclosing-domain remainder refinement](research/uncertainty/BALL-SOBOLEV-REMAINDER-PROPOSAL.md)
 retains Fourier cancellation: on that higher-band case it reduces the cubic
 bias from 56.493 to 21.110 and the interval to 0.751 of no-data width. Reference

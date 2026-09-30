@@ -1,0 +1,47 @@
+{
+  "stage": "metadata-only reservation; no new particle pixels read",
+  "dataset": "10028",
+  "count": 128,
+  "seed": 640957,
+  "selection_policy": "uniform random eligible exposure groups without replacement, then one uniform eligible particle per group; sort source indices",
+  "eligible_groups": 736,
+  "eligible_particles": 63217,
+  "excluded_groups": 344,
+  "selected_groups": 128,
+  "excluded_group_overlap": 0,
+  "selection_csv_sha256": "dcd3feb6f7f8c8f31ec17f3b8a53d02a3269a9fe33c082445f4f0ed6f1cd2ead",
+  "indices_npy_sha256": "25e48e87156530fb70ae3a31bd739f71f2f630f9bed0af30b0578953440fc802",
+  "excluded_selection_hashes": {
+    "research/uncertainty/splits/10028.csv": "efb3924563827a3891447d3132904d831752a3b88e0f582e6c1c886862027084",
+    "research/uncertainty/confirmation/prediction-v1/10028-selection.csv": "d1cdb487f5244ffc42949b387bcc8f12dc2f51fca1b0539e2cd78fbdb1934a63"
+  },
+  "metadata_sha256": "416ae7177335c237d46e26f8171fc3f114080669ac388f538805e50fba325658",
+  "published_filter_sha256": "6483260191a15fbcaa6914423b53016d333a317be25b9924e0b3c0b81773f189",
+  "source_groups": {
+    "source": "background/cryodrgn_empiar/empiar10028/inputs/shiny_2sets.star",
+    "sha256": "ad8895567b94c9c117ca337b4239b180bade64cf65437547e69ff8a28a511a63",
+    "field": "rlnMicrographName",
+    "all_source_groups": 1081,
+    "identity_validation": "Joined by original source stack path and zero-based image index, not by row order."
+  },
+  "source_exclusions": [
+    {
+      "metadata_path_suffix": "MRC_1901/276_particles_shiny_nb50_new.mrcs",
+      "url": "https://ftp.ebi.ac.uk/empiar/world_availability/10028/data/Particles/MRC_1901/276_particles_shiny_nb50_new.mrcs",
+      "observed_date": "2026-09-29",
+      "reason": "The source file served by EMPIAR is truncated: its MRC header declares 113 float32 particles of 360 by 360 pixels, but the HTTP Content-Range reports a total file length of 4096 bytes.",
+      "declared_mrc_shape": [
+        113,
+        360,
+        360
+      ],
+      "expected_file_bytes": 58580224,
+      "observed_file_bytes": 4096,
+      "confirmation_content_range": "bytes 0-4095/4096",
+      "affected_particles_in_original_selection": 32,
+      "recovery": "Exclude this source before selection, then continue the original seeded block-order procedure until 8192 usable particles are selected. Remap verified images by original source particle identity."
+    }
+  ],
+  "source_code_sha256": "81d2dc9d96623a94547be81e2d8137ff3e1136a9926f41539c245fc2d77df02a",
+  "release_condition": "Do not download until all twelve weights and evaluation code are frozen and committed."
+}
