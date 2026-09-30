@@ -1,0 +1,43 @@
+{
+  "complete": true,
+  "scope": "Independent mathematical/numerical prerequisites, not empirical reconstruction or experimental calibration.",
+  "attempts": [
+    {
+      "path": "logs/uncertainty/trust-region-tests-attempt-01.log",
+      "sha256": "fbfe865cd03db6f9d27bbb289e8d485cfa3b8ec3c80b075e8510db06d8d28f09",
+      "contents": "F..                                                                      [100%]\n=================================== FAILURES ===================================\n_____________ test_hard_and_near_hard_cases_with_analytic_answers ______________\n\n    def test_hard_and_near_hard_cases_with_analytic_answers():\n        g = np.diag([5.,2.]); b = np.array([0.,1.]); radius=2.\n        v, rec = dense_quadratic_witness(g,b,radius)\n        assert rec['hard_case']\n        np.testing.assert_allclose(v@g@v-2*b@v,5*radius**2+1/3,rtol=1e-12)\n        assert np.linalg.norm(v)<=radius*(1+1e-15)\n        near=np.array([1e-8,1.]); vv,_=dense_quadratic_witness(g,near,radius)\n>       assert vv@g@vv-2*near@vv>=rec['value']-1e-8\nE       assert (((array([-1.9720262 , -0.33333333]) @ array([[5., 0.],\\n       [0., 2.]])) @ array([-1.9720262 , -0.33333333])) - ((2 * array([1.e-08, 1.e+00])) @ array([-1.9720262 , -0.33333333]))) >= (20.333333333333336 - 1e-08)\n\ntests/test_uq_trust_region.py:14: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_uq_trust_region.py::test_hard_and_near_hard_cases_with_analytic_answers\n1 failed, 2 passed in 0.90s\n"
+    },
+    {
+      "path": "logs/uncertainty/trust-region-tests-attempt-02.log",
+      "sha256": "af7e7bfee33f3127fddad295d0e38762369f644faaf30179a8cdb13012e246d9",
+      "contents": "...                                                                      [100%]\n3 passed in 0.81s\n"
+    },
+    {
+      "path": "logs/uncertainty/joint-cubic-tests-attempt-01.log",
+      "sha256": "52e721d4bdba328d73d4362448840b7bac12672cf06a4d5df175f4cb95c09695",
+      "contents": "F.\n=================================== FAILURES ===================================\n__________ test_joint_cuts_and_dense_separation_agree_with_robust_sdp __________\n\n    def test_joint_cuts_and_dense_separation_agree_with_robust_sdp():\n        obj,w,q=setup();args=([[.08,-.06,0.]],[1.],.24)\n>       red=ReducedJointCubicDesign(obj,q,*args);expected,solution=independently_assemble_robust_sdp(red)\n                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/test_uq_joint_cubic_design.py:45: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nred = <fourier_splats.uq_joint_cubic_design.ReducedJointCubicDesign object at 0x112886ba0>\n\n    def independently_assemble_robust_sdp(red):\n        import cvxpy as cp\n        obj=red.obj;op=obj.op;fields=[]\n        for q in red.Q.T:\n            op.set_weights(q)\n            fields.append(np.column_stack([op.matvec(e) for e in np.eye(op.shape[1])]))\n        # Exact two-sided subspace compression of all small spatial/pose fields.\n        left,s,_=np.linalg.svd(np.column_stack([red.target,red.nominal,*fields]),full_matrices=False)\n        left=left[:,s>s[0]*1e-12]\n        right,s,_=np.linalg.svd(np.concatenate([m.T for m in fields],axis=1),full_matrices=False)\n        right=right[:,s>s[0]*1e-12]\n        fields=[left.T@m@right for m in fields];a=left.T@red.nominal;ell=left.T@red.target\n        x=cp.Variable(red.p);t=cp.Variable(nonneg=True);lam=cp.Variable(nonneg=True);ab=cp.Variable(red.p,nonneg=True)\n        f=sum(x[j]*fields[j] for j in range(red.p));h=ell-a@x\n        n,k=fields[0].shape\n        # Independent S-lemma epigraph for sup_{||v||<=L} ||h-Fv|| <= t.\n        block=cp.bmat([[cp.reshape(t-lam*obj.L**2,(1,1),order='C'),np.zeros((1,k)),cp.reshape(h,(1,n),order='C')],\n            [np.zeros((k,1)),lam*np.eye(k),-f.T],\n            [cp.reshape(h,(n,1),order='C'),-f,t*np.eye(n)]])\n        r=red.reduced\n        cost=obj.z*cp.norm(red.Q@x)+obj.B*t+obj.L*cp.norm(r.pilot_root@x)\n        cost+=sum(cp.norm(root@x) for root in r.remainder_roots)+r.residual_coefficients@ab\n        problem=cp.Problem(cp.Minimize(cost),[ab>=x,ab>=-x,block>>0])\n        val=problem.solve(solver='SCS',eps=1e-7,max_iters=100000)\n>       assert problem.status=='optimal'\nE       AssertionError: assert 'optimal_inaccurate' == 'optimal'\nE         \nE         - optimal\nE         + optimal_inaccurate\n\ntests/test_uq_joint_cubic_design.py:39: AssertionError\n=============================== warnings summary ===============================\ntests/test_uq_joint_cubic_design.py::test_joint_cuts_and_dense_separation_agree_with_robust_sdp\n  /Users/yash/Documents/New project/fourier-splats/tests/test_uq_joint_cubic_design.py:38: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.\n    val=problem.solve(solver='SCS',eps=1e-7,max_iters=100000)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED tests/test_uq_joint_cubic_design.py::test_joint_cuts_and_dense_separation_agree_with_robust_sdp\n1 failed, 1 passed, 1 warning in 194.35s (0:03:14)\n"
+    },
+    {
+      "path": "logs/uncertainty/joint-cubic-tests-attempt-02.log",
+      "sha256": "b8f3e037cc6b638632ed75cfea14a54b0eaafd2e055f3888c6715a791d32638e",
+      "contents": "JOINT_SDP 1.796133293662304 1.796133292858715 3\n..\n2 passed in 79.87s (0:01:19)\n"
+    }
+  ],
+  "changes_after_failures": [
+    "Near-hard PSD maximizing witness is extended to the ball boundary to avoid tiny-root tolerance loss.",
+    "The independent S-lemma SDP is exactly rescaled to a unit pose ball and uses CLARABEL after unscaled SCS reached its iteration limit."
+  ],
+  "final_results": {
+    "trust_tests": "3 passed in 0.81 s",
+    "joint_tests": "2 passed in 79.87 s",
+    "independent_sdp": 1.796133293662304,
+    "joint_design_guide": 1.796133292858715,
+    "joint_evaluations": 3
+  },
+  "source_hashes": {
+    "src/fourier_splats/uq_trust_region.py": "fe400272b15d7584301a6f794373ab682e0540834ba87f2bc0f38c225f5401ff",
+    "src/fourier_splats/uq_joint_cubic_design.py": "8adc2f3def00bcd440a5d8696b8017ebe5e840ac1fc4baf6c8ac713468999c5b",
+    "tests/test_uq_trust_region.py": "995d7487a9b927111d3a26978d2aab7c55df52eb211cd27deec3b87bb9915d00",
+    "tests/test_uq_joint_cubic_design.py": "0b13c083474bfbee9c6a78f787d5161cf404a230994a54287540852a3e15975c"
+  }
+}
