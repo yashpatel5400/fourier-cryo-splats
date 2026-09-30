@@ -91,5 +91,13 @@ full review rounds and does not alter the rejected scientific assessment.
 its weight-design objective. They support the real-arithmetic constructions
 while identifying numerical and test gaps. Their unchanged reports and
 evidence-linked responses remain separate from acceptance reviews. The final-
-weight two-tolerance numerical check is pending the original bounded cubic fit;
+weight two-tolerance numerical check is complete and stable;
 an operator tolerance check is not a validated global arithmetic bound.
+
+`mixture-audit-01` is a complete focused audit of the separate pose-marginal
+likelihood development. The exact requested model supports the real-arithmetic
+identities, identifies statistical caller assumptions and coarse-cell slack,
+and suggests two computational diagnostics. Its response distinguishes confirmed
+issues, a clarified result-label misunderstanding, implemented tests and work
+still pending. It is not a full-paper acceptance assessment. No full round 2
+has been invoked.

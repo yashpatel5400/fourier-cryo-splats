@@ -1,0 +1,97 @@
+{
+  "duration_api_ms": 490467,
+  "stop_reason": "end_turn",
+  "session_id": "3472e3a0-552c-446b-a574-cb2a1e13da24",
+  "total_cost_usd": 3.04022275,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 63061,
+    "cache_read_input_tokens": 531,
+    "output_tokens": 35577,
+    "output_tokens_details": {
+      "thinking_tokens": 31152
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 63061,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 35577,
+        "cache_read_input_tokens": 531,
+        "cache_creation_input_tokens": 63061,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 63061
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 2,
+      "outputTokens": 35577,
+      "cacheReadInputTokens": 531,
+      "cacheCreationInputTokens": 63061,
+      "webSearchRequests": 0,
+      "costUSD": 3.04022275,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 31152,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I audited the supplied derivations, code and result summaries by reading only; nothing was executed and no third-party literature was consulted beyond the supplied notes.\n\n## Verified identities\n\nThe following are correct in real arithmetic as written. I state each briefly so the issue list can focus on problems.\n\n- **Composite-null e-value.** For q fixed independently of Y and normalized on the same coordinate space, the ratio of q to any pointwise upper bound on the null supremum has expectation at most one under every null member, because the bound dominates the true density. Data-dependent bounds and early stopping are harmless for this reason. Markov then gives level alpha.\n- **Scaled Lindsay bound.** Jensen on the n ratios gives sup L at most sum log z plus n log of M over n, where M dominates sup over R of sum p_i over z_i. The finite formula in `scaled_anchor_upper` matches, and the sign of the log n term is right. The unscaled tangent form in the candidate note is the weaker but valid version, and `mixture_envelope_upper` uses it. The nonnegativity check on the gap is correct because feasible anchors make the weighted average of column scores exactly n.\n- **Envelope relaxation.** Any shared G assigns masses to a partition, so each integral is at most the envelope mixture. A finite center mixture is a feasible G and a true lower bound. The envelope-mixture primal is neither.\n- **Euler cover and kinematics.** ZYZ boxes on the stated ranges cover SO(3). Perturbing a, b, or c alone is a rotation by that angle, so the geodesic angle is at most the sum of half widths. All first, second and third Euler derivatives of the product have operator norm at most one, giving speed, acceleration and jerk bounds K H, K H squared and K H cubed.\n- **Gaussian derivative maxima.** Gradient norm peaks at r equal to s. The Hessian bound uses one plus r squared over s squared, which also peaks at r equal to s and dominates the exact operator norm. The third-differential bound with sign three minus x to the fourth is right, giving the fourth-root-of-three maximizer. The image-mean remainder b_i and the M1, M2, M3 assembly follow from the chain rule with the stated kinematic bounds.\n- **Coordinate rectangle.** With fixed K and M, the dot product interval from a spherical cap is right, cosh is even and increasing in the absolute dot, sinh is increasing, and the code's assignment of real coefficients to the cosh basis and imaginary coefficients to the sinh basis matches `evaluate_pairs`. Signed coefficient and transfer handling is correct.\n- **Linear residual dual.** Weak Fenchel duality over the box gives the stated d(u). The code's value equals twice d at u equal to r minus Jv. Subtracting the ball radius after the square root is valid.\n- **Curvature enclosure.** The log-kernel derivatives, the tangent majorant with Q equal to lambda I minus H, and the T3 remainder built from the residual magnitude bound are all correct. Capping at zero is valid because the log kernel is nonpositive.\n- **Common-scale chord.** Each kernel is unimodal in sigma at r over root d, so the joint maximum lies in the data bracket. Log-sum-exp of affine functions is convex in precision, the supremum over weights stays convex, endpoint upper bounds give a valid chord, and the analytic maximizer of chord plus concave normalization is right. The zero-distance infinity is correctly retained.\n- **Floors and inheritance.** Matrix EM floors affect only the iterate; every certificate is evaluated from original log kernels with a valid simplex vector. Intersecting a child envelope with its parent is valid. Replaying any past anchor on any complete cover is valid.\n\n## Issues\n\n**L1. Shared viewing law assumed independent of imaging operators and image noise.** Severity: medium, statistical. Location: candidate note, model section. The null family has one G for all images. If orientation depends on defocus group, tilt or ice thickness, the true joint density is a product of per-image mixtures with conditional laws, which this null excludes. The supplied anchor results show the shared-G bound sits below the per-image supremum, so violating this assumption is anti-conservative, not conservative. The same holds for dependence between particles from one micrograph. Fix: enlarge the null to one viewing law per declared defocus group. The bound is then a sum of independent group bounds computed with the existing machinery, at no new theory. Record that assumption explicitly in the test statement.\n\n**L2. Caller obligations that determine validity are not checkable from the supplied material.** Severity: medium, scope. Location: `FourierGaussianOrbit` docstring and `probe_uq_continuous_mixture.py`. The kernel treats every supplied real and imaginary part as an independent unit-variance coordinate. Validity requires a half-plane frequency set with no DC or conjugate duplicates, a whitening scale not estimated from the validation images, and CTFs not fitted on those images. The simulation satisfies these by construction. For any experimental use these are load-bearing assumptions that the code cannot enforce. Falsification test: assert on the plane array that no two frequencies are negatives of each other and that none is zero.\n\n**L3. Undocumented bound labels in the anchor results.** Severity: low, reporting. Location: anchor summary, the entry named independent_image. Its value exceeds the row-max value in all three geometries. A per-image supremum over cells cannot exceed the sum of row maxima, so this quantity is not what its name suggests. State its formula, or rename it. Not a validity problem since only the minimum is used.\n\n**L4. No trivial cap on the upper bound.** Severity: low, conservatism. Location: `continuous_mixture_upper`, first history row. The first cover for geometry 10028 reports an upper of plus 168,072 before normalization is applied, far above the trivial cap of zero that the nonpositive log kernel already gives. Poor early anchors produce this. Take the minimum with the trivial cap in the returned bound and in every history row. Valid and free.\n\n**L5. Child envelopes in the initial solver are not intersected with parents.** Severity: low, bookkeeping. Location: `continuous_mixture_upper`, the add_cell path. Fresh Taylor bounds at a child center need not be below the parent's bound. The code compensates by retaining the best upper and the final replay, so nothing is invalid. The refinement module fixes this by inheritance. No action beyond noting that the initial solver's monotonicity comment is accurate.\n\n**L6. Wall-limit exit skips the final feasible refit.** Severity: low, bookkeeping. Location: `refine_envelope_mixture`, the lower fit condition. The restricted feasible fit runs at batch multiples of four or at split exhaustion, not at wall exit. A wall-limited run can therefore overstate its gap by whatever the last feasible refit would have gained. Add the wall exit to the refit condition. The upper bound is unaffected.\n\n**L7. Restricted feasible support cannot repair a coarse center set.** Severity: low, interpretation. Location: refinement protocol, feasible-lower paragraph, and the results note. For geometry 10028 the oracle uniform mixture on the 128 true rotations scores 1,530 log units above the best center mixture built from 16,416 centers. No evaluated center is close to the modes. Restricting the feasible refit to four top centers per image cannot exceed the full-support fit on the same centers. Only new child centers near modes can raise the lower bound. This is consistent with the protocol's disclaimers, but the recorded gap conflates upper-bound slack with lower-bound coarseness. Report both components separately by also listing the gap to the oracle value, which the results note already does.\n\n**L8. Ordinary floating point in three places, all disclosed.** Severity: informational. Location: `pair` clips squared distances at zero, `quadratic_box_upper` pads eigenvalues, and the refinement priority clips exponents at 700. The first can raise a lower rectangle endpoint by rounding, the second is a non-validated eigenvalue enclosure, and the third affects only priority. None changes the real-arithmetic argument. No action beyond the existing disclosure.\n\n**L9. Common-scale profile is valid but per-node tolerance semantics are loose.** Severity: low. Location: `profile_common_scale`. Outer convergence uses the largest leaf upper minus the best feasible point, which is the right global gap. Inner fits may stop at the iteration limit, and their retained upper bounds remain valid. The results note says this. No invalidity.\n\n## Main source of computational looseness\n\nThe gap is per-image envelope slack inside coarse cells, not the mixture coupling and not the dual.\n\n| Quantity, geometry 10028 | Log units |\n|---|---:|\n| Upper after envelope-weight fitting minus best feasible | 20,253 |\n| Row-max bound minus fitted envelope bound | 102 |\n| Per-image share of the gap | 158 |\n| Curvature-table per-image slack at ten-degree half-width sum | 86 |\n\nThe coupling term across images is under one percent of the gap in all three geometries. The per-image share is above the ten-degree local slack, which places the effective cell size near twenty degrees of summed half width. That is consistent with 8,224 boxes over a domain of volume four pi cubed.\n\nThe per-image slack saturates with box size because, once the cap angle exceeds roughly one over the frequency norm, high frequencies contribute nothing to the residual lower bound and their whole signal energy is forfeited. With 220 complex frequencies per image and a frequency radius of twelve, most coordinates are in that regime at twenty degrees. The curvature table shows the slack falls like the square of the box size under the first-order enclosure and like the cube under the curvature enclosure, but only below about one degree.\n\nThe certificate needs the responsibility-weighted per-image slack to average about one over n, near 0.008 here. By the curvature table that requires summed half widths near 0.1 to 0.2 degrees wherever an image has appreciable responsibility, plus far cells whose envelope ratio is already far below one over n. Even optimistic adaptivity implies on the order of a thousand cells per image mode, so a hundred thousand or more leaves. The running refinement adds 32,768 splits to 8,224 leaves. My expectation from these numbers is that the refinement reduces the gap but stays far above one log unit. That is a hypothesis about a running protocol, not a result.\n\n## Two changes worth testing\n\n**Change 1, established improvement in exact arithmetic: coordinate-wise dead zone in the residual dual.** The derivation already bounds each frequency's Taylor error separately, then collapses those to one image-wide ball before subtracting its norm. Instead keep per-coordinate error bounds eps_q and lower-bound the box minimum of the sum over q of half max of zero and the absolute residual minus eps_q, squared. This is at least as tight as the current bound by the triangle inequality, since the componentwise bound implies the norm bound. Its Fenchel dual is explicit: u dot r minus half u squared minus the sum of eps_q times the absolute u_q minus the sum over j of h_j times the absolute J-transpose u. Every u is feasible, so the same coordinate-descent-and-retain-best pattern applies, and existing tests transfer. The magnitude of the gain is a hypothesis. The gain should be largest where many noise-dominated coordinates currently absorb a shared error budget, which is exactly the saturation regime above.\n\n**Change 2, hypothesis: certify far cells before refining mode cells.** The certificate fails if any cell's column score exceeds n, and far cells with saturated envelopes can dominate that score regardless of mode-cell refinement. From the existing arrays, compute per image the log kernel at its best center minus a high quantile of the log kernel over random orientations. If that contrast is smaller than the saturated slack for cells at the resolution the budget can reach, the adaptive scheme cannot converge at any budget at this noise level, and the honest conclusion is that a certified continuous bound at this SNR is out of reach with these enclosures. If the contrast is large, then prioritize splits by the column score of cells with low envelope-mixture weight rather than by responsibility-weighted mismatch. This is a diagnostic on data already recorded, not a new simulation.\n\n## What remains unverified\n\n- Floating-point soundness of every enclosure, as disclosed throughout.\n- The half-plane, no-duplicate, no-DC property of the supplied plane frequencies, and the independence of whitening and CTF estimates from validation images.\n- Whether the shared viewing law is independent of defocus and other imaging parameters in any experimental setting, which L1 makes load-bearing.\n- The formula behind the independent_image entry.\n- Outcomes of the running refinement, and whether adaptive refinement can reach a gap of one log unit at this noise level at any budget.\n- A normalized predictive numerator learned independently of the validation sample, unknown translations, colored noise, and heterogeneous ensembles, none of which are addressed by these bounds.",
+  "ttft_ms": 426058,
+  "type": "result",
+  "duration_ms": 490600,
+  "uuid": "770a4062-cc2d-4ff7-b6a0-08eec3fa85cd",
+  "ttft_stream_ms": 1678,
+  "time_to_request_ms": 103,
+  "first_content_frame_ms": 1679,
+  "queued_turn_count": 0,
+  "result_index": 0
+}
