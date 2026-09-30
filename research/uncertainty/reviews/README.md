@@ -7,15 +7,31 @@ mathematics favorably but identified major gaps in usefulness, experimental
 calibration, pose-aware optimization and scaling. See [the full review](round-01/review.md).
 The raw provider metadata confirms the requested model; no proxy reviewer was used.
 
-After the complete frozen studies and current manuscript have been integrated,
-`scripts/review_uq_candidate.py --round 1 --invoke` creates an immutable review
-packet and invokes that exact model. It saves the original prompt, every input
-file's hash, Git status, PDF hash, command, raw response, stderr and model-usage
-metadata. Tools/MCP/local customizations are disabled, and the reviewer receives
-the self-contained manuscript source, proofs, all project Python scripts/modules,
-tests, protocols, critical
-literature notes and result summaries. It is explicitly told that figures are
-not supplied as rendered images and that it must state verification limitations.
+The original round-1 packet contained manuscript source, proofs, project code,
+protocols, literature notes and result summaries. Tools, MCP and local
+customizations were disabled. Rendered figures were not supplied, and that
+limitation remains in the unmodified review. Later focused visual preflights
+verified the requested model's image input; subsequent full packets include
+every manuscript page rendered at 150 dpi.
+
+The revision runner saves the original prompt, input hashes, Git status, PDF
+and rendered-page hashes, exact command, raw response, stderr and provider
+model-usage metadata. `--preview-dir` constructs a local packet without invoking
+a model or consuming a full-review round. An actual revision uses a new round
+number, a response document, and `--invoke`; the completed round 1 must never
+be overwritten or rerun in place.
+
+The optional `--read-only-evidence` mode keeps manuscript, notes, implementation,
+tests and summary-level outcomes in the initial text. Every detailed case and
+excluded runner remains available in an exact, checksum-indexed `evidence/`
+copy, together with referenced archived source snapshots. Selection uses file
+roles, not scientific outcomes. Only Read, Glob and Grep are enabled, confined
+to the review directory; shell execution, writes, web access, MCP and local
+customizations are disabled. The runner verifies the evidence hashes again
+after the response. Merely making a file available is not evidence that the
+reviewer inspected it. The prompt requires the reviewer to state that limit.
+This mode has passed local construction checks but has not yet been used for
+the next full model review.
 
 The review requests a critical verdict with no desired outcome, stable concern
 IDs and a finite prioritized revision plan. It may reject the work. Neither a

@@ -32,3 +32,15 @@ the reviewer instructions and each projected file's manifest. Intermediate
 optimization traces remain available in their original public JSON files.
 The preflight used the explicitly incomplete response plan only to test local
 packet construction; it did not submit that plan as a completed rebuttal.
+
+At the later 41-page checkpoint, two local builds exceeded the unchanged
+1,800,000-byte text guard (4,524,133 and 2,979,244 bytes). No model was invoked.
+The next preview uses the documented read-only evidence mode: a 1,482,400-byte
+initial text contains the manuscript, methods and summary-level evidence, while
+exact per-case originals and archived sources are accessible through an indexed
+copy. All 41 rendered pages are still included. The source hashes distinguish
+the full originals from displayed eight-significant-digit numerical summaries;
+the latter are not offered as numerical-error proofs. Columnar records preserve
+all cases, including failures, and verified duplicate baseline rows are omitted
+only because their original case records remain available. This is a successful
+packet construction, not a new scientific review or acceptance assessment.
