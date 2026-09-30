@@ -114,7 +114,7 @@ the original record. This is meaningful favorable baseline evidence. The new
 continuous feature family must be compared with it after completion.
 
 - M1: the paper is a public development preprint, not an anonymized submission.
-- M2: the current curated count is 101 candidates; historical counts and targeted
+- M2: the current curated count is 104 candidates; historical counts and targeted
   reading versus retrieval are distinguished.
 - M3: the manuscript uses the source-summary value 0.339 for the strong-ridge
   bootstrap control, alongside all favorable weak-ridge comparisons.
