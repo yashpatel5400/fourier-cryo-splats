@@ -61,7 +61,7 @@ theorems. A cryo-EM-specific contribution must go beyond rebranding them.
 ## Current status (30 September 2026)
 
 The full round-1 Fable rejection remains the latest acceptance assessment.
-The survey contains 105 curated candidates, with targeted reading distinguished
+The survey contains 106 curated candidates, with targeted reading distinguished
 from retrieval. The 10,000-particle audit, expanded Fourier variational baseline,
 three rounds of alternating pose/density ambiguity, and enclosing-domain
 remainder refinements are complete. Their improved numerical bounds have not

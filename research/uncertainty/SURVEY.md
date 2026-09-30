@@ -3,7 +3,7 @@
 Research cutoff: 2026-09-30. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 105 candidates; this is not a full-reading count.
+The current ledger contains 106 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -260,7 +260,7 @@ calibration, Gaussian/ bootstrap uncertainty, and feature validation. They did
 not identify a directly matched conformal density-reconstruction paper in the
 returned results; that is a search outcome, not a proof of absence. Three further
 candidates brought the then-current ledger to 89 entries (historical checkpoint;
-the current ledger has 105).
+the current ledger has 106).
 
 [SIMPLE's 2025 probabilistic ab initio method](https://doi.org/10.1107/S2059798325005686)
 uses coupled orientation assignments and adaptive spatial regularization. Its
@@ -302,7 +302,7 @@ conservative widths limit practical inference.
 The pose-transfer follow-up adds [CESPED](https://arxiv.org/abs/2311.06194v2),
 [cryoPARES](https://www.biorxiv.org/content/10.1101/2025.03.04.641536v6), and
 [CryoFastAR](https://arxiv.org/abs/2506.05864v1), bringing the curated ledger to
-92 entries at that historical checkpoint (105 currently). CESPED standardizes refinement-derived pose labels and explicitly
+92 entries at that historical checkpoint (106 currently). CESPED standardizes refinement-derived pose labels and explicitly
 acknowledges their uncertainty. CryoPARES reuses alignments of related specimens;
 CryoFastAR learns multiview pose prediction from synthetic training with real
 fine-tuning. These are distinct transfer assumptions. Their quality scores,
@@ -351,7 +351,7 @@ power-spectrum posterior sampling from full-image inference, and free-energy
 uncertainty from a density-feature interval. The additional cryoTWIN paper
 uses EMPIAR-10076, also present here. Its heterogeneous-ensemble target further
 motivates keeping our shared-density assumption explicit. That checkpoint contained
-101 bibliographic candidates; the current count is 105.
+101 bibliographic candidates; the current count is 106.
 
 ## 16. Discretization and post-hoc perturbation uncertainty
 
@@ -360,7 +360,7 @@ motivates keeping our shared-density assumption explicit. That checkpoint contai
 dynamic-NeRF proposal in Patel's 2025 dissertation. These respectively concern
 conformational weights, spatial displacement uncertainty, and a future cryo-EM
 direction. They further narrow novelty claims without becoming matched density
-interval baselines. That follow-up brought the ledger to 104 candidates; it now contains 105.
+interval baselines. That follow-up brought the ledger to 104 candidates; it now contains 106.
 
 ## 17. Pose confidence scores: an additional targeted primary check
 
@@ -368,3 +368,12 @@ The [DiffPose reading note](DIFFPOSE-READING-NOTE.md) distinguishes multistart
 angular spread from a confidence region with specified coverage. This newly
 added preprint raises the candidate count to 105; the PDF remained inaccessible,
 while the author-uploaded HTML supplied the targeted methods text.
+
+## 15. Additional Gaussian representation and access checks
+
+[GaussianEM](GAUSSIANEM-READING-NOTE.md) adds a directly relevant representation
+and validation comparison. The ledger now contains 106 candidates.
+[CryoDiff access follow-up](cryodiff-access-followup.json) retrieved publisher API
+metadata, but full text and XML returned access errors; calibration details
+remain unchecked. No corresponding author code repository was identified in
+the targeted search. This is not proof that none exists.
