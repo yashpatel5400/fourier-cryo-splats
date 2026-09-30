@@ -222,7 +222,8 @@ REVIEW_RUNNERS = [
     'download_data.py', 'confirm_uq_continuous.py', 'confirm_uq_continuous_moments.py',
     'evaluate_uq_fresh_prediction.py', 'audit_uq_ctf_sensitivity.py', 'probe_uq_continuous_support.py',
     'probe_uq_mixture_validation.py', 'probe_uq_mixture_common_scale.py',
-    'probe_uq_continuous_mixture.py']
+    'probe_uq_continuous_mixture.py', 'probe_uq_continuous_mixture_anchors.py',
+    'probe_uq_mixture_curvature.py', 'probe_uq_mixture_refinement.py']
 
 
 def remove_duplicated_baseline_rows(file, value):
@@ -326,7 +327,10 @@ def main():
                  'MIXTURE-VALIDATION-PREFLIGHT-RETRY.md','MIXTURE-VALIDATION-PREFLIGHT-RESULTS.md',
                  'MIXTURE-COMMON-SCALE-PROTOCOL.md','MIXTURE-COMMON-SCALE-RESULTS.md',
                  'MIXTURE-PRIOR-ART-READING.md','mixture-prior-art-source-manifest.json',
-                 'CONTINUOUS-MIXTURE-THEORY.md','CONTINUOUS-MIXTURE-PROTOCOL.md']],
+                 'CONTINUOUS-MIXTURE-THEORY.md','CONTINUOUS-MIXTURE-PROTOCOL.md',
+                 'CONTINUOUS-MIXTURE-RESULTS.md','CONTINUOUS-MIXTURE-ANCHOR-PROTOCOL.md',
+                 'CONTINUOUS-MIXTURE-CURVATURE-THEORY.md','CONTINUOUS-MIXTURE-CURVATURE-PROTOCOL.md',
+                 'CONTINUOUS-MIXTURE-REFINEMENT-PROTOCOL.md','CUBIC-COORDINATE-RESULTS.md']],
              ROOT/'research/uncertainty/reviews/cubic-audit-01/review.md',
              ROOT/'research/uncertainty/reviews/cubic-audit-01/response.md',
              *sorted((ROOT/'research/uncertainty/reviews/cubic-design-audit-01').glob('*.md')),

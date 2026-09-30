@@ -28,17 +28,39 @@ Figures and supplement were not independently inspected in this pass.
 **CryoLike (Tang et al., 2025).** The
 [published abstract and figure 1](https://doi.org/10.1107/S2059798325009350)
 and [author repository](https://github.com/flatironinstitute/CryoLike) were checked.
-It accelerates image-to-structure likelihood calculation with Fourier–Bessel
+It accelerates image-to-structure likelihood calculation with Fourier--Bessel
 representations. Its workflow includes CTFs, templates, correlations, optimized
 image parameters and likelihood outputs. This makes it a relevant computational
-baseline for particle-based validation. The publisher PDF returned 403;
-the main methods and supplement have not yet been read. Do not infer calibrated
+baseline for particle-based validation. The main publisher PDF returned 403;
+the main methods have not yet been read. Do not infer calibrated
 feature intervals or a specific numerical-integration guarantee from the abstract.
 The pinned author code's mathematical-framework and likelihood-computation
 documentation, plus its integrated-likelihood kernel, were also inspected.
 The documentation itself labels parts incomplete; normalizing constants and
 integration versus profiling would need auditing before reuse in a calibrated
 test. No author code was executed.
+
+**CryoLike supplement follow-up, 30 September 2026.** The web text of the
+[supplement](https://journals.iucr.org/d/issues/2025/12/00/bar5002/bar5002sup1.pdf)
+became accessible. Targeted reading covers S1.12--S1.15, not the entire supplement.
+The image model has independent Gaussian pixel noise, intensity and offset.
+Equation 52 integrates intensity/offset over the real line; equation 55
+integrates the noise standard deviation over the positive line. Equation 58
+uses exponent (N_pixels-3)/2. Equation 60 approximates orientation integration
+with quadrature for a specified, resolved viewing density. S1.15 relates the
+normalized-image alignment objective to cross-correlation. Direct PDF retrieval
+still returned 403, and two web screenshot attempts timed out: no local PDF
+hash or visual inspection is claimed.
+
+Our inference: unbounded Lebesgue nuisance integrals do not by themselves give
+a normalized density on raw image space. Tonelli's theorem integrates each
+conditional density to one, leaving infinite nuisance measure. Reusing such a
+score as a universal-inference numerator therefore needs proper priors or an
+explicit alternative sample-space/normalization argument. This does not impugn
+its use for the paper's likelihood comparisons. The pinned code's kernel uses
+exponent N_pixels/2-2; the convention behind its difference from equation 58
+remains unresolved, not an established implementation defect. The code commit
+is a413ffd265e2815c9f81c492a3d8bfedaf35d737; the earlier manifest hashes its kernel.
 
 **Universal inference (Wasserman, Ramdas and Balakrishnan, 2020).**
 [Published paper](https://doi.org/10.1073/pnas.1922664117);

@@ -65,7 +65,10 @@ width to 0.180. Minimum reference sign power remains 0.00654; the iteration
 limit and 0.940 relative surrogate gap remain explicit failures of usefulness
 and tight optimization. The final-weight two-tolerance checks are stable but
 do not validate all operator error. Its gap triggers the previously declared
-coordinate-metric follow-up from the same original weights; that fit is running.
+coordinate-metric follow-up from the same original weights; that fit completed without improvement: relative width 0.223, minimum reference
+sign power 7.73e-7, relative surrogate gap 0.977 and no convergence at the
+thirty-iteration budget. A separate declared thirteen-dimensional convex
+design is still running.
 Focused Fable mathematics checks and their responses do not constitute a new
 acceptance review. Its sigma
 is not its sampled frequency-band resolution. These tests do not satisfy the
@@ -132,6 +135,20 @@ are evaluated at the higher band. Their negative results and conservatism are
 retained. Consensus-pose dependence, heterogeneity and gain/density calibration
 remain scientific limitations.
 
+## Separate likelihood-validation development
+
+A full-orientation structural-compatibility candidate applies established
+universal inference and Lindsay mixture duality. Its first discrete-view,
+oracle-numerator screen detects full local removal on two of three geometries;
+all half-removal failures and a third-geometry failure remain. Shared noise
+profiling preserves similar counts. This is neither a practical learned test
+nor a new general statistical principle. Three continuous-SO(3) computations
+and two diagnostics are now complete, but their best recorded global gaps
+remain 17,077--20,253 log units. They do not resolve the practical objection.
+An envelope-guided refinement is running under a separate declared protocol.
+The new paper appendix includes these outcomes and explicit assumptions; R1,
+R2 and R7 remain open. Source and failed-attempt provenance is retained.
+
 ## Baseline fairness and smaller items
 
 The expanded Fourier Gaussian baseline independently implements Ullrich et al.'s
@@ -165,7 +182,7 @@ the full Rangan Hessian method or an independently calibrated pose posterior.
 It does not resolve R1, R2 or R7.
 
 - M1: the paper is a public development preprint, not an anonymized submission.
-- M2: the current curated count is 113 candidates; historical counts and targeted
+- M2: the current curated count is 116 candidates; historical counts and targeted
   reading versus retrieval are distinguished.
 - M3: the manuscript uses the source-summary value 0.339 for the strong-ridge
   bootstrap control, alongside all favorable weak-ridge comparisons.

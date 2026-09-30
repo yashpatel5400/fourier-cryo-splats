@@ -1,0 +1,133 @@
+\section{Development Toward Pose-Marginal Structural Validation}
+\label{sec:mixturedevelopment}
+This separate development changes the inference target from an arbitrary
+continuous-density functional to compatibility of a specified structure with
+held-out particles. It aims to remove supplied small pose balls. The current
+calculations do not yet yield a useful continuous-pose test or experimental
+calibration. Earlier failed approaches remain part of the evidence.
+
+\paragraph{Established statistical construction.}
+Let $Y=(Y_1,\ldots,Y_n)$ denote independent evaluation particles with known CTFs.
+For a fixed candidate map $f$, let $p_{i,f,\nu}(Y_i\mid R)$ be a normalized
+image likelihood at orientation $R$, where $\nu$ denotes other nuisance
+parameters. A shared unknown viewing measure $G$ gives
+\[
+ p_{f,G,\nu}(Y)=\prod_{i=1}^n\int_{SO(3)}p_{i,f,\nu}(Y_i\mid R)\,dG(R).
+\]
+The viewing measure is assumed independent of the image-specific CTFs.
+Let $q(Y)$ be a normalized predictive density learned independently of $Y$,
+and let $D_f(Y)\ge\sup_{G,\nu}p_{f,G,\nu}(Y)$ pointwise. Then
+$E_f(Y)=q(Y)/D_f(Y)$ has expectation at most one under every model in the
+candidate null: integrate $q(Y)p_{f,G,\nu}(Y)/D_f(Y)\le q(Y)$.
+Markov's inequality controls rejection at $E_f\ge1/\alpha$ by $\alpha$.
+This is an application of established universal inference
+\citep{universal2020}, not a new general coverage theorem. Normalization,
+independence, and a genuine likelihood upper bound are indispensable.
+An oracle predictive density checks algebra but does not demonstrate a learned
+procedure. Noise misspecification or structural heterogeneity can invalidate
+the null model. A rejected fixed structure does not identify the incorrect
+feature or supply a confidence interval for arbitrary density.
+
+\paragraph{Classical mixture dual.}
+For strictly positive anchors $z_i$, any upper bound
+$M\ge\sup_R\sum_i p_{i,f,\nu}(Y_i\mid R)/z_i$ yields
+\begin{equation}\label{eq:mixturedual}
+ \sup_G\log p_{f,G,\nu}(Y)
+ \le \sum_i\log z_i+n\log(M/n).
+\end{equation}
+Apply arithmetic--geometric mean to the integrals divided by $z_i$ and
+interchange finite summation and integration. This scaled likelihood dual,
+finite-support maximizers and directional optimality checks are classical
+\citep{lindsay1983}; scalable fixed-support optimization is also established
+\citep{npmle2024}. A finite orientation grid alone supplies a feasible lower
+likelihood, not a continuous upper. Nonuniform viewing laws must be treated
+explicitly: recent misspecified-likelihood analysis and joint-estimation
+consistency rely on stated identifiability and viewing-density conditions
+\citep{nonuniformmle2025}.
+
+\paragraph{Continuous Fourier Gaussian enclosures.}
+Use the Hermitian Gaussian expansion already defined for reconstruction and
+cover $SO(3)$ by Euler boxes for $R_z(a)R_y(b)R_z(c)$ on
+$[0,2\pi]\times[0,\pi]\times[0,2\pi]$. For box half-widths $h_j$, write
+$H=\sum_jh_j$. A frequency of norm $K$ moves at most
+$2K\sin(\min(H,\pi)/2)$ from its center. For a Gaussian of width $s$ and
+distance range $[l,u]$, gradient and Hessian norms are bounded by the maxima of
+$r s^{-2}e^{-r^2/(2s^2)}$ and
+$(1+r^2/s^2)s^{-2}e^{-r^2/(2s^2)}$ on that range. Both maxima occur at
+$r=\operatorname{clip}(s,l,u)$. Summing absolute coefficients over conjugate
+centers gives $B_1,B_2$. Taylor's formula bounds the per-image mean remainder by
+\[
+ b_i=\tfrac12H^2\big\| |C_i| (K^2B_2+KB_1)\big\|_2,
+\]
+where $C_i$ includes supplied noise whitening. If $r_i$ is the center residual
+and $J_i$ its mean Jacobian, every vector $u$ gives the convex dual lower value
+\begin{align*}
+ d_i(u)&=u^\top r_i-\tfrac12\|u\|^2-\sum_jh_j|(J_i^\top u)_j|\\
+ &\le\tfrac12\min_{|v_j|\le h_j}\|r_i-J_iv\|^2.
+\end{align*}
+Thus $\max(\sqrt{2\max(d_i(u),0)}-b_i,0)$ lower-bounds the nonlinear
+residual norm. Its negative half square upper-bounds the Gaussian log kernel.
+Coordinate-wise Gaussian intervals supply an additional enclosure; their
+intersection retains high-frequency residual information lost by a single
+image-wide ball. Full derivations and the separately tested second-order
+log-kernel refinement are in the repository's versioned theory notes.
+
+For each box $C$, let $U_{iC}$ upper-bound its likelihood kernel. Every viewing
+law induces box masses, so the finite mixture with kernel matrix $U$ relaxes
+the continuous likelihood. Applying Equation~\eqref{eq:mixturedual} to that
+matrix yields a global upper bound. Center kernels independently give a
+feasible lower bound. Bisection preserves coverage; each child can inherit
+its parent's upper bound. A wall or split limit returns an unresolved bracket,
+not a local optimizer labeled as a certified maximum. All proofs here concern
+real arithmetic; ordinary floating-point checks are not interval arithmetic.
+
+\paragraph{Discrete orientation and noise-scale screens.}
+The first declared screen uses 64 allowed orientations, 128 CTFs and 440 real
+Fourier coordinates per geometry, with sixteen independent noise repetitions.
+The density generators are unit-$L^2$ constant-cell EMDB maps; alternatives
+attenuate a locked 20\,\AA\ region by 50\% or 100\%, or remove the entire signal.
+The predictive numerator is the true known-noise uniform mixture, so its
+zero false-rejection count is an oracle algebra check. With supplied noise,
+full local removal is detected in 14/16, 9/16 and 0/16 repetitions for
+10028, 10049 and 10076. Half removal is never detected. Profiling an independent
+noise scale per image/orientation loses all local detections.
+
+Profiling one common positive scale preserves 14/16, 8/16 and 0/16 detections;
+all zero-signal alternatives are rejected. This uses a global precision
+bracket: for fixed residuals, the optimized log mixture of
+$\exp(-r_{iC}^2t/2)$ is convex in precision $t$, so endpoint upper chords plus
+the Gaussian $nd\log t/2$ term bound each interval. All 192 cases reach the
+declared one-log-unit optimization gap, with maximum 0.937 and at most three
+visited nodes. Total runtime is 72.83 seconds. These repeated outcomes use the
+same observations as the supplied-scale screen; they are not independent
+confirmatory evidence, continuous-orientation results or experimental power.
+
+\paragraph{Continuous-orientation failures and local diagnosis.}
+The next declared calculation generates 128 new Haar-oriented particles per
+geometry from the independently fitted Fourier Gaussian pilot, normalized by
+its analytic whole-space $L^2$ Gram norm. CTFs and Gaussian noise scales are
+supplied, and shifts are zero. The optimizer receives no generating poses.
+All three computations exhaust 8,192 splits, leaving 8,224 boxes. Their
+feasible-center/global-upper gaps are 26,832, 20,548 and 19,874 log units, far
+above the target of one. Solver times are 431, 380 and 391 seconds.
+
+A declared follow-up fits the envelope-mixture weights more closely. Its
+relaxation gaps are 0.0295, 0.00991 and 0.00977; nevertheless the continuous
+uppers remain 20,253, 17,988 and 17,077 above the best recorded feasible values.
+Those values also consider a uniform mixture on the generating poses,
+evaluated only after fitting. This oracle support is a feasible viewing law,
+not the true Haar integral or exact optimum. The envelope-mixture primal must
+not be substituted for a continuous feasible lower value.
+
+All 54 prescribed local curvature diagnostics complete. For boxes centered
+at true simulated poses, with a sum of Euler half-widths of $0.1^\circ$,
+median upper-to-locally-feasible gaps decrease from 0.0890/0.0897/0.0464 to
+0.00166/0.00205/0.00075. At $5^\circ$ and $10^\circ$ the retained minimum shows
+no improvement. Nine local starts per case supply feasible values, not exact
+box maxima. These results justify investigating more selective global
+refinement, but establish neither a tight continuous denominator nor a useful
+structural test. A practical independent predictive numerator, unknown shifts,
+common-scale continuous optimization and acquisition-model validation remain
+required. Likelihood-based structural comparison itself is longstanding prior
+art, including BioEM and CryoLike; an integrated score cannot automatically
+replace a normalized predictive density \citep{bioem2013,cryolike2025}.

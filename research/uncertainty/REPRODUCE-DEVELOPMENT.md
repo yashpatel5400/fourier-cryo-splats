@@ -499,3 +499,20 @@ are in their protocols. Ordinary floating-point replay is distinct from a
 rigorously outward-rounded likelihood enclosure. The failed preflight-v1
 partial simulation is retained for the next array release, with an explicit
 failed-attempt label; it is not counted as another independent run.
+
+The completed first continuous calculation and its completed anchor/curvature
+follow-ups have unresolved global gaps. Reproduce the follow-ups using the same
+saved parent arrays:
+
+```bash
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_continuous_mixture_anchors.py
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_mixture_curvature.py
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_mixture_refinement.py
+```
+
+The last command is the separately declared ongoing envelope-guided refinement;
+it does not replace the completed first calculation. Its protocol is
+`CONTINUOUS-MIXTURE-REFINEMENT-PROTOCOL.md`. The additional tests are
+`test_uq_mixture_anchor.py`, `test_uq_mixture_curvature.py`,
+`test_uq_mixture_fast.py` and `test_uq_mixture_refinement.py`. Outcome JSON files
+are public; the large array bundle remains pending its next release.

@@ -92,3 +92,17 @@ nonuniform/SubspaceMoM, and universal inference; see the targeted reading
 notes. A publishable contribution would require more than the elementary
 inequalities above: useful continuous-pose computation and persuasive
 experimental structural validation remain unestablished.
+
+## Development status after the initial proposal
+
+The restricted discrete study and shared common-scale follow-up are complete.
+Continuous SO(3) enclosures, scaled classical mixture bounds and a local
+curvature refinement are now implemented and independently checked. Thus the
+future-tense implementation paragraph above records the proposal at its start,
+not today's status. All three initial continuous calculations exhaust their
+split budgets with very large likelihood brackets. Envelope-weight optimization
+reduces the gaps but leaves 17,077--20,253 log units above the best recorded
+feasible values. The results note preserves these negative outcomes. A new
+full-cover refinement protocol is running on the same observations. Unknown
+translations, continuous shared-scale optimization, a practical independently
+learned normalized numerator and experimental calibration remain unfinished.

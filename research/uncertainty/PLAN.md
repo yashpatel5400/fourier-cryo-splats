@@ -166,15 +166,19 @@ convex precision chord bound, checked against independent calculations. All
 192 reused cases are complete as explicit post-outcome development; full
 local-removal counts are 14/16, 8/16 and 0/16. Every outer likelihood gap is
 below one log unit. Half-removal counts remain zero. A practical independently
-learned numerator and continuous-pose bounds are still missing. The initial
+learned numerator and useful continuous-pose bounds are still missing. The initial
 loose-bound test and a prior result-serialization failure are retained.
 
-The first full-SO(3) denominator calculation is now specified, with Euler
+The first full-SO(3) denominator calculation is now complete, with Euler
 covering boxes, analytic Fourier Gaussian derivatives, residual dual bounds
 and frequency-coordinate enclosures. Four independent numerical tests pass;
 the scaled mixture dual is credited to Lindsay (1983). Each of the three
-geometry probes has a fifteen-minute solve allowance. It will measure
-continuous likelihood-bracket tightness, not report a validation ratio.
+geometry probes exhausted its 8,192-split allowance. After optimizing envelope
+weights, the upper-to-best-recorded-feasible gaps remain 17,077--20,253 log units.
+All 54 local curvature diagnostics complete: they improve small boxes but not
+the large boxes. A separately declared envelope-guided refinement is running
+on the same observations, with a 900-second cap per geometry. None of these
+computations reports a validation ratio or establishes practical usefulness.
 Three additional targeted readings cover viewing-law misspecification,
 classical mixture likelihood geometry and scalable finite-mixture solvers.
 

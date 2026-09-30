@@ -201,5 +201,10 @@ A compute-only probe at the original weights verifies whitening to
 $3.58\times10^{-13}$ relative error in 22.59 seconds; a small conic comparison
 checks the resulting solver. These are numerical checks, not speedup or
 usefulness findings. The original gap triggers a previously declared single
-follow-up using the same starting weights and iteration budget. That fit is
-running; no improvement from its different coordinates is asserted.
+follow-up using the same starting weights and iteration budget. It completes
+in 8,801 seconds at the thirty-iteration limit without convergence. Its
+independently audited relative width is 0.223 and minimum reference sign power
+is $7.73\times10^{-7}$, both worse than the original fit's 0.180 and 0.00654.
+The relative surrogate gap is 0.977. All selected evaluations and checkpoints
+are retained. A separately declared thirteen-dimensional convex design uses
+the original fit in its span; its scientific outcome is still pending.

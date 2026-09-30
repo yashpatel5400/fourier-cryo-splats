@@ -52,8 +52,9 @@ Current evidence includes:
 - A separate [likelihood-validation candidate](research/uncertainty/MIXTURE-VALIDATION-CANDIDATE.md)
   targets structural compatibility. Its discrete-view, oracle-predictor screen
   and shared-scale follow-up detect full local removal on two of three simulated
-  geometries, with all weaker-change failures retained. A full-orientation
-  denominator calculation is running. These are development feasibility tests;
+  geometries, with all weaker-change failures retained. The first full-orientation
+  denominator calculation and two diagnostics completed with unresolved large
+  gaps; a separately declared refinement is running. These are development feasibility tests;
   a practical independent predictor and experimental calibration remain missing.
 
 The [research plan](research/uncertainty/PLAN.md),
