@@ -345,7 +345,7 @@ def main():
                  'PROJECTED-NOISE-CALIBRATION-PROTOCOL.md','PROJECTED-NOISE-CALIBRATION-RESULTS.md',
                  'JOINT-TRUST-REGION-THEORY.md','JOINT-CUBIC-DESIGN-PROTOCOL.md',
                  'CUBIC-ENRICHMENT-RESULTS.md','JOINT-ENRICHED-EXPERIMENTAL-PROTOCOL.md',
-                 'RELION-10049-CONTINUATION-RESULTS.md','distributional-stability-followup-sources.json','CRYOLIKE-BASELINE-PROTOCOL.md','CRYOLIKE-BASELINE-RESULTS.md',
+                 'RELION-10049-CONTINUATION-RESULTS.md','selection-pseudoatom-followup-sources.json','distributional-stability-followup-sources.json','CRYOLIKE-BASELINE-PROTOCOL.md','CRYOLIKE-BASELINE-RESULTS.md',
                  'CONTINUOUS-MIXTURE-DISK-THEORY.md','CONTINUOUS-MIXTURE-DISK-PROTOCOL.md',
                  'REFERENCE-REGISTRATION-PROTOCOL.md','REFERENCE-REGISTRATION-RESULTS.md']],
              *sorted((ROOT/'research/uncertainty/reviews/mixture-audit-01').glob('*.md')),

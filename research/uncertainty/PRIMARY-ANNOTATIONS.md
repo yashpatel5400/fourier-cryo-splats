@@ -503,3 +503,28 @@ the exchangeability unit, with averaged scores. Our reading is that the
 resulting average-score event must not be silently interpreted as simultaneous
 residue coverage or fixed-density coverage from particles. This is adjacent
 structure-prediction work, not a direct density-interval baseline.
+
+
+## Bayesian pseudo-atoms before neural Fourier models
+
+[Joubert and Habeck (2015)](https://pmc.ncbi.nlm.nih.gov/articles/PMC4375433/)
+already infer Gaussian pseudo-atom positions, weights, common width and poses
+with MCMC. The model consumes quantized nonnegative class averages after
+preprocessing; its ensemble quantifies posterior precision in that model.
+This is direct prior art for Bayesian Gaussian reconstruction, but not a
+raw-particle continuous-class confidence baseline. The indexed primary methods
+and algorithm passages were inspected. Direct PMC access presented a browser
+check; two repository PDF fetches and the Europe PMC XML attempt failed.
+No implementation was executed.
+
+## Selection occurs before an extracted-particle split
+
+[Balanov, Zabatani and Bendory, v3 (2026)](https://arxiv.org/html/2507.03951v3)
+analyze template-selected noise and its biased downstream reconstruction.
+Targeted reading covered the abstract, Section 2.4, Appendix B.1's selected-law
+form, and Sections 6.2--6.3. The selected law is truncated and generally
+non-Gaussian; explicit heterogeneous CTF scoring is left open. Their
+controlled examples do not establish bias in our three stacks. Our implication:
+splitting an existing picked stack by exposure does not itself validate the
+unselected Gaussian observation model. The extraction rule also needs scrutiny.
+The v3 HTML was saved and hashed; the author code was not run.

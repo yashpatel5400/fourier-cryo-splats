@@ -245,7 +245,7 @@ the full Rangan Hessian method or an independently calibrated pose posterior.
 It does not resolve R1, R2 or R7.
 
 - M1: the paper is a public development preprint, not an anonymized submission.
-- M2: the current curated count is 117 candidates; historical counts and targeted
+- M2: the current curated count is 119 candidates; historical counts and targeted
   reading versus retrieval are distinguished.
 - M3: the manuscript uses the source-summary value 0.339 for the strong-ridge
   bootstrap control, alongside all favorable weak-ridge comparisons.
