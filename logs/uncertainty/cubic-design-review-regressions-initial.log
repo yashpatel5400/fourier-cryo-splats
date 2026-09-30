@@ -1,0 +1,70 @@
+F.F..
+=================================== FAILURES ===================================
+_______________________ test_two_particle_conic_bracket ________________________
+
+    def test_two_particle_conic_bracket():
+>       obj, initial = two_particle_fixture(); optimum, solution, status = conic_with_explicit_particle_packing(obj)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_uq_cubic_design_review.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = <fourier_splats.uq_cubic_optimization.CubicDesignObjective object at 0x116e2a120>
+
+    def conic_with_explicit_particle_packing(obj):
+        import cvxpy as cp
+        d = len(obj.a); n, nq = obj.n, obj.nq
+        labels = [(i, c, j) for i in range(n) for c in range(2) for j in range(nq)]
+        gram = np.zeros((d, d))
+        for ii, (i, c, j) in enumerate(labels):
+            for jj, (l, cc, m) in enumerate(labels):
+                if c == cc:
+                    minus = np.prod(np.sinc(obj.op.k[i, j]-obj.op.k[l, m]))
+                    plus = np.prod(np.sinc(obj.op.k[i, j]+obj.op.k[l, m]))
+                    gram[ii, jj] = .5*obj.op.transfer[i, j]*obj.op.transfer[l, m]*(minus+(-1)**c*plus)
+        # Independent 1D tensor-factor integrals for the target and target norm.
+        nodes, weights = leggauss(100); x = nodes/2; weights /= 2
+        sigma = .24; mu = np.array([.08, -.06, 0.])
+        normal = np.exp(-.5*((x[None]-mu[:, None])/sigma)**2)/(np.sqrt(2*np.pi)*sigma)
+        target_norm2 = float(np.prod((normal**2)@weights))
+>       transform = np.prod(np.exp(2j*np.pi*obj.op.k[..., None]*x)@(normal*weights)[..., None], axis=-2)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: operands could not be broadcast together with remapped shapes [original->remapped]: (2,2,3,100)->(2,2,newaxis,newaxis) (3,100,1)->(3,newaxis,newaxis)  and requested shape (3,1)
+
+tests/test_uq_cubic_design_review.py:50: ValueError
+_ test_zero_weight_conic_repeat_records_value_without_claiming_historical_recovery _
+
+    def test_zero_weight_conic_repeat_records_value_without_claiming_historical_recovery():
+>       obj, _ = fixture(noise=.7); optimum, solution, status = conic_with_explicit_particle_packing(obj)
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_uq_cubic_design_review.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = <fourier_splats.uq_cubic_optimization.CubicDesignObjective object at 0x120e30e10>
+
+    def conic_with_explicit_particle_packing(obj):
+        import cvxpy as cp
+        d = len(obj.a); n, nq = obj.n, obj.nq
+        labels = [(i, c, j) for i in range(n) for c in range(2) for j in range(nq)]
+        gram = np.zeros((d, d))
+        for ii, (i, c, j) in enumerate(labels):
+            for jj, (l, cc, m) in enumerate(labels):
+                if c == cc:
+                    minus = np.prod(np.sinc(obj.op.k[i, j]-obj.op.k[l, m]))
+                    plus = np.prod(np.sinc(obj.op.k[i, j]+obj.op.k[l, m]))
+                    gram[ii, jj] = .5*obj.op.transfer[i, j]*obj.op.transfer[l, m]*(minus+(-1)**c*plus)
+        # Independent 1D tensor-factor integrals for the target and target norm.
+        nodes, weights = leggauss(100); x = nodes/2; weights /= 2
+        sigma = .24; mu = np.array([.08, -.06, 0.])
+        normal = np.exp(-.5*((x[None]-mu[:, None])/sigma)**2)/(np.sqrt(2*np.pi)*sigma)
+        target_norm2 = float(np.prod((normal**2)@weights))
+>       transform = np.prod(np.exp(2j*np.pi*obj.op.k[..., None]*x)@(normal*weights)[..., None], axis=-2)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: operands could not be broadcast together with remapped shapes [original->remapped]: (1,2,3,100)->(1,2,newaxis,newaxis) (3,100,1)->(3,newaxis,newaxis)  and requested shape (3,1)
+
+tests/test_uq_cubic_design_review.py:50: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_uq_cubic_design_review.py::test_two_particle_conic_bracket
+FAILED tests/test_uq_cubic_design_review.py::test_zero_weight_conic_repeat_records_value_without_claiming_historical_recovery
+2 failed, 3 passed in 0.92s

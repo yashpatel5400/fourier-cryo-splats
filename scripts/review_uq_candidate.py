@@ -153,6 +153,7 @@ REVIEW_RUNNERS = [
     'run_uq_pilot_targets.py', 'select_uq_pilot_targets.py', 'apply_uq_pilot_targets.py',
     'apply_uq_fresh_noise.py', 'freeze_uq_noise_models.py', 'probe_uq_sign_class.py',
     'run_uq_cubic_weight_probe.py', 'audit_uq_cubic_pose_probe.py', 'probe_uq_higher_remainder.py',
+    'check_uq_cubic_design_numerics.py',
     'prepare_uq_splits.py', 'prepare_uq_fresh_cohort.py', 'prepare_uq_noise_cohort.py',
     'download_data.py', 'confirm_uq_continuous.py', 'confirm_uq_continuous_moments.py',
     'evaluate_uq_fresh_prediction.py', 'audit_uq_ctf_sensitivity.py', 'probe_uq_continuous_support.py']
@@ -242,7 +243,8 @@ def main():
                  'DISCRETIZATION-AND-PERTURBATION-NOTES.md',
                  'HIGHER-ORDER-REMAINDER-PROBE.md','CUBIC-POSE-PROBE.md',
                  'SOBOLEV-WEIGHT-DESIGN-NOTES.md','CUBIC-WEIGHT-DESIGN-THEORY.md',
-                 'CUBIC-WEIGHT-OPTIMIZATION-PROTOCOL.md','DIFFPOSE-READING-NOTE.md']],
+                 'CUBIC-WEIGHT-OPTIMIZATION-PROTOCOL.md','DIFFPOSE-READING-NOTE.md',
+                 'CUBIC-DESIGN-NUMERICAL-CHECK.md']],
              ROOT/'research/uncertainty/reviews/cubic-audit-01/review.md',
              ROOT/'research/uncertainty/reviews/cubic-audit-01/response.md',
              *sorted((ROOT/'research/uncertainty/reviews/cubic-design-audit-01').glob('*.md')),

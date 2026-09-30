@@ -1,0 +1,10 @@
+REVIEW_CHECK {"check": "two_particle_conic", "solver": "SCS", "conic_status": "optimal", "conic_optimum": 1.9982265820361278, "design_value": 1.9982265820364984, "dual_lower": 1.99822567528153, "audited_upper": 1.9982265820367537, "relative_gap": 4.5377998268389177e-07}
+..REVIEW_CHECK {"check": "fresh_zero_boundary_conic_rerun", "conic_status": "optimal_inaccurate", "conic_value": 2.528968168770123, "analytic_optimum": 2.528968168765677, "weight_norm": 4.7702706722822904e-12}
+...
+=============================== warnings summary ===============================
+tests/test_uq_cubic_design_review.py::test_zero_weight_conic_repeat_records_value_without_claiming_historical_recovery
+  /Users/yash/Documents/New project/fourier-splats/tests/test_uq_cubic_design_review.py:85: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+    optimum = problem.solve(solver=solver, tol_gap_abs=1e-9, tol_gap_rel=1e-9, tol_feas=1e-9)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+5 passed, 1 warning in 5.02s

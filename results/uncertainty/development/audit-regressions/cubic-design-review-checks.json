@@ -1,0 +1,31 @@
+{
+  "complete": true,
+  "time_utc": "2026-09-30T09:58:24.606055+00:00",
+  "records": [
+    {
+      "check": "two_particle_conic",
+      "solver": "SCS",
+      "conic_status": "optimal",
+      "conic_optimum": 1.9982265820361278,
+      "design_value": 1.9982265820364984,
+      "dual_lower": 1.99822567528153,
+      "audited_upper": 1.9982265820367537,
+      "relative_gap": 4.5377998268389177e-07
+    },
+    {
+      "check": "fresh_zero_boundary_conic_rerun",
+      "conic_status": "optimal_inaccurate",
+      "conic_value": 2.528968168770123,
+      "analytic_optimum": 2.528968168765677,
+      "weight_norm": 4.7702706722822904e-12
+    }
+  ],
+  "source_hashes": {
+    "tests/test_uq_cubic_design_review.py": "73a71445b814af7cc1224adc5d272b6d3cf0173e074a75286c5d1fb72457f31e",
+    "tests/test_uq_cubic_optimization.py": "85fbfcfe7615e98ebe170eccfe383397352cb0a2d3d59a87cc05c10f988637f9",
+    "logs/uncertainty/cubic-design-review-regressions-initial.log": "930b11e552159abe43e98e3780d1eab86e1869ef19e727b80eece5ef7544132c",
+    "logs/uncertainty/cubic-design-review-regressions-v2.log": "fe31e0dda951af8143e049ab3e32f1814e57f46264b3de437a071d0daef6e369",
+    "logs/uncertainty/cubic-design-review-regressions-v3.log": "bbd0687c7c158bf75a33fe88e6be3ca37410ccb762ff3294da3dc50e40378c1b"
+  },
+  "scope": "Focused W2/W3/W7 numerical implementation regressions. Two-particle field/remainder components remain shared with separately checked implementation. Not empirical coverage or operator-error certification."
+}

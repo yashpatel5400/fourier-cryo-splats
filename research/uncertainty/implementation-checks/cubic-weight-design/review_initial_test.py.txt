@@ -1,0 +1,155 @@
+"""Focused W2/W3/W7 regressions; no empirical design is changed."""
+import json
+import numpy as np
+import pytest
+from scipy.linalg import block_diag
+from scipy.optimize import minimize
+from scipy.stats import norm
+from numpy.polynomial.legendre import leggauss
+from test_uq_cubic_optimization import fixture, full_modes, matrix_sqrt
+from fourier_splats.uq_continuous_quadrature import QuadratureObservationGram
+from fourier_splats.uq_cubic_design import DifferentiableCubicPoseFieldOperator
+from fourier_splats.uq_cubic_pose import gaussian_moments_cubic
+from fourier_splats.uq_sobolev_penalty import SobolevRemainderPenalty
+from fourier_splats.uq_cubic_optimization import CubicDesignObjective, optimize_cubic_weights
+
+
+def two_particle_fixture(smoothing=0.):
+    from scipy.spatial.transform import Rotation
+    q = np.array([[[.31, .06], [-.04, .37]], [[.23, -.11], [.09, .32]]])
+    k = np.pad(q, ((0, 0), (0, 0), (0, 1)))
+    k[1] = k[1]@Rotation.from_rotvec([.4, -.3, .2]).as_matrix()
+    ctf = np.array([[1., -.8], [.7, -1.1]]); w = np.array([.35, -.2, .15, -.25, .21, -.09, .12, -.17])
+    angles = np.array([.17, .12]); shifts = np.array([.08, .05]); noise = .1
+    gram = QuadratureObservationGram(k, ctf, noise, order=12, preconditioner_rank=0)
+    op = DifferentiableCubicPoseFieldOperator(k, q, ctf, w, noise, angles, shifts, order=4, backend='direct')
+    scaling = op.establish_quadrature_design_scaling(4)
+    remainder = SobolevRemainderPenalty(k, q, ctf/noise, angles, shifts)
+    moments = .1*gaussian_moments_cubic(k, [[.03, -.04, .02]], [1.], .2)
+    obj = CubicDesignObjective(gram, op, remainder, moments, [[.08, -.06, 0.]], [1.], .24,
+        2., 1., np.sqrt(scaling['sum_group_scales']), norm.isf((.05/12-1e-6/12)/2), smoothing=smoothing)
+    return obj, w
+
+
+def conic_with_explicit_particle_packing(obj):
+    import cvxpy as cp
+    d = len(obj.a); n, nq = obj.n, obj.nq
+    labels = [(i, c, j) for i in range(n) for c in range(2) for j in range(nq)]
+    gram = np.zeros((d, d))
+    for ii, (i, c, j) in enumerate(labels):
+        for jj, (l, cc, m) in enumerate(labels):
+            if c == cc:
+                minus = np.prod(np.sinc(obj.op.k[i, j]-obj.op.k[l, m]))
+                plus = np.prod(np.sinc(obj.op.k[i, j]+obj.op.k[l, m]))
+                gram[ii, jj] = .5*obj.op.transfer[i, j]*obj.op.transfer[l, m]*(minus+(-1)**c*plus)
+    # Independent 1D tensor-factor integrals for the target and target norm.
+    nodes, weights = leggauss(100); x = nodes/2; weights /= 2
+    sigma = .24; mu = np.array([.08, -.06, 0.])
+    normal = np.exp(-.5*((x[None]-mu[:, None])/sigma)**2)/(np.sqrt(2*np.pi)*sigma)
+    target_norm2 = float(np.prod((normal**2)@weights))
+    transform = np.prod(np.exp(2j*np.pi*obj.op.k[..., None]*x)@(normal*weights)[..., None], axis=-2)
+    transform = transform[..., 0]
+    a = np.array([obj.op.transfer[i, j]*(transform[i, j].real if c == 0 else -transform[i, j].imag) for i, c, j in labels])
+    np.testing.assert_allclose(a, obj.a, atol=2e-12)
+    np.testing.assert_allclose(target_norm2, obj.target_norm2, atol=2e-12)
+    basis = np.eye(d)
+    for j in range(d):
+        np.testing.assert_allclose(gram[:, j], obj.gram.matvec(basis[j]), atol=2e-10)
+    density_root = matrix_sqrt(np.block([[gram+obj.eta*np.eye(d), -a[:, None]], [-a[None], [[target_norm2]]]]))
+    matrices, pilot_columns = [], []
+    for e in basis:
+        obj.op.set_weights(e)
+        matrices.append(np.column_stack([obj.op.matvec(v) for v in np.eye(obj.op.shape[1])]))
+        pilot_columns.append(obj.op.pair_moments(obj.moments))
+    left, sv, _ = np.linalg.svd(np.concatenate(matrices, axis=1), full_matrices=False)
+    right, sr, _ = np.linalg.svd(np.concatenate([m.T for m in matrices], axis=1), full_matrices=False)
+    left = left[:, sv > sv[0]*1e-13]; right = right[:, sr > sr[0]*1e-13]
+    reduced = [left.T@m@right for m in matrices]
+    assert max(np.linalg.norm(m-left@c@right.T) for m, c in zip(matrices, reduced)) < 1e-12
+    w = cp.Variable(d); masses = []; remainder = 0.
+    for i in range(n):
+        local = w[2*nq*i:2*nq*(i+1)]
+        amplitude = cp.hstack([cp.norm(cp.hstack([local[j], local[nq+j]])) for j in range(nq)])
+        masses.append(obj.coefficients[i]@amplitude)
+        for j in range(obj.remainder.order):
+            root = matrix_sqrt(block_diag(*obj.remainder.blocks[i, j]))
+            remainder += obj.remainder.multipliers[i, j]*cp.norm(root@local)
+        remainder += obj.remainder.residual[i]@amplitude
+    field = sum(w[j]*reduced[j] for j in range(d))
+    pose = cp.norm(cp.hstack([cp.norm(field, 2), np.sqrt(obj.kernel_error)*cp.hstack(masses)]))
+    cost = (obj.z*cp.norm(w)+obj.B*cp.norm(density_root@cp.hstack([w, 1.]))+
+            obj.B*obj.L*pose+obj.L*cp.norm(np.column_stack(pilot_columns)@w)+(obj.B+obj.P)*remainder)
+    problem = cp.Problem(cp.Minimize(cost))
+    optimum = problem.solve(solver='CLARABEL', tol_gap_abs=1e-9, tol_gap_rel=1e-9, tol_feas=1e-9)
+    return float(optimum), w.value, problem.status
+
+
+def test_two_particle_conic_bracket():
+    obj, initial = two_particle_fixture(); optimum, solution, status = conic_with_explicit_particle_packing(obj)
+    assert status == 'optimal'
+    def evaluate(w):
+        modes, _ = full_modes(obj, w)
+        value, gradient, _, _ = obj.evaluate(w, modes[:, :1])
+        return value, gradient
+    fitted = minimize(evaluate, initial, method='L-BFGS-B', jac=True,
+        options={'maxiter': 300, 'ftol': 1e-13, 'gtol': 1e-9})
+    modes, singular = full_modes(obj, fitted.x)
+    value, _, _, support = obj.evaluate(fitted.x, modes[:, :1])
+    audit = obj.audit(fitted.x, support, singular[0]**2)
+    print('REVIEW_CHECK', json.dumps({'check': 'two_particle_conic', 'conic_status': status,
+        'conic_optimum': optimum, 'design_value': value, 'dual_lower': audit['dual_lower_bound'],
+        'audited_upper': audit['sum_objective_upper'], 'relative_gap': audit['relative_sum_gap']}))
+    assert audit['dual_lower_bound'] <= optimum+3e-7
+    assert audit['sum_objective_upper'] >= optimum-3e-7
+    assert abs(value-optimum) < 2e-5
+    assert audit['relative_sum_gap'] < 2e-4
+    np.testing.assert_allclose(evaluate(solution)[0], optimum, atol=3e-7)
+
+
+def test_random_spatial_modes_supply_multi_particle_norm_supports():
+    obj, w = two_particle_fixture(.002); rng = np.random.default_rng(650121)
+    modes = rng.normal(size=(obj.op.shape[0], 3)); modes /= np.linalg.norm(modes, axis=0)
+    value, gradient, _, support = obj.evaluate(w, modes)
+    direction = rng.normal(size=w.shape); step = 1e-5
+    fd = (obj.evaluate(w+step*direction, modes)[0]-obj.evaluate(w-step*direction, modes)[0])/(2*step)
+    np.testing.assert_allclose(fd, gradient@direction, rtol=2e-7, atol=1e-9)
+    for _ in range(10):
+        other = rng.normal(size=w.shape); exact, _ = full_modes(obj, other)
+        obj.smoothing = 0.
+        _, _, row, _ = obj.evaluate(other, exact[:, :1]); obj.smoothing = .002
+        bound = row['pose_polynomial_term']+row['pilot_polynomial_term']+row['quartic_term']
+        assert support@other <= bound+1e-10
+        assert obj.evaluate(other, modes)[0] >= value+gradient@(other-w)-1e-9
+
+
+def test_zero_weight_conic_repeat_records_value_without_claiming_historical_recovery():
+    obj, _ = fixture(noise=.7); optimum, solution, status = conic_with_explicit_particle_packing(obj)
+    known = obj.B*np.sqrt(obj.target_norm2)
+    print('REVIEW_CHECK', json.dumps({'check': 'fresh_zero_boundary_conic_rerun', 'conic_status': status,
+        'conic_value': optimum, 'analytic_optimum': known, 'weight_norm': float(np.linalg.norm(solution))}))
+    assert np.isfinite(optimum) and optimum >= known-1e-6
+    assert abs(optimum-known) < 1e-5
+
+
+def test_empty_ritz_failure_preserves_emitted_history(monkeypatch):
+    import fourier_splats.uq_cubic_optimization as implementation
+    from scipy.sparse.linalg import ArpackNoConvergence
+    obj, initial = fixture(.002); calls = []; history = []; checkpoints = []
+    def modes(operator, **kwargs):
+        calls.append(1)
+        if len(calls) > 1:
+            raise ArpackNoConvergence('deliberate empty return', np.array([]), np.empty((operator.shape[0], 0)))
+        v = np.ones(operator.shape[0]); v /= np.linalg.norm(v)
+        return np.array([v@(operator@v)]), v[:, None]
+    monkeypatch.setattr(implementation, 'eigsh', modes)
+    with pytest.raises(ArpackNoConvergence):
+        optimize_cubic_weights(obj, initial, maxiter=2, max_evaluations=3, modes_count=2,
+            ritz_subspace=5, certificate_seed=650123, precondition=False, callback=history.append,
+            checkpoint_callback=lambda w, row: checkpoints.append((w, row)))
+    assert len(history) == 1 and history[0]['evaluation'] == 1 and len(checkpoints) == 1
+
+
+def test_nonfinite_mode_rejected_before_objective_or_certificate():
+    obj, w = fixture(); modes = np.ones((obj.op.shape[0], 1)); modes[0] = np.nan
+    with pytest.raises(ValueError, match='Finite nonzero'):
+        obj.evaluate(w, modes)

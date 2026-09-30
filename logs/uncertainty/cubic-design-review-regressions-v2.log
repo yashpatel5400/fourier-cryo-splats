@@ -1,0 +1,73 @@
+F.REVIEW_CHECK {"check": "fresh_zero_boundary_conic_rerun", "conic_status": "optimal_inaccurate", "conic_value": 2.528968168770123, "analytic_optimum": 2.528968168765677, "weight_norm": 4.7702706722822904e-12}
+...
+=================================== FAILURES ===================================
+_______________________ test_two_particle_conic_bracket ________________________
+
+    def test_two_particle_conic_bracket():
+>       obj, initial = two_particle_fixture(); optimum, solution, status = conic_with_explicit_particle_packing(obj)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_uq_cubic_design_review.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_uq_cubic_design_review.py:84: in conic_with_explicit_particle_packing
+    optimum = problem.solve(solver='CLARABEL', tol_gap_abs=1e-9, tol_gap_rel=1e-9, tol_feas=1e-9)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.13/site-packages/cvxpy/problems/problem.py:687: in solve
+    return solve_func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.13/site-packages/cvxpy/problems/problem.py:1148: in _solve
+    self.unpack_results(solution, solving_chain, inverse_data)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Problem(Minimize(Expression(CONVEX, NONNEGATIVE, ())), [])
+solution = Solution(solver_error, {}, {}, {'solve_time': 3.660163501, 'num_iters': 1})
+chain = Chain(reductions=[<cvxpy.reductions.dcp2cone.dcp2cone.Dcp2Cone object at 0x10a2f6ba0>, <cvxpy.reductions.cvx_attr2cons...uffing object at 0x10a2f70e0>, <cvxpy.reductions.solvers.conic_solvers.clarabel_conif.CLARABEL object at 0x10a13cc20>])
+inverse_data = [<cvxpy.reductions.inverse_data.InverseData object at 0x10a2f6900>, (), <cvxpy.reductions.inverse_data.InverseData obj...rseData object at 0x10a7325d0>, <cvxpy.reductions.solvers.solver_inverse_data.SolverInverseData object at 0x10a984440>]
+
+    def unpack_results(self, solution, chain: SolvingChain, inverse_data) -> None:
+        """Updates the problem state given the solver results.
+    
+        Updates problem.status, problem.value and value of
+        primal and dual variables.
+    
+        Arguments
+        _________
+        solution : object
+            The solution returned by applying the chain to the problem
+            and invoking the solver on the resulting data.
+        chain : SolvingChain
+            A solving chain that was used to solve the problem.
+        inverse_data : list
+            The inverse data returned by applying the chain to the problem.
+        Raises
+        ------
+        cvxpy.error.SolverError
+            If the solver failed
+        """
+    
+        solution = chain.invert(solution, inverse_data)
+        if solution.status in s.INACCURATE:
+            warn(
+                "Solution may be inaccurate. Try another solver, "
+                "adjusting the solver settings, or solve with "
+                "verbose=True for more information."
+            )
+        if solution.status == s.INFEASIBLE_OR_UNBOUNDED:
+            warn(INF_OR_UNB_MESSAGE)
+        if solution.status in s.ERROR:
+>           raise error.SolverError(
+                    "Solver '%s' failed. " % chain.solver.name() +
+                    "Try another solver, or solve with verbose=True for more "
+                    "information.")
+E           cvxpy.error.SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.
+
+.venv/lib/python3.13/site-packages/cvxpy/problems/problem.py:1453: SolverError
+=============================== warnings summary ===============================
+tests/test_uq_cubic_design_review.py::test_zero_weight_conic_repeat_records_value_without_claiming_historical_recovery
+  /Users/yash/Documents/New project/fourier-splats/tests/test_uq_cubic_design_review.py:84: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+    optimum = problem.solve(solver='CLARABEL', tol_gap_abs=1e-9, tol_gap_rel=1e-9, tol_feas=1e-9)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_uq_cubic_design_review.py::test_two_particle_conic_bracket
+1 failed, 4 passed, 1 warning in 7.64s
