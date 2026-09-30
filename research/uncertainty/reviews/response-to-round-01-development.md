@@ -3,7 +3,8 @@
 **Development checkpoint, not a completed resubmission or an acceptance claim.**
 The unmodified first Fable 5.1 review remains the latest full acceptance
 assessment: reject, confidence 4/5, not a strong contender. Focused mathematical
-audits are not full reviews. Several feature fits and the fresh noise-calibration application are running;
+audits are not full reviews. All twelve fixed-pose feature fits are complete; nonlinear pose audits and the
+fresh noise-calibration application are running;
 they must be completed and incorporated before the next full review. The eighteen-case
 pose-optimization grid and its post-audits are complete.
 This file also supports local packet-size/layout checks without invoking a model.
@@ -19,8 +20,9 @@ covariance or supplied-pose independence. Completed exploratory applications
 are in experimental-noise-grouped, directional-noise-audit and noise-metric-design.
 Only one broad fixed-pose feature excludes zero; none at one/two degrees.
 The already inspected second calibration pool is explicitly exploratory reuse.
-A new cohort of 128 unused exposures per stack is reserved, but has no pixels
-downloaded: the twelve-estimator lock must precede access. Old inference images
+The new cohort reserves 128 unused exposures per stack. All twelve estimators
+and 116 files were locked and published in commit 60efd9b before downloading
+any reserved pixels; downloads are now running. Old inference images
 remain development data. The all-row metadata inventory finds zero-valued
 pose/shift ESS fields throughout; these are not calibrated zero-error bounds.
 The paper explicitly identifies 10076's heterogeneous population as incompatible
@@ -35,8 +37,10 @@ outside-class references; the smallest masks exclude them. A further exact
 support-function/Jensen sign-class ablation also retains all excluded-reference
 cases and all grid sizes. It does not rescue the inherited pose remainder.
 The new locked sigma-20 A target study selects three pilot regions and one
-matched center per stack, before evaluating their feature outcomes. A subset of fits
-is complete; the family and experimental application are pending. The first
+matched center per stack, before evaluating their feature outcomes. All twelve fixed-pose fits
+are complete, with maximum relative sum-objective gap 0.00437. The third 10049
+region has fixed-pose reference sign power 0.0158; all other features exceed
+0.99999. Nonlinear audits and the full experimental application remain pending. The first
 region's completed one-degree audit has no useful sign power on any of the three
 stacks, including one no-data fallback. A declared two-case higher-order
 remainder diagnostic reduces one component, but is not a new interval. The

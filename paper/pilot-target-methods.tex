@@ -62,11 +62,18 @@ $0.0428$, so high coverage alone still does not imply detection of every target.
 All five priors and eight scenarios remain in the descriptive summary of the
 original 960 checks; regrouping them adds no independent experiments.
 
-The corresponding continuous feature fits and nonlinear audits are still
-running at this development checkpoint. Their full-family comparison and
-conditional experimental application cannot yet be reported. A further
-calibration-only cohort reserves one particle from each of 128 previously
-unused exposures per stack, excluding both existing image pools. Its pixels
-will be accessed only after all twelve estimators are frozen. The old inference
-images remain development data, and neither a fresh calibration pool nor
-approximate-map inclusion will establish the unknown density or pose bounds.
+All twelve continuous fixed-pose fits are complete and meet their declared
+numerical stopping criterion (Table~\ref{tab:lockedfixed}). Their largest
+sum-objective gap is 0.00437; each fit takes 2,033--3,613 seconds on the Mac
+under concurrent load. The third EMPIAR-10049 pilot region has sign power
+0.0158 even at fixed poses, while the other eleven exceed 0.99999 in the
+known-noise reference calculation. This unfavorable feature remains in the
+family. The nonlinear pose audits and full conditional experimental comparison
+are still running. The reserved calibration cohort uses one particle from each
+of 128 previously unused exposures per stack, excluding both existing image
+pools. All twelve estimators and 116 input/source files were locked and
+published before any reserved pixels were downloaded; that download is now
+underway. The old inference images remain development data, and neither a fresh
+calibration pool nor approximate-map inclusion establishes the density or pose
+bounds.
+\input{tables/pilot-fixed-family}

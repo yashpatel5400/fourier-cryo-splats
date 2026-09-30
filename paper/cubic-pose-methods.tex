@@ -175,3 +175,12 @@ cryo-EM calibration result. The original conic test returned
 attempt is retained, and a separate analytic boundary check now covers it.
 Directional gradients, convex supports and partial-mode bookkeeping are also
 checked before the empirical fit.
+
+A subsequent eight-coordinate, two-particle conic check uses unequal geometry
+and nuisance budgets. SCS gives objective 1.998226582036, with an audited
+relative gap $4.54\times10^{-7}$; a preceding CLARABEL failure on the same
+geometry is retained. Random spatial-mode supports and empty-eigensolver failure
+paths are checked separately. A fresh rerun of the zero-weight boundary gives
+2.528968168770 versus analytic optimum 2.528968168766 while retaining the
+\texttt{optimal\_inaccurate} warning. Final-weight two-tolerance operator
+checks are declared and pending; none of these tests validates all NUFFT error.
