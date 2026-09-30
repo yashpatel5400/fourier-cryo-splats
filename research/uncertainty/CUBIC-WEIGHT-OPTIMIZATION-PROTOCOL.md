@@ -77,3 +77,18 @@ runtime, memory, optimizer state and a valid surrogate gap if available. Stop
 this bounded study after its one final outcome, favorable or not. Additional
 cases, iterations or starts require another explicit development declaration;
 they must not overwrite or be represented as this probe's result.
+
+### Pre-run clarification: convex nominal-residual majorant
+
+Implementation uses H(w)^2=||ell||^2-2<a,w>+w^T G_80 w+eta||w||^2,
+where eta=E_80||transfer||^2. The quadrature error satisfies
+|w^T(G_80-G_cont)w|<=E_80(sum |transfer| pair_amplitude)^2<=eta||w||^2.
+Thus H majorizes the continuous residual and is an affine Hilbert norm in real
+arithmetic. Its derivative uses (G_80 w+eta w-a)/H. The final upper adds a
+reported ordinary-floating-point cancellation guard; that guard is not a
+validated arithmetic certificate. The dual density support uses the true
+continuous residual normalized by this upper, approximates A*h by a-G_80 w
+(without the majorant's eta w term), and pads that action's quadrature error.
+The lower bound consequently applies to the unsmoothed majorized surrogate as
+well, though it need not be tight for the majorant. This clarification precedes
+any empirical fit and does not change the target, cohort or algorithm budget.

@@ -1,0 +1,69 @@
+..F.                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_independent_conic_optimum_and_continuous_dual_bracket __________
+
+    def test_independent_conic_optimum_and_continuous_dual_bracket():
+>       obj, initial = fixture(); optimum, conic_weights = independent_conic(obj)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+
+tmp/test_uq_cubic_optimization.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = <uq_cubic_optimization.CubicDesignObjective object at 0x10bcf9310>
+
+    def independent_conic(obj):
+        import cvxpy as cp
+        dimension = len(obj.a); basis = np.eye(dimension)
+        # Analytic continuous cube Gram, independently assembled in real coordinates.
+        k = obj.op.k[0]; t = obj.op.transfer[0]
+        minus = np.prod(np.sinc(k[:, None]-k[None, :]), axis=-1)
+        plus = np.prod(np.sinc(k[:, None]+k[None, :]), axis=-1)
+        gram = block_diag(.5*t[:, None]*t[None, :]*(minus+plus),
+                          .5*t[:, None]*t[None, :]*(minus-plus))
+        for i in range(dimension):
+            np.testing.assert_allclose(obj.gram.matvec(basis[i]), gram[:, i], atol=3e-12)
+        augmented = np.block([[gram+obj.eta*np.eye(dimension), -obj.a[:, None]],
+                              [-obj.a[None], np.array([[obj.target_norm2]])]])
+        density_root = matrix_sqrt(augmented)
+        matrices, pilot_columns = [], []
+        for e in basis:
+            obj.op.set_weights(e)
+            matrices.append(np.column_stack([obj.op.matvec(v) for v in np.eye(obj.op.shape[1])]))
+            pilot_columns.append(obj.op.pair_moments(obj.moments))
+        pilot = np.column_stack(pilot_columns)
+        # Compress only common numerical null spaces; retain >1e-13 relative modes.
+        left, sv, _ = np.linalg.svd(np.concatenate(matrices, axis=1), full_matrices=False)
+        right, sr, _ = np.linalg.svd(np.concatenate([m.T for m in matrices], axis=1), full_matrices=False)
+        left = left[:, sv > sv[0]*1e-13]; right = right[:, sr > sr[0]*1e-13]
+        compressed = [left.T@m@right for m in matrices]
+        assert max(np.linalg.norm(m-left@c@right.T) for m, c in zip(matrices, compressed)) < 1e-12
+        w = cp.Variable(dimension)
+        amplitude = cp.hstack([cp.norm(cp.hstack([w[j], w[obj.nq+j]])) for j in range(obj.nq)])
+        field = sum(w[j]*compressed[j] for j in range(dimension))
+        masses = obj.coefficients[0]@amplitude
+        pose = cp.norm(cp.hstack([cp.norm(field, 2), np.sqrt(obj.kernel_error)*masses]))
+        remainder = 0.
+        for j in range(obj.remainder.order):
+            root = matrix_sqrt(block_diag(*obj.remainder.blocks[0, j]))
+            remainder += obj.remainder.multipliers[0, j]*cp.norm(root@w)
+        remainder += obj.remainder.residual[0]@amplitude
+        cost = (obj.z*cp.norm(w)+obj.B*cp.norm(density_root@cp.hstack([w, 1.]))+
+                obj.B*obj.L*pose+obj.L*cp.norm(pilot@w)+(obj.B+obj.P)*remainder)
+        problem = cp.Problem(cp.Minimize(cost))
+        optimum = problem.solve(solver='CLARABEL', tol_gap_abs=1e-9, tol_gap_rel=1e-9, tol_feas=1e-9)
+>       assert problem.status == 'optimal'
+E       AssertionError: assert 'optimal_inaccurate' == 'optimal'
+E         
+E         - optimal
+E         + optimal_inaccurate
+
+tmp/test_uq_cubic_optimization.py:99: AssertionError
+=============================== warnings summary ===============================
+tmp/test_uq_cubic_optimization.py::test_independent_conic_optimum_and_continuous_dual_bracket
+  /Users/yash/Documents/New project/fourier-splats/tmp/test_uq_cubic_optimization.py:98: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+    optimum = problem.solve(solver='CLARABEL', tol_gap_abs=1e-9, tol_gap_rel=1e-9, tol_feas=1e-9)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tmp/test_uq_cubic_optimization.py::test_independent_conic_optimum_and_continuous_dual_bracket
+1 failed, 3 passed, 1 warning in 3.30s
