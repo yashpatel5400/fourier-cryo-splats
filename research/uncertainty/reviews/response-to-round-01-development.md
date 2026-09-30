@@ -3,9 +3,9 @@
 **Development checkpoint, not a completed resubmission or an acceptance claim.**
 The unmodified first Fable 5.1 review remains the latest full acceptance
 assessment: reject, confidence 4/5, not a strong contender. Focused mathematical
-audits are not full reviews. All twelve fixed-pose feature fits are complete; nonlinear pose audits and the
-fresh noise-calibration application are running;
-they must be completed and incorporated before the next full review. The eighteen-case
+audits are not full reviews. All twelve fixed-pose feature fits, nonlinear pose
+audits and the frozen fresh noise-calibration application are complete. Their
+results remain conditional and do not resolve experimental calibration. The eighteen-case
 pose-optimization grid and its post-audits are complete.
 This file also supports local packet-size/layout checks without invoking a model.
 
@@ -18,12 +18,16 @@ The latter inflates each weight row by the square root of its group size.
 These are elementary conservative results, not data-driven proofs of a common
 covariance or supplied-pose independence. Completed exploratory applications
 are in experimental-noise-grouped, directional-noise-audit and noise-metric-design.
-Only one broad fixed-pose feature excludes zero; none at one/two degrees.
+In those early applications only one broad fixed-pose feature excludes zero;
+none at one/two degrees.
 The already inspected second calibration pool is explicitly exploratory reuse.
 The new cohort reserves 128 unused exposures per stack. All twelve estimators
 and 116 files were locked and published in commit 60efd9b before downloading
-any reserved pixels; all three downloads are complete and verified. The frozen
-calibration application awaits the complete original twelve-feature results. Old inference images
+any reserved pixels; all three downloads and the frozen recalibration are complete.
+The full twelve-feature family now has six fixed-pose and four shift-only zero
+exclusions, but none at one/two degrees. Fresh noise SD bounds are 0.729–0.955
+of the original bounds; the exclusion counts are unchanged. All 48 intervals,
+including sixteen no-data fallbacks, are retained. Old inference images
 remain development data. The all-row metadata inventory finds zero-valued
 pose/shift ESS fields throughout; these are not calibrated zero-error bounds.
 The paper explicitly identifies 10076's heterogeneous population as incompatible
@@ -41,9 +45,9 @@ The new locked sigma-20 A target study selects three pilot regions and one
 matched center per stack, before evaluating their feature outcomes. All twelve fixed-pose fits
 are complete, with maximum relative sum-objective gap 0.00437. The third 10049
 region has fixed-pose reference sign power 0.0158; all other features exceed
-0.99999. Nonlinear audits and the full experimental application remain pending. The first
-region's completed one-degree audit has no useful sign power on any of the three
-stacks, including one no-data fallback. A declared two-case higher-order
+0.99999. Nonlinear audits and the full experimental application are complete.
+Every one-/two-degree audit lacks useful reference sign power; 10028 uses no
+data at one degree and every stack does so at two degrees. A declared two-case higher-order
 remainder diagnostic reduces one component, but is not a new interval. The
 separate full cubic audit has completed: it reduces one selected width from
 0.473 to 0.252, yet minimum reference sign power remains 1.48e-10. Its actual
@@ -136,7 +140,8 @@ coverage at several features. A separately declared broader-prior sensitivity
 improves nominal full-posterior coverage to 0.9872–0.9998 with relatively narrow
 intervals. Every broader-prior result is retained; no favorable prior replaces
 the original record. This is meaningful favorable baseline evidence. The new
-continuous feature family must be compared with it after completion.
+continuous feature family is now complete and is reported alongside it, without
+claiming superiority from its different uniform-class guarantee.
 The favorable wider-prior behavior also persists in the declared one-/two-degree
 coherent and random-boundary checks: full-posterior fixed-generator coverage at
 coordinate SD one ranges from 0.9861 to 0.9999. All five priors and every pose
@@ -154,7 +159,7 @@ the full Rangan Hessian method or an independently calibrated pose posterior.
 It does not resolve R1, R2 or R7.
 
 - M1: the paper is a public development preprint, not an anonymized submission.
-- M2: the current curated count is 106 candidates; historical counts and targeted
+- M2: the current curated count is 109 candidates; historical counts and targeted
   reading versus retrieval are distinguished.
 - M3: the manuscript uses the source-summary value 0.339 for the strong-ridge
   bootstrap control, alongside all favorable weak-ridge comparisons.

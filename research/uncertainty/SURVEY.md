@@ -3,7 +3,7 @@
 Research cutoff: 2026-09-30. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 106 candidates; this is not a full-reading count.
+The current ledger contains 109 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -31,6 +31,14 @@ Neither a high FSC nor a held-out image likelihood, by itself, establishes
 frequentist coverage of an unknown local density. Conversely, a confidence
 interval for a fixed density functional does not validate a conformational
 population or an atomic interpretation.
+
+Particle-level likelihood validation has a substantial history: BioEM and
+independent-control-set evidence diagnostics precede current neural methods;
+CryoLike provides recent computational tooling. The targeted
+[reading note](LIKELIHOOD-VALIDATION-READING.md) separates those scores from
+confidence sets and discusses the established universal-inference alternative.
+Tight global nuisance optimization and defensible image likelihoods remain
+important obstacles to turning validation scores into calibrated tests.
 
 ## 2. Statistical reconstruction and explicit density uncertainty
 
@@ -372,7 +380,7 @@ while the author-uploaded HTML supplied the targeted methods text.
 ## 15. Additional Gaussian representation and access checks
 
 [GaussianEM](GAUSSIANEM-READING-NOTE.md) adds a directly relevant representation
-and validation comparison. The ledger now contains 106 candidates.
+and validation comparison. The ledger now contains 109 candidates.
 [CryoDiff access follow-up](cryodiff-access-followup.json) retrieved publisher API
 metadata, but full text and XML returned access errors; calibration details
 remain unchecked. No corresponding author code repository was identified in

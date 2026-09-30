@@ -61,7 +61,7 @@ theorems. A cryo-EM-specific contribution must go beyond rebranding them.
 ## Current status (30 September 2026)
 
 The full round-1 Fable rejection remains the latest acceptance assessment.
-The survey contains 106 curated candidates, with targeted reading distinguished
+The survey contains 109 curated candidates, with targeted reading distinguished
 from retrieval. The 10,000-particle audit, expanded Fourier variational baseline,
 three rounds of alternating pose/density ambiguity, and enclosing-domain
 remainder refinements are complete. Their improved numerical bounds have not
@@ -70,14 +70,16 @@ implementation; their count is not evidence of scientific acceptance.
 
 The eighteen-case pose-aware comparison is complete. Its two-degree results
 do not meet the reviewer's usefulness or bound-tightness criteria. All twelve
-locked pilot-selected fixed-pose fits are complete; their nonlinear audits and
-experimental applications are running. The latter uses three dataset processes, each with two
-FINUFFT threads, to exploit local resources without changing the protocol.
+locked pilot-selected fixed-pose fits, 36 nonlinear audits and 48 experimental
+intervals are complete.
 A fresh noise-calibration cohort reserves 128 previously unused exposures per
 stack. All twelve estimators and 116 files were frozen and published in commit
 60efd9b before any reserved pixels were accessed. All three stacks are now
-downloaded and verified. The coordinator awaits the complete original
-twelve-feature application before running the frozen recalibration. The old inference
+downloaded and verified, and the frozen recalibration is complete. Fresh noise
+SD bounds are 0.729–0.955 of the old values. Six fixed-pose intervals and four
+shift-only intervals exclude zero; none at one/two degrees. All 48 approximate
+reference values are included, which is not empirical density coverage. All
+unfavorable features and no-data fallbacks are retained. The old inference
 images are still development data, and pose/density assumptions remain open.
 
 The metadata availability audit finds zero-valued pose/shift ESS fields in all
@@ -118,7 +120,12 @@ A native RELION 5.0.1 CPU probe completed in 14.794 seconds on 256 old pilot
 particles. A separately published three-stack unknown-pose reconstruction batch
 is running: pilot-only VDAM initialization, then refinement on the same exposure
 halves as the existing neural comparison. It has explicit per-stage wall limits,
-retains failures, and has no converged baseline result yet. Global map alignment
+retains failures, and has no converged baseline result yet. The first initializer
+times out at thirty minutes, with its last saved checkpoint at iteration forty;
+its evaluation records missing paired maps and reports no FSC. A separate
+published continuation protocol resumes wall-limited attempts with eight CPU
+worker threads and larger, bounded time allowances; its first continuation is
+running. Original v2 outcomes remain unchanged. Global map alignment
 is selected only against the old pilot, with all 48 local starts retained; two
 analytic-phantom checks pass. This is preparation for an external reconstruction
 comparison, not a new density-uncertainty guarantee.

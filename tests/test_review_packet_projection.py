@@ -57,6 +57,9 @@ def test_read_only_selection_uses_file_role_not_favorable_outcomes():
     assert module.inline_with_read_tools('results/uncertainty/development/study/summary.json')
     assert module.inline_with_read_tools('results/uncertainty/development/noise-scale-calibration.json')
     assert module.inline_with_read_tools('paper/main.tex')
+    assert not module.inline_with_read_tools('src/fourier_splats/uq_continuous.py')
+    assert not module.inline_with_read_tools('scripts/apply_uq_fresh_noise.py')
+    assert not module.inline_with_read_tools('tests/test_uq_continuous.py')
     assert not module.inline_with_read_tools('results/uncertainty/development/study/success.json')
     assert not module.inline_with_read_tools('results/uncertainty/development/study/failure.json')
 

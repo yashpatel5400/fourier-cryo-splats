@@ -1,40 +1,42 @@
 {
   "complete": true,
-  "stage": "fit_execution_complete",
-  "dataset": "10028",
-  "pixel_size_A": 7.537500187754631,
-  "box": 64,
-  "seed": 680128,
-  "field_A": 482.4000120162964,
-  "counts": {
-    "pilot": 1680,
-    "inference_half0": 2030,
-    "inference_half1": 1988
+  "scope": "Exploratory same-weight conditional pose remainder refinement, not experimental calibration",
+  "config": {
+    "audit": "results/uncertainty/development/pilot-selected-pose-v1/10049-pilot_region_3-2.json",
+    "output": "pilot-selected-enclosing-v1",
+    "domain": "cube"
   },
-  "input_hashes": {
-    "data/10028/manifest.json": "c84101b8a97feadb66ff852f7edfe20f68958b462727f3b590fc42b5f4a4b990",
-    "data/10028/metadata.npz": "4f72197a1ecdabe94a327821a61587abddbc9701e095c756a2a9f5a4b2d6ee0e",
-    "data/10028/images.npy": "91dbc2baf5e0fbc164aad039b17d974c8f30a3bb3c3cdeb4a46106fbdcf20821",
-    "research/uncertainty/splits/10028.csv": "efb3924563827a3891447d3132904d831752a3b88e0f582e6c1c886862027084",
-    "data/uncertainty/relion-reconstruction-v2/10028/particles.mrcs": "c3ed1486220bc106a442de4ab62f94eb362d6113b3e1009523796bd14e437a16",
-    "data/uncertainty/relion-reconstruction-v2/10028/pilot.star": "3e5fd067118469f20f35ac64d4efbfd912cd5f887133313bedd6b573a1c4c614",
-    "data/uncertainty/relion-reconstruction-v2/10028/refinement.star": "d36c1d6cfa74546579ddf482d903519dc94cc4d5bfb7c404e6b8971e904015a7",
-    "data/uncertainty/relion-reconstruction-v2/10028/selection.csv": "94d201100e299b71d0b9520d068ea1eb275097016807df58afe4516fc9dbc760",
-    "research/uncertainty/RELION-BASELINE-PROTOCOL.md": "4ead858b1f742339e78e899f2bba0e5b212acbd50436a8c70a97dd38c94ca985",
-    "scripts/run_relion_baseline.py": "5cf82de55567cd444232031212b75ed94ff5cfbe0dfe549e125d0153ecc1de38"
+  "dataset": "10049",
+  "target": "pilot_region_3",
+  "source_audit_sha256": "dbde768a9b0bb2acb5ea96e9c7c4fd5b5840821d140277d0e1814316eeb519ed",
+  "source_fit_sha256": "337bc006813d493158522f6bb1cc406ed83656b712b8c91d4391f25ac012a973",
+  "source_weights_sha256": "c9066eab7e143e321af4c48133c2d8d1924a7060a09db971f77f19a6fa2568e2",
+  "density_radius": 2.0,
+  "pilot_norm_bound": 1.0,
+  "class_metadata_origin": "Explicit numeric source-audit fields",
+  "joint_ball": true,
+  "pose_set": "Per-particle joint ball: squared scaled rotation norm plus squared scaled translation norm <= 1",
+  "domain": "cube",
+  "recomputed_source_bound": {
+    "bias_upper": 56.91835662378506,
+    "joint_bias_upper": 56.91835662378506,
+    "triangle_bias_upper": 56.929176636132986,
+    "cross_alignment_upper": 0.0614141283118029,
+    "pilot_polynomial_bias_upper": 0.08292191308889872,
+    "pilot_cross_upper": 0.022349901118992613
   },
-  "supplied_poses_or_density": false,
+  "numerical_scope": "Analytic identities plus heuristic magnitude guards; not interval arithmetic",
   "source_snapshot": {
     "git_head_at_snapshot": "c3b604dc8aa3e6a55d3da4f2186895f3318e2b02",
     "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
     "sources": {
-      "scripts/run_relion_baseline.py": {
-        "sha256": "5cf82de55567cd444232031212b75ed94ff5cfbe0dfe549e125d0153ecc1de38",
-        "snapshot": "provenance/uncertainty/source-snapshots/5cf82de55567cd444232031212b75ed94ff5cfbe0dfe549e125d0153ecc1de38.txt"
+      "scripts/probe_uq_ball_remainder.py": {
+        "sha256": "96467e7f0fcfaf801ee7136c3be1709e488a38aa8efd5a59220a68fd2eed5891",
+        "snapshot": "provenance/uncertainty/source-snapshots/96467e7f0fcfaf801ee7136c3be1709e488a38aa8efd5a59220a68fd2eed5891.txt"
       },
-      "research/uncertainty/RELION-BASELINE-PROTOCOL.md": {
-        "sha256": "4ead858b1f742339e78e899f2bba0e5b212acbd50436a8c70a97dd38c94ca985",
-        "snapshot": "provenance/uncertainty/source-snapshots/4ead858b1f742339e78e899f2bba0e5b212acbd50436a8c70a97dd38c94ca985.txt"
+      "research/uncertainty/BALL-SOBOLEV-REMAINDER-PROPOSAL.md": {
+        "sha256": "10a79683edb694e8fbe448229f9c2227d8f18786a88cef7a1647bc192d57f5e4",
+        "snapshot": "provenance/uncertainty/source-snapshots/10a79683edb694e8fbe448229f9c2227d8f18786a88cef7a1647bc192d57f5e4.txt"
       },
       "src/fourier_splats/__init__.py": {
         "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
@@ -252,114 +254,64 @@
       "mrcfile": "1.5.4"
     }
   },
-  "executables": {
-    "relion_refine": "d0439264ba058c74b61665918058dcc6d144e8e95c28076b17585adc2171a30d",
-    "relion_refine_mpi": "98d7dba231965b281243488a2e2f5c0ae33a52f503bc482c49cf2f721bc6be0b",
-    "mpirun": "5c0553968701e10f5265ea358f183537012db17190e541542a992b0a695c39c0"
+  "seconds": 0.7609610000508837,
+  "particles": 128,
+  "old_cubic_bias": 53.65166282470512,
+  "ball_cubic_bias": 28.229953584980137,
+  "selected_cubic_bias": 28.229953584980137,
+  "enclosing_cubic_bias": 28.229953584980137,
+  "bound": {
+    "bias_upper": 31.49664738406007,
+    "joint_bias_upper": 31.49664738406007,
+    "triangle_bias_upper": 31.507467396407996,
+    "cross_alignment_upper": 0.0614141283118029,
+    "pilot_polynomial_bias_upper": 0.08292191308889872,
+    "pilot_cross_upper": 0.022349901118992613
   },
-  "runs": [
+  "particles_improved": 128,
+  "minimum_ball_over_old": 0.4048907559040524,
+  "maximum_ball_over_old": 0.6823469023889064,
+  "bias_upper": 31.49664738406007,
+  "half_width": 32.09205883574891,
+  "selected_relative_half_width": 1.0,
+  "uses_no_data": true,
+  "reference_checks": [
     {
-      "stage": "initial",
-      "command": [
-        "/Users/yash/Documents/New project/fourier-splats/tmp/relion-env/bin/relion_refine",
-        "--i",
-        "pilot.star",
-        "--o",
-        "/Users/yash/Documents/New project/fourier-splats/results/uncertainty/development/relion-reconstruction-v2/10028/initial",
-        "--grad",
-        "--denovo_3dref",
-        "--iter",
-        "100",
-        "--healpix_order",
-        "1",
-        "--offset_range",
-        "6",
-        "--auto_sampling",
-        "--tau2_fudge",
-        "4",
-        "--pad",
-        "1",
-        "--grad_ini_subset",
-        "128",
-        "--grad_fin_subset",
-        "1024",
-        "--grad_ini_resol",
-        "60",
-        "--grad_fin_resol",
-        "22.612500563263893",
-        "--grad_write_iter",
-        "10",
-        "--ctf",
-        "--K",
-        "1",
-        "--sym",
-        "C1",
-        "--flatten_solvent",
-        "--zero_mask",
-        "--dont_combine_weights_via_disc",
-        "--preread_images",
-        "--pool",
-        "30",
-        "--particle_diameter",
-        "385.9200096130371",
-        "--oversampling",
-        "1",
-        "--offset_step",
-        "2",
-        "--j",
-        "2",
-        "--random_seed",
-        "680128"
-      ],
-      "wall_limit_seconds": 1800,
-      "complete": true,
-      "status": "wall_limit",
-      "returncode": -15,
-      "seconds": 1800.0251839580014,
-      "log": "logs/uncertainty/relion-10028-initial.log",
-      "log_sha256": "76dc8fa53a442b629dd37954e9103b2319d3b5b030e031818d72cf0600f47613"
+      "scenario": "nominal",
+      "true_target": -0.16221455301373428,
+      "expected_center": 1.2336003712424408,
+      "actual_bias": 1.395814924256175,
+      "selected_noise_sd": 0.0,
+      "uses_no_data": true,
+      "analytic_coverage": 1.0,
+      "correct_sign_probability": 0.0
+    },
+    {
+      "scenario": "coherent_x",
+      "true_target": -0.16221455301373428,
+      "expected_center": 1.2336003712424408,
+      "actual_bias": 1.395814924256175,
+      "selected_noise_sd": 0.0,
+      "uses_no_data": true,
+      "analytic_coverage": 1.0,
+      "correct_sign_probability": 0.0
+    },
+    {
+      "scenario": "random_boundary",
+      "true_target": -0.16221455301373428,
+      "expected_center": 1.2336003712424408,
+      "actual_bias": 1.395814924256175,
+      "selected_noise_sd": 0.0,
+      "uses_no_data": true,
+      "analytic_coverage": 1.0,
+      "correct_sign_probability": 0.0
     }
   ],
-  "optimiser_status": [
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10028/initial_it000_optimiser.star",
-      "sha256": "7a3a9d589fc6bde44a6451804e19efe59dc6875c83e95b5b8cc39abca3f79b01",
-      "rlnCurrentIteration": 0,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    },
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10028/initial_it010_optimiser.star",
-      "sha256": "4ad11e09667f039157a5acbc68dc22b7d7ac51bf5f63282ca8009d2e1de2c883",
-      "rlnCurrentIteration": 10,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    },
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10028/initial_it020_optimiser.star",
-      "sha256": "ad690931b7d700102014ad5d8bbe396ef38019805dd1ea3f72014cf6ce4bb835",
-      "rlnCurrentIteration": 20,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    },
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10028/initial_it030_optimiser.star",
-      "sha256": "61e1353d72ef3e234353bccc6cd2b8348b3fb39cf78c4ac8ad9f20332c2cf1db",
-      "rlnCurrentIteration": 30,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    },
-    {
-      "path": "results/uncertainty/development/relion-reconstruction-v2/10028/initial_it040_optimiser.star",
-      "sha256": "dd5ffe9dad0442c1c3adf631fb368454ebf950629507c1911495b8a6184bd215",
-      "rlnCurrentIteration": 40,
-      "rlnHasConverged": 0,
-      "rlnGradHasConverged": 0
-    }
-  ],
-  "refinement_converged": false,
-  "half_label_checks": [],
-  "half_labels_verified": false,
-  "evaluation_complete": false,
-  "scope": "All fit outcomes retained; reconstruction evaluation is a separate pending step."
+  "minimum_reference_power": 0.0,
+  "reference_coverage_failure": false,
+  "pilot_target": 1.2336003712424408,
+  "maximum_embedding_phase_residual": 2.2819081450044936e-16,
+  "embedding_residual_bias": 3.7012166823183523e-14,
+  "maximum_relative_sobolev_pad": 2.0563142797804824e-11,
+  "arrays_sha256": "7021f023f8959283b7b0e502b10a49293de33cc4fd50a34810f99c8a7593c204"
 }

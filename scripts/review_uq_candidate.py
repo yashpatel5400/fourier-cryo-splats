@@ -189,6 +189,7 @@ REVIEW_RUNNERS = [
     'run_uq_cubic_weight_probe.py', 'audit_uq_cubic_pose_probe.py', 'probe_uq_higher_remainder.py',
     'check_uq_cubic_design_numerics.py', 'probe_uq_cubic_preconditioner.py', 'run_uq_cubic_coordinate_probe.py',
     'benchmark_uq_fourier_pose.py', 'profile_relion_abinit.py', 'run_relion_baseline.py', 'evaluate_relion_baseline.py',
+    'continue_relion_baseline.py', 'report_uq_locked_targets.py',
     'prepare_uq_splits.py', 'prepare_uq_fresh_cohort.py', 'prepare_uq_noise_cohort.py',
     'download_data.py', 'confirm_uq_continuous.py', 'confirm_uq_continuous_moments.py',
     'evaluate_uq_fresh_prediction.py', 'audit_uq_ctf_sensitivity.py', 'probe_uq_continuous_support.py']
@@ -220,6 +221,8 @@ def remove_duplicated_baseline_rows(file, value):
 def inline_with_read_tools(name):
     """Select by document role, never by outcome; all other evidence is readable."""
     path = Path(name)
+    if path.parts[0] in {'src', 'scripts', 'tests'}:
+        return False
     # The older calibration study predates summary-directory naming.
     return not name.startswith('results/') or path.name in {
         'summary.json', 'metrics.json', 'noise-scale-calibration.json'}
@@ -282,9 +285,11 @@ def main():
                  'SOBOLEV-WEIGHT-DESIGN-NOTES.md','CUBIC-WEIGHT-DESIGN-THEORY.md',
                  'CUBIC-WEIGHT-OPTIMIZATION-PROTOCOL.md','CUBIC-WEIGHT-RESULTS.md','DIFFPOSE-READING-NOTE.md',
                  'GAUSSIANEM-READING-NOTE.md','cryodiff-access-followup.json',
+                 'LIKELIHOOD-VALIDATION-READING.md','likelihood-validation-source-manifest.json',
                  'CUBIC-DESIGN-NUMERICAL-CHECK.md','CUBIC-PRECONDITIONER-DEVELOPMENT.md',
                  'CUBIC-COORDINATE-FOLLOWUP-PROTOCOL.md','FOURIER-POSE-BASELINE-PROTOCOL.md',
-                 'FOURIER-POSE-BASELINE-RESULTS.md','RELION-RUNTIME-PROTOCOL.md','RELION-BASELINE-PROTOCOL.md','RELION-ALIGNMENT-NOTES.md']],
+                 'FOURIER-POSE-BASELINE-RESULTS.md','RELION-RUNTIME-PROTOCOL.md','RELION-BASELINE-PROTOCOL.md','RELION-ALIGNMENT-NOTES.md',
+                 'RELION-CONTINUATION-PROTOCOL.md']],
              ROOT/'research/uncertainty/reviews/cubic-audit-01/review.md',
              ROOT/'research/uncertainty/reviews/cubic-audit-01/response.md',
              *sorted((ROOT/'research/uncertainty/reviews/cubic-design-audit-01').glob('*.md')),
@@ -327,6 +332,7 @@ def main():
              *sorted((ROOT/'results/uncertainty/development').glob('pose-optimized-ambiguity*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('pose-adaptive-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('pilot-selected-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('locked-target-report-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/sign-class-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/higher-order-remainder-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/cubic-pose-probe').glob('*.json')),
@@ -360,12 +366,21 @@ def main():
         instructions = instructions.replace('Omitted plotting/orchestration/older runner source is not claimed to be reviewed.',
             'Plotting/orchestration/older runner source omitted from the initial text is available '
             'in evidence/ but not automatically reviewed.')
+        instructions = instructions.replace(
+            'The source-code selection is explicit: core package modules, tests and selected\n'
+            'scientific runners are included; the manifest indexes excluded runner scripts.',
+            'All source modules, tests and runner scripts are available as exact copies through '
+            'read-only tools, rather than duplicated in the initial text. The manifest indexes them.')
         instructions += ('\nREAD-ONLY EVIDENCE MODE: All selected original files, excluded '
             'runner scripts and referenced archived source snapshots are copied under evidence/ '
             'with their original relative paths. evidence-index.json records exact SHA-256 hashes. '
-            'The initial text includes manuscript, notes, code and summary-level results. '
-            'Per-case result files omitted from the initial text are indexed below and accessible '
+            'The initial text includes manuscript, notes and summary-level results. '
+            'Source code, tests and per-case result files are indexed below and accessible '
             'with Read/Glob/Grep. This selection uses file roles, never favorable outcomes. '
+            'Inspect the relevant code and raw records before assessing implementation claims. '
+            'Priorities include src/fourier_splats/uq_continuous.py, the uq_cubic* and uq_*pose* '
+            'modules, scripts/apply_uq_fresh_noise.py, scripts/benchmark_uq_fourier_pose.py, '
+            'their tests, and the source files named in each result. '
             'Do not claim you inspected a file merely because it is available. State which '
             'raw evidence you checked and which conclusions you could not verify.\n')
     parts = [instructions]; manifest = {}; seen_snapshots = set(); originals = {}
@@ -399,7 +414,7 @@ def main():
             originals[name] = (ROOT/name).read_bytes()
         deferred = {name: {'sha256': row['sha256'], 'bytes': row['bytes']}
                     for name, row in manifest.items() if not inline_with_read_tools(name)}
-        parts.append('\nPer-case evidence available under evidence/ (not automatically inspected):\n'+json.dumps(deferred, separators=(',', ':')))
+        parts.append('\nDetailed evidence and source available under evidence/ (not automatically inspected):\n'+json.dumps(deferred, separators=(',', ':')))
     parts.append('\nRunner source omitted from initial text (not automatically inspected):\n'+json.dumps(excluded_runners, separators=(',', ':')))
     parts.append('\nHistorical manuscript sources, not part of the rendered current paper. '
         'These are indexed and retained, and available under evidence/ in read-only mode; '

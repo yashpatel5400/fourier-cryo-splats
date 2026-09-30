@@ -28,3 +28,13 @@ error prediction). The customary PMLR PDF path returned 404; the actual official
 bibliographic PDF link points to the proceedings GitHub asset, which downloaded
 successfully. Both the failed attempt and successful source hash are retained.
 Targeted methods/guarantee scope were checked, adding the 98th curated candidate.
+
+A later likelihood-validation pass deepened the existing Ortiz et al. (2020)
+entry and added BioEM (2013), CryoLike (published 2025) and universal inference
+(2020), bringing the current ledger from 106 to 109. Queries included
+`cryo-EM validation likelihood ratio e-values universal inference confidence nuisance orientations`
+and `CryoLike python package cryo electron microscopy likelihood 2025`.
+The reading note and source manifest retain access failures, exact local
+source hashes, and the unexecuted CryoLike code commit. The original BioEM
+indexed methods were accessible, its XML retrieval failed, and the CryoLike
+publisher PDF returned 403. Those failures are not recorded as full readings.

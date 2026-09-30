@@ -1,4 +1,5 @@
 \subsection{Pilot-selected targets and a matched prior-sensitivity comparison}
+\label{sec:pilotselected}
 To avoid evaluating only a central feature that may miss the pilot's strongest
 density, a development protocol locks three regions per stack using only the
 old independent pilot. Candidate centers are the $24^3$ cell centers inside
@@ -68,13 +69,36 @@ sum-objective gap is 0.00437; each fit takes 2,033--3,613 seconds on the Mac
 under concurrent load. The third EMPIAR-10049 pilot region has sign power
 0.0158 even at fixed poses, while the other eleven exceed 0.99999 in the
 known-noise reference calculation. This unfavorable feature remains in the
-family. The nonlinear pose audits and full conditional experimental comparison
-are still running. The reserved calibration cohort uses one particle from each
+family. All 36 nonlinear audits and all 48 conditional experimental intervals
+are complete. At one degree plus 0.5\,\AA, the known-noise relative widths are
+one on EMPIAR-10028, 0.456--0.473 on 10049 and 0.553--0.561 on 10076;
+all two-degree intervals use the no-data alternative. None has useful
+reference sign power. Shift-only widths are 0.058--0.097, with poor power
+remaining for the third EMPIAR-10049 region.
+
+The reserved calibration cohort uses one particle from each
 of 128 previously unused exposures per stack, excluding both existing image
 pools. All twelve estimators and 116 input/source files were locked and
 published before any reserved pixels were downloaded. All three downloads are
-complete and verified; the frozen recalibration awaits the full original
-feature application. The old inference images remain development data, and neither a fresh
-calibration pool nor approximate-map inclusion establishes the density or pose
-bounds.
+complete and verified, and the frozen recalibration is complete. The new
+standard-deviation bounds are 0.840--0.867, 0.729--0.743 and 0.943--0.955
+of the old bounds on 10028, 10049 and 10076, respectively. Table~\ref{tab:fresh-targets}
+retains every pose class. Six of twelve fixed-pose intervals exclude zero:
+regions one and two on 10028, and all four features on 10076. With 0.5\,\AA\
+shifts alone, only the four 10076 exclusions remain. One-/two-degree rotation
+budgets yield no exclusion; sixteen of those 24 intervals use no data.
+These exclusion counts are unchanged from the original calibration, despite
+narrower fresh-calibrated widths.
+
+Each pose class has a separate family of twelve features, with marginal
+noise-event, calibration-failure and spectral-failure budgets
+$(0.045-10^{-6})/12$, $0.005/12$ and $10^{-6}/12$, respectively.
+The old inference images remain development data. All 48 approximate-map
+values lie inside their intervals and the twelve processed reference deviations
+lie inside the prescribed density balls; neither fact establishes unknown-density
+coverage. The independent calibration exposures do not validate Gaussianity,
+the shared covariance, density radius, supplied poses or homogeneity.
+Experimental references use the recorded experimental normalization, rather
+than the unit-norm generators of the known-noise checks.
 \input{tables/pilot-fixed-family}
+\input{tables/fresh-noise-targets}
