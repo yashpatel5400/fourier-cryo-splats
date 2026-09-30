@@ -927,3 +927,33 @@ before feature outcomes, using independent exposure representatives and a
 group-size variance inflation to allow arbitrary within-exposure Gaussian
 dependence. Other experimental assumptions remain unverified. Target-lock,
 score-replay and group-noise tests pass; no new target outcomes are claimed yet.
+
+At the 30 September checkpoint, four of the twelve fixed feature fits are
+complete: region 1 on every stack and region 2 on 10049. Their sum-objective
+gaps are below 0.4 percent. The remaining fits and all three-stack pose-family
+comparisons are still running; selected completed fits do not stand in for the
+full study. One-degree audits of the completed first regions are scheduled
+early with exactly the previously declared seeds and settings. The dataset
+coordinators will reuse those completed records rather than fit new variants.
+
+The matched Fourier baseline retains all 60 fits and 960 analytic checks across
+the original three priors and separately declared broader two-prior sensitivity.
+A descriptive regrouping, with no new fitting, shows favorable broad-prior
+behavior also in the specified one-/two-degree perturbations: coordinate-SD-one
+full-posterior coverage is 0.9861–0.9999, versus the nominal marginal level
+0.995833. It is not a uniform nuisance guarantee; the minimum sign power is
+0.0428. These favorable comparisons remain in the paper.
+
+The next full Fable review has not run. Its local packet now offers a bounded
+initial manuscript/summary input plus read-only access to exact indexed evidence,
+including every selected detailed outcome and referenced archived source. A
+37-error test-discovery failure caused by collecting copied evidence tests was
+fixed by declaring the active tests directory; subsequent regression checks are
+recorded separately. The first full rejection remains unchanged. The literature
+ledger now contains 104 candidates, with three new targeted readings explicitly
+distinguished from reproduced methods or completed full-paper audits.
+
+The prospective noise-calibration coordinator waits for all twelve model fits,
+then publishes their lock before accessing the reserved pixels. The new cohort
+has no images at this checkpoint. Failure or unfavorable scientific outcomes
+do not trigger a change of feature, budget, cohort or fitting criterion.

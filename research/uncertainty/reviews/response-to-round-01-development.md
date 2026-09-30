@@ -112,6 +112,11 @@ improves nominal full-posterior coverage to 0.9872–0.9998 with relatively narr
 intervals. Every broader-prior result is retained; no favorable prior replaces
 the original record. This is meaningful favorable baseline evidence. The new
 continuous feature family must be compared with it after completion.
+The favorable wider-prior behavior also persists in the declared one-/two-degree
+coherent and random-boundary checks: full-posterior fixed-generator coverage at
+coordinate SD one ranges from 0.9861 to 0.9999. All five priors and every pose
+pattern remain reported; these selected-pattern probabilities are not uniform
+pose coverage, and some fall below the 0.995833 nominal marginal level.
 
 - M1: the paper is a public development preprint, not an anonymized submission.
 - M2: the current curated count is 104 candidates; historical counts and targeted
