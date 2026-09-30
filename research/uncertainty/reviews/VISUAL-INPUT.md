@@ -15,7 +15,7 @@ failed locally because stream-json input requires stream-json output; its error
 is retained under `vision-preflight-01/`.
 
 The review runner now sends the source packet followed by every manuscript page
-rendered at 150 dpi. Each page, source file and complete multimodal payload has
+rendered at an explicitly selected 125 or 150 dpi (150 by default). Each page, source file and complete multimodal payload has
 a recorded SHA-256 digest. The exact input can be reconstituted from prompt.txt
 and the saved page PNGs. Raw response events and the final result are preserved.
 New theory, tables and completed or explicitly in-progress development records
@@ -44,3 +44,10 @@ the latter are not offered as numerical-error proofs. Columnar records preserve
 all cases, including failures, and verified duplicate baseline rows are omitted
 only because their original case records remain available. This is a successful
 packet construction, not a new scientific review or acceptance assessment.
+
+At the 53-page development checkpoint, an explicit 125-dpi preview preserved
+all pages without cropping. Its text and multimodal inputs were 1,430,791 and
+27,667,013 bytes, with 1,210 indexed evidence files. Pages 8, 32, 41 and 42
+were visually inspected for legibility. This preview predates later manuscript
+and completed-result changes and is not the final round-2 packet. Final input
+sizing and page inspection must be repeated after the remaining outcomes.

@@ -12,7 +12,8 @@ protocols, literature notes and result summaries. Tools, MCP and local
 customizations were disabled. Rendered figures were not supplied, and that
 limitation remains in the unmodified review. Later focused visual preflights
 verified the requested model's image input; subsequent full packets include
-every manuscript page rendered at 150 dpi.
+every manuscript page, uncropped, at the explicitly recorded render resolution.
+The runner supports 150 dpi (default) and 125 dpi for the larger revision packet.
 
 The revision runner saves the original prompt, input hashes, Git status, PDF
 and rendered-page hashes, exact command, raw response, stderr and provider
@@ -21,9 +22,9 @@ a model or consuming a full-review round. An actual revision uses a new round
 number, a response document, and `--invoke`; the completed round 1 must never
 be overwritten or rerun in place.
 
-The optional `--read-only-evidence` mode keeps manuscript, notes, implementation,
-tests and summary-level outcomes in the initial text. Every detailed case and
-excluded runner remains available in an exact, checksum-indexed `evidence/`
+The optional `--read-only-evidence` mode keeps manuscript, notes and
+summary-level outcomes in the initial text. All implementation modules, tests,
+detailed case records and runner scripts remain available in an exact, checksum-indexed `evidence/`
 copy, together with referenced archived source snapshots. Selection uses file
 roles, not scientific outcomes. Only Read, Glob and Grep are enabled, confined
 to the review directory; shell execution, writes, web access, MCP and local
@@ -40,7 +41,7 @@ All non-summary result records, including top-level case records, are deferred
 by document role rather than outcome. The page PNGs may be recompressed
 losslessly for transport; every decoded pixel, color mode and dimension is
 checked unchanged, and both original/rendered byte hashes and pixel hashes are
-recorded. Every page remains at 150 dpi.
+recorded. No page is cropped or omitted; the chosen DPI is recorded explicitly.
 
 The review requests a critical verdict with no desired outcome, stable concern
 IDs and a finite prioritized revision plan. It may reject the work. Neither a
@@ -101,3 +102,11 @@ and suggests two computational diagnostics. Its response distinguishes confirmed
 issues, a clarified result-label misunderstanding, implemented tests and work
 still pending. It is not a full-paper acceptance assessment. No full round 2
 has been invoked.
+
+The focused `joint-trust-audit-01` checks the new residual-controlled
+trust-region upper bound and reduced design. It found no validity error in
+that proposition, while identifying seven numerical/design concerns. The
+response documents fallback, selection bookkeeping, root evaluation, test and
+guard changes made before the empirical joint fit began. This focused audit
+does not rederive every inherited Fourier bound, has not reviewed its own
+corrections, and supplies no acceptance verdict.
