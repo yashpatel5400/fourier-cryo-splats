@@ -440,3 +440,14 @@ fits complete, run `freeze_uq_noise_models.py`, commit its lock, then run
 lock. `apply_uq_fresh_noise.py` additionally requires every original four-pose
 experimental application to be complete. No comparison silently replaces the
 earlier calibration outcomes.
+
+The already declared sequence can also be orchestrated by
+`OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/run_uq_fresh_noise_check.py`.
+This waits for every fixed fit irrespective of whether its scientific result is
+favorable, verifies committed protocol/source bytes, creates and pushes the
+twelve-estimator lock commit, downloads the reserved cohort, and waits for all
+original applications before evaluating fresh calibration. It does not launch
+or change the fit jobs. An exclusive coordinator lock prevents duplicate runs;
+partial/error records are preserved and require inspection. Its default waiting
+budget is twelve hours. This command writes to the existing Git remote as part
+of the required publication-before-access sequence.

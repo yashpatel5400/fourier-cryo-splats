@@ -62,3 +62,27 @@ def test_fresh_calibration_lock_detects_changed_input(tmp_path, monkeypatch):
     input_file.write_bytes(b'adapted using calibration data')
     with pytest.raises(ValueError, match='Frozen input changed'):
         module.verify_lock(require_committed=False)
+
+
+def test_calibration_gate_retains_unfavorable_completed_science(tmp_path):
+    module = script('run_uq_fresh_noise_check')
+    sources = [tmp_path/f'{i}.json' for i in range(12)]
+    for p in sources:
+        p.write_text(json.dumps({'complete': True, 'reference_coverage_failure': True,
+                                 'fit': {'converged': False}}))
+    # Calibration access depends on completing the declared family, never on
+    # obtaining favorable power, coverage, or convergence outcomes.
+    module.complete_family(sources, deadline=-1)
+    sources[11].write_text(json.dumps({'complete': False}))
+    with pytest.raises(TimeoutError):
+        module.complete_family(sources, deadline=-1)
+
+
+def test_calibration_gate_stops_on_failed_or_partial_source(tmp_path):
+    module = script('run_uq_fresh_noise_check')
+    p = tmp_path/'outcome.json'; p.write_text('{"complete":')
+    with pytest.raises(TimeoutError):
+        module.complete_family([p], deadline=-1)
+    p.write_text(json.dumps({'complete': False, 'error': 'numerical computation failed'}))
+    with pytest.raises(RuntimeError, match='Failed source retained'):
+        module.complete_family([p], deadline=-1)
