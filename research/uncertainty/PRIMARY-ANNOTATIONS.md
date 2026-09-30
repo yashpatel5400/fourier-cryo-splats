@@ -462,3 +462,17 @@ as fixed-parameter density interval coverage. Shared reconstruction bias is thus
 a distinct audit question. The source is a versioned repository manuscript;
 no peer-reviewed publication status was verified. Its Scipion software was
 identified but has not been executed here.
+
+## Radiative Gaussian uncertainty: adjacent CT evidence
+
+Primary version: https://arxiv.org/abs/2607.13682v4, revised 12 September 2026.
+Targeted reading: sections 1--5.4, including density moments, evaluation scope,
+shared-error decomposition and ranking controls. This is a preprint, not a
+verified conference publication. The current version substantially revises the
+initial title and claims. Fixed-geometry density uncertainty propagates
+analytically, but shared reconstruction errors can remain invisible to spread.
+Its scale-only regularizer is explicitly distinguished from an ELBO with a fixed
+prior. Foreground evaluation and transferred calibration are separated from
+whole-volume and oracle diagnostics. This adjacent CT work limits novelty
+claims about analytic Gaussian variance or the distinction between agreement
+and accuracy; it does not establish raw-particle cryo-EM confidence coverage.

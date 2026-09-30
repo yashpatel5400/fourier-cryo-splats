@@ -1,0 +1,1276 @@
+{
+  "stage": "Equation-14 Gaussian VI reimplementation with CTFs and declared priors; fixed experimental geometry and known simulated noise",
+  "dataset": "10028",
+  "config": {
+    "datasets": "10028,10049,10076",
+    "particles": 1024,
+    "radius": 12,
+    "box": 33,
+    "width_A": 10,
+    "prior_norms": ".5,1,2",
+    "output": "fourier-variational-baseline"
+  },
+  "source_snapshot": {
+    "git_head_at_snapshot": "84ede9b6ba3e5193c4f357fe634ce5933e9a8839",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/benchmark_uq_fourier_variational.py": {
+        "sha256": "2fad8c5a63da229bde2ff37c7549330b35188cd6270c110ecd5e7553d172fc12",
+        "snapshot": "provenance/uncertainty/source-snapshots/2fad8c5a63da229bde2ff37c7549330b35188cd6270c110ecd5e7553d172fc12.txt"
+      },
+      "scripts/audit_uq_grid_refinement.py": {
+        "sha256": "83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b",
+        "snapshot": "provenance/uncertainty/source-snapshots/83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_ctf_uncertainty.py": {
+        "sha256": "17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e",
+        "snapshot": "provenance/uncertainty/source-snapshots/17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_fourier_variational.py": {
+        "sha256": "f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668",
+        "snapshot": "provenance/uncertainty/source-snapshots/f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668.txt"
+      },
+      "src/fourier_splats/uq_intervals.py": {
+        "sha256": "590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9",
+        "snapshot": "provenance/uncertainty/source-snapshots/590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_noise_calibration.py": {
+        "sha256": "285548378bede8a0fff00325aa99ddbad2f754e88581f9ec1a8944a6e53ffa17",
+        "snapshot": "provenance/uncertainty/source-snapshots/285548378bede8a0fff00325aa99ddbad2f754e88581f9ec1a8944a6e53ffa17.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_pose_operator.py": {
+        "sha256": "9007bb6262c0fb07bd1c874240f4838f438f95ee94b5dffa4f4de820a987a2cc",
+        "snapshot": "provenance/uncertainty/source-snapshots/9007bb6262c0fb07bd1c874240f4838f438f95ee94b5dffa4f4de820a987a2cc.txt"
+      },
+      "src/fourier_splats/uq_pose_optimization.py": {
+        "sha256": "1e4713766e4c99a50b19c08799d9ef0f40986ffbe04049ff943a8aefdc21b2b0",
+        "snapshot": "provenance/uncertainty/source-snapshots/1e4713766e4c99a50b19c08799d9ef0f40986ffbe04049ff943a8aefdc21b2b0.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_random_spectral.py": {
+        "sha256": "55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e",
+        "snapshot": "provenance/uncertainty/source-snapshots/55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      },
+      "src/fourier_splats/uq_support.py": {
+        "sha256": "771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a",
+        "snapshot": "provenance/uncertainty/source-snapshots/771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "complete": true,
+  "records": [
+    {
+      "target": "center",
+      "sigma_A": 10,
+      "contrast_centers_A": [
+        0
+      ],
+      "prior_expected_squared_deviation_norm": 0.25,
+      "prior_coordinate_sd": 0.0026375402417529972,
+      "full_posterior": {
+        "posterior_half_width": 0.17075330860705626,
+        "measurement_noise_half_width": 0.10716547070551082,
+        "relative_normal_residual": 4.4433086509117246e-11
+      },
+      "diagonal_vi_half_width": 0.21024185098470058,
+      "vi_over_full_posterior_width": 1.2312607743871997,
+      "continuous_target_norm2": 2520.038256474885,
+      "model_target_norm2": 2502.4056265545323,
+      "prior_predictive_variance_identity_relative_error": 2.285536612581485e-16,
+      "full_prior_predictive_coverage": 0.95,
+      "diagonal_vi_prior_predictive_coverage": 0.9841880218662622,
+      "checks": [
+        {
+          "scenario": "matched_fourier_model",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.660269092229852,
+          "expected_center": 2.0772352056720296,
+          "bias": -1.5830338865578226,
+          "half_width": 0.21024185098470058,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "matched_fourier_model",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.660269092229852,
+          "expected_center": 2.0772352056720296,
+          "bias": -1.5830338865578226,
+          "half_width": 0.17075330860705626,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.0992875363431,
+          "bias": -1.5402146246926804,
+          "half_width": 0.21024185098470058,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.0992875363431,
+          "bias": -1.5402146246926804,
+          "half_width": 0.17075330860705626,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.0975514268577165,
+          "bias": -1.541950734178064,
+          "half_width": 0.21024185098470058,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.0975514268577165,
+          "bias": -1.541950734178064,
+          "half_width": 0.17075330860705626,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.0977300854517553,
+          "bias": -1.5417720755840252,
+          "half_width": 0.21024185098470058,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.0977300854517553,
+          "bias": -1.5417720755840252,
+          "half_width": 0.17075330860705626,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.095891552165294,
+          "bias": -1.5436106088704866,
+          "half_width": 0.21024185098470058,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.095891552165294,
+          "bias": -1.5436106088704866,
+          "half_width": 0.17075330860705626,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.1016865177808235,
+          "bias": -1.537815643254957,
+          "half_width": 0.21024185098470058,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.1016865177808235,
+          "bias": -1.537815643254957,
+          "half_width": 0.17075330860705626,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.09280323105987,
+          "bias": -1.5466989299759106,
+          "half_width": 0.21024185098470058,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.09280323105987,
+          "bias": -1.5466989299759106,
+          "half_width": 0.17075330860705626,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.1021568140394358,
+          "bias": -1.5373453469963447,
+          "half_width": 0.21024185098470058,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 2.1021568140394358,
+          "bias": -1.5373453469963447,
+          "half_width": 0.17075330860705626,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0
+        }
+      ],
+      "seconds": 0.1249977090046741,
+      "numerical_failure": false
+    },
+    {
+      "target": "center",
+      "sigma_A": 10,
+      "contrast_centers_A": [
+        0
+      ],
+      "prior_expected_squared_deviation_norm": 1.0,
+      "prior_coordinate_sd": 0.0052750804835059945,
+      "full_posterior": {
+        "posterior_half_width": 0.26029840170574314,
+        "measurement_noise_half_width": 0.15497514635082021,
+        "relative_normal_residual": 6.423517588976171e-11
+      },
+      "diagonal_vi_half_width": 0.32918217254165794,
+      "vi_over_full_posterior_width": 1.2646338601563336,
+      "continuous_target_norm2": 2520.038256474885,
+      "model_target_norm2": 2502.4056265545323,
+      "prior_predictive_variance_identity_relative_error": 0.0,
+      "full_prior_predictive_coverage": 0.95,
+      "diagonal_vi_prior_predictive_coverage": 0.9868114481508503,
+      "checks": [
+        {
+          "scenario": "matched_fourier_model",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.660269092229852,
+          "expected_center": 3.206900768263803,
+          "bias": -0.4533683239660493,
+          "half_width": 0.32918217254165794,
+          "analytic_fixed_signal_coverage": 0.05814048012866391,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "matched_fourier_model",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.660269092229852,
+          "expected_center": 3.206900768263803,
+          "bias": -0.4533683239660493,
+          "half_width": 0.26029840170574314,
+          "analytic_fixed_signal_coverage": 0.007308193514180994,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2323776613749553,
+          "bias": -0.4071244996608252,
+          "half_width": 0.32918217254165794,
+          "analytic_fixed_signal_coverage": 0.16213201534734833,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2323776613749553,
+          "bias": -0.4071244996608252,
+          "half_width": 0.26029840170574314,
+          "analytic_fixed_signal_coverage": 0.03166245498371767,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2312020487287105,
+          "bias": -0.40830011230707,
+          "half_width": 0.32918217254165794,
+          "analytic_fixed_signal_coverage": 0.1585098325656764,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2312020487287105,
+          "bias": -0.40830011230707,
+          "half_width": 0.26029840170574314,
+          "analytic_fixed_signal_coverage": 0.03061912912697451,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2305611711175546,
+          "bias": -0.4089409899182259,
+          "half_width": 0.32918217254165794,
+          "analytic_fixed_signal_coverage": 0.15655775004089056,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2305611711175546,
+          "bias": -0.4089409899182259,
+          "half_width": 0.26029840170574314,
+          "analytic_fixed_signal_coverage": 0.030062462812760593,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.23003610417749,
+          "bias": -0.40946605685829063,
+          "half_width": 0.32918217254165794,
+          "analytic_fixed_signal_coverage": 0.15497026707394634,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.23003610417749,
+          "bias": -0.40946605685829063,
+          "half_width": 0.26029840170574314,
+          "analytic_fixed_signal_coverage": 0.029612667003551696,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2358378605926603,
+          "bias": -0.4036643004431202,
+          "half_width": 0.32918217254165794,
+          "analytic_fixed_signal_coverage": 0.1731034222967638,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2358378605926603,
+          "bias": -0.4036643004431202,
+          "half_width": 0.26029840170574314,
+          "analytic_fixed_signal_coverage": 0.03490493582591314,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2277484268021714,
+          "bias": -0.41175373423360906,
+          "half_width": 0.32918217254165794,
+          "analytic_fixed_signal_coverage": 0.14817816858033828,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.2277484268021714,
+          "bias": -0.41175373423360906,
+          "half_width": 0.26029840170574314,
+          "analytic_fixed_signal_coverage": 0.027717630377006697,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.236713387347118,
+          "bias": -0.4027887736886626,
+          "half_width": 0.32918217254165794,
+          "analytic_fixed_signal_coverage": 0.1759527748907468,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.236713387347118,
+          "bias": -0.4027887736886626,
+          "half_width": 0.26029840170574314,
+          "analytic_fixed_signal_coverage": 0.03576722935348575,
+          "correct_sign_probability": 1.0
+        }
+      ],
+      "seconds": 0.18142620904836804,
+      "numerical_failure": false
+    },
+    {
+      "target": "center",
+      "sigma_A": 10,
+      "contrast_centers_A": [
+        0
+      ],
+      "prior_expected_squared_deviation_norm": 4.0,
+      "prior_coordinate_sd": 0.010550160967011989,
+      "full_posterior": {
+        "posterior_half_width": 0.4301922989865579,
+        "measurement_noise_half_width": 0.18970001690373003,
+        "relative_normal_residual": 6.345614712716225e-11
+      },
+      "diagonal_vi_half_width": 0.5015200229878148,
+      "vi_over_full_posterior_width": 1.1658042790847023,
+      "continuous_target_norm2": 2520.038256474885,
+      "model_target_norm2": 2502.4056265545323,
+      "prior_predictive_variance_identity_relative_error": 0.0,
+      "full_prior_predictive_coverage": 0.95,
+      "diagonal_vi_prior_predictive_coverage": 0.9776833254217059,
+      "checks": [
+        {
+          "scenario": "matched_fourier_model",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.660269092229852,
+          "expected_center": 3.6225861296143114,
+          "bias": -0.03768296261554083,
+          "half_width": 0.5015200229878148,
+          "analytic_fixed_signal_coverage": 0.9999991630336722,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "matched_fourier_model",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.660269092229852,
+          "expected_center": 3.6225861296143114,
+          "bias": -0.03768296261554083,
+          "half_width": 0.4301922989865579,
+          "analytic_fixed_signal_coverage": 0.9999743037987644,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.6375703833542614,
+          "bias": -0.0019317776815190868,
+          "half_width": 0.5015200229878148,
+          "analytic_fixed_signal_coverage": 0.9999997788632854,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.6375703833542614,
+          "bias": -0.0019317776815190868,
+          "half_width": 0.4301922989865579,
+          "analytic_fixed_signal_coverage": 0.9999911626570378,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.637389760360782,
+          "bias": -0.0021124006749984048,
+          "half_width": 0.5015200229878148,
+          "analytic_fixed_signal_coverage": 0.9999997786246254,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.637389760360782,
+          "bias": -0.0021124006749984048,
+          "half_width": 0.4301922989865579,
+          "analytic_fixed_signal_coverage": 0.999991155554572,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.63555008732682,
+          "bias": -0.003952073708960668,
+          "half_width": 0.5015200229878148,
+          "analytic_fixed_signal_coverage": 0.9999997749703283,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.63555008732682,
+          "bias": -0.003952073708960668,
+          "half_width": 0.4301922989865579,
+          "analytic_fixed_signal_coverage": 0.9999910468849165,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.6371470020207477,
+          "bias": -0.002355159015032804,
+          "half_width": 0.5015200229878148,
+          "analytic_fixed_signal_coverage": 0.9999997782701486,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.6371470020207477,
+          "bias": -0.002355159015032804,
+          "half_width": 0.4301922989865579,
+          "analytic_fixed_signal_coverage": 0.9999911450066299,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.641066637384144,
+          "bias": 0.0015644763483635415,
+          "half_width": 0.5015200229878148,
+          "analytic_fixed_signal_coverage": 0.9999997792826736,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.641066637384144,
+          "bias": 0.0015644763483635415,
+          "half_width": 0.4301922989865579,
+          "analytic_fixed_signal_coverage": 0.9999911751395202,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.636481376104692,
+          "bias": -0.0030207849310883716,
+          "half_width": 0.5015200229878148,
+          "analytic_fixed_signal_coverage": 0.999999777099417,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.636481376104692,
+          "bias": -0.0030207849310883716,
+          "half_width": 0.4301922989865579,
+          "analytic_fixed_signal_coverage": 0.9999911101801395,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.6422510838513924,
+          "bias": 0.0027489228156118983,
+          "half_width": 0.5015200229878148,
+          "analytic_fixed_signal_coverage": 0.9999997776128215,
+          "correct_sign_probability": 1.0
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 3.6395021610357805,
+          "expected_center": 3.6422510838513924,
+          "bias": 0.0027489228156118983,
+          "half_width": 0.4301922989865579,
+          "analytic_fixed_signal_coverage": 0.9999911254507776,
+          "correct_sign_probability": 1.0
+        }
+      ],
+      "seconds": 0.2131415830226615,
+      "numerical_failure": false
+    },
+    {
+      "target": "contrast",
+      "sigma_A": 10,
+      "contrast_centers_A": [
+        -10,
+        10
+      ],
+      "prior_expected_squared_deviation_norm": 0.25,
+      "prior_coordinate_sd": 0.0026375402417529972,
+      "full_posterior": {
+        "posterior_half_width": 0.20143790009763102,
+        "measurement_noise_half_width": 0.10694221946804239,
+        "relative_normal_residual": 9.962097573543712e-11
+      },
+      "diagonal_vi_half_width": 0.23771869380464378,
+      "vi_over_full_posterior_width": 1.1801090742577665,
+      "continuous_target_norm2": 3185.935981904497,
+      "model_target_norm2": 3159.116934039845,
+      "prior_predictive_variance_identity_relative_error": 1.642268137351839e-16,
+      "full_prior_predictive_coverage": 0.95,
+      "diagonal_vi_prior_predictive_coverage": 0.9792757819502429,
+      "checks": [
+        {
+          "scenario": "matched_fourier_model",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.1117620190353894,
+          "expected_center": -1.5114983047384802,
+          "bias": -2.6232603237738696,
+          "half_width": 0.23771869380464378,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 8.368678817649974e-226
+        },
+        {
+          "scenario": "matched_fourier_model",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.1117620190353894,
+          "expected_center": -1.5114983047384802,
+          "bias": -2.6232603237738696,
+          "half_width": 0.20143790009763102,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.2400024419900858e-216
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.5071175865540472,
+          "bias": -2.603747553236185,
+          "half_width": 0.23771869380464378,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.0968875330412235e-224
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.5071175865540472,
+          "bias": -2.603747553236185,
+          "half_width": 0.20143790009763102,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.540869481265222e-215
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.4963779484044943,
+          "bias": -2.5930079150866323,
+          "half_width": 0.23771869380464378,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 5.86100297373685e-222
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.4963779484044943,
+          "bias": -2.5930079150866323,
+          "half_width": 0.20143790009763102,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 7.224257142964471e-213
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.5093628875053815,
+          "bias": -2.6059928541875195,
+          "half_width": 0.23771869380464378,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 2.9359145067876744e-225
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.5093628875053815,
+          "bias": -2.6059928541875195,
+          "half_width": 0.20143790009763102,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 4.238562364183658e-216
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.4856591660599845,
+          "bias": -2.5822891327421225,
+          "half_width": 0.23771869380464378,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 2.9766293993092316e-219
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.4856591660599845,
+          "bias": -2.5822891327421225,
+          "half_width": 0.20143790009763102,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 3.220138117439755e-210
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.50527545854911,
+          "bias": -2.601905425231248,
+          "half_width": 0.23771869380464378,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 3.2303302880552135e-224
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.50527545854911,
+          "bias": -2.601905425231248,
+          "half_width": 0.20143790009763102,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 4.4372199129998856e-215
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.4644021051034475,
+          "bias": -2.5610320717855855,
+          "half_width": 0.23771869380464378,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 6.167918343288166e-214
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.4644021051034475,
+          "bias": -2.5610320717855855,
+          "half_width": 0.20143790009763102,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 5.151121557358868e-205
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.4987624472122896,
+          "bias": -2.5953924138944275,
+          "half_width": 0.23771869380464378,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.4580549080894194e-222
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -1.4987624472122896,
+          "bias": -2.5953924138944275,
+          "half_width": 0.20143790009763102,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.850130526216974e-213
+        }
+      ],
+      "seconds": 0.11921458394499496,
+      "numerical_failure": false
+    },
+    {
+      "target": "contrast",
+      "sigma_A": 10,
+      "contrast_centers_A": [
+        -10,
+        10
+      ],
+      "prior_expected_squared_deviation_norm": 1.0,
+      "prior_coordinate_sd": 0.0052750804835059945,
+      "full_posterior": {
+        "posterior_half_width": 0.33998201200924055,
+        "measurement_noise_half_width": 0.14953932672429593,
+        "relative_normal_residual": 8.07618387421657e-11
+      },
+      "diagonal_vi_half_width": 0.39231995309690487,
+      "vi_over_full_posterior_width": 1.153943265346173,
+      "continuous_target_norm2": 3185.935981904497,
+      "model_target_norm2": 3159.116934039845,
+      "prior_predictive_variance_identity_relative_error": 0.0,
+      "full_prior_predictive_coverage": 0.95,
+      "diagonal_vi_prior_predictive_coverage": 0.9762832663681191,
+      "checks": [
+        {
+          "scenario": "matched_fourier_model",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.1117620190353894,
+          "expected_center": -0.20958045837964168,
+          "bias": -1.321342477415031,
+          "half_width": 0.39231995309690487,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.5241177768266049e-15
+        },
+        {
+          "scenario": "matched_fourier_model",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.1117620190353894,
+          "expected_center": -0.20958045837964168,
+          "bias": -1.321342477415031,
+          "half_width": 0.33998201200924055,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 2.946416918450754e-13
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.195168560814869,
+          "bias": -1.2917985274970067,
+          "half_width": 0.39231995309690487,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 6.802060960809127e-15
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.195168560814869,
+          "bias": -1.2917985274970067,
+          "half_width": 0.33998201200924055,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.1576087614953213e-12
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.18513877017818992,
+          "bias": -1.2817687368603277,
+          "half_width": 0.39231995309690487,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.886829406299235e-14
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.18513877017818992,
+          "bias": -1.2817687368603277,
+          "half_width": 0.33998201200924055,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 2.938707867553817e-12
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.19752979342778065,
+          "bias": -1.2941597601099184,
+          "half_width": 0.39231995309690487,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 5.336449705173492e-15
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.19752979342778065,
+          "bias": -1.2941597601099184,
+          "half_width": 0.33998201200924055,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 9.273421316845081e-13
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.17519086383995752,
+          "bias": -1.2718208305220953,
+          "half_width": 0.39231995309690487,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 5.1040092614144685e-14
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.17519086383995752,
+          "bias": -1.2718208305220953,
+          "half_width": 0.33998201200924055,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 7.280715224331819e-12
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.193959153728267,
+          "bias": -1.2905891204104047,
+          "half_width": 0.39231995309690487,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 7.699472363531838e-15
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.193959153728267,
+          "bias": -1.2905891204104047,
+          "half_width": 0.33998201200924055,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 1.2963999815015314e-12
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.15559775332441994,
+          "bias": -1.2522277200065577,
+          "half_width": 0.39231995309690487,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 3.450521431844984e-13
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.15559775332441994,
+          "bias": -1.2522277200065577,
+          "half_width": 0.33998201200924055,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 4.1405163214145585e-11
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.18348193809223545,
+          "bias": -1.2801119047743732,
+          "half_width": 0.39231995309690487,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 2.2295467170769206e-14
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": -0.18348193809223545,
+          "bias": -1.2801119047743732,
+          "half_width": 0.33998201200924055,
+          "analytic_fixed_signal_coverage": 0.0,
+          "correct_sign_probability": 3.422023819674181e-12
+        }
+      ],
+      "seconds": 0.17884541599778458,
+      "numerical_failure": false
+    },
+    {
+      "target": "contrast",
+      "sigma_A": 10,
+      "contrast_centers_A": [
+        -10,
+        10
+      ],
+      "prior_expected_squared_deviation_norm": 4.0,
+      "prior_coordinate_sd": 0.010550160967011989,
+      "full_posterior": {
+        "posterior_half_width": 0.6166065840954202,
+        "measurement_noise_half_width": 0.19222746190847592,
+        "relative_normal_residual": 8.367374567729956e-11
+      },
+      "diagonal_vi_half_width": 0.66444482456965,
+      "vi_over_full_posterior_width": 1.0775830841060672,
+      "continuous_target_norm2": 3185.935981904497,
+      "model_target_norm2": 3159.116934039845,
+      "prior_predictive_variance_identity_relative_error": 1.4021681865144674e-16,
+      "full_prior_predictive_coverage": 0.95,
+      "diagonal_vi_prior_predictive_coverage": 0.965315612196741,
+      "checks": [
+        {
+          "scenario": "matched_fourier_model",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.1117620190353894,
+          "expected_center": 0.3164023697273004,
+          "bias": -0.795359649308089,
+          "half_width": 0.66444482456965,
+          "analytic_fixed_signal_coverage": 0.09096824539771498,
+          "correct_sign_probability": 0.00019359539047735734
+        },
+        {
+          "scenario": "matched_fourier_model",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.1117620190353894,
+          "expected_center": 0.3164023697273004,
+          "bias": -0.795359649308089,
+          "half_width": 0.6166065840954202,
+          "analytic_fixed_signal_coverage": 0.03418365449855798,
+          "correct_sign_probability": 0.0011033560528206049
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.3384385139654542,
+          "bias": -0.7581914527166835,
+          "half_width": 0.66444482456965,
+          "analytic_fixed_signal_coverage": 0.16957480620119492,
+          "correct_sign_probability": 0.00044370958245908853
+        },
+        {
+          "scenario": "continuous_reference_nominal",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.3384385139654542,
+          "bias": -0.7581914527166835,
+          "half_width": 0.6166065840954202,
+          "analytic_fixed_signal_coverage": 0.07442453312120745,
+          "correct_sign_probability": 0.002282548380752737
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.3471790900272964,
+          "bias": -0.7494508766548413,
+          "half_width": 0.66444482456965,
+          "analytic_fixed_signal_coverage": 0.19304570542763988,
+          "correct_sign_probability": 0.0006085065600821114
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.3471790900272964,
+          "bias": -0.7494508766548413,
+          "half_width": 0.6166065840954202,
+          "analytic_fixed_signal_coverage": 0.08779017181410598,
+          "correct_sign_probability": 0.0030062340419935493
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.3372073422285027,
+          "bias": -0.7594226244536351,
+          "half_width": 0.66444482456965,
+          "analytic_fixed_signal_coverage": 0.1664223288394261,
+          "correct_sign_probability": 0.0004241485340840316
+        },
+        {
+          "scenario": "continuous_reference_0.5deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.3372073422285027,
+          "bias": -0.7594226244536351,
+          "half_width": 0.6166065840954202,
+          "analytic_fixed_signal_coverage": 0.07267394223149382,
+          "correct_sign_probability": 0.002194407376397646
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.35583541055234313,
+          "bias": -0.7407945561297946,
+          "half_width": 0.66444482456965,
+          "analytic_fixed_signal_coverage": 0.2181468944992354,
+          "correct_sign_probability": 0.0008258978778578531
+        },
+        {
+          "scenario": "continuous_reference_1deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.35583541055234313,
+          "bias": -0.7407945561297946,
+          "half_width": 0.6166065840954202,
+          "analytic_fixed_signal_coverage": 0.10271558589126228,
+          "correct_sign_probability": 0.003920506875119465
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.3393609301108329,
+          "bias": -0.7572690365713048,
+          "half_width": 0.66444482456965,
+          "analytic_fixed_signal_coverage": 0.171961637174735,
+          "correct_sign_probability": 0.0004589094790235278
+        },
+        {
+          "scenario": "continuous_reference_1deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.3393609301108329,
+          "bias": -0.7572690365713048,
+          "half_width": 0.6166065840954202,
+          "analytic_fixed_signal_coverage": 0.075757067994774,
+          "correct_sign_probability": 0.002350673074596043
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.37287527167649515,
+          "bias": -0.7237546950056426,
+          "half_width": 0.66444482456965,
+          "analytic_fixed_signal_coverage": 0.2726800752545432,
+          "correct_sign_probability": 0.0014751827020031076
+        },
+        {
+          "scenario": "continuous_reference_2deg_coherent_x",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.37287527167649515,
+          "bias": -0.7237546950056426,
+          "half_width": 0.6166065840954202,
+          "analytic_fixed_signal_coverage": 0.1373090534031629,
+          "correct_sign_probability": 0.006475740177970073
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "diagonal_fourier_vi",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.35125846203931843,
+          "bias": -0.7453715046428193,
+          "half_width": 0.66444482456965,
+          "analytic_fixed_signal_coverage": 0.20464781281645283,
+          "correct_sign_probability": 0.0007033592343162139
+        },
+        {
+          "scenario": "continuous_reference_2deg_random_boundary",
+          "method": "full_fourier_gaussian",
+          "true_target": 1.0966299666821377,
+          "expected_center": 0.35125846203931843,
+          "bias": -0.7453715046428193,
+          "half_width": 0.6166065840954202,
+          "analytic_fixed_signal_coverage": 0.09460904926268776,
+          "correct_sign_probability": 0.003410009539341956
+        }
+      ],
+      "seconds": 0.22438095801044255,
+      "numerical_failure": false
+    }
+  ],
+  "source": "https://proceedings.mlr.press/v115/ullrich20a.html",
+  "noise_std_supplied": 0.0037776813154703085,
+  "field_A": 482.4000120162964,
+  "particles": 1024,
+  "independent_fourier_pairs_per_particle": 220,
+  "parameters": 35937,
+  "sparse_nonzeros": 3602204,
+  "sparse_matrix_bytes": 45028692,
+  "geometry_indices_sha256": "4272ca7b5e8eddb1840ba19cc2c29d94287dee9a31fa7632daeded48b3efea54",
+  "continuous_reference_relative_forward_error": 0.16758064385103288,
+  "prior_center_norm": 0.9070673426614436,
+  "projected_reference_norm": 0.8526146064204126,
+  "setup_seconds": 2.8359279159922153,
+  "seconds": 3.904150540998671,
+  "peak_resident_bytes": 1095942144
+}

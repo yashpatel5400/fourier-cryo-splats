@@ -16,8 +16,13 @@ The manuscript is under substantive revision, with no claim of end-to-end
 experimental calibration or conference acceptance. The continuous pose procedures remain conservative;
 the moment refinement reduces no-data fallbacks from 48 to 16, but map-like
 feature detection remains weak. Current work optimizes weights with pose
-uncertainty included, scales the shared-field audit without dense matrices, and
-attempts an experimental noise-calibration analysis. The completed frozen
+uncertainty included and tests physically narrower density assumptions. A
+10,000-particle, radius-12 shared-field audit has completed on the Mac using
+1.95 GB peak memory; its broad-feature interval remains wide. The experimental
+noise-calibration attempt on three stacks detects none of the tested features.
+A [Fourier variational baseline](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md)
+now compares diagonal and full Gaussian uncertainty on all three geometries,
+with explicit prior and interpolation limitations. The completed frozen
 studies remain unchanged and public.
 Completed development comparisons include source-group bootstrap, nonlinear pose
 curvature, shared-density spectral audits, finite-grid and continuous-density

@@ -52,8 +52,13 @@ seconds under concurrent Mac load, with measured peak resident memory of 390
 and 434 MB. Their relative half-widths are 0.438 and 0.740, respectively. They
 use different fitted estimators, so the latter result does not measure a
 particle-count benefit. The 128-particle randomized field bound is 1.157 times
-the dense comparator. A distinct 10,000-particle, radius-12 audit is in progress;
-no completed scale or usefulness result is inferred from launching it.
+the dense comparator. A distinct 10,000-particle, radius-12 audit with 220
+independent Fourier pairs per particle completes in 4,965 seconds with 1.95 GB
+peak resident memory. Its randomized eigenvalue upper is 1.136 times the
+Rayleigh lower diagnostic. Relative half-width is 0.655 at $1^\circ$ and
+0.5\,\AA\ translation. This uses deterministic matched-filter weights for a
+broad target, not optimized reconstruction weights. It establishes numerical
+scale under supplied simulation bounds, not useful fine-feature inference.
 
 \subsection{Including pose uncertainty in estimator optimization}
 Fix the group scales, let $F(w)$ be the scaled quadrature field matrix, and let
@@ -95,7 +100,10 @@ with relative gap $2.60\times10^{-4}$. The first larger, 20-iteration developmen
 solve reduces a one-degree interval to 0.255 of no data but has a 97.8\% gap;
 it is not converged. Six subsequent feasible nonlinear searches reach 0.432 of
 its bias upper bound, and minimum reference sign power is below $10^{-100}$.
-Longer solves and the three-stack grid at 0.5\,\AA\ shifts
+The first completed 100-iteration case in the three-stack grid, 10049 at
+$0.5^\circ$ and 0.5\,\AA\ translation, has relative width 0.221 and a 25.3\%
+gap. Feasible searches reach 0.608 of its bias upper, but minimum reference
+sign power is only $8.44\times10^{-5}$. Longer solves and the remaining grid
 are in progress. These intermediate outcomes cannot support an optimality or
 practical-usefulness claim.
 
@@ -173,3 +181,92 @@ fallbacks; all six fall back at 500\,\AA\ and under the combined sensitivities.
 These negative results diagnose a loose audit, not an impossibility theorem for
 other estimators or a calibrated distribution of experimental CTF error.
 \input{tables/revision-ctf}
+
+\subsection{An explicit support ablation}
+Changing support changes the density class. For a centered cube of side
+$s\le1$, the transformation $\widetilde\rho(u)=s^{3/2}\rho(su)$ is an $L^2$
+isometry. The transformed acquisition uses $k'=sk$, $q'=sq$, $C'=s^{3/2}C$
+and translation radius $t'=t/s$. A normalized Gaussian target uses center
+$c/s$, width $\sigma_\ell/s$ and amplitude $s^{-3/2}$. Thus the target and
+nonlinear acquisition values are preserved, including physical translations.
+
+Hard support need not be imposed without a sensitivity allowance. Write
+$\rho=p_S+d_S+r_{S^c}$, where $p_S,d_S$ are supported inside the smaller cube,
+$\norm{d_S}\le B$ and $\norm{r_{S^c}}\le\epsilon$. Add to the inside audit
+\begin{align}
+ b_{\rm tail}&\le\epsilon\left[\norm{\A_0^*w-\ell}
+               +\sum_{iq}|c_{iq}|d_{iq}\right],\nonumber\\
+ d_{iq}&=\min\!\left(2,2\pi\sqrt{
+    \theta^2\norm{k_{iq}}^2/12+t^2\norm{q_{iq}}^2}\right).
+\end{align}
+Indeed, the spatial phase has zero mean on the cube, its integrated squared
+linear part is $\norm{\Delta k}^2/12$, and the rotation chord is at most
+$\theta\norm{k}$. Apply $|e^{ia}-e^{ib}|\le\min(2,|a-b|)$ and the triangle
+inequality, then restrict the residual to $S^c$. The bound is conservative;
+it does not infer $\epsilon$ from the data.
+
+The initial radius-12, 10\,\AA\-sigma support probe on 10049 uses 128 particles,
+$1^\circ$ and 0.5\,\AA\ translation. Side $s=0.5$ gives relative width 0.417
+under hard support, yet the cropped-reference minimum sign power is below
+$10^{-150}$. A tail radius of 0.1 causes no-data fallback. The original
+unit-norm reference has outside norm 0.320 and is excluded by all these tail
+settings; it is not relabeled as an in-class validation example. The remaining
+support sweep is development in progress.
+
+\subsection{A closer Fourier variational comparison}
+We independently implement the fixed-pose Gaussian variational objective of
+\citet{ullrich2020}, Equation~14, in a Hermitian Fourier grid with trilinear
+slice interpolation. The original authors' full software and pose-learning
+pipeline are not reproduced. CTFs, an independent pilot as prior mean, physical
+target normalization and a declared prior-scale sweep are explicit extensions.
+For $x\sim N(m_0,\tau^2I)$ and whitened $y=Ax+e$, put
+$Q=A^\top A+\tau^{-2}I$. The diagonal-Gaussian optimum has the full posterior
+mean and coordinate variances $1/Q_{jj}$. A target's full posterior variance
+is $\ell^\top Q^{-1}\ell$, whereas its diagonal approximation is
+$\sum_j\ell_j^2/Q_{jj}$. Differentiating the Gaussian objective verifies these
+solutions without stochastic-training error. The identity
+\[
+ \norm{w}^2+\tau^2\norm{A^\top w-\ell}^2
+   =\ell^\top Q^{-1}\ell,\qquad w=AQ^{-1}\ell,
+\]
+separately checks prior-predictive calibration.
+
+Each stack uses 1,024 particles, radius 12 and two 10\,\AA\-sigma targets:
+a central average and a contrast between centers at $z=\pm10$\,\AA.
+The prior expected squared deviation norms are 0.25, 1 and 4; all settings
+are retained. The sparse conditional calculations take 3.3--3.9 seconds per
+stack and 45.0 MB per acquisition matrix. The full posterior's matched
+prior-predictive coverage is 0.95, and the variance identity error is below
+$4\times10^{-16}$. Diagonal feature intervals are \emph{wider} in every tested
+case, by factors 1.073--1.415, with matched prior-predictive coverage
+0.964--0.994. Diagonal covariance is therefore not a general explanation for
+undercoverage of these targets.
+
+Table~\ref{tab:fouriervi} and Figure~\ref{fig:fouriervi} instead report
+fixed-map, known-noise coverage. Interpolation and finite-representation forward
+discrepancy is 16.8\%, 16.2\% and 25.3\% across the three reference generators.
+Together with prior shrinkage, this is a material baseline limitation. These
+controls do not refute Bayesian prior-predictive guarantees or constitute
+experimental density-coverage measurements. All matched-model and nonlinear
+pose controls are retained in the public records.
+
+We also audit each of these 18 estimators in the continuous cube without
+changing its original affine center. Let $\kappa$ be the known difference
+between its interpolated-prior center and the exact continuous-pilot center.
+The fixed-pose bias bound is then $|\kappa|+2\norm{\ell-\A^*w}$. Audited
+half-widths are 0.257--0.815 of no data and 56--352 times the original full
+posterior widths. The nominal continuous-map checks are covered conservatively,
+but sign power is numerically zero throughout, even after correcting
+$\kappa$. Thus the broad continuous class already loses useful precision before
+adding pose uncertainty. This does not establish impossibility for a physically
+narrower class or a different estimator.
+\input{tables/fourier-variational}
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{figures/fourier-variational.pdf}
+\caption{Known-noise coverage for fixed continuous reference densities at nominal
+poses as the declared Gaussian prior scale varies. The dashed line is 0.95.
+This is distinct from the full posterior's matched prior-predictive coverage,
+which is 0.95 throughout. Diagonal VI is wider here; prior and forward-model
+discrepancy remain important. No prior scale is selected using these outcomes.}
+\label{fig:fouriervi}
+\end{figure*}

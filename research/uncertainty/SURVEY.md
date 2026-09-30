@@ -220,7 +220,7 @@ bounds for expected interval length and adaptive procedures. Its two-point
 Gaussian argument is particularly close to the generic lower-bound component
 used here. Such arguments and restrictions on honest adaptation are established
 theory, not a new contribution of Fourier density auditing. The post-review
-reading ledger now has 95 entries; the two additions are statistical/numerical
+reading ledger reached 95 entries at that checkpoint; those two additions are statistical/numerical
 foundations, not newly discovered cryo-EM methods.
 [Recent simultaneous inverse-problem calibration](https://arxiv.org/abs/2510.11708)
 is also directly relevant. Conformal imaging methods, including
@@ -259,7 +259,7 @@ calibration, Gaussian/ bootstrap uncertainty, and feature validation. They did
 not identify a directly matched conformal density-reconstruction paper in the
 returned results; that is a search outcome, not a proof of absence. Three further
 candidates brought the then-current ledger to 89 entries (historical checkpoint;
-the current ledger has 95).
+the current ledger has 96).
 
 [SIMPLE's 2025 probabilistic ab initio method](https://doi.org/10.1107/S2059798325005686)
 uses coupled orientation assignments and adaptive spatial regularization. Its
@@ -301,7 +301,7 @@ conservative widths limit practical inference.
 The pose-transfer follow-up adds [CESPED](https://arxiv.org/abs/2311.06194v2),
 [cryoPARES](https://www.biorxiv.org/content/10.1101/2025.03.04.641536v6), and
 [CryoFastAR](https://arxiv.org/abs/2506.05864v1), bringing the curated ledger to
-92 entries at that historical checkpoint (95 currently). CESPED standardizes refinement-derived pose labels and explicitly
+92 entries at that historical checkpoint (96 currently). CESPED standardizes refinement-derived pose labels and explicitly
 acknowledges their uncertainty. CryoPARES reuses alignments of related specimens;
 CryoFastAR learns multiview pose prediction from synthetic training with real
 fine-tuning. These are distinct transfer assumptions. Their quality scores,
@@ -313,3 +313,8 @@ explicitly discusses scalar confidence sets and hybrid resampling in a multileve
 empirical-Bayes treatment, so its relationship to our construction is more
 substantive than a shared title. The broader survey still distinguishes targeted
 primary reading from exhaustive screening or original-code reproduction.
+
+The current curated ledger contains 96 entries after adding the adjacent CT
+preprint [Zhao et al., version 4](https://arxiv.org/abs/2607.13682v4). Its version
+and targeted reading scope are recorded in PRIMARY-ANNOTATIONS.md. This is a
+cross-modality comparator, not an additional cryo-EM reconstruction study.

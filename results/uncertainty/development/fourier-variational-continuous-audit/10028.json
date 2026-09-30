@@ -1,0 +1,279 @@
+{
+  "stage": "Fixed-pose continuous re-audit of Fourier Gaussian estimators; supplied simulation noise and B=2",
+  "dataset": "10028",
+  "source_snapshot": {
+    "git_head_at_snapshot": "84ede9b6ba3e5193c4f357fe634ce5933e9a8839",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/audit_uq_fourier_variational.py": {
+        "sha256": "298d59a3f1324e9ac1aef438243ccf22d9b7c7dbfe91140e6f2014aadf595b7b",
+        "snapshot": "provenance/uncertainty/source-snapshots/298d59a3f1324e9ac1aef438243ccf22d9b7c7dbfe91140e6f2014aadf595b7b.txt"
+      },
+      "scripts/audit_uq_grid_refinement.py": {
+        "sha256": "83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b",
+        "snapshot": "provenance/uncertainty/source-snapshots/83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_ctf_uncertainty.py": {
+        "sha256": "17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e",
+        "snapshot": "provenance/uncertainty/source-snapshots/17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_fourier_variational.py": {
+        "sha256": "f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668",
+        "snapshot": "provenance/uncertainty/source-snapshots/f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668.txt"
+      },
+      "src/fourier_splats/uq_intervals.py": {
+        "sha256": "590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9",
+        "snapshot": "provenance/uncertainty/source-snapshots/590b5b3d0612ed49d0abbe1f2650680ba3c2a474b4e4a2a9b35595bf63fd44e9.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_noise_calibration.py": {
+        "sha256": "285548378bede8a0fff00325aa99ddbad2f754e88581f9ec1a8944a6e53ffa17",
+        "snapshot": "provenance/uncertainty/source-snapshots/285548378bede8a0fff00325aa99ddbad2f754e88581f9ec1a8944a6e53ffa17.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_pose_operator.py": {
+        "sha256": "9007bb6262c0fb07bd1c874240f4838f438f95ee94b5dffa4f4de820a987a2cc",
+        "snapshot": "provenance/uncertainty/source-snapshots/9007bb6262c0fb07bd1c874240f4838f438f95ee94b5dffa4f4de820a987a2cc.txt"
+      },
+      "src/fourier_splats/uq_pose_optimization.py": {
+        "sha256": "1e4713766e4c99a50b19c08799d9ef0f40986ffbe04049ff943a8aefdc21b2b0",
+        "snapshot": "provenance/uncertainty/source-snapshots/1e4713766e4c99a50b19c08799d9ef0f40986ffbe04049ff943a8aefdc21b2b0.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_random_spectral.py": {
+        "sha256": "55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e",
+        "snapshot": "provenance/uncertainty/source-snapshots/55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      },
+      "src/fourier_splats/uq_support.py": {
+        "sha256": "771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a",
+        "snapshot": "provenance/uncertainty/source-snapshots/771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "baseline_sha256": "e73ba9aadc147dc9d4a7a77a4b1cf6c2434d840b136027fbb7632b2d4900df08",
+  "complete": true,
+  "records": [
+    {
+      "target": "center",
+      "prior_expected_squared_deviation_norm": 0.25,
+      "weights_sha256": "4f629447efc7bb99034f6690857d34b43967b993cb6a667c69fe977ee0c770a1",
+      "continuous_residual_norm": 26.728435047113532,
+      "known_pilot_center_offset": -0.03685560131578809,
+      "same_estimator_bias_upper": 53.49372569554285,
+      "same_estimator_half_width": 53.583661793636665,
+      "recentered_half_width": 53.54680619232088,
+      "no_data_half_width": 100.399965268418,
+      "relative_half_width_before_fallback": 0.5337019953182398,
+      "half_width_over_full_posterior": 313.80745843669325,
+      "reference_target": 3.6395021610357805,
+      "reference_expected_center": 2.0992875363431,
+      "reference_same_estimator_coverage": 1.0,
+      "reference_same_estimator_correct_sign_probability": 0.0,
+      "reference_recentered_correct_sign_probability": 0.0,
+      "quadrature_errors": {
+        "squared_field_norm": 1.0810413195882187e-25,
+        "gram_action_norm": 3.480220707575867e-24
+      },
+      "squared_roundoff_pad": 3.188635311069959e-05
+    },
+    {
+      "target": "center",
+      "prior_expected_squared_deviation_norm": 1.0,
+      "weights_sha256": "da9d3d1a239a858817a8ee78307ae92c83d710ca4baad7601e8ed52b60c42866",
+      "continuous_residual_norm": 22.12707716044036,
+      "known_pilot_center_offset": -0.03550058311250184,
+      "same_estimator_bias_upper": 44.289654903993224,
+      "same_estimator_half_width": 44.419714146700336,
+      "recentered_half_width": 44.384213563587835,
+      "no_data_half_width": 100.399965268418,
+      "relative_half_width_before_fallback": 0.442427584789943,
+      "half_width_over_full_posterior": 170.64920051608703,
+      "reference_target": 3.6395021610357805,
+      "reference_expected_center": 3.2323776613749553,
+      "reference_same_estimator_coverage": 1.0,
+      "reference_same_estimator_correct_sign_probability": 0.0,
+      "reference_recentered_correct_sign_probability": 0.0,
+      "quadrature_errors": {
+        "squared_field_norm": 1.822616599396934e-25,
+        "gram_action_norm": 4.518905927351301e-24
+      },
+      "squared_roundoff_pad": 3.993590765636024e-05
+    },
+    {
+      "target": "center",
+      "prior_expected_squared_deviation_norm": 4.0,
+      "weights_sha256": "b003d0a48b89e32381d234840007c30466e19beb999dd4c2685f270a799d3e0b",
+      "continuous_residual_norm": 21.88621625005431,
+      "known_pilot_center_offset": -0.03547590860456033,
+      "same_estimator_bias_upper": 43.80790840871318,
+      "same_estimator_half_width": 43.96710968143968,
+      "recentered_half_width": 43.93163377283512,
+      "no_data_half_width": 100.399965268418,
+      "relative_half_width_before_fallback": 0.43791957062827847,
+      "half_width_over_full_posterior": 102.20338621824912,
+      "reference_target": 3.6395021610357805,
+      "reference_expected_center": 3.6375703833542614,
+      "reference_same_estimator_coverage": 1.0,
+      "reference_same_estimator_correct_sign_probability": 0.0,
+      "reference_recentered_correct_sign_probability": 0.0,
+      "quadrature_errors": {
+        "squared_field_norm": 2.339410581154858e-25,
+        "gram_action_norm": 5.119633412714169e-24
+      },
+      "squared_roundoff_pad": 4.3916426548863685e-05
+    },
+    {
+      "target": "contrast",
+      "prior_expected_squared_deviation_norm": 0.25,
+      "weights_sha256": "2a1c1a1fda2bacf0fa78743b95c3744f97481286b2b34497f9c211ff9040b72f",
+      "continuous_residual_norm": 34.35800491303087,
+      "known_pilot_center_offset": 0.03851619512631165,
+      "same_estimator_bias_upper": 68.75452602118804,
+      "same_estimator_half_width": 68.84427476093724,
+      "recentered_half_width": 68.80575856581093,
+      "no_data_half_width": 112.8881921532008,
+      "relative_half_width_before_fallback": 0.6098447804665746,
+      "half_width_over_full_posterior": 341.76425949421855,
+      "reference_target": 1.0966299666821377,
+      "reference_expected_center": -1.5071175865540472,
+      "reference_same_estimator_coverage": 1.0,
+      "reference_same_estimator_correct_sign_probability": 0.0,
+      "reference_recentered_correct_sign_probability": 0.0,
+      "quadrature_errors": {
+        "squared_field_norm": 1.0835705507890137e-25,
+        "gram_action_norm": 3.484289534615048e-24
+      },
+      "squared_roundoff_pad": 3.8917505012747116e-05
+    },
+    {
+      "target": "contrast",
+      "prior_expected_squared_deviation_norm": 1.0,
+      "weights_sha256": "0bae79f827b5fa3568d9556f5f61a17905ba1722eff92adec005c488b42b7199",
+      "continuous_residual_norm": 31.950018455117235,
+      "known_pilot_center_offset": 0.02179126543824688,
+      "same_estimator_bias_upper": 63.921828175672715,
+      "same_estimator_half_width": 64.04732553474388,
+      "recentered_half_width": 64.02553426930564,
+      "no_data_half_width": 112.8881921532008,
+      "relative_half_width_before_fallback": 0.5673518577374781,
+      "half_width_over_full_posterior": 188.38445350750823,
+      "reference_target": 1.0966299666821377,
+      "reference_expected_center": -0.195168560814869,
+      "reference_same_estimator_coverage": 1.0,
+      "reference_same_estimator_correct_sign_probability": 0.0,
+      "reference_recentered_correct_sign_probability": 0.0,
+      "quadrature_errors": {
+        "squared_field_norm": 1.7642372405055722e-25,
+        "gram_action_norm": 4.4459454770639086e-24
+      },
+      "squared_roundoff_pad": 4.6915468387327425e-05
+    },
+    {
+      "target": "contrast",
+      "prior_expected_squared_deviation_norm": 4.0,
+      "weights_sha256": "e9eed3829aa84530c32a84c502d61d299ba4ce46b64a40e46d10667819c8ad9d",
+      "continuous_residual_norm": 32.60210550098071,
+      "known_pilot_center_offset": 0.020597786083975902,
+      "same_estimator_bias_upper": 65.22480878804541,
+      "same_estimator_half_width": 65.38613115948381,
+      "recentered_half_width": 65.36553337339983,
+      "no_data_half_width": 112.8881921532008,
+      "relative_half_width_before_fallback": 0.5792114295775784,
+      "half_width_over_full_posterior": 106.04189583120842,
+      "reference_target": 1.0966299666821377,
+      "reference_expected_center": 0.3384385139654542,
+      "reference_same_estimator_coverage": 1.0,
+      "reference_same_estimator_correct_sign_probability": 0.0,
+      "reference_recentered_correct_sign_probability": 0.0,
+      "quadrature_errors": {
+        "squared_field_norm": 2.3006930531564437e-25,
+        "gram_action_norm": 5.077091383386567e-24
+      },
+      "squared_roundoff_pad": 5.0992215995321254e-05
+    }
+  ],
+  "seconds": 10.391684084024746
+}

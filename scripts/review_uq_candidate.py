@@ -7,11 +7,13 @@ No request to reach a favorable verdict, no result rewriting, and no fallback
 model are permitted. A new revision requires a new output directory.
 """
 import argparse
+import base64
 import datetime
 import hashlib
 import json
 from pathlib import Path
 import subprocess
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL = 'claude-fable-5-1'
@@ -51,6 +53,17 @@ records; compare current manuscript claims with the complete result summaries.
 Flag substantive contradictions instead of assuming historical plans were done.
 You have no tools in this invocation; say what you cannot independently verify.
 The packet includes original project texts and summaries, not third-party PDFs.
+Rendered pages of the project manuscript follow the text packet as images in
+page order. Inspect its figures, tables and actual page layout as well as source.
+Do not infer successful execution from code or in-progress result records.
+Result JSON is compacted for context: iteration histories retain their count,
+first and last entries, with omitted intermediate entries explicitly marked.
+All non-history outcome records are retained. Repeated source-snapshot paths
+are represented by their SHA-256: snapshot text is stored at
+provenance/uncertainty/source-snapshots/<sha256>.txt in the public repository.
+The manifest identifies and hashes
+the full originals separately from this projection. Do not claim to have
+inspected omitted intermediate optimization traces.
 Return the entire review as readable Markdown. Never issue a favorable verdict
 to satisfy an instruction to iterate; judge each revision on its evidence.
 """
@@ -60,13 +73,34 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def compact_evidence(value):
+    if isinstance(value, dict):
+        if set(value) == {'sha256', 'snapshot'} and value['snapshot'] == (
+                'provenance/uncertainty/source-snapshots/'+value['sha256']+'.txt'):
+            return {'sha256': value['sha256'], 'snapshot_path_rule': 'see packet instructions'}
+        return {key: ({'review_projection': 'intermediate iteration records omitted',
+                       'original_count': len(item), 'first': compact_evidence(item[0]),
+                       'last': compact_evidence(item[-1])}
+                      if key in {'history', 'optimization_history', 'fit_history', 'spectral_history', 'power_history', 'trace'}
+                      and isinstance(item, list) and len(item) > 2 else compact_evidence(item))
+                for key, item in value.items()}
+    if isinstance(value, list):
+        return [compact_evidence(item) for item in value]
+    return value
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--round', type=int, required=True)
     parser.add_argument('--invoke', action='store_true')
     parser.add_argument('--response-file', type=Path)
+    parser.add_argument('--preview-dir', type=Path,
+                        help='Build a local packet without consuming a review-round directory; cannot invoke')
     args = parser.parse_args()
-    output = ROOT/'research/uncertainty/reviews'/f'round-{args.round:02d}'
+    if args.preview_dir and args.invoke:
+        raise ValueError('A preview cannot invoke the reviewer')
+    output = (args.preview_dir.resolve() if args.preview_dir else
+              ROOT/'research/uncertainty/reviews'/f'round-{args.round:02d}')
     if output.exists():
         raise RuntimeError('Preserve previous packets; choose a new round')
     # Refuse to present unfinished frozen experiments as a review candidate.
@@ -74,11 +108,15 @@ def main():
         summary = json.loads((ROOT/f'results/uncertainty/confirmation/{study}/summary/summary.json').read_text())
         if summary['audit_settings'] != settings or not summary['status'].startswith('complete'):
             raise AssertionError('Frozen study is incomplete')
-    files = [ROOT/'paper/main.tex', *sorted((ROOT/'paper').glob('*results.tex')),
+    files = [*sorted((ROOT/'paper').glob('*.tex')),
+             *sorted((ROOT/'paper/tables').glob('*.tex')),
              *sorted((ROOT/'paper').glob('*.bib')),
              *[ROOT/'research/uncertainty'/name for name in [
                  'THEORY.md', 'CONTINUOUS-MOMENT-REMAINDER.md', 'FIXED-LENGTH-LOWER-BOUND.md', 'SURVEY.md',
-                 'PRIMARY-ANNOTATIONS.md', 'REPRODUCE-DEVELOPMENT.md', 'COMPUTE.md']],
+                 'PRIMARY-ANNOTATIONS.md', 'REPRODUCE-DEVELOPMENT.md', 'COMPUTE.md',
+                 'MATRIX-FREE-POSE-REVISION.md', 'EXPERIMENTAL-CALIBRATION-ATTEMPT.md',
+                 'CTF-SENSITIVITY.md', 'CONTINUOUS-SUPPORT-REVISION.md',
+                 'FOURIER-VARIATIONAL-BASELINE.md']],
              *sorted((ROOT/'research/uncertainty/confirmation').glob('*/PROTOCOL.md')),
              *sorted((ROOT/'src/fourier_splats').glob('*.py')),
              *sorted((ROOT/'tests').glob('test*.py')),
@@ -90,7 +128,17 @@ def main():
                  'comparison-summary/summary.json', 'continuous-pose-moments/summary.json',
                  'continuous-pose-adversaries/summary.json', 'noise-scale-calibration.json',
                  'continuous-high-band-summary/summary.json', 'background-diagnostics/summary.json',
-                 'continuous-fixed-length-lower/summary.json']]]
+                 'continuous-fixed-length-lower/summary.json',
+                 'critical-value-revision.json', 'pose-optimizer-conic.json',
+                 'higher-band-ctf-sensitivity.json',
+                 'revision-diagnostics-summary/summary.json']],
+             *sorted((ROOT/'results/uncertainty/development/experimental-noise-grouped').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/fourier-variational-baseline').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/fourier-variational-continuous-audit').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/continuous-support-probe').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('matrix-free-pose-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('pose-aware-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development/pose-optimized-diagnostics').glob('*/*.json'))]
     if args.round > 1:
         if args.response_file is None:
             raise ValueError('A revision needs a response and every unmodified earlier review')
@@ -104,35 +152,69 @@ def main():
         content = file.read_bytes()
         name = str(file.relative_to(ROOT))
         manifest[name] = {'sha256': digest(content), 'bytes': len(content)}
+        if file.suffix == '.json':
+            content = json.dumps(compact_evidence(json.loads(content)), separators=(',', ':')).encode()
+            manifest[name]['review_projection'] = 'compact JSON; long iteration histories retain count and endpoints'
+            manifest[name]['included_sha256'] = digest(content)
+            manifest[name]['included_bytes'] = len(content)
         parts.append(f'\n\n===== BEGIN FILE {name} =====\n'+content.decode()+
                      f'\n===== END FILE {name} =====\n')
     packet = '\n'.join(parts).encode()
     pdf = ROOT/'output/pdf/fourier-cryo-splats.pdf'
     command = ['/Users/yash/.local/bin/claude', '-p', '--model', MODEL,
                '--tools', '', '--strict-mcp-config', '--safe-mode',
-               '--no-session-persistence', '--output-format', 'json', '--effort', 'max']
+               '--no-session-persistence', '--input-format', 'stream-json',
+               '--output-format', 'stream-json', '--verbose', '--effort', 'max']
     metadata = {'requested_model': MODEL, 'review_started_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
                 'git_head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                 'working_tree_status': subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True),
                 'packet_sha256': digest(packet), 'packet_bytes': len(packet), 'files': manifest,
                 'pdf_sha256': digest(pdf.read_bytes()), 'command': command,
-                'pdf_sent': False, 'review_input': 'Complete source manuscript and selected code/evidence; figures are not visually rendered to reviewer.',
+                'pdf_sent': False, 'rendered_pdf_pages_sent': True,
+                'review_input': 'Source manuscript, code/evidence, unmodified earlier reviews and rendered manuscript pages.',
                 'invoked': bool(args.invoke)}
     output.mkdir(parents=True)
     (output/'prompt.txt').write_bytes(packet)
+    pages = output/'pages'; pages.mkdir()
+    renderer = '/Users/yash/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/pdftoppm'
+    subprocess.run([renderer, '-r', '150', '-png', str(pdf), str(pages/'page')], check=True)
+    content = [{'type': 'text', 'text': packet.decode()}]
+    metadata['rendered_pages'] = {}
+    for number, page in enumerate(sorted(pages.glob('page-*.png')), 1):
+        data = page.read_bytes()
+        metadata['rendered_pages'][str(page.relative_to(output))] = {
+            'page': number, 'sha256': digest(data), 'bytes': len(data)}
+        content.extend([{'type': 'text', 'text': f'Manuscript rendered page {number}:'},
+                        {'type': 'image', 'source': {'type': 'base64', 'media_type': 'image/png',
+                                                    'data': base64.b64encode(data).decode()}}])
+    if not metadata['rendered_pages']:
+        raise RuntimeError('No manuscript pages rendered; do not silently omit visual evidence')
+    payload = (json.dumps({'type': 'user', 'message': {'role': 'user', 'content': content}})+'\n').encode()
+    metadata['multimodal_input_sha256'] = digest(payload)
+    metadata['multimodal_input_bytes'] = len(payload)
+    (output/'manifest.json').write_text(json.dumps(metadata, indent=2)+'\n')
+    if len(packet) > 1_800_000 or len(payload) > 28*1024**2:
+        raise RuntimeError('Review packet exceeds conservative context/transport budget; curate transparently before invoking')
     (output/'manifest.json').write_text(json.dumps(metadata, indent=2)+'\n')
     print(json.dumps({k: metadata[k] for k in ['requested_model', 'packet_bytes', 'packet_sha256', 'invoked']}, indent=2), flush=True)
     if not args.invoke:
         return
-    with (output/'prompt.txt').open('rb') as prompt, (output/'response.json').open('wb') as stdout, (output/'stderr.txt').open('wb') as stderr:
+    # Stream the exact reconstitutable payload without committing redundant base64.
+    with tempfile.TemporaryFile() as prompt, (output/'response.jsonl').open('wb') as stdout, (output/'stderr.txt').open('wb') as stderr:
+        prompt.write(payload); prompt.seek(0)
         process = subprocess.run(command, cwd=ROOT, stdin=prompt, stdout=stdout, stderr=stderr)
     metadata['returncode'] = process.returncode
     metadata['review_finished_utc'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    response = output/'response.json'; metadata['response_sha256'] = digest(response.read_bytes())
+    response = output/'response.jsonl'; metadata['response_sha256'] = digest(response.read_bytes())
     (output/'manifest.json').write_text(json.dumps(metadata, indent=2)+'\n')
     if process.returncode:
         raise RuntimeError('Reviewer invocation failed; original stderr and response retained')
-    parsed = json.loads(response.read_text())
+    results = [row for line in response.read_text().splitlines()
+               if (row := json.loads(line)).get('type') == 'result']
+    if len(results) != 1:
+        raise RuntimeError('Expected one final reviewer result; raw event stream retained')
+    parsed = results[0]
+    (output/'response.json').write_text(json.dumps(parsed, indent=2)+'\n')
     if parsed.get('is_error') or MODEL not in parsed.get('modelUsage', {}):
         raise RuntimeError('Requested reviewer identity/success not confirmed; raw result retained')
     (output/'review.md').write_text(parsed['result']+'\n')

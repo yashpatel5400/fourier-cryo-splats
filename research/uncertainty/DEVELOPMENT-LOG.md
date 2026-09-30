@@ -582,3 +582,62 @@ remain. The survey adds targeted primary reading of Cai--Low and the
 Kuczynski--Wozniakowski technical-report introduction (95 ledger candidates).
 Low 1997 full text remains inaccessible from the attempted primary URL.
 No second Fable review or positive verdict is claimed.
+
+### Larger audit, conditional Fourier baseline and visual review input
+
+The 10,000-distinct-particle radius-12 audit completed with 220 independent
+Fourier pairs per particle, measured runtime 4,965.23 seconds and peak RSS
+1,948,549,120 bytes. Relative interval half-width is 0.6551 at one degree and
+0.5 Angstrom translation. Its randomized spectral upper is 1.1359 times the
+Rayleigh lower diagnostic. Weights are deterministic matched-filter weights
+for a broad target; this is a numerical scale result, not an optimized
+reconstruction or useful fine-feature result. No GPU rental was needed.
+
+The first completed pose-aware 100-iteration grid case (10049, center, 0.5
+degrees, 0.5 Angstrom) has width 0.22086 of no data but a 25.27% optimization
+gap. Six independent nonlinear searches reach 0.60809 of the bias upper;
+minimum reference power is 8.44e-5. Remaining grid cases continue to run.
+
+An independent implementation of the Ullrich fixed-pose Gaussian variational
+objective completed on all three geometries, with 1,024 particles, radius 12,
+10 Angstrom targets and three declared prior scales. Both likelihood and prior
+terms are included through the exact Gaussian optimum. CTF and pilot-mean
+extensions are stated explicitly. All 18 diagonal feature intervals are wider
+than the corresponding full posterior intervals, by factors 1.073--1.415.
+Full posterior prior-predictive coverage is exactly 0.95, whereas fixed-map
+coverage often fails. Interpolation/representation forward errors of 16--25%
+and shrinkage are material; these failures must not be attributed exclusively
+to a diagonal covariance approximation. The new plots retain the full sweep.
+
+An exact continuous support isometry and outside-density sensitivity bound are
+implemented and independently tested. The initial 10049 half-side support case
+has hard-support relative width 0.417 but cropped-reference power below 1e-150;
+an outside radius of 0.1 makes it vacuous. The original reference's outside
+norm is 0.320, so it is not an in-class example. The 0.75-side case is also
+vacuous at all tested outside radii; the full-cube control is still running.
+
+The actual requested Fable model correctly described the test figure. The
+future review runner includes all rendered manuscript pages and explicitly
+compacted iteration histories. A local-only 31-page packet preflight passed;
+no round-2 scientific review has been invoked. The paper now has 31 pages,
+with the main text still ending on page 7. Revised mathematical/results pages,
+the new table and the six-panel baseline figure were visually inspected. The
+expanded suite passes 62 tests in 5.06 seconds. The scientific readiness
+objections remain open, and the authentic first review still recommends reject.
+
+The same-estimator continuous audit of all 18 Fourier baselines also completed.
+It charges the known pilot/interpolation center offset explicitly. Widths inflate
+56--352 times, remain 0.257--0.815 of no data, and have numerically zero reference
+sign power even after recentering. These are still fixed-pose, known-noise
+conditional checks. The survey now has 96 entries after targeted reading of
+sections 1--5.4 of the September version of an adjacent radiative-CT uncertainty
+preprint; the earlier search title was stale. Its full-text download, version
+and read scope are recorded without claiming a complete critical review.
+
+CPU profiling preserved both outcomes. Reusing FINUFFT plans gives only 1.032x
+median speedup. An isolated CPU-only OpenMP wheel gives 1.85x/2.21x/2.63x at
+2/4/6 threads for the tested pose Gram matvec, with maximum relative differences
+below 4.5e-15. The profiling process never imports Torch; the existing Mac
+runtime remains unchanged. No running experiment has been silently switched
+to the alternate numerical binary. Threaded execution is a possible next
+optimization, not a completed accelerated end-to-end study.

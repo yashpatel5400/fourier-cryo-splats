@@ -217,3 +217,41 @@ EXPERIMENTAL-CALIBRATION-ATTEMPT.md and CTF-SENSITIVITY.md. Neither establishes
 the unknown empirical pose bounds or a physical density-energy radius. New
 weights are not yet included in the immutable v0.3 release; a later checkpoint
 will package the completed revision arrays.
+
+### Fourier variational baseline and explicit support development
+
+```bash
+OPENBLAS_NUM_THREADS=2 python scripts/benchmark_uq_fourier_variational.py
+OPENBLAS_NUM_THREADS=2 python scripts/audit_uq_fourier_variational.py
+python scripts/summarize_uq_fourier_variational.py
+OPENBLAS_NUM_THREADS=2 python scripts/probe_uq_continuous_support.py
+```
+
+The first three commands completed on all three stack geometries: 1,024 particles,
+radius 12, two 10 Angstrom Gaussian targets and three predeclared prior scales.
+This implements the fixed-pose Gaussian variational objective analytically with
+documented CTF/prior extensions, not the original external software pipeline.
+The support probe changes the declared density class and retains both cropped
+and full reference diagnostics. It does not estimate the support from particles.
+Its current default explores EMPIAR-10049 only; do not label it a completed
+three-stack support study. See FOURIER-VARIATIONAL-BASELINE.md and
+CONTINUOUS-SUPPORT-REVISION.md for assumptions, proofs and provenance.
+
+Future Fable review packets include rendered pages. A local packet can be
+constructed with `review_uq_candidate.py --round 2 --response-file <response.md>
+--preview-dir <new-local-directory>` without invoking the model or consuming a
+review-round directory. An actual review still requires `--invoke`, an
+evidence-linked completed response, and a new immutable round directory.
+
+
+CPU-only OpenMP profiling uses a separate import path and must not import Torch:
+
+```bash
+python -m pip install --no-deps --only-binary=:all: --target tmp/nufft-openmp finufft==2.5.1
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/benchmark_uq_nufft_threads.py
+```
+
+This leaves the standard no-OpenMP FINUFFT installation intact for MPS/Torch
+work. The profiler checks that Torch is absent and records the alternate binary
+hash. Do not apply this import path to the general test suite or MPS adversary
+processes. The timing result does not imply that ongoing studies used it.
