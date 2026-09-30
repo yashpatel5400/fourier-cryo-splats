@@ -100,3 +100,78 @@ not validate all floating-point errors. A stricter factor-twenty toy remainder
 slack test fails at 35.57, which remains a conservatism finding; separate
 nonlinear tests verify fourth-order error scaling. Neither these checks nor the
 reduced interval calibrate experimental pose radii.
+
+\paragraph{Pose-aware cubic weight design.}
+The failed fixed-weight power result motivates optimizing the weights themselves.
+A separate single-case development protocol, committed before fitting, retains
+its target, class and pose budget, uses the inherited positive scales, and limits
+L-BFGS-B to 30 iterations with a requested 40 evaluations. Every evaluation and
+improving checkpoint is retained. Three approximate Ritz modes and a
+log-sum-exp smoothing of 0.002 guide optimization. A fresh four-probe,
+forty-step audit follows weight selection. Both design and final spectral audit
+use order 64, while the nominal Gram uses order 80. This case is running;
+no empirical optimized width or usefulness result is asserted here.
+
+Let $G=A_0A_0^*$, $a=A_0\ell$, and let $G_Q$ be its quadrature approximation.
+If $E$ is the kernel-error bound and $t$ the transfer vector, set
+$\eta=E\|t\|^2$ and
+\[
+ H(w)^2=\|\ell\|^2-2a^\top w+w^\top(G_Q+\eta I)w.
+\]
+The bound $|w^\top(G_Q-G)w|\le E(\sum_j|t_j|b_j(w))^2$
+and Cauchy--Schwarz imply $G_Q+\eta I\succeq G$, where $b_j$ is the
+real/imaginary pair amplitude. Hence $H$ is a convex affine-norm majorant of
+the continuous residual. With nonnegative coefficient-mass matrix $M$ and
+degree-six kernel pad $E_6$, define
+\[
+\begin{aligned}
+ J(w)={}&BL\sqrt{\|F_Q(w)\|_{\rm op}^2+E_6\|Mb(w)\|^2}\\
+       &+L\|F_{\rm cont}(w)^*\rho_0\|+(B+P)r_{\rm PSD}(w).
+\end{aligned}
+\]
+Here $r_{\rm PSD}$ is the Bell-weighted sum of real derivative-Gram norms,
+with the approximate-embedding residual pad. Each term is convex and positively
+homogeneous. Thus $z\|w\|+BH(w)+J(w)$ is a convex sum-width majorant.
+The derivative-Gram diagonal safeguards and final cancellation guard remain
+ordinary floating-point precautions, not validated numerical enclosures.
+
+\begin{samepage}
+\begin{proposition}[Continuous lower certificate for cubic design]
+Suppose $g_J^\top w'\le J(w')$ for all $w'$, $\bar H\ge\|\ell-A_0^*w\|>0$,
+and $e_G\ge\|(G_Q-G)w\|$. Set
+\[
+\begin{aligned}
+ f&=B/\bar H,\\
+ d&=\|f(a-G_Qw)-g_J\|+fe_G,\\
+ c&=\min(1,z/d).
+\end{aligned}
+\]
+Then $\max\{0,cf(\|\ell\|^2-a^\top w)\}$ lower-bounds the infimum of the
+sum-width majorant. Use $c=1$ if $d=0$.
+\end{proposition}
+\end{samepage}
+\begin{proof}
+Take $v=f(\ell-A_0^*w)$, so $\|v\|\le B$ and
+$\|A_0(cv)-cg_J\|\le z$. Norm duality and the supporting inequality imply
+$z\|w'\|+B\|\ell-A_0^*w'\|+J(w')\ge\ip{cv}{\ell}$ for every $w'$.
+Replacing the continuous residual by its majorant preserves the lower bound.
+The zero lower bound is also valid.
+\end{proof}
+The dual uses $a-G_Qw$, without $\eta w$, because its density direction is the
+actual continuous residual. Any unit spatial directions supply spectral-norm
+supports, including inaccurate or partial Ritz modes. Convex mixtures remain
+supports; combining their gradient with the coefficient-mass gradient by the
+normalized two-component norm inequality preserves this property even with
+positive smoothing. Entropy means support equality at the candidate is not
+asserted. A Ritz value is never used as an upper certificate. The reported gap
+compares the unsmoothed, order-matched triangle objective; a later joint-cross
+or folded-normal refinement does not inherit that gap.
+
+An independently assembled four-coordinate conic problem gives optimum
+2.071569215466, audited primal 2.071569215459 and continuous dual
+2.071569195636. Their agreement is a numerical implementation check, not a
+cryo-EM calibration result. The original conic test returned
+\texttt{optimal\_inaccurate} at a provable zero-weight optimum; that failed
+attempt is retained, and a separate analytic boundary check now covers it.
+Directional gradients, convex supports and partial-mode bookkeeping are also
+checked before the empirical fit.

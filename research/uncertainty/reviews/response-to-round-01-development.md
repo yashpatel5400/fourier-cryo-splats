@@ -42,7 +42,10 @@ stacks, including one no-data fallback. A declared two-case higher-order
 remainder diagnostic reduces one component, but is not a new interval. The
 separate full cubic audit has completed: it reduces one selected width from
 0.473 to 0.252, yet minimum reference sign power remains 1.48e-10. Its actual
-polynomial/density contribution remains too large for useful inference.
+polynomial/density contribution remains too large for useful inference. A new
+single-case cubic weight-optimization protocol and code were committed before
+fitting; prerequisite gradient/support checks and an independent conic solve
+passed. That empirical fit is running, without an asserted successful outcome.
 Focused Fable mathematics checks and their responses do not constitute a new
 acceptance review. Its sigma
 is not its sampled frequency-band resolution. These tests do not satisfy the
@@ -131,7 +134,7 @@ pattern remain reported; these selected-pattern probabilities are not uniform
 pose coverage, and some fall below the 0.995833 nominal marginal level.
 
 - M1: the paper is a public development preprint, not an anonymized submission.
-- M2: the current curated count is 104 candidates; historical counts and targeted
+- M2: the current curated count is 105 candidates; historical counts and targeted
   reading versus retrieval are distinguished.
 - M3: the manuscript uses the source-summary value 0.339 for the strong-ridge
   bootstrap control, alongside all favorable weak-ridge comparisons.
