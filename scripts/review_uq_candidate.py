@@ -134,7 +134,10 @@ def main():
                  'CTF-SENSITIVITY.md', 'CONTINUOUS-SUPPORT-REVISION.md',
                  'FOURIER-VARIATIONAL-BASELINE.md', 'DIRECTIONAL-NOISE-CALIBRATION.md',
                  'NOISE-METRIC-DESIGN.md', 'POSE-SPECTRAL-EXCHANGE.md', 'JOINT-DENSITY-POSE-BIAS.md',
-                 'PILOT-POSE-PAIRING.md','TWO-POSE-MODULUS.md']],
+                 'PILOT-POSE-PAIRING.md','TWO-POSE-MODULUS.md','BALL-SOBOLEV-REMAINDER-PROPOSAL.md',
+                 'POSE-OPTIMIZED-AMBIGUITY-PROTOCOL.md','POSE-PRIOR-VALIDATION-NOTES.md']],
+             *sorted((ROOT/'research/uncertainty/pilot-selected-targets-v1').glob('*.md')),
+             ROOT/'research/uncertainty/pilot-selected-targets-v1/locked-targets.json',
              *sorted((ROOT/'research/uncertainty/confirmation').glob('*/PROTOCOL.md')),
              *sorted((ROOT/'src/fourier_splats').glob('*.py')),
              *sorted((ROOT/'tests').glob('test*.py')),
@@ -165,6 +168,11 @@ def main():
              *sorted((ROOT/'results/uncertainty/development').glob('joint-bias-*/*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('continuous-high-band-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/two-pose-modulus-v3').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('ball-remainder-probe*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('expanded-cube-remainder-probe*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('pose-optimized-ambiguity*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('pose-adaptive-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('pilot-selected-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/audit-regressions').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/pose-optimized-diagnostics').glob('*/*.json'))]
     if args.round > 1:

@@ -8,6 +8,9 @@
 \newcommand{\norm}[1]{\left\|#1\right\|}
 \newcommand{\ip}[2]{\langle #1,#2\rangle}
 \newcommand{\A}{\mathcal{A}}
+% Preserve the text glyph in both text and mathematical unit labels.
+\let\textAngstrom\AA
+\renewcommand{\AA}{\ifmmode\text{\textAngstrom}\else\textAngstrom\fi}
 \icmltitlerunning{Continuous Fourier-Slice Audits for Cryo-EM Density Uncertainty}
 \begin{document}
 \twocolumn[
@@ -439,7 +442,7 @@ The refinement applies classical inequalities to the Fourier-slice operator. Ind
 \input{revision-methods}
 
 \section{Uncertainty Targets in the Recent Literature}
-The following distinctions guide baseline selection. They do not rank methods that solve different problems on one inappropriate score. The accompanying dated survey has 98 curated candidates across reconstruction, poses, heterogeneity, map validation, atomic ensembles and general inverse inference; its source manifest distinguishes retrieved material from targeted critical reading and inaccessible full text. This is a scoped critical survey rather than a claim to have exhaustively reviewed all cryo-EM applications. Versioned preprints are identified separately from published articles.
+The following distinctions guide baseline selection. They do not rank methods that solve different problems on one inappropriate score. The accompanying dated survey has 100 curated candidates across reconstruction, poses, heterogeneity, map validation, atomic ensembles and general inverse inference; its source manifest distinguishes retrieved material from targeted critical reading and inaccessible full text. This is a scoped critical survey rather than a claim to have exhaustively reviewed all cryo-EM applications. Versioned preprints are identified separately from published articles.
 
 \paragraph{Additional local and atomic validation.} The recent Gold-standard local toolbox compares half-map phase and amplitude, with explicit independent-noise assumptions in its SNR derivation \citep{goldlocal2026}. EMMIVox combines molecular force fields, map likelihoods and half-map-informed uncertainty for atomic refinement \citep{emmivox2024}. Neither output is the fixed raw-particle density functional studied here.
 
@@ -466,6 +469,8 @@ CryoRes predicts local resolution using deposited and algorithm-derived training
 \paragraph{Simultaneous inverse inference.} Constrained test-inversion methods already address joint confidence regions for multiple functionals \citep{batlle2025}. A single data-consistency region can support simultaneous projections, whereas separately calibrated marginal intervals generally require an appropriate correction. Our present scalar-target theorem is not a new general framework for simultaneous inference, and a colored map of marginal intervals must not be presented as simultaneous coverage.
 
 \paragraph{Conformal calibration and its sampling unit.} Posterior-variance calibration can provide error bounds even when a posterior sampler is approximate \citep{narnhofer2024}; its theorem uses independent identically distributed signal--observation pairs and conditions on a variance bin. QUTCC learns quantile-dependent image predictions and calibrates marginal pixel errors from paired reference images \citep{qutcc2026}. These methods can be useful without our fixed-signal radius assumption, but require a calibration population with the stated sampling relationship to deployment. Voxels or noise draws from one molecule are not automatically independent calibration molecules. Neither marginal population coverage nor variance-bin coverage is the same as coverage uniformly over every density in a specified class.
+
+\paragraph{Prior-assisted alignment and atomic refinement.} CryoPROS uses generated auxiliary particles for pose correction, with template-variation and noise-only controls \citep{cryopros2025}. Such tests address model bias without calibrating experimental pose confidence regions. CoCoFold fine-tunes AlphaFold against particle images using a Gaussian-mixture forward model and supplied poses/CTFs \citep{cocofold2026}. Its pose-perturbation checks support a sensitivity comparison, not a density-coverage guarantee. Both motivate independent validation of prior-assisted inference; neither is a matched density-functional uncertainty baseline here.
 
 \paragraph{Open questions suggested by the survey.} Particularly consequential gaps are absolute pose-confidence calibration under reference error; uncertainty in conformational populations when candidate structures are imperfect; validation of detail introduced by learned priors using independent particles; and uncertainty propagation through CTF fitting, image preprocessing, alignment and atomic interpretation. Acquisition chosen for a specific structural feature is another possible application of adjoint sensitivity. These are directions inferred from the literature, not priority claims or completed capabilities of this implementation. The present continuous audit addresses representation exclusion under stated nuisance assumptions; solving those assumptions empirically remains distinct work.
 

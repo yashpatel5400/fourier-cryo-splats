@@ -331,3 +331,14 @@ The current ledger has 98 candidates, including the subsequent cryoSENSE and
 CalPro additions. CalPro concerns calibrated coordinate-error prediction across
 proteins; it does not supply a particle-to-density confidence guarantee. These
 are targeted screening additions, not additions to a full-reading count.
+
+## 14. Pose correction and structural priors: targeted follow-up
+
+The [new primary reading notes](POSE-PRIOR-VALIDATION-NOTES.md) examine CryoPROS
+(2025) and CoCoFold (2026). They distinguish validation of prior-assisted pose
+correction from calibration of a pose confidence region, and atomic-model
+supervision from density-functional inference. Acquisition interventions such
+as paired tilted/untilted data could provide stronger external validation than
+agreement between similarly regularized reconstructions. This is a proposed
+benchmark direction, not a completed comparison. The curated ledger now has
+100 candidates; the new records identify the exact targeted sections read.

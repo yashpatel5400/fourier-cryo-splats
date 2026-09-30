@@ -1,0 +1,119 @@
+"""Local pose optimization for a fixed feasible constant-cell density pair.
+
+The result is a constructive testing witness, not a global ambiguity optimum.
+Cell transforms are exact integrals in real arithmetic; ordinary NUFFT arithmetic
+and magnitude guards are not a validated interval implementation.
+"""
+import numpy as np
+import torch
+from scipy.optimize import minimize
+from scipy.spatial.transform import Rotation
+from .uq_cell_moments import cell_fourier_moments
+from .uq_joint_bias import MONOMIALS
+from .uq_continuous_pose import pose_cell_forward
+
+
+def refine_cell_density(coefficients, old_box, new_box):
+    """Represent the identical constant-cell function on a nested finer grid."""
+    if new_box < old_box or new_box % old_box or np.size(coefficients) != old_box**3:
+        raise ValueError('A matching nested cell grid is required')
+    factor = new_box//old_box
+    fine = np.asarray(coefficients, float).reshape((old_box,)*3)
+    for axis in range(3):
+        fine = np.repeat(fine, factor, axis=axis)
+    return fine.ravel()/factor**1.5
+
+
+def torch_pose_geometry(k, q, coordinates, angle, shift):
+    """Small differentiable geometry map; project each joint five-vector."""
+    u = coordinates/torch.clamp(torch.linalg.vector_norm(coordinates, dim=-1, keepdim=True), min=1.)
+    x, y, z = u[:, :3].unbind(-1); zero = torch.zeros_like(x)
+    skew = torch.stack([zero, -z, y, z, zero, -x, -y, x, zero], -1).reshape(-1, 3, 3)
+    theta = angle*torch.linalg.vector_norm(u[:, :3], dim=-1)
+    rotation = (torch.eye(3, dtype=coordinates.dtype)[None]
+                +angle*torch.sinc(theta/torch.pi)[:, None, None]*skew
+                +.5*angle**2*torch.sinc(theta/(2*torch.pi))[:, None, None]**2*(skew@skew))
+    return k@rotation, shift*torch.einsum('nqa,na->nq', q, u[:, 3:]), u
+
+
+class CellPairDistance:
+    def __init__(self, k, q, ctf, densities, box, noise, angle, shift):
+        self.k = np.asarray(k, float); self.q = np.asarray(q, float); self.ctf = np.asarray(ctf, float)
+        self.densities = np.asarray(densities, float); self.box = int(box)
+        self.noise = float(noise); self.angle = float(angle); self.shift = float(shift)
+        self.n, self.nq = self.ctf.shape
+        if self.k.shape != (self.n, self.nq, 3) or self.q.shape != (self.n, self.nq, 2) or self.densities.shape != (2, self.box**3):
+            raise ValueError('Matching particle geometry and two cell densities required')
+        if not all(np.isfinite(a).all() for a in [self.k, self.q, self.ctf, self.densities, [noise, angle, shift]]) or noise <= 0 or angle < 0 or shift < 0:
+            raise ValueError('Finite inputs and valid scales required')
+        self.tk = torch.tensor(self.k); self.tq = torch.tensor(self.q)
+        self.first_indices = [MONOMIALS.index(tuple(1 if j == a else 0 for j in range(3))) for a in range(3)]
+
+    def value_gradient(self, coordinates):
+        v = torch.tensor(np.asarray(coordinates).reshape(2, self.n, 5), dtype=torch.float64, requires_grad=True)
+        geometry = [torch_pose_geometry(self.tk, self.tq, v[j], self.angle, self.shift) for j in range(2)]
+        means, derivatives = [], []
+        for j, (k, phase, _) in enumerate(geometry):
+            moments = cell_fourier_moments(k.detach().numpy(), self.densities[j], self.box)
+            factor = self.ctf/self.noise*np.exp(-2j*np.pi*phase.detach().numpy())
+            means.append(factor*moments[..., 0].conj())
+            derivatives.append(factor[..., None]*(-2j*np.pi)*moments[..., self.first_indices].conj())
+        residual = means[1]-means[0]
+        value = float(np.sum(abs(residual)**2))
+        for j, (k, phase, _) in enumerate(geometry):
+            signed = (1 if j else -1)*residual.conj()
+            gk = 2*np.real(signed[..., None]*derivatives[j])
+            gp = 2*np.real(signed*(-2j*np.pi)*means[j])
+            torch.autograd.backward([k, phase], [torch.tensor(gk), torch.tensor(gp)])
+        gradient = v.grad.detach().numpy().ravel()
+        if not np.isfinite(value) or not np.isfinite(gradient).all():
+            raise FloatingPointError('Nonfinite pose-pair objective')
+        return value, gradient
+
+    def project(self, coordinates):
+        u = np.asarray(coordinates, float).reshape(2, self.n, 5)
+        return u/np.maximum(1., np.linalg.norm(u, axis=-1, keepdims=True))
+
+    def independent_distance(self, coordinates):
+        u = self.project(coordinates)
+        xyz = (np.indices((self.box,)*3).reshape(3, -1).T[:, ::-1]+.5)/self.box-.5
+        signals, comparison, pads = [], [], []
+        for j in range(2):
+            k = self.k@Rotation.from_rotvec(self.angle*u[j, :, :3]).as_matrix()
+            shift = self.shift*np.einsum('nqa,na->nq', self.q, u[j, :, 3:])
+            transfer = self.ctf/self.noise*np.prod(np.sinc(k/self.box), axis=-1)
+            out = np.empty((self.n, self.nq), complex)
+            for i in range(self.n):
+                out[i] = (np.exp(-2j*np.pi*(k[i]@xyz.T))@self.densities[j]/self.box**1.5
+                          *transfer[i]*np.exp(-2j*np.pi*shift[i]))
+            signal = np.concatenate([out.real, out.imag], axis=1).ravel(); signals.append(signal)
+            previous = pose_cell_forward(self.k, self.q, self.ctf, self.densities[j], self.box, self.noise, u[j], self.angle, self.shift)
+            comparison.append(float(np.linalg.norm(signal-previous)))
+            # Magnitude guard for direct cell sums, not a proof of trig rounding.
+            error = 128*np.finfo(float).eps*self.box**3*abs(transfer)*np.sum(abs(self.densities[j]))/self.box**1.5
+            pads.append(float(np.sqrt(2)*np.linalg.norm(error)))
+        distance = float(np.linalg.norm(signals[1]-signals[0]))
+        pad = sum(pads)+128*np.finfo(float).eps*max(1., np.linalg.norm(signals[0])+np.linalg.norm(signals[1]))
+        return distance+pad, {'unpadded_distance': distance, 'upward_roundoff_pad': float(pad),
+                              'direct_vs_nufft_signal_differences': comparison,
+                              'scope': 'All-particle direct physical-cell sums with heuristic floating magnitude guards'}
+
+
+def optimize_cell_pair_poses(problem, initial, max_evaluations=80, callback=None):
+    history = []; best = {'value': np.inf, 'poses': problem.project(initial)}
+    def objective(coordinates):
+        value, gradient = problem.value_gradient(coordinates)
+        row = {'evaluation': len(history)+1, 'squared_distance': value, 'gradient_norm': float(np.linalg.norm(gradient))}
+        history.append(row)
+        if value < best['value']:
+            best.update(value=value, poses=problem.project(coordinates).copy())
+        if callback is not None:
+            callback(row)
+        return value, gradient
+    fit = minimize(objective, np.asarray(initial).ravel(), jac=True, method='L-BFGS-B',
+                   options={'maxfun': max_evaluations, 'maxiter': max_evaluations, 'maxls': 20, 'ftol': 1e-9, 'gtol': 1e-6})
+    distance, audit = problem.independent_distance(best['poses'])
+    np.testing.assert_allclose(audit['unpadded_distance']**2, best['value'], rtol=2e-9, atol=1e-9)
+    return {'poses': best['poses'], 'mean_distance_upper': distance, 'distance_check': audit,
+            'optimizer_success': bool(fit.success), 'optimizer_message': str(fit.message),
+            'history': history, 'scope': 'Local feasible pose search, not a global ambiguity maximum'}

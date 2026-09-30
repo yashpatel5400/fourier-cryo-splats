@@ -75,3 +75,41 @@ intervals. This leaves a gap: the selected configurations need not maximize
 ambiguity, so these results do not prove that the larger upper bounds can be
 attained or substantially reduced. The testing statement also retains the
 declared white-Gaussian noise, density and nuisance assumptions.
+
+\paragraph{A bounded alternating ambiguity probe.}
+We next test whether changing the selected poses strengthens a witness, using
+one prespecified 10049 central-feature case at two degrees and $0.5\,\AA$.
+Project the two unscaled continuous densities onto a nested constant-cell basis
+containing the original pilot. Orthogonal projection cannot increase their
+distance from that pilot, so they remain in the original continuous class.
+We hold the projected densities fixed and minimize their whitened mean-image
+distance over both allowed pose collections. Analytic cell Fourier moments
+provide derivatives, while independent direct cell sums check every particle
+at the saved feasible poses. A subsequent density step returns to the full
+continuous modulus problem at those poses. Each witness is feasible without
+a global pose-optimization claim.
+
+The initial 24-, 48- and 72-cell pose steps give lower widths
+0.09624, 0.12169 and 0.12438 of no data, all below the source continuous
+witness's 0.12634. Cell projection changes the images and loses target energy;
+these outcomes are retained. Once the mean distance falls below the testing
+budget, pose fitting alone cannot enlarge that fixed pair's feature gap.
+Refitting the continuous densities at the 72-cell step's poses raises the
+lower width to 0.13884. The two further alternations allowed by the development
+protocol raise it to 0.14594 and 0.14962, with final fixed-pair bracket gap
+0.1422\%. We stop at the specified three rounds. This is a stronger selected
+witness, not a global ambiguity limit. The
+projected densities carry substantial negative-value energy (approximately
+0.49 and 0.36 of total squared norm in the 72-cell pair), illustrating why
+the stated signed class must not be confused with biological admissibility.
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{figures/pose-adaptive-ambiguity-round01.pdf}
+\caption{A continuous testing witness after the first alternating pose/density
+refit on 10049, displayed as 48-cell averages of the two central slices.
+The common color scale is symmetric and unclipped. These are constructed signed
+densities in the declared mathematical class, not experimental reconstructions
+or a pair asserted to be molecular structures. Their allowed poses and
+whitened image-mean distance yield the conditional fixed-length lower bound;
+the displayed projections are for visualization only.}
+\label{fig:pose-adaptive-ambiguity}
+\end{figure*}

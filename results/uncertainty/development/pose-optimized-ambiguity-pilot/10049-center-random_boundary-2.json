@@ -1,0 +1,667 @@
+{
+  "complete": true,
+  "scope": "Constructive conditional constant-cell ambiguity pair with locally optimized poses",
+  "config": {
+    "source": "two-pose-modulus-v3/10049-center-random_boundary-2.json",
+    "max_evaluations": 80,
+    "output": "pose-optimized-ambiguity-pilot"
+  },
+  "source_record_sha256": "7bcf59c32560423f79e9191eafce91d2e53b61c982f6efdcf41a9ea1ffa25129",
+  "source_arrays_sha256": "9277c521ebfcc63037d7784f9bd060dc004a20bdd8bd68a56f491cfc726f4a3e",
+  "source_snapshot": {
+    "git_head_at_snapshot": "3eeac97c692db512e875501a30a4dabdba81aee7",
+    "interpretation": "Exact archived source bytes are authoritative; HEAD may precede uncommitted development edits.",
+    "sources": {
+      "scripts/probe_uq_pose_ambiguity.py": {
+        "sha256": "9eb235a4021ab8cf1afd8298154f47f83e0bc5f3f78a414e725bd86f31afddc7",
+        "snapshot": "provenance/uncertainty/source-snapshots/9eb235a4021ab8cf1afd8298154f47f83e0bc5f3f78a414e725bd86f31afddc7.txt"
+      },
+      "scripts/audit_uq_grid_refinement.py": {
+        "sha256": "83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b",
+        "snapshot": "provenance/uncertainty/source-snapshots/83c8f44afefbaf3a56670bfb211b80989aea55c673811f92b9c92498eb009e2b.txt"
+      },
+      "research/uncertainty/POSE-OPTIMIZED-AMBIGUITY-PROTOCOL.md": {
+        "sha256": "ea0bbf97377d8166884adf3caf0679d1f6eb4a5c2261fb0591ae17e8b24c2e81",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea0bbf97377d8166884adf3caf0679d1f6eb4a5c2261fb0591ae17e8b24c2e81.txt"
+      },
+      "src/fourier_splats/__init__.py": {
+        "sha256": "ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06",
+        "snapshot": "provenance/uncertainty/source-snapshots/ad226b28ff70f563a94fd1a9bab582f73c4d36b451070711516bec0748692b06.txt"
+      },
+      "src/fourier_splats/adaptive.py": {
+        "sha256": "a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6",
+        "snapshot": "provenance/uncertainty/source-snapshots/a78462aec404cf07d4a9e0c55103b293ba15fc504fd9300a1fb7a57e38317bc6.txt"
+      },
+      "src/fourier_splats/basis.py": {
+        "sha256": "1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bc6653b778b828439bc1116585c20bdbd70c2c00f68562d3b914e8641975b18.txt"
+      },
+      "src/fourier_splats/fsc.py": {
+        "sha256": "58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865",
+        "snapshot": "provenance/uncertainty/source-snapshots/58bd5fefc22fb904691a49b88f55ee455f0c0653b32f1554339b75deb7128865.txt"
+      },
+      "src/fourier_splats/physics.py": {
+        "sha256": "c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef",
+        "snapshot": "provenance/uncertainty/source-snapshots/c243d9b2700ea6338caa894b23fce95779b143f047227af41aa1dcc7c40077ef.txt"
+      },
+      "src/fourier_splats/uncertainty.py": {
+        "sha256": "72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb",
+        "snapshot": "provenance/uncertainty/source-snapshots/72e5d3804a3af94553f2dc2c6f80ad5c86b88df3553a60a34feebad0c2a852cb.txt"
+      },
+      "src/fourier_splats/uq_ball_remainder.py": {
+        "sha256": "76444922eeccb57368130aec2f9b6075e8e1bcf2c5bdc4270f9df7afdf706865",
+        "snapshot": "provenance/uncertainty/source-snapshots/76444922eeccb57368130aec2f9b6075e8e1bcf2c5bdc4270f9df7afdf706865.txt"
+      },
+      "src/fourier_splats/uq_baselines.py": {
+        "sha256": "eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600",
+        "snapshot": "provenance/uncertainty/source-snapshots/eb6fdfb2b7a02e06c7005672b461ac38b953535de6b84d7b2080a6f31f345600.txt"
+      },
+      "src/fourier_splats/uq_cell_moments.py": {
+        "sha256": "52750091417da8c8f4b0d2a1a15055a2be66306a0efef57cd21362d737fd3532",
+        "snapshot": "provenance/uncertainty/source-snapshots/52750091417da8c8f4b0d2a1a15055a2be66306a0efef57cd21362d737fd3532.txt"
+      },
+      "src/fourier_splats/uq_cell_pose_pair.py": {
+        "sha256": "99800f55f6b97e5660bff9c0fdd262136aefb56926beeaf6eb94fbff28f4455f",
+        "snapshot": "provenance/uncertainty/source-snapshots/99800f55f6b97e5660bff9c0fdd262136aefb56926beeaf6eb94fbff28f4455f.txt"
+      },
+      "src/fourier_splats/uq_continuous.py": {
+        "sha256": "ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e",
+        "snapshot": "provenance/uncertainty/source-snapshots/ea9b9a5a2a38a0bb54db85cc5b4b130975675de1c207bc7e3c37bd6a79f0ae5e.txt"
+      },
+      "src/fourier_splats/uq_continuous_moments.py": {
+        "sha256": "dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e",
+        "snapshot": "provenance/uncertainty/source-snapshots/dd0d210c74c2781c3a774e212d0ff3c168e257264a4d780648d985efb5777a0e.txt"
+      },
+      "src/fourier_splats/uq_continuous_pose.py": {
+        "sha256": "e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9",
+        "snapshot": "provenance/uncertainty/source-snapshots/e8a14a2ab19b8d2d3d399cd233fd8bb680fd04b6397229056ff993dda4e654b9.txt"
+      },
+      "src/fourier_splats/uq_continuous_quadrature.py": {
+        "sha256": "2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e",
+        "snapshot": "provenance/uncertainty/source-snapshots/2f7d6b6ad74c9adc7bd21849a643082e529a4cb4e980e82305eec8c8d349095e.txt"
+      },
+      "src/fourier_splats/uq_ctf_uncertainty.py": {
+        "sha256": "17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e",
+        "snapshot": "provenance/uncertainty/source-snapshots/17de2eeece67c5c718b4db8c2d3e7b4fe7ce8e0a5b983e1c02bb7a0a80dd504e.txt"
+      },
+      "src/fourier_splats/uq_data.py": {
+        "sha256": "71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840",
+        "snapshot": "provenance/uncertainty/source-snapshots/71553316499930a443cb562480fe03e59f510981767293132d68c13fe9b0d840.txt"
+      },
+      "src/fourier_splats/uq_dual_mixture.py": {
+        "sha256": "1bee7c71afe2fb2cc2a85c985cb0fc41ecdb992df4a6fa066a0ac407dfab75c8",
+        "snapshot": "provenance/uncertainty/source-snapshots/1bee7c71afe2fb2cc2a85c985cb0fc41ecdb992df4a6fa066a0ac407dfab75c8.txt"
+      },
+      "src/fourier_splats/uq_fourier_variational.py": {
+        "sha256": "f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668",
+        "snapshot": "provenance/uncertainty/source-snapshots/f66ac1d4c316e6db7575be13701513b799dc67295e09ef6665af54476ee3b668.txt"
+      },
+      "src/fourier_splats/uq_intervals.py": {
+        "sha256": "559096dddfa91fbb5f3d50d57e06f08b47806889002a7ef00e6530ee28762113",
+        "snapshot": "provenance/uncertainty/source-snapshots/559096dddfa91fbb5f3d50d57e06f08b47806889002a7ef00e6530ee28762113.txt"
+      },
+      "src/fourier_splats/uq_joint_bias.py": {
+        "sha256": "a580d40a4d23b565b4ffeee26a68bdc74324bfde2025a7b478a169469de87f23",
+        "snapshot": "provenance/uncertainty/source-snapshots/a580d40a4d23b565b4ffeee26a68bdc74324bfde2025a7b478a169469de87f23.txt"
+      },
+      "src/fourier_splats/uq_noise.py": {
+        "sha256": "52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f",
+        "snapshot": "provenance/uncertainty/source-snapshots/52fca66302c9dc3fa295c44c2365e8a5b5c12c8d995dd4aaa126c8ba92ffba1f.txt"
+      },
+      "src/fourier_splats/uq_noise_calibration.py": {
+        "sha256": "fe682c20ad84439ee8ea53db70756fd6bfc5f3c2bb86a9944c0e7aabbc80ac88",
+        "snapshot": "provenance/uncertainty/source-snapshots/fe682c20ad84439ee8ea53db70756fd6bfc5f3c2bb86a9944c0e7aabbc80ac88.txt"
+      },
+      "src/fourier_splats/uq_noise_design.py": {
+        "sha256": "0cd9be354e54be2db44d60b48155c83db386308efcbac9030f417b91edee2f34",
+        "snapshot": "provenance/uncertainty/source-snapshots/0cd9be354e54be2db44d60b48155c83db386308efcbac9030f417b91edee2f34.txt"
+      },
+      "src/fourier_splats/uq_nonlinear_stress.py": {
+        "sha256": "a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc",
+        "snapshot": "provenance/uncertainty/source-snapshots/a2d38a2d4bb3813ece7d4577745e9b951923d7a8b057330eb74b3bf2a79a0edc.txt"
+      },
+      "src/fourier_splats/uq_physics.py": {
+        "sha256": "f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7",
+        "snapshot": "provenance/uncertainty/source-snapshots/f900c3932ad23f5e3443999501b42c063e03756276f396dae5a49e2549c4d5c7.txt"
+      },
+      "src/fourier_splats/uq_planned_transforms.py": {
+        "sha256": "4e3d2b1a36306e8ade316c639341708714978071efc9fc9b8867346dd0e3fa25",
+        "snapshot": "provenance/uncertainty/source-snapshots/4e3d2b1a36306e8ade316c639341708714978071efc9fc9b8867346dd0e3fa25.txt"
+      },
+      "src/fourier_splats/uq_pose_audit.py": {
+        "sha256": "5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f",
+        "snapshot": "provenance/uncertainty/source-snapshots/5639f57de76d519c3c55e39173ff284f708e99ef98d34b9395afc985f037645f.txt"
+      },
+      "src/fourier_splats/uq_pose_exchange.py": {
+        "sha256": "d38df2b6c49691327012c1311f11798c747bf93c708cff358a738d8efe57b934",
+        "snapshot": "provenance/uncertainty/source-snapshots/d38df2b6c49691327012c1311f11798c747bf93c708cff358a738d8efe57b934.txt"
+      },
+      "src/fourier_splats/uq_pose_operator.py": {
+        "sha256": "bef8b42a4e9b8ff18475add7646785e19f4274620c1ec2a6ee87ed36f351ef1c",
+        "snapshot": "provenance/uncertainty/source-snapshots/bef8b42a4e9b8ff18475add7646785e19f4274620c1ec2a6ee87ed36f351ef1c.txt"
+      },
+      "src/fourier_splats/uq_pose_optimization.py": {
+        "sha256": "b9bfbe18c40dd80e649f80ae684085dfefc8df8201260697eb219858a9faadcf",
+        "snapshot": "provenance/uncertainty/source-snapshots/b9bfbe18c40dd80e649f80ae684085dfefc8df8201260697eb219858a9faadcf.txt"
+      },
+      "src/fourier_splats/uq_provenance.py": {
+        "sha256": "c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb",
+        "snapshot": "provenance/uncertainty/source-snapshots/c8ecbc89dd9a52101135e57dcd6ea2487160be85a84dfd38ed2fc1b9b2fecbfb.txt"
+      },
+      "src/fourier_splats/uq_random_spectral.py": {
+        "sha256": "55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e",
+        "snapshot": "provenance/uncertainty/source-snapshots/55fda6404b6823790e7ba08ee1cca4a47250e2ab6f2671e9cc7e035053f6437e.txt"
+      },
+      "src/fourier_splats/uq_shared_density.py": {
+        "sha256": "d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261",
+        "snapshot": "provenance/uncertainty/source-snapshots/d35f7f032c9a6e9e1a1ec8e47f3be0a39a70e8a1da09e15de7867f625abb0261.txt"
+      },
+      "src/fourier_splats/uq_subspace.py": {
+        "sha256": "42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef",
+        "snapshot": "provenance/uncertainty/source-snapshots/42c14780e26cfc4e58d942b14ebc5fa81d7a302d54135f172a17d892e5d9fbef.txt"
+      },
+      "src/fourier_splats/uq_support.py": {
+        "sha256": "771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a",
+        "snapshot": "provenance/uncertainty/source-snapshots/771dd83d2afc30502dc428c39050ebb880862ba98b3158363c179a041150025a.txt"
+      },
+      "src/fourier_splats/uq_target_projection.py": {
+        "sha256": "d0c88fcd3b813747a606b1999d525a9a2a52bd57e9788e067dde83729d33e6e5",
+        "snapshot": "provenance/uncertainty/source-snapshots/d0c88fcd3b813747a606b1999d525a9a2a52bd57e9788e067dde83729d33e6e5.txt"
+      },
+      "src/fourier_splats/uq_two_pose_modulus.py": {
+        "sha256": "d768bcfa0c75d8c8ae5f1b45bc347697ff9dd098a77f1a63cc87b7e0d6bfb71d",
+        "snapshot": "provenance/uncertainty/source-snapshots/d768bcfa0c75d8c8ae5f1b45bc347697ff9dd098a77f1a63cc87b7e0d6bfb71d.txt"
+      }
+    },
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+    "platform": "macOS-15.7.4-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "finufft": "2.5.1",
+      "torch": "2.14.0",
+      "cvxpy": "1.9.3",
+      "mrcfile": "1.5.4"
+    }
+  },
+  "dataset": "10049",
+  "target": "center",
+  "alpha": 0.05,
+  "density_radius": 2.0,
+  "pilot_norm": 1.0,
+  "pose_set": "joint_scaled_five_dimensional_ball",
+  "rotation_radius_degrees": 2.0,
+  "translation_radius_A": 0.5,
+  "width_fraction_field": 0.07,
+  "no_data_half_width": 16.179888991047914,
+  "source_relative_half_width_lower": 0.12634226499701695,
+  "box": 24,
+  "noise_std": 0.017806195885973968,
+  "field_A": 236.16000366210938,
+  "inward_projection_factors": [
+    1.0,
+    1.0
+  ],
+  "projected_class_distances": [
+    1.7836063579416024,
+    1.7890789302538928
+  ],
+  "projected_unscaled_feature_gap": 3.5028240910959263,
+  "target_gap_downward_pad": 4.923126289828043e-13,
+  "projected_initial_distance": 4.257940837060263,
+  "projected_initial_check": {
+    "unpadded_distance": 4.257939041850699,
+    "upward_roundoff_pad": 1.7952095643163545e-06,
+    "direct_vs_nufft_signal_differences": [
+      2.474375358617599e-10,
+      2.683677357526965e-10
+    ],
+    "scope": "All-particle direct physical-cell sums with heuristic floating magnitude guards"
+  },
+  "projected_initial_relative_half_width_lower": 0.08362324046119987,
+  "fit": {
+    "mean_distance_upper": 3.699800657149399,
+    "distance_check": {
+      "unpadded_distance": 3.699798861942112,
+      "upward_roundoff_pad": 1.7952072872565312e-06,
+      "direct_vs_nufft_signal_differences": [
+        2.4843428002727037e-10,
+        2.6601360789056686e-10
+      ],
+      "scope": "All-particle direct physical-cell sums with heuristic floating magnitude guards"
+    },
+    "optimizer_success": false,
+    "optimizer_message": "STOP: TOTAL NO. OF F,G EVALUATIONS EXCEEDS LIMIT",
+    "history": [
+      {
+        "evaluation": 1,
+        "squared_distance": 18.130044884112827,
+        "gradient_norm": 2.115488378901103
+      },
+      {
+        "evaluation": 2,
+        "squared_distance": 17.185334436660696,
+        "gradient_norm": 0.8307902707200828
+      },
+      {
+        "evaluation": 3,
+        "squared_distance": 16.724641289100376,
+        "gradient_norm": 0.5930848263726525
+      },
+      {
+        "evaluation": 4,
+        "squared_distance": 15.973084320695524,
+        "gradient_norm": 0.49696653161204224
+      },
+      {
+        "evaluation": 5,
+        "squared_distance": 15.632099069921216,
+        "gradient_norm": 0.6108802097589235
+      },
+      {
+        "evaluation": 6,
+        "squared_distance": 15.269083897473049,
+        "gradient_norm": 0.33222926909367934
+      },
+      {
+        "evaluation": 7,
+        "squared_distance": 15.014750693332488,
+        "gradient_norm": 0.3014422178537041
+      },
+      {
+        "evaluation": 8,
+        "squared_distance": 14.783681614842482,
+        "gradient_norm": 0.32328312964316086
+      },
+      {
+        "evaluation": 9,
+        "squared_distance": 14.569538024109958,
+        "gradient_norm": 0.22294554076463718
+      },
+      {
+        "evaluation": 10,
+        "squared_distance": 14.394560273177941,
+        "gradient_norm": 0.18119523980548924
+      },
+      {
+        "evaluation": 11,
+        "squared_distance": 14.217749025943192,
+        "gradient_norm": 0.2774700070887613
+      },
+      {
+        "evaluation": 12,
+        "squared_distance": 14.067672494357446,
+        "gradient_norm": 0.13530355572754285
+      },
+      {
+        "evaluation": 13,
+        "squared_distance": 14.001387803404473,
+        "gradient_norm": 0.08424957366995098
+      },
+      {
+        "evaluation": 14,
+        "squared_distance": 13.918146660450184,
+        "gradient_norm": 0.07597211520177323
+      },
+      {
+        "evaluation": 15,
+        "squared_distance": 13.853660143719072,
+        "gradient_norm": 0.08399175867476086
+      },
+      {
+        "evaluation": 16,
+        "squared_distance": 13.819794868841411,
+        "gradient_norm": 0.09050731297694398
+      },
+      {
+        "evaluation": 17,
+        "squared_distance": 13.79253563501053,
+        "gradient_norm": 0.04834457191037555
+      },
+      {
+        "evaluation": 18,
+        "squared_distance": 13.766416999346962,
+        "gradient_norm": 0.043237633039445104
+      },
+      {
+        "evaluation": 19,
+        "squared_distance": 13.74804098243493,
+        "gradient_norm": 0.043539449115629736
+      },
+      {
+        "evaluation": 20,
+        "squared_distance": 13.745904439796231,
+        "gradient_norm": 0.08627058268990587
+      },
+      {
+        "evaluation": 21,
+        "squared_distance": 13.729783075324725,
+        "gradient_norm": 0.027430744263810834
+      },
+      {
+        "evaluation": 22,
+        "squared_distance": 13.724964162417484,
+        "gradient_norm": 0.019368653236326635
+      },
+      {
+        "evaluation": 23,
+        "squared_distance": 13.71797381576296,
+        "gradient_norm": 0.02265221377857786
+      },
+      {
+        "evaluation": 24,
+        "squared_distance": 13.711029183960115,
+        "gradient_norm": 0.019835769868510957
+      },
+      {
+        "evaluation": 25,
+        "squared_distance": 13.711723958885916,
+        "gradient_norm": 0.052377608337255604
+      },
+      {
+        "evaluation": 26,
+        "squared_distance": 13.707364115515475,
+        "gradient_norm": 0.02672077975439183
+      },
+      {
+        "evaluation": 27,
+        "squared_distance": 13.702896214512656,
+        "gradient_norm": 0.012064653514105394
+      },
+      {
+        "evaluation": 28,
+        "squared_distance": 13.700828875890162,
+        "gradient_norm": 0.010080292280900686
+      },
+      {
+        "evaluation": 29,
+        "squared_distance": 13.698569593993826,
+        "gradient_norm": 0.012877836235399991
+      },
+      {
+        "evaluation": 30,
+        "squared_distance": 13.69687241153214,
+        "gradient_norm": 0.013742164866387883
+      },
+      {
+        "evaluation": 31,
+        "squared_distance": 13.695542938300413,
+        "gradient_norm": 0.01034345416559185
+      },
+      {
+        "evaluation": 32,
+        "squared_distance": 13.694513382021217,
+        "gradient_norm": 0.00661742877529072
+      },
+      {
+        "evaluation": 33,
+        "squared_distance": 13.693784203777213,
+        "gradient_norm": 0.0068875081099333
+      },
+      {
+        "evaluation": 34,
+        "squared_distance": 13.693146946928541,
+        "gradient_norm": 0.013225827455934203
+      },
+      {
+        "evaluation": 35,
+        "squared_distance": 13.692327736192361,
+        "gradient_norm": 0.005475819057481987
+      },
+      {
+        "evaluation": 36,
+        "squared_distance": 13.691887554126577,
+        "gradient_norm": 0.00475883896990236
+      },
+      {
+        "evaluation": 37,
+        "squared_distance": 13.69134362853642,
+        "gradient_norm": 0.005412985141432335
+      },
+      {
+        "evaluation": 38,
+        "squared_distance": 13.690919533154466,
+        "gradient_norm": 0.009052763333590662
+      },
+      {
+        "evaluation": 39,
+        "squared_distance": 13.690446687193386,
+        "gradient_norm": 0.0037965040793862827
+      },
+      {
+        "evaluation": 40,
+        "squared_distance": 13.690199154269456,
+        "gradient_norm": 0.0030918185104713714
+      },
+      {
+        "evaluation": 41,
+        "squared_distance": 13.68992392399221,
+        "gradient_norm": 0.003869246173827678
+      },
+      {
+        "evaluation": 42,
+        "squared_distance": 13.68989085893581,
+        "gradient_norm": 0.0098196930964107
+      },
+      {
+        "evaluation": 43,
+        "squared_distance": 13.68957287737905,
+        "gradient_norm": 0.003163321780345472
+      },
+      {
+        "evaluation": 44,
+        "squared_distance": 13.689474882042045,
+        "gradient_norm": 0.002102547727576436
+      },
+      {
+        "evaluation": 45,
+        "squared_distance": 13.689361489616713,
+        "gradient_norm": 0.002725716635821147
+      },
+      {
+        "evaluation": 46,
+        "squared_distance": 13.689255001562396,
+        "gradient_norm": 0.0049598420536636845
+      },
+      {
+        "evaluation": 47,
+        "squared_distance": 13.689130256957153,
+        "gradient_norm": 0.0025549411088852366
+      },
+      {
+        "evaluation": 48,
+        "squared_distance": 13.689033820309842,
+        "gradient_norm": 0.001781330866589179
+      },
+      {
+        "evaluation": 49,
+        "squared_distance": 13.688966184148047,
+        "gradient_norm": 0.00207874283406079
+      },
+      {
+        "evaluation": 50,
+        "squared_distance": 13.688908617158269,
+        "gradient_norm": 0.0030738597762330526
+      },
+      {
+        "evaluation": 51,
+        "squared_distance": 13.688849109077882,
+        "gradient_norm": 0.0014544452632430768
+      },
+      {
+        "evaluation": 52,
+        "squared_distance": 13.688811323046073,
+        "gradient_norm": 0.0013943218963445255
+      },
+      {
+        "evaluation": 53,
+        "squared_distance": 13.688764954135547,
+        "gradient_norm": 0.0015164868870369624
+      },
+      {
+        "evaluation": 54,
+        "squared_distance": 13.688751354174409,
+        "gradient_norm": 0.0038259732940738134
+      },
+      {
+        "evaluation": 55,
+        "squared_distance": 13.688695473329181,
+        "gradient_norm": 0.0011607144882563002
+      },
+      {
+        "evaluation": 56,
+        "squared_distance": 13.68867854149268,
+        "gradient_norm": 0.0008523280321749286
+      },
+      {
+        "evaluation": 57,
+        "squared_distance": 13.688657392376374,
+        "gradient_norm": 0.0009881999532743908
+      },
+      {
+        "evaluation": 58,
+        "squared_distance": 13.688633295453648,
+        "gradient_norm": 0.00109234565840386
+      },
+      {
+        "evaluation": 59,
+        "squared_distance": 13.688637930899962,
+        "gradient_norm": 0.0028020970349403296
+      },
+      {
+        "evaluation": 60,
+        "squared_distance": 13.688620131434277,
+        "gradient_norm": 0.001202911172143712
+      },
+      {
+        "evaluation": 61,
+        "squared_distance": 13.688607813177555,
+        "gradient_norm": 0.0006847833476767848
+      },
+      {
+        "evaluation": 62,
+        "squared_distance": 13.688599347202443,
+        "gradient_norm": 0.0007761549191899178
+      },
+      {
+        "evaluation": 63,
+        "squared_distance": 13.688589995886101,
+        "gradient_norm": 0.0009878733189907054
+      },
+      {
+        "evaluation": 64,
+        "squared_distance": 13.688580794377536,
+        "gradient_norm": 0.0006440460381746609
+      },
+      {
+        "evaluation": 65,
+        "squared_distance": 13.688573179116656,
+        "gradient_norm": 0.0005499966384467902
+      },
+      {
+        "evaluation": 66,
+        "squared_distance": 13.688567562083765,
+        "gradient_norm": 0.0007403508156017446
+      },
+      {
+        "evaluation": 67,
+        "squared_distance": 13.688561387154222,
+        "gradient_norm": 0.0005880796813455892
+      },
+      {
+        "evaluation": 68,
+        "squared_distance": 13.688554775980569,
+        "gradient_norm": 0.0005542187467008618
+      },
+      {
+        "evaluation": 69,
+        "squared_distance": 13.688550173380367,
+        "gradient_norm": 0.0007603070554138082
+      },
+      {
+        "evaluation": 70,
+        "squared_distance": 13.68854578512406,
+        "gradient_norm": 0.00048668470140137646
+      },
+      {
+        "evaluation": 71,
+        "squared_distance": 13.688540066813708,
+        "gradient_norm": 0.0004481964644463857
+      },
+      {
+        "evaluation": 72,
+        "squared_distance": 13.688536169679828,
+        "gradient_norm": 0.0005466179992788485
+      },
+      {
+        "evaluation": 73,
+        "squared_distance": 13.688531802427718,
+        "gradient_norm": 0.0005877289968437804
+      },
+      {
+        "evaluation": 74,
+        "squared_distance": 13.68852831569185,
+        "gradient_norm": 0.0004011495050446615
+      },
+      {
+        "evaluation": 75,
+        "squared_distance": 13.688525245624238,
+        "gradient_norm": 0.0004052634141285825
+      },
+      {
+        "evaluation": 76,
+        "squared_distance": 13.688522679570639,
+        "gradient_norm": 0.0005979683829075849
+      },
+      {
+        "evaluation": 77,
+        "squared_distance": 13.688519759758158,
+        "gradient_norm": 0.00040201238626752023
+      },
+      {
+        "evaluation": 78,
+        "squared_distance": 13.688517660567967,
+        "gradient_norm": 0.0003155286997499866
+      },
+      {
+        "evaluation": 79,
+        "squared_distance": 13.688515072369654,
+        "gradient_norm": 0.00032639996953317857
+      },
+      {
+        "evaluation": 80,
+        "squared_distance": 13.688513219798264,
+        "gradient_norm": 0.00044760186161117433
+      },
+      {
+        "evaluation": 81,
+        "squared_distance": 13.688511618825503,
+        "gradient_norm": 0.0002733112139370517
+      }
+    ],
+    "scope": "Local feasible pose search, not a global ambiguity maximum"
+  },
+  "final_distance_check": {
+    "unpadded_distance": 3.6997988619425763,
+    "upward_roundoff_pad": 1.7952072872565312e-06,
+    "direct_vs_nufft_signal_differences": [
+      2.484339495193252e-10,
+      2.660135300362213e-10
+    ],
+    "scope": "All-particle direct physical-cell sums with heuristic floating magnitude guards"
+  },
+  "mean_distance_upper": 3.2893782831775553,
+  "unscaled_mean_distance_upper": 3.6998006571498636,
+  "common_density_scale": 0.8890690574966067,
+  "final_class_distances": [
+    1.60474586034513,
+    1.5979629909208555
+  ],
+  "maximum_pose_norm": 0.9999999999990001,
+  "minimum_sum_testing_error": 0.10003393319645473,
+  "fixed_length_half_width_lower": 1.5571262566235315,
+  "relative_half_width_lower": 0.09623837700524804,
+  "arrays_sha256": "069a788a603959195570264157ae614f8a3014bb5f4e137421f15ec9868e6ca7",
+  "seconds": 8.588222290971316,
+  "numerical_scope": "Exact cell Fourier integrals in real arithmetic; NUFFT and floating magnitude guards are not interval validated"
+}

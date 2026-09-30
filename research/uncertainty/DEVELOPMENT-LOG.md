@@ -884,3 +884,46 @@ frequencies, scaled detector embeddings, product directions, large angles and
 finite differences. Six independent 60-decimal derivative-norm checks have
 maximum relative discrepancy 4.501e-16. The suite passes 116 tests in 6.57 s.
 These fixes leave the first full-paper rejection and usefulness limitations intact.
+
+A bounded pose-optimized ambiguity pilot follows a written prospective protocol.
+The 24/48/72-cell projections are feasible subclasses of the original continuous
+ball, with the original pilot prolonged exactly. Local pose fitting improves
+each projected pair but yields relative lower widths 0.09624/0.12169/0.12438,
+all below the source continuous witness (0.12634). No larger fixed-density grid
+was launched. The higher-resolution projected pair already has testing-distance
+slack, so a subsequent continuous-density refit at those poses is a distinct,
+prospectively specified next step. That first refit reaches 0.13884 (fixed-pair
+bracket gap 0.2694%). Two further bounded alternations are running. None is a
+global pose maximum. The witnesses contain substantial negative-density energy;
+they demonstrate the declared signed class, not biological admissibility.
+An initial unit-test mismatch arose because the old forward NUFFT uses a looser
+requested tolerance than the analytic-moment path. The final distance is now
+checked with direct physical-cell sums for every particle, with recorded NUFFT
+discrepancies and magnitude pads. The current suite passes 118 tests in 6.45 s.
+
+Two additional targeted primary readings, CryoPROS and CoCoFold, bring the curated
+candidate list to 100. The exact XML sources and selected sections are recorded;
+this is not a full-reading count. Their validation controls motivate acquisition-
+intervention and structural-prior tests without supplying calibrated pose sets.
+
+The bounded alternating ambiguity pilot has completed its three planned density
+refits. Relative lower widths are 0.138839, 0.145941 and 0.149617, with final
+fixed-pair bracket gap 0.1422%. No further alternation was launched. The manuscript
+retains all projection losses and the signed-density limitation, and depicts the
+first continuous witness. The latest 10076 contrast/two-degree optimization also
+completed; its same-weight pilot refinement is 0.51237 of no data with zero
+reference sign power. The completed 10028 center/two-degree refinement is
+0.43581, also with zero power. These improvements do not establish practical
+feature detection or global optimizer convergence.
+
+A new pilot-only target-selection lock fixes three positive smoothed regions
+per stack and a center control, all at 20 Å Gaussian standard deviation. It uses
+only independent pilot coefficients, with at least 40 Å between the selected
+regions. All 12 targets are retained. A subsequent written experiment allocates
+a family error budget before any new reference outcomes; the first fixed fit
+is running. This is a development utility check, not a new confirmation or a
+10 Å resolution claim. Its optional experimental application is also specified
+before feature outcomes, using independent exposure representatives and a
+group-size variance inflation to allow arbitrary within-exposure Gaussian
+dependence. Other experimental assumptions remain unverified. Target-lock,
+score-replay and group-noise tests pass; no new target outcomes are claimed yet.

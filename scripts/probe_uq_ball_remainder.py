@@ -104,10 +104,16 @@ def main():
         half = bias_aware_half_width_stable(audit['noise_sd'], bias, audit['alpha_noise'])
         row = next(r for r in fit_record['targets'] if r['target'] == target)
         no_data = B*row['fit']['target_norm']
-        # All source scenarios used the no-data fallback; their center records the pilot target.
-        if not audit['uses_no_data']:
-            raise ValueError('This probe requires a source fallback record to recover its pilot target')
-        checks = [dict(scenario=r['scenario'], **reference_interval_summary(r['true_target'], r['raw_expected_center'], audit['noise_sd'], r['expected_center'], half, no_data)) for r in audit['reference_checks']]
+        # New audits save the pilot explicitly. Old fallback records centered on
+        # that same pilot, so only those can recover it without a stored field.
+        if 'pilot_target' in audit:
+            pilot_target = audit['pilot_target']
+        elif audit['uses_no_data']:
+            pilot_target = audit['reference_checks'][0]['expected_center']
+            np.testing.assert_allclose([r['expected_center'] for r in audit['reference_checks']], pilot_target)
+        else:
+            raise ValueError('Source must save the pilot target or use the no-data fallback')
+        checks = [dict(scenario=r['scenario'], **reference_interval_summary(r['true_target'], r['raw_expected_center'], audit['noise_sd'], pilot_target, half, no_data)) for r in audit['reference_checks']]
         np.savez(path.with_suffix('.npz'), old_cubic_per_particle=old, ball_cubic_per_particle=ball,
                  selected_cubic_per_particle=selected, sobolev_norms=np.array([r['sobolev_norms'] for r in records]),
                  path_speed_bounds=np.array([r['path_speed_bound'] for r in records]), indices=g['indices'])
@@ -119,6 +125,8 @@ def main():
                       maximum_ball_over_old=float(np.max(ball/old)), bias_upper=bias, half_width=half,
                       selected_relative_half_width=min(1., half/no_data), uses_no_data=bool(half >= no_data),
                       reference_checks=checks, minimum_reference_power=min(r['correct_sign_probability'] for r in checks),
+                      reference_coverage_failure=any(r['analytic_coverage'] < 1-audit['alpha_noise']-1e-8 for r in checks),
+                      pilot_target=pilot_target,
                       maximum_embedding_phase_residual=max(r['maximum_phase_residual'] for r in records),
                       embedding_residual_bias=(B+P)*sum(r['embedding_residual_remainder'] for r in records),
                       maximum_relative_sobolev_pad=max(d['roundoff_pad']/max(abs(d['squared_unpadded']), np.finfo(float).tiny) for r in records for d in r['sobolev_diagnostics']),

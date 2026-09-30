@@ -43,6 +43,13 @@ A [two-pose ambiguity construction](research/uncertainty/TWO-POSE-MODULUS.md)
 now supplies fixed-length lower bounds on the same continuous class. Its
 30-case three-stack grid is complete and mathematically audited, but selected
 pose pairs do not determine the global unknown-pose limit.
+A bounded [alternating ambiguity probe](research/uncertainty/POSE-OPTIMIZED-AMBIGUITY-PROTOCOL.md)
+raises one feasible lower width from 0.126 to 0.150 of no data over three
+prespecified density/pose refits. Its signed witnesses are not asserted to be
+molecular structures. A new [pilot-selected target study](research/uncertainty/pilot-selected-targets-v1/EXPERIMENT.md)
+has locked three regions and a matched-scale center control per stack before
+reference evaluation. It is running; no outcome or experimental calibration
+claim is made for it yet.
 An [enclosing-domain remainder refinement](research/uncertainty/BALL-SOBOLEV-REMAINDER-PROPOSAL.md)
 retains Fourier cancellation: on that higher-band case it reduces the cubic
 bias from 56.493 to 21.110 and the interval to 0.751 of no-data width. Reference

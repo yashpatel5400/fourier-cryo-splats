@@ -40,7 +40,8 @@ def main():
         patterns=['experimental-noise-grouped','fourier-variational-*','continuous-support-probe','continuous-high-band-*',
                   'matrix-free-pose-*','pose-aware-*','pose-exchange-*','pose-dual-*',
                   'pose-optimized-diagnostics','noise-metric-design','directional-noise-audit','joint-bias-*','two-pose-modulus*',
-                  'ball-remainder-probe*','expanded-cube-remainder-probe*']
+                  'ball-remainder-probe*','expanded-cube-remainder-probe*',
+                  'pose-optimized-ambiguity*','pose-adaptive-*','pilot-selected-*']
         additions=set()
         for pattern in patterns:
             for folder in development.glob(pattern):
