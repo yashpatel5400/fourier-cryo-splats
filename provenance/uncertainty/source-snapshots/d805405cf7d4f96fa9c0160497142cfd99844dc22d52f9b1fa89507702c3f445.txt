@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+"""Prospective discrete-view/oracle-predictor feasibility screen, not SO(3) UQ."""
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import time
+import numpy as np
+from scipy.special import logsumexp
+from fourier_splats.uq_cell_moments import cell_fourier_moments
+from fourier_splats.uq_data import particle_geometry, VoxelReference
+from fourier_splats.uq_mixture_validation import gaussian_ball_log_upper, mixture_envelope_upper
+from fourier_splats.uq_provenance import source_snapshot
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = ROOT/'results/uncertainty/development'
+PROTOCOL = ROOT/'research/uncertainty/MIXTURE-VALIDATION-PREFLIGHT-PROTOCOL.md'
+
+
+def sha(p):
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+
+
+def main():
+    source_files = [Path(__file__), PROTOCOL,
+        ROOT/'src/fourier_splats/uq_mixture_validation.py',
+        ROOT/'tests/test_uq_mixture_validation.py',
+        ROOT/'research/uncertainty/MIXTURE-VALIDATION-CANDIDATE.md',
+        ROOT/'research/uncertainty/MIXTURE-VALIDATION-PREFLIGHT-RETRY.md']
+    for path in source_files:
+        if subprocess.check_output(['git', 'show', f'HEAD:{path.relative_to(ROOT)}'], cwd=ROOT) != path.read_bytes():
+            raise ValueError('Commit the protocol and implementation before outcomes')
+    out = BASE/'mixture-validation-preflight-v2'
+    if out.exists():
+        raise RuntimeError('Preserve previous outcomes')
+    out.mkdir()
+    started = time.perf_counter()
+    all_summaries = []
+    target_path = ROOT/'research/uncertainty/pilot-selected-targets-v1/locked-targets.json'
+    target_lock = json.loads(target_path.read_text())
+    for ds, emd in [('10028', '2660'), ('10049', '6487'), ('10076', '8434')]:
+        path = out/f'{ds}.json'
+        record = dict(complete=False, dataset=ds, seed=810001+int(ds),
+            scope='Discrete 64-view catalog, oracle numerator, prescribed Gaussian simulations; not continuous or experimental calibration.',
+            source_snapshot=source_snapshot(ROOT, Path(__file__), [str(p.relative_to(ROOT)) for p in source_files[1:]]),
+            repeats=[])
+        def save():
+            path.write_text(json.dumps(record, indent=2)+'\n')
+        save()
+        observations, latent_indices = [], []
+        try:
+            fitpath = BASE/f'pilot-selected-fixed-v1/{ds}-pilot_region_1.json'
+            fit = json.loads(fitpath.read_text()); cfg = fit['config']
+            info_path = BASE/f'oracle-pose-information-v1/{ds}.json'
+            info = json.loads(info_path.read_text()); noise = info['noise_std_supplied']
+            g = particle_geometry(ROOT, ds, 'inference_half0', radius=12, count=128, seed=cfg['seed'])
+            np.testing.assert_array_equal(g['indices'], info['indices'])
+            target = next(d for d in target_lock['datasets'] if d['dataset'] == ds)['features'][0]
+            assert target['name'] == 'pilot_region_1'
+            center = np.array(target['center_fraction_field'])
+            reference_path = ROOT/f'data/uncertainty/references/emd_{emd}.map'
+            reference = VoxelReference.from_mrc(reference_path, box=64).volume.ravel()
+            reference /= np.linalg.norm(reference)
+            coordinate = (np.arange(64)+.5)/64-.5
+            z, y, x = np.meshgrid(coordinate, coordinate, coordinate, indexing='ij')
+            xyz = np.stack([x.ravel(), y.ravel(), z.ravel()], axis=-1)
+            bump = np.exp(-.5*np.sum((xyz-center)**2, axis=1)/(20./g['field_A'])**2)
+            names = ['true_map', 'region_half_removed', 'region_removed', 'zero_signal']
+            signals = [reference, reference*(1-.5*bump), reference*(1-bump), np.zeros_like(reference)]
+            templates = np.array([cell_fourier_moments(g['k'][:64], v, 64, nthreads=1).conj()[..., 0]
+                                  for v in signals])
+            complex_means = g['ctf'][None, :, None, :]*templates[:, None, :, :]/noise
+            means = np.concatenate([complex_means.real, complex_means.imag], axis=-1)
+            dimension = means.shape[-1]
+            record.update(dimension=dimension, particles=128, views=64,
+                noise_std=noise, frequency_radius=12, field_A=g['field_A'],
+                target=target, original_indices=g['indices'].tolist(),
+                catalog_indices=g['indices'][:64].tolist(),
+                density_l2_changes={n:float(np.linalg.norm(v-reference)) for n,v in zip(names,signals)},
+                mean_squared_whitened_forward_changes={n:float(np.mean(np.sum((m-means[0])**2, axis=-1))) for n,m in zip(names,means)},
+                input_hashes={str(p.relative_to(ROOT)):sha(p) for p in [target_path,fitpath,info_path,reference_path,ROOT/f'data/{ds}/metadata.npz',ROOT/f'research/uncertainty/splits/{ds}.csv']})
+            rng = np.random.default_rng(record['seed'])
+            observations, latent_indices = [], []
+            for repeat in range(16):
+                if time.perf_counter()-started > 1200:
+                    raise TimeoutError('Prespecified 20-minute overall budget reached between repeats')
+                latent = rng.integers(0,64,size=128)
+                observed = means[0,np.arange(128),latent]+rng.normal(size=(128,dimension))
+                observations.append(observed); latent_indices.append(latent)
+                squared = np.sum((observed[None,:,None,:]-means)**2, axis=-1)
+                log_kernel = -.5*dimension*np.log(2*np.pi)-.5*squared
+                numerator = float(np.sum(logsumexp(log_kernel[0], axis=1)-np.log(64)))
+                cases = []
+                for m, name in enumerate(names):
+                    for noise_scope in ['known', 'profiled_per_image_cell']:
+                        log_u = log_kernel[m] if noise_scope == 'known' else gaussian_ball_log_upper(np.sqrt(squared[m]), dimension, 0., 0., np.inf)
+                        fitted = mixture_envelope_upper(log_u, max_iterations=2000, tolerance=1e-4)
+                        oracle_law = float(np.sum(logsumexp(log_u, axis=1)-np.log(64)))
+                        independent_pose = float(np.sum(np.max(log_u, axis=1)))
+                        e = {key:numerator-den for key,den in [
+                            ('known_uniform_law_envelope',oracle_law),
+                            ('individual_pose_profile',independent_pose),
+                            ('shared_law_upper',fitted.log_likelihood_upper)]}
+                        if name == 'true_map' and max(e.values()) > 1e-7:
+                            raise ArithmeticError('Matched oracle-null ratio exceeds its pointwise upper control')
+                        cases.append(dict(candidate=name, noise_scope=noise_scope,
+                            log_evalues=e, rejected_at_005={k:bool(v>=np.log(20)) for k,v in e.items()},
+                            envelope_primal=fitted.envelope_primal,
+                            envelope_dual=fitted.log_likelihood_upper, gap=fitted.dual_gap,
+                            iterations=fitted.iterations, converged=fitted.converged,
+                            status=fitted.status, weights=fitted.weights.tolist(),
+                            upper_anchor_weights=fitted.upper_anchor_weights.tolist()))
+                record['repeats'].append(dict(repeat=repeat, log_oracle_numerator=numerator,
+                    cases=cases, elapsed_seconds=time.perf_counter()-started))
+                save();print(ds,repeat,[(c['candidate'],c['noise_scope'],round(c['log_evalues']['shared_law_upper'],3),round(c['gap'],4)) for c in cases],flush=True)
+            arrays = out/f'{ds}-arrays.npz'
+            np.savez_compressed(arrays, templates=templates, means=means,
+                observations=np.asarray(observations), latent_indices=np.asarray(latent_indices))
+            summary=[]
+            for name in names:
+                for noise_scope in ['known','profiled_per_image_cell']:
+                    cases=[c for r in record['repeats'] for c in r['cases'] if c['candidate']==name and c['noise_scope']==noise_scope]
+                    summary.append(dict(candidate=name,noise_scope=noise_scope,
+                        log_evalue_quantiles={k:np.quantile([c['log_evalues'][k] for c in cases],[0,.25,.5,.75,1]).tolist() for k in cases[0]['log_evalues']},
+                        rejection_counts={k:sum(c['rejected_at_005'][k] for c in cases) for k in cases[0]['log_evalues']},
+                        converged_fits=sum(c['converged'] for c in cases),max_gap=max(c['gap'] for c in cases)))
+            record.update(complete=True,scientific_run_complete=True,summary=summary,arrays_file=str(arrays.relative_to(ROOT)),arrays_sha256=sha(arrays));save()
+            all_summaries.append(dict(dataset=ds,summary=summary,result_sha256=sha(path)))
+        except Exception as error:
+            if observations:
+                arrays = out/f'{ds}-partial-arrays.npz'
+                np.savez_compressed(arrays, templates=templates, means=means, observations=np.asarray(observations), latent_indices=np.asarray(latent_indices))
+                record.update(arrays_file=str(arrays.relative_to(ROOT)), arrays_sha256=sha(arrays))
+            record.update(complete=True,scientific_run_complete=False,error=repr(error),elapsed_seconds=time.perf_counter()-started);save();raise
+    (out/'summary.json').write_text(json.dumps(dict(complete=True,records=all_summaries,
+        seconds=time.perf_counter()-started,scope='Optimistic discrete feasibility screen, not continuous-pose validation or a calibrated real-data method.'),indent=2)+'\n')
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,85 @@
+"""One shared Gaussian scale for a finite latent-view mixture.
+
+Pointwise real-arithmetic envelope arguments; floating-point implementation
+is not validated interval arithmetic. This does not cover continuous poses.
+"""
+import numpy as np
+from scipy.special import logsumexp
+from .uq_mixture_validation import gaussian_ball_log_upper, mixture_envelope_upper
+
+
+def tangent_log_upper(log_kernel, weights):
+    log_anchor = logsumexp(log_kernel + np.log(weights)[None, :], axis=1)
+    log_scores = logsumexp(log_kernel-log_anchor[:, None], axis=0)
+    with np.errstate(over='ignore'):
+        gap = float(np.exp(log_scores.max())-len(log_anchor))
+    if gap < -1e-8*len(log_anchor):
+        raise FloatingPointError('Negative mixture tangent gap')
+    return float(log_anchor.sum()+max(gap, 0.)), max(gap, 0.)
+
+
+def profile_common_scale(residual_norms, dimension, *, tolerance=1.,
+                         max_nodes=65, mixture_iterations=2000,
+                         mixture_tolerance=1e-4):
+    r = np.asarray(residual_norms, float)
+    if r.ndim != 2 or min(r.shape) == 0 or not np.isfinite(r).all() or np.any(r < 0):
+        raise ValueError('Finite nonnegative image-by-cell residual distances required')
+    if not isinstance(dimension, (int, np.integer)) or dimension < 1:
+        raise ValueError('Positive integer dimension required')
+    if tolerance <= 0 or not np.isfinite(tolerance) or max_nodes < 1:
+        raise ValueError('Positive gap target and node budget required')
+    lower_scale, upper_scale = float(r.min()/np.sqrt(dimension)), float(r.max()/np.sqrt(dimension))
+    if lower_scale == 0:
+        return dict(log_likelihood_upper=np.inf, feasible_log_likelihood=-np.inf,
+            gap=np.inf, converged=False, status='zero_distance_unresolved',
+            bracket=[lower_scale, upper_scale], nodes=[], leaves=[], initial=None)
+    def fixed_fit(scale):
+        kernel = gaussian_ball_log_upper(r, dimension, 0., scale, scale)
+        return mixture_envelope_upper(kernel, tolerance=mixture_tolerance,
+                                       max_iterations=mixture_iterations)
+    # A clamped unit-scale anchor is fixed by the procedure, not selected after
+    # observing which candidate or repeat would benefit.
+    initial_scale = float(np.clip(1., lower_scale, upper_scale))
+    initial = fixed_fit(initial_scale)
+    best_lower = initial.envelope_primal
+    nodes = []
+    def evaluate(lo, hi, parent):
+        nonlocal best_lower
+        mid = float(np.exp(.5*(np.log(lo)+np.log(hi))))
+        fitted = fixed_fit(mid)
+        kernel_upper = gaussian_ball_log_upper(r, dimension, 0., lo, hi)
+        # Any positive anchor gives an upper bound; a second optimization of
+        # the interval envelope is unnecessary for validity.
+        upper, anchor_gap = tangent_log_upper(kernel_upper, fitted.weights)
+        best_lower = max(best_lower, fitted.envelope_primal)
+        identifier = len(nodes)
+        nodes.append(dict(id=identifier, parent=parent, scale_interval=[lo, hi],
+            midpoint=mid, feasible_log_likelihood=fitted.envelope_primal,
+            log_likelihood_upper=upper, envelope_anchor_gap=anchor_gap,
+            midpoint_optimizer_gap=fitted.dual_gap,
+            midpoint_optimizer_iterations=fitted.iterations,
+            midpoint_optimizer_converged=fitted.converged,
+            weights=fitted.weights.tolist()))
+        return identifier
+    leaves = [evaluate(lower_scale, upper_scale, None)]
+    while True:
+        largest = max(leaves, key=lambda i: nodes[i]['log_likelihood_upper'])
+        upper = nodes[largest]['log_likelihood_upper']
+        gap = upper-best_lower
+        if gap < -1e-7:
+            raise FloatingPointError('Scale upper bound below a feasible likelihood')
+        if gap <= tolerance or len(nodes)+2 > max_nodes or lower_scale == upper_scale:
+            return dict(log_likelihood_upper=upper, feasible_log_likelihood=best_lower,
+                gap=max(gap,0.), converged=gap <= tolerance,
+                status='converged' if gap <= tolerance else 'node_limit',
+                bracket=[lower_scale,upper_scale], nodes=nodes, leaves=leaves,
+                initial=dict(scale=initial_scale, feasible_log_likelihood=initial.envelope_primal,
+                    weights=initial.weights.tolist(), optimizer_gap=initial.dual_gap),
+                numerical_scope='Ordinary floating point; not validated interval arithmetic.')
+        parent = nodes[largest]; lo, hi = parent['scale_interval']; mid = parent['midpoint']
+        if not lo < mid < hi:
+            return dict(log_likelihood_upper=upper, feasible_log_likelihood=best_lower,
+                gap=max(gap,0.), converged=False, status='floating_scale_resolution_limit',
+                bracket=[lower_scale,upper_scale],nodes=nodes,leaves=leaves,initial=None)
+        leaves.remove(largest)
+        leaves.extend([evaluate(lo,mid,largest), evaluate(mid,hi,largest)])

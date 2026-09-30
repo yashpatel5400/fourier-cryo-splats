@@ -1,0 +1,16 @@
+F....                                                                    [100%]
+=================================== FAILURES ===================================
+______________ test_one_component_common_scale_against_exact_mle _______________
+
+    def test_one_component_common_scale_against_exact_mle():
+        d = 7; r = np.array([1.2,2.8,3.,2.1,4.5])[:,None]
+        scale = np.sqrt(np.mean(r*r)/d)
+        exact = float(np.sum(-d*np.log(scale*np.sqrt(2*np.pi))-.5*(r/scale)**2))
+        fit = profile_common_scale(r,d,tolerance=.005,max_nodes=129)
+>       assert fit['converged']
+E       assert False
+
+tests/test_uq_mixture_scale.py:20: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_uq_mixture_scale.py::test_one_component_common_scale_against_exact_mle
+1 failed, 4 passed in 2.03s

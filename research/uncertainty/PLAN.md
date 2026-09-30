@@ -151,6 +151,16 @@ Four additional targeted moment/identifiability readings clarify that weak
 individual pose information does not preclude collective latent-pose recovery.
 The study's negative pose-audit results do not establish that impossibility.
 
+A separately declared likelihood-validation candidate is now in development.
+Its discrete 64-view/oracle-predictor screen retains all three geometries and
+all local-removal controls. With an unknown shared viewing law and supplied
+noise, full local removal is detected in 14/16, 9/16 and 0/16 repeats.
+Independent variance profiling removes all those detections. No continuous
+pose or experimental result follows. A shared-noise-scale follow-up uses a
+convex precision chord bound, checked against independent calculations; it
+will reuse every original case as explicit post-outcome development. The
+initial loose-bound test and a prior result-serialization failure are retained.
+
 ## Historical status (29 September 2026)
 
 The rewritten ICML manuscript now presents a conditional uncertainty audit in

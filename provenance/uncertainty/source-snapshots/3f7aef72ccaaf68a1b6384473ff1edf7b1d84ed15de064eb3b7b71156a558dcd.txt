@@ -1,0 +1,43 @@
+# A shared unknown noise scale: bounded follow-up
+
+30 September 2026, after the discrete screen and before this follow-up.
+The per-image/cell variance relaxation lost the local detections. Test whether
+profiling one shared positive scale reduces that cost. Reuse all existing
+observations and the oracle numerator; this is post-outcome algorithm
+development. Keep all three stacks, all four maps and every one of the 16
+repeats. Do not change the discrete 64-view catalog or introduce continuous
+pose claims. All old outcomes remain unchanged.
+
+For residual distances r_ic in d real coordinates, each Gaussian kernel is
+increasing in sigma below r_ic/sqrt(d) and decreasing above it. Therefore the
+joint mixture likelihood cannot attain a larger maximum outside
+`[min_ic r_ic/sqrt(d), max_ic r_ic/sqrt(d)]` than inside it. This data-dependent
+bracket covers the maximum over all positive sigma pointwise. If the lower
+endpoint is zero, retain an unresolved infinite upper bound in this prototype;
+do not insert an arbitrary positive cutoff.
+
+Partition this interval. On each scale interval use the existing Gaussian
+variance-interval envelope, followed by the simplex likelihood dual upper
+bound. A feasible mixture at its geometric midpoint gives a lower bound on
+the actual discrete model maximum. Split the interval with largest upper
+bound in half on the log scale. The maximum leaf upper bound covers the
+whole positive-scale family. Stop at a one-log-unit global gap or 65 evaluated
+intervals. Mixture solves use at most 2,000 iterations and a 1e-4 gap target.
+Stopping early retains the upper bound; it cannot license an optimistic score.
+Logarithms and numerical solvers use ordinary floating point, not certified
+interval arithmetic. This is a specialization of elementary likelihood
+envelopes and branch and bound, not a new general testing principle.
+
+Before data evaluation, check the one-component case against its analytic
+variance MLE and a two-component case against an independent dense variance
+grid with scalar weight optimization. Verify that terminal scale intervals
+cover the full bracket and retain the zero-distance degeneracy.
+
+Retain every interval's bounds, optimization gaps, anchors, split history,
+final ratio and stopping status. Compare every result with the old known-noise
+and separately profiled-noise bounds. In exact arithmetic, an optimized
+common-scale null contains sigma=1, so its optimal log-e-value cannot exceed
+the known-noise optimized value; account for the numerical optimization gaps
+when checking this. A 30-minute total wall budget is checked between cases.
+Any incomplete run remains explicitly incomplete. No scientific power or
+real-data calibration conclusion follows just from passing the algebra tests.
