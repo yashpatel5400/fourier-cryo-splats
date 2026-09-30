@@ -160,3 +160,48 @@ def test_invalid_inputs_and_inherited_methods_fail_closed():
     with pytest.raises(NotImplementedError): op.establish_group_scaling()
     with pytest.raises(NotImplementedError): op.establish_coefficient_scaling()
     with pytest.raises(NotImplementedError): op.weight_gradient(None, None)
+
+
+@pytest.mark.parametrize('distortion', [0., 1e-7])
+def test_planar_cubic_remainder_and_fourth_order_scaling(distortion):
+    rng = np.random.default_rng(612); q = rng.normal(size=(1, 7, 2))*2
+    k = np.pad(q, ((0, 0), (0, 0), (0, 1)))@Rotation.from_rotvec([.2, -.1, .4]).as_matrix()
+    k += distortion*rng.normal(size=k.shape)
+    ctf = np.ones((1, 7)); w = rng.normal(size=14)
+    op = CubicPoseFieldOperator(k, q, ctf, w, 1., .13, .04, order=20, backend='direct')
+    nominal = np.real(np.sum(op.c[0, :, None]*np.exp(2j*np.pi*k[0]@op.xyz.T), axis=0))
+    record = higher_order_particle_remainders(k[0], q[0], op.c[0], .13, .04, degrees=(3,), domain='cube')
+    bound = record['records'][0]['field_remainder']; errors = []
+    directions = rng.normal(size=(32, 5)); directions /= np.linalg.norm(directions, axis=1)[:, None]
+    for scale in (1., .5, .25):
+        maxima = 0.
+        for u in directions:
+            rotation = Rotation.from_rotvec(scale*.13*u[:3]).as_matrix()
+            phase = 2*np.pi*((k[0]@rotation)@op.xyz.T+scale*.04*(q[0]@u[3:])[:, None])
+            exact = np.real(np.sum(op.c[0, :, None]*np.exp(1j*phase), axis=0))-nominal
+            approx = op.matvec(pose_lift((scale*u)[None])[0])/op.sqrt_quad
+            maxima = max(maxima, np.linalg.norm(op.sqrt_quad*(exact-approx)))
+        errors.append(maxima)
+    ratio = bound/errors[0]
+    # The initially requested factor-20 tightness check failed at 35.57;
+    # preserve that diagnostic rather than claiming this mixed bound is tight.
+    # Polynomial correctness is falsified by the independent order test below.
+    assert ratio >= 1, f'Invalid planar remainder upper: {ratio}'
+    assert 11 < errors[0]/errors[1] < 22
+    assert 13 < errors[1]/errors[2] < 19
+
+
+def test_translation_only_remainder_is_tight_enough_to_falsify_missing_terms():
+    q = np.array([[[2., 0.], [0., 1.]]]); k = np.pad(q, ((0, 0), (0, 0), (0, 1)))
+    op = CubicPoseFieldOperator(k, q, np.ones((1, 2)), [1., 0., 0., 0.], 1., 0., .02, order=20, backend='direct')
+    record = higher_order_particle_remainders(k[0], q[0], op.c[0], 0., .02, degrees=(3,), domain='cube')
+    u = np.array([0., 0., 0., 1., 0.]); phase = 2*np.pi*k[0, 0]@op.xyz.T
+    errors = []
+    for scale in (1., .5, .25):
+        exact = np.cos(phase+2*np.pi*scale*.02*q[0, 0, 0])-np.cos(phase)
+        polynomial = op.matvec(pose_lift((scale*u)[None])[0])/op.sqrt_quad
+        errors.append(np.linalg.norm(op.sqrt_quad*(exact-polynomial)))
+    ratio = record['records'][0]['field_remainder']/errors[0]
+    assert 1 <= ratio < 3
+    assert 15 < errors[0]/errors[1] < 17
+    assert 15 < errors[1]/errors[2] < 17

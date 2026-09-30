@@ -17,7 +17,7 @@ import finufft
 from fourier_splats.uq_data import particle_geometry,VoxelReference
 from fourier_splats.uq_continuous import cell_forward,cell_target_coefficients
 from fourier_splats.uq_continuous_pose import polynomial_kernel_error,pose_cell_forward
-from fourier_splats.uq_pose_operator import PolynomialPoseFieldOperator
+from fourier_splats.uq_shift_only import ShiftAwarePolynomialPoseFieldOperator as PolynomialPoseFieldOperator
 from fourier_splats.uq_joint_bias import (pose_scale_record,scaled_pose_radius,
     sharp_cube_cubic_coefficients,residual_pose_cross_bound,joint_density_pose_bias,pair_pose_fourier_moments)
 from fourier_splats.uq_cell_moments import cell_fourier_moments,check_cell_pose_pairings
@@ -70,7 +70,9 @@ def main():
         'config':vars(args),'dataset':dataset,'target':args.target,'width_fraction_field':width,
         'pose_set':'Per-particle joint ball: squared scaled rotation norm plus squared scaled translation norm <= 1',
         'source_fit_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
-        'source_snapshot':source_snapshot(ROOT,Path(__file__),['scripts/audit_uq_grid_refinement.py'])}
+        'pose_transform_implementation':'Skip identically unused channels at zero rotation; original transforms at nonzero rotation',
+        'source_snapshot':source_snapshot(ROOT,Path(__file__),['scripts/audit_uq_grid_refinement.py',
+            'research/uncertainty/pilot-selected-targets-v1/COMPUTE-AMENDMENT.md'])}
     start=time.perf_counter()
     def save():path.write_text(json.dumps(result,indent=2)+'\n')
     def progress(message):print(message,flush=True)

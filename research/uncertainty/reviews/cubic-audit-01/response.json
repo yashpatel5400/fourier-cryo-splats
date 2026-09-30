@@ -1,0 +1,97 @@
+{
+  "duration_api_ms": 441329,
+  "stop_reason": "end_turn",
+  "session_id": "f99d6d7f-03f2-4bd2-94fa-cd239838efa5",
+  "total_cost_usd": 2.82329275,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 55882,
+    "cache_read_input_tokens": 531,
+    "output_tokens": 34110,
+    "output_tokens_details": {
+      "thinking_tokens": 29532
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 55882,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 34110,
+        "cache_read_input_tokens": 531,
+        "cache_creation_input_tokens": 55882,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 55882
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 2,
+      "outputTokens": 34110,
+      "cacheReadInputTokens": 531,
+      "cacheCreationInputTokens": 55882,
+      "webSearchRequests": 0,
+      "costUSD": 2.82329275,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 29532,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I have read the packet and worked through the conventions, coefficient identities, quadrature pads, remainder construction and proof. Below is the audit from text only, with no code executed.\n\n## Identities that check out\n\n**SO(3) convention.** The phase is 2\u03c0 k\u00b7exp(tW)x + 2\u03c0t s q\u00b7\u03c4 with W = a[u]\u00d7, row-vector action. The first-derivative coefficient in `_phase_coefficients` is 2\u03c0a k\u00d7e_a, and kW = k\u00d7u for the standard skew matrix, so the linear term is consistent. The curvature helper implements kW\u00b2 = (k\u00b7u)u \u2212 ||u||\u00b2k with the symmetric-Hessian split (0.5 k_a e_b + 0.5 k_b e_a, minus k on the diagonal). In `_cubic_coefficients` the degree-2 monomial coefficients absorb both the Taylor 1/2 and monomial multiplicity through `factor`, which is correct for both diagonal and off-diagonal monomials. The forward check against `Rotation.from_rotvec` in the error-order test is what pins the convention to the reference projections, since the halving ratios near 16 would collapse to about 2 under a wrong sign.\n\n**\u03a63 and the exponential coefficients.** For skew W with axis u, W\u00b3 = \u2212||u||\u00b2W, so 2\u03c0kW\u00b3x/6 = \u2212(a\u00b2||u_rot||\u00b2/6)\u03a61_rot. The code adds \u2212i a\u00b2 b_a/6 to exactly the monomials u_a u_c\u00b2 for each (a,c), which enumerates \u03a3_c u_c\u00b2 \u03a3_a u_a b_a once per monomial. E3 = i\u03a63 \u2212 \u03a61\u03a62 \u2212 i\u03a61\u00b3/6 follows from the exponential series, and the \u03a61\u00b3/6 coefficient of u^\u03b1 is b^\u03b1/\u03b1!, matching the division by the product of factorials. Truncating spatial products at degree 3 loses nothing because \u03a61\u00b3 has degree 3 and \u03a61\u03a62 degree 2.\n\n**Normalized lifts and radius.** \u03a3_{|\u03b1|=m}(m!/\u03b1!)u^{2\u03b1} = ||u||^{2m} is the multinomial theorem. Dividing the coefficient tensor by `NORMALIZATION` converts monomial coefficients to lift coordinates. With column denominators sqrt(d_im), the vector actually fed to the raw operator is sqrt(d_im) z_im, so ||v||\u00b2 \u2264 \u03a3 d_im under per-particle joint unit balls. The block layout in `_to_particle_columns` and the `np.repeat` pattern in `establish_quadrature_design_scaling` agree (degree-major, particle-major inside). Zero sampled blocks get scale 1 and are still counted in L, which is conservative but valid.\n\n**Quadratic restriction.** With cubic lifts zero, the degree-2 column equals the old half-Hessian column times sqrt2 off-diagonal, and the test confirms this to 2e-14. Note both operators share `_curvature`, so this test does not independently verify curvature. The scalar Taylor recurrence test does.\n\n**Degree-six pad.** Real Gram entries expand as 0.5 Re(f_a f_b + f_a conj f_b), frequencies k_q \u00b1 k_q' within 2 max|k_a|, monomial degree at most 6. The Peano kernel of Gauss quadrature is nonnegative, so the constant applies to complex integrands without an extra factor, and the tensor error is a sum of per-axis errors because the other axes have positive unit-sum weights and |x_b|^\u03b2 \u2264 1. The rank-one majorant then gives \u03bb(G_cont) \u2264 \u03bb(G_quad) + \u03b5||m||\u00b2. The cross pad \u03b5 \u03a3|c| ||m|| in `cubic_residual_cross` uses degree 6 where degree 3 suffices, which is only conservative.\n\n**Cell and Gaussian moments.** The Legendre reductions s\u00b2 = (2P_2 + P_0)/3 and s\u00b3 = (2P_3 + 3P_1)/5 with (1/2)\u222bP_n e^{izs}ds = i\u207fj_n(z) give the four listed formulas, with parity handled for negative arguments. The type-2 phase shift exp(i\u03c0k/box) correctly moves the grid origin to the half-cell offset. The Gaussian recurrence m_n = (\u03bc + i\u03c3\u00b2\u03c9)m_{n\u22121} + (n\u22121)\u03c3\u00b2m_{n\u22122} \u2212 \u03c3\u00b2(boundary terms) is the integration-by-parts identity with the correct boundary signs.\n\n**Bell remainder.** `partial_bell` implements the standard recurrence and the fourth-order test values (7, 67, 72, 16) are right. The chain-rule bound \u03a3_j B_{k,j}(M)S_j uses uniform path bounds, Frobenius contraction, and a determinant-one change of variables into the expanded cube. The joint-ball speed via Cauchy\u2013Schwarz on (||u_rot||, ||u_tr||) is correct. The Sobolev identity with (\u22121)^m from i^{2m} is correct and independently tested against spherical and tensor quadrature. The embedding residual pad follows from Leibniz on (e^{it\u03b4}\u22121)M(t) with |e^{it\u03b4}\u22121| \u2264 |\u03b4| and complete Bell bounds on M^{(r)}. Importantly, the operator expands the exact phase with q\u00b7\u03c4, and the remainder bounds the fourth derivative of that same function, so the two are consistent.\n\n**Random spectral certificate.** The threshold c = sqrt2 erfinv(\u03b4^{1/m}) gives P(all m probes have |\u27e8v_max,g\u27e9| < c) = \u03b4, and the simultaneous-in-p upper bound is deterministic on that event. The union with \u03b1_noise is a plain union bound. This is valid in real arithmetic for a fixed PSD matrix.\n\n## Issues\n\n**C1. Gaussian-moment cancellation is untested in the audit regime.** Severity: medium. Location: `gaussian_moments_cubic` and `gaussian_fourier_moments`, the `zero` term, tested only in `test_gaussian_twenty_moments_independent_tensor_quadrature` at \u03c3 = 0.13, |k| \u2272 3. The bracket \u03a6(a \u2212 ib) \u2212 \u03a6(c \u2212 ib) with b = \u03c3\u03c9, a = (0.5 \u2212 \u03bc)/\u03c3 has individual terms of size e^{(b\u00b2 \u2212 a\u00b2)/2} while the true product is of order 1. When \u03c3\u00b2\u03c9 exceeds 0.5 \u2212 |\u03bc| the relative error grows like eps\u00b7e^{(b\u00b2\u2212a\u00b2)/2}, silently, and only overflows to a raised error at the extreme. At frequency radius 12 and a 20 \u00c5 target this depends on the field size, which the packet does not state. Fix: add a test at the actual (\u03c3, \u03bc, ||k|| = 12) values against 200-node tensor Gauss, and assert a relative tolerance of 1e-10. If the pilot centers lie near a cube face, this becomes a real correctness risk, not a conservative one.\n\n**C2. Freshness of seed 640001 is unverifiable and dimension-shared.** Severity: potentially high, currently unknown. Location: `CONFIG['certificate_seed']` in the audit script and the declaration. Both audits use order 80, so both draw probes in the same 512,000-dimensional space. If the quadratic audit for this case used the same seed, the probes are byte-identical, and the cubic matrix was constructed after observing the quadratic result that depended on those probes. That breaks the \"fixed matrix, then fresh probes\" hypothesis and the \u03b4 accounting. Falsification: read `certificate_seed` from the source audit JSON and every prior result under `pose-aware-*` for this dataset. If any equals 640001 at order 80, the certificate is not independent and must be redrawn with a new declared seed before results are read.\n\n**C3. The proposition states a bound for an estimator it does not define.** Severity: low. Location: CUBIC-POSE-PROBE.md proof, second paragraph. The noiseless error also contains \u27e8h, \u03c10\u27e9, which is absent from the displayed bound. The bound is correct only for the pilot-corrected estimator that subtracts the known \u27e8h, \u03c10\u27e9, which is what the reference checks and the toy test assume via `pilot_target`. Additionally the script sets H = fit bias / B, which presupposes the fit's stored bias equals B times the continuous residual norm including its own quadrature pad. Fix: write the estimator explicitly in the proposition and add an assertion in the script that reconstructs fit bias from the stored residual norm and B.\n\n**C4. The toy end-to-end bias test is weakly falsifying.** Severity: low. Location: `test_joint_continuous_bias_controls_sampled_nonlinear_fields`. The fixture draws k and q as independent Gaussians, so the least-squares embedding is meaningless and the embedding residual pad dominates the remainder. The remainder inequality and the final bias inequality are then satisfied with large slack, so an error in the main Bell term or in the \u03a63 column could pass. The higher-remainder tests use planar q and are tighter, but they never exercise the cubic operator. Fix: add a planar-q variant of the fixture with small distortion, compute the ratio of bound to sampled remainder, and assert it is below a fixed factor such as 20. Also check the 4th-order scaling of the remainder directly.\n\n**C5. Design scaling at order 12 is aliased.** Severity: low, conservative only. Location: `establish_quadrature_design_scaling`. Products of degree-3 polynomials with frequencies up to 24 cycles per field are nowhere near resolved by 12 Gauss nodes per axis, so the sampled block norms are noise-like. Any positive choice is valid, but poor scales inflate L\u00b7s. If the eventual pose field bound is much larger than the quadratic one at the same weights, this is the first suspect. Diagnostic: report the ratio of order-80 block traces to the design scales in the persisted output.\n\n**C6. The spectral certificate has no floating-point margin.** Severity: low, already declared. Location: `gaussian_power_upper` applied to `op.spatial_gram` with NUFFT eps 1e-12. The quadratic path adds a roundoff pad in `grouped_gram_bounds`, but the matrix-free cubic path adds none. The packet says this explicitly. Suggested guard: report the adjoint residual |\u27e8v, Fu\u27e9 \u2212 \u27e8F*v, u\u27e9| on the actual operator and include it as a heuristic pad, so the omission is visible in the output rather than silent.\n\n**C7. `alpha_noise = alpha_total \u2212 \u03b4` reuses the source's total while switching \u03b4.** Severity: low. Location: audit script `result` dict. This is consistent with a stand-alone cubic interval only if the quadratic interval is not also reported for the same coverage claim. The script does not take the minimum of the two half-widths, so no unsafe reuse of the quadratic certificate is present in the code. The risk is downstream reporting. Fix: persist a flag that the cubic and quadratic intervals are alternatives, not jointly covering.\n\n**No invalidity found** in the retained deterministic parts: lift norms, coefficient identities, pads, moment formulas, the Bell construction, and the joint bias inequality are correct as real-arithmetic statements. The distinctions are: C1 and C2 could be invalid depending on facts outside the packet; C3 is a statement gap; C4 through C7 are conservative or numerical-hygiene concerns.\n\n## Test independence\n\nThe scalar Taylor recurrence test is independent of the operator's coefficient assembly and of `np.cross`, and the error-order check ties it to `Rotation.from_rotvec`. Adjoint and NUFFT-vs-direct tests are independent. The Sobolev tests use genuinely separate quadratures. The quadratic-restriction test shares `_curvature` with the base class and is therefore a consistency check, not a proof. The cell-moment test shares the box^1.5 normalization with its expected values, so it cannot detect a global normalization error; the script's assertion ||pilot|| = P covers that indirectly. The passing logs show 8 and 161 tests, which confirms nothing about the running empirical case.\n\n## Checks performed from text\n\nSign of kW versus k\u00d7u; kW\u00b2 decomposition; W\u00b3 = \u2212||u||\u00b2W; E2 and E3 series coefficients; monomial multiplicity factors; multinomial lift norm; column-scaling algebra for L; block layout consistency between scaling and column unpacking; Peano constant and tensor-error summation; rank-one Gram majorant; Legendre and spherical-Bessel moment reductions; type-2 half-cell phase; Gaussian moment recurrence including boundary signs; Bell recurrence and fourth-order values; chain-rule and Taylor integral remainder; Cauchy\u2013Schwarz joint speed; expanded-cube enclosure; Sobolev identity sign; Leibniz residual pad; randomized power threshold and simultaneity; joint bias inequality and its minimum with the triangle form; script guards on hashes, cohort and pose radii.\n\n## Remaining unknowns\n\nWhether seed 640001 was used in any prior order-80 audit. The field size in \u00c5, hence the actual \u03c3\u00b2\u03c9 regime for C1. The definition of the fit's stored bias relative to ||h||. Whether the declaration commit preceded the run, which git history shows plausibly but the packet does not prove. FINUFFT type-3 accuracy at 20 stacked transforms with 512,000 targets. The empirical outcome itself, which the packet correctly does not claim.",
+  "ttft_ms": 381288,
+  "type": "result",
+  "duration_ms": 441470,
+  "uuid": "8b14ad66-b38b-4b58-9465-6b175aad5021",
+  "ttft_stream_ms": 1752,
+  "time_to_request_ms": 99,
+  "first_content_frame_ms": 1753,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

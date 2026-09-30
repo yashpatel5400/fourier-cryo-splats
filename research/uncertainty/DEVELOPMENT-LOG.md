@@ -957,3 +957,39 @@ The prospective noise-calibration coordinator waits for all twelve model fits,
 then publishes their lock before accessing the reserved pixels. The new cohort
 has no images at this checkpoint. Failure or unfavorable scientific outcomes
 do not trigger a change of feature, budget, cohort or fitting criterion.
+
+## Cubic extension and completed broad pose grid, 30 September
+
+The prospective two-case higher-order remainder probe completed with every
+requested degree retained. For the 10049 first selected region, remainder bias
+bounds for degrees 2/3/4/5 are 3.550/0.815/0.160/0.027; for the old 1,024-particle
+10 A central feature they are 21.110/5.694/1.287/0.250. These values alone do not
+supply intervals. A separate single-case full cubic operator and protocol were
+committed/pushed as 60b3e84 before launching that empirical diagnostic; it is
+still running. Its 55 pose columns and twenty spatial monomials retain every
+cubic term and use a fresh spectral event.
+
+The actual Fable 5.1 focused audit verifies the main identities but asks for
+actual-regime checks. All 28,160 Gaussian frequency moments agree with independent
+quadrature to per-column relative norm error below 2.35e-14; the source density
+bias reproduces to relative error 9.63e-11; an actual-operator adjoint check is
+5.98e-16. A numeric inventory of 515 result JSONs and pre-declaration git search
+finds no earlier use of seed 640001. The original checker falsely matched decimal
+substrings; its failed record is preserved alongside the corrected whole-word
+check. A factor-20 toy tightness assertion also failed at 35.57. The follow-up
+retains that conservatism finding, tests fourth-order scaling separately, and
+adds a tight pure-translation case. Scale efficiency and validated arithmetic
+remain unresolved; the focused response does not claim an acceptance verdict.
+
+The broad three-stack/two-target/three-angle pose grid has finished. With the
+pilot and sharper same-weight bounds, all six two-degree widths are 0.427--0.633
+of no data and feasible/upper bias ratios 0.274--0.360; reference sign power is
+negligible. The 21-row joint summary comprises the eighteen grid cases and three
+separate 10049 follow-ups. The last 10028 contrast fit did not converge (99.8%
+original sum-objective gap). These outcomes do not resolve R2/R3/R7.
+
+Separate source/test groundwork realifies the Sobolev derivative Gram to provide
+a convex weight penalty and weight gradients for the cubic field/pilot pairing.
+No empirical optimized weights or usefulness improvement is claimed from that
+code. A new bounded optimization protocol is required before a study. The
+locked twelve-feature fits and gated fresh calibration pipeline remain active.

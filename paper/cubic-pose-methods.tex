@@ -1,0 +1,85 @@
+\subsection{Higher-order pose remainder diagnostic}\label{sec:cubicpose}
+The enclosing-domain calculation extends to Taylor degree $d$. Let $S_j$ be
+the $L^2$ Frobenius norm of the known Fourier adjoint field's $j$th derivative
+tensor over the enclosing domain. For the rigid pose path
+$y(t)=\exp(t\Omega)x+t b$, use
+$M_1=\operatorname{hypot}(a\sqrt{3}/2,s_t\|B_{\rm det}\|)$ and
+$M_j=a^j\sqrt{3}/2$ for $j\ge2$, where $B_{\rm det}$ maps detector shifts to
+object coordinates. The joint pose ball justifies the hypotenuse expression.
+The chain rule, tensor Cauchy--Schwarz and volume preservation give
+\[
+ \left\|(f\circ y)^{(d+1)}\right\|_{L^2}
+ \le \sum_{j=1}^{d+1}\mathcal B_{d+1,j}(M_1,\ldots,M_{d+1})S_j,
+\]
+with partial exponential Bell polynomials $\mathcal B$. Division by $(d+1)!$
+bounds the Taylor remainder. The existing approximate-embedding phase residual
+also needs a higher-order Leibniz pad. These are standard differentiation and
+norm inequalities, not a new general statistical theorem.
+
+A declared two-case feasibility probe retains every degree in
+Table~\ref{tab:higherremainder}, at identical weights, acquisition geometry and
+one-degree/0.5\,\AA\ joint pose budgets. Both use EMPIAR-10049 geometry and the
+same $B=2,P=1$ density class. The values include multiplication by $B+P$.
+They show a potential reduction in one bias component. They are \emph{not}
+confidence-interval widths: replacing a remainder while omitting the extra
+polynomial fields would be invalid. The first feature's degree-two enclosing
+remainder is 3.550 of its total bias bound 5.155; its sign power remains
+negligible. No degree was selected by comparing resulting coverage.
+The Gaussian sigmas are respectively 20 and 10\,\AA; both use frequency radius
+12.
+
+\begin{table}[h]
+\centering
+\caption{Remainder-only bounds at the same weights. Degree means retained Taylor
+polynomial degree, not derivative order. No higher-order interval is inferred
+from this table.}\label{tab:higherremainder}
+\begin{tabular}{lrrrr}
+\toprule
+Feature / particles & $d=2$ & $d=3$ & $d=4$ & $d=5$\\
+\midrule
+Pilot region, 128 & 3.550 & 0.815 & 0.160 & 0.027\\
+Center, 1,024 & 21.110 & 5.694 & 1.287 & 0.250\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Analytic coefficient identities and independent nonlinear Taylor checks
+support the implementation. Floating-point guards remain heuristic.
+
+\paragraph{Full cubic extension.}
+A separate bounded diagnostic retains all cubic fields for the first case;
+its protocol and code precede its empirical outcome. Write the nonlinear phase
+as $\Phi_0+t\Phi_1+t^2\Phi_2+t^3\Phi_3+\cdots$. The third exponential
+coefficient is
+\[
+\begin{aligned}
+ E_3&=i\Phi_3-\Phi_1\Phi_2-i\Phi_1^3/6,\\
+ \Phi_3&=-a^2\|u_{\rm rot}\|^2\Phi_{1,\rm rot}/6.
+\end{aligned}
+\]
+The last identity uses $[u]_\times^3=-\|u\|^2[u]_\times$; dropping it would
+omit rotation curvature. For degree $m\in\{1,2,3\}$, the normalized symmetric
+lift $z_\alpha=\sqrt{m!/\alpha!}\,u^\alpha$, $|\alpha|=m$, has
+$\|z\|^2=\|u\|^{2m}\le1$. Thus there are $5+15+35=55$ columns per particle,
+using twenty spatial monomials. Positive degree/particle scales $d_{im}$ give
+a joint lifted radius $L=\sqrt{\sum_{im}d_{im}}$. Cheap quadrature chooses
+these scales only; order-80 integration and a degree-six product-kernel pad
+protect the continuous spectral audit. Four fresh Gaussian probes and forty
+power steps use failure probability $10^{-6}/12$.
+
+For the pilot-corrected estimator in Equation~\eqref{eq:estimator},
+$\widehat\theta=\ip{\ell}{\rho_0}+w^\top(y-A_0\rho_0)$,
+the residual cross-term argument remains valid with this larger field operator.
+For $H\ge\|\ell-A_0^*w\|$, $c\ge\|F^*(\ell-A_0^*w)\|$,
+$f\ge\sup_{\|v\|\le L}\|Fv\|$, $p\ge\|F^*\rho_0\|$ and quartic field
+remainder $r$, the conditional bias bound is
+\[
+ B\sqrt{H^2+2Lc+f^2}+\min(Pf,Lp)+(B+P)r.
+\]
+Its proof expands the squared residual norm and applies Cauchy--Schwarz to the
+known pilot. Twenty continuous cell and Gaussian moments evaluate the pairings.
+Independent scalar phase recurrences, direct quadrature, adjoint identities and
+the old quadratic restriction check signs and normalization. The quadratic and cubic intervals are alternatives; their unadjusted minimum
+is not a joint confidence claim. The empirical
+cubic outcome is pending at this development checkpoint. A correct extension
+alone does not establish practical usefulness or calibrated pose budgets.

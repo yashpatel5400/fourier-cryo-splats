@@ -115,8 +115,16 @@ scales and fresh final spectral probes. Available partial modes can guide the
 approximate optimizer, but are never used as upper bounds. The completed
 10076 half-degree continuation has width 0.161, a 5.0\% gap, minimum reference
 sign power 0.670, and feasible stress bias reaching 0.650 of the upper bound.
-This is a broad-target conditional result; the remaining grid is in progress.
-These intermediate outcomes do not establish broad practical usefulness.
+The full eighteen-case grid (three stacks, two broad targets and
+$0.5^\circ,1^\circ,2^\circ$ with 0.5\,\AA\ shifts) is now complete,
+including nonconverged fits. After the declared sharper remainder and known-pilot
+pairing, all six two-degree relative widths are 0.427--0.633, feasible-bias/upper
+ratios are 0.274--0.360, and the largest minimum-reference sign power is
+$3.27\times10^{-72}$. Thus the grid does not meet the requested all-stack
+width, bound-tightness or useful-detection criterion. The final 10028 contrast
+case has a 99.8\% original sum-objective gap and a refined width 0.514;
+completion does not establish optimization convergence. Table~\ref{tab:joint-bias}
+also retains three separately declared 10049 follow-up optimizations.
 
 \paragraph{Nonsmooth optimization and dual diagnostics.}
 The longer legacy one-degree smooth probe fails before its final audit when
@@ -538,6 +546,8 @@ field bound remains 9.1621 per unit density norm. All pose-sensitive cases
 still have zero sign power, including every class containing the reference.
 This diagnoses this same-weight bound, not impossibility under sign information
 or an experimentally calibrated density norm.
+
+\input{cubic-pose-methods}
 
 \subsection{A closer Fourier variational comparison}
 We independently implement the fixed-pose Gaussian variational objective of

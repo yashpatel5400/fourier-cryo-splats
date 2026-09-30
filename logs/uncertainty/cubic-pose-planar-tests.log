@@ -1,0 +1,66 @@
+........FF                                                               [100%]
+=================================== FAILURES ===================================
+_ test_planar_cubic_remainder_has_nonvacuous_slack_and_fourth_order_scaling[0.0] _
+
+distortion = 0.0
+
+    @pytest.mark.parametrize('distortion', [0., 1e-7])
+    def test_planar_cubic_remainder_has_nonvacuous_slack_and_fourth_order_scaling(distortion):
+        rng = np.random.default_rng(612); q = rng.normal(size=(1, 7, 2))*2
+        k = np.pad(q, ((0, 0), (0, 0), (0, 1)))@Rotation.from_rotvec([.2, -.1, .4]).as_matrix()
+        k += distortion*rng.normal(size=k.shape)
+        ctf = np.ones((1, 7)); w = rng.normal(size=14)
+        op = CubicPoseFieldOperator(k, q, ctf, w, 1., .13, .04, order=20, backend='direct')
+        nominal = np.real(np.sum(op.c[0, :, None]*np.exp(2j*np.pi*k[0]@op.xyz.T), axis=0))
+        record = higher_order_particle_remainders(k[0], q[0], op.c[0], .13, .04, degrees=(3,), domain='cube')
+        bound = record['records'][0]['field_remainder']; errors = []
+        directions = rng.normal(size=(32, 5)); directions /= np.linalg.norm(directions, axis=1)[:, None]
+        for scale in (1., .5, .25):
+            maxima = 0.
+            for u in directions:
+                rotation = Rotation.from_rotvec(scale*.13*u[:3]).as_matrix()
+                phase = 2*np.pi*((k[0]@rotation)@op.xyz.T+scale*.04*(q[0]@u[3:])[:, None])
+                exact = np.real(np.sum(op.c[0, :, None]*np.exp(1j*phase), axis=0))-nominal
+                approx = op.matvec(pose_lift((scale*u)[None])[0])/op.sqrt_quad
+                maxima = max(maxima, np.linalg.norm(op.sqrt_quad*(exact-approx)))
+            errors.append(maxima)
+        ratio = bound/errors[0]
+>       assert 1 <= ratio < 20, f'Planar-bound slack factor: {ratio}'
+E       AssertionError: Planar-bound slack factor: 35.57083987974391
+E       assert np.float64(35.57083987974391) < 20
+
+tests/test_uq_cubic_pose.py:186: AssertionError
+_ test_planar_cubic_remainder_has_nonvacuous_slack_and_fourth_order_scaling[1e-07] _
+
+distortion = 1e-07
+
+    @pytest.mark.parametrize('distortion', [0., 1e-7])
+    def test_planar_cubic_remainder_has_nonvacuous_slack_and_fourth_order_scaling(distortion):
+        rng = np.random.default_rng(612); q = rng.normal(size=(1, 7, 2))*2
+        k = np.pad(q, ((0, 0), (0, 0), (0, 1)))@Rotation.from_rotvec([.2, -.1, .4]).as_matrix()
+        k += distortion*rng.normal(size=k.shape)
+        ctf = np.ones((1, 7)); w = rng.normal(size=14)
+        op = CubicPoseFieldOperator(k, q, ctf, w, 1., .13, .04, order=20, backend='direct')
+        nominal = np.real(np.sum(op.c[0, :, None]*np.exp(2j*np.pi*k[0]@op.xyz.T), axis=0))
+        record = higher_order_particle_remainders(k[0], q[0], op.c[0], .13, .04, degrees=(3,), domain='cube')
+        bound = record['records'][0]['field_remainder']; errors = []
+        directions = rng.normal(size=(32, 5)); directions /= np.linalg.norm(directions, axis=1)[:, None]
+        for scale in (1., .5, .25):
+            maxima = 0.
+            for u in directions:
+                rotation = Rotation.from_rotvec(scale*.13*u[:3]).as_matrix()
+                phase = 2*np.pi*((k[0]@rotation)@op.xyz.T+scale*.04*(q[0]@u[3:])[:, None])
+                exact = np.real(np.sum(op.c[0, :, None]*np.exp(1j*phase), axis=0))-nominal
+                approx = op.matvec(pose_lift((scale*u)[None])[0])/op.sqrt_quad
+                maxima = max(maxima, np.linalg.norm(op.sqrt_quad*(exact-approx)))
+            errors.append(maxima)
+        ratio = bound/errors[0]
+>       assert 1 <= ratio < 20, f'Planar-bound slack factor: {ratio}'
+E       AssertionError: Planar-bound slack factor: 35.57084421555341
+E       assert np.float64(35.57084421555341) < 20
+
+tests/test_uq_cubic_pose.py:186: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_uq_cubic_pose.py::test_planar_cubic_remainder_has_nonvacuous_slack_and_fourth_order_scaling[0.0]
+FAILED tests/test_uq_cubic_pose.py::test_planar_cubic_remainder_has_nonvacuous_slack_and_fourth_order_scaling[1e-07]
+2 failed, 8 passed in 2.08s

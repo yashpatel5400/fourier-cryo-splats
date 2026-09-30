@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+"""Independent follow-up to C1/C2/C3/C6; never changes the running interval."""
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import time
+import numpy as np
+from numpy.polynomial.legendre import leggauss
+from fourier_splats.uq_cubic_pose import CubicPoseFieldOperator, gaussian_moments_cubic, SPATIAL
+from fourier_splats.uq_continuous_quadrature import QuadratureObservationGram
+from fourier_splats.uq_data import particle_geometry
+from fourier_splats.uq_provenance import source_snapshot
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = ROOT/'results/uncertainty/development'
+
+
+def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def seed_matches(value, prefix=''):
+    matches = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            location = prefix+'.'+key
+            if 'seed' in key.lower() and child == 640001:
+                matches.append(location)
+            matches.extend(seed_matches(child, location))
+    elif isinstance(value, list):
+        for i, child in enumerate(value): matches.extend(seed_matches(child, prefix+f'[{i}]'))
+    return matches
+
+
+def main():
+    path = BASE/'audit-regressions/cubic-audit-01-checks-v2.json'
+    if path.exists(): raise RuntimeError('Preserve prior verification outcome')
+    result = {'complete': False, 'scope': 'Focused mathematical-review numerical checks, not a rerun or change of the cubic interval',
+              'source_snapshot': source_snapshot(ROOT, Path(__file__)),
+              'selection_scope': 'Cubic and quadratic intervals are alternatives; their unadjusted minimum is not a jointly certified interval'}
+    def save(): path.write_text(json.dumps(result, indent=2)+'\n')
+    start = time.perf_counter(); save()
+    try:
+        fit_path = BASE/'pilot-selected-fixed-v1/10049-pilot_region_1.json'
+        fit = json.loads(fit_path.read_text()); row = fit['targets'][0]; width = row['width_fraction_field']
+        audit_path = BASE/'cubic-pose-probe/10049-pilot_region_1-1.json'; audit = json.loads(audit_path.read_text())
+        wp = fit_path.with_name(f'10049-pilot_region_1-{width}-weights.npz'); saved = np.load(wp)
+        result.update(fit_sha256=sha(fit_path), weights_sha256=sha(wp), running_audit_snapshot_sha256=sha(audit_path))
+        if sha(fit_path) != audit['source_fit_sha256'] or sha(wp) != audit['source_weights_sha256']:
+            raise ValueError('Changed source fit or weights')
+        matches = {}; files_checked = 0; errors = []
+        for p in (ROOT/'results/uncertainty').rglob('*.json'):
+            try: record = json.loads(p.read_text())
+            except json.JSONDecodeError:
+                time.sleep(.2)
+                try: record = json.loads(p.read_text())
+                except json.JSONDecodeError: errors.append(str(p.relative_to(ROOT))); continue
+            found = seed_matches(record); files_checked += 1
+            if found: matches[str(p.relative_to(ROOT))] = {'seed_fields': found, 'sha256': sha(p)}
+        if errors: raise RuntimeError(f'Unreadable seed inventory records: {errors}')
+        prior = subprocess.run(['git', 'grep', '-n', '-w', '640001', '9a9725f', '--', 'src', 'scripts', 'research', 'results'],
+                               cwd=ROOT, capture_output=True, text=True)
+        result['historical_seed_search'] = {'pattern': 'whole-word 640001', 'returncode': prior.returncode, 'stdout': prior.stdout, 'stderr': prior.stderr}
+        save()
+        allowed = {str(audit_path.relative_to(ROOT))}
+        if set(matches)-allowed or prior.returncode != 1 or prior.stdout:
+            raise AssertionError('Previously used or unverifiable spectral seed; preserve and investigate')
+        quadratic = json.loads((BASE/'pilot-selected-pose-v1/10049-pilot_region_1-1.json').read_text())
+        result['seed_freshness'] = {'json_files_checked': files_checked, 'matches': matches,
+            'source_quadratic_seed': quadratic['config']['certificate_seed'],
+            'pre_declaration_git_head': '9a9725f', 'pre_declaration_git_grep_returncode': prior.returncode,
+            'passed': True, 'scope': 'Repository results and pre-declaration source history; no claim about unrelated external RNG uses'}
+        save()
+        g = particle_geometry(ROOT, '10049', 'inference_half0', radius=12, count=128, seed=fit['config']['seed'])
+        np.testing.assert_array_equal(g['indices'], saved['indices'])
+        k = g['k'].reshape(-1, 3); nodes, qw = leggauss(200); x = nodes/2
+        centers = row['centers_fraction_field']; signs = row['signs']; actual = gaussian_moments_cubic(k, centers, signs, width)
+        expected = np.zeros_like(actual)
+        for start_row in range(0, len(k), 256):
+            points = k[start_row:start_row+256]
+            for center, sign in zip(centers, signs):
+                moments = np.empty((len(points), 3, 4), complex)
+                for axis in range(3):
+                    density = np.exp(-.5*((x-center[axis])/width)**2)/(np.sqrt(2*np.pi)*width)
+                    phase = np.exp(2j*np.pi*points[:, axis, None]*x)
+                    for degree in range(4): moments[:, axis, degree] = phase@(qw*density*x**degree/2)
+                for j, beta in enumerate(SPATIAL):
+                    expected[start_row:start_row+len(points), j] += sign*np.prod(np.stack([moments[:, axis, power] for axis, power in enumerate(beta)]), axis=0)
+        relative = float(np.linalg.norm(actual-expected)/np.linalg.norm(expected))
+        column_relative = np.linalg.norm(actual-expected, axis=0)/np.linalg.norm(expected, axis=0)
+        result['gaussian_actual_regime'] = {'frequencies': len(k), 'field_A': g['field_A'], 'sigma_fraction_field': width,
+            'centers_fraction_field': centers, 'maximum_abs_coordinate_frequency': np.max(abs(k), axis=0).tolist(),
+            'quadrature_order_per_axis': 200, 'relative_norm_error': relative,
+            'maximum_absolute_error': float(np.max(abs(actual-expected))),
+            'relative_error_per_moment_column': column_relative.tolist(),
+            'passed': bool(np.max(column_relative) < 1e-10),
+            'scope': 'Every actual frequency and all twenty moments, separable numerical quadrature; no validated arithmetic bound'}
+        if not result['gaussian_actual_regime']['passed']: raise AssertionError('Actual-regime Gaussian moment check failed')
+        save()
+        w = saved['weights']; noise = float(saved['noise_std'])
+        gram = QuadratureObservationGram(g['k'], g['ctf'], noise, order=80, preconditioner_rank=0)
+        target, norm2 = gram.target(centers, signs, width); gw = gram.matvec(w); errors = gram.quadrature_error(w)
+        unpadded = float(norm2-2*w@target+w@gw+errors['squared_field_norm'])
+        pad = float(50*np.finfo(float).eps*len(w)*(norm2+2*abs(w@target)+abs(w@gw)))
+        recovered_bias = 2*np.sqrt(max(0, unpadded)+pad)
+        result['density_residual_reconstruction'] = {'stored_bias': row['fit']['bias'], 'reconstructed_bias': float(recovered_bias),
+            'residual_norm2_with_quadrature_error': unpadded, 'roundoff_norm2_pad': pad,
+            'relative_error': float(abs(recovered_bias-row['fit']['bias'])/row['fit']['bias']),
+            'passed': bool(np.isclose(recovered_bias, row['fit']['bias'], rtol=1e-6, atol=1e-10))}
+        if not result['density_residual_reconstruction']['passed']: raise AssertionError('Source bias is not the recorded continuous residual')
+        save()
+        op = CubicPoseFieldOperator(g['k'], g['q'], g['ctf'], w, noise, np.deg2rad(1.), .5/g['field_A'], order=80, nthreads=1, block_particles=16)
+        op.denominators = np.array(audit['pose_scaling']['column_denominators'])
+        rng = np.random.default_rng(640019); u = rng.normal(size=op.shape[1]); v = rng.normal(size=op.shape[0])
+        fu = op.matvec(u); fv = op.rmatvec(v); lhs = float(v@fu); rhs = float(u@fv)
+        residual = abs(lhs-rhs)/max(np.linalg.norm(v)*np.linalg.norm(fu), np.linalg.norm(u)*np.linalg.norm(fv), 1e-300)
+        result['actual_adjoint_check'] = {'seed': 640019, 'left': lhs, 'right': rhs,
+            'relative_operator_pairing_residual': float(residual), 'passed': bool(residual < 1e-9),
+            'scope': 'One independent actual-operator diagnostic; not an operator-norm error bound and not a rigorous margin added to the certificate'}
+        if not result['actual_adjoint_check']['passed']: raise AssertionError('Actual cubic adjoint check failed')
+        result.update(complete=True, seconds=time.perf_counter()-start); save(); print('COMPLETE', result['seconds'], flush=True)
+    except Exception as exc:
+        result.update(error=repr(exc), seconds=time.perf_counter()-start); save(); raise
+
+
+if __name__ == '__main__': main()

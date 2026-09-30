@@ -3,8 +3,9 @@
 **Development checkpoint, not a completed resubmission or an acceptance claim.**
 The unmodified first Fable 5.1 review remains the latest full acceptance
 assessment: reject, confidence 4/5, not a strong contender. Focused mathematical
-audits are not full reviews. Several feature fits and the final pose-grid cases
-are running; they must be completed and incorporated before the next full review.
+audits are not full reviews. Several feature fits and the bounded cubic-pose diagnostic are running; they
+must be completed and incorporated before the next full review. The eighteen-case
+pose-optimization grid and its post-audits are complete.
 This file also supports local packet-size/layout checks without invoking a model.
 
 ## Major concerns
@@ -35,7 +36,12 @@ support-function/Jensen sign-class ablation also retains all excluded-reference
 cases and all grid sizes. It does not rescue the inherited pose remainder.
 The new locked sigma-20 A target study selects three pilot regions and one
 matched center per stack, before evaluating their feature outcomes. A subset of fits
-is complete; the family and experimental application are pending. Its sigma
+is complete; the family and experimental application are pending. The first
+region's completed one-degree audit has no useful sign power on any of the three
+stacks, including one no-data fallback. A declared two-case higher-order
+remainder diagnostic reduces one component, but is not a new interval. The
+separate full cubic audit remains pending; focused Fable mathematics checks
+and their responses do not constitute a new acceptance review. Its sigma
 is not its sampled frequency-band resolution. These tests do not satisfy the
 review's requested fine-scale usefulness criterion yet.
 
@@ -43,8 +49,11 @@ review's requested fine-scale usefulness criterion yet.
 There is now a continuous matrix-free pose objective, numerical spectral upper
 certificate, joint residual/pose cross term, sharper cube remainder, and exact
 pilot-cell moment pairing. All comparisons retain failed/nonconverged fits and
-their gaps. The final grid cases are pending; its summary must not imply a
-complete all-stack acceptance criterion. A full-weight two-degree probe reaches
+their gaps. The eighteen-case grid is complete, including nonconverged fits. Its six
+two-degree pilot-refined widths are 0.427--0.633 and feasible/upper bias ratios
+0.274--0.360; the largest minimum-reference power is 3.27e-72. This does not
+meet the reviewer's all-stack usefulness or bound-tightness criteria. The summary
+also retains three separately declared 10049 follow-up optimizations. A full-weight two-degree probe reaches
 a relative width around 0.503 but has negligible sign power. Feasible adversary
 ratios and optimization gaps are distinct and are both reported. The coordinate
 frame is declared externally: coherent rotations belong to the specified
