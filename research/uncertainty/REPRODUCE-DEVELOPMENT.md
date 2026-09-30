@@ -318,3 +318,44 @@ The last command audits the unchanged weights using the residual/pose cross
 term and reuses the existing spectral event. It is not a new optimization
 result. See JOINT-DENSITY-POSE-BIAS.md for the bound, analytic target moments
 and explicit numerical limitations. Original intervals remain unchanged.
+
+A bounded higher-band particle-count probe fixes the simulation noise scale
+to the earlier radius-five design and uses a physical 10 Angstrom target:
+
+```bash
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/benchmark_uq_continuous.py --datasets 10049 --targets center --width-A 10 --particles 1024 --frequency-radius 12 --noise-source continuous-quadrature-optimized --backend quadrature --quadrature-order 80 --preconditioner-rank 256 --nufft-threads 2 --maxiter 12 --skip-exact-check --log-iterations --output continuous-high-band-1024-10A
+```
+
+This study was launched after the v0.4 cutoff and is not a result in that
+release. It is fixed-pose optimization only; a subsequent pose audit is still
+required. The earlier six higher-band targets used sigma=0.03 of each field
+(14.472, 7.085 and 12.576 Angstrom), rather than a common physical 10 Angstrom
+width. They must not be conflated with this study or the Fourier-VI comparison.
+
+The completed full-weight averaging probe and the distinct joint/product
+post-audits are reproduced by:
+
+```bash
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/probe_uq_pose_exchange.py --fit pose-exchange-conic-duals/10049-center-2.json --output pose-exchange-adaptive-average --certificate-seed 610151 --full-weights --projection-rank 256 --adaptive-projection --average-window 8 --rounds 60
+OPENBLAS_NUM_THREADS=1 python scripts/evaluate_uq_optimized_pose.py --fit results/uncertainty/development/pose-exchange-adaptive-average/10049-center-2.json
+OPENBLAS_NUM_THREADS=1 python scripts/audit_uq_joint_bias.py --fit results/uncertainty/development/pose-exchange-adaptive-average/10049-center-2.json --sharp-cubic
+OPENBLAS_NUM_THREADS=1 python scripts/audit_uq_joint_bias.py --fit results/uncertainty/development/pose-exchange-adaptive-average/10049-center-2.json --sharp-cubic --pose-set product
+OPENBLAS_NUM_THREADS=1 python scripts/validate_uq_legacy_fallback.py
+```
+
+The exchange state permits continuation with `--continue-exchange`; adding
+`--sharp-cubic` changes the objective and therefore resets its lower bound
+rather than reusing a lower bound from the preceding objective. This continuation
+was launched separately and is not declared complete by these commands.
+
+After the 1,024-particle physical-10-Angstrom fit completes, its prepared pose
+post-audit command is:
+
+```bash
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/audit_uq_high_band_pose.py --fit results/uncertainty/development/continuous-high-band-1024-10A/10049.json
+```
+
+The small design quadrature chooses positive block scales only. The actual
+spectral audit and analytic integration pad use order 80; a low-order sampled
+field norm is never used as a continuous upper bound. Prepared code does not
+constitute a completed higher-band pose experiment.

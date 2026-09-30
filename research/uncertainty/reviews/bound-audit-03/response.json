@@ -1,0 +1,97 @@
+{
+  "duration_api_ms": 238035,
+  "stop_reason": "end_turn",
+  "session_id": "82b8305e-23f6-42a6-98a8-8ac1c3819f8a",
+  "total_cost_usd": 3.9206605,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 151363,
+    "cache_read_input_tokens": 3322,
+    "output_tokens": 17851,
+    "output_tokens_details": {
+      "thinking_tokens": 14145
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 151363,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 17851,
+        "cache_read_input_tokens": 3322,
+        "cache_creation_input_tokens": 151363,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 151363
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 2,
+      "outputTokens": 17851,
+      "cacheReadInputTokens": 3322,
+      "cacheCreationInputTokens": 151363,
+      "webSearchRequests": 0,
+      "costUSD": 3.9206605,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 14145,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I read the response packet against the prior audit and re-derived each claimed fix by hand; no tools were available, so nothing below is executed.\n\n## Summary\n\nThe joint scaled five-dimensional ball is now stated in the model, THEORY.md, the audit metadata, the table caption, and the stress code, and the joint-ball radius L = sqrt(sum d) is correct for that set. The separate product-ball extension is mathematically correct and its archived numbers are self-consistent. Failure recording, certificate reuse, full-vector scale metadata, and the new tests do what the response claims, with the caveats below. The cheap design-quadrature scale selection preserves the guarantee because the certified inequality holds for any positive block scales and every upper-bound ingredient is evaluated at the final order. One new implementation error: the fallback recentering path added for B5 cannot run on the archived geometry, so that part of the B5 fix is not functional. No invalid upper or lower bound was found.\n\n## Issues\n\n**B1 (closed, conditional model now stated).** `scaled_pose_radius` in `uq_joint_bias.py` returns sqrt(sum d) for the joint ball and sqrt(2 sum d_first + 4 sum d_second) for the product ball. For v_i = sqrt(d_i) xi_i and sqrt(d_{n+i}) svec(xi_i xi_i^T), ||v||\u00b2 = sum d_i ||xi_i||\u00b2 + sum d_{n+i} ||xi_i||\u2074, and the product ball permits ||xi_i||\u00b2 = 2, so the product constant is correct. The audit script rescales the field bound as `pose_polynomial_bias/3 * radius/sqrt(scale_sum)`, which equals radius times sqrt(eigenvalue_upper + pad), the correct f for the enlarged ||v|| bound on the same spectral event. The cubic remainder bounds rotation and translation separately, so it covers the product set unchanged. The archived product file checks: with h = 2.405, c = 0.0598, r = 0.778, the joint value 8.829 back-solves to f = 1.050, and scaling f and 2Lc by L_product/L_joint reproduces 10.035 and the triangle value 12.017 for a first-block scale sum near 15.4 and second-block sum near 3.6, consistent with the listed group_scales. The alignment ratio 0.1034 is unchanged, as it must be. The joint-ball stress adversaries in `TorchPoseAdjoint` project each row onto the unit 5-ball and `random_boundary` normalizes 5-vectors, so the stress set matches the stated model. The disclosed limitation stands: no product-ball adversary was searched, so 0.498 is a weaker tightness witness for the product bound.\n\n**B2 (closed).** `audit_uq_joint_bias.py` now sets `complete = not numerical_failure` before raising, and the except branch overwrites `complete=False` with the error. `summarize_uq_joint_bias.py` requires complete, no error, and no numerical_failure. The nonlinear diagnostics script does the same. Correct.\n\n**B3 (closed as documentation).** JOINT-DENSITY-POSE-BIAS.md now states the objectives differ and the summary table carries no J gap. The J gap still appears inside the exchange JSONs next to the same-run width, which is the objective it belongs to. Acceptable.\n\n**B4 (closed).** Each audit stores `certificate_seed` from its source fit, and the product and sharp audits of the conic-duals weights reuse seed 609961, so no new random event is charged. The summary refuses to recover a legacy seed unless the source hash matches. The adaptive-density run certified what appear to be the same input weights again with seed 610111 (its noise_sd 0.25544 equals the conic-duals value). It is not in the summary table, so the reported widths are not a minimum over repeats. State that this run is a repeat certificate on identical weights if it is ever reported.\n\n**B5 (partly closed; new bug B9).** Summary now lists attempted files with failure reasons, and `reference_interval_summary` recenters fallback cases on the pilot with zero variance, which the new test covers. See B9 for the reconstruction path.\n\n**B6 (closed with caveats).** The moment test at width 0.07 and |k| = 5 uses a 200-node Gauss-Legendre rule against a 6-sigma boundary offset and relative tolerance 2e-11, which is a meaningful check of the complex-CDF cancellation at imaginary argument 2.2. The cross-pad test asserts the order-32 error is below the analytic pad against order-96 direct evaluation; the true order-32 error is likely orders of magnitude below the pad, so this test detects a grossly wrong pad but not a slightly wrong one. The diagonal cubic test is correctly constructed: with kh = (1,-1,0)/sqrt(2) and omega = d x kh, the identity kh x omega = d holds because d is orthogonal to kh, so the first rotation phase derivative points along (1,1,1)/sqrt(3). It has zero translation component and one frequency; it is one point, not a search.\n\n**B7 (closed).** `pose_scale_record` hashes the full scale and denominator vectors in canonical byte order, the new test shows permuting blocks changes the hash while preserving the sum, and consumers compare full vectors when present. The product-audit record correctly discloses that its legacy source stored only the sum.\n\n**B8 (closed).** The nonempty-cut test uses a projection of rank 3 below m+1 = 5, brackets the exact spectral-norm optimum from both sides, and checks the exported supports on random weights. The lower bound b\u00b7u after common scaling is a valid full-space dual value because A v = F u and ||v|| = ||u|| for the lift.\n\n**B9. Fallback reconstruction cannot run on the archived geometry.** Severity: medium (functional, not validity). Location: `audit_uq_joint_bias.py`, the call `recover_reference_centers(previous,g,w,noise,dataset,target,op.angle,op.shift)`, which reaches `perturbed_geometry` in `uq_continuous_pose.py`. The operator stores angle and shift broadcast to shape (n,). Inside `perturbed_geometry`, the products `angle*pose[:,:3]` and `shift*einsum(...)` multiply an (n,) array by (n,3) and (n,nq) arrays. With n = 128 and nq = 40 this raises a broadcasting error. The path executes only when the old diagnostic lacks `pilot_target` or `raw_expected_center`, or when either interval falls back to the no-data width. None of the ten summarized cases entered it, and the sharp and product audits used cached values, so no archived number is affected. A crash records `complete=False` with an error, so this cannot produce an invalid width. The response plan's statement that missing raw means are reconstructed when necessary is therefore untested and currently false. Fix: pass `float(op.angle[0])` and `float(op.shift[0])` after asserting the arrays are constant, or reshape to (n,1) inside `perturbed_geometry`. Falsification test: run the audit on a fixture whose diagnostic file omits `raw_expected_center` and assert completion.\n\n**B10. Cached branch uses a zero pilot target.** Severity: low. Location: `pilot_target=previous.get('pilot_target',0.)` in the audit. This value is unused when the new half-width is below the no-data width, because the summary function only reads it on fallback, so the current logic is correct. It is one condition edit away from silently centering a fallback interval at zero. Fix: raise if the key is missing instead of defaulting.\n\n**B11. Attempted-case listing is folder-scoped.** Severity: low. The summary globs only `joint-bias-audit`, so sharp and product audits, custom `--output` runs, and fits never submitted to the audit are absent from the attempted count. The sharp width 0.5716 quoted in the response plan comes from a folder the summary does not see. Fix: enumerate source fits and mark unattempted ones explicitly.\n\n**B12. Design-order scale selection.** No issue; verified. For any positive block scales d, the field sum(H_j v_j) equals F\u0303 u with F\u0303 = [H_j/sqrt(d_j)] and ||u||\u00b2 = sum d_j ||v_j||\u00b2 \u2264 sum d_j, so ||field|| \u2264 sqrt(sum d) ||F\u0303||_op regardless of how d was chosen. In `audit_uq_high_band_pose.py`, the operator is built at the final order, `establish_quadrature_design_scaling` only sets denominators, the spectral probes act on the final-order `spatial_gram`, the pad uses `polynomial_kernel_error(k, args.order)` with `coefficient_bound_matrix` divided by the same denominators, and the radius uses the same zero-to-one convention as the denominators. The sampled low-order norms are never used as an upper bound. The new operator test checks the exact inequality with order-2 selection and order-18 evaluation. What it does not check is the quadrature-to-continuous step, which is inherited from the pad theorem. The guarantee is preserved; poorly chosen scales only loosen the bound.\n\n## Identities and arithmetic re-checked\n\n- Joint half-width 9.2488 = 8.8287 + 1.645 \u00d7 0.2554 and product half-width 10.455 = 10.035 + 0.420, both correct since bias dominates the noise scale.\n- Relative widths 0.5716 = 9.2488/16.180 and 0.6462 = 10.455/16.180, and the old width 0.6888 implies a source half-width of 11.145, consistent with the 0.8298 change ratio.\n- Stress ratios 0.5657 \u00d7 8.8287/10.0349 = 0.4977 match.\n- The audit asserts the reconstructed triangle bound equals the source bias to 1e-8 before applying any refinement, which ties the source scales, cross term, and remainder to the archived fit.\n\n## Checks performed and not performed\n\nFrom this packet I verified: the product-ball radius and its rescaling of f; validity of the cubic remainder on both sets; the lifted-ball inequality independence from scale choice; the failure-flag logic in all three scripts and the summary filter; the seed provenance rule; the full-vector hashing; the construction of all new tests including the diagonal direction identity; and arithmetic consistency of the joint and product archive records.\n\nNot verifiable here: any execution, including the four test logs, NUFFT and complex-CDF accuracy at the archive scale, Clarabel dual accuracy, and file hashes; the exact first- and second-block scale sums behind the product record, which I only bounded from the listed values; whether the adaptive-density and conic-duals weights are byte-identical; and whether the ten summarized diagnostics contain the keys that keep them off the broken B9 path. The reported widths remain conditional bounds on the stated joint ball for fixed weights, and the stress ratios remain local feasible values, not worst cases.",
+  "ttft_ms": 188348,
+  "type": "result",
+  "duration_ms": 238136,
+  "uuid": "374deabc-0c65-4d07-ae20-9ee579461f96",
+  "ttft_stream_ms": 2769,
+  "time_to_request_ms": 78,
+  "first_content_frame_ms": 2769,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

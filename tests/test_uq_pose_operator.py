@@ -61,3 +61,25 @@ def test_random_power_bound_matches_direct_matrix_powers_and_stated_event():
         assert row['best_upper']>=2-1e-12
     assert result['rayleigh_lower']<=2+1e-12
     assert result['eigenvalue_upper']<2.8
+
+
+def test_underresolved_design_scales_preserve_lifted_operator_bound():
+    from fourier_splats.uq_continuous_pose import PAIRS,PAIR_SCALE
+    rng=np.random.default_rng(610251);n=2;nq=3
+    k=3*rng.normal(size=(n,nq,3));q=rng.normal(size=(n,nq,2));ctf=rng.normal(size=(n,nq));w=rng.normal(size=2*n*nq)
+    op=PolynomialPoseFieldOperator(k,q,ctf,w,.8,.03,.002,order=18,backend='direct')
+    scales=op.establish_quadrature_design_scaling(order=2)['group_scales']
+    # Deliberately two-node scale selection; the evaluation grid stays order18.
+    assert op.order==18 and len(op.xyz)==18**3
+    matrix=np.column_stack([op.matvec(e) for e in np.eye(20*n)])
+    bound=np.sqrt(scales.sum())*np.linalg.norm(matrix,2)
+    for _ in range(12):
+        xi=rng.normal(size=(n,5));xi/=np.linalg.norm(xi,axis=1)[:,None]
+        tensor=np.array([[u[a]*u[b]*s for (a,b),s in zip(PAIRS,PAIR_SCALE)] for u in xi])
+        v=np.r_[(np.sqrt(scales[:n,None])*xi).ravel(),(np.sqrt(scales[n:,None])*tensor).ravel()]
+        exact=np.zeros(len(op.xyz))
+        for i in range(n):
+            first,second=pose_derivative_fields(k[i],q[i],op.c[i],op.xyz,.03,.002,backend='direct')
+            exact+=first@xi[i]+.5*second@tensor[i]
+        np.testing.assert_allclose(matrix@v,op.sqrt_quad*exact,rtol=2e-12,atol=2e-13)
+        assert np.linalg.norm(op.sqrt_quad*exact)<=bound*(1+1e-12)

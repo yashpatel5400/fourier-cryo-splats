@@ -31,3 +31,13 @@ or ask for approval regardless of scientific merit.
 
 The research goal is not complete merely because a review was requested or a
 fixed batch of computations finished.
+
+Two subsequent focused mathematical audits are separate from full review
+rounds. `bound-audit-01` contains an authentic but incomplete terminal response;
+its missing beginning is disclosed in `COMPLETENESS.md`. The complete
+`bound-audit-02` checks the cross-term, moment and conic refinements and flags
+the essential joint-pose-set definition plus implementation/reporting issues.
+Its response plan links the fixes and limitations. Neither audit is an ICML
+acceptance assessment. Future invocations preserve every assistant text message
+in the event stream, including any continuation, rather than only the terminal
+result string.

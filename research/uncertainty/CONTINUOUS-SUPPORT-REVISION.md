@@ -74,3 +74,13 @@ The implementation tests compare exact cell signals, target pairings and
 nonlinear poses before and after the isometry. A separate direct Fourier-field
 calculation checks the tail inequality for nonlinear perturbations. Two tests
 passed; the development fitting study is still running at this checkpoint.
+
+## Completed three-size sweep
+
+All three 10049 side fractions completed. The full-cube control required
+6,324.04 seconds and reached a nominal sum-objective gap of 0.001867, but
+every tested tail allowance fell back to no data after pose auditing. Its
+integrated cubic bias alone was 115.36. This is a negative conditional result,
+not an impossibility theorem and not evidence that the outside-density
+allowances are empirically calibrated. Exact completed weights are included
+in the separate v0.4 development release.

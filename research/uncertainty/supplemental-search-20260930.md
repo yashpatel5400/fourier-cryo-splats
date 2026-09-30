@@ -21,3 +21,10 @@ evaluation and limitations passages were read; no full-paper critical-read count
 is implied. This adds one curated acquisition/preprocessing candidate (97 total).
 The primary 10076 archive description also prompted an explicit experimental
 homogeneity-assumption clarification; existing numerical records are preserved.
+
+Further primary-only searches for cryo-EM uncertainty/conformal calibration
+rediscovered several existing entries and identified CalPro (adjacent coordinate
+error prediction). The customary PMLR PDF path returned 404; the actual official
+bibliographic PDF link points to the proceedings GitHub asset, which downloaded
+successfully. Both the failed attempt and successful source hash are retained.
+Targeted methods/guarantee scope were checked, adding the 98th curated candidate.

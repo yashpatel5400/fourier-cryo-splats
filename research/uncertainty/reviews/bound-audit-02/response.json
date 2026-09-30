@@ -1,0 +1,97 @@
+{
+  "duration_api_ms": 291409,
+  "stop_reason": "end_turn",
+  "session_id": "1b8a6907-c6a8-4410-8c38-fabb4c7045f2",
+  "total_cost_usd": 2.5717705,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 71146,
+    "cache_read_input_tokens": 3322,
+    "output_tokens": 22960,
+    "output_tokens_details": {
+      "thinking_tokens": 18014
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 71146,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 22960,
+        "cache_read_input_tokens": 3322,
+        "cache_creation_input_tokens": 71146,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 71146
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 2,
+      "outputTokens": 22960,
+      "cacheReadInputTokens": 3322,
+      "cacheCreationInputTokens": 71146,
+      "webSearchRequests": 0,
+      "costUSD": 2.5717705,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 18014,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I audited the packet by hand; no tools were available, so everything below is derivation and code reading.\n\n## Summary\n\nThe residual/pose cross-term inequality, both Gaussian moment recursions with boundary terms, the quadrature cross-error pad, the sharp cube moments and their substitution into the cubic remainder, the target-anchored projection and its dual lifting, the adaptive enrichment step, and the conic dual export are all mathematically correct as written. The archive arithmetic is self-consistent. One issue is validity-threatening and is not a numerical matter: the constant L = sqrt(sum d) is correct only if the nuisance set is a joint five-dimensional unit ball in scaled coordinates. The packet never states which set is intended, and its own remainder bounds are product-ball bounds, so the two halves of the pose bound may be built on different sets.\n\n## Issues\n\n**B1. The pose radius L assumes a joint 5-ball, not a product of rotation and translation balls.** Severity: high, conditional on the intended model. Location: JOINT-DENSITY-POSE-BIAS.md, \"fixed positive block scales imply ||v||<=L=sqrt(sum d)\"; `scale_factor=R*np.sqrt(scaling['sum_group_scales'])` in `uq_pose_optimization.py`; `pose_scale=R*np.sqrt(scale_sum)` in the probe; `np.sqrt(scale_sum)` passed as pose_radius in `audit_uq_joint_bias.py`.\n\nReasoning. The operator divides column inputs by sqrt(d) per block, so the scaled coordinate vector is v_i = sqrt(d_i) xi_i for first-order blocks and sqrt(d_{n+i}) vec(xi_i xi_i^T) for half-Hessian blocks, where xi_i is the particle pose in units of the radii (three rotation, two translation entries) and the symmetric vectorization uses sqrt(2) off-diagonals so its norm is ||xi_i||^2 squared. Then ||v||^2 = sum_i d_i ||xi_i||^2 + sum_i d_{n+i} ||xi_i||^4. This is at most sum d exactly when ||xi_i|| <= 1 in R^5, a joint ball. If the model is \"rotation within 2 degrees and translation within 0.5 Angstrom simultaneously\", a product of balls, then ||xi||^2 reaches 2 and ||xi||^4 reaches 4, so the correct constant is sqrt(2 sum d_first + 4 sum d_second), up to twice L. Every quantity built on L would then be an invalid upper bound, not a conservative one: p(w), pose_polynomial_bias, the joint bound's 2Lc and f terms, and every reported width. This is inherited from the original method, not introduced by the refinement.\n\nEvidence in the packet is mixed. The cubic remainder (`cubic_penalty_coefficients`, `sharp_cube_cubic_coefficients`) and the speed bound in `continuous_pose_audit` bound the rotation and translation phases separately by Minkowski, which is valid for the product ball and therefore also for the joint ball. The test `test_sharp_cubic_integrated_bound_covers_exact_single_frequency_remainder` draws u as a unit vector in R^5, a joint-ball point. `perturbed_geometry` imposes no norm constraint, and `uq_nonlinear_stress.py` is not in the packet, so I cannot tell which set the \"random_boundary\" stress scenario samples.\n\nFix. State the nuisance set in the model definition. If joint, disclose that the model excludes simultaneous maximal rotation and translation, which a reader of \"2 degrees, 0.5 Angstrom\" would not expect. If product, replace sqrt(sum d) with sqrt(2 sum d_first + 4 sum d_second) in all four locations and rerun; the joint refinement itself is unchanged. Falsification test: build the operator on a small fixture, take xi with ||omega|| = ||tau|| = 1, form v, and assert ||v|| <= sqrt(sum d); this fails whenever the second-order scales are nonzero.\n\n**B2. A numerically failed audit is recorded as complete.** Severity: medium (reporting). Location: `audit_uq_joint_bias.py`, the `result.update(complete=True, ...)` call followed by `raise AssertionError` when `numerical_failure` is true. The except branch adds an error key to a record that already says complete, so any downstream filter on the complete flag alone would admit a case whose existing feasible bias exceeds the new upper. No archived case triggered this. Fix: set `complete=False` in the failure branch, or have the summary script require both flags.\n\n**B3. The J lower bound and the post-audit interval are different objectives and must never be bracketed together.** Severity: medium (interpretation), correct as currently reported. Location: `relative_sum_gap` in the probe; `bound['bias_upper']` in the audit. The adaptive run's full-space lower bound 9.200 exceeds the sharp joint bias 8.829. There is no contradiction: the lower bound is on J, whose bias part is the triangle expression 10.295 for these weights, while the joint bias bounds a different, non-convex function of the weights. The reported gap 0.182 says the old-objective optimum is within 18 percent of 11.246 for J only. It says nothing about how far the joint-audited width could be reduced by reoptimizing weights, and the joint expression has no dual certificate. Fix: any summary row that shows a joint width must not show a J gap beside it, and the text should say the 0.566 ratio of the local feasible bias to the joint upper is the only tightness evidence for the joint bound.\n\n**B4. Several fresh certificates now exist for the same weights.** Severity: low. Location: `--certificate-seed` in the probe. The six-round and adaptive runs both retained the input weights and certified them with new seeds. Each certificate is valid at failure probability 1e-6, and the alpha allocation charges one event. Reporting the smallest of k certificates for identical weights costs a union bound of k times 1e-6, negligible against alpha but a discipline point. Fix: state that a width uses the certificate of the run that produced it, and record the seed with the width.\n\n**B5. Summary population is selected on prior success.** Severity: low. Location: the `raise ValueError('Reference recentering needed for fallback case')` branch; `summary.json` reports six completed cases and no attempted count. Fits whose original interval fell back to the no-data width cannot complete this audit. Fix: list attempted fits and failure reasons.\n\n**B6. Tests do not exercise the archive regime of the moments or the cross pad.** Severity: low. Location: `tests/test_uq_joint_bias.py`. The moment test uses width 0.19 and unit-scale k, where the imaginary part of the complex normal CDF argument is about 1.2. The archive uses width 0.07 and |k| up to 5, where it reaches about 2.2 and the difference of two CDF values cancels between terms of size roughly e^2.4. The isfinite check does not detect lost relative accuracy. No test asserts the certified inequality between the order-32 cross vector and a higher-order evaluation. The sharp cubic test uses angle 0.08 and |k| near 1, never pointing R^T(k x omega) along the maximizing diagonal. Fix: add a moment test at width 0.07 and |k| = 5 against a 200-node one-dimensional rule; compare the order-32 cross vector against an order-96 direct-backend evaluation and assert the difference is below `quadrature_norm_pad`; add a sharp-cubic case at the archive angle with the rotation axis chosen so that k x omega is along (1,1,1)/sqrt(3).\n\n**B7. Block-scale consistency is checked through one scalar.** Severity: low. Location: the `assert_allclose(scale_sum, fit['initial_group_scale_sum'])` lines in both scripts. The joint bound, cross vector and certificate depend on the full vector of 2n denominators. Agreement of the sum to 1e-8 is strong evidence but not proof. Fix: persist and hash `group_scales` and assert the full vector.\n\n**B8. The full-weight cut path with nonempty cuts has no isolated test.** Severity: low. Location: `solve_full_weight_cut_problem`; its only test passes an empty cut array. The code mirrors the tested restricted-weight sibling, so the risk is small. Fix: port the exact-spectral-matrix fixture to the full-weight function with projection rank below m+1 and assert bracketing plus global validity of the exported supports on random weights.\n\n## Identities checked and found correct\n\n- **Cross-term inequality.** Bias is <u, h - Fv - e> - <rho_0, Fv + e>. Expanding ||h - Fv||^2 and using |<F*h, v>| <= cL and ||Fv|| <= f gives the stated joint expression. The min with the triangle bound holds on the same spectral event because c is deterministic and f uses the existing certificate. The check `triangle = 2h + 3(f + r)` equals the stored bias is asserted in the script.\n- **Gaussian moments.** With x g = mu g - s^2 g', integration by parts gives I_1 = (mu + i s^2 omega) I_0 - s^2 [g e^{i omega x}] and I_2 = (mu + i s^2 omega) I_1 + s^2 I_0 - s^2 [x g e^{i omega x}]. The code's `upper - lower` and `.5*(upper + lower)` are exactly these brackets. The complex CDF argument (.5 - mu)/sigma - i sigma omega is the correct analytic continuation for the +i omega convention, and it is the conjugate of the convention in `uq_continuous.py`, which uses -2 pi i k mu. The +isign adjoint in `rmatvec` with unconjugated c matches, and the second test checks this against direct field integration.\n- **Cross pad.** The quadrature integrand is a product of two real Fourier sums times a monomial of per-axis degree at most 2, with per-axis frequency at most 2 max|k_a|. `polynomial_kernel_error` uses degree 4 and angular frequency 4 pi max|k_a|, so both are covered. The coefficient sum bound E T ||m|| follows from the triangle inequality over frequency pairs.\n- **Sharp cube moments.** With E X^2 = 1/12, E X^4 = 1/80, E X^6 = 1/448 and Newton identities, E(u.X)^4 = 1/48 - S2/120 and E(u.X)^6 = 5/576 - S2/96 + S3/252. The partial-derivative difference factor -1/48 + (p_i + p_j)/84 is negative on the simplex since p_i + p_j <= 1 < 84/48, so the symmetric point maximizes both; the values 13/720 and 205/36288 check by direct arithmetic. Both are below the Gaussian majorants 3/144 and 15/1728, so the replacement only tightens.\n- **Substitution.** The third t-derivative of exp(i phi) has magnitude at most |phi'|^3 + 3|phi'||phi''| + |phi'''|. L6, L4 and L2 norms of the rotation phases reduce to |k| times a directional moment of u.X because omega x x, omega x (omega x x) and the third iterate all have magnitude at most |k| times a unit direction dotted with x. Cauchy-Schwarz on the product term gives `3*first4*second4`. The translation phase is constant in x and enters only phi'. The 1/6 factor is the integrated Taylor remainder, and the archive uses density bound 3 = B + P, consistent with r = cubic/3.\n- **Projection.** The pivoted step is a Cholesky column of the joint Gram of [ell, A_i*] with the target row handled by f[:,0]; the sinc block signs match `ContinuousObservationGram`, and cosine/sine cross terms vanish by central symmetry. Since ell lies in the span, ||b - F^T w|| is the norm of the projected residual and F b = A ell. The lifted dual has A v = F u and ||v|| = ||u||.\n- **Enrichment.** c = G w - F F^T w is the observation pairing of (I - Pi) A* w, s^2 = w^T c is its squared norm, and the new target coordinate is zero because ell is already in the span.\n- **Dual export and scaling.** For any ||u|| <= B, any gp with gp^T w <= p(w) and gr with gr^T w <= r(w), scaling all three by min(1, z/defect) keeps them feasible by positive homogeneity, so b^T u after scaling bounds J from below regardless of the cone-dual sign convention. A wrong sign can only loosen the bound; the empty-cut test confirms strong-duality agreement under cvxpy 1.9.3. The multiplier projection sum mu_j <= pose_scale follows from stationarity in t with t >= 0.\n- **Archive arithmetic.** With h = 2.405, L = 4.363, c = 0.0598, r = 0.778, the joint value 8.829 back-solves to f near 1.050, the alignment ratio 0.1034 matches, the half-width 9.249 equals bias plus 1.645 times sd 0.2554, and the relative width 0.5716 equals 9.249 over twice the target norm 8.090.\n\n## Verified here and not verified\n\nChecked from the packet: every identity above, the degree and frequency coverage of the pad, the probability argument in `gaussian_power_upper` including the simultaneous-in-p claim, the same-event reuse in the joint bound, and the arithmetic consistency of the archived numbers.\n\nNot verifiable: any numerical execution, including NUFFT accuracy at eps 1e-12, complex CDF accuracy at width 0.07, cvxpy dual conventions and Clarabel tolerances; the source hashes and provenance; whether the tests pass on the archived snapshot; the definition of the nuisance set and of the stress scenarios outside this packet, which decides B1; the inherited correctness of `pose_derivative_fields`, `derivative_coefficient_bounds`, `bias_aware_half_width_stable`, and `feasible_bias_numerical`. The nonlinear stress values remain local feasible points, so the ratio 0.566 bounds the worst-case bias from below without locating it.\n\nNo invalid bound was found in the refinement's own mathematics or code. Whether the reported widths are valid at all rests on B1, an unstated assumption inherited from the original pose bound.",
+  "ttft_ms": 229567,
+  "type": "result",
+  "duration_ms": 291515,
+  "uuid": "e4c75c3c-e877-49d8-a773-8b539a81b5a5",
+  "ttft_stream_ms": 1602,
+  "time_to_request_ms": 87,
+  "first_content_frame_ms": 1602,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

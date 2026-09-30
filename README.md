@@ -26,9 +26,12 @@ now compares diagonal and full Gaussian uncertainty on all three geometries,
 with explicit prior and interpolation limitations. The completed frozen
 studies remain unchanged and public.
 A [joint density/pose post-audit](research/uncertainty/JOINT-DENSITY-POSE-BIAS.md)
-tightens all six completed same-weight cases; fine-feature usefulness and
+tightens the completed same-weight cases; fine-feature usefulness and
 experimental nuisance calibration remain open. New full-weight conic probes
 improve optimization lower bounds while preserving failed candidate outcomes.
+Focused [mathematical reviews](research/uncertainty/reviews/README.md) and their
+regression fixes are also preserved. They distinguish a joint rotation/shift
+ball from the larger product set and do not replace the full-paper review.
 Completed development comparisons include source-group bootstrap, nonlinear pose
 curvature, shared-density spectral audits, finite-grid and continuous-density
 checks, joint continuous-pose bounds, assumption-violation controls, and stock neural

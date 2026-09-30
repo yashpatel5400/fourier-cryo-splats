@@ -489,3 +489,17 @@ coverage of density-feature intervals. The stated particle-level masking versus
 micrograph acquisition limitation matters when assessing experimental realism.
 It motivates checking uncertainty after learned preprocessing, not treating
 compression fidelity as a competing density-confidence estimator.
+
+## CalPro: coordinate-error prediction and exchangeability unit
+
+Primary: https://proceedings.mlr.press/v306/shihab26b.html (ICML 2026); accepted
+PDF and hash in calpro-source-manifest.json. Targeted Sections 3--4 and the
+coverage-semantics paragraph were read; this is not a full critical review.
+
+The estimand is per-residue coordinate error after structural alignment. The
+method applies final split-conformal calibration after fitting an evidential
+head; a training surrogate does not supply its formal guarantee. Proteins are
+the exchangeability unit, with averaged scores. Our reading is that the
+resulting average-score event must not be silently interpreted as simultaneous
+residue coverage or fixed-density coverage from particles. This is adjacent
+structure-prediction work, not a direct density-interval baseline.

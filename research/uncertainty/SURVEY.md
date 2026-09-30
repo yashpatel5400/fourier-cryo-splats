@@ -259,7 +259,7 @@ calibration, Gaussian/ bootstrap uncertainty, and feature validation. They did
 not identify a directly matched conformal density-reconstruction paper in the
 returned results; that is a search outcome, not a proof of absence. Three further
 candidates brought the then-current ledger to 89 entries (historical checkpoint;
-the current ledger has 96).
+the current ledger has 98).
 
 [SIMPLE's 2025 probabilistic ab initio method](https://doi.org/10.1107/S2059798325005686)
 uses coupled orientation assignments and adaptive spatial regularization. Its
@@ -301,7 +301,7 @@ conservative widths limit practical inference.
 The pose-transfer follow-up adds [CESPED](https://arxiv.org/abs/2311.06194v2),
 [cryoPARES](https://www.biorxiv.org/content/10.1101/2025.03.04.641536v6), and
 [CryoFastAR](https://arxiv.org/abs/2506.05864v1), bringing the curated ledger to
-92 entries at that historical checkpoint (96 currently). CESPED standardizes refinement-derived pose labels and explicitly
+92 entries at that historical checkpoint (98 currently). CESPED standardizes refinement-derived pose labels and explicitly
 acknowledges their uncertainty. CryoPARES reuses alignments of related specimens;
 CryoFastAR learns multiview pose prediction from synthetic training with real
 fine-tuning. These are distinct transfer assumptions. Their quality scores,
@@ -314,7 +314,7 @@ empirical-Bayes treatment, so its relationship to our construction is more
 substantive than a shared title. The broader survey still distinguishes targeted
 primary reading from exhaustive screening or original-code reproduction.
 
-The current curated ledger contains 96 entries after adding the adjacent CT
+The curated ledger reached 96 entries after adding the adjacent CT
 preprint [Zhao et al., version 4](https://arxiv.org/abs/2607.13682v4). Its version
 and targeted reading scope are recorded in PRIMARY-ANNOTATIONS.md. This is a
 cross-modality comparator, not an additional cryo-EM reconstruction study.
@@ -326,3 +326,8 @@ uses sparse and diffusion priors to recover compressed particle images. An open
 validation question is how reconstruction uncertainty should propagate through
 that preprocessing into three-dimensional features. Its supplied-pose fidelity
 benchmark has a different estimand from density confidence coverage.
+
+The current ledger has 98 candidates, including the subsequent cryoSENSE and
+CalPro additions. CalPro concerns calibrated coordinate-error prediction across
+proteins; it does not supply a particle-to-density confidence guarantee. These
+are targeted screening additions, not additions to a full-reading count.

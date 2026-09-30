@@ -233,15 +233,25 @@ def main():
     (output/'manifest.json').write_text(json.dumps(metadata, indent=2)+'\n')
     if process.returncode:
         raise RuntimeError('Reviewer invocation failed; original stderr and response retained')
-    results = [row for line in response.read_text().splitlines()
-               if (row := json.loads(line)).get('type') == 'result']
+    events = [json.loads(line) for line in response.read_text().splitlines()]
+    results = [row for row in events if row.get('type') == 'result']
     if len(results) != 1:
         raise RuntimeError('Expected one final reviewer result; raw event stream retained')
     parsed = results[0]
     (output/'response.json').write_text(json.dumps(parsed, indent=2)+'\n')
     if parsed.get('is_error') or MODEL not in parsed.get('modelUsage', {}):
         raise RuntimeError('Requested reviewer identity/success not confirmed; raw result retained')
-    (output/'review.md').write_text(parsed['result']+'\n')
+    messages = []
+    for row in events:
+        if row.get('type') == 'assistant':
+            content = '\n'.join(block['text'] for block in row.get('message', {}).get('content', []) if block.get('type') == 'text')
+            if content:
+                messages.append(content)
+    if not messages:
+        raise RuntimeError('No assistant text in event stream; raw response retained')
+    metadata['assistant_text_messages'] = len(messages)
+    (output/'manifest.json').write_text(json.dumps(metadata, indent=2)+'\n')
+    (output/'review.md').write_text('\n\n'.join(messages)+'\n')
     print('Authentic review saved to '+str(output), flush=True)
 
 

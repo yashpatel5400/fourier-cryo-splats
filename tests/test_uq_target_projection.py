@@ -49,3 +49,30 @@ def test_adaptive_projection_adds_omitted_continuous_representer():
         assert after>=before-1e-10
         for old in previous:np.testing.assert_allclose((g-f@f.T)@old,0.,atol=1e-8)
     assert not enrich_target_projection(projection,exact,w)['added']
+
+
+def test_full_weight_nonempty_spectral_cuts_bracket_unprojected_optimum():
+    rng=np.random.default_rng(610201);m=4;a=rng.normal(size=(8,m))
+    ell=a@np.array([1.,-.3,.2,.7])+.1*rng.normal(size=8)
+    q,_=np.linalg.qr(np.column_stack([ell,a[:,:2]]));f=a.T@q;b=q.T@ell
+    assert f.shape[1]<m+1
+    fields=.4*rng.normal(size=(m,5,3));c=np.array([[.03,.05]]);z=.2;B=1.2;scale=.5
+    w=cp.Variable(m);matrix=sum(w[j]*fields[j] for j in range(m))
+    exact=cp.Problem(cp.Minimize(z*cp.norm(w)+B*cp.norm(ell-a@w)+scale*cp.norm(matrix,2)+c.ravel()@cp.norm(cp.vstack([w[:2],w[2:]]),axis=0)))
+    exact.solve(solver='CLARABEL',tol_gap_abs=1e-9,tol_gap_rel=1e-9,tol_feas=1e-9)
+    def support(candidate):
+        u,_,vh=np.linalg.svd(np.einsum('j,jab->ab',candidate,fields),full_matrices=False)
+        return np.einsum('a,jab,b->j',u[:,0],fields,vh[0])
+    initial=support(np.ones(m));cuts=[initial,-initial]
+    for _ in range(15):
+        fit=solve_full_weight_cut_problem(f,b,c,np.asarray(cuts),z,B,scale)
+        candidate=fit['weights'];field=np.einsum('j,jab->ab',candidate,fields)
+        upper=z*np.linalg.norm(candidate)+B*np.linalg.norm(ell-a@candidate)+scale*np.linalg.norm(field,2)+c.ravel()@np.hypot(candidate[:2],candidate[2:])
+        assert 0<fit['full_dual_lower_bound']<=exact.value+2e-6<=upper+4e-6
+        assert np.linalg.norm(fit['density_dual'])<=B*(1+1e-12)
+        defect=f@fit['density_dual']-fit['pose_support']-fit['cubic_support']
+        assert fit['dual_scale']*np.linalg.norm(defect)<=z*(1+1e-12)
+        for other in rng.normal(size=(5,m)):
+            assert fit['pose_support']@other<=scale*np.linalg.norm(np.einsum('j,jab->ab',other,fields),2)+1e-10
+            assert fit['cubic_support']@other<=c.ravel()@np.hypot(other[:2],other[2:])+1e-10
+        new=support(candidate);cuts.extend([new,-new])

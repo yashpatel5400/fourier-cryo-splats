@@ -4,6 +4,14 @@ This development is an elementary Hilbert-space refinement of the existing
 triangle bound. It is not a claim of a novel general inequality, nor a
 calibration result for experimental nuisance assumptions.
 
+The nuisance set used in the archived fits is, for every particle i,
+`||omega_i/a_i||² + ||tau_i/s_i||² <= 1`. It is a **joint five-dimensional
+ball**, already specified in the main model and THEORY.md. It excludes
+simultaneous maximal rotation and translation. Bounds that separate their
+phase contributions in the cubic remainder remain valid on this smaller set.
+The focused Fable packet originally omitted the main model definition; its
+conditional issue B1 correctly identifies why this definition is essential.
+
 Let h=ell-A_0*w and D=A_t*w-A_0*w. For rho=rho_0+u with ||u||<=B and
 ||rho_0||<=P, the scalar bias equals <u,h-D>-<rho_0,D>. Write the existing
 second-order pose expansion D=F v+e, where fixed positive block scales imply
@@ -18,6 +26,22 @@ to their sum. The minimum with the old bound B||h||+(B+P)(f+r) is valid.
 This uses the SAME spectral event already bounding f for fixed weights; it
 does not require another numerical failure budget. No claim is made that
 this upper expression is convex as a function of estimator weights.
+
+For the larger product of the rotation and translation balls, the same F and
+cubic remainder apply, but the lifted radius becomes
+`L_product² = 2 sum(d_first) + 4 sum(d_second)`. This follows from
+`||xi_i||²<=2` and `||svec(xi_i xi_i^T)||²=||xi_i||⁴<=4`. Its field upper f
+must also be multiplied by `L_product/L_joint`. The `--pose-set product`
+post-audit does both and reuses the same spectral event. Joint-ball adversaries
+remain feasible lower examples but do not explore the extra product-ball
+poses. Product-ball results are written separately; archived joint-ball widths
+are never relabeled as product-ball guarantees.
+
+Each reported width uses the certificate from its own source run, with its
+seed recorded. No minimum over repeated random certificates is reported.
+Optimization lower bounds for the old triangle objective do not certify a
+gap for the new post-audit expression. The available joint-bound tightness
+evidence is its bracket with saved feasible nonlinear bias values.
 
 ## Continuous target cross products
 

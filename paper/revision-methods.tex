@@ -160,9 +160,23 @@ valid lower bound to 9.200, reducing the original sum-objective gap to
 objective, not the subsequent tighter cross-term bound. These diagnostics
 distinguish improved lower bounds from an improved reconstruction.
 
+A sixty-round full-weight continuation, with the latest eight candidates
+averaged before independent evaluation, changes the retained weights. It takes
+2,330 seconds, gives a sum-objective upper bound 10.523 and feasible lower
+bound 9.845 (6.44\% gap), and reduces the relative width to 0.646. The
+strongest saved feasible nonlinear bias reaches 0.521 of its upper bound.
+This establishes progress on the original objective, not useful reference
+sign detection or optimality of the subsequent joint expression.
+
 \paragraph{Retaining the density/pose cross term.}
 Let $h=\ell-A_0^*w$ and write the existing nonlinear adjoint perturbation as
 $D=Fv+e$, where $\norm v\le L=\sqrt{\sum d}$ and $\norm e\le r$.
+Here each particle lies in the joint scaled five-dimensional unit ball.
+Simultaneous maximal rotation and translation are excluded. For their product
+set, replace $L^2$ by $2\sum_i d_i^{(1)}+4\sum_i d_i^{(2)}$ and scale $f$
+by the corresponding radius ratio. The separate phase bounds in the cubic
+remainder already cover either set. The two nuisance classes are reported
+separately.
 Suppose $f$ bounds $\norm{Fv}$ and $c$ bounds $\norm{F^*h}$.
 The scalar bias for $\rho=\rho_0+u$ is
 $\langle u,h-D\rangle-\langle\rho_0,D\rangle$. Thus
@@ -191,7 +205,10 @@ where $T$ is the absolute Fourier coefficient sum and $m$ contains the
 scaled column coefficient bounds. Ordinary numerical roundoff remains
 subject to the preceding caveat.
 
-Table~\ref{tab:joint-bias} retains all six completed same-weight audits.
+Table~\ref{tab:joint-bias} retains the ten completed same-weight audits at
+this revision cutoff; the machine-readable summary lists every attempt and
+its source certificate seed. Each row uses its own source spectral event,
+without selecting a minimum over repeated random certificates.
 The 10076 half-degree conditional reference power increases from 0.670
 to 0.968; the two-degree cut fit improves from width 0.689 to 0.598,
 but its reference power remains negligible. The saved nonlinear feasible
@@ -206,8 +223,16 @@ Writing $p_j=u_j^2$, the sixth moment is
 $5/576-\sum p_j^2/96+\sum p_j^3/252$; pairwise averaging maximizes it
 at $p_j=1/3$. Replacing the earlier Gaussian moment majorants in the same
 integrated remainder reduces the two-degree cut-fit width further to 0.572.
-The original fit and every previous bound are retained. Neither refinement
-establishes useful fine-feature detection at one or two degrees.
+For the full-weight averaged fit, the joint and sharp-moment refinements give
+widths 0.581 and 0.557, with feasible-over-upper ratios 0.582 and 0.608.
+Expanding to the product pose set increases the latter width to 0.616; saved
+joint-ball adversaries remain feasible examples but do not explore its extra
+poses. Minimum reference sign power remains below $10^{-155}$ even for the
+sharp joint-ball result. Independent tests exercise archive-scale Gaussian
+moments, the analytic cross-product quadrature pad, and the distinction
+between joint and product pose lifts. The original fit and every previous
+bound are retained. Neither refinement establishes useful fine-feature
+detection at one or two degrees.
 
 \subsection{An experimental noise-calibration attempt}
 The following elementary conservative calculation allows nonzero calibration

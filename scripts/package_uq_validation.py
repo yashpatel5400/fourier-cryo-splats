@@ -37,7 +37,7 @@ def main():
     selected_owners={}
     if args.include_post_review:
         development=ROOT/'results/uncertainty/development'
-        patterns=['experimental-noise-grouped','fourier-variational-*','continuous-support-probe',
+        patterns=['experimental-noise-grouped','fourier-variational-*','continuous-support-probe','continuous-high-band-*',
                   'matrix-free-pose-*','pose-aware-*','pose-exchange-*','pose-dual-*',
                   'pose-optimized-diagnostics','noise-metric-design','directional-noise-audit','joint-bias-*']
         additions=set()
@@ -52,7 +52,7 @@ def main():
                     owners=[j for j in owners if not j.stem.endswith('-checkpoint')]
                     if not owners:continue
                     owner=owners[0];record=json.loads(owner.read_text())
-                    if record.get('complete') is not True:continue
+                    if record.get('complete') is not True or any(record.get(key) for key in ['error','numerical_failure','audit_failure','reference_coverage_failure']):continue
                     additions.add(array)
                     selected_owners[str(array.relative_to(ROOT))]={'record':str(owner.relative_to(ROOT)),'sha256':sha(owner)}
         files=sorted(set(files)|additions)

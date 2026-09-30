@@ -1,0 +1,53 @@
+"""Revision interval numerics; frozen experiments retain their original module."""
+import numpy as np
+from scipy.optimize import brentq
+from scipy.stats import norm
+
+
+def reference_interval_summary(true_target,raw_expected_center,raw_sd,pilot_target,half_width,no_data_half_width):
+    """Reference-signal diagnostics with the selected estimator correctly centered.
+
+    A no-data interval is centered on the pilot and has zero sampling variance;
+    merely capping an affine estimator's width would not implement that fallback.
+    These are conditional Gaussian calculations, not experimental calibration.
+    """
+    if raw_sd<0 or half_width<0 or no_data_half_width<0:
+        raise ValueError('Nonnegative scales required')
+    fallback=half_width>=no_data_half_width
+    half=min(half_width,no_data_half_width)
+    mean=pilot_target if fallback else raw_expected_center
+    sd=0. if fallback else raw_sd;bias=mean-true_target
+    coverage=float(norm.cdf((half-bias)/sd)-norm.cdf((-half-bias)/sd)) if sd else float(abs(bias)<=half)
+    power=float(norm.cdf((np.sign(true_target)*mean-half)/sd)) if sd else float(np.sign(true_target)*mean>half)
+    return {'true_target':float(true_target),'expected_center':float(mean),'actual_bias':float(bias),
+            'selected_noise_sd':float(sd),'uses_no_data':bool(fallback),
+            'analytic_coverage':coverage,'correct_sign_probability':power}
+
+
+def bias_aware_half_width_stable(sd, bias, alpha=.05):
+    """Folded-normal critical value, solving both tails without a bias shortcut.
+
+    Solve sf(t)+sf(t+2*bias/sd)=alpha for t=(q-bias)/sd in log-tail space.
+    An outward numerical pad covers root-solver tolerance to working precision.
+    This remains floating-point numerical evaluation, not interval arithmetic.
+    """
+    sd, bias, alpha = float(sd), float(bias), float(alpha)
+    if not np.isfinite([sd, bias, alpha]).all() or sd < 0 or bias < 0 or not 0 < alpha < 1:
+        raise ValueError('Finite nonnegative scales and alpha in (0,1) required')
+    if sd == 0:
+        return bias
+    with np.errstate(over='ignore'):
+        ratio = np.float64(bias)/sd
+        twice = 2*ratio
+    lower = max(-ratio, norm.isf(alpha)); upper = norm.isf(alpha/2)
+    log_alpha = np.log(alpha)
+    def tail(t):
+        return np.logaddexp(norm.logsf(t), norm.logsf(t+twice))-log_alpha
+    if tail(lower) <= 0:
+        root = lower  # Remote tail can be below floating-point resolution.
+    elif tail(upper) >= 0:
+        root = upper
+    else:
+        root = brentq(tail, lower, upper, xtol=np.nextafter(0., 1.), rtol=4*np.finfo(float).eps)
+    q = bias+sd*(root+8*np.finfo(float).eps*max(1., abs(root)))
+    return float(np.nextafter(max(0., q), np.inf))
