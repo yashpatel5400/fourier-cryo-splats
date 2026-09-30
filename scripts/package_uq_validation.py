@@ -19,6 +19,7 @@ def sha(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--version', default='v0.3.0-dev')
+    parser.add_argument('--include-post-review',action='store_true',help='Include only completed post-review array owners; never active checkpoints')
     args = parser.parse_args()
     if not re.fullmatch(r'[A-Za-z0-9.-]+', args.version):
         raise ValueError('Simple version identifier required')
@@ -33,6 +34,28 @@ def main():
     folders += [ROOT/'results/uncertainty/confirmation'/name for name in [
         'continuous-v1', 'continuous-moments-v2', 'prediction-v1']]
     files = sorted({p for folder in folders for p in folder.rglob('*.npz')})
+    selected_owners={}
+    if args.include_post_review:
+        development=ROOT/'results/uncertainty/development'
+        patterns=['experimental-noise-grouped','fourier-variational-*','continuous-support-probe',
+                  'matrix-free-pose-*','pose-aware-*','pose-exchange-*','pose-dual-*',
+                  'pose-optimized-diagnostics','noise-metric-design','directional-noise-audit','joint-bias-*']
+        additions=set()
+        for pattern in patterns:
+            for folder in development.glob(pattern):
+                if not folder.is_dir():continue
+                for array in folder.rglob('*.npz'):
+                    owners=sorted((j for j in array.parent.glob('*.json') if array.stem==j.stem or array.stem.startswith(j.stem+'-')),
+                                  key=lambda j:len(j.stem),reverse=True)
+                    # A nearest checkpoint descriptor cannot authorize packaging
+                    # active weights; use the corresponding completed case record.
+                    owners=[j for j in owners if not j.stem.endswith('-checkpoint')]
+                    if not owners:continue
+                    owner=owners[0];record=json.loads(owner.read_text())
+                    if record.get('complete') is not True:continue
+                    additions.add(array)
+                    selected_owners[str(array.relative_to(ROOT))]={'record':str(owner.relative_to(ROOT)),'sha256':sha(owner)}
+        files=sorted(set(files)|additions)
     if not files:
         raise AssertionError('No validation arrays found')
     out = ROOT/'output/artifacts'; out.mkdir(parents=True, exist_ok=True)
@@ -53,6 +76,9 @@ def main():
                 'scope': 'Exact selected estimator weights, nonlinear stress poses and frozen prediction errors; no particle pixels or third-party PDFs.',
                 'required_prior_checkpoint': 'https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev',
                 'reproduction': 'Extract at repository root; fetch original particle selections/maps using recorded protocols.'}
+    if args.include_post_review:
+        manifest['completed_post_review_array_owners']=selected_owners
+        manifest['excludes']='Active or failed post-review case arrays; their status records and source snapshots remain in git.'
     manifest_path.write_text(json.dumps(manifest, indent=2)+'\n')
     print(json.dumps({k: manifest[k] for k in ['archive', 'bytes', 'sha256']}, indent=2))
 

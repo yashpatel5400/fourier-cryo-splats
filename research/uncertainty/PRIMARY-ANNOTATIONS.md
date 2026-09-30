@@ -476,3 +476,16 @@ prior. Foreground evaluation and transferred calibration are separated from
 whole-volume and oracle diagnostics. This adjacent CT work limits novelty
 claims about analytic Gaussian variance or the distinction between agreement
 and accuracy; it does not establish raw-particle cryo-EM confidence coverage.
+
+## cryoSENSE (CVPR 2026): compressed images versus density confidence
+
+Primary accepted PDF, sections 2.3, 3.1 and 4, and supplementary implementation
+passages were read; this is targeted reading, not a full critical review of all
+experiments. [Primary source](https://openaccess.thecvf.com/content/CVPR2026/html/Shabeeb_cryoSENSE_Compressive_Sensing_Enables_High-throughput_Microscopy_with_Sparse_and_Generative_CVPR_2026_paper.html).
+The method reconstructs compressed two-dimensional images using sparse or
+approximate diffusion-posterior guidance. Downstream evaluation uses supplied
+poses and structural/image metrics. These measurements do not establish
+coverage of density-feature intervals. The stated particle-level masking versus
+micrograph acquisition limitation matters when assessing experimental realism.
+It motivates checking uncertainty after learned preprocessing, not treating
+compression fidelity as a competing density-confidence estimator.

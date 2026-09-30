@@ -1,0 +1,78 @@
+"""Retain the cross term between nominal density residual and pose fields.
+
+The target moments are analytic Gaussian integrals on the continuous cube.
+Finite Fourier-polynomial cross products retain a Gauss remainder. This is
+a post-audit bound, not a new convex optimization objective or an assertion
+that supplied experimental nuisance radii are calibrated.
+"""
+import numpy as np
+from scipy.special import ndtr
+from .uq_continuous_pose import PAIRS,PAIR_SCALE,polynomial_kernel_error
+from .uq_continuous_quadrature import QuadratureObservationGram
+
+
+MONOMIALS=((0,0,0),(1,0,0),(0,1,0),(0,0,1),(2,0,0),(0,2,0),(0,0,2),(1,1,0),(1,0,1),(0,1,1))
+
+
+def gaussian_fourier_moments(k,centers,signs,width):
+    """Integral ell(x) x**beta exp(+2 pi i k.x), for ten degree<=2 monomials."""
+    k=np.asarray(k,float);centers=np.asarray(centers,float);signs=np.asarray(signs,float);sigma=float(width)
+    if sigma<=0 or k.shape[-1]!=3 or centers.shape!=(len(signs),3):raise ValueError('Valid Gaussian target required')
+    result=np.zeros((*k.shape[:-1],10),complex);omega=2*np.pi*k
+    for mu,sign in zip(centers,signs):
+        shift=mu+1j*sigma*sigma*omega
+        mass=ndtr((.5-mu)/sigma-1j*sigma*omega)-ndtr((-.5-mu)/sigma-1j*sigma*omega)
+        zero=np.exp(1j*omega*mu-.5*sigma*sigma*omega**2)*mass
+        upper=np.exp(-(.5-mu)**2/(2*sigma*sigma)+.5j*omega)/(np.sqrt(2*np.pi)*sigma)
+        lower=np.exp(-(-.5-mu)**2/(2*sigma*sigma)-.5j*omega)/(np.sqrt(2*np.pi)*sigma)
+        one=shift*zero-sigma*sigma*(upper-lower)
+        two=shift*one+sigma*sigma*zero-.5*sigma*sigma*(upper+lower)
+        moments=(zero,one,two)
+        for j,powers in enumerate(MONOMIALS):
+            result[...,j]+=sign*np.prod(np.stack([moments[power][...,axis] for axis,power in enumerate(powers)]),axis=0)
+    if not np.isfinite(result).all():raise FloatingPointError('Gaussian moment numerical range exceeded')
+    return result
+
+
+def target_pose_cross(op,centers,signs,width):
+    """Exact-continuous target pairing with the scaled polynomial pose columns."""
+    transformed=gaussian_fourier_moments(op.k,centers,signs,width)*op.c[:,:,None]
+    first=np.empty((op.n,5));second=np.empty((op.n,15))
+    for index in op._blocks():
+        b=op._phase_coefficients(index);t=transformed[index]
+        first[index]=np.real(1j*np.einsum('nqaL,nqL->na',b,t[...,:4]))
+        for j,((a,bb),scale) in enumerate(zip(PAIRS,PAIR_SCALE)):
+            value=-np.sum(op._product(b[:,:,a],b[:,:,bb])*t,axis=(1,2))
+            value+=1j*np.sum(op._curvature(index,a,bb)*t[...,1:4],axis=(1,2))
+            second[index,j]=.5*scale*value.real
+    return np.concatenate([first.ravel(),second.ravel()])/op.denominators
+
+
+def residual_pose_cross_bound(op,weights,noise,centers,signs,width):
+    """Upper bound ||F* (ell-A*w)||, including polynomial integration error."""
+    gram=QuadratureObservationGram(op.k,op.ctf,noise,order=op.order,preconditioner_rank=0)
+    gram.nthreads=op.nthreads
+    target=target_pose_cross(op,centers,signs,width)
+    cross=target-op.rmatvec(op.sqrt_quad*gram.field(weights))
+    w=np.asarray(weights).reshape(op.n,2*op.nq);amp=np.hypot(w[:,:op.nq],w[:,op.nq:])
+    masses=np.einsum('naj,nj->na',op.coefficient_bound_matrix(),amp)
+    error=polynomial_kernel_error(op.k,op.order)*float(np.sum(abs(gram.coefficients(weights))))*float(np.linalg.norm(masses))
+    return {'norm_upper':float(np.linalg.norm(cross)+error),'norm_unpadded':float(np.linalg.norm(cross)),
+            'quadrature_norm_pad':error,'cross_vector':cross}
+
+
+def joint_density_pose_bias(residual_norm,field_upper,cross_upper,pose_radius,density_radius,pilot_norm,remainder_field):
+    """Use ||h-Fv||²=||h||²-2<h,Fv>+||Fv||², for ||v||<=pose_radius.
+
+    field_upper bounds sup ||Fv||; cross_upper bounds ||F*h||. The known pilot
+    term still uses its norm. A common cubic field remainder is charged to
+    both density and pilot contributions. Taking the minimum with the earlier
+    triangle bound is valid on the SAME spectral-upper event.
+    """
+    values=np.asarray([residual_norm,field_upper,cross_upper,pose_radius,density_radius,pilot_norm,remainder_field])
+    if not np.isfinite(values).all() or (values<0).any():raise ValueError('Finite nonnegative bounds required')
+    h,f,c,L,B,P,r=values
+    joint=B*np.sqrt(h*h+2*L*c+f*f)+P*f+(B+P)*r
+    triangle=B*h+(B+P)*(f+r)
+    return {'bias_upper':float(min(joint,triangle)),'joint_bias_upper':float(joint),
+            'triangle_bias_upper':float(triangle),'cross_alignment_upper':float(L*c/max(h*f,1e-300))}

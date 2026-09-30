@@ -61,6 +61,8 @@ first and last entries, with omitted intermediate entries explicitly marked.
 All non-history outcome records are retained. Repeated source-snapshot paths
 are represented by their SHA-256: snapshot text is stored at
 provenance/uncertainty/source-snapshots/<sha256>.txt in the public repository.
+Identical source_snapshot metadata objects are included once, then referenced
+by their canonical JSON SHA-256; this deduplicates provenance, not outcomes.
 The manifest identifies and hashes
 the full originals separately from this projection. Do not claim to have
 inspected omitted intermediate optimization traces.
@@ -73,19 +75,33 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def compact_evidence(value):
+def compact_evidence(value, seen_snapshots=None):
+    if seen_snapshots is None:
+        seen_snapshots = set()
     if isinstance(value, dict):
         if set(value) == {'sha256', 'snapshot'} and value['snapshot'] == (
                 'provenance/uncertainty/source-snapshots/'+value['sha256']+'.txt'):
             return {'sha256': value['sha256'], 'snapshot_path_rule': 'see packet instructions'}
-        return {key: ({'review_projection': 'intermediate iteration records omitted',
-                       'original_count': len(item), 'first': compact_evidence(item[0]),
-                       'last': compact_evidence(item[-1])}
-                      if key in {'history', 'optimization_history', 'fit_history', 'spectral_history', 'power_history', 'trace'}
-                      and isinstance(item, list) and len(item) > 2 else compact_evidence(item))
-                for key, item in value.items()}
+        result = {}
+        for key, item in value.items():
+            if key == 'source_snapshot' and isinstance(item, dict):
+                identity = digest(json.dumps(item, sort_keys=True, separators=(',', ':')).encode())
+                if identity in seen_snapshots:
+                    result[key] = {'review_projection': 'identical provenance object included earlier',
+                                   'canonical_source_snapshot_sha256': identity}
+                else:
+                    seen_snapshots.add(identity)
+                    result[key] = {'canonical_source_snapshot_sha256': identity,
+                                   'metadata': compact_evidence(item, seen_snapshots)}
+            elif key in {'history', 'optimization_history', 'fit_history', 'spectral_history', 'power_history', 'trace'} and isinstance(item, list) and len(item) > 2:
+                result[key] = {'review_projection': 'intermediate iteration records omitted',
+                               'original_count': len(item), 'first': compact_evidence(item[0], seen_snapshots),
+                               'last': compact_evidence(item[-1], seen_snapshots)}
+            else:
+                result[key] = compact_evidence(item, seen_snapshots)
+        return result
     if isinstance(value, list):
-        return [compact_evidence(item) for item in value]
+        return [compact_evidence(item, seen_snapshots) for item in value]
     return value
 
 
@@ -116,7 +132,8 @@ def main():
                  'PRIMARY-ANNOTATIONS.md', 'REPRODUCE-DEVELOPMENT.md', 'COMPUTE.md',
                  'MATRIX-FREE-POSE-REVISION.md', 'EXPERIMENTAL-CALIBRATION-ATTEMPT.md',
                  'CTF-SENSITIVITY.md', 'CONTINUOUS-SUPPORT-REVISION.md',
-                 'FOURIER-VARIATIONAL-BASELINE.md']],
+                 'FOURIER-VARIATIONAL-BASELINE.md', 'DIRECTIONAL-NOISE-CALIBRATION.md',
+                 'NOISE-METRIC-DESIGN.md', 'POSE-SPECTRAL-EXCHANGE.md', 'JOINT-DENSITY-POSE-BIAS.md']],
              *sorted((ROOT/'research/uncertainty/confirmation').glob('*/PROTOCOL.md')),
              *sorted((ROOT/'src/fourier_splats').glob('*.py')),
              *sorted((ROOT/'tests').glob('test*.py')),
@@ -138,6 +155,13 @@ def main():
              *sorted((ROOT/'results/uncertainty/development/continuous-support-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('matrix-free-pose-*/*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('pose-aware-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('pose-exchange-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development').glob('directional-noise-*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development/noise-metric-design').glob('*.json')),
+             *sorted((ROOT/'results/uncertainty/development/pose-dual-mixture').glob('*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development/pose-dual-joint').glob('*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development/joint-bias-audit').glob('*/*.json')),
+             *sorted((ROOT/'results/uncertainty/development/joint-bias-sharp-audit').glob('*/*.json')),
              *sorted((ROOT/'results/uncertainty/development/pose-optimized-diagnostics').glob('*/*.json'))]
     if args.round > 1:
         if args.response_file is None:
@@ -147,14 +171,14 @@ def main():
     if args.response_file:
         files.append(args.response_file.resolve())
     unique = list(dict.fromkeys(files))
-    parts = [INSTRUCTIONS]; manifest = {}
+    parts = [INSTRUCTIONS]; manifest = {}; seen_snapshots = set()
     for file in unique:
         content = file.read_bytes()
         name = str(file.relative_to(ROOT))
         manifest[name] = {'sha256': digest(content), 'bytes': len(content)}
         if file.suffix == '.json':
-            content = json.dumps(compact_evidence(json.loads(content)), separators=(',', ':')).encode()
-            manifest[name]['review_projection'] = 'compact JSON; long iteration histories retain count and endpoints'
+            content = json.dumps(compact_evidence(json.loads(content), seen_snapshots), separators=(',', ':')).encode()
+            manifest[name]['review_projection'] = 'compact JSON; histories retain count and endpoints; identical provenance objects referenced by hash'
             manifest[name]['included_sha256'] = digest(content)
             manifest[name]['included_bytes'] = len(content)
         parts.append(f'\n\n===== BEGIN FILE {name} =====\n'+content.decode()+

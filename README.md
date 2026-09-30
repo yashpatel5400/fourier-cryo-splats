@@ -25,6 +25,10 @@ A [Fourier variational baseline](research/uncertainty/FOURIER-VARIATIONAL-BASELI
 now compares diagonal and full Gaussian uncertainty on all three geometries,
 with explicit prior and interpolation limitations. The completed frozen
 studies remain unchanged and public.
+A [joint density/pose post-audit](research/uncertainty/JOINT-DENSITY-POSE-BIAS.md)
+tightens all six completed same-weight cases; fine-feature usefulness and
+experimental nuisance calibration remain open. New full-weight conic probes
+improve optimization lower bounds while preserving failed candidate outcomes.
 Completed development comparisons include source-group bootstrap, nonlinear pose
 curvature, shared-density spectral audits, finite-grid and continuous-density
 checks, joint continuous-pose bounds, assumption-violation controls, and stock neural

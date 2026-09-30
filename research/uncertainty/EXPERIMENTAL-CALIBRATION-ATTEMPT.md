@@ -63,3 +63,16 @@ using broader datasets, original extraction/preprocessing is not reversed, the
 density energy radius is not physically calibrated, and noise-model stability
 remains empirical. These unresolved conditions must accompany any resulting
 interval. A table of numbers alone cannot resolve R1.
+
+## Explicit structural assumption clarification
+
+The inference theorem also assumes a shared density in the declared class.
+This is not established for the experimental stacks. The primary archive
+identifies [10076](https://empiar.ipr.pdbj.org/en/entry/10076/) as a heterogeneous
+mixture of L17-depleted 50S assembly intermediates with preferred orientations.
+The arbitrary means allowed in CALIBRATION do not extend the INFERENCE model
+to arbitrary particle conformations. An ensemble-mean interpretation needs a
+justified relation between state, viewing direction and the sampling operator;
+one deposited class map cannot establish it. The simulation violation controls
+already demonstrate failures for view-coupled mixtures. Original numerical
+records are retained unchanged, with this additional scope clarification.

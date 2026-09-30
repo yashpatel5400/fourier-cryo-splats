@@ -318,3 +318,11 @@ The current curated ledger contains 96 entries after adding the adjacent CT
 preprint [Zhao et al., version 4](https://arxiv.org/abs/2607.13682v4). Its version
 and targeted reading scope are recorded in PRIMARY-ANNOTATIONS.md. This is a
 cross-modality comparator, not an additional cryo-EM reconstruction study.
+
+### Compressive acquisition and downstream uncertainty (supplemental screen)
+
+[cryoSENSE (CVPR 2026)](https://openaccess.thecvf.com/content/CVPR2026/html/Shabeeb_cryoSENSE_Compressive_Sensing_Enables_High-throughput_Microscopy_with_Sparse_and_Generative_CVPR_2026_paper.html)
+uses sparse and diffusion priors to recover compressed particle images. An open
+validation question is how reconstruction uncertainty should propagate through
+that preprocessing into three-dimensional features. Its supplied-pose fidelity
+benchmark has a different estimand from density confidence coverage.

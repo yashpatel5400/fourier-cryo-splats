@@ -1,0 +1,160 @@
+#!/usr/bin/env python3
+"""Bounded spectral-cut and weight-subspace development probe, independently audited."""
+import argparse
+import hashlib
+import json
+import sys
+import time
+from collections import deque
+from pathlib import Path
+import numpy as np
+import finufft
+from scipy.sparse.linalg import LinearOperator,eigsh
+from scipy.stats import norm
+from fourier_splats.uq_data import particle_geometry
+from fourier_splats.uq_continuous_quadrature import QuadratureObservationGram
+from fourier_splats.uq_continuous import ContinuousObservationGram
+from fourier_splats.uq_continuous_pose import polynomial_kernel_error
+from fourier_splats.uq_pose_operator import PolynomialPoseFieldOperator
+from fourier_splats.uq_pose_optimization import cubic_penalty_coefficients,amplitude_gradient
+from fourier_splats.uq_pose_exchange import solve_pose_cut_problem,solve_full_weight_cut_problem
+from fourier_splats.uq_target_projection import target_anchored_projection,enrich_target_projection
+from fourier_splats.uq_random_spectral import gaussian_power_upper
+from fourier_splats.uq_intervals import bias_aware_half_width_stable
+from fourier_splats.uq_provenance import source_snapshot
+ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'results/uncertainty/development'
+
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--fit',default='pose-aware-optimized-shift05-cpu/10049-center-2.json')
+    p.add_argument('--output',default='pose-exchange-probe');p.add_argument('--rounds',type=int,default=30);p.add_argument('--threads',type=int,default=2)
+    p.add_argument('--certificate-seed',type=int,default=609961)
+    p.add_argument('--full-weights',action='store_true');p.add_argument('--projection-rank',type=int,default=256)
+    p.add_argument('--adaptive-projection',action='store_true')
+    p.add_argument('--average-window',type=int,default=0)
+    args=p.parse_args();source=BASE/args.fit;prior=json.loads(source.read_text())
+    if args.adaptive_projection and not args.full_weights:raise ValueError('Adaptive projection requires full weights')
+    if args.average_window<0:raise ValueError('Nonnegative candidate averaging window required')
+    if not prior.get('complete'):raise RuntimeError('Completed starting fit required')
+    if args.threads>1 and ('tmp/nufft-openmp' not in finufft.__file__ or 'torch' in sys.modules):raise RuntimeError('Isolated CPU OpenMP runtime required')
+    out=BASE/args.output;out.mkdir(exist_ok=True);path=out/source.name
+    if path.exists():raise RuntimeError('Preserve prior outputs')
+    snapshot=source_snapshot(ROOT,Path(__file__));start=time.perf_counter();dataset=prior['dataset'];target=prior['target'];degrees=prior['rotation_radius_degrees']
+    cfg=prior['source_geometry_config'];g=particle_geometry(ROOT,dataset,'inference_half0',radius=5,count=128,seed=cfg['seed'])
+    saved=np.load(source.with_name(source.stem+'-weights.npz'));np.testing.assert_array_equal(saved['indices'],g['indices'])
+    w0=saved['weights'];noise=float(saved['noise_std']);original=np.load(BASE/'continuous-quadrature-optimized'/f'{dataset}-{target}-0.07-weights.npz')['weights']
+    gram=QuadratureObservationGram(g['k'],g['ctf'],noise,order=40,preconditioner_rank=512);gram.nthreads=args.threads
+    angle=np.deg2rad(degrees);shift=prior['translation_radius_A']/g['field_A'];B=2.;R=3.;delta=1e-6;alpha=.05-delta;z=norm.isf(alpha/2)
+    centers=[[0,0,0]] if target=='center' else [[0,0,.08],[0,0,-.08]];signs=[1] if target=='center' else [1,-1]
+    a,lnorm2=gram.target(centers,signs,.07)
+    projection=target_anchored_projection(gram,a,lnorm2,rank=args.projection_rank) if args.full_weights else None
+    exact_gram=ContinuousObservationGram(g['k'],g['ctf'],noise) if args.adaptive_projection else None
+    if exact_gram is not None:enrich_target_projection(projection,exact_gram,w0)
+    op=PolynomialPoseFieldOperator(g['k'],g['q'],g['ctf'],original,noise,angle,shift,order=32,nthreads=args.threads)
+    scaling=op.establish_group_scaling();scale_sum=float(np.where(scaling['group_scales']>0,scaling['group_scales'],1.).sum())
+    if 'initial_group_scale_sum' in prior['fit']:
+        np.testing.assert_allclose(scale_sum,prior['fit']['initial_group_scale_sum'],rtol=1e-9)
+    pose_scale=R*np.sqrt(scale_sum);coefficient=op.coefficient_bound_matrix();kernel_error=polynomial_kernel_error(g['k'],32)
+    cubic=cubic_penalty_coefficients(g['k'],g['q'],g['ctf']/noise,angle,shift,R)
+    n,nq=g['ctf'].shape;m=len(w0);columns=[]
+    radius=np.linalg.norm(g['q'],axis=-1)
+    for template in [original,w0]:
+        for band in range(1,6):
+            mask=(radius>band-1)&(radius<=band);v=template*np.concatenate([mask,mask],axis=1).ravel()
+            for b in columns:v-=b*(b@v)
+            if np.linalg.norm(v)>1e-9*np.linalg.norm(template):columns.append(v/np.linalg.norm(v))
+    basis=np.column_stack(columns);gbasis=np.column_stack([gram.matvec(v) for v in basis.T])
+    cuts=[];history=[];averaging=deque(maxlen=max(args.average_window,1));mode=np.random.default_rng(609941).normal(size=op.shape[0]);mode/=np.linalg.norm(mode)
+    result={'stage':'Exploratory spectral-cut/weight-subspace optimization, final fresh audit; restricted conic values are not full-space certificates',
+            'dataset':dataset,'target':target,'rotation_radius_degrees':degrees,'translation_radius_A':prior['translation_radius_A'],
+            'source_geometry_config':cfg,'source_snapshot':snapshot,'config':vars(args),
+            'source_fit_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'complete':False,
+            'initial_relative_width':prior['selected_relative_half_width'],'initial_full_sum_gap':prior['fit']['relative_sum_gap'],
+            'density_projection':projection['diagnostics'] if projection else None,
+            'history':history}
+    def save():path.write_text(json.dumps(result,indent=2)+'\n')
+    save()
+    def evaluate(w,gp,cubic_support=None):
+        nonlocal mode
+        op.set_weights(w);operator=LinearOperator((op.shape[0],)*2,matvec=op.spatial_gram,dtype=float)
+        values,vectors=eigsh(operator,k=1,which='LA',v0=mode,tol=1e-6,ncv=20,maxiter=100)
+        mode=vectors[:,0];mode/=np.linalg.norm(mode);u=op.rmatvec(mode);fieldnorm=float(np.linalg.norm(u))
+        support=op.weight_gradient(u/max(fieldnorm,1e-300),mode)
+        gw=gram.matvec(w);error=gram.quadrature_error(w);h=np.sqrt(max(0.,lnorm2-2*w@a+w@gw+error['squared_field_norm']))
+        amp=np.hypot(w.reshape(n,2*nq)[:,:nq],w.reshape(n,2*nq)[:,nq:]);masses=np.einsum('naj,nj->na',coefficient,amp)
+        pad=float(kernel_error*np.sum(masses*masses));remainder=float(np.sum(cubic*amp));sd=float(np.linalg.norm(w))
+        objective=z*sd+B*h+pose_scale*np.sqrt(fieldnorm**2+pad)+remainder
+        gr=amplitude_gradient(cubic,w) if cubic_support is None else cubic_support
+        factor=B/max(h,1e-300)
+        defect=float(np.linalg.norm(factor*(a-gw)-gp-gr)+factor*error['gram_action_norm'])
+        lower=max(0.,min(1.,z/max(defect,1e-300))*factor*(lnorm2-w@a))
+        gradient=z*w/max(sd,1e-300)+factor*(gw-a)+gp+gr
+        return {'weights':w.copy(),'support':support,'pose_support':gp.copy(),'surrogate_objective':float(objective),
+                'density_bias':float(B*h),'cubic_bias':remainder,'noise_sd':sd,'field_norm_ritz':fieldnorm,
+                'pose_integration_pad':pad,'dual_lower_bound':float(lower),'gradient':gradient}
+    try:
+        best=evaluate(w0,np.zeros(m));cuts.extend([best['support'],-best['support']])
+        best_lower=best['dual_lower_bound']
+        for iteration in range(args.rounds):
+            joint=np.block([[np.array([[lnorm2]]),-(a@basis)[None]],[-(basis.T@a)[:,None],basis.T@gbasis]])
+            if args.full_weights:
+                fit=solve_full_weight_cut_problem(projection['factor'],projection['target'],cubic,np.asarray(cuts),z,B,pose_scale)
+            else:
+                fit=solve_pose_cut_problem(basis,joint,cubic,np.asarray(cuts),z,B,pose_scale)
+            check=evaluate(fit['weights'],fit['pose_support'],fit['cubic_support'])
+            if args.full_weights:
+                check['dual_lower_bound']=max(check['dual_lower_bound'],fit['full_dual_lower_bound'])
+            best_lower=max(best_lower,check['dual_lower_bound'])
+            cuts.extend([check['support'],-check['support']])
+            row={'round':iteration+1,'basis_dimension':m if args.full_weights else basis.shape[1],'cuts':len(cuts),'conic_status':fit['status'],
+                 'conic_iterations':fit['solver_iterations'],'restricted_cut_objective':fit['model_objective'],
+                 'ritz_objective_diagnostic':check['surrogate_objective'],'full_dual_lower_bound':check['dual_lower_bound'],
+                 'pose_norm_underestimation':check['field_norm_ritz']-fit['model_pose_norm']}
+            history.append(row)
+            if check['surrogate_objective']<best['surrogate_objective']:
+                best=check
+                np.savez(out/f'{source.stem}-checkpoint.npz',weights=best['weights'],indices=g['indices'],noise_std=noise)
+            if exact_gram is not None:
+                row['density_enrichment']=enrich_target_projection(projection,exact_gram,check['weights'])
+            if args.average_window:
+                averaging.append(check['weights'])
+                if len(averaging)==args.average_window:
+                    average=evaluate(np.mean(averaging,axis=0),fit['pose_support'],fit['cubic_support'])
+                    row['average_ritz_objective_diagnostic']=average['surrogate_objective']
+                    cuts.extend([average['support'],-average['support']])
+                    best_lower=max(best_lower,average['dual_lower_bound'])
+                    if average['surrogate_objective']<best['surrogate_objective']:
+                        best=average
+                        np.savez(out/f'{source.stem}-checkpoint.npz',weights=best['weights'],indices=g['indices'],noise_std=noise)
+            if iteration%3==2 and not args.full_weights:
+                direction=gram.preconditioner(2.)@check['gradient']
+                for _ in range(2):direction-=basis@(basis.T@direction)
+                length=float(np.linalg.norm(direction))
+                if length>1e-10:
+                    direction/=length;basis=np.column_stack([basis,direction]);gbasis=np.column_stack([gbasis,gram.matvec(direction)])
+            save();print(row,flush=True)
+        w=best['weights'];op.set_weights(w)
+        # Optimization can inspect Ritz values only; all final power probes are fresh.
+        spectral=gaussian_power_upper(op.spatial_gram,op.shape[0],delta,4,40,args.certificate_seed,callback=lambda r:print('AUDIT',r,flush=True))
+        pose=pose_scale*np.sqrt(spectral['eigenvalue_upper']+best['pose_integration_pad'])
+        bias=best['density_bias']+pose+best['cubic_bias'];upper=z*best['noise_sd']+bias
+        half=bias_aware_half_width_stable(best['noise_sd'],bias,alpha);no_data=B*np.sqrt(lnorm2)
+        result.update(complete=True,seconds=time.perf_counter()-start,
+            selected_relative_half_width=float(min(1.,half/no_data)),uses_no_data=bool(half>=no_data),
+            fit={'noise_sd':best['noise_sd'],'bias':float(bias),'half_width':half,'target_norm':float(np.sqrt(lnorm2)),
+                 'density_bias':best['density_bias'],'pose_polynomial_bias':float(pose),'cubic_bias':best['cubic_bias'],
+                 'sum_objective_upper':float(upper),'dual_lower_bound':best_lower,
+                 'initial_group_scale_sum':scale_sum,
+                 'relative_sum_gap':float((upper-best_lower)/upper),
+                 'alpha_noise':alpha,'alpha_numerical':delta,'alpha_total':.05,'spectral_upper_certificate':spectral})
+        np.savez(out/f'{source.stem}-weights.npz',weights=w,indices=g['indices'],noise_std=noise)
+        if projection is not None:
+            np.savez(out/f'{source.stem}-exchange-state.npz',projection_factor=projection['factor'],projection_target=projection['target'],
+                     cuts=np.asarray(cuts),best_weights=w,best_dual_lower_bound=best_lower,
+                     candidate_average_pool=np.asarray(averaging),indices=g['indices'],noise_std=noise)
+        save();print('DONE',result['selected_relative_half_width'],result['fit']['relative_sum_gap'],flush=True)
+    except Exception as exc:
+        result.update(error=repr(exc),seconds=time.perf_counter()-start);save();raise
+
+
+if __name__=='__main__':main()

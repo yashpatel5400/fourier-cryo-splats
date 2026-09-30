@@ -13,3 +13,11 @@ HTML/PDF were checked before updating the ledger. Its exact title, version,
 download hash and targeted reading scope are in radiative-uq-source-manifest.json
 and PRIMARY-ANNOTATIONS.md. This supplemental search is neither a new systematic
 review nor evidence that all retrieved application papers were read.
+
+A targeted archive/name check found a missing CVPR 2026 candidate, cryoSENSE
+(official CVF proceedings and author code page checked). The accepted PDF and
+supplement are locally hashed in cryosense-source-manifest.json. Targeted methods,
+evaluation and limitations passages were read; no full-paper critical-read count
+is implied. This adds one curated acquisition/preprocessing candidate (97 total).
+The primary 10076 archive description also prompted an explicit experimental
+homogeneity-assumption clarification; existing numerical records are preserved.

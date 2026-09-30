@@ -703,3 +703,84 @@ main text still ending on page 7. The directional calibration derivation, all
 six plot panels and both experimental tables were rendered and visually
 inspected. The build has no overflow or undefined-reference warnings. No new
 Fable scientific review has yet occurred; the first rejection remains active.
+
+The clustered-mode profile on a preserved 10028 checkpoint recovered all eight
+modes with subspaces of size 33/49 (246/237 Gram calls); size 17 returned only
+three converged modes after its bounded 15-restart run (121 calls). The partial
+mode count changes the smoothed surrogate and can disrupt line search. The
+10028 continuation was therefore checkpointed and restarted with size 49,
+unchanged block scales and new final-audit seeds. Other running cases retain
+their original source/runtime snapshots. RITZ-CONTINUATION.json records the
+migration; no hidden replacement of prior output occurs.
+
+The legacy smoothed 10028 one-degree probe (translation about 0.201 Angstrom,
+not the current 0.5 Angstrom grid) failed near its 100-iteration budget when
+ARPACK again returned only seven of eight requested modes. This older loaded
+code had neither partial-mode recovery nor intermediate weight checkpoints.
+The initial record, raw failure-log hash and last evaluation are preserved in
+its failure companion JSON. No certified final result or unsaved best weights
+are claimed. The current realistic-shift grid continues separately.
+
+### Covariance-guided fits and restricted spectral exchange
+
+All eighteen new experimental covariance-guided sensitivity rows are complete.
+The first exposure half supplies a 20%-isotropic-shrunk second moment as a
+fitting guide; the independent second half supplies the final variance bound.
+All six fixed-pose widths improve over the preceding same-weights directional
+audit. Five one-degree widths worsen and the sixth stays at no data. All
+six two-degree cases now use no data, for nine fallbacks overall. Only the
+same broad 10076 fixed-pose interval excludes zero. All six proxy fits have
+objective gaps below 0.00321; those are NOT calibrated-noise objective gaps.
+
+The first 10049 two-degree spectral-cut probe reduces relative width from
+0.76117 to 0.69246 after 30 rounds. Its full-space dual gap remains 0.97307;
+feasible stress reaches 0.45878 of the bias upper and reference power is below
+1e-240. A second 30-round probe exporting the cubic cone's dual vectors reaches
+width 0.68883, with its own gap 0.96929. Joint optimization over spectral support
+mixtures and cubic dual balls reduces the original fit's gap from 0.99269 to
+0.63110, and the follow-up's own gap to 0.93909. These postprocesses do not alter
+weights or intervals. Different feasible lower bounds must not be confused
+with changes in the primal estimator, or with a global optimum.
+
+The full suite passed 73 tests after the conic-dual update; a subsequent
+independent conic test also verifies joint pose-hull/cubic-ball projection.
+The curated survey now has 97 entries after targeted reading of the accepted
+cryoSENSE paper and supplement, with exact primary PDF hashes. Experimental
+scope now explicitly names the shared-density assumption: allowing arbitrary
+means in calibration does not extend inference to arbitrary structural mixtures.
+The known heterogeneous nature of 10076 is documented from its primary archive.
+
+### Full-weight inner projections and joint density/pose auditing
+
+The rank-256 six-round full-weight conic trial finished in 201.50 seconds.
+Its projected candidates failed the ambient comparison, so input weights
+were retained. A fresh final spectral audit gives width 0.69024 and gap
+0.76228. This is not an estimator improvement; adaptive continuous residual
+enrichment is being tested separately. The initial dual-sign test failure
+was corrected before this experiment and is preserved.
+
+Six same-weight cross-term post-audits are complete. They account for the
+relative directions of the nominal continuous residual and polynomial pose
+field, while retaining the original spectral event and cubic remainder.
+All six widths decrease; the 10076 half-degree broad-target conditional
+reference power rises from 0.6703 to 0.9680. The two-degree restricted-cut
+fit's width falls from 0.68883 to 0.59821, with saved feasible stress reaching
+0.53939 of the new upper and reference power still below 1e-160. Sharper exact
+cube fourth/sixth directional moments reduce its width further to 0.57162.
+These are supplied-bound simulated-reference checks, not measured coverage
+on experimental particles. The common-covariance, density and pose assumptions
+remain unresolved. JOINT-DENSITY-POSE-BIAS.md gives the complete argument.
+
+The expanded full suite passes 82 tests in 7.42 seconds. The Gaussian boundary
+moment, Hilbert cross-term, adaptive PSD projection and nonlinear remainder
+tests use independent calculations. A scalar-shape error in the remainder
+test fixture was corrected; its failure log remains separate from the passing
+run. No second full scientific Fable review has yet occurred.
+
+The 30-round adaptive full-weight trial then completed in 720.99 seconds.
+It retained the same input weights but raised the full-space lower bound to
+9.200106, reducing the OLD triangle sum-objective gap to 0.181913. This lower
+bound must not be used as a lower bound for the tighter joint-bias objective.
+Current new inner candidates still have larger ambient objectives than the
+input, so a follow-up checks recent-candidate convex averages with fresh
+final spectral probes. Averages are only candidate-generation heuristics.

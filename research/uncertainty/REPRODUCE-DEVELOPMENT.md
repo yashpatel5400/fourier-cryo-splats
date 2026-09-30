@@ -284,3 +284,30 @@ and explicitly pulls weights back through centering phases. The original first
 half selected weights; it must not also supply a weight-specific calibration
 bound. See DIRECTIONAL-NOISE-CALIBRATION.md for the conditional argument and
 unresolved experimental assumptions.
+
+Additional exploratory development keeps separate output directories:
+
+```bash
+OPENBLAS_NUM_THREADS=2 python scripts/probe_uq_noise_metric_design.py
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/probe_uq_pose_exchange.py
+```
+
+The first uses a shrunk empirical covariance only to guide fitting; independent
+second-pool directional calibration remains mandatory. The second uses conic
+spectral cuts and an expanding estimator-weight subspace, while retaining the
+full continuous density class and independent final spectral upper audit.
+See NOISE-METRIC-DESIGN.md and POSE-SPECTRAL-EXCHANGE.md. Neither script's
+restricted/proxy optimization gap establishes experimental calibration.
+
+The separate full-weight projection and adaptive residual-enrichment probes:
+
+```bash
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/probe_uq_pose_exchange.py --fit pose-exchange-conic-duals/10049-center-2.json --output pose-exchange-full-weights --certificate-seed 609991 --full-weights --projection-rank 256 --rounds 6
+PYTHONPATH=tmp/nufft-openmp:src OPENBLAS_NUM_THREADS=1 python scripts/probe_uq_pose_exchange.py --fit pose-exchange-conic-duals/10049-center-2.json --output pose-exchange-adaptive-density --certificate-seed 610111 --full-weights --projection-rank 256 --adaptive-projection --rounds 30
+OPENBLAS_NUM_THREADS=1 python scripts/audit_uq_joint_bias.py --fit results/uncertainty/development/pose-exchange-conic-duals/10049-center-2.json
+```
+
+The last command audits the unchanged weights using the residual/pose cross
+term and reuses the existing spectral event. It is not a new optimization
+result. See JOINT-DENSITY-POSE-BIAS.md for the bound, analytic target moments
+and explicit numerical limitations. Original intervals remain unchanged.
