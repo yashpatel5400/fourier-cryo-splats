@@ -57,7 +57,8 @@ was frozen before new particle downloads, with models locked by checksum.
 Exact frozen models and selected audit weights are available in the
 [interim uncertainty checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev).
 Completed revision arrays are in the separate
-[v0.4 development checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.4.0-dev).
+[v0.5 development checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.5.0-dev),
+with 500 verified arrays and the 38-page preprint. The v0.4 release remains unchanged.
 The [earlier reconstruction paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0
 release preserve the original feasibility study.
 
