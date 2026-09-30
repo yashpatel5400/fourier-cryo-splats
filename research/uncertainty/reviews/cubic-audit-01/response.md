@@ -34,10 +34,14 @@ iterations and error allocation have not changed.
   The scalar nonlinear rotation recurrence separately detects an omitted Phi3.
   These checks strengthen falsification, but do not establish a tight general
   rotational remainder. Both the failed and subsequent test logs are retained.
-- **C5:** unresolved as an efficiency diagnostic. Order-12 scales are only a
-  positive design choice, as declared before the run; their sampled norms are
-  never exported as certificates. Their continuous block-trace ratios have not
-  been computed. No scale retuning is applied to the active random event.
+- **C5:** an additional analytic pair-frequency calculation evaluates the
+  continuous polynomial-field block traces for the fixed particle positions
+  0, 64 and 127. Across their nine degree blocks, continuous norm / design
+  scale is 0.9823--1.0285. This selected diagnostic does not indicate a large
+  aliasing distortion, but does not prove optimal scales or inspect every
+  particle. The exact record is `audit-regressions/cubic-design-scale-check.json`.
+  It uses continuous polynomial cube moments independently of order-12 design
+  quadrature. No scale retuning is applied to the active random event.
 - **C6:** one independent actual order-80 operator adjoint check has relative
   pairing residual 5.98e-16. This cannot upper-bound the operator approximation
   error, so it is reported as a heuristic check rather than misused as a rigorous
@@ -49,8 +53,14 @@ iterations and error allocation have not changed.
 
 Completed numerical evidence is
 `results/uncertainty/development/audit-regressions/cubic-audit-01-checks-v2.json`.
-The earlier failed checker is `cubic-audit-01-checks.json`. The actual cubic
-scientific outcome remains pending here.
+The earlier failed checker is `cubic-audit-01-checks.json`. The cubic audit subsequently completed at 2,187 seconds and 1.42 GB peak
+resident memory. Relative width is 0.2523 versus the quadratic enclosure's
+0.4734, but minimum reference sign power is only 1.48e-10. Its bias bound is
+2.4667, including 0.8149 remainder and 1.6518 polynomial/density terms.
+These are later scientific results, not facts the focused reviewer had read. The polynomial trace helper was
+checked against independent tensor quadrature. One initial scalar test tolerance
+was tighter than quadrature cancellation at a known exact zero (5.8e-15); the
+failed log is retained and the corrected test separately checks that exact zero.
 
 ## Clarification of the original conditional proposition
 

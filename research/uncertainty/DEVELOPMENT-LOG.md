@@ -993,3 +993,25 @@ a convex weight penalty and weight gradients for the cubic field/pilot pairing.
 No empirical optimized weights or usefulness improvement is claimed from that
 code. A new bounded optimization protocol is required before a study. The
 locked twelve-feature fits and gated fresh calibration pipeline remain active.
+
+The cubic scale follow-up uses analytic polynomial Fourier moments through
+spatial degree six to integrate selected block traces. For positions 0, 64 and
+127, all nine continuous-norm/design-scale ratios are 0.9823--1.0285. No scale
+or spectral event changes. A scalar quadrature test initially failed at an
+exact Fourier zero because its 4e-15 tolerance was below the independent
+quadrature's 5.8e-15 cancellation error; that failed log remains, and the corrected
+test separately asserts the exact-zero identity. The release packager now retains
+and labels any completed reference-coverage failures rather than excluding
+their arrays; incomplete or numerically failed active states remain excluded.
+
+The full cubic audit has now completed, without any change to its declared
+settings: 2,186.52 seconds, 1,422,753,792 bytes peak RSS. It reduces relative
+width from 0.47345 to 0.25231; minimum reference sign power is still only
+1.4846e-10. The bias bound is 2.46666, with 0.81489 remainder and 1.65177 from
+polynomial/density contributions; noise contributes another 0.60113 to the
+half-width. This is not a useful interval despite the improvement. Even the
+counterfactual of deleting only the remainder would leave a half-width above
+the reference magnitude; it is not a valid replacement interval or a proof
+that other estimators cannot work. The next methodological issue is designing
+weights against the improved nuisance penalty, not reporting this component
+reduction as success. The original one-case protocol is complete.

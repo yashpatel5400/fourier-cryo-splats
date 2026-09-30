@@ -64,9 +64,10 @@ def main():
                             raise ValueError(f'Ambiguous sign-projection owner: {array}')
                     if not owners:continue
                     owner=owners[0];record=json.loads(owner.read_text())
-                    if record.get('complete') is not True or any(record.get(key) for key in ['error','numerical_failure','audit_failure','reference_coverage_failure']):continue
+                    if record.get('complete') is not True or any(record.get(key) for key in ['error','numerical_failure','audit_failure']):continue
                     additions.add(array)
-                    selected_owners[str(array.relative_to(ROOT))]={'record':str(owner.relative_to(ROOT)),'sha256':sha(owner)}
+                    selected_owners[str(array.relative_to(ROOT))]={'record':str(owner.relative_to(ROOT)),'sha256':sha(owner),
+                        'reference_coverage_failure':bool(record.get('reference_coverage_failure'))}
         files=sorted(set(files)|additions)
     if not files:
         raise AssertionError('No validation arrays found')
@@ -90,7 +91,7 @@ def main():
                 'reproduction': 'Extract at repository root; fetch original particle selections/maps using recorded protocols.'}
     if args.include_post_review:
         manifest['completed_post_review_array_owners']=selected_owners
-        manifest['excludes']='Active or failed post-review case arrays; their status records and source snapshots remain in git.'
+        manifest['excludes']='Active or numerically failed post-review case arrays; their status records and source snapshots remain in git. Completed reference-coverage failures are included and flagged, not selected away.'
     manifest_path.write_text(json.dumps(manifest, indent=2)+'\n')
     print(json.dumps({k: manifest[k] for k in ['archive', 'bytes', 'sha256']}, indent=2))
 

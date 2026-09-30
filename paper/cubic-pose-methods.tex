@@ -80,6 +80,23 @@ Its proof expands the squared residual norm and applies Cauchy--Schwarz to the
 known pilot. Twenty continuous cell and Gaussian moments evaluate the pairings.
 Independent scalar phase recurrences, direct quadrature, adjoint identities and
 the old quadratic restriction check signs and normalization. The quadratic and cubic intervals are alternatives; their unadjusted minimum
-is not a joint confidence claim. The empirical
-cubic outcome is pending at this development checkpoint. A correct extension
-alone does not establish practical usefulness or calibrated pose budgets.
+is not a joint confidence claim. The completed audit takes 2,187 seconds and 1.42 GB peak resident memory.
+Its total bias bound is 2.467, comprising a 0.815 quartic remainder and
+1.652 from the polynomial/density terms. Noise adds 0.601 to the half-width.
+The relative width falls from 0.473 for the quadratic enclosing-domain audit
+to 0.252, but minimum reference sign power is only
+$1.48\times10^{-10}$. Thus retaining cubic terms improves the bound without
+making this feature detectable under the assumed class. Merely removing the
+remainder from the current expression would still leave a half-width above
+the reference feature magnitude; that counterfactual is not a valid interval
+or an impossibility result for a different estimator.
+
+Follow-up numerical checks evaluate all 28,160 actual-frequency Gaussian moments
+against independent order-200 quadrature (maximum per-column relative norm
+error $2.35\times10^{-14}$), reproduce the fixed-pose residual bias, and verify
+an actual-operator adjoint pairing. Selected continuous block-norm/design-scale
+ratios are 0.982--1.029; no scale is changed after the probes. These checks do
+not validate all floating-point errors. A stricter factor-twenty toy remainder
+slack test fails at 35.57, which remains a conservatism finding; separate
+nonlinear tests verify fourth-order error scaling. Neither these checks nor the
+reduced interval calibrate experimental pose radii.

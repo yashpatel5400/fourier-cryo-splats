@@ -3,8 +3,8 @@
 **Development checkpoint, not a completed resubmission or an acceptance claim.**
 The unmodified first Fable 5.1 review remains the latest full acceptance
 assessment: reject, confidence 4/5, not a strong contender. Focused mathematical
-audits are not full reviews. Several feature fits and the bounded cubic-pose diagnostic are running; they
-must be completed and incorporated before the next full review. The eighteen-case
+audits are not full reviews. Several feature fits and the fresh noise-calibration application are running;
+they must be completed and incorporated before the next full review. The eighteen-case
 pose-optimization grid and its post-audits are complete.
 This file also supports local packet-size/layout checks without invoking a model.
 
@@ -40,8 +40,11 @@ is complete; the family and experimental application are pending. The first
 region's completed one-degree audit has no useful sign power on any of the three
 stacks, including one no-data fallback. A declared two-case higher-order
 remainder diagnostic reduces one component, but is not a new interval. The
-separate full cubic audit remains pending; focused Fable mathematics checks
-and their responses do not constitute a new acceptance review. Its sigma
+separate full cubic audit has completed: it reduces one selected width from
+0.473 to 0.252, yet minimum reference sign power remains 1.48e-10. Its actual
+polynomial/density contribution remains too large for useful inference.
+Focused Fable mathematics checks and their responses do not constitute a new
+acceptance review. Its sigma
 is not its sampled frequency-band resolution. These tests do not satisfy the
 review's requested fine-scale usefulness criterion yet.
 
