@@ -26,17 +26,18 @@ Current evidence includes:
   convergence and unfavorable power results; its two-degree bounds still miss
   the full review's usefulness and tightness criteria.
 - All twelve locked pilot-selected fixed-pose feature fits are complete. Eleven
-  have high known-noise reference sign power; one does not. Nonlinear pose
-  audits and the complete experimental application are running. All twelve
+  have high known-noise reference sign power; one does not. Their nonlinear
+  audits and 48 experimental intervals are complete. All twelve
   estimators and 116 files were frozen and published before downloading the
   new calibration cohort: 128 particles from unused exposures per stack.
-  All three downloads are verified; the old inference images remain development
-  data, and the full fresh-calibration application is pending.
+  All three downloads and the fresh recalibration are complete. Six fixed-pose
+  intervals and four shift-only intervals exclude zero; none with rotational
+  uncertainty do. Approximate-reference inclusion is not density coverage.
 - A completed cubic audit reduces one selected one-degree width from 0.473
-  to 0.252 of no-data width, without useful sign power. A bounded cubic weight
-  fit is running. A separately declared coordinate follow-up will run only if
-  its final surrogate optimization gap remains above 0.005. No successful
-  empirical outcome is inferred from their prerequisite numerical checks.
+  to 0.252 of no-data width, without useful sign power. Optimized cubic weights
+  reduce this to 0.180, with minimum reference sign power only 0.00654 and a
+  large remaining optimization gap. A coordinate follow-up and a separately
+  declared reduced convex design are being evaluated; no improvement is assumed.
 - Matched bootstrap and [Fourier Gaussian baselines](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md),
   including favorable broader-prior results. A completed
   [local Gaussian pose comparison](research/uncertainty/FOURIER-POSE-BASELINE-RESULTS.md)
@@ -44,6 +45,16 @@ Current evidence includes:
   and density/pose interaction terms. Positivity/support controls,
   two-pose ambiguity witnesses, higher-band and nuisance-sensitivity failures
   remain reported; they do not rescue the current practical limitations.
+- A [known-map information diagnostic](research/uncertainty/ORACLE-POSE-INFORMATION-RESULTS.md)
+  distinguishes individual pose information from collective reconstruction.
+  The native RELION CPU comparison is continuing all three wall-limited
+  initializations under a separately published, bounded protocol.
+- A separate [likelihood-validation candidate](research/uncertainty/MIXTURE-VALIDATION-CANDIDATE.md)
+  targets structural compatibility. Its discrete-view, oracle-predictor screen
+  and shared-scale follow-up detect full local removal on two of three simulated
+  geometries, with all weaker-change failures retained. A full-orientation
+  denominator calculation is running. These are development feasibility tests;
+  a practical independent predictor and experimental calibration remain missing.
 
 The [research plan](research/uncertainty/PLAN.md),
 [critical survey](research/uncertainty/SURVEY.md),

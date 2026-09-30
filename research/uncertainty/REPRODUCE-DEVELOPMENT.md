@@ -474,3 +474,28 @@ radii; density/pose products and nonlinear terms are omitted. The separate
 results note and manuscript report these limitations and all prior settings.
 New array files await the next release bundle; raw outcome hashes are already
 in the repository and do not imply that the v0.5 archive contains these files.
+
+## Likelihood-validation development
+
+The protocols are `MIXTURE-VALIDATION-PREFLIGHT-PROTOCOL.md`, its preserved
+serialization retry note, `MIXTURE-COMMON-SCALE-PROTOCOL.md`, and
+`CONTINUOUS-MIXTURE-PROTOCOL.md`. The first two complete studies use a discrete
+64-view model and an oracle numerator. The continuous study measures a global
+likelihood bracket and has no validation numerator or rejection count.
+Neither study establishes experimental calibration. Reproduce in a fresh
+output checkout with prior inputs and exact source snapshots available:
+
+```bash
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/pytest -q tests/test_uq_mixture_validation.py tests/test_uq_mixture_scale.py tests/test_uq_continuous_mixture.py
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_mixture_validation.py
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_mixture_common_scale.py
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/probe_uq_continuous_mixture.py
+```
+
+Runners refuse to overwrite existing outcome directories. The common-scale
+study reuses the preflight-v2 arrays; the continuous study generates new
+specified Gaussian-pilot observations. All constants and stopping budgets
+are in their protocols. Ordinary floating-point replay is distinct from a
+rigorously outward-rounded likelihood enclosure. The failed preflight-v1
+partial simulation is retained for the next array release, with an explicit
+failed-attempt label; it is not counted as another independent run.
