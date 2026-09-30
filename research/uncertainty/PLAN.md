@@ -110,6 +110,15 @@ linearization, whose nonlinear error and omitted density/pose products remain
 limitations. This supplies an additional matched control, not new experimental
 calibration or a full nonlinear pose posterior.
 
+A native RELION 5.0.1 CPU probe completed in 14.794 seconds on 256 old pilot
+particles. A separately published three-stack unknown-pose reconstruction batch
+is running: pilot-only VDAM initialization, then refinement on the same exposure
+halves as the existing neural comparison. It has explicit per-stage wall limits,
+retains failures, and has no converged baseline result yet. Global map alignment
+is selected only against the old pilot, with all 48 local starts retained; two
+analytic-phantom checks pass. This is preparation for an external reconstruction
+comparison, not a new density-uncertainty guarantee.
+
 ## Historical status (29 September 2026)
 
 The rewritten ICML manuscript now presents a conditional uncertainty audit in

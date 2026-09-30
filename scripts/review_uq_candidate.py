@@ -282,7 +282,7 @@ def main():
                  'GAUSSIANEM-READING-NOTE.md','cryodiff-access-followup.json',
                  'CUBIC-DESIGN-NUMERICAL-CHECK.md','CUBIC-PRECONDITIONER-DEVELOPMENT.md',
                  'CUBIC-COORDINATE-FOLLOWUP-PROTOCOL.md','FOURIER-POSE-BASELINE-PROTOCOL.md',
-                 'FOURIER-POSE-BASELINE-RESULTS.md','RELION-RUNTIME-PROTOCOL.md','RELION-BASELINE-PROTOCOL.md']],
+                 'FOURIER-POSE-BASELINE-RESULTS.md','RELION-RUNTIME-PROTOCOL.md','RELION-BASELINE-PROTOCOL.md','RELION-ALIGNMENT-NOTES.md']],
              ROOT/'research/uncertainty/reviews/cubic-audit-01/review.md',
              ROOT/'research/uncertainty/reviews/cubic-audit-01/response.md',
              *sorted((ROOT/'research/uncertainty/reviews/cubic-design-audit-01').glob('*.md')),
