@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 from fourier_splats.uq_end_to_end_summary import METHODS, TEMPLATES, TARGETS
 from fourier_splats.uq_provenance import source_snapshot
 
@@ -56,6 +57,25 @@ def main():
                     report.append(f'| {t} | {u} | {label} | {cv(a)} | {cv(b)} | {width} | {fb:.3f} | {sign:.3f} |')
                 table.append(r'\addlinespace')
         table += [r'\bottomrule',r'\end{tabular}',r'\end{table*}']
+    alignment_table=[r'\begin{table*}[t]',r'\centering\footnotesize',
+        r'\caption{Complete pose-refinement diagnostics. O/P denote oracle/pilot templates. The score bound is the independent calibration maximum. RMS errors are medians across 200 test datasets. Pose-ball inclusion has an exact binomial 95\% Monte Carlo interval conditional on the realized calibration batch; the rank tolerance theorem instead averages over calibration as well.}',
+        r'\begin{tabular}{llrrrr}',r'\toprule',
+        r'EMPIAR & Template & Score bound & Rotation RMS ($^\circ$) & Shift RMS (\AA) & Pose-ball inclusion (95\% CI) \\',r'\midrule']
+    report += ['', '## Pose calibration and numerical convergence', '',
+        '| Stack | Template | Score bound | Median rotation RMS (degrees) | Median shift RMS (A) | Pose-ball inclusion (exact 95% MC interval) |',
+        '| --- | --- | ---: | ---: | ---: | --- |']
+    for ds,d in data.items():
+        for r in d['alignment']:
+            t='O' if r['template']=='oracle_reference' else 'P'
+            bound=d['calibration_parameters'][r['template']]['joint_score_bound']
+            rot=r['rotation_rms_degrees']['median'];shift=r['shift_rms_A']['median']
+            p=r['pose_bound_fraction'];lo,hi=r['pose_bound_exact_binomial_95']
+            alignment_table.append(f'{ds} & {t} & {bound:.3f} & {rot:.3f} & {shift:.3f} & {p:.3f} ({lo:.3f}, {hi:.3f}) '+r'\\')
+            report.append(f'| {ds} | {t} | {bound:.3f} | {rot:.3f} | {shift:.3f} | {p:.3f} ({lo:.3f}, {hi:.3f}) |')
+    alignment_table += [r'\bottomrule',r'\end{tabular}',r'\end{table*}']
+    table += alignment_table
+    for ds,d in data.items():
+        report += ['',f"{ds}: {sum(r['converged'] for r in d['numerical'])} converged solves of {sum(r['solves'] for r in d['numerical'])}; every numerical result remains in the coverage evaluation."]
     (ROOT/'paper/tables/end-to-end-detail.tex').write_text('\n'.join(table)+'\n')
     report += ['', 'A no-data fallback can provide coverage without using inference images or resolving a sign. The deterministic pose construction is simulation-assisted and its marginal tolerance guarantee averages over calibration datasets. Mixed intervals retain unverified conditional centering for estimated designs. These results do not calibrate experimental density coverage or repeat global ab initio reconstruction.']
     (ROOT/'research/uncertainty/END-TO-END-LOCAL-POSE-RESULTS.md').write_text('\n'.join(report)+'\n')
@@ -65,20 +85,25 @@ def main():
         fig,axes=plt.subplots(2,2,figsize=(7.2,6.2),constrained_layout=True)
         configs=[('same_image','raw_covered','Same-image raw coverage',0,1),
                  ('independent_image','raw_covered','Independent-image raw coverage',0,1),
-                 ('independent_image','covered','Independent-image selected coverage',0,1),
+                 ('independent_image','raw_relative_half_width','Median raw width / no data (log scale)',.001,10000),
                  ('independent_image','relative_half_width','Median selected width / no data',0,1.5)]
         for ax,(mode,metric,title,lo,hi) in zip(axes.ravel(),configs):
             matrix=[]
             for ds in DATASETS:
                 for target in TARGETS:
-                    matrix.append([lookup[ds,template,target,m,mode][metric]['median' if metric=='relative_half_width' else 'fraction'] for m in METHODS])
-            a=np.array(matrix);im=ax.imshow(a,aspect='auto',vmin=lo,vmax=hi,cmap='viridis')
+                    matrix.append([lookup[ds,template,target,m,mode][metric]['median' if 'half_width' in metric else 'fraction'] for m in METHODS])
+            a=np.array(matrix)
+            logarithmic=metric=='raw_relative_half_width'
+            norm=LogNorm(vmin=lo,vmax=hi) if logarithmic else matplotlib.colors.Normalize(vmin=lo,vmax=hi)
+            im=ax.imshow(a,aspect='auto',norm=norm,cmap='viridis')
             ax.set_xticks(range(9),LABELS,rotation=60,ha='right',fontsize=7)
             ax.set_yticks(range(6),[f'{ds} {"C" if t=="center" else "Z"}' for ds in DATASETS for t in TARGETS],fontsize=7)
             ax.set_title(title,fontsize=8)
             for i in range(6):
                 for j in range(9):
-                    ax.text(j,i,f'{a[i,j]:.2f}',ha='center',va='center',fontsize=6.5,color='white' if a[i,j]<(hi-lo)/2 else 'black')
+                    label=f'{a[i,j]:.1e}' if logarithmic else f'{a[i,j]:.2f}'
+                    ax.text(j,i,label,ha='center',va='center',fontsize=5.5 if logarithmic else 6.5,
+                        color='white' if norm(a[i,j])<.5 else 'black')
             colorbar=fig.colorbar(im,ax=ax,shrink=.7)
             colorbar.ax.tick_params(labelsize=7)
         fig.suptitle(('Oracle-reference' if template=='oracle_reference' else 'Independent-pilot')+' alignment: 200 paired datasets per geometry',fontsize=9)
@@ -86,7 +111,7 @@ def main():
             fig.savefig(ROOT/f'paper/figures/end-to-end-{template}.{suffix}',dpi=150)
         plt.close(fig)
     main_table=[r'\begin{figure*}[t]',r'\centering\includegraphics[width=\textwidth]{figures/end-to-end-independent_pilot.pdf}',
-        r'\caption{Frozen local-refinement study with independent-pilot alignment. C/Z are central/contrast targets. Every cell uses 200 newly simulated datasets, with poses and weights re-estimated each time. Raw and selected coverages distinguish effects of the no-data fallback. Methods and image controls are paired. Full oracle-template results, raw widths, binomial Monte Carlo intervals, sign-exclusion and failure counts accompany the figure. These are coarse, fixed-generator simulations, not experimental coverage.}',r'\label{fig:endtoend}',r'\end{figure*}']
+        r'\caption{Frozen local-refinement study with independent-pilot alignment. C/Z are central/contrast targets. Every cell uses 200 newly simulated datasets, with poses and weights re-estimated each time. Coverage panels use raw intervals. Width panels distinguish raw bounds (logarithmic color scale) from the no-data-selected procedure. Methods and image controls are paired. Full oracle-template results, selected coverage, binomial Monte Carlo intervals, sign-exclusion and failure counts accompany the figure. These are coarse, fixed-generator simulations, not experimental coverage.}',r'\label{fig:endtoend}',r'\end{figure*}']
     (ROOT/'paper/tables/end-to-end-main.tex').write_text('\n'.join(main_table)+'\n')
     (ROOT/'provenance/uncertainty/end-to-end-reporting-v1.json').write_text(json.dumps(dict(input_hashes=hashes,
         source_snapshot=source_snapshot(ROOT,Path(__file__),[]), complete=True),indent=2)+'\n')
