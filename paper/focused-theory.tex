@@ -14,8 +14,12 @@ The absolutely convergent power series have coefficients $1/(2j+1)$ and
 $z^{-2j}$, respectively. Since $z^2\ge3$ and $3^j\ge2j+1$ for all
 integers $j\ge0$, the inequality holds termwise. Thus $F$ is nondecreasing
 and $F(t)\ge F(0)=2\Phi(z)-1$. Symmetry handles negative mean; zero variance
-follows directly. This is a sufficient range of $z$, not a claim that
-$\sqrt3$ is the sharp boundary.
+follows directly. For positive $z$ the boundary is sharp. Taylor expansion gives
+\[
+F(t)-F(0)=\frac{\phi(z)z(z^2-3)}6t^4+O(t^6).
+\]
+When $0<z<\sqrt3$, sufficiently small nonzero bias lowers coverage below
+its zero-bias level. The case $z=0$ is the trivial zero-coverage exception.
 
 For $G=\A\A^*$, $a=\A\ell$, $L=\norm\ell^2$, and fixed positive covariance
 $\Sigma$, completing a quadratic yields
@@ -42,6 +46,25 @@ functionals exist. Identity covariance on infinite-dimensional $H$ has
 infinite trace, so there is no associated finite-energy random element of
 $H$ with that covariance. This is a generalized-process comparison, not a
 claim that all prior draws belong to the bounded density class.
+
+\subsection{An explicit adaptive-bias counterexample}
+If $Z\sim N(0,1)$ and $|\beta(Z)|\le b$, then
+$\beta(Z)=b\operatorname{sign}(Z)$ maximizes absolute error pointwise.
+Thus the worst coverage of a symmetric half-width $q$ is
+$2\Phi(\max\{q-b,0\})-1$. For $q=c\sqrt{1+b^2}$ and $c>1$,
+minimizing over $b\ge0$ yields
+\[
+\inf_b\Pr\{|Z+\beta(Z)|\le c\sqrt{1+b^2}\}
+=2\Phi(\sqrt{c^2-1})-1,
+\]
+attained at $b=1/\sqrt{c^2-1}$. The infimum is zero for $0<c\le1$.
+Consequently an RMS-form bound that covers every adaptive bounded bias
+at nominal $2\Phi(z)-1$ needs $c\ge\sqrt{1+z^2}$. Using $c=z=1.959964$
+instead can reduce coverage to about .908. The ordinary sum bound
+$b+zs$ is no larger than $\sqrt{1+z^2}\sqrt{s^2+b^2}$ by
+Cauchy--Schwarz. These are elementary Gaussian calculations, not a new
+inference principle, and still require a fixed Gaussian noise projection.
+They do not justify arbitrary noise-dependent weights or estimated variance.
 
 \subsection{Optimization, duality, and numerical error}
 The sum-width problem has dual

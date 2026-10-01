@@ -450,6 +450,7 @@ def main():
         'PHASE-SPLIT-CONTROL-RESULTS.md', 'REGISTERED-DICTIONARY-PROTOCOL.md',
         'REGISTERED-DICTIONARY-RESULTS.md', 'BREAKDOWN-RADIUS-PROTOCOL.md',
         'BREAKDOWN-RADIUS-RESULTS.md', 'GAUSSIAN-SOLVE-GAP-NOTE.md',
+        'SHARP-NORMAL-ENVELOPE-NOTE.md',
         'ALIGNMENT-INDEPENDENCE-READING.md', 'CLASSICAL-INFERENCE-READING-NOTE.md',
         'ADJACENT-UQ-FOLLOWUP.md', 'adjacent-uq-followup-sources.json',
         'MOVIE-SPLIT-READING-NOTE.md', 'RAW-MOVIE-PILOT-PROTOCOL.md'])
@@ -462,6 +463,7 @@ def main():
     files.extend(sorted((ROOT/'provenance/uncertainty').glob('continuous-gaussian-v1-stop*.json')))
     files.append(ROOT/'provenance/uncertainty/review2-diagnostics-verification.json')
     files.append(ROOT/'provenance/uncertainty/review2-complete-code-verification.json')
+    files.append(ROOT/'results/uncertainty/development/audit-regressions/sharp-normal-envelope.json')
     if args.round > 1:
         if args.response_file is None:
             raise ValueError('A revision needs a response and every unmodified earlier review')
