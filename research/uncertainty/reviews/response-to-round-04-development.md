@@ -126,3 +126,23 @@ source micrograph identities were incomplete was wrong: existing metadata joins
 recover 229 / 137 / 351 groups, now checked against every saved split label
 ([correction](../BACKGROUND-SOURCE-GROUP-CORRECTION.md)). This is measured evidence of model mismatch in the
 archived background, not a pure-noise spectrum or resolution of R19.
+
+
+## Completed bounded follow-up and manuscript rewrite
+
+The [final catalogue repair](../CATALOG-POSE-INTEGRATION-RESULTS.md) passes the
+unchanged numerical gate on all three stacks. Its saved-draw posterior check
+still cannot certify absolute experimental integrals. The separate
+[population materiality screen](../POPULATION-MATERIALITY-RESULTS.md) fails on
+all three nominated compact regions; all thirty comparisons are retained.
+The proposed feature-response method is not developed after that failure.
+The numerical and compact-region branches are now closed.
+
+The new 16-page manuscript replaces the method narrative with a diagnostic
+study, stating the Fourier representation actually fitted, the limits of
+conditional simulation, implicit population bias and bounded-score amplitude
+obstruction. It incorporates the experimental metadata, author baseline,
+critical survey and all unfavorable decisions. Historical PDFs are preserved.
+This addresses clarity and reporting, not the outstanding usefulness, novelty
+or experimental-calibration requirements. Four full rejections remain; a
+focused consultation does not replace the requested full acceptance assessment.

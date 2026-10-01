@@ -9,8 +9,9 @@ unchanged. This page identifies current outcomes rather than replacing them.
 [unchanged report](reviews/round-04/review.md) and [response](reviews/response-to-round-04-development.md)
 are public. Freeze further moment-test variants; diagnose matched information
 loss and nuisance effects, inspect the actual stack metadata, then choose one
-estimand. The 33-page v0.7.6-dev paper is the reviewed snapshot and has not yet
-been restructured in response. Historical paragraphs below report their status
+estimand. The 33-page v0.7.6-dev paper remains an immutable reviewed snapshot. The new
+16-page diagnostic rewrite incorporates the completed checks, proofs and survey;
+it does not claim a validated uncertainty method. Historical paragraphs below report their status
 at the stated checkpoint; their "no fourth review" statements are superseded
 by this update. The current literature ledger has 141 candidates, not 141 full
 readings. No useful experimentally calibrated method or acceptance result has
@@ -26,7 +27,8 @@ not biological state labels. The harmonic diagnostic passes but does not
 establish amplitude-robust population information. No feature-response method
 will be built on these compact regions under this protocol. This is a scoped
 negative result, not general adequacy of pooled inference or impossibility of
-population estimation. The manuscript has not yet incorporated this checkpoint.
+population estimation. The rewritten manuscript now incorporates both the numerical pass and this
+scientific failure, including the limitations of each.
 
 The first post-round-4 [recorded-nuisance inventory](STACK-NUISANCE-INVENTORY-RESULTS.md)
 is complete. Recorded angular distributions are far from uniform on all three
@@ -58,8 +60,14 @@ uncertainty calibration.
 | What changes with centering or more contrasts? | Centering gives 10/6/0 exclusions and five Class A reference disagreements on 10076. The seven-contrast family gives the same counts and slightly worse cubic widths | Reused-data development; alternatives are not combined by an unadjusted minimum. Class A agreement is not a truth label for a heterogeneous consensus. |
 | Were reconstruction baselines actually run? | Supplied-pose Gaussian/voxel/stock-neural fits on all three stacks; unknown-pose RELION finishes on all three; 24 original-code CryoLike scores finish | RELION registered-reference mean FSC is .702/.202/.122, with reported convergence on all three. The 10076 reference is one Class A assembly state. FSC and scoring are distinct from density coverage. |
 | Does global pose marginalization currently solve validation? | Discrete-view oracle screens and continuous-mixture bounds with retained failed/nonconverged outcomes | Continuous global gaps remain 12,898–15,892; a practical learned independent predictor is absent. |
-| Is the survey comprehensive enough to delimit novelty? | A 138-candidate ledger, targeted primary readings, source/version/access records, direct Bayesian pseudo-atom, alignment/collective-recovery and moment-posterior prior art | Candidate retrieval is not full reading. No novelty claim follows from not finding a matched paper. |
-| What has independent review established? | Authentic full Fable 5.1 reviews 1, 2 and 3 all reject at confidence 4/5; 279 numerical tests pass, one skips, with one expected conic warning | Focused audits and passing tests do not establish scientific utility or acceptance. The requested simulation and matched baseline are now complete; the proposed pose intervals fail the practical informativeness criterion. The third review also rejects and prioritizes alignment-bias reanalysis. |
+| Is the survey comprehensive enough to delimit novelty? | A 141-candidate ledger, targeted primary readings, source/version/access records, direct Bayesian pseudo-atom, alignment/collective-recovery and moment-posterior prior art | Candidate retrieval is not full reading. No novelty claim follows from not finding a matched paper. |
+| What has independent review established? | Authentic full Fable 5.1 reviews 1, 2, 3 and 4 all reject at confidence 4/5; 279 numerical tests pass, one skips, with one expected conic warning | Focused audits and passing tests do not establish scientific utility or acceptance. The requested simulation and matched baseline are now complete; the proposed pose intervals fail the practical informativeness criterion. The third review also rejects and prioritizes alignment-bias reanalysis. |
+
+## Historical checkpoint log
+
+The following paragraphs retain their checkpoint-specific counts and review
+status; the current summary above supersedes their references to a current PDF
+or pending review.
 
 The pre-round-2 fitting and application runs are complete. Their historical
 manuscript and 128-member artifact increment are published as v0.6.2-dev.

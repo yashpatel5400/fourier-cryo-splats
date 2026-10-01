@@ -1,173 +1,69 @@
 # Fourier Cryo Splats
 
-**Active research; not an acceptance-ready paper.** The
-[current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) studies
-uncertainty in cryo-EM density features through continuous Fourier-slice bias
-and pose auditing. The original Gaussian reconstruction work remains available
-in the [earlier paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0 release.
+**Active research; not an acceptance-ready paper.** The completely rewritten
+[16-page ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf),
+*Auditing Population Uncertainty in Cryo-EM: Numerical Integration, Nuisance Laws,
+and Identifiability*, presents the completed three-stack diagnostics and their
+negative scientific decision. It does not claim a validated population-UQ method.
+[Manuscript source](paper/diagnostic-main.tex) and
+[proofs, survey and reproduction appendix](paper/diagnostic-appendix.tex) are public.
 
-The fourth authentic **Claude Fable 5.1 full review recommends rejection**, with
-confidence 4/5, and does not consider the work a strong ICML contender. The
-[unaltered round-4 review](research/uncertainty/reviews/round-04/review.md),
-[current response plan](research/uncertainty/reviews/response-to-round-04-development.md)
-and [focused mathematical audits](research/uncertainty/reviews/README.md) are
-public. Focused audits do not replace a full acceptance assessment. Experimental
-pose/noise/class calibration, useful fine-scale inference and substantive novelty
-remain open; neither passing numerical checks nor approximate-map inclusion
-establishes experimental density coverage.
+The [evidence and open-decisions table](research/uncertainty/CURRENT-EVIDENCE.md)
+distinguishes completed outcomes from unmet research requirements:
 
-The compact [evidence and open-decisions table](research/uncertainty/CURRENT-EVIDENCE.md)
-distinguishes completed outcomes from unresolved scientific limitations.
+- The final [orientation-integration repair](research/uncertainty/CATALOG-POSE-INTEGRATION-RESULTS.md)
+  passes the fixed numerical gate on EMPIAR-10028, 10049 and 10076: 128/128,
+  124/128 and 119/128 cases meet the between-bank tolerance. All 384 cases and
+  independent checks are retained. The numerical branch is closed.
+- The [population materiality screen](research/uncertainty/POPULATION-MATERIALITY-RESULTS.md)
+  fails on all three stacks. Maximum primary modeled biases are .000214,
+  .000122 and .003493, below .02. All thirty prelisted comparisons are retained.
+  Source halves and filter groups supply viewing-law proxies, not biological
+  state labels. The proposed compact-region method is not built.
+- The [matched information comparison](research/uncertainty/MATCHED-INFORMATION-LEDGER-RESULTS.md)
+  and [score-error report](research/uncertainty/FIXED-BANK-SEPARATION-RESULTS.md)
+  distinguish descriptive discrimination from accurate numerical likelihoods.
+  The [planted-truth audit](research/uncertainty/PLANTED-TRUTH-INTEGRATION-AUDIT.md)
+  explains why between-bank agreement cannot certify absolute integrals.
+- The [recorded-nuisance inventory](research/uncertainty/STACK-NUISANCE-INVENTORY-RESULTS.md),
+  [corner spectra](research/uncertainty/BACKGROUND-SPECTRUM-INVENTORY-RESULTS.md)
+  and [acquisition groups](research/uncertainty/ACQUISITION-BACKGROUND-RESULTS.md)
+  document unsupported simulator assumptions. They do not calibrate pure noise.
+- The [author-code population replay](research/uncertainty/POPULATION-BASELINE-REPLAY-RESULTS.md)
+  completes all 23 published two-state likelihood conditions and retains
+  numerical discrepancies. It does not establish experimental coverage.
 
-Round 4 calls for a substantive change, not more variants of the current moment
-test. Those variants are frozen. The [matched information ledger](research/uncertainty/MATCHED-INFORMATION-LEDGER-RESULTS.md),
-[recorded imaging conditions](research/uncertainty/STACK-NUISANCE-INVENTORY-RESULTS.md)
-and [background spectra](research/uncertainty/BACKGROUND-SPECTRUM-INVENTORY-RESULTS.md)
-now document information loss and unsupported experimental assumptions. The existing
-33-page PDF is the reviewed v0.7.6-dev snapshot, not a revision addressing this
-review. All four full reviews reject. The living survey now has 141 candidates,
-with [new population-UQ primary reading](research/uncertainty/POPULATION-UQ-PRIMARY-READING.md)
-and [CAHRA version-2 reading](research/uncertainty/CAHRA-V2-READING.md); candidate
-counts are not full-reading counts.
-
-The first [adaptive orientation-integration gate](research/uncertainty/ADAPTIVE-POSE-INTEGRATION-RESULTS.md)
-finishes all 384 observed-image cases and independently replays every result.
-It passes on 10028 and fails on 10049/10076. This is a classical numerical
-integration diagnostic; no new uncertainty method or experimental coverage
-claim follows. The [focused Fable consultation](research/uncertainty/reviews/post-round04-method-consultation/critique.md)
+All four authentic **Claude Fable 5.1 full reviews recommend rejection**, with
+confidence 4/5. The [unchanged fourth review](research/uncertainty/reviews/round-04/review.md)
+and [response](research/uncertainty/reviews/response-to-round-04-development.md)
+remain public. The later [focused methods consultation](research/uncertainty/reviews/post-round04-method-consultation/critique.md)
 and [audited response](research/uncertainty/reviews/post-round04-method-consultation/response.md)
-are now complete. Its proposed [population materiality screen](research/uncertainty/POPULATION-MATERIALITY-RESULTS.md)
-fails on all three stacks: maximum modeled primary biases are .000214,
-.000122 and .003493, below the fixed .02 threshold. All thirty comparisons
-and independent checks are retained. These recorded-view proxies are not
-biological state labels. The proposed method is not being built on these
-compact regions. The one permitted numerical repair is separate from that
-scientific decision; no fifth full-paper acceptance verdict is claimed.
+are complete; that consultation is not a fifth full acceptance review. Useful
+uncertainty, calibrated experimental nuisances and substantive novelty remain open.
 
-The [final catalogue integration repair](research/uncertainty/CATALOG-POSE-INTEGRATION-RESULTS.md)
-passes on all three stacks (128/128, 124/128 and 119/128 images within the
-unchanged tolerance). All 384 cases and independent checks are complete.
-The numerical branch ends here. A simulation-only planted-truth audit exposes
-why agreement of two banks is insufficient to certify absolute integrals;
-this computational pass does not validate experimental uncertainty.
+The [living survey](research/uncertainty/SURVEY.md) has 141 candidates, with
+source/version and reading-depth records. Retrieval counts are not full-reading
+counts. [Population-UQ primary reading](research/uncertainty/POPULATION-UQ-PRIMARY-READING.md)
+and [CAHRA v2 notes](research/uncertainty/CAHRA-V2-READING.md) cover direct prior
+art and external controls. The downloaded CAHRA supplement checks coordinates;
+the separate noisy population benchmark has not been evaluated.
 
-The separate [author-code population baseline replay](research/uncertainty/POPULATION-BASELINE-REPLAY-RESULTS.md)
-completes all 23 published two-state conditions. It retains numerical
-discrepancies and independently verifies the optimizer; it reuses released
-likelihoods and does not establish uncertainty coverage or a new reconstruction.
+The [v0.7.8 numerical evidence release](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.8-dev)
+contains four independently verified archives and their dependency manifests.
+[Reproduction instructions](research/uncertainty/REPRODUCE-POST-REVIEW4-GATES.md)
+cover frozen runners, saved-array checks and the stopped branches. That release
+predates this manuscript rewrite; its statement that the PDF was unchanged
+was correct at its own checkpoint.
 
-Post-review-2 work includes the [complete matched continuous Gaussian comparison](research/uncertainty/CONTINUOUS-GAUSSIAN-V2-RESULTS.md): all 48 fits converge and all 672 conditional cases are retained. The [600-dataset local-refinement study](research/uncertainty/END-TO-END-LOCAL-POSE-RESULTS.md) also finishes, following a separate 384-dataset calibration batch. All 12,000 weight solves converge. Every one of 216 procedure/control cells covers its coarse truth in 200/200 trials, including the simpler baselines; this is **not a demonstrated coverage advantage**. The three pose-audit procedures always select the no-data interval. Their raw median widths span 642–1,242 times its width, with nonlinear remainder dominating numerically; even removing it leaves all first-order bounds uninformative. Near-truth local pose initialization deteriorates substantially during the declared coarse fit; these are not production reconstruction results.
-
-The [rewritten manuscript](paper/focused-main.tex) reports these failures in its abstract and main results. The [registered replay](research/uncertainty/REGISTERED-DICTIONARY-RESULTS.md), [breakdown analysis](research/uncertainty/BREAKDOWN-RADIUS-RESULTS.md), and [phase independence control](research/uncertainty/PHASE-SPLIT-CONTROL-RESULTS.md) are complete. A [raw-movie pilot](research/uncertainty/RAW-MOVIE-PILOT-RESULTS.md) retains all acquisition diagnostics and the interrupted/recovered transfer, but does not establish independent pure noise. None resolves the experimental inputs. [Current reproduction instructions](research/uncertainty/REPRODUCE-REVISION3.md) distinguish immutable archived studies from new runs.
-
-The [post-review-3 saved-array diagnosis](research/uncertainty/REFITTING-BIAS-REANALYSIS-RESULTS.md) reproduces every original estimate and adds 18 converged true-pose fits. Noise-only coverage falls to .720 for the pilot-aligned 10049 contrast, versus .955 with true poses; the original broad bias-aware intervals still cover every trial. Exact realized-pose class envelopes are much smaller than the old bounds but remain large. These post hoc results are retained in the current paper and do not resolve the rejected novelty or usefulness assessment.
-
-The new [translation-invariant moment diagnostic](research/uncertainty/paired-power-v1/BISPECTRUM-RESULTS.md) retains all 24 cells and 160 continuous-orientation searches. Two ranged-amplitude contrasts fail on 10028; the four 10049 contrasts retain sampled positive margins without a global validity certificate; no positive direction was found on 10076. All twelve removal fits reach their iteration limit. An independent complex-moment calculation checks 48 noise-variance values within 3.6e-15. This is oracle method development, not new experimental coverage or a new reconstruction. The updated [literature reading](research/uncertainty/ALIGNMENT-LITERATURE-REVIEW3.md) distinguishes collective recovery, individual alignment and prior moment-based posterior methods; the ledger now has 138 candidates, with reading depth stated separately.
-
-A subsequent [global-cover cost calculation](research/uncertainty/paired-power-v1/BISPECTRUM-GLOBAL-BOUND-RESULTS.md) rules out that particular derivative-envelope grid implementation, requiring 1e13–2e16 rotations. The separate [Monte Carlo study](research/uncertainty/paired-power-v1/MONTE-CARLO-VIEW-LAW-RESULTS.md) changes the model to a bounded viewing density and known noise. At 10,000 Haar-view particles, ranged-amplitude 10049 rejection projections are .700 for power and .826 for combined moments, with overlapping intervals. Both ranged 10028 contrasts fail, 10076 remains uninformative, and the guarantee becomes ineffective for 10049 at a viewing-density ratio bound of 1.1. These are binomial projections from independent simulations, not observed experimental power or a non-Haar experiment. All 192 projections, controls, scores and numerical checks are retained; [reproduction instructions](research/uncertainty/REPRODUCE-REVISION6.md) state the dependencies and assumptions.
-
-The [conditional-noise follow-up](research/uncertainty/paired-power-v1/VIEW-VARIANCE-RESULTS.md) and [classical risk comparisons](research/uncertainty/paired-power-v1/VIEW-RISK-BASELINES-RESULTS.md) separate conditional noise from viewing variability. The added CVaR comparators are looser at this budget, but the paired variance bounds are dominated by Monte Carlo concentration slack. Grouped methods require amplitude conditionally independent of noise given view. A [fresh preferred-view study](research/uncertainty/paired-power-v1/PREFERRED-VIEW-RESULTS.md) uses 1,179,648 rotations, retains 1,944 projections and 648 actual repeated-group cells, and finds strong amplitude dependence. This remains a selected two-stack study; 10076 is not newly resolved. The [authentic focused Fable audit and response](research/uncertainty/reviews/view-variance-audit-01/response.md) identify remaining calibration, novelty and usefulness gaps. The v0.7.4-dev paper is 30 pages; [reproduction instructions](research/uncertainty/REPRODUCE-REVISION7.md) cover all new numerical arrays and checks. All three full reviews remain rejections.
-
-The [candidate-derived score study](research/uncertainty/paired-power-v1/CANDIDATE-SCORE-RESULTS.md) now tests all three fitted Gaussian maps without an external reference for region or score design. All 18,900 scalar projections and 6,300 repeated-group cells are retained. Removing scale means helps, but small deletions remain difficult, viewing uncertainty strongly reduces power, and classical CVaR outperforms the paired bound on some candidates. The largest correct-null repeated-group count is 7/128, with a wide pointwise interval; calibration is fixed. The v0.7.5-dev paper is 32 pages. [Reproduction instructions](research/uncertainty/REPRODUCE-REVISION8.md) include the actual Gaussian candidate maps, every numerical array, independent checks and the simulator limitations. A candidate rejection does not uniquely localize structural error or supply regional-density coverage.
-
-A [fresh classical Fisher comparison](research/uncertainty/paired-power-v1/FISHER-SCORE-RESULTS.md) adds 18,900 projections, 6,300 repeated-group cells and 9,450 conservative difference intervals on all three stacks. Covariance-aware scores improve the largest 10028 case but leave smaller changes difficult. An [equal-noise-budget allocation study](research/uncertainty/paired-power-v1/REPLICA-ALLOCATION-RESULTS.md) adds 37,800 projections and 12,600 group cells on another independent test sample: more replicas reduce estimated nuisance envelopes, but fewer views often loosen confidence bounds. Neither allocation uniformly improves power. All outcomes and full training inputs are retained; 25 targeted tests pass and separate implementations check covariances, constrained directions, bounds and outcome records. The current paper is 33 pages; [reproduction instructions](research/uncertainty/REPRODUCE-REVISION9.md) describe the four numerical bundles. These are conditional simulator diagnostics, and all three full Fable reviews remain rejections.
-
-Earlier evidence includes:
-
-- [Direct folded-width optimization](research/uncertainty/FOLDED-RIDGE-REVIEW3-RESULTS.md)
-  completes six targets and 119 converged linear solves, reducing widths only
-  .062--.098%. The updated paper retains restricted and global gaps separately.
-- [Paired-exposure validation gates](research/uncertainty/paired-power-v1/METHOD-GATES-RESULTS.md)
-  retain diagonal-cone failures, all full-frequency/common-shift cases, and
-  42 verified continuous-pose violations. The exact-model focused audit and
-  response are public. These candidates are not calibrated experimental tests.
-
-- Original-code CryoLike scoring completes all 24 declared three-stack cases.
-  Both metrics and both viewing grids are retained; their rankings differ.
-  These reused-particle scores do not establish density calibration.
-
-- Two completed frozen conditional-uncertainty studies and an additional-exposure
-  prediction comparison on three EMPIAR stacks. Stock neural prediction wins
-  all six prescribed contrasts; this is prediction, not density uncertainty.
-- A 10,000-particle, radius-12 matrix-free audit using 1.95 GB peak memory on
-  the Mac. The completed eighteen-case pose-aware design grid retains failed
-  convergence and unfavorable power results; its two-degree bounds still miss
-  the full review's usefulness and tightness criteria.
-- All twelve locked pilot-selected fixed-pose feature fits are complete. Their
-  known-noise reference sign power depends on correct map registration. Their nonlinear
-  audits and 48 experimental intervals are complete. All twelve
-  estimators and 116 files were frozen and published before downloading the
-  new calibration cohort: 128 particles from unused exposures per stack.
-  All three downloads and the fresh recalibration are complete. Six fixed-pose
-  intervals and four shift-only intervals exclude zero; none with rotational
-  uncertainty do. A later, separately declared centered-noise procedure raises
-  those counts to ten and six, with rotational exclusions still zero.
-  [All centered outcomes](research/uncertainty/CENTERED-NOISE-CALIBRATION-RESULTS.md)
-  retain the original procedure and five new disagreements with the Class A
-  reference on heterogeneous 10076. Approximate-reference inclusion is not density coverage.
-- A completed cubic audit reduces one selected one-degree width from 0.473
-  to 0.252 of no-data width, without useful sign power. Optimized cubic weights
-  reduce this to 0.180, with a large remaining optimization gap. A separately
-  declared reference-frame check changes its simulated minimum sign power from
-  0.00654 to 0.95725 without changing the estimator. Its subsequent experimental
-  interval still contains zero: the experimental SD upper bound is much larger
-  than the supplied simulation SD and is not a pure-noise measurement.
-  [All three fixed-estimator outcomes](research/uncertainty/REGISTERED-TARGET-SENSITIVITY-RESULTS.md)
-  are retained. The coordinate follow-up completed with a
-  worse width of 0.223. The reduced convex design selected the original weights
-  and left the full-space optimization gap unresolved. The completed enriched
-  and joint designs give relative widths .178365 and .175192, modest .79% and
-  2.55% improvements. All ten raw/centered experimental intervals for the five
-  designs contain zero; the joint centered interval is 2.46896 ± 3.01088.
-  [All new outcomes](research/uncertainty/JOINT-ENRICHED-EXPERIMENTAL-RESULTS.md)
-  remain conditional on unverified pose, density and noise assumptions.
-- Matched bootstrap and [Fourier Gaussian baselines](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md),
-  including favorable broader-prior results. A completed
-  [local Gaussian pose comparison](research/uncertainty/FOURIER-POSE-BASELINE-RESULTS.md)
-  widens its intervals only slightly; this pilot linearization omits nonlinear
-  and density/pose interaction terms. Positivity/support controls,
-  two-pose ambiguity witnesses, higher-band and nuisance-sensitivity failures
-  remain reported; they do not rescue the current practical limitations.
-- A [known-map information diagnostic](research/uncertainty/ORACLE-POSE-INFORMATION-RESULTS.md)
-  distinguishes individual pose information from collective reconstruction.
-  The native RELION CPU comparison has completed a converged unknown-pose
-  reconstruction on all three stacks. Registered-reference mean FSC is
-  .702/.202/.122 on 10028/10049/10076, respectively, despite convergence flags
-  on all three; every original and registered curve is retained.
-  Pilot-only reference registration improves cross-method reference FSC on
-  10028 and 10049; the Class A reference on heterogeneous 10076 remains a
-  weak match to the consensus. Both original and registered curves are kept.
-- A separate [likelihood-validation candidate](research/uncertainty/MIXTURE-VALIDATION-CANDIDATE.md)
-  targets structural compatibility. Its discrete-view, oracle-predictor screen
-  and shared-scale follow-up detect full local removal on two of three simulated
-  geometries, with all weaker-change failures retained. The first full-orientation
-  denominator calculation and two diagnostics completed with unresolved large
-  gaps; the completed refinement still leaves gaps of 12,898--15,892. A reviewer-
-  motivated disk diagnostic does not improve sampled coarse cells. These are development feasibility tests;
-  a practical independent predictor and experimental calibration remain missing.
-
-The [research plan](research/uncertainty/PLAN.md),
-[critical survey](research/uncertainty/SURVEY.md),
-[theory](research/uncertainty/THEORY.md),
-[development log](research/uncertainty/DEVELOPMENT-LOG.md) and
-[reproduction commands](research/uncertainty/REPRODUCE-DEVELOPMENT.md) give the
-full methods, sources, protocols and outcomes. The survey distinguishes curated
-candidates, targeted reading and retrieval; a download is not a full reading.
-
-Exact early frozen models are in the
-[v0.2 uncertainty checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.2.0-dev).
-The immutable [v0.6 development checkpoint](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.6.0-dev)
-contains 905 verified arrays and its historical 50-page preprint. The
-[v0.6.1 increment](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.6.1-dev)
-adds seven verified arrays and the corrected 52-page manuscript with registered
-and centered-calibration outcomes. The historical v0.6 main-text statement that
-no converged ab initio comparison had run is corrected: 10028's completed
-RELION result was already described in that release's appendix. The
-[v0.6.2 completed increment](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.6.2-dev)
-adds 128 verified numerical/map/diagnostic files and the 55-page manuscript,
-including all three completed RELION comparisons and all new cubic outcomes.
-It requires the prior bundles described in its manifest.
-The [v0.7.0 focused revision](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.0-dev) adds five verified numerical bundles (1.19 GB total) and the 26-page rewritten paper. It retains all 600 refitting trials, 384 calibration datasets, favorable matched-prior comparisons and the raw-movie diagnostics; the proposed pose bounds fail the informativeness criterion.
+Earlier reconstruction and uncertainty studies remain in immutable releases.
+The [v0.7.6 reviewed manuscript](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.6-dev)
+is 33 pages. The [600-dataset local-refinement study](research/uncertainty/END-TO-END-LOCAL-POSE-RESULTS.md)
+finds uninformative intervals, while the [matched continuous-prior comparison](research/uncertainty/CONTINUOUS-GAUSSIAN-V2-RESULTS.md)
+finds no coverage advantage. [Earlier reconstruction results](RESULTS.md),
+[original paper](paper/reconstruction-v0.1.0.pdf), the
+[development log](research/uncertainty/DEVELOPMENT-LOG.md) and the historical
+sections of [current evidence](research/uncertainty/CURRENT-EVIDENCE.md) preserve
+the full record. No external GPU rental is needed for the completed diagnostics.
 
 On macOS, installing the optional uncertainty tools requires the FINUFFT build
 configuration in [COMPUTE.md](research/uncertainty/COMPUTE.md) to avoid conflicting

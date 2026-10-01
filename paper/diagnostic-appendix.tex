@@ -1,0 +1,512 @@
+\section{Proofs and Their Scope}\label{app:proofs-new}
+These arguments support the stated diagnostic interpretations. They are not
+claimed as a new general framework for inference in mixtures or inverse
+problems. In particular, correct algebra conditional on a noise or nuisance
+model does not establish that model on experimental particles.
+
+\subsection{Pooled conditional-mixture identity}
+For $f_t=t f_A+(1-t)f_B$, write
+$u_t=(f_A-f_B)/f_t$. Since $\int(f_A-f_B)=0$,
+\begin{align}
+\int f_Au_t&=\int\{f_t+(1-t)(f_A-f_B)\}u_t\\
+&=(1-t)J_t,\nonumber\\
+\int f_Bu_t&=-tJ_t.
+\end{align}
+Taking expectations over the \emph{state-specific} laws gives
+Equation~\eqref{eq:score-new}. An interior zero of that score gives
+Equation~\eqref{eq:odds-new}. The second derivative of a conditional
+log likelihood is $-u_t^2$, so its expectation is nonpositive, and strictly
+negative whenever the conditional components differ with positive probability.
+Under the stated strict-concavity condition the zero is the unique interior
+optimum. At $t=p$ its score is
+$p(1-p)(\E_{\nu_A}J_p-\E_{\nu_B}J_p)$, proving the final statement.
+One must evaluate $J$ at the fitted fraction; replacing it by a fixed
+discriminability ratio changes this identity into an approximation.
+
+For Gaussian means, let $\ell=\log(f_A/f_B)$ and
+$h_t(\ell)=\operatorname{logistic}(\operatorname{logit}(t)+\ell)$.
+Then $u_t=(h_t-t)/(t(1-t))$. Subtracting its two conditional expectations,
+or using the preceding identities, yields
+For $Z\sim N(0,1)$, this gives
+\begin{align}\label{eq:gauss-J-new}
+J_t(s)&=\frac{\E\{h_t(\ell_+)-h_t(\ell_-)\}}{t(1-t)},\\
+\ell_\pm&=\sqrt{s}Z\pm s/2.\nonumber
+\end{align}
+The implementation integrates the difference before averaging, reducing
+cancellation for small $s$. Roots use 64-node Gauss--Hermite quadrature on
+$[10^{-7},1-10^{-7}]$ with root tolerance $10^{-10}$; 128 nodes check the
+normalized score against $10^{-6}$. A separate verifier integrates the
+direct density-ratio score under both generating Gaussians using a distinct
+160-node quadrature implementation. None of these checks certifies a
+latent-pose marginal likelihood.
+
+\subsection{Harmonic variance and the amplitude tangent}
+Conditionally on state $Z\in\{0,1\}$ and pose $R$, the score in
+Equation~\eqref{eq:oracle-score-new} is
+$Z+\ip{\epsilon}{g(R)}/s(R)$. Its conditional mean is $Z$ and its
+conditional variance is $1/s(R)$. Total variance gives
+$p(1-p)+\E_\nu[1/s(R)]$; independent images divide that variance by $n$.
+No state--view independence is used. The argument requires correct means,
+amplitude one, conditional zero-mean unit-covariance noise, $s>0$ and a
+finite harmonic moment. It neither proves unbiasedness after noisy pose
+estimation nor permits arbitrary view-dependent amplitudes.
+
+At a Gaussian mean with perturbation direction $g$ and real-amplitude
+direction $m_A$, the Fisher Gram matrix is
+\begin{equation}
+\begin{pmatrix}\norm g^2&\operatorname{Re}\ip{g}{m_A}\\
+\operatorname{Re}\ip{g}{m_A}&\norm{m_A}^2\end{pmatrix}.
+\end{equation}
+Its Schur complement is Equation~\eqref{eq:amplitude-new}. This is a
+\emph{mean-parameter} calculation, not the efficient information of a
+binary mixture with unrestricted amplitude laws. The secondary projection
+at $m_B$ is retained in every screen array. Under Haar, projection at the
+full map reduces arithmetic mean separation by 4.95\%, 37.14\% and 8.28\%.
+The corresponding harmonic surrogates are 1.2912, 1.1206 and 3.9184.
+Nonzero local separation is compatible with nonlinear ambiguity or unstable
+population inference.
+
+\subsection{Bounded-score amplitude obstruction}
+Whiten a nonsingular Gaussian covariance. For bounded measurable $\psi$,
+set $F_z(a)=\int\psi(y)\phi_d(y-a m_z)\,dy$. For complex $a=u+iv$,
+the modulus of the extended Gaussian integrand is bounded by
+\begin{equation}
+\norm\psi_\infty\,\phi_d(y-u m_z)
+\exp(v^2\norm{m_z}^2/2).
+\end{equation}
+On compact subsets of $a$, this and the derivatives needed to differentiate
+under the integral have integrable Gaussian tails. Hence $F_z$ is entire.
+If $F_A=1$ on a nonempty real interval, the identity theorem gives $F_A=1$
+everywhere. Likewise $F_B=0$ on its interval implies $F_B=0$ everywhere.
+But $F_A(0)=F_B(0)=\E\psi(\epsilon)$, a contradiction.
+
+Zero amplitude is used for analytic continuation, not assumed physically
+admissible. A fixed affine combination of finitely many bounded features
+is bounded, so the proposition applies to any finite-coefficient calibrated
+feature score. It does not supply a quantitative bias--variance lower bound,
+rule out nonlinear multi-image estimation or establish a root-$n$ impossibility
+result. General linear-functional deconvolution theory is relevant
+\citep{pensky2017}, but its detailed rate results have not been verified for
+our multivariate, support-constrained model.
+
+\subsection{Reciprocal importance identity and stochastic brackets}
+For positive $f$ and $q$, set $w=f/q$, and let $I=\int f$.
+Changing the first measure from $f/I$ to $q$ gives
+\begin{align}
+\E[I_\star^{-1}]&=I^{-1}\E_{q^L}
+\left[\frac{Lw(X_1)}{\sum_lw(X_l)}\right]\\
+&=I^{-1}.\nonumber
+\end{align}
+The last step uses exchangeability: the $L$ expectations of
+$w(X_j)/\sum_lw(X_l)$ are equal and sum to one. Positivity ensures the
+denominator is nonzero. A fixed replacement index is valid; choosing a
+replacement according to observed weights is not this experiment.
+
+For a matched joint simulation, generating latent variables conditional on
+the observations have the exact posterior law. This familiar identity
+underlies bidirectional Monte Carlo \citep{grosse2015}. The proposal may
+depend on the image and a fixed independent catalogue, but it must not use
+the true pose beyond information already in the image. Other draws must be
+conditionally independent of that posterior point. Conditional on an
+already fixed generating pose, the posterior-draw interpretation is absent.
+
+For independent images, $\prod_i\widehat I_i$ is unbiased for
+$\prod_i I_i$, and $\prod_i I_{\star,i}^{-1}$ is unbiased for its
+reciprocal. Markov and a union bound give
+\begin{align}
+\sum_i\log\widehat I_i-\log(1/\delta_L)&\le\sum_i\log I_i,\\
+\sum_i\log I_i&\le\sum_i\log I_{\star,i}+\log(1/\delta_U)
+\end{align}
+jointly with probability at least $1-\delta_L-\delta_U$. We use
+$\delta_L=\delta_U=.025$ for each fixed 64-image state/bank bracket.
+There is no simultaneous claim across stacks, states or banks; paired
+states share noise and poses and are never multiplied together.
+The four final widths per stack range from 7.395--7.398, 7.404--7.415 and
+7.508--7.519 log units. The additive floor $2\log40=7.378$ dominates.
+These are stochastic simulation brackets, not a practical uniform numerical
+certificate for experimental inference.
+
+\subsection{Identifiability is distinct from an unbiased score}
+For completeness, consider fixed templates with compact noiseless mean
+supports $\mathcal M_0,\mathcal M_1$ generated by a compact nuisance space
+and continuous forward map. Allow arbitrary joint state/nuisance laws and
+assume measurable probability lifts from each mean support to its nuisance
+space. The latter is automatic for a finite catalogue; it is an explicit
+assumption here for continuous spaces.
+
+Let $\mu$ be the law of the noiseless observed mean, and add independent
+known nonsingular Gaussian noise. Its characteristic function is nowhere
+zero, so Gaussian convolution identifies $\mu$ from the infinite-data
+observed distribution. The compatible state-1 fractions are exactly
+\begin{equation}
+\left[\mu(\mathcal M_1\setminus\mathcal M_0),\,
+\mu(\mathcal M_1)\right].
+\end{equation}
+Only state 1 can generate the first set; all state-1 mass lies in the
+second. Conversely, assign any desired fraction of intersection mass to
+state 1 and lift the resulting measures. Thus disjoint supports identify
+the population, despite the bounded-score obstruction above. This is a
+classical support/deconvolution argument, not evidence of stable finite-data
+recovery or of separation between the actual continuous cryo-EM supports.
+
+An admissible pair of means $a,b$, with whitened distance $d$, gives a
+simple finite-sample obstruction. The all-state-0 and all-state-1 Gaussian
+experiments have $\mathrm{KL}=nd^2/2$, hence
+$\mathrm{TV}\le\min(1,\sqrt n d/2)$. Any interval $C$ covering the
+population at level $1-\alpha$ in both experiments satisfies under the
+first
+\begin{equation}
+\Pr(\{0,1\}\subset C)\ge
+\max\{0,1-2\alpha-\min(1,\sqrt n d/2)\}.
+\end{equation}
+Transfer the second coverage event by total variation and use a union
+bound. A found, independently checked close pair would be sufficient for
+this negative witness; a failed local search would not certify positive
+separation. We do not report such a numerical witness in this study.
+Density floors or restricted nuisance laws can invalidate point-mass
+witnesses and must not be silently discarded.
+
+\section{Numerical Protocol and Independent Checks}\label{app:numerics-new}
+\subsection{Proposal density on rotations}
+The ACG construction normalizes a four-dimensional Gaussian vector to a
+unit quaternion \citep{tyler1987}. For covariance $\Sigma\succ0$, its
+density relative to normalized uniform measure on the unit sphere is
+$|\Sigma|^{-1/2}(u^\top\Sigma^{-1}u)^{-2}$. It is antipodally symmetric,
+so the same normalized density passes to rotations. This expression follows
+by integrating the Gaussian radial coordinate; we do not claim a new
+distribution or a full audit of Tyler's paper.
+
+For catalogue center $c$ and $s=(8\text{ degrees in radians})/2$, use
+$\Sigma_c=s^2I+(1-s^2)cc^\top$. The component density is
+\begin{equation}
+s^{-3}\{[1-(c^\top u)^2]/s^2+(c^\top u)^2\}^{-2}.
+\end{equation}
+The local proposal uses eight optimized midpoint modes. Its three-dimensional
+Hessian covariance is divided by four in the quaternion tangent coordinates;
+the scalar quaternion coordinate has unit variance. The original precision
+clamps correspond to .25--30 degree standard deviations. No saved optimum's
+eigenvalues actually hit these clamps. Original failed optimizer statuses
+are retained, and reused modes are not counted as newly converged fits.
+
+The target maps in the integration experiment are $\rho_0$ and $\rho_{.25}$;
+their midpoint is $\rho_{.125}$. Catalogue weights are proportional to
+$\exp(\text{midpoint log-kernel}/2)$. Full mixture density is evaluated
+over all 32,768 centers in chunks of 256 points. The catalogue broadens
+the proposal; the integrand remains a continuous-orientation physical
+likelihood. Haar mass .05 provides support and finite variance for these
+bounded kernels, but does not ensure useful variance at this draw count.
+
+Each stack uses integer-linspace indices from 0 to 8,191, with 64 indices
+and both generating states. Bank seeds are
+$261020+\text{dataset}+100\times\text{position}+10\times\text{state}
++\text{bank}$. Both 4,096-point prefixes and 8,192-point endpoints are
+retained. The repair changes the sampling algorithm, not selected seeds.
+Maps, observations, draw counts and gate thresholds stay fixed.
+
+\subsection{Replay, samples and diagnostic errors}
+All saved log integrals, ESS values, maximum weights, ratio differences and
+gate decisions are recomputed from kernels and proposal densities. The
+independent density implementation uses inverse full $4\times4$
+covariances at 32 fixed integer-linspace draws from each bank/image:
+8,192 independently checked points per stack. Physical checks explicitly
+sum all $64^3$ cells at all 220 frequencies for six selected orientations
+per stack, evaluating both maps. These are floating-point consistency checks,
+not outward-rounded error certificates or exhaustive direct-sum checks.
+
+For normalized importance weights $w_{lm}$ under model $m$, the plug-in
+delta variance for a shared-draw log ratio is
+$L/(L-1)\sum_l(w_{l1}-w_{l0})^2$. The between-bank SE combines their
+variances. Heavy or missed tails can make this estimate unreliable. We
+retain matching-state weight mass on Haar-labeled draws, the source family
+of the largest weight, Hessian clipping, and the fixed-index planted jump
+for every case. Stratification by the original .01 gate is explicitly
+post hoc, not a predictive validation.
+
+\subsection{Rotation regeneration and law proxies}
+The population screen regenerates all 65,536 training rotations using seed
+$261017+\text{dataset}$. Each batch draws 512 rotations, then the original
+$512\times220$ real and imaginary noise arrays. Skipping those intervening
+draws would produce different later rotations. Direct cell checks at
+indices 0, 511, 512, 32,767, 32,768 and 65,535 verify both full and region
+means; maximum discrepancy is $1.08\times10^{-11}$.
+
+Full-rotation bins use intrinsic ZYZ coordinates
+$\alpha/(2\pi),(\cos\beta+1)/2,\gamma/(2\pi)$, with periodic angular
+wrapping. Equal-width cells have equal Haar volume. For metadata mass $p_c$
+and $n_c$ training rotations in cell $c$, each such rotation receives weight
+$p_c/n_c$. An occupied metadata cell with no training draw would make that
+grid unavailable; no such case occurred. The independent verifier derives
+Euler angles from rotation-matrix entries and reconstructs every histogram.
+These finite histograms define the tested proxies. They are not an estimate
+with guaranteed error against the true continuous state-specific viewing law.
+
+\section{Sampling Errors and Complete Outcome Scope}\label{app:stats-new}
+Let $x_i=T_{0i}$, $h_i=T_{1i}-T_{0i}$, $\widehat\mu=\bar h$ and
+$\widehat v=(n-1)^{-1}\sum_i(x_i-\bar x)^2$. A delta influence for
+$\widehat D=\widehat\mu^2/\widehat v$ is
+\begin{align}
+\widehat\varphi_i={}&\frac{2\widehat\mu}{\widehat v}(h_i-\widehat\mu)\\
+&-\frac{\widehat\mu^2}{\widehat v^2}
+\left\{\frac n{n-1}(x_i-\bar x)^2-\widehat v\right\}.\nonumber
+\end{align}
+We report $\operatorname{sd}(\widehat\varphi_i)/\sqrt n$ as an
+asymptotic conditional Monte Carlo SE. It includes gap/variance covariance;
+the SE of the gap alone is not an SE of $D$. Three empirical-contamination
+finite differences verify this influence for every one of 96 entries.
+No finite-sample confidence bound or power guarantee is attached to it.
+
+Population-law linear summaries report within-cell Monte Carlo SEs
+conditional on fixed bin counts: if $v_c$ is the sample within-cell
+variance, the estimated variance is $\sum_cp_c^2v_c/n_c$.
+This does not include pose, template, histogram-estimation or noise-model
+error. The exact root is checked numerically, not assigned an experimental
+confidence interval. Both assignments of each law pair and all three grids
+are retained; no outcome-guided subgroup or cell selection is performed.
+
+The study's accounting units are important. There are 384 integration image
+cases, formed from 192 source images across three stacks and two paired
+states; the paired states are not independent source particles. Each attempt
+has two banks per case. There are 30 population pair/assignment/grid
+comparisons, not 30 independent biological experiments. The template-score
+ledger has 96 rows sharing images, models and banks. Method comparisons use
+shared draws intentionally; row counts must not be treated as replication
+counts for statistical significance.
+
+\section{Critical Survey and Unresolved Scientific Questions}
+\label{app:survey-new}
+The living survey is dated 1 October 2026. It contains 141 curated
+bibliographic candidates and a much larger broad-search ledger that is not
+an individually read methods corpus. Source manifests record versions,
+access failures and reading depth. We distinguish published papers from
+versioned preprints, targeted full-text reading from abstract screening,
+and original-code execution from descriptions of published experiments.
+This is a substantial scoped survey, not a claim of exhaustive field coverage.
+
+\paragraph{Density posteriors and model error.}
+RELION's Bayesian formulation, Gaussian pseudo-atom inference and
+probabilistic Fourier-slice models are direct uncertainty antecedents
+\citep{scheres2012,joubert2015,ullrich2020}. Their posterior assumptions
+should not be erased by calling them deterministic baselines. Likelihood
+Hessian tails expose weak density--pose directions \citep{rangan2024}.
+Dynamic empirical-Bayes/MCMC approaches also study confidence and resampling
+targets \citep{lai2023}. An additional posterior ensemble is therefore not
+novel merely because its representation is Gaussian. Meaningful comparison
+requires equal nuisance assumptions, information and scale, including a
+matched prior baseline where appropriate.
+
+\paragraph{Pose distributions and confidence statements.}
+Posterior-averaged rotations \citep{bayespose2026} and probabilistic search
+in SIMPLE \citep{simple2025} address estimation. Cryo-forum's dispersion
+supports ranking and filtering \citep{cryoforum2023}. CESPED explicitly
+uses refinement-derived experimental labels with their own uncertainty
+\citep{cesped2024}; ARCHER and cryoPARES investigate transfer and pose
+prediction \citep{archer2026,cryopares2026}. Their scores cannot be
+substituted for a uniformly valid per-particle error radius without checking
+the guarantee and deployment relationship. The recent Bayesian orientation
+paper's Appendix F discusses joint prior estimation and sensitivity;
+simply fitting a preferred-view prior is already an explicit direction.
+
+\paragraph{Heterogeneity representations.}
+CryoDRGN, DynaMight and 3DFlex describe different density or motion families
+\citep{zhong2021,dynamight2024,flex2023}. RECOVAR uses covariance estimation
+and kernel regression \citep{recovar2025}. Physical heterogeneity is a
+distribution of molecular states, not automatically posterior uncertainty
+about a single mean density. Independent-half deformation disagreements
+and held-out motion validation have specific targets; shared learned
+components and evaluated frequency bands matter. Gaussian GMMs, CryoSplat,
+GEM and hierarchical parts are substantial representation prior art
+\citep{chen2021,chen2025,qu2025,shekar2025}. Fourier conjugate pairing differs
+from real-space splats, but needs demonstrated value beyond that distinction.
+
+\paragraph{Population and thermodynamic uncertainty.}
+Cryo-BIFE integrates image nuisances and samples free-energy profiles on a
+fixed path \citep{cryobife2021}. Our follow-up reads the main synthetic
+sections, all seven supplement pages and all six supplemental figures;
+we do not execute its MCMC. Its controls vary noise, defocus, count and path,
+and include posterior-versus-MAP/assignment comparisons. A visible reference
+outside an interval in one realization is not a frequentist coverage study.
+The method's nuisance integration must not be replaced by a weak known-pose
+baseline when comparing future work.
+
+Whole-stack population inversion and classification counts can differ
+substantially \citep{counting2026}; our 23-condition author-code replay
+supports that computational distinction using supplied likelihoods.
+Measurement-limited ensemble granularity \citep{mattingly2026} and
+discretization error \citep{mordant2026} directly constrain claims about
+resolvable populations. cryoTWIN targets thermodynamic landscapes
+\citep{cryotwin2026}. Targeted SI-3/SI-4 reading finds training-subset/seed
+and fixed-landscape path variability measures, rather than repeated-sampling
+coverage. Its comparisons include resolution and density-construction
+differences that require matching in our own studies. We did not audit
+all its proofs, figures or code.
+
+\paragraph{Population uncertainty versus selection.}
+Even accurately estimating the fraction among retained images does not
+recover solution-state populations without assumptions about particle
+capture, picking, classification and filtering. Constructed mixtures
+provide controlled source proportions but not complete molecular density
+truth. Selection and pose-model sensitivity must not be conflated with
+state--view dependence. The author-released rotation-10 result in our replay
+demonstrates sensitivity to a changed likelihood input, not its causal
+attribution to a biological viewing law.
+
+\paragraph{Moment and distributional methods.}
+Nonuniform moment reconstruction, compressed moment recovery and
+moment-based candidate comparison already estimate or profile viewing laws
+\citep{sharon2020,subspacemom2026,momentmetrics2024}. Their bandlimit,
+genericity, identifiability and acquisition assumptions matter. High-noise
+likelihood theory \citep{fan2024} does not calibrate individual poses.
+Recent moment-conditioned posterior sampling and functional deconvolution
+study distinct compressed-information models
+\citep{janson2026mps,alghattas2026functional}; their full code and proofs
+were not replicated here. Distributional inverse stability
+\citep{stochastic2026} further distinguishes image-distribution fit from
+latent reconstruction error under explicit stability assumptions.
+The failure of our low-order scores cannot rule out collective recovery.
+
+\paragraph{Map validation and learned priors.}
+Independent halves, noise substitution, directional resolution and
+independent-particle validation have complementary roles
+\citep{schereschen2012,chen2013,monodir2020,independent2020}.
+FDR confidence maps test density significance \citep{beckers2019,beckers2020}.
+Blush regularizes reconstruction using learned information
+\citep{blush2024}; LocScale-2.0 attaches confidence to map enhancement
+against its specified proxy \citep{locscale2026}. Bias/variance discussions
+already explain why consensus is insufficient \citep{sorzano2022}.
+Sharper appearance, half-map agreement and enhancement confidence do not
+share one calibration claim, and cannot be ranked by an inappropriate
+single coverage metric.
+
+\paragraph{Atomic and multimodal targets.}
+EMMIVox combines molecular information with map-based likelihoods
+\citep{emmivox2024}; experiment-guided AlphaFold3 addresses structural
+ensembles with multiple measurement types \citep{guidedaf32026}.
+CalPro's coordinate-error target uses a different calibration unit
+\citep{calpro2026}. An atomic-model score is neither a raw-particle density
+interval nor a population confidence bound. Independent modalities can
+test interpretations that an image model alone leaves ambiguous.
+
+\paragraph{Conformal and simultaneous calibration.}
+Posterior-variance calibration and quantile/conformal inverse imaging rely
+on a specified population of signal--observation pairs
+\citep{narnhofer2024,qutcc2026}. Noise draws or neighboring voxels from one
+molecule are not automatically exchangeable new molecules. Simultaneous
+inverse confidence regions \citep{batlle2025} differ from many separately
+calibrated marginal intervals. Bias-aware optimal recovery and GP/ridge
+connections are also established \citep{donoho1994,armstrong2018,kanagawa2025}.
+A conditional theorem, an empirical error ranking and marginal population
+coverage require different evidence.
+
+\paragraph{Gaussian uncertainty beyond cryo-EM.}
+Bayesian splatting, photometric uncertainty, view-structured conformal
+prediction and radiative CT consider different forward models and targets
+\citep{jia2026bayesiangs,galappaththige2026ppu,chu2026viewcp,zhao2026radiative}.
+Their existence further limits a claim based only on attaching variance
+to Gaussian kernels. Translating a method requires checking the change from
+view synthesis or CT measurements to latent-pose Fourier projections, and
+from prediction error to structural or population inference.
+
+\paragraph{Benchmark construction and remaining access.}
+CAHRA version 2 describes three separate challenges
+\citep{cahra2026}: experimental compositional mixtures, simulated
+conformational variation, and pose/population entanglement. The last uses
+two CALHM2 structures with preferred views and Gaussian noise, sampling
+state and view independently. A 3\% uniform component is a density
+\emph{floor}, not an upper bound on peak viewing density. Public benchmark
+proportions are known, so subsequent use is not a blind challenge entry.
+The separate convention supplement has been downloaded and checked here;
+the main 8\,GB pose benchmark remains behind a Globus sign-in requirement.
+Its live leaderboard is not a substitute for a methodological comparison
+with identified baselines and uncertainty metrics. Challenge-1 frame overlap
+and common preprocessing must be checked before treating frame sums as
+independent measurements.
+
+\paragraph{Open questions supported by this survey.}
+The strongest unresolved questions are population uncertainty under template
+and viewing-law error; calibrated absolute pose confidence; validation of
+detail introduced by learned priors; and propagation through CTF estimation,
+preprocessing, alignment and molecular interpretation. These are conclusions
+about priorities, not claims that no relevant prior work exists. For this
+project, a real source-labeled mixture and a defensible noise model are more
+valuable than another minor variant of the failed compact-region method.
+
+\section{Historical Comparisons and Reproduction}
+\label{app:repro-new}
+The original reconstruction and uncertainty studies are not erased by this
+rewrite. Their PDFs, source snapshots and exact outcomes remain in tagged
+releases. The new manuscript reorganizes the scientific question; it does
+not convert old conditional results into experimental calibration.
+
+\paragraph{Reconstruction baselines.}
+Three 8,192-particle datasets have Gaussian, trilinear and stock homogeneous
+neural fits using public consensus poses. The Gaussian/voxel test NMSE pairs
+are .83313/.83939, .93023/.93103 and .87503/.87909. These are normalized
+image prediction errors in the original preprocessing, not population error.
+Conditional half-map FSC remains above its threshold at the sampled limit,
+so nominal resolutions 16.08, 7.872 and 13.973\,\AA\ are censored limits,
+not independently resolved atomic detail. Backprojection is named separately
+from neural training. Unknown-pose RELION finishes on all three stacks with
+its convergence and registered-reference diagnostics retained. No ab initio
+CryoDRGN-AI result is substituted for those distinct experiments.
+
+\paragraph{Density-interval failures.}
+The earlier continuous audit compared a finite fitting dictionary with a
+larger supported density class. A matched continuous Gaussian-prior
+comparator shares its fixed-pose guarantee at the stated scale, so coverage
+was not an advantage over that baseline. The complete matched rerun has
+48 converged fits and 672 conditional cases. A separate local-refinement
+study has 600 simulated datasets and 12,000 weight fits; all 216 reported
+procedure/control cells cover broad targets in 200/200 trials, but all three
+pose-audit procedures select the no-data fallback. Raw median widths are
+642--1,242 times that fallback's width. A local optimizer worsens the
+near-truth initialization; it is not a production-refinement comparison.
+Noise-only coverage of one pilot-aligned 10049 feature is .720 versus .955
+with true poses in the saved-draw replay. These findings motivate caution
+about plug-in alignment but do not prove a collective cryo-EM limit.
+
+\paragraph{Moment methods and closed development.}
+Power/bispectrum variants, classical concentration comparators, covariance-
+aware contrasts and equal-noise-budget allocations remain in the prior
+evidence releases. Their scope is controlled candidate validation, not
+population coverage. The new matched ledger and metadata audit address
+the information and nuisance questions those studies left open. No new
+moment variant is selected in this manuscript. The historical allocation
+text contained a transcription .000182; its source result is approximately
+.0001755. This does not affect the new matched comparison or gate outcomes.
+
+\paragraph{Author-code population replay.}
+The upstream commit is \texttt{b9099e1b7fb3}; the full identifier is retained
+in the replay manifest.
+Its original likelihoods are reused, not regenerated. All 10 synthetic and
+13 experimental conditions are retained; two separately named noisy-image
+inputs are byte-identical and are not independent controls. The synthetic
+empirical label fraction .80074 differs from generator probability .8.
+The original float32 weights deviate from sum one by up to
+$1.82\times10^{-5}$; raw and normalized diagnostics remain visible.
+The replay uses current isolated dependencies, not an exact reproduction
+of the authors' environment. It executes their functions without copying
+their implementation into our package.
+
+\paragraph{Executable provenance.}
+Separate runners, verifiers and reporters implement catalogue integration,
+population materiality, the saved-draw integration autopsy and fixed-bank
+separation. Exact script names and commands are in the repository's
+\href{https://github.com/yashpatel5400/fourier-cryo-splats/blob/uncertainty-study/research/uncertainty/REPRODUCE-POST-REVIEW4-GATES.md}{post-review reproduction document}.
+Archive manifests enumerate source commits, input hashes, byte lengths and
+dependencies. Replays refuse to overwrite their original records; a new
+audit needs a separately named output. We retain failed dependency/packaging
+attempts and correct their provenance rather than deleting them.
+
+\paragraph{Independent review and resource use.}
+The exact external model was \texttt{claude-fable-5-1}; four full earlier
+reviews reject at confidence 4/5. The post-round-4 methods consultation
+read supplied text, did not execute arrays or browse papers, and suggested
+the bounded population screen. Its unchanged visible response, prompt and
+provider identity are preserved; private reasoning is excluded. The
+catalogue repair was frozen and started before its critique was retrieved,
+although the provider had completed it shortly earlier. The actual .45 local
+mass does not follow its later local-majority suggestion. No parameters were
+changed to produce a favorable result. A model's approval would not establish
+conference acceptance, and no fifth full review has been requested for this
+diagnostic rewrite. All current work uses the Mac; no GPU rental is needed
+for the completed diagnostics.

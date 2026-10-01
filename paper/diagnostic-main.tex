@@ -1,0 +1,513 @@
+\documentclass{article}
+\usepackage{microtype,graphicx,booktabs,amsmath,amssymb,amsthm,hyperref}
+\usepackage[preprint]{icml2026}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\Haar}{\mathsf H}
+\icmltitlerunning{Auditing Population Uncertainty in Cryo-EM}
+\begin{document}
+\twocolumn[
+\icmltitle{Auditing Population Uncertainty in Cryo-EM:\\Numerical Integration, Nuisance Laws, and Identifiability}
+\begin{icmlauthorlist}\icmlauthor{Fourier Cryo Splats Project}{anon}\end{icmlauthorlist}
+\icmlaffiliation{anon}{Fourier Cryo Splats research project}
+\icmlcorrespondingauthor{Project repository}{\url{https://github.com/yashpatel5400/fourier-cryo-splats}}
+\icmlkeywords{cryo-EM, uncertainty quantification, Gaussian representations, population inference}
+\vskip .2in]
+\printAffiliationsAndNotice{}
+\hypersetup{pdftitle={Auditing Population Uncertainty in Cryo-EM: Numerical Integration, Nuisance Laws, and Identifiability}}
+\begin{center}\small Development manuscript; not submitted.\end{center}
+
+\begin{abstract}
+A detailed cryo-electron microscopy reconstruction does not by itself support
+calibrated uncertainty about density or conformational populations. Starting
+from conjugate-paired Fourier Gaussian reconstructions of three experimental
+stacks, we examine whether population inference is a defensible next target.
+Matched simulations separate information discarded by moment summaries from
+numerical error in orientation marginalization. Fixed template-bank statistics
+have 29--55 times the squared separation of the best tested moment contrasts,
+but are inaccurate marginal likelihood approximations. One continuous
+importance-sampling repair passes an unchanged numerical gate on all three
+stacks. A simulation-only posterior-draw diagnostic shows why agreement
+between banks still cannot certify absolute integrals. We derive the implicit
+known-pose population bias caused by state-dependent viewing laws and show
+that bounded scores cannot be exactly unbiased over arbitrary continuous
+state-specific amplitude intervals. A frozen materiality screen then fails
+on all three compact-region targets: maximum modeled population biases are
+.000214, .000122 and .003493, below .02. These results end that proposed method
+branch. Recorded acquisition metadata and corner spectra expose further gaps
+between the simulator and experimental inference. We provide reproducible
+diagnostics and explicit limitations, not a validated population-uncertainty
+method or a claim of experimentally calibrated coverage.
+\end{abstract}
+
+\section{Introduction}
+Cryo-EM reconstruction combines noisy two-dimensional projections, uncertain
+orientations and imaging parameters, and potentially heterogeneous molecular
+states. Neural implicit fields and Gaussian representations can recover
+complex structures, but representation quality and uncertainty calibration
+are different properties. Fourier shell correlation (FSC), posterior
+dispersion, independent-particle prediction and coverage of a population
+fraction answer different questions. An uncertainty study must specify its
+target before selecting a baseline or interpreting agreement.
+
+Our project began with Gaussian kernels in Fourier space and subsequently
+studied confidence intervals for fixed density features. The resulting
+pose-aware intervals were uninformative in the tested end-to-end simulator;
+moment-based candidate tests were sensitive to uncalibrated viewing and noise
+assumptions. Rather than adding another interval to that construction, this
+manuscript asks a narrower question: \emph{do the available data and numerical
+tools justify developing population uncertainty for two nominated structures?}
+The answer for the compact perturbations tested here is no.
+
+This conclusion requires distinguishing three obstacles. A summary statistic
+may discard information even when its moments are computed exactly. A richer
+likelihood statistic may retain discrimination while failing as a numerical
+marginal likelihood. Finally, a proposed nuisance-robust population method
+may address an effect too small to motivate that method on its nominated
+targets. Improving the second obstacle does not resolve the third.
+
+We contribute an auditable investigation of these obstacles, with fixed
+computational and scientific stopping rules. The numerical repair is classical
+importance sampling, not a new inference principle. The population-score
+identity and amplitude obstruction are elementary results with explicit
+scope; we do not claim priority for general mixture or analytic-continuation
+arguments. The empirical contribution is the matched three-stack diagnosis
+and its unfavorable decision, supported by saved arrays and independent
+calculations. An experimentally useful uncertainty method, a demonstrated
+advantage over matched population baselines, and submission-level novelty
+remain unresolved.
+
+\section{Targets and Closest Prior Work}
+\label{sec:prior}
+\paragraph{Reconstruction and density uncertainty.}
+Bayesian cryo-EM reconstruction is established \citep{scheres2012}.
+Gaussian pseudo-atom posterior inference \citep{joubert2015}, variational
+Fourier-slice uncertainty \citep{ullrich2020}, and joint likelihood-Hessian
+analysis \citep{rangan2024} precede the present work. CryoDRGN and
+CryoDRGN-AI address heterogeneous representation learning and ab initio
+reconstruction \citep{zhong2021,drgnai2025}; a fixed-pose homogeneous fit
+does not reproduce their full tasks. Gaussian representations are likewise
+not new to cryo-EM \citep{chen2021,chen2025,qu2025,shekar2025}.
+
+\paragraph{Populations and likelihoods.}
+BioEM marginalizes image nuisances and evaluates candidate structures
+\citep{bioem2013}; CryoLike supplies modern likelihood tooling
+\citep{cryolike2025}. Cryo-BIFE already samples population/free-energy
+uncertainty along a nominated conformational path, using BioEM nuisance
+integration \citep{cryobife2021}. RECOVAR accounts for noisy latent
+coordinates in heterogeneity and population estimation \citep{recovar2025}.
+Whole-stack ensemble reweighting can correct severe distortions from hard
+or soft particle counting \citep{counting2026}. Thus posterior sampling or
+a two-state likelihood alone is not a contribution. The uncertainty target
+here would be a population \emph{among selected particles}, not an equilibrium
+solution population unaffected by acquisition and selection.
+
+\paragraph{Viewing laws and numerical marginalization.}
+Nonuniform views matter in moment recovery \citep{sharon2020,subspacemom2026},
+structural comparison \citep{momentmetrics2024}, and misspecified likelihood
+\citep{nonuniformmle2025}. The recent Bayesian orientation discussion
+explicitly considers estimating the view prior jointly with structure
+\citep{bayespose2026}. Adaptive proposals, smoothing and a uniform defensive
+component were already used for cryo-EM marginalization by
+\citet{brubaker2015}. Our continuous quaternion proposal is numerical repair
+within that tradition. Agreement of independent approximations is weaker
+than a certificate of the integral; posterior-draw diagnostics for simulated
+data are also established \citep{grosse2015}.
+
+\paragraph{Validation and the calibration unit.}
+Gold-standard halves and noise substitution address reconstruction overfitting
+\citep{schereschen2012,chen2013}; confidence maps address signal significance
+\citep{beckers2019,beckers2020}; independent-particle tests assess image fit
+\citep{independent2020}. None is automatically a confidence interval for a
+biological population. CryoBench and CAHRA separate volume, latent-state,
+population and pose tasks \citep{cryobench2025,cahra2026}. The broader survey
+in Appendix~\ref{app:survey-new} documents related uncertainty targets and
+reading limits. Its 141 candidates are not 141 fully audited methods.
+
+\section{Forward Model and Gaussian Reconstructions}
+For $F(k)=\int\rho(x)e^{-2\pi i k^\top x}\,dx$, the observation model is
+\begin{equation}\label{eq:forward-new}
+ Y_i(q)=a_i C_i(q)e^{-2\pi i q^\top t_i}F_{Z_i}(E_iq)+\epsilon_i(q).
+\end{equation}
+$Z_i$ is molecular state, $E_i$ the oriented central plane, $t_i$ shift,
+$C_i$ CTF and $a_i$ real amplitude. Population inference must specify which
+of these are observed, marginalized or uncertain. Throughout our new
+numerical diagnostics, templates, one CTF and zero shifts are fixed;
+orientations are Haar and each realified Fourier-noise coordinate is
+independent $N(0,1)$. These are simulator assumptions, not measurements of
+experimental nuisance distributions.
+
+Our original reconstruction parameterization uses paired spectral kernels:
+\begin{align}\label{eq:splats-new}
+F_\theta(k)&=\sum_j\{c_j G_j(k-\mu_j)+\overline c_jG_j(k+\mu_j)\},\\
+G_j(u)&=\exp(-u^\top\Lambda_j u/2),\quad \Lambda_j\succ0.\nonumber
+\end{align}
+Real precision matrices and conjugate pairing enforce
+$F_\theta(-k)=\overline{F_\theta(k)}$; self-conjugate terms are real.
+The dense differentiable reference allows movable centers and anisotropic
+precisions. The \emph{actual three-stack benchmark} fits a sparse fixed
+lattice and isotropic width, with real/imaginary coefficients tied across
+conjugate nodes. It does not demonstrate adaptive anisotropic splatting.
+Tomographic projection is linear Fourier slicing, without optical alpha
+compositing.
+
+The new diagnostics use the saved $64^3$ fitted maps as constant-cell
+templates with exact cell Fourier factors, evaluated by NUFFT and selected
+independent direct sums. This makes off-grid orientation evaluation explicit;
+it does not preserve an unrestricted spectral representation or eliminate
+template error. Each map is normalized to unit array $L^2$ norm. A previously
+fixed Gaussian mask of width 20\,\AA\ is centered at its largest smoothed
+peak in the central half-field cube. Write $\rho_G=\rho M$ and
+$\rho_\delta=\rho-\delta\rho_G$. These are artificial local perturbations,
+not experimentally labeled conformations or measured biochemical occupancy.
+
+\section{Numerical and Statistical Diagnostics}
+\subsection{Information retained by a fixed statistic}
+For a scalar score $T$, define
+\begin{equation}\label{eq:separation-new}
+D(T)=\frac{(\E_1T-\E_0T)^2}{\operatorname{Var}_0(T)}.
+\end{equation}
+We compare power and power-plus-bispectrum contrasts, including separately
+trained classical covariance-aware directions, with a frozen template-bank
+log ratio. All use the same candidate, region, transfer, 220 frequencies and
+8,192 paired noise/view draws. We retain both 32,768-point banks, four
+quadrature prefixes and all four nonzero deletion fractions.
+
+A finite-bank log ratio remains a statistic if its quadrature is poor.
+Its measured $D$ is therefore a descriptive separation, but it is not the
+KL divergence of the continuous image model or an information ceiling.
+We estimate the gap SE with the paired draws and the SE of $D$ with a
+delta calculation that also includes variance-estimation uncertainty
+(Appendix~\ref{app:stats-new}). No normal power guarantee is inferred.
+
+\subsection{A fixed orientation-integration repair}
+For a fixed image and map, integrate the positive Gaussian residual kernel
+$f_y(R)$ over normalized Haar measure, with integral $I_y$.
+For independent $R_l\sim q_y$,
+\begin{equation}
+ \widehat I_y=\frac1L\sum_{l=1}^L f_y(R_l)/q_y(R_l).
+\end{equation}
+The omitted Gaussian normalization is common to the compared maps.
+The proposal is fit using the image and the midpoint template, then frozen
+before either importance bank. Attempt one combines eight locally optimized
+angular central Gaussian (ACG) quaternion components with .05 Haar mass.
+It fails the declared gate on two stacks.
+
+The one permitted repair reuses all local fits and assigns masses .45 to
+the local mixture, .50 to a catalogue mixture and .05 to Haar. Catalogue
+centers are the same 32,768 training rotations; weights are proportional to
+the midpoint likelihood raised to $1/2$. Every center receives an isotropic
+ACG kernel with an 8-degree scale parameter, not an 8-degree angular
+standard deviation. Continuous rotations are sampled from this mixture,
+and its \emph{full} density is evaluated using all centers. There is no
+top-$k$ replacement of the target integral. Appendix~\ref{app:numerics-new}
+gives the density and all fixed choices.
+
+Both attempts use the same 64 source indices, two generating states and
+two 8,192-draw banks per stack. A stack passes if at least 90\% of its 128
+images have bank log-ratio discrepancy at most .01, and all four median
+importance ESS values exceed 256. All three must pass. This is a necessary
+feasibility gate, not a sufficient numerical or inferential certificate.
+
+\subsection{Simulation-only posterior-draw check}
+The generating pose of a correctly simulated image is a posterior draw
+conditional on that image. This premise can expose a common missed mode
+even when two ordinary banks agree \citep{grosse2015}.
+
+\begin{proposition}[Reciprocal identity]\label{prop:planted-new}
+Fix $y$ and a positive integrable $f_y$ with integral $I_y$. Let
+$X_1\sim f_y/I_y$ and $X_2,\ldots,X_L\sim q_y$ independently, with
+$q_y>0$ on the support of $f_y$. For
+$I_\star=L^{-1}\sum_l f_y(X_l)/q_y(X_l)$,
+$\E[I_\star^{-1}\mid y]=I_y^{-1}$.
+\end{proposition}
+The proof is exchangeability after changing the first draw's measure
+(Appendix~\ref{app:proofs-new}). We replace draw zero, not a selected weight,
+and use only the matching generating state. The premise does not hold for
+the wrong map on an image or for unknown experimental poses. For independent
+images, products of forward estimates and reciprocal planted estimates
+give pointwise stochastic log-integral brackets by Markov's inequality.
+Paired generating states are never multiplied together.
+
+\section{Population Bias and Amplitude Limitations}
+\label{sec:population-new}
+Let the selected-particle fraction of state A be $p\in(0,1)$, and let states have
+view laws $\nu_A,\nu_B$. First suppose poses are observed and conditional
+image densities $f_A(y\mid R),f_B(y\mid R)$ are correct. A pooled
+conditional mixture uses $f_t=t f_A+(1-t)f_B$, ignoring state--view
+dependence. Define
+\begin{equation}\label{eq:J-new}
+J_t(R)=\int\frac{(f_A-f_B)^2}{t f_A+(1-t)f_B}\,dy.
+\end{equation}
+
+\begin{proposition}[Implicit pooled-population bias]\label{prop:bias-new}
+The expected pooled score is
+\begin{equation}\label{eq:score-new}
+S(t)=p(1-t)\E_{\nu_A}J_t-(1-p)t\E_{\nu_B}J_t.
+\end{equation}
+An interior maximizer $t_\star$ satisfies
+\begin{equation}\label{eq:odds-new}
+\frac{t_\star}{1-t_\star}=
+\frac p{1-p}\frac{\E_{\nu_A}J_{t_\star}}{\E_{\nu_B}J_{t_\star}}.
+\end{equation}
+Under strict concavity, $t_\star=p$ exactly when the expectations of
+$J_p$ under the two view laws agree.
+\end{proposition}
+The odds equation is implicit because $J_t$ depends on $t$. Different view
+laws alone do not imply bias. This is a known-pose mixture calculation, not
+a theorem for a latent-pose reconstruction pipeline.
+
+For the following Gaussian calculations, images and means are realified
+by stacking real and imaginary coordinates; inner products use that real
+space. For unit covariance, $g=m_A-m_B$ and $s=\norm g^2$,
+the log density ratio under B/A is $\sqrt{s}Z\mp s/2$.
+One-dimensional Gaussian quadrature therefore evaluates $J_t(s)$ exactly
+in this model, up to reported numerical error. The approximation $J_t(s)=
+s+O(s^2)$ yields a simpler odds factor, which we retain only as a secondary
+comparison to the exact root.
+
+With known amplitude one and known poses,
+\begin{equation}\label{eq:oracle-score-new}
+\psi(Y,R)=\frac{\ip{Y-m_B(R)}{g(R)}}{\norm{g(R)}^2}
+\end{equation}
+has conditional mean equal to the state indicator. For any joint
+state--view law and independent unit-covariance noise,
+\begin{equation}\label{eq:harmonic-new}
+\operatorname{Var}(\overline\psi)=
+\{p(1-p)+\E_\nu[1/s(R)]\}/n,
+\end{equation}
+provided the harmonic moment is finite, where
+$\nu=p\nu_A+(1-p)\nu_B$. View robustness therefore has a harmonic
+information cost in this restricted model.
+
+For \emph{real} amplitude, the local Gaussian-mean Schur complement at
+the full map is
+\begin{equation}\label{eq:amplitude-new}
+s_\perp=\norm g^2-
+\frac{(\operatorname{Re}\ip{g}{m_A})^2}{\norm{m_A}^2}.
+\end{equation}
+Replacing $s$ by $s_\perp$ in Equation~\eqref{eq:harmonic-new} is only a
+local feasibility surrogate. It does not prove that variance formula for
+a population estimator under arbitrary unknown amplitudes.
+
+\begin{proposition}[No exact bounded amplitude-unbiased score]
+\label{prop:amplitude-new}
+For fixed means $m_A,m_B$ and nonsingular Gaussian noise, no bounded
+measurable score has conditional expectation 1 in state A and 0 in state B
+for every amplitude in a nonempty open interval for each state. The
+intervals may differ and need not contain zero.
+\end{proposition}
+The Gaussian-smoothed expectation is entire in amplitude. Being constant
+on an interval forces the same constant at amplitude zero for each state,
+where the image laws coincide, a contradiction. The proof is given in
+Appendix~\ref{app:proofs-new}. This rules out exact zero-bias bounded
+feature calibration over those intervals; it does not rule out approximate
+bias-aware intervals, prove non-identifiability, or establish a convergence
+rate. Finite-catalogue zero residual cannot be interpreted as continuous
+nuisance validity.
+
+\section{Experiments and Decisions}
+\subsection{Data and comparison scope}
+We use EMPIAR-10028, 10049 and 10076
+\citep{empiar10028,empiar10049,empiar10076}. Each original reconstruction
+uses 8,192 experimental particles downsampled to $64^2$, with 7,374 fitting,
+409 validation and 409 test particles. The two fitting halves share public
+consensus poses, so their FSC is conditional, not fully gold-standard.
+The sparse Gaussian and trilinear baselines have mean inter-method FSC
+.9920, .9806 and .9909 over the recorded sampled shells. These high values
+measure agreement, not truth or coverage.
+
+Stock homogeneous neural training, voxel backprojection and unknown-pose
+RELION runs are retained separately. Registered-reference mean FSC for the
+three RELION results is .702, .202 and .122; the 10076 reference is a Class A
+assembly state, not heterogeneous-consensus truth. These are reconstruction
+comparisons, not uncertainty baselines. The exact protocols, curves and
+historical failures remain linked in Appendix~\ref{app:repro-new}.
+
+All new simulation and metadata comparisons below are development analyses.
+Their individual protocols were committed before their new outcomes, but
+they were motivated by earlier failures. The 65,536 training views and
+8,192 paired image draws are reused explicitly; these are not new independent
+confirmations. All orientations, masks, seeds and unfavorable cases are
+retained. New numerical work ran on an M4 Pro Mac with 24\,GB memory.
+
+\subsection{Matched discrimination and nuisance exposure}
+\input{tables/diagnostic-separation}
+At 25\% deletion, the frozen template statistic has about 29, 40 and 55
+times the best tested moment separation (Table~\ref{tab:diag-separation}).
+The bank-0 $D$ estimates have delta SEs .000764, .00120 and .000146.
+The second bank gives .047142, .068197 and .006741. These comparisons
+identify compression loss under the matched simulator without treating the
+finite-bank statistic as a converged marginal likelihood.
+
+Moment means are also sensitive to nuisance misspecification. For matched
+power scores, relative white-noise variance errors of .514\%, 6.86\% and
+.263\% match the 25\%-deletion mean gaps. View-dependent amplitudes in
+$[.9,1.1]$ cover that mean gap on 10028 and 10076. These are mean-envelope
+diagnostics, not finite-sample test guarantees. The richer likelihood
+statistic has not yet been tested with experimentally calibrated colored
+noise, per-particle CTF variation or unknown amplitude. Comparing its
+ideal-model score to nuisance-stressed moments cannot establish superior
+experimental robustness.
+
+\subsection{Continuous integration: a computational pass}
+The original 32,768-point template banks have null ESS medians 1.23, 7.75
+and 28.7. Their individual log ratios remain unstable despite similar mean
+separation. The first local continuous proposal places 128/128, 103/128 and
+79/128 images within .01 between banks. Its final repair increases these
+to 128/128, 124/128 and 119/128, passing the unchanged all-stack gate
+(Table~\ref{tab:diag-integration}, Figure~\ref{fig:integration-new}).
+\input{tables/diagnostic-integration}
+
+The four final median ESS values range from 2,245--2,255, 2,234--2,262 and
+1,265--1,347. Lower-decile ranges are 2,131--2,138, 1,323--1,427 and
+512--550. The three concurrent runs take 22.65--22.71 minutes each; this is
+not a matched speed comparison with matrix-cached template banks.
+All 384 integral summaries replay. Full-covariance density checks at 8,192
+fixed points per stack agree within $1.6\times10^{-13}$ in log density;
+18 direct cell residual checks agree within $7\times10^{-11}$.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=.97\textwidth]{../results/uncertainty/development/catalog-pose-integration-report-v1/final-integration-gate.pdf}
+\caption{All 384 image cases of the final integration repair. Top: absolute
+bank log-ratio differences, retaining the first proposal in gray and the
+repair in blue; the threshold is .01. Bottom: each bank/model ESS distribution,
+with the median gate's threshold 256 shown for reference. Thirteen repaired
+cases remain outside tolerance. Axis ranges differ by stack. Passing this
+necessary numerical gate does not establish an absolute-integral certificate
+or experimental uncertainty coverage.}
+\label{fig:integration-new}
+\end{figure*}
+
+The planted-truth audit retains a failure of the bank-agreement heuristic:
+one old 10076 \emph{within-tolerance} case changes by 1.50 log-integral
+units after replacing a single draw by truth. After repair, the largest
+such jump is .0626. The exact integrals remain unknown. Absolute
+log-integral bank RMS after repair is .0288, .0296 and .0424, larger than
+ratio RMS .000887, .00452 and .00507. No original local Hessian eigenvalue
+was clipped, so covariance clipping does not explain these discrepancies.
+The numerical branch ends after this single permitted repair.
+
+\subsection{Recorded nuisances: experimental assumptions remain open}
+The full source metadata contain 105,247, 108,544 and 131,899 particles.
+For 128 equal-area bins of unoriented plane normals, peak recorded-density
+ratios to uniform are 4.53, 6.23 and 2.74; cross-half chi-square summaries
+are 1.07, 2.01 and .248. They are inconsistent with treating these recorded
+histograms as near-Haar. Estimated poses, symmetries and selection prevent
+interpreting them as exact latent distributions or continuous density bounds.
+All 90 original histogram vectors independently reproduce.
+
+Four $8\times8$ particle-corner patches per selected particle show nonflat
+DCT power, after accounting for Fourier cropping. The relative-coordinate
+power ranges are .366--2.101, .783--3.000 and .551--2.162. Particle tails,
+small windows and unknown stationarity preclude declaring these pure-noise
+spectra. Existing STAR/Frealign joins recover 229, 137 and 351 acquisition
+groups for the 8,192-particle cohorts. An earlier missing-group statement
+was wrong and is corrected with a complete join/split audit. Between-group
+fractions of patch-energy sums of squares are .159, .0724 and .117; these
+are descriptive ANOVA fractions, not an intraclass-correlation model.
+
+Per-particle defocus varies substantially, and recorded scale/weight fields
+include constants that cannot calibrate physical amplitudes. The alpha--view
+association of 2.62\% on 10028 and .74\% on filtered 10076 is a fraction of
+recorded alpha variance associated with bins, \emph{not} a percentage
+amplitude bound. A single-CTF, known-white-noise simulator remains an
+explicit idealization.
+
+\subsection{Population materiality: a scientific failure}
+We freeze A as the full fitted map and B as its \emph{full} masked-region
+deletion, distinct from the 25\%-deletion discrimination study. All 65,536
+saved training rotations are replayed, with direct physical checks at the
+first, batch-boundary, halfway and final indices. At $p=.75$, the
+known-pose pooled root is evaluated for every prelisted pair: source halves
+on all three stacks, and published filtering versus its complement on
+10028/10076, each in both state assignments.
+
+These metadata groups are \emph{not biological states}: all three downloaded
+class fields are constant zero. Each group's recorded full-rotation
+histogram defines a piecewise-Haar proxy on a fixed ZYZ grid. The primary
+grid has $8^3$ cells; $4^3$ and $12^3$ are sensitivity analyses. This is
+a controlled calculation under proxies, not evidence that two actual
+conformations have those laws.
+
+A stack passes only if the same primary pair/assignment has
+$|t_\star-.75|\ge .02$ and
+$\E_\nu[1/s_\perp]\le8.8125$. The latter gives a nominal local-surrogate
+SE .03 at $n=10^4$ after adding $.75\times.25$; it is not an unknown-amplitude
+coverage theorem. At least two stacks must pass. No sensitivity grid,
+new region or relaxed threshold can rescue a failure.
+\input{tables/diagnostic-population}
+All three fail materiality (Table~\ref{tab:diag-population}); no sensitivity
+bias reaches .02 either. Every harmonic surrogate passes, so low modeled
+population bias, rather than poor local separation, ends this proposed
+method branch. Direct expected-score quadrature independently checks all
+30 roots, with residual at most $3.1\times10^{-11}$. Histogram bins and
+projected energies reproduce independently. This does not prove general
+adequacy of pooled likelihood or impossibility of population inference.
+
+\subsection{Existing population baseline and external controls}
+We execute unchanged author functions from \citet{counting2026} on all
+23 released two-state likelihood conditions, retaining both successful
+and numerically discrepant results. A separate scalar optimizer verifies
+the pooled optimum; the weakest synthetic author result differs by .00785,
+with small float32 simplex drift. For the published experimental default,
+the independent estimate is .798228; under the condition labeled
+rotation-10 it is .649749. This is pose-model sensitivity, not a measured
+state-view population bias. The .8 experimental reference is a constructed
+mixture of classified subsets, not biological truth.
+
+The official CAHRA pose-convention supplement provides 216 high-signal
+projections per state. All 432 signed quarter-turn comparisons are retained;
+the correct in-plane sign gives median correlation about .988, the opposite
+sign about .74. This checks a coordinate convention only. We have not
+evaluated the separate noisy 30,000-particle pose/population challenge or
+its experimental constructed-mixture task. The requested benchmark access,
+noise-only windows and biological state labels remain missing evidence.
+
+\section{Interpretation and Remaining Requirements}
+Three distinctions survive these experiments. A low-dimensional summary can
+lose discrimination without establishing a limit on the original data.
+A numerical integration gate can pass while absolute-integral error remains
+too large or insufficiently controlled for inference. A nuisance-robust
+population proposal can fail its materiality screen despite plausible local
+information. These are separate findings, not interchangeable success claims.
+
+The exact known-pose odds identity diagnoses a specific misspecification;
+its extension to latent views and imperfect templates is not supplied.
+The amplitude proposition requires nonzero response bias to remain explicit
+in bounded-feature constructions. General bias-aware inference, mixture
+optimization and deconvolution are established foundations
+\citep{donoho1994,armstrong2018,lindsay1983,npmle2024,pensky2017}.
+No universal population-coverage theorem or new minimax rate is claimed.
+
+Further method development needs an externally motivated state pair,
+a calibrated acquisition/noise model, matched whole-stack population
+baselines, repeated unconditional calibration and informative experimental
+controls. Repeated fits or model reviews cannot substitute for this evidence.
+Four full independent model reviews of earlier drafts rejected the work;
+the latest focused consultation motivated the bounded checks here and did
+not provide an acceptance verdict. This rewritten diagnostic manuscript has
+not received a fifth full review. The work remains an incomplete research
+program rather than a demonstrated ICML-level uncertainty method.
+
+\section*{Reproducibility and Impact}
+All code, failed attempts, source hashes, numerical arrays and review records
+are public at \url{https://github.com/yashpatel5400/fourier-cryo-splats}.
+The v0.7.7/v0.7.8 evidence releases and their v0.7.6 dependencies provide the
+new experiments; source provenance distinguishes downloaded papers from
+executed author code. Gaussian fitting, metadata and conditional simulations
+must not be advertised as calibrated biochemical populations. The principal
+impact of this work is an auditable account of where the proposed inference
+does and does not have support.
+
+\bibliography{references,uncertainty-references,survey-references,diagnostic-references}
+\bibliographystyle{icml2026}
+\clearpage
+\appendix
+\input{diagnostic-appendix}
+\end{document}
