@@ -273,7 +273,7 @@ calibration, Gaussian/ bootstrap uncertainty, and feature validation. They did
 not identify a directly matched conformal density-reconstruction paper in the
 returned results; that is a search outcome, not a proof of absence. Three further
 candidates brought the then-current ledger to 89 entries (historical checkpoint;
-the current ledger has 106).
+the current ledger has 119).
 
 [SIMPLE's 2025 probabilistic ab initio method](https://doi.org/10.1107/S2059798325005686)
 uses coupled orientation assignments and adaptive spatial regularization. Its
@@ -315,7 +315,7 @@ conservative widths limit practical inference.
 The pose-transfer follow-up adds [CESPED](https://arxiv.org/abs/2311.06194v2),
 [cryoPARES](https://www.biorxiv.org/content/10.1101/2025.03.04.641536v6), and
 [CryoFastAR](https://arxiv.org/abs/2506.05864v1), bringing the curated ledger to
-92 entries at that historical checkpoint (106 currently). CESPED standardizes refinement-derived pose labels and explicitly
+92 entries at that historical checkpoint (119 currently). CESPED standardizes refinement-derived pose labels and explicitly
 acknowledges their uncertainty. CryoPARES reuses alignments of related specimens;
 CryoFastAR learns multiview pose prediction from synthetic training with real
 fine-tuning. These are distinct transfer assumptions. Their quality scores,
@@ -364,7 +364,7 @@ power-spectrum posterior sampling from full-image inference, and free-energy
 uncertainty from a density-feature interval. The additional cryoTWIN paper
 uses EMPIAR-10076, also present here. Its heterogeneous-ensemble target further
 motivates keeping our shared-density assumption explicit. That checkpoint contained
-101 bibliographic candidates; the current count is 106.
+101 bibliographic candidates; the current count is 119.
 
 ## 16. Discretization and post-hoc perturbation uncertainty
 

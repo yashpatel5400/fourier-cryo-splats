@@ -1,3 +1,5 @@
+Round 2 is now complete: **reject, confidence 4/5, not a strong ICML contender**. The [unaltered report](round-02/review.md), raw response/event stream, prompt, evidence index and manifest are preserved. The provider reports exact `claude-fable-5-1`, and the runner found no changed evidence. All 55 pages were sent; the reviewer states that pages 1–19 were not visible. It read code but executed no tests and read no third-party papers. These are limits of this review, not evidence that the omitted material passed. The [response plan](response-to-round-02-development.md) records the substantive next work.
+
 # Independent review record
 
 Round 1 is complete through the authenticated Claude CLI using the exact
@@ -31,8 +33,7 @@ to the review directory; shell execution, writes, web access, MCP and local
 customizations are disabled. The runner verifies the evidence hashes again
 after the response. Merely making a file available is not evidence that the
 reviewer inspected it. The prompt requires the reviewer to state that limit.
-This mode has passed local construction checks but has not yet been used for
-the next full model review.
+This mode was used for full round 2.
 
 Current manuscript sources are discovered from `main.tex` and its literal
 inputs/bibliographies. Historical reconstruction drafts remain indexed and
@@ -73,7 +74,7 @@ checked by replaying an actual archived case. `bound-audit-04` confirms the
 known-pilot moment refinement and requests an updated inventory, an archive-scale
 direct-sum numerical check, and a fixed-pose source guard. Its response records
 the fixes and explicitly limits the numerical check to selected columns.
-None of these reports changes the full round-1 verdict.
+None of these focused reports changes a full-review verdict.
 
 The separate `modulus-audit-01` checks the later two-pose ambiguity lower bound.
 It confirms the real-arithmetic construction and testing argument, then requests
@@ -100,8 +101,7 @@ likelihood development. The exact requested model supports the real-arithmetic
 identities, identifies statistical caller assumptions and coarse-cell slack,
 and suggests two computational diagnostics. Its response distinguishes confirmed
 issues, a clarified result-label misunderstanding, implemented tests and work
-still pending. It is not a full-paper acceptance assessment. No full round 2
-has been invoked.
+still pending. It is not a full-paper acceptance assessment. The later full round 2 remains a rejection.
 
 The focused `joint-trust-audit-01` checks the new residual-controlled
 trust-region upper bound and reduced design. It found no validity error in

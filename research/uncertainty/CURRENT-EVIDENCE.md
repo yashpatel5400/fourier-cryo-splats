@@ -1,6 +1,6 @@
 # Current evidence and unresolved research decisions
 
-30 September 2026, development checkpoint. The latest full independent review
+1 October 2026 UTC, post-round-2 development checkpoint. The latest full independent review
 is **reject**, confidence 4/5; the work is not yet an acceptance-level result.
 Historical protocols, failed attempts and earlier source snapshots remain
 unchanged. This page identifies current outcomes rather than replacing them.
@@ -17,17 +17,13 @@ unchanged. This page identifies current outcomes rather than replacing them.
 | Were reconstruction baselines actually run? | Supplied-pose Gaussian/voxel/stock-neural fits on all three stacks; unknown-pose RELION finishes on all three; 24 original-code CryoLike scores finish | RELION registered-reference mean FSC is .702/.202/.122, with reported convergence on all three. The 10076 reference is one Class A assembly state. FSC and scoring are distinct from density coverage. |
 | Does global pose marginalization currently solve validation? | Discrete-view oracle screens and continuous-mixture bounds with retained failed/nonconverged outcomes | Continuous global gaps remain 12,898–15,892; a practical learned independent predictor is absent. |
 | Is the survey comprehensive enough to delimit novelty? | A 119-candidate ledger, targeted primary readings, source/version/access records, direct Bayesian pseudo-atom and selection-bias prior art | Candidate retrieval is not full reading. No novelty claim follows from not finding a matched paper. |
-| What has independent review established? | Authentic full Fable 5.1 review 1 plus focused mathematical audits; 246 numerical tests pass, one skips | Focused audits and passing tests do not establish scientific utility or acceptance. The full second review has not been invoked. |
+| What has independent review established? | Authentic full Fable 5.1 reviews 1 and 2 both reject at confidence 4/5; 246 numerical tests pass, one skips | Focused audits and passing tests do not establish scientific utility or acceptance. Round 2 finds no end-to-end coverage experiment and an inadequately matched continuous Gaussian-prior baseline. |
 
 All currently declared fitting and application runs are complete. The
 55-page manuscript and 128-member artifact increment are published as
-v0.6.2-dev. The immediate next step is full review 2 of the complete current
-paper and evidence. No additional calibration
-variant is implied by this plan. If the practical limitations persist, the next
-research decision must address the estimand, experimentally defensible inputs,
-or substantive utility; adding similar simulations cannot resolve those issues.
+v0.6.2-dev. Round 2 is complete and preserved unchanged. Its priority is a frozen study that re-estimates poses from every noisy replicate, with matched continuous Gaussian-prior and mixed pose-error comparisons. A mixed model must explicitly state the independence assumptions; substituting random pose errors does not automatically justify inference with estimated poses. No new coverage result exists yet. Further calibration-contrast or single-feature optimizer variants are not planned.
 
-Detailed current reports: [review response](reviews/response-to-round-01-development.md),
+Detailed current reports: [round-2 response plan](reviews/response-to-round-02-development.md),
 [enrichment](CUBIC-ENRICHMENT-RESULTS.md),
 [joint design](JOINT-CUBIC-DESIGN-RESULTS.md),
 [enriched/joint experimental application](JOINT-ENRICHED-EXPERIMENTAL-RESULTS.md),

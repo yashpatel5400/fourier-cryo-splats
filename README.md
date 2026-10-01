@@ -6,10 +6,10 @@ uncertainty in cryo-EM density features through continuous Fourier-slice bias
 and pose auditing. The original Gaussian reconstruction work remains available
 in the [earlier paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0 release.
 
-The first authentic **Claude Fable 5.1 full review recommends rejection**, with
+The second authentic **Claude Fable 5.1 full review recommends rejection**, with
 confidence 4/5, and does not consider the work a strong ICML contender. The
-[unaltered review](research/uncertainty/reviews/round-01/review.md),
-[current response](research/uncertainty/reviews/response-to-round-01-development.md)
+[unaltered round-2 review](research/uncertainty/reviews/round-02/review.md),
+[current response plan](research/uncertainty/reviews/response-to-round-02-development.md)
 and [focused mathematical audits](research/uncertainty/reviews/README.md) are
 public. Focused audits do not replace a full acceptance assessment. Experimental
 pose/noise/class calibration, useful fine-scale inference and substantive novelty
