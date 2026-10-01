@@ -27,6 +27,14 @@ The [post-review-3 saved-array diagnosis](research/uncertainty/REFITTING-BIAS-RE
 
 Earlier evidence includes:
 
+- [Direct folded-width optimization](research/uncertainty/FOLDED-RIDGE-REVIEW3-RESULTS.md)
+  completes six targets and 119 converged linear solves, reducing widths only
+  .062--.098%. The updated paper retains restricted and global gaps separately.
+- [Paired-exposure validation gates](research/uncertainty/paired-power-v1/METHOD-GATES-RESULTS.md)
+  retain diagonal-cone failures, all full-frequency/common-shift cases, and
+  42 verified continuous-pose violations. The exact-model focused audit and
+  response are public. These candidates are not calibrated experimental tests.
+
 - Original-code CryoLike scoring completes all 24 declared three-stack cases.
   Both metrics and both viewing grids are retained; their rankings differ.
   These reused-particle scores do not establish density calibration.

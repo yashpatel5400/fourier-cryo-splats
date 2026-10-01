@@ -1,5 +1,12 @@
 Round 3 is complete: **reject, confidence 4/5, not a strong ICML contender**. The [unchanged report](round-03/review.md), raw response, exact prompt and evidence hashes are preserved. The exact model is `claude-fable-5-1`; all 26 pages were visible and all 2,437 evidence copies were unchanged. The reviewer executed no tests and read no third-party papers or numerical arrays. The [response plan](response-to-round-03-development.md) prioritizes saved-array alignment-bias analysis and diagnosis of the structurally loose pose bounds before new experiments.
 
+The later [paired-statistics focused audit](paired-statistics-audit-01/review.md)
+checks Gaussian/cone algebra but identifies serious missing information and
+continuous-pose gates. Its [response](paired-statistics-audit-01/response.md)
+records full-frequency bounds, common-shift checks and independently verified
+continuous-pose counterexamples. This is not a fourth full ICML review or a
+favorable acceptance assessment.
+
 Round 2 is now complete: **reject, confidence 4/5, not a strong ICML contender**. The [unaltered report](round-02/review.md), raw response/event stream, prompt, evidence index and manifest are preserved. The provider reports exact `claude-fable-5-1`, and the runner found no changed evidence. All 55 pages were sent; the reviewer states that pages 1–19 were not visible. It read code but executed no tests and read no third-party papers. These are limits of this review, not evidence that the omitted material passed. The [response plan](response-to-round-02-development.md) records the substantive next work.
 
 # Independent review record

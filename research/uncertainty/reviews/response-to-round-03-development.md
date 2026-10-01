@@ -77,6 +77,12 @@ agree within 8e-13; 36 higher-order/tighter-tolerance checks agree within
   paper leads with the alignment-bias figure; redundant all-one coverage tables
   remain in the release, and phase-plot minor tick labels no longer overlap.
 
+The [direct folded-width comparison](../FOLDED-RIDGE-REVIEW3-RESULTS.md)
+addresses the numerical part of R7: all six targets and 119 solves complete,
+with only .062--.098% narrower widths. Restricted gaps are below .005; global
+gaps are separately disclosed. The estimator family remains classical ridge.
+This does not resolve R7's novelty concern.
+
 R7/R9/R11 and experimental calibration remain unresolved. The separate
 paired-power feasibility screen is method development, not evidence that the
 paper now meets the review's acceptance conditions. A fourth full acceptance

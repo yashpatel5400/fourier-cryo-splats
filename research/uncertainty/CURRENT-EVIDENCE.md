@@ -40,3 +40,19 @@ Post-review-2 additions: [matched continuous Gaussian derivation](CONTINUOUS-GAU
 The 384-dataset local pose calibration and all three 200-replicate test batches are complete; see the [full refitting report](END-TO-END-LOCAL-POSE-RESULTS.md). Reporting additions are complete: [registered dictionary replay](REGISTERED-DICTIONARY-RESULTS.md), [density/noise breakdowns](BREAKDOWN-RADIUS-RESULTS.md), and a [phase-only independence control](PHASE-SPLIT-CONTROL-RESULTS.md). The latter confirms the familiar distinction between independent measurement noise and alignment attenuation; it is not a full cryo-EM method. The Gaussian radius-12 rerun is complete: all 48 fits converge, with all 672 conditional scenarios retained. Matched-scale widths are nearly identical on two stacks and 34–35% larger on 10028; the minimum tested coverage across both prior scales is .995970. The original four nonconverged fits and incomplete flag are preserved. See [matched comparison](CONTINUOUS-GAUSSIAN-V2-RESULTS.md). The focused manuscript now includes all 600 refitting outcomes. A [raw-movie acquisition pilot](RAW-MOVIE-PILOT-RESULTS.md) finds spatially correlated frame differences but does not establish pure-noise independence. All five [v0.7.0-dev numerical bundles](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.0-dev) and the rewritten 26-page PDF are published, with independently verified archive/member hashes and matching remote asset digests. Page QA and the third full review are complete. Its unchanged rejection and the [response plan](reviews/response-to-round-03-development.md) are public. The new [post hoc reanalysis](REFITTING-REANALYSIS-PROTOCOL.md) uses saved arrays to diagnose alignment bias and exact realized class envelopes.
 
 The [post hoc replay](REFITTING-BIAS-REANALYSIS-RESULTS.md) is complete: 31,200 rows, 18 converged true-pose fits, exact reproduction of saved centres and all 2,400 realized class envelopes. R13 is now reported in the main paper. R14 remains a construction problem: actual class sensitivity and bound slack both matter. The smaller-radius diagnostics are all outside the full density class, which is explicitly flagged. No fourth full review has occurred.
+
+The [direct folded-width search](FOLDED-RIDGE-REVIEW3-RESULTS.md) completes all
+six known-pose targets and 119 converged linear solves, with only .062--.098%
+width reduction. All finite-range gaps are below .005; several global gaps
+remain loose. The updated 25-page manuscript reports this classical ridge
+comparison without changing the frozen noise trials.
+
+The [paired-exposure candidate gates](paired-power-v1/METHOD-GATES-RESULTS.md)
+are also complete: 36 larger-view diagonal witnesses, 18 compressed matrix
+cases, three full-frequency removal fits plus controls, twelve common-shift
+fits, and 80 adversarial pose searches. The latter find 42 positive verified
+violations on the strongest stack; four worst witnesses independently replay
+within 8e-14. The new authentic focused Fable audit prompted these checks,
+not a favorable acceptance verdict. The saved candidate directions do not
+satisfy the required continuous-pose condition. Experimental covariance,
+paired-frame mean agreement and practical density calibration remain open.

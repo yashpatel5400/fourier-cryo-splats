@@ -199,6 +199,29 @@ baseline. The continuous audit allows density directions outside that
 finite representation. Gaussian representations and analytic projection
 are prior art, not a novelty claim of the uncertainty construction.
 
+\subsection{Direct folded-width ridge calculation}
+Write $q=q_\alpha(s,b)$ for Equation~\eqref{eq:folded}, with $s>0$ and
+$\alpha<1/2$. Implicit differentiation gives
+\begin{equation}
+q_b=\tanh(qb/s^2),\qquad q_s=(q-bq_b)/s.
+\end{equation}
+Since $q>b$, both derivatives are nonnegative. For the fixed-design ball,
+interior stationarity therefore has the same ridge form as
+Equation~\eqref{eq:gaussianweights}, with
+$\lambda=q_s b/(q_b B^2s)$. This is a classical bias/variance tradeoff,
+not a new estimator family. The no-data and minimum-residual endpoints
+must also be considered.
+
+Along the exact ridge path, $s(\lambda)$ decreases and $b(\lambda)$
+increases. Thus $q(s(R),b(L))$ lower-bounds the width for
+$\lambda\in[L,R]$. An approximate linear solve with residual $r$ has
+weight error at most $\norm r/\lambda$ and adjoint-residual error at most
+$\norm r/(2\sqrt\lambda)$: maximize $\sqrt g/(g+\lambda)$ over $g\ge0$.
+The implementation adds the existing continuous-Gram quadrature action
+error to $\norm r$ and pads the field norm. Rounding/NUFFT checks remain
+diagnostic. The finite-range gap and generally weaker outer-ray bounds
+are reported separately; a finite search is not an exact global optimizer.
+
 \section{Pose Derivatives, Remainders, and Calibration}\label{app:pose}
 \subsection{First derivative and second-order control}
 For each particle write $c_{iq}=(w_{R,iq}+iw_{I,iq})C_{iq}/\sigma$.

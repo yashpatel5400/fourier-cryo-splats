@@ -76,6 +76,25 @@ three stacks, although coverage of the selected simulation generators is
 favorable. At scale $B$, all 24 class minima exceed .995836. This distinction
 prevents treating coverage of benign generators as a uniform class result.
 
+\subsection{Direct folded-width search}\label{app:foldedridge}
+A post-review development comparison optimizes the actual two-sided width on
+the classical ridge path, following the fixed-length principle of
+\citet{armstrong2018}. It uses the same six true-pose center/contrast targets
+as the saved-trial diagnosis, width .07 of the field, $B=2$, $\alpha=.05$,
+128 particles and 40 complex coefficients per particle. The search does not
+use inference pixels. All 119 linear solves converge; all six finite-range
+gaps are below .005. The selected widths improve only .062--.098\% over the
+folded widths on the former sum-objective weights.
+\input{tables/folded-ridge-review3}
+The declared ridge range is $[\lambda_0/64,64\lambda_0]$, initialized from
+the previous sum-objective fit. The global outer-ray diagnostic is much
+looser on several targets; finite-range convergence is not reported as
+global optimality. Every evaluated ridge, stopping reason, lower diagnostic,
+selected weight and both Gaussian comparison widths are retained. The
+45.6-second comparison draws no new observations, leaves frozen coverage
+results unchanged, and does not address estimated-pose validity or the
+experimental status of $B=2$.
+
 \subsection{Local-pose refitting study}
 The calibration seed root is 261001; the test root is 261002. Each is
 combined with dataset identifier and replicate index using NumPy's seed

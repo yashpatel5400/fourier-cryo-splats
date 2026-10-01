@@ -1,5 +1,11 @@
 # Enlarged viewing-mixture diagnostic
 
+**Subsequent numerical correction:** the focused audit identified a root-error
+shortfall in the scalar dual evaluation. The [complete follow-up report](METHOD-GATES-RESULTS.md)
+retains the original values below and the corrected bounds, amplitude-mass
+sensitivity and full-frequency counterexamples. The approximately 1e-28
+values below are raw historical diagnostics, not the corrected upper values.
+
 All 36 declared cells completed in 52 seconds. The original Fourier templates
 reproduce to at most 5.1e-13 absolute discrepancy. The stored nonnegative
 coefficients, Fourier arrays, rotations and source hashes permit replay without
