@@ -1,0 +1,27 @@
+.F.F                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_ridge_search_brackets_independent_weight_optimization __________
+
+    def test_ridge_search_brackets_independent_weight_optimization():
+        rng=np.random.default_rng(381);a=rng.normal(size=(4,6));ell=rng.normal(size=6)
+        gram=DenseGram(a,ell);B=2.
+        result=folded_ridge_search(gram,None,None,None,B,relative_tolerance=.002,maximum_evaluations=300)
+        def objective(w):return bias_aware_half_width_stable(np.linalg.norm(w),B*np.linalg.norm(ell-a.T@w))
+        fit=minimize(objective,np.zeros(4),method='BFGS',options={'gtol':1e-9})
+>       assert result['converged']
+E       assert False
+
+tests/test_folded_ridge.py:32: AssertionError
+_______________ test_unobserved_target_selects_no_data_endpoint ________________
+
+    def test_unobserved_target_selects_no_data_endpoint():
+        gram=DenseGram(np.array([[1.,0.]]),np.array([0.,1.]))
+        result=folded_ridge_search(gram,None,None,None,2.,maximum_evaluations=12)
+>       assert result['half_width']==2. and result['converged']
+E       assert (2.0 == 2.0 and False)
+
+tests/test_folded_ridge.py:54: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_folded_ridge.py::test_ridge_search_brackets_independent_weight_optimization
+FAILED tests/test_folded_ridge.py::test_unobserved_target_selects_no_data_endpoint
+2 failed, 2 passed in 0.70s
