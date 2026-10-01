@@ -1,9 +1,9 @@
 # Uncertainty and validation in cryo-EM: living research survey
 
-Research cutoff: 2026-09-30. This is an ongoing critical survey, not a claim
+Research cutoff: 2026-10-01. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 138 candidates; this is not a full-reading count.
+The current ledger contains 139 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -107,6 +107,9 @@ atomic modeling, and pose entanglement. Its September 2026 preprint describes
 the construction of three benchmark datasets; the organizers say a later update
 will analyze full competition results. This is direct community evidence that
 distinguishing structural variation from imaging ambiguity remains important.
+The [version-2 primary reading](CAHRA-V2-READING.md) now records the exact
+population/pose target, independence assumptions, and access limitations;
+it is an expanded reading of an existing ledger entry, not a new benchmark run.
 
 ## 4. Heterogeneity: structures, coordinates and populations
 
@@ -147,6 +150,11 @@ which the authors distinguish from unknowable biological truth.
 heterogeneity and information-based coarse graining. Identifiability and the
 appropriate granularity of a structural ensemble are already active theory
 topics, not unexplored consequences of a new latent model.
+
+[Cryo-BIFE](https://doi.org/10.1038/s41598-021-92621-1) already samples uncertainty
+in path-based free energies/populations from particle-image likelihoods. The
+[new primary-reading note](POPULATION-UQ-PRIMARY-READING.md) records its nuisance
+priors and posterior-interval target, along with the limits of what was read.
 
 ## 5. FSC, local significance and validation beyond agreement
 
