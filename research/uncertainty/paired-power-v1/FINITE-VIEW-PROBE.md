@@ -47,3 +47,14 @@ Stop this screen at 30 minutes overall, recording incomplete cases. No GPU or
 paid compute is needed. Any next stage depends on whether local removal
 retains useful expected growth with finite dual gaps, rather than only the
 easy zero-signal control.
+
+## Numerical runner retry
+
+The first invocation at source `50c0beb` failed before saving any case, because
+`variance_upper` was supplied twice while formatting the first solved record.
+Its incomplete summary and traceback are retained in `paired-power-finite-view-v1`.
+The first iterate was computed but was not written before that formatting
+exception; no statistical result is inferred from it. The corrected retry uses
+a new `paired-power-finite-view-v2` directory, removes only the duplicate key
+and adds partial-array preservation. Scientific settings and stopping rules
+are unchanged.

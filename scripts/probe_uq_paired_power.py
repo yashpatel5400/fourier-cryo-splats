@@ -13,7 +13,7 @@ def main():
  for name in FILES:
   if subprocess.check_output(['git','show','HEAD:'+name],cwd=ROOT)!=(ROOT/name).read_bytes():
    raise ValueError('Commit probe protocol and implementation before outcomes')
- out=BASE/'paired-power-finite-view-v1'
+ out=BASE/'paired-power-finite-view-v2'
  if out.exists():raise ValueError('Preserve earlier probe')
  out.mkdir();start=time.perf_counter();all_rows=[]
  metadata=dict(complete=False,git_head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
@@ -40,7 +40,7 @@ def main():
       key=f'{profile}_{name}_v{variance:g}';arrays[key+'_weights']=fitted.pop('weights')
       arrays[key+'_raw_weights']=fitted.pop('raw_dimensionless_weights');arrays[key+'_multipliers']=fitted.pop('multipliers')
       case=dict(dataset=ds,profile=profile,original_index=int(record['original_indices'][profile]),candidate=name,
-         variance_upper=variance,seconds=time.perf_counter()-tick,**fitted)
+         seconds=time.perf_counter()-tick,**fitted)
       if name=='true_map' and case['expected_log_lower']>1e-6:
        raise ArithmeticError('Matched-map expected-log control failed')
       metadata['cases'].append(case);save()
@@ -60,6 +60,10 @@ def main():
        nonoptimal_statuses=sum(r['status']!='optimal' for r in rows)))
   metadata.update(complete=True,aggregates=aggregates,seconds=time.perf_counter()-start);save()
  except Exception as exc:
+  
+  if 'arrays' in locals():
+   partial=out/f'{ds}-partial-weights.npz';np.savez_compressed(partial,**arrays)
+   metadata['partial_arrays_sha256']=sha(partial)
   metadata.update(error=repr(exc),seconds=time.perf_counter()-start);save();raise
  print('COMPLETE',len(metadata['cases']),metadata['seconds'],flush=True)
 
