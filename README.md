@@ -48,6 +48,11 @@ and [CAHRA v2 notes](research/uncertainty/CAHRA-V2-READING.md) cover direct prio
 art and external controls. The downloaded CAHRA supplement checks coordinates;
 the separate noisy population benchmark has not been evaluated.
 
+The [v0.7.9 manuscript release](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.9-dev)
+provides the PDF, all LaTeX and figure inputs, sixteen inspected page renders
+and a clean-directory reproduction check. All four uploaded assets were
+verified against local hashes before publication.
+
 The [v0.7.8 numerical evidence release](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.8-dev)
 contains four independently verified archives and their dependency manifests.
 [Reproduction instructions](research/uncertainty/REPRODUCE-POST-REVIEW4-GATES.md)

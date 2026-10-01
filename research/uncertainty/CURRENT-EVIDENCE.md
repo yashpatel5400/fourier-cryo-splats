@@ -17,6 +17,11 @@ by this update. The current literature ledger has 141 candidates, not 141 full
 readings. No useful experimentally calibrated method or acceptance result has
 been established.
 
+The [v0.7.9 diagnostic manuscript release](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.9-dev)
+is published with all sixteen inspected pages, 68 cited references and a clean
+archive rebuild. Every table reproduces from retained source summaries. This
+is a reporting revision, not a new scientific experiment or acceptance verdict.
+
 The [focused post-round-4 consultation](reviews/post-round04-method-consultation/critique.md)
 is complete, with an [audited response](reviews/post-round04-method-consultation/response.md).
 Its suggested [population materiality screen](POPULATION-MATERIALITY-RESULTS.md)
