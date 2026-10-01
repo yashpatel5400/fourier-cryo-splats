@@ -40,7 +40,7 @@ def main():
         report += [f"## EMPIAR-{ds}", '', f"Completed {d['completed_replicates']}/200; failures {d['failed_replicates']}. Runtime {d['seconds']:.1f} seconds; peak resident {d['peak_resident_bytes']/1e9:.3f} GB.",'',
             '| Template | Target | Method | Same raw / selected coverage | Independent raw / selected coverage | Median raw / selected relative width | Fallback rate | Independent sign exclusion |',
             '| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |']
-        table += [r'\begin{table*}[!t]',r'\centering\footnotesize',
+        table += [r'\begin{table*}[p]',r'\centering\scriptsize',
             '\\caption{All local-pose outcomes for EMPIAR-'+ds+r'. Coverage is raw/selected, each over 200 planned trials; $W$ is median half-width relative to no data, also raw/selected. Fallback and correct-sign exclusion (independent image, selected) are rates. O/P denote oracle/pilot alignment templates; C/Z denote central/contrast targets. Fixed, bounded and mixed procedures share their fitted weights; GP rows use separate weights. Numerical failures remain in the denominator. Exact binomial Monte Carlo intervals are in the accompanying CSV/JSON.}',
             r'\begin{tabular}{lllrrrrr}',r'\toprule',
             r'Template & Target & Procedure & Same coverage & Independent coverage & $W$ & Fallback & Sign \\',r'\midrule']

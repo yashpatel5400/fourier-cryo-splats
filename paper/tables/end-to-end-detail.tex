@@ -1,0 +1,166 @@
+\begin{table*}[!t]
+\centering\footnotesize
+\caption{All local-pose outcomes for EMPIAR-10028. Coverage is raw/selected, each over 200 planned trials; $W$ is median half-width relative to no data, also raw/selected. Fallback and correct-sign exclusion (independent image, selected) are rates. O/P denote oracle/pilot alignment templates; C/Z denote central/contrast targets. Fixed, bounded and mixed procedures share their fitted weights; GP rows use separate weights. Numerical failures remain in the denominator. Exact binomial Monte Carlo intervals are in the accompanying CSV/JSON.}
+\begin{tabular}{lllrrrrr}
+\toprule
+Template & Target & Procedure & Same coverage & Independent coverage & $W$ & Fallback & Sign \\
+\midrule
+O & C & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.0867/0.0867 & 0.000 & 1.000 \\
+O & C & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.0887/0.0887 & 0.000 & 1.000 \\
+O & C & Bounded pose & 1.000/1.000 & 1.000/1.000 & 775/1 & 1.000 & 0.000 \\
+O & C & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 761/1 & 1.000 & 0.000 \\
+O & C & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 922/1 & 1.000 & 0.000 \\
+O & C & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.136/0.136 & 0.000 & 0.890 \\
+O & C & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.136/0.136 & 0.000 & 0.890 \\
+O & C & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.0729/0.0729 & 0.000 & 1.000 \\
+O & C & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.0729/0.0729 & 0.000 & 1.000 \\
+\addlinespace
+O & Z & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.105/0.105 & 0.000 & 0.000 \\
+O & Z & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.108/0.108 & 0.000 & 0.000 \\
+O & Z & Bounded pose & 1.000/1.000 & 1.000/1.000 & 827/1 & 1.000 & 0.000 \\
+O & Z & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 811/1 & 1.000 & 0.000 \\
+O & Z & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 982/1 & 1.000 & 0.000 \\
+O & Z & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.168/0.168 & 0.000 & 0.000 \\
+O & Z & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.168/0.168 & 0.000 & 0.000 \\
+O & Z & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.0892/0.0892 & 0.000 & 0.000 \\
+O & Z & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.0893/0.0893 & 0.000 & 0.000 \\
+\addlinespace
+P & C & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.0872/0.0872 & 0.000 & 1.000 \\
+P & C & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.0893/0.0893 & 0.000 & 1.000 \\
+P & C & Bounded pose & 1.000/1.000 & 1.000/1.000 & 848/1 & 1.000 & 0.000 \\
+P & C & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 834/1 & 1.000 & 0.000 \\
+P & C & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 1.01e+03/1 & 1.000 & 0.000 \\
+P & C & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.137/0.137 & 0.000 & 0.820 \\
+P & C & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.137/0.137 & 0.000 & 0.830 \\
+P & C & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.0733/0.0733 & 0.000 & 1.000 \\
+P & C & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.0733/0.0733 & 0.000 & 1.000 \\
+\addlinespace
+P & Z & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.107/0.107 & 0.000 & 0.000 \\
+P & Z & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.109/0.109 & 0.000 & 0.000 \\
+P & Z & Bounded pose & 1.000/1.000 & 1.000/1.000 & 907/1 & 1.000 & 0.000 \\
+P & Z & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 891/1 & 1.000 & 0.000 \\
+P & Z & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 1.08e+03/1 & 1.000 & 0.000 \\
+P & Z & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.169/0.169 & 0.000 & 0.000 \\
+P & Z & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.169/0.169 & 0.000 & 0.000 \\
+P & Z & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.09/0.09 & 0.000 & 0.000 \\
+P & Z & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.0901/0.0901 & 0.000 & 0.000 \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[!t]
+\centering\footnotesize
+\caption{All local-pose outcomes for EMPIAR-10049. Coverage is raw/selected, each over 200 planned trials; $W$ is median half-width relative to no data, also raw/selected. Fallback and correct-sign exclusion (independent image, selected) are rates. O/P denote oracle/pilot alignment templates; C/Z denote central/contrast targets. Fixed, bounded and mixed procedures share their fitted weights; GP rows use separate weights. Numerical failures remain in the denominator. Exact binomial Monte Carlo intervals are in the accompanying CSV/JSON.}
+\begin{tabular}{lllrrrrr}
+\toprule
+Template & Target & Procedure & Same coverage & Independent coverage & $W$ & Fallback & Sign \\
+\midrule
+O & C & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.113/0.113 & 0.000 & 1.000 \\
+O & C & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.118/0.118 & 0.000 & 1.000 \\
+O & C & Bounded pose & 1.000/1.000 & 1.000/1.000 & 1e+03/1 & 1.000 & 0.000 \\
+O & C & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 988/1 & 1.000 & 0.000 \\
+O & C & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 1.2e+03/1 & 1.000 & 0.000 \\
+O & C & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.157/0.157 & 0.000 & 0.800 \\
+O & C & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.158/0.158 & 0.000 & 0.810 \\
+O & C & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.0879/0.0879 & 0.000 & 1.000 \\
+O & C & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.0882/0.0882 & 0.000 & 1.000 \\
+\addlinespace
+O & Z & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.127/0.127 & 0.000 & 0.000 \\
+O & Z & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.132/0.132 & 0.000 & 0.000 \\
+O & Z & Bounded pose & 1.000/1.000 & 1.000/1.000 & 987/1 & 1.000 & 0.000 \\
+O & Z & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 973/1 & 1.000 & 0.000 \\
+O & Z & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 1.18e+03/1 & 1.000 & 0.000 \\
+O & Z & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.189/0.189 & 0.000 & 0.000 \\
+O & Z & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.189/0.189 & 0.000 & 0.000 \\
+O & Z & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.103/0.103 & 0.000 & 0.005 \\
+O & Z & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.103/0.103 & 0.000 & 0.005 \\
+\addlinespace
+P & C & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.114/0.114 & 0.000 & 1.000 \\
+P & C & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.119/0.119 & 0.000 & 1.000 \\
+P & C & Bounded pose & 1.000/1.000 & 1.000/1.000 & 1.04e+03/1 & 1.000 & 0.000 \\
+P & C & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 1.03e+03/1 & 1.000 & 0.000 \\
+P & C & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 1.24e+03/1 & 1.000 & 0.000 \\
+P & C & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.159/0.159 & 0.000 & 0.660 \\
+P & C & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.159/0.159 & 0.000 & 0.670 \\
+P & C & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.0887/0.0887 & 0.000 & 1.000 \\
+P & C & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.0891/0.0891 & 0.000 & 1.000 \\
+\addlinespace
+P & Z & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.129/0.129 & 0.000 & 0.000 \\
+P & Z & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.133/0.133 & 0.000 & 0.000 \\
+P & Z & Bounded pose & 1.000/1.000 & 1.000/1.000 & 1.02e+03/1 & 1.000 & 0.000 \\
+P & Z & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 1.01e+03/1 & 1.000 & 0.000 \\
+P & Z & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 1.22e+03/1 & 1.000 & 0.000 \\
+P & Z & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.19/0.19 & 0.000 & 0.000 \\
+P & Z & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.19/0.19 & 0.000 & 0.000 \\
+P & Z & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.103/0.103 & 0.000 & 0.000 \\
+P & Z & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.104/0.104 & 0.000 & 0.000 \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[!t]
+\centering\footnotesize
+\caption{All local-pose outcomes for EMPIAR-10076. Coverage is raw/selected, each over 200 planned trials; $W$ is median half-width relative to no data, also raw/selected. Fallback and correct-sign exclusion (independent image, selected) are rates. O/P denote oracle/pilot alignment templates; C/Z denote central/contrast targets. Fixed, bounded and mixed procedures share their fitted weights; GP rows use separate weights. Numerical failures remain in the denominator. Exact binomial Monte Carlo intervals are in the accompanying CSV/JSON.}
+\begin{tabular}{lllrrrrr}
+\toprule
+Template & Target & Procedure & Same coverage & Independent coverage & $W$ & Fallback & Sign \\
+\midrule
+O & C & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.106/0.106 & 0.000 & 1.000 \\
+O & C & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.111/0.111 & 0.000 & 1.000 \\
+O & C & Bounded pose & 1.000/1.000 & 1.000/1.000 & 651/1 & 1.000 & 0.000 \\
+O & C & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 642/1 & 1.000 & 0.000 \\
+O & C & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 777/1 & 1.000 & 0.000 \\
+O & C & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.152/0.152 & 0.000 & 0.985 \\
+O & C & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.152/0.152 & 0.000 & 0.990 \\
+O & C & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.0834/0.0834 & 0.000 & 1.000 \\
+O & C & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.0835/0.0835 & 0.000 & 1.000 \\
+\addlinespace
+O & Z & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.126/0.126 & 0.000 & 0.000 \\
+O & Z & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.131/0.131 & 0.000 & 0.000 \\
+O & Z & Bounded pose & 1.000/1.000 & 1.000/1.000 & 679/1 & 1.000 & 0.000 \\
+O & Z & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 668/1 & 1.000 & 0.000 \\
+O & Z & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 809/1 & 1.000 & 0.000 \\
+O & Z & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.185/0.185 & 0.000 & 0.000 \\
+O & Z & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.185/0.185 & 0.000 & 0.000 \\
+O & Z & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.101/0.101 & 0.000 & 0.000 \\
+O & Z & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.101/0.101 & 0.000 & 0.000 \\
+\addlinespace
+P & C & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.106/0.106 & 0.000 & 1.000 \\
+P & C & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.111/0.111 & 0.000 & 1.000 \\
+P & C & Bounded pose & 1.000/1.000 & 1.000/1.000 & 685/1 & 1.000 & 0.000 \\
+P & C & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 676/1 & 1.000 & 0.000 \\
+P & C & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 818/1 & 1.000 & 0.000 \\
+P & C & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.152/0.152 & 0.000 & 1.000 \\
+P & C & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.152/0.152 & 0.000 & 1.000 \\
+P & C & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.0836/0.0836 & 0.000 & 1.000 \\
+P & C & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.0837/0.0837 & 0.000 & 1.000 \\
+\addlinespace
+P & Z & Fixed folded & 1.000/1.000 & 1.000/1.000 & 0.126/0.126 & 0.000 & 0.000 \\
+P & Z & Fixed sum & 1.000/1.000 & 1.000/1.000 & 0.131/0.131 & 0.000 & 0.000 \\
+P & Z & Bounded pose & 1.000/1.000 & 1.000/1.000 & 718/1 & 1.000 & 0.000 \\
+P & Z & Mixed 0 & 1.000/1.000 & 1.000/1.000 & 707/1 & 1.000 & 0.000 \\
+P & Z & Mixed .1 & 1.000/1.000 & 1.000/1.000 & 856/1 & 1.000 & 0.000 \\
+P & Z & GP 2 fixed & 1.000/1.000 & 1.000/1.000 & 0.185/0.185 & 0.000 & 0.000 \\
+P & Z & GP 2 pose & 1.000/1.000 & 1.000/1.000 & 0.185/0.185 & 0.000 & 0.000 \\
+P & Z & GP 1 fixed & 1.000/1.000 & 1.000/1.000 & 0.101/0.101 & 0.000 & 0.000 \\
+P & Z & GP 1 pose & 1.000/1.000 & 1.000/1.000 & 0.101/0.101 & 0.000 & 0.000 \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[t]
+\centering\footnotesize
+\caption{Complete pose-refinement diagnostics. O/P denote oracle/pilot templates. The score bound is the independent calibration maximum. RMS errors are medians across 200 test datasets. Pose-ball inclusion has an exact binomial 95\% Monte Carlo interval conditional on the realized calibration batch; the rank tolerance theorem instead averages over calibration as well.}
+\begin{tabular}{llrrrr}
+\toprule
+EMPIAR & Template & Score bound & Rotation RMS ($^\circ$) & Shift RMS (\AA) & Pose-ball inclusion (95\% CI) \\
+\midrule
+10028 & O & 29.840 & 11.990 & 6.617 & 0.965 (0.929, 0.986) \\
+10028 & P & 31.150 & 15.568 & 8.051 & 0.995 (0.972, 1.000) \\
+10049 & O & 31.063 & 15.766 & 6.822 & 1.000 (0.982, 1.000) \\
+10049 & P & 31.580 & 16.013 & 7.419 & 1.000 (0.982, 1.000) \\
+10076 & O & 31.097 & 16.103 & 8.639 & 0.995 (0.972, 1.000) \\
+10076 & P & 31.849 & 18.481 & 9.282 & 0.995 (0.972, 1.000) \\
+\bottomrule
+\end{tabular}
+\end{table*}

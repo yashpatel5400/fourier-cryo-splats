@@ -470,7 +470,9 @@ def main():
     files.append(ROOT/'provenance/uncertainty/review2-complete-code-verification.json')
     files.extend(ROOT/'provenance/uncertainty'/name for name in [
         'raw-movie-pilot-v1.json','raw-movie-pilot-download-attempt-01.json',
-        'raw-movie-pilot-resume-v1.json'])
+        'raw-movie-pilot-resume-v1.json', 'end-to-end-reporting-v1.json',
+        'end-to-end-main-presentation.json', 'revision3-release-verification.json',
+        'revision3-paper-verification.json'])
     files.append(ROOT/'results/uncertainty/development/audit-regressions/sharp-normal-envelope.json')
     if args.round > 1:
         if args.response_file is None:
@@ -505,6 +507,8 @@ def main():
             'Source code, tests and per-case result files are indexed below and accessible '
             'with Read/Glob/Grep. This selection uses file roles, never favorable outcomes. '
             'Inspect the relevant code and raw records before assessing implementation claims. '
+            'Large NPZ arrays and raw movies are not copied into this text-tool review directory; '
+            'their manifests and public release locations support separate reproduction, not a claim that you inspected those bytes. '
             'Priorities include src/fourier_splats/uq_continuous.py, the uq_cubic* and uq_*pose* '
             'modules, scripts/apply_uq_fresh_noise.py, scripts/benchmark_uq_fourier_pose.py, '
             'their tests, and the source files named in each result. '

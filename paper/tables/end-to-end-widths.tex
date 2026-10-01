@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering\scriptsize
+\caption{Local-refinement results: range of median raw half-width/no-data ratios across both targets and templates. All 216 cells have raw and selected coverage 200/200 (individual exact 95\% Monte Carlo interval [.9817, 1]). $^\dagger$Every trial selects the no-data fallback, with relative width 1 and no sign exclusion. Widths are identical for the paired image controls. This tests the declared recipe, not all possible pose-aware estimators.}
+\label{tab:refittingwidths}
+\begin{tabular}{lrrr}
+\toprule
+Procedure & 10028 & 10049 & 10076 \\
+\midrule
+Fixed folded & 0.087--0.107 & 0.113--0.129 & 0.106--0.126 \\
+Fixed sum & 0.089--0.109 & 0.118--0.133 & 0.111--0.131 \\
+Bounded pose$^\dagger$ & 775--907 & 987--1039 & 651--718 \\
+Mixed 0$^\dagger$ & 761--891 & 973--1026 & 642--707 \\
+Mixed .1$^\dagger$ & 922--1079 & 1178--1242 & 777--856 \\
+GP $B$, fixed & 0.136--0.169 & 0.157--0.190 & 0.152--0.185 \\
+GP $B$, pose & 0.136--0.169 & 0.158--0.190 & 0.152--0.185 \\
+GP $B/2$, fixed & 0.073--0.090 & 0.088--0.103 & 0.083--0.101 \\
+GP $B/2$, pose & 0.073--0.090 & 0.088--0.104 & 0.084--0.101 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""Tables for completed registered replay and all fixed-weight breakdowns."""
+import csv
+import hashlib
+import json
+from pathlib import Path
+from fourier_splats.uq_provenance import source_snapshot
+ROOT=Path(__file__).resolve().parents[1]
+BASE=ROOT/'results/uncertainty/development'
+
+
+def main():
+    inputs=[BASE/'registered-dictionary-replay-v1/summary.csv', BASE/'breakdown-radii-review2-v1/summary.csv']
+    rows=list(csv.DictReader(inputs[0].open()))
+    if len(rows)!=12 or any(float(r['historical_replay_max_error'])!=0 for r in rows):
+        raise ValueError('Complete exact archived replay required')
+    t=[r'\begin{table}[t]',r'\centering\footnotesize\setlength{\tabcolsep}{3pt}',r'\caption{All registered dictionary replays. Coverage is analytic under the supplied fixed design/noise. Ambient-audited coverage is numerically one in both frames for these generators; this is not experimental density coverage.}',
+       r'\begin{tabular}{llrrr}',r'\toprule',r'Stack & Target & SD/field & Original & Registered \\',r'\midrule']
+    for r in rows:
+        target='Center' if r['target']=='center' else 'Contrast'
+        # Scientific notation with an explicit exponent, avoiding locale/format inference.
+        def fmt(x):
+            f=float(x)
+            if f==0:return '0'
+            if f>=.001:return f'{f:.3f}'
+            mantissa,exponent=f'{f:.2e}'.split('e')
+            return '$'+mantissa+r'\times10^{'+str(int(exponent))+'}$'
+        t.append(f"{r['dataset']} & {target} & {float(r['width_fraction_field']):.2f} & {fmt(r['original_coverage'])} & {fmt(r['registered_coverage'])} "+r'\\')
+    t += [r'\bottomrule',r'\end{tabular}',r'\end{table}']
+    (ROOT/'paper/tables/registered-dictionary-replay.tex').write_text('\n'.join(t)+'\n')
+    rows=list(csv.DictReader(inputs[1].open()))
+    if len(rows)!=96 or max(float(r['width_replay_absolute_error']) for r in rows)>1e-9:
+        raise ValueError('All 96 verified breakdown cases required')
+    table=[r'\begin{table*}[p]',r'\centering\small',r'\caption{Density-radius breakdowns for every locked feature and both experimental noise calibrations. Each pair is raw/centered calibration. Zero means sign exclusion already fails at $B=0$; the declared radius is $B=2$. These are fixed-weight sensitivity thresholds, not estimates of the true radius. Every one-degree noise-scale breakdown is zero. Full half-width/center ratios, noise thresholds and fallback flags are retained in the all-case CSV.}',
+           r'\begin{tabular}{llrrrr}',r'\toprule',r'Stack & Feature & Fixed poses & Shifts only & One degree & Two degrees \\',r'\midrule']
+    lookup={(r['dataset'],r['target'],r['pose_class'],r['calibration']):r for r in rows}
+    for ds in ['10028','10049','10076']:
+        for target,label in [('pilot_region_1','Region 1'),('pilot_region_2','Region 2'),('pilot_region_3','Region 3'),('matched_center','Center')]:
+            cells=[]
+            for pose in ['fixed_pose','shift_only','pose_1deg','pose_2deg']:
+                cells.append('/'.join(f"{float(lookup[ds,target,pose,cal]['density_radius_breakdown']):.3f}" for cal in ['raw','centered']))
+            table.append(ds+' & '+label+' & '+' & '.join(cells)+' '+r'\\')
+        table.append(r'\addlinespace')
+    table += [r'\bottomrule',r'\end{tabular}',r'\end{table*}']
+    (ROOT/'paper/tables/breakdown-radii.tex').write_text('\n'.join(table)+'\n')
+    hashes={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
+    (ROOT/'provenance/uncertainty/focused-tables-v1.json').write_text(json.dumps(dict(complete=True,input_hashes=hashes,
+        source_snapshot=source_snapshot(ROOT,Path(__file__),[])),indent=2)+'\n')
+    print('12 registered replays; 96 breakdown cases represented',flush=True)
+
+
+if __name__=='__main__':main()
