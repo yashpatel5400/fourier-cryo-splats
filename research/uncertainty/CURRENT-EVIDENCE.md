@@ -21,7 +21,18 @@ is complete. Recorded angular distributions are far from uniform on all three
 stacks and stable across source halves; 90 histogram vectors independently
 replay. This is evidence against treating the near-Haar simulator as a measured
 experimental model, not a bound on latent poses. Defocus spread and incomplete
-amplitude/noise metadata remain explicit. The information comparison is pending.
+amplitude/noise metadata remain explicit.
+
+The [matched information comparison](MATCHED-INFORMATION-LEDGER-RESULTS.md) is
+now complete on all three stacks. Numerical Haar likelihood scores retain much
+more separation than the frozen moments, but their orientation integration is
+not converged. All 576 independently reconstructed likelihood ratios and 216
+conditional moment variances agree to floating-point precision. The [saved
+event decomposition](SAVED-EVENT-DECOMPOSITION.md) identifies the actual outer
+calibration and viewing-cap increments; finite-inner-replication bias is not
+separately identifiable from those archived quantities. The moment branch
+remains frozen. A likelihood direction must first pass an integration gate;
+none of these diagnostics establishes experimental uncertainty calibration.
 
 | Question | Completed evidence | Practical limit |
 |---|---|---|

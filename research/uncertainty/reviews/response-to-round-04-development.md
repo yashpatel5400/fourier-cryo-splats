@@ -103,4 +103,15 @@ all-metadata peak ratios are 4.53 / 6.23 / 2.74 and cross-half chi-square values
 are 1.07 / 2.01 / .248. Defocus varies substantially; constant CTF-scale fields
 do not justify exact amplitude knowledge, and no noise spectrum is stored.
 This undermines the practical near-Haar premise but does not certify true
-viewing laws or resolve R18/R19. The matched information ledger is still needed.
+viewing laws or resolve R18/R19.
+
+The [matched ledger](../MATCHED-INFORMATION-LEDGER-RESULTS.md) and [saved event
+decomposition](../SAVED-EVENT-DECOMPOSITION.md) now complete the first numerical
+diagnosis. The likelihood comparison is promising but not numerically
+converged: median importance ESS at 32,768 Haar points is 1.23 / 7.75 / 28.7.
+Independent direct-distance likelihood and complex-monomial variance checks
+pass. The 10076 moment mean shifts by its 25%-deletion gap under about .3%
+white-noise variance error. The decomposition does not separately identify
+finite-inner-replication bias, and no experimental noise spectrum has been
+established. R17/R22 remain open beyond this diagnosis. A new likelihood
+method cannot be claimed until its integration and nuisance model are vetted.
