@@ -1,3 +1,12 @@
+The subsequent [focused methods consultation](post-round04-method-consultation/critique.md)
+is complete through exact `claude-fable-5-1`; its prompt, unchanged visible
+response, provider identity and sanitized event audit are retained. It recommends
+a bounded population screen before any method build. Our [response](post-round04-method-consultation/response.md)
+corrects the supplied acquisition-metadata premise and several mathematical
+interpretations. The [screen](../POPULATION-MATERIALITY-RESULTS.md) fails on all
+three stacks. This is neither a fifth full-paper review nor a favorable
+acceptance assessment. Private provider reasoning is not published.
+
 Round 4 is complete: **reject, confidence 4/5, not a strong ICML contender**.
 The [unchanged report](round-04/review.md), provider response/event stream, exact
 prompt and evidence hashes are preserved. The exact model is

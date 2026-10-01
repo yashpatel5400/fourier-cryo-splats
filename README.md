@@ -34,7 +34,15 @@ The first [adaptive orientation-integration gate](research/uncertainty/ADAPTIVE-
 finishes all 384 observed-image cases and independently replays every result.
 It passes on 10028 and fails on 10049/10076. This is a classical numerical
 integration diagnostic; no new uncertainty method or experimental coverage
-claim follows. A focused Fable methods consultation is in progress.
+claim follows. The [focused Fable consultation](research/uncertainty/reviews/post-round04-method-consultation/critique.md)
+and [audited response](research/uncertainty/reviews/post-round04-method-consultation/response.md)
+are now complete. Its proposed [population materiality screen](research/uncertainty/POPULATION-MATERIALITY-RESULTS.md)
+fails on all three stacks: maximum modeled primary biases are .000214,
+.000122 and .003493, below the fixed .02 threshold. All thirty comparisons
+and independent checks are retained. These recorded-view proxies are not
+biological state labels. The proposed method is not being built on these
+compact regions. The one permitted numerical repair is separate from that
+scientific decision; no fifth full-paper acceptance verdict is claimed.
 
 The separate [author-code population baseline replay](research/uncertainty/POPULATION-BASELINE-REPLAY-RESULTS.md)
 completes all 23 published two-state conditions. It retains numerical

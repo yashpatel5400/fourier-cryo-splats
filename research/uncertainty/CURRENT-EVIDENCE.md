@@ -16,6 +16,18 @@ by this update. The current literature ledger has 141 candidates, not 141 full
 readings. No useful experimentally calibrated method or acceptance result has
 been established.
 
+The [focused post-round-4 consultation](reviews/post-round04-method-consultation/critique.md)
+is complete, with an [audited response](reviews/post-round04-method-consultation/response.md).
+Its suggested [population materiality screen](POPULATION-MATERIALITY-RESULTS.md)
+fails on all three stacks. All thirty comparisons complete and independently
+replay; primary modeled biases are at most .000214 / .000122 / .003493,
+versus the frozen .02 criterion. Recorded half/filter groups are law proxies,
+not biological state labels. The harmonic diagnostic passes but does not
+establish amplitude-robust population information. No feature-response method
+will be built on these compact regions under this protocol. This is a scoped
+negative result, not general adequacy of pooled inference or impossibility of
+population estimation. The manuscript has not yet incorporated this checkpoint.
+
 The first post-round-4 [recorded-nuisance inventory](STACK-NUISANCE-INVENTORY-RESULTS.md)
 is complete. Recorded angular distributions are far from uniform on all three
 stacks and stable across source halves; 90 histogram vectors independently
