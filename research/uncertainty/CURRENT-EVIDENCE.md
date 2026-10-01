@@ -124,9 +124,11 @@ The current 33-page draft adds a [classical covariance-aware comparison](paired-
 
 The [corner-spectrum inventory](BACKGROUND-SPECTRUM-INVENTORY-RESULTS.md)
 shows nonflat background power on all three downloaded cohorts after adjusting
-for known Fourier cropping. It is descriptive; contamination and missing
-micrograph identities prevent interpreting it as pure-noise covariance or
-sub-percent calibration. The [adaptive pose integration gate](ADAPTIVE-POSE-INTEGRATION-PROTOCOL.md)
+for known Fourier cropping. It is descriptive; contamination and unvalidated
+stationarity prevent interpreting it as pure-noise covariance or sub-percent
+calibration. The earlier missing-micrograph statement was incorrect: existing
+joins recover 229 / 137 / 351 groups, verified against every saved split label
+([correction](BACKGROUND-SOURCE-GROUP-CORRECTION.md)). The [adaptive pose integration gate](ADAPTIVE-POSE-INTEGRATION-PROTOCOL.md)
 finishes all 384 observed images: 10028 passes, while 10049 and 10076 fail the
 fixed between-bank tolerance criterion. Every integral/proposal summary and
 selected physical residuals replay independently. See the [complete gate

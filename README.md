@@ -317,3 +317,8 @@ Project code is MIT licensed. Third-party templates retain their notices.
 Original publications, cryoDRGN inputs, and EMPIAR particles remain governed by
 their respective sources and are not redistributed as project-owned material.
 This is a research preprint in ICML format, not an ICML submission or acceptance.
+
+A [source-group metadata correction](research/uncertainty/BACKGROUND-SOURCE-GROUP-CORRECTION.md)
+supersedes the initial missing-micrograph narrative. Existing joins recover
+229 / 137 / 351 groups; all selected joins and saved split hashes replay. The
+original numerical archives remain immutable and require this erratum.

@@ -1,5 +1,10 @@
 # Descriptive background-spectrum inventory
 
+**Post-outcome metadata correction:** the following frozen protocol includes an
+incorrect inference about source identities. The existing metadata joins recover
+229 / 137 / 351 source groups. See the [dated correction](BACKGROUND-SOURCE-GROUP-CORRECTION.md).
+The numerical protocol and its original wording below are preserved.
+
 1 October 2026 UTC. Use all 8,192 previously downloaded 64×64 particle images
 per stack, without additional selection. Analyze all four nonoverlapping 8×8
 corner patches, pooled and separately, in the full cohort and both recorded

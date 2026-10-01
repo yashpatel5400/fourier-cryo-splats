@@ -121,6 +121,8 @@ now measures all four corner patches in each of the 8,192 downloaded particles
 per stack. After removing the effect of known Fourier cropping, normalized
 coordinate powers span .366–2.101 / .783–3.000 / .551–2.162; the patterns
 persist in both source halves. Explicit Fourier and cosine-transform checks
-pass. These corners are not certified signal-free, and source micrograph
-identities are incomplete. This is measured evidence of model mismatch in the
+pass. These corners are not certified signal-free. Our initial statement that
+source micrograph identities were incomplete was wrong: existing metadata joins
+recover 229 / 137 / 351 groups, now checked against every saved split label
+([correction](../BACKGROUND-SOURCE-GROUP-CORRECTION.md)). This is measured evidence of model mismatch in the
 archived background, not a pure-noise spectrum or resolution of R19.

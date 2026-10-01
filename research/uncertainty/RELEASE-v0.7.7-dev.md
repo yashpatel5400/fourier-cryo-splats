@@ -25,3 +25,8 @@ reviewed snapshot. All four authentic full Claude Fable 5.1 reviews recommend
 rejection; scientific novelty and useful experimentally calibrated inference
 remain unresolved. A separate focused methods consultation is in progress
 at this release checkpoint and is not a full acceptance assessment.
+
+A [source-group metadata correction](BACKGROUND-SOURCE-GROUP-CORRECTION.md)
+supersedes the initial missing-micrograph narrative. Existing joins recover
+229 / 137 / 351 groups; all selected joins and saved split hashes replay. The
+original numerical archives remain immutable and require this erratum.

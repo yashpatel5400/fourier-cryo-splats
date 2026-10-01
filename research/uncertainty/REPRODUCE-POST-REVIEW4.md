@@ -50,3 +50,8 @@ second moments and centered covariances are in their summary. The author-code
 population replay includes outcomes and input hashes; its upstream likelihood
 arrays remain in the pinned public author repository. Consult the separate
 replay protocol for its isolated dependency environment and unchanged kernels.
+
+A [source-group metadata correction](BACKGROUND-SOURCE-GROUP-CORRECTION.md)
+supersedes the initial missing-micrograph narrative. Existing joins recover
+229 / 137 / 351 groups; all selected joins and saved split hashes replay. The
+original numerical archives remain immutable and require this erratum.
