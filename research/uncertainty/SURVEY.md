@@ -272,8 +272,7 @@ Four additional queries combined cryo-EM with conformal inference, posterior
 calibration, Gaussian/ bootstrap uncertainty, and feature validation. They did
 not identify a directly matched conformal density-reconstruction paper in the
 returned results; that is a search outcome, not a proof of absence. Three further
-candidates brought the then-current ledger to 89 entries (historical checkpoint;
-the current ledger has 124).
+candidates brought the then-current ledger to 89 entries at that historical checkpoint.
 
 [SIMPLE's 2025 probabilistic ab initio method](https://doi.org/10.1107/S2059798325005686)
 uses coupled orientation assignments and adaptive spatial regularization. Its
@@ -315,7 +314,7 @@ conservative widths limit practical inference.
 The pose-transfer follow-up adds [CESPED](https://arxiv.org/abs/2311.06194v2),
 [cryoPARES](https://www.biorxiv.org/content/10.1101/2025.03.04.641536v6), and
 [CryoFastAR](https://arxiv.org/abs/2506.05864v1), bringing the curated ledger to
-92 entries at that historical checkpoint (124 currently). CESPED standardizes refinement-derived pose labels and explicitly
+92 entries at that historical checkpoint. CESPED standardizes refinement-derived pose labels and explicitly
 acknowledges their uncertainty. CryoPARES reuses alignments of related specimens;
 CryoFastAR learns multiview pose prediction from synthetic training with real
 fine-tuning. These are distinct transfer assumptions. Their quality scores,
@@ -364,7 +363,7 @@ power-spectrum posterior sampling from full-image inference, and free-energy
 uncertainty from a density-feature interval. The additional cryoTWIN paper
 uses EMPIAR-10076, also present here. Its heterogeneous-ensemble target further
 motivates keeping our shared-density assumption explicit. That checkpoint contained
-101 bibliographic candidates; the current count is 124.
+101 bibliographic candidates at that historical checkpoint.
 
 ## 16. Discretization and post-hoc perturbation uncertainty
 
@@ -373,7 +372,7 @@ motivates keeping our shared-density assumption explicit. That checkpoint contai
 dynamic-NeRF proposal in Patel's 2025 dissertation. These respectively concern
 conformational weights, spatial displacement uncertainty, and a future cryo-EM
 direction. They further narrow novelty claims without becoming matched density
-interval baselines. That follow-up brought the ledger to 104 candidates; it now contains 106.
+interval baselines. That follow-up brought the ledger to 104 candidates at that historical checkpoint.
 
 ## 17. Pose confidence scores: an additional targeted primary check
 
@@ -385,7 +384,7 @@ while the author-uploaded HTML supplied the targeted methods text.
 ## 18. Additional Gaussian representation and access checks
 
 [GaussianEM](GAUSSIANEM-READING-NOTE.md) adds a directly relevant representation
-and validation comparison. The ledger now contains 113 candidates.
+and validation comparison.
 [CryoDiff access follow-up](cryodiff-access-followup.json) retrieved publisher API
 metadata, but full text and XML returned access errors; calibration details
 remain unchecked. No corresponding author code repository was identified in
@@ -394,7 +393,7 @@ the targeted search. This is not proof that none exists.
 ## 19. Latent orientations, collective information and moment validation
 
 The [targeted primary-reading note](MOMENTS-AND-IDENTIFIABILITY-READING.md)
-adds four candidates, bringing the ledger to 113. It separates generic
+adds four candidates. It separates generic
 identifiability, numerical conditioning, reconstruction and structural testing.
 These are important alternatives to our local-pose analysis. Weak information
 about one image's pose is not an impossibility theorem for reconstruction
@@ -427,20 +426,19 @@ this addition is a bibliographic candidate, not a completed reading or baseline.
 
 ## Post-round-2 additions (1 October 2026 UTC)
 
-The ledger now contains 131 candidates. Five additions cover resolving kernels, fixed-length inference, Gaussian-prior coverage, raw-frame denoising and data thinning. Reading depth varies: see [classical inverse-problem reading](CLASSICAL-INFERENCE-READING-NOTE.md), [movie splitting](MOVIE-SPLIT-READING-NOTE.md), and [data fission](DATA-FISSION-READING-NOTE.md). Low (1997) is a candidate with primary full-text access still unresolved; adding its metadata does not mean its theorem was checked. The newer 2026 entries retain their existing individual source/version qualifications. The 16,969 raw search hits are a separate unscreened retrieval pool, not 16,969 read papers.
+Five additions cover resolving kernels, fixed-length inference, Gaussian-prior coverage, raw-frame denoising and data thinning. Reading depth varies: see [classical inverse-problem reading](CLASSICAL-INFERENCE-READING-NOTE.md), [movie splitting](MOVIE-SPLIT-READING-NOTE.md), and [data fission](DATA-FISSION-READING-NOTE.md). Low (1997) is a candidate with primary full-text access still unresolved; adding its metadata does not mean its theorem was checked. The newer 2026 entries retain their existing individual source/version qualifications. The 16,969 raw search hits are a separate unscreened retrieval pool, not 16,969 read papers.
 
 ## Additional historical alignment checks (1 October 2026 UTC)
 
-The [alignment-independence reading note](ALIGNMENT-INDEPENDENCE-READING.md) adds Jensen (2001) and Shaikh et al. (2003), both at primary-abstract reading depth, and a targeted reading of the already-listed SIMPLE (2025) paper. Attenuation from misalignment and fitting/validation separation are established. The current ledger contains 131 candidates; this count does not imply full-text reading. The phase-only control is an elementary diagnostic, not a new reconstruction principle.
+The [alignment-independence reading note](ALIGNMENT-INDEPENDENCE-READING.md) adds Jensen (2001) and Shaikh et al. (2003), both at primary-abstract reading depth, and a targeted reading of the already-listed SIMPLE (2025) paper. Attenuation from misalignment and fitting/validation separation are established. The phase-only control is an elementary diagnostic, not a new reconstruction principle.
 
 ## Targeted update: anisotropy and Gaussian-splat calibration
 
 The [latest reading note](ADJACENT-UQ-FOLLOWUP.md) adds three adjacent Gaussian
 uncertainty/calibration preprints and one direct cryo-EM atomic-anisotropy
 preprint. It distinguishes inspected methods/proofs from abstract-only access,
-and photographic prediction from raw-particle density inference. The ledger
-now contains 131 candidates; the new entries are not claimed full replications.
+and photographic prediction from raw-particle density inference. These entries are not claimed full replications.
 
 ## 26. Acquisition processing and validation
 
-The [PASR reading note](PASR-VALIDATION-READING.md) adds processing-order and perturbation-validation context. The ledger now contains 131 candidates; reading depth remains explicit.
+The [PASR reading note](PASR-VALIDATION-READING.md) adds processing-order and perturbation-validation context. Reading depth remains explicit.
