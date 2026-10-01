@@ -58,8 +58,8 @@ def run(locked, args, snapshot):
         return np.load(p)
     save()
     try:
-        for path in [ROOT/f'data/{ds}/metadata.npz', ROOT/f'data/{ds}/manifest.json', ROOT/f'research/uncertainty/splits/{ds}.csv']:
-            result['input_hashes'][str(path.relative_to(ROOT))] = sha(path)
+        for input_path in [ROOT/f'data/{ds}/metadata.npz', ROOT/f'data/{ds}/manifest.json', ROOT/f'research/uncertainty/splits/{ds}.csv']:
+            result['input_hashes'][str(input_path.relative_to(ROOT))] = sha(input_path)
         g = particle_geometry(ROOT, ds, 'inference_half0', radius=12, count=128, seed=609315)
         noise_path = BASE/'continuous-quadrature-optimized'/f'{ds}-center-0.07-weights.npz'
         noise = float(array(noise_path)['noise_std'])
