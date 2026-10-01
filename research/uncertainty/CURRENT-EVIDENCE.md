@@ -1,9 +1,20 @@
 # Current evidence and unresolved research decisions
 
-1 October 2026 UTC, post-round-3 development checkpoint. The latest full independent review
+1 October 2026 UTC, post-round-4 development checkpoint. The latest full independent review
 is **reject**, confidence 4/5; the work is not yet an acceptance-level result.
 Historical protocols, failed attempts and earlier source snapshots remain
 unchanged. This page identifies current outcomes rather than replacing them.
+
+**Current decision:** full review 4 also rejects (confidence 4/5). Its
+[unchanged report](reviews/round-04/review.md) and [response](reviews/response-to-round-04-development.md)
+are public. Freeze further moment-test variants; diagnose matched information
+loss and nuisance effects, inspect the actual stack metadata, then choose one
+estimand. The 33-page v0.7.6-dev paper is the reviewed snapshot and has not yet
+been restructured in response. Historical paragraphs below report their status
+at the stated checkpoint; their "no fourth review" statements are superseded
+by this update. The current literature ledger has 139 candidates, not 139 full
+readings. No useful experimentally calibrated method or acceptance result has
+been established.
 
 | Question | Completed evidence | Practical limit |
 |---|---|---|

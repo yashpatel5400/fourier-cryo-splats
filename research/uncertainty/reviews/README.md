@@ -1,3 +1,13 @@
+Round 4 is complete: **reject, confidence 4/5, not a strong ICML contender**.
+The [unchanged report](round-04/review.md), provider response/event stream, exact
+prompt and evidence hashes are preserved. The exact model is
+`claude-fable-5-1`; all 33 pages were visible and all 2,684 evidence copies were
+unchanged. The reviewer read source/records but executed nothing and read no
+third-party papers or numerical arrays. The [response plan](response-to-round-04-development.md)
+freezes method variants and prioritizes a matched information/nuisance ledger,
+measurement of the actual stacks, and one coherent estimand. No acceptance
+assessment has been passed.
+
 Round 3 is complete: **reject, confidence 4/5, not a strong ICML contender**. The [unchanged report](round-03/review.md), raw response, exact prompt and evidence hashes are preserved. The exact model is `claude-fable-5-1`; all 26 pages were visible and all 2,437 evidence copies were unchanged. The reviewer executed no tests and read no third-party papers or numerical arrays. The [response plan](response-to-round-03-development.md) prioritizes saved-array alignment-bias analysis and diagnosis of the structurally loose pose bounds before new experiments.
 
 The later [paired-statistics focused audit](paired-statistics-audit-01/review.md)

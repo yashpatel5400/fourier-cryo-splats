@@ -6,10 +6,10 @@ uncertainty in cryo-EM density features through continuous Fourier-slice bias
 and pose auditing. The original Gaussian reconstruction work remains available
 in the [earlier paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0 release.
 
-The third authentic **Claude Fable 5.1 full review recommends rejection**, with
+The fourth authentic **Claude Fable 5.1 full review recommends rejection**, with
 confidence 4/5, and does not consider the work a strong ICML contender. The
-[unaltered round-3 review](research/uncertainty/reviews/round-03/review.md),
-[current response plan](research/uncertainty/reviews/response-to-round-03-development.md)
+[unaltered round-4 review](research/uncertainty/reviews/round-04/review.md),
+[current response plan](research/uncertainty/reviews/response-to-round-04-development.md)
 and [focused mathematical audits](research/uncertainty/reviews/README.md) are
 public. Focused audits do not replace a full acceptance assessment. Experimental
 pose/noise/class calibration, useful fine-scale inference and substantive novelty
@@ -18,6 +18,15 @@ establishes experimental density coverage.
 
 The compact [evidence and open-decisions table](research/uncertainty/CURRENT-EVIDENCE.md)
 distinguishes completed outcomes from unresolved scientific limitations.
+
+Round 4 calls for a substantive change, not more variants of the current moment
+test. Those variants are frozen while a matched information/nuisance ledger and
+the three stacks' recorded imaging conditions are investigated. The existing
+33-page PDF is the reviewed v0.7.6-dev snapshot, not a revision addressing this
+review. All four full reviews reject. The living survey now has 139 candidates,
+with [new population-UQ primary reading](research/uncertainty/POPULATION-UQ-PRIMARY-READING.md)
+and [CAHRA version-2 reading](research/uncertainty/CAHRA-V2-READING.md); candidate
+counts are not full-reading counts.
 
 Post-review-2 work includes the [complete matched continuous Gaussian comparison](research/uncertainty/CONTINUOUS-GAUSSIAN-V2-RESULTS.md): all 48 fits converge and all 672 conditional cases are retained. The [600-dataset local-refinement study](research/uncertainty/END-TO-END-LOCAL-POSE-RESULTS.md) also finishes, following a separate 384-dataset calibration batch. All 12,000 weight solves converge. Every one of 216 procedure/control cells covers its coarse truth in 200/200 trials, including the simpler baselines; this is **not a demonstrated coverage advantage**. The three pose-audit procedures always select the no-data interval. Their raw median widths span 642–1,242 times its width, with nonlinear remainder dominating numerically; even removing it leaves all first-order bounds uninformative. Near-truth local pose initialization deteriorates substantially during the declared coarse fit; these are not production reconstruction results.
 
