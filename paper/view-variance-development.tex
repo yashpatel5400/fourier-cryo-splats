@@ -1,0 +1,164 @@
+\section{Separating Conditional Noise from Viewing-Law Sensitivity}
+\label{app:viewvariance}
+This post-outcome follow-up studies all four nonzero ranged-amplitude contrasts
+on 10028 and 10049. The zero 10076 contrasts and fixed-amplitude outcomes remain
+in Appendix~\ref{app:momentdevelopment}; this is not a new three-stack positive
+result. The following construction combines classical conditional covariance,
+concentration and distributional robustness
+\citep{janon2014sobol,maurer2009bernstein,duchi2019variance}. Its numerical
+comparison does not establish novelty or experimental calibration.
+
+\subsection{A conditional-noise envelope and its assumptions}
+Partition the amplitude interval into cells $I_j$. For each view $R$, simulate
+$L$ independent noises and set
+\begin{align*}
+ Z_{\ell j}&=\mathbf1\{\max_{a\in I_j}f(a m(R)+\epsilon_\ell)>c\},\\
+ X&=\max_j L^{-1}\textstyle\sum_\ell Z_{\ell j},\qquad
+ T=L^{-1}\textstyle\sum_\ell\max_j Z_{\ell j}.
+\end{align*}
+Here $X\le T$ pointwise. For each fixed amplitude, its cell's empirical
+frequency is bounded by $X$. Consequently
+$\eta_L(R):=\mathbb E[X\mid R]$ dominates every fixed-amplitude event
+probability. It also dominates a random physical amplitude's probability if
+\emph{amplitude and measurement noise are conditionally independent given
+view}. This qualifier is essential. The older $T$ construction protects the
+larger class of amplitudes that may depend on realized noise, when the specified
+noise marginal and particle independence are retained. Grouping thus changes
+this part of the protected null. Image-fitted scales or image-dependent particle
+selection do not automatically satisfy the stronger premise. The finite-$L$
+maximum bias is retained in $\eta_L$; it is not the exact amplitude-profiled
+event probability.
+
+Take two independent noise groups at each view and a center $b\in[0,1]$ fixed
+by an older independent simulation. Conditional independence gives
+\[
+ \mathbb E[(X_1-b)(X_2-b)\mid R]=(\eta_L(R)-b)^2.
+\]
+Write $\mu=\mathbb E_Q\eta_L$ and $V=\operatorname{Var}_Q\eta_L$.
+For $w=dP/dQ\le\kappa$ with $\mathbb E_Qw=1$, Cauchy--Schwarz gives
+\[
+ \mathbb E_P\eta_L\le\mu+\sqrt{(\kappa-1)V},
+ \qquad \mathbb E_P\eta_L\le\kappa\mu.
+\]
+The first inequality alone also holds with $\kappa-1$ replaced by a supplied
+$\chi^2(P\Vert Q)$ upper bound. Under only that weaker assumption, the
+$\kappa\mu$ branch must be discarded. Neither divergence radius is estimated
+from experimental particles here.
+
+\paragraph{Finite-simulation bound.}
+Apply the established empirical Bernstein inequality to independent \emph{views},
+not their correlated replicas. With $M$ observations in $[l,u]$ and unbiased
+sample variance $s^2$, its one-sided radius at failure probability $d$ is
+\[
+ r_d=\sqrt{2s^2\log(2/d)/M}
+       +\frac{7(u-l)\log(2/d)}{3(M-1)}.
+\]
+Allocate $\delta/4$ to each tail of the mean of
+$\overline X=(X_1+X_2)/2$, yielding $[L_\mu,U_\mu]$, and $\delta/2$ to an
+upper mean $U_Y$ of $Y=(X_1-b)(X_2-b)$. Its exact range is
+$[-b(1-b),\max(b^2,(1-b)^2)]$. Define
+\begin{align*}
+ V_U&=\min\{1/4,\max[0,U_Y-\operatorname{dist}(b,[L_\mu,U_\mu])^2]\},\\
+ p_0&=\min\{1,\kappa U_\mu,U_\mu+\sqrt{(\kappa-1)V_U}\}.
+\end{align*}
+Except on one event of probability at most $\delta$, both $\mu\le U_\mu$
+and $V\le V_U$, since $\mathbb E Y=V+(\mu-b)^2$. The minimum is taken
+on that same event. Conditional on calibration, independent test indicators
+are then dominated by independent Bernoulli variables of parameter $p_0$.
+The binomial rule of Appendix~\ref{app:momentdevelopment} at level
+$\alpha-\delta$ therefore has joint false-rejection probability at most
+$\alpha$, in exact arithmetic and under the stated simulator. This is a
+conditional-model composition of known results, not a new concentration theorem.
+
+\subsection{Matched draws, classical comparators and concentration slack}
+For each stack, the follow-up uses 32,768 new Haar calibration views with two
+groups of $L=32$ noises, 16 amplitude cells, and 131,072 independent Haar
+held-out views. Both maps and both contrasts share draws within each stage.
+The three initially declared methods use the individual envelope, grouped
+envelope and grouped viewing variance. They have the same projection and noise
+budgets; this is not an optimized allocation comparison with the earlier
+131,072-view Clopper--Pearson procedure. All 360 projections are retained.
+
+A focused independent model audit requested classical CVaR comparators. Under
+the density cap, the exact population worst case is the upper tail mean
+\citep{rockafellar2002cvar}:
+\[
+ \sup_{0\le w\le\kappa,\ \mathbb E_Qw=1}\mathbb E_Q[w\eta_L]
+ =\min_{0\le t\le1}\{t+\kappa\mathbb E_Q(\eta_L-t)_+\}.
+\]
+An extremal weight fills the upper tail, using fractional weight at a boundary
+atom when needed. Conditional Jensen permits replacing $\eta_L$ by
+$\overline X$ to obtain an upper bound. We implement two separate confidence
+procedures: a uniform DKW bound on the empirical stop-loss curve, and an
+empirical-Bernstein bound at a threshold chosen on half the views and evaluated
+on the other half. For DKW, add
+$\sqrt{\log(2/\delta)/(2M)}(1-t)$ to the empirical stop loss before minimizing.
+We also implement a mean-only variance envelope and an unpaired
+$\operatorname{Var}(\overline X)$ envelope. Each method has its own
+$\delta=.001$ budget; no unadjusted cross-method minimum is used. All 480
+additional projections and paired critical-count differences are retained.
+
+At $\kappa=1.1$, the removed-candidate probability bounds for 10049 are
+.43095/.44761 (power/combined) using paired variance, versus .43614/.45220
+using split CVaR, .44104/.45722 using DKW CVaR, and .44472/.46102 using
+unpaired variance. These are comparisons at one simulation budget, not a
+contradiction of population CVaR optimality. The CVaR relaxation retains
+conditional-noise variability in $\overline X$.
+
+The variance upper bounds are predominantly concentration slack. For the
+removed 10049 power/combined cases, the signed centered-product estimates are
+$-9.84\times10^{-5}$/$-3.23\times10^{-5}$, the square-root terms are
+$1.71\times10^{-4}$/$1.73\times10^{-4}$, and the range terms are
+$3.40\times10^{-4}$/$3.32\times10^{-4}$. Distance subtraction is zero;
+final $V_U$ values are $4.13\times10^{-4}$/$4.72\times10^{-4}$. This does
+not measure zero population viewing variance. No independent calibration-repeat
+or optimal-replication comparison has been completed.
+
+At $n=10^4$, $\kappa=1.1$, the paired method's Haar-alternative rejection
+projections are .116 [.041,.256] and .185 [.075,.362] on 10049, versus
+.00108 and .00816 on 10028. At $n=10^5$, 10049 projections rise to
+.443 [.032,.942] and .773 [.167,.993]. These wide intervals transform
+pointwise single-image probability intervals; they do not assess calibration
+variability or a paired between-method effect. All tests remain weak at
+$\kappa=2$ on the amplitude-one Haar alternative.
+
+\subsection{Fresh preferential views and amplitude controls}
+We additionally generate all nine laws obtained by conditioning Haar rotations
+on $|R_{3j}|\ge1-1/\kappa$, for the three object axes and
+$\kappa\in\{1.1,2,5\}$. Each law has density exactly $\kappa$ on its
+retained cap union. Complete rotations retain random in-plane angles.
+Each stack/law has 65,536 new independent views; all true/removed maps,
+amplitudes .9/1/1.1 and both contrasts are evaluated with common noise.
+There are 1,179,648 independent rotations across the 18 stack/law runs.
+The viewing law is supplied, not inferred from images. These caps are not the
+extremal event-probability tilt.
+
+For combined moments on 10049 at $n=10^4$, $\kappa=1.1$, true-map rejection
+against the removed candidate ranges across axes from .00357--.00579 at
+amplitude .9, .312--.386 at amplitude one, and .984--.988 at amplitude 1.1.
+At $\kappa=2$, the amplitude-one range is .0000605--.00774; at $\kappa=5$
+it is below $2.1\times10^{-11}$. These ranges summarize point projections,
+not confidence intervals over viewing laws. All 1,944 projections with
+pointwise intervals are archived. Amplitude sensitivity prevents using the
+favorable amplitude-1.1 result as a general detection claim.
+
+Partitioning each law's independent views into 64 disjoint groups of 1,024
+particles gives actual repeated-group outcomes. Across 648 correct-null
+method/law/amplitude/score cells, the largest rejected count is 2/64. The
+pointwise exact interval is wide, and cells share draws; these cannot be pooled
+as independent repetitions. Calibration remains fixed, so this is not an
+empirical unconditional error study. At $n=10^4$, the largest correct-null
+point projection is .000259. Thirty-six first-view physical sums and 216
+direct scores agree within $1.1\times10^{-11}$, and every count/critical value
+is replayed. Frequencies are nonzero, unique and lack antipodal pairs; the
+first transfer profile matches its archived source exactly.
+
+An additional verifier selects 328 of the 32,768 original calibration views
+per stack with a separate seed. Separable physical-cell sums, independently
+written moment polynomials, and companion-matrix stationary roots reproduce
+all selected grouped and individual counts: 167,936 cubics and 10,496 group
+comparisons. This is a numerical check on about 1\% of the calibration views,
+not a global rounding certificate. Oracle scores, full-region removal, one
+known transfer profile and specified Gaussian noise remain substantial limits.
+The focused audit supports the conditional algebra but supplies no acceptance
+assessment; the three full-paper rejections remain unresolved.

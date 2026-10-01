@@ -64,7 +64,7 @@ have verified counterexamples; the four 10049 contrasts retain sampled positive
 margins without a global certificate; 10076 has no positive fitted separator.
 Independent complex Gaussian moment enumeration agrees with all 48 declared
 variance checks within 3.6e-15. These are oracle development diagnostics, not
-measured power or density coverage. The current 28-page paper adds targeted
+measured power or density coverage. The v0.7.3-dev 28-page paper added targeted
 primary literature on collective alignment and moment-based uncertainty, plus
 the subsequent development below; the earlier 25-page PDF remains immutable
 in v0.7.2-dev.
@@ -83,3 +83,6 @@ bound sensitivity, not a measured non-Haar failure or impossibility result.
 Known noise, CTF, amplitudes, viewing-density bounds and the oracle alternative
 are additional assumptions, not experimentally calibrated inputs. No fourth
 full acceptance review has occurred.
+
+
+The current 30-page manuscript adds the [conditional-noise study](paired-power-v1/VIEW-VARIANCE-RESULTS.md), [four classical risk comparators](paired-power-v1/VIEW-RISK-BASELINES-RESULTS.md), and [fresh preferred-view controls](paired-power-v1/PREFERRED-VIEW-RESULTS.md). All 360 + 480 + 1,944 projections, both correct-null maps, and 648 cells of actual 64-group outcomes are retained. The latter use 1,179,648 independent rotations with shared maps/amplitudes/methods; calibration remains fixed. The largest correct-null observed count is 2/64, with a wide interval. Power is strongly amplitude-dependent and remains weak under larger viewing-density ratios. The [focused Fable audit](reviews/view-variance-audit-01/review.md) checks the conditional argument but identifies an omitted amplitude/noise-independence assumption, classical comparators and concentration slack. These are addressed explicitly in its response; calibration repetition, extremal-law controls and useful non-oracle scores remain open. Nineteen targeted tests pass; this is not a new full-suite claim. Independent replays include 1% of original calibration views (167,936 cubics), every new count/critical value, frequency Hermitian-pair checks and source transfer-profile equality. No fourth full acceptance review or experimentally calibrated method is claimed.

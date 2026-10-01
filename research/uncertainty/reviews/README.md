@@ -119,3 +119,6 @@ response documents fallback, selection bookkeeping, root evaluation, test and
 guard changes made before the empirical joint fit began. This focused audit
 does not rederive every inherited Fourier bound, has not reviewed its own
 corrections, and supplies no acceptance verdict.
+
+
+The later [view-variance audit](view-variance-audit-01/review.md), with [response](view-variance-audit-01/response.md), is an authentic focused Fable mathematical/design check. It supports the conditional algebra while identifying amplitude/noise independence, missing CVaR comparisons, concentration slack and practical calibration gaps. The subsequent response implements comparators and broader numerical/preferred-view checks while marking unanswered issues. It is not a fourth full acceptance review.

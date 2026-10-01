@@ -114,3 +114,6 @@ substantial conservatism as the viewing bound widens; both ranged-amplitude
 10028 contrasts and all four constant 10076 scores remain uninformative.
 This does not establish unknown-pose experimental coverage, a novelty claim,
 or a favorable full-review verdict. The unchanged full reviews remain public.
+
+
+The 30-page follow-up adds conditional-noise grouping, classical CVaR and variance comparisons, and fresh preferred-view/three-amplitude controls. Its [focused audit response](view-variance-audit-01/response.md) records the required amplitude/noise independence and slack-dominated bounds. About 1% of original calibration views are independently recomputed. These changes do not resolve the full review: learned candidates, experimental nuisance calibration, independent calibration repetitions and usefulness across three stacks remain open.
