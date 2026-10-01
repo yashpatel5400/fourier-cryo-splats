@@ -1,0 +1,126 @@
+\section{Post-review Development: Invariant Moments and a Bounded Viewing Law}
+\label{app:momentdevelopment}
+This section records subsequent method development, including failed gates.
+It is not a new blinded confirmation or a claim of experimental calibration.
+Bispectra and moment inference are established prior art
+\citep{perry2019mra,janson2026mps}; the results below do not establish a novel
+uncertainty method. The original full-review conclusions remain unresolved.
+
+\subsection{Translation-invariant statistics and exact noise variance}
+For nonzero, distinct Fourier coordinates without opposite pairs and
+$q_a+q_b=q_c$, use $(|Y_j|^2-2v)/2$ together with
+$\operatorname{Re}(Y_aY_b\overline{Y_c})/2$ and its imaginary counterpart.
+All three indices in a triad are distinct. A common continuous translation
+cancels from each product. Independent real and imaginary Gaussian noise
+coordinates of variance $v$ make their expectations the noise-free moments.
+This does not hold automatically under windowing, unknown correlations or
+noncircular noise. Normalization to unit marginal variance at pure unit noise
+does not whiten their signal-dependent joint covariance.
+
+Let $f$ be a fixed real linear contrast of these moments. Its cubic polynomial
+has constant Laplacian. The finite Gaussian--Hermite expansion therefore gives
+\begin{align*}
+\operatorname{Var}\{f(m+\epsilon)\}
+&=v\|\nabla f(m)\|^2+\tfrac12v^2\|\nabla^2 f(m)\|_F^2\\
+&\quad+\tfrac16v^3\|\nabla^3 f\|_F^2.
+\end{align*}
+Derivatives from overlapping triads must be added before squaring. This is a
+classical polynomial identity, not a new general theorem. Independent complex
+Gaussian moment enumeration agrees with 48 saved derivative-based variance
+calculations within $3.6\times10^{-15}$.
+
+\input{tables/moment-mc-development}
+
+\subsection{Finite hulls and continuous-orientation counterexamples}
+The gate uses 220 frequencies and 512 frequency-selected complex triads,
+giving 1,244 real moments, and the first saved CTF/noise profile. Each oracle
+alternative averages the true-map moments over 4,160 saved orientations.
+Power-only and combined moments are compared at amplitude one and on the
+assumed interval $[.9,1.1]$, for all three geometries. Twelve exact true-map
+controls and twelve removal fits complete; every removal fit reaches the
+2,500-iteration limit. Feasible mixtures and separating directions give
+finite-hull distance brackets without assuming convergence.
+
+A separate 10,000-view catalog and 160 continuous local searches then test all
+eight nonzero directions. Four zero directions on 10076 are retained as
+uninformative. Both ranged-amplitude 10028 directions have verified null poses
+whose expected scores exceed the alternative expectation. The four 10049
+directions retain sampled margins $.0174$--$.0508$, without a global bound.
+All eight worst searched poses independently agree with physical-cell sums
+within $3.8\times10^{-12}$. Neither searches nor unconverged hull fits establish
+continuous separation or impossibility for the moment family.
+
+One explicit global envelope is computationally impractical. If the contrast
+has geodesic second derivative bounded by $H$, and a rotation grid covers
+$\mathrm{SO}(3)$ with radius $r$, its continuously amplitude-profiled maximum
+is at most the profiled grid maximum plus $Hr^2/2$. To see this, fix a
+maximizing amplitude and rotation; the rotational derivative vanishes there.
+Integrating the second derivative to a neighboring grid point proves the
+bound. Direct absolute-density radial moments give finite $H$, including
+physical cell extent, but the declared Euler-grid construction needs
+$1.1\times10^{13}$--$2.0\times10^{16}$ points to allocate half the remaining
+sampled margin to this remainder. No grid is run. This is a failure of that
+envelope, not an optimal-complexity lower bound.
+
+\subsection{A different model: simulation under a bounded viewing density}
+The following construction changes the nuisance model. Let $Q$ be a specified
+viewing law, here continuous Haar measure, and assume each independent
+particle's viewing distribution $P_i$ satisfies $dP_i/dQ\le\kappa$, for a
+known $\kappa\ge1$. Noise and CTF are known; amplitudes belong to a fixed
+interval $\mathcal A$. No arbitrary-realized-pose guarantee follows.
+The score $f$ and threshold $c$ are fixed independently of calibration and
+tested images. For a fixed candidate simulator $m(R)$, draw
+\[
+Z=\mathbf1\{\max_{a\in\mathcal A} f(a m(R)+\epsilon)>c\},
+\qquad R\sim Q.
+\]
+The amplitude maximum uses both endpoints and all real stationary points
+of a scalar cubic. Let $U$ be a one-sided Clopper--Pearson upper probability
+from $M$ independent draws of $Z$, with failure probability $\delta$.
+Set $p_0=\min(1,\kappa U)$. Reject the candidate when the number of $n$ tested
+images with score exceeding $c$ reaches the smallest integer $k$ with
+$\Pr\{\operatorname{Bin}(n,p_0)\ge k\}\le\alpha-\delta$.
+
+\paragraph{Conditional-model validity.}
+In exact arithmetic the joint false-rejection probability over calibration
+and test data is at most $\alpha$. The amplitude envelope dominates every
+allowed amplitude's event. The viewing density ratio increases its probability
+by at most $\kappa$. Except on the calibration failure event, each independent
+test indicator thus has probability at most $p_0$; coupling with independent
+uniform variables gives binomial stochastic domination. A union bound adds
+$\delta$ to the conditional $\alpha-\delta$ error. This is a composition of
+classical binomial inference and domination. Monte Carlo tests and nuisance
+maximization have substantial prior art \citep{dufour2006mc,bergerboos1994}.
+We do not claim either cited paper's algorithm as this construction.
+
+\subsection{Independent simulations and limits of the comparison}
+All twelve saved contrasts and their previously fixed alternative-mean
+thresholds are retained. Each nonzero stack receives 131,072 fresh continuous
+Haar calibration draws and 131,072 independent held-out draws. The physical-cell
+operator evaluates both true and removed maps; within each stage methods share
+rotations and Gaussian noise. Both maps also serve as correctly specified
+null controls. The four zero 10076 directions require no projections and
+remain uninformative. Only one CTF/noise profile is studied. We use
+$\alpha=.05$, $\delta=.001$, $\kappa\in\{1,1.01,1.1,2\}$ and
+$n\in\{10^3,10^4,10^5\}$.
+
+The table projects dataset-level rejection probabilities from independent
+single-particle event frequencies under the binomial model. Its intervals
+transform pointwise exact 95\% probability intervals; they are not observed
+repeated-dataset power or simultaneous confidence bounds across all comparisons.
+The complete CSV retains both candidate controls and every sample size.
+At $n=10^4$ and $\kappa=1$, ranged-amplitude 10049 rejection projections
+are .700 for power and .826 for combined moments, with overlapping pointwise
+intervals [.492,.857] and [.654,.930]. The two ranged-amplitude 10028 tests
+instead have projections below .01. At $n=10^5$, all 10049 projections
+collapse below $10^{-14}$ when $\kappa=1.1$; increasing $\kappa$ changes the
+critical bound while the held-out alternative remains Haar. This measures
+conservatism of this construction, not an impossibility result or an observed
+non-Haar experiment. Correct-null point projections range up to .0435; they
+do not measure unconditional false-rejection frequency over calibration draws.
+Scores were designed with the oracle alternative, so this experiment does not
+establish detection of unknown structural errors. A known viewing-density
+bound, calibrated noise/amplitude law, simulator error and practical candidate
+construction are additional unresolved requirements. These results cannot be
+substituted for experimental density coverage or the failed arbitrary-view
+certificate.

@@ -105,3 +105,12 @@ are invalidated; the remaining nonzero contrasts have no global validity
 certificate. This development does not resolve R1/R2/R8 or justify another full
 acceptance review. The rewritten 26-page manuscript retains the rejected main
 results and adds the verified primary literature.
+
+The latest 28-page draft adds a completed global-cover cost gate and a
+different bounded-view Monte Carlo construction. Its binomial error argument
+is explicit, but it assumes a known viewing-density ratio and noise simulator.
+The complete 192-projection study shows Haar-view sensitivity on 10049 and
+substantial conservatism as the viewing bound widens; both ranged-amplitude
+10028 contrasts and all four constant 10076 scores remain uninformative.
+This does not establish unknown-pose experimental coverage, a novelty claim,
+or a favorable full-review verdict. The unchanged full reviews remain public.

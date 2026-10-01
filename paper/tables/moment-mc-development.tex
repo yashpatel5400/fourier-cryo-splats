@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering\footnotesize
+\caption{Post-review Monte Carlo development. Projected rejection probabilities on the Haar true-map alternative against a removed-map candidate. Columns at $\kappa=1$ vary particle count; the last three use $n=10^5$. Brackets are pointwise 95\% intervals for the $\kappa=1,n=10^5$ projection. All values are rounded to three decimals; 0.000/1.000 need not be exact probabilities. The full CSV retains all 192 projections and their intervals, including correct-null controls. Increasing $\kappa$ changes the test bound, not the held-out viewing law.}
+\label{tab:momentmc}
+\begin{tabular}{lllrrrrrr}
+\toprule
+Stack & Statistic & Amplitude & $n=10^3$ & $n=10^4$ & $n=10^5$ [95\%] & $\kappa=1.01$ & $\kappa=1.1$ & $\kappa=2$ \\
+\midrule
+10028 & Power & 1 & 0.865 & 1.000 & 1.000 [1.000, 1.000] & 1.000 & 0.268 & 0.000 \\
+10028 & Power & [.9,1.1] & 0.022 & 0.004 & 0.000 [0.000, 0.001] & 0.000 & 0.000 & 0.000 \\
+10028 & Power+bispectrum & 1 & 0.877 & 1.000 & 1.000 [1.000, 1.000] & 1.000 & 0.503 & 0.000 \\
+10028 & Power+bispectrum & [.9,1.1] & 0.029 & 0.009 & 0.000 [0.000, 0.014] & 0.000 & 0.000 & 0.000 \\
+10049 & Power & 1 & 0.624 & 1.000 & 1.000 [1.000, 1.000] & 1.000 & 0.000 & 0.000 \\
+10049 & Power & [.9,1.1] & 0.166 & 0.700 & 1.000 [1.000, 1.000] & 0.994 & 0.000 & 0.000 \\
+10049 & Power+bispectrum & 1 & 0.669 & 1.000 & 1.000 [1.000, 1.000] & 1.000 & 0.000 & 0.000 \\
+10049 & Power+bispectrum & [.9,1.1] & 0.192 & 0.826 & 1.000 [1.000, 1.000] & 1.000 & 0.000 & 0.000 \\
+10076 & All four contrasts & Both & \multicolumn{6}{l}{Zero directions; constant scores, no simulation and no rejection.} \\
+\bottomrule
+\end{tabular}
+\end{table*}

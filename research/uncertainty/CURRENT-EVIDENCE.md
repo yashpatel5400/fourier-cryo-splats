@@ -64,6 +64,22 @@ have verified counterexamples; the four 10049 contrasts retain sampled positive
 margins without a global certificate; 10076 has no positive fitted separator.
 Independent complex Gaussian moment enumeration agrees with all 48 declared
 variance checks within 3.6e-15. These are oracle development diagnostics, not
-measured power or density coverage. The current 26-page paper adds targeted
-primary literature on collective alignment and moment-based uncertainty; the
-earlier 25-page PDF remains immutable in v0.7.2-dev.
+measured power or density coverage. The current 28-page paper adds targeted
+primary literature on collective alignment and moment-based uncertainty, plus
+the subsequent development below; the earlier 25-page PDF remains immutable
+in v0.7.2-dev.
+
+The [global-cover cost gate](paired-power-v1/BISPECTRUM-GLOBAL-BOUND-RESULTS.md)
+requires 1.1e13–2.0e16 rotations with that particular curvature envelope, so
+no grid is run. A different [bounded-view Monte Carlo model](paired-power-v1/MONTE-CARLO-VIEW-LAW-RESULTS.md)
+has an explicit finite-simulation false-rejection proof. All 192 projections
+and correct-null controls finish in 369 seconds. With amplitude uncertainty,
+the 10049 Haar-view projections at n=10,000 are .700/.826 for power/combined
+moments; their pointwise intervals overlap. Both 10028 ranged contrasts fail;
+10076's four zero directions remain uninformative without new projections.
+Increasing the viewing-density bound to 1.1 collapses all 10049 guarantees
+in this construction; the alternative remains Haar. This is conservative
+bound sensitivity, not a measured non-Haar failure or impossibility result.
+Known noise, CTF, amplitudes, viewing-density bounds and the oracle alternative
+are additional assumptions, not experimentally calibrated inputs. No fourth
+full acceptance review has occurred.
