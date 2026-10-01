@@ -1,0 +1,26 @@
+\begin{table*}[t]
+\centering\footnotesize
+\caption{Post hoc audit-weight diagnostics. Each pair is same-image / independent-image; every cell has 200 paired trials. RMSE is divided by the fixed pilot absolute error. The complete release includes all five distinct estimators, all radius choices, and individual Monte Carlo intervals.}
+\label{tab:refittingbias}
+\begin{tabular}{lllrrr}\toprule
+Stack & Pose control & Target & Mean error / SD & Noise-only coverage & RMSE / pilot error \\\midrule
+10028 & True poses & center & -0.367 / -0.400 & 0.920 / 0.925 & 0.061 / 0.062 \\
+10028 & True poses & contrast & -0.099 / -0.139 & 0.965 / 0.965 & 0.276 / 0.311 \\
+10028 & Oracle template & center & -0.258 / -0.539 & 0.925 / 0.895 & 0.056 / 0.069 \\
+10028 & Oracle template & contrast & -0.156 / 0.137 & 0.960 / 0.935 & 0.265 / 0.297 \\
+10028 & Pilot template & center & -1.177 / -1.266 & 0.815 / 0.750 & 0.085 / 0.092 \\
+10028 & Pilot template & contrast & 0.217 / 0.239 & 0.965 / 0.940 & 0.299 / 0.325 \\
+10049 & True poses & center & 0.081 / 0.070 & 0.930 / 0.980 & 1.432 / 1.391 \\
+10049 & True poses & contrast & 0.198 / 0.194 & 0.930 / 0.955 & 1.029 / 0.999 \\
+10049 & Oracle template & center & 0.737 / -0.295 & 0.900 / 0.925 & 1.590 / 1.478 \\
+10049 & Oracle template & contrast & -0.128 / 0.656 & 0.950 / 0.895 & 0.757 / 1.018 \\
+10049 & Pilot template & center & 0.638 / -0.557 & 0.905 / 0.925 & 1.600 / 1.594 \\
+10049 & Pilot template & contrast & 1.007 / 1.349 & 0.860 / 0.720 & 1.127 / 1.350 \\
+10076 & True poses & center & -0.282 / -0.173 & 0.920 / 0.960 & 0.343 / 0.314 \\
+10076 & True poses & contrast & -0.068 / -0.161 & 0.955 / 0.925 & 0.758 / 0.872 \\
+10076 & Oracle template & center & 0.363 / -0.384 & 0.955 / 0.915 & 0.317 / 0.330 \\
+10076 & Oracle template & contrast & 0.165 / -0.024 & 0.950 / 0.945 & 0.689 / 0.797 \\
+10076 & Pilot template & center & 0.941 / -0.325 & 0.860 / 0.935 & 0.433 / 0.332 \\
+10076 & Pilot template & contrast & -0.162 / 0.081 & 0.965 / 0.950 & 0.718 / 0.792 \\
+\bottomrule\end{tabular}
+\end{table*}

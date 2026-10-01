@@ -70,6 +70,11 @@ ceiling, and unchanged scientific settings. All convergence flags and
 variance-identity errors remain visible. This amendment is computational,
 not a replacement of an unfavorable statistical baseline.
 \IfFileExists{tables/continuous-gaussian-v2-detail.tex}{\input{tables/continuous-gaussian-v2-detail.tex}}{}
+\input{tables/continuous-gaussian-class-coverage}
+At prior scale $B/2$, class-worst-case coverage falls below nominal on all
+three stacks, although coverage of the selected simulation generators is
+favorable. At scale $B$, all 24 class minima exceed .995836. This distinction
+prevents treating coverage of benign generators as a uniform class result.
 
 \subsection{Local-pose refitting study}
 The calibration seed root is 261001; the test root is 261002. Each is
@@ -119,10 +124,8 @@ establish conditional-on-design centering.
 All 600 datasets and 12,000 solves complete. The total recorded test runtime is 19,584 seconds; peak resident memory is below .681 GB per process. All 216 raw/selected coverage fractions are one. The selected pose intervals use no inference information, so their perfect observed coverage is not an informativeness result. All paired coverage discordance counts are zero. The no-data reference is itself conditional on the supplied pilot-centered class; relative width is not biological resolution.
 
 The final pose errors are substantially larger than the near-truth initialization: rotation RMS medians span 11.990--18.481 degrees and shift medians 6.617--9.282\,\AA. Calibration radii are determined by these same poor local-fitting dynamics. The post-outcome arithmetic remainder decomposition retains all 2,400 template/target fits and does not change an interval or scientific parameter. Minimum and maximum nonlinear-remainder fractions of the raw mixed-zero width are .993056 and .995307. The detailed records include all pose errors, unconditional dependence diagnostics, centers, absolute widths, widths relative to estimates and paired differences.
-\input{tables/end-to-end-detail}
-The two complete heat-map displays (oracle and independent-pilot alignment)
-are also archived with the machine-readable outcomes; the tables here retain
-their exact coverage, fallback and sign-exclusion information.
+All 216 detailed coverage, fallback and sign-exclusion rows and both heat maps remain in the machine-readable release. Since every coverage entry is one and every pose fallback entry is one, the compact main table reports their common outcome without repeating three pages of identical entries.
+\input{tables/refitting-bias-detail}
 
 \subsection{Experimental breakdown analysis}
 For each fixed estimator, the stored pilot, density-radius coefficient,
@@ -156,7 +159,7 @@ training objectives differ. Tuning-group prediction error selects epochs
 60, 50 and 100; two are final available checkpoints and undertraining
 remains possible. The development stopping budgets are not preregistered
 convergence criteria.
-\input{uncertainty-reconstruction-results}
+\input{frozen-prediction-results}
 
 RELION 5.0.1 learns poses on all three stacks using a common prescribed
 initialization/refinement protocol, with exposure-half labels verified.

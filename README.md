@@ -23,6 +23,8 @@ Post-review-2 work includes the [complete matched continuous Gaussian comparison
 
 The [rewritten manuscript](paper/focused-main.tex) reports these failures in its abstract and main results. The [registered replay](research/uncertainty/REGISTERED-DICTIONARY-RESULTS.md), [breakdown analysis](research/uncertainty/BREAKDOWN-RADIUS-RESULTS.md), and [phase independence control](research/uncertainty/PHASE-SPLIT-CONTROL-RESULTS.md) are complete. A [raw-movie pilot](research/uncertainty/RAW-MOVIE-PILOT-RESULTS.md) retains all acquisition diagnostics and the interrupted/recovered transfer, but does not establish independent pure noise. None resolves the experimental inputs. [Current reproduction instructions](research/uncertainty/REPRODUCE-REVISION3.md) distinguish immutable archived studies from new runs.
 
+The [post-review-3 saved-array diagnosis](research/uncertainty/REFITTING-BIAS-REANALYSIS-RESULTS.md) reproduces every original estimate and adds 18 converged true-pose fits. Noise-only coverage falls to .720 for the pilot-aligned 10049 contrast, versus .955 with true poses; the original broad bias-aware intervals still cover every trial. Exact realized-pose class envelopes are much smaller than the old bounds but remain large. These post hoc results are now in the 25-page paper and do not resolve the rejected novelty or usefulness assessment.
+
 Earlier evidence includes:
 
 - Original-code CryoLike scoring completes all 24 declared three-stack cases.

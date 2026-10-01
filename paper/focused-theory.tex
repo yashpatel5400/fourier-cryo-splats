@@ -47,6 +47,37 @@ infinite trace, so there is no associated finite-energy random element of
 $H$ with that covariance. This is a generalized-process comparison, not a
 claim that all prior draws belong to the bounded density class.
 
+\subsection{Exact bias at a realized pose pair}\label{app:realized}
+Let $A$ denote the true operator, $\widehat A$ the fitted rotational operator,
+and $D$ the orthogonal dephasing by estimated shifts. Write
+$\delta_0=w^\top(DA-\widehat A)\rho_0$. For a fixed operator pair and weights,
+\begin{align}
+\sup_{\norm h\le B}|\delta_0-\ip{\ell-A^*D^*w}{h}|
+&=|\delta_0|+B\norm{\ell-A^*D^*w}.\label{eq:realizedbias}
+\end{align}
+Cauchy--Schwarz proves the upper bound. When the residual is nonzero, take
+$h$ with norm $B$ along its direction and opposite the sign of $\delta_0$;
+this attains equality (either sign works if $\delta_0=0$). The pose-only
+analogue replaces the residual by $(A^*D^*-\widehat A^*)w$. This is elementary
+Hilbert-space duality applied to the realized operators, not a new coverage
+principle. Their adjoints are finite Fourier sums, so the sinc identity
+computes both norms continuously without per-frequency triangle inequalities.
+
+In real/imaginary coordinates, $D^*w$ corresponds to multiplying
+$w_R+iw_I$ by the conjugate of the dephasing phase. The implementation checks
+this sign against direct real inner products. Order-40 tensor quadrature
+integrates the finite sum with an analytic remainder; the remainder for the
+operator difference uses the union of true and fitted frequencies. Independent
+dense sinc checks and order-48, tighter-transform-tolerance checks assess
+numerical error. They do not provide a validated floating-point enclosure.
+
+Equation~\eqref{eq:realizedbias} needs true poses. It is not a computable
+uniform bound over all unknown poses, and its supremum keeps the weights
+fixed rather than rerunning alignment for each density. For independent
+inference noise it describes the conditional signal bias. For same-image
+alignment it is only the deterministic signal part of the error; projected
+noise need not be conditionally centered.
+
 \subsection{An explicit adaptive-bias counterexample}
 If $Z\sim N(0,1)$ and $|\beta(Z)|\le b$, then
 $\beta(Z)=b\operatorname{sign}(Z)$ maximizes absolute error pointwise.

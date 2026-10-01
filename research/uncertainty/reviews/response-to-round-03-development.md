@@ -49,3 +49,35 @@ neither this distinction nor the observed inclusion rescues the vacuous bounds.
 
 The diagnostic analysis is being implemented. No new full review or acceptance
 assessment has occurred. All three full reviews remain unchanged and public.
+
+## Implemented diagnosis
+
+All 600 saved datasets replay exactly. The 18 additional true-pose fits
+converge. The [complete report](../REFITTING-BIAS-REANALYSIS-RESULTS.md) retains
+31,200 estimator/image rows, all 156 cells, 78 paired comparisons and 2,400
+realized continuous class envelopes. Three independent full sinc integrations
+agree within 8e-13; 36 higher-order/tighter-tolerance checks agree within
+8e-12 in squared norms. These are numerical diagnostics, not interval arithmetic.
+
+- **R13:** the main figure now includes standardized bias and actual noise-only
+  coverage for every audit target/template/image control, including true poses.
+  The 10049 independent-image pilot contrast covers .720, versus .955 at true
+  poses; RMSE is 1.350 versus .999 times pilot error. Every reduced B below 2
+  in the declared grid excludes the full density, which is stated explicitly.
+  The full CSV includes every Gaussian comparator, uncertainty interval and
+  signal/noise decomposition; no subset is represented as a new frozen study.
+- **R14, diagnosis only:** all first-order bounds still fall back without the
+  nonlinear remainder. Exact realized class-envelope medians are .306–.532 of
+  no data, compared with first-order half-width medians 3.215–5.887. This
+  establishes considerable slack in this calculation without proving a useful
+  unknown-pose procedure or a minimax lower bound.
+- **Reporting:** added the missing Gaussian class minima at both prior scales,
+  the exact sum-objective/ridge-path stationarity relation, corrected primary
+  citations, and the frozen additional-exposure prediction table. The 25-page
+  paper leads with the alignment-bias figure; redundant all-one coverage tables
+  remain in the release, and phase-plot minor tick labels no longer overlap.
+
+R7/R9/R11 and experimental calibration remain unresolved. The separate
+paired-power feasibility screen is method development, not evidence that the
+paper now meets the review's acceptance conditions. A fourth full acceptance
+review is not being requested merely for these reporting improvements.
