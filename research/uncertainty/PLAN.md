@@ -1,6 +1,6 @@
 # Uncertainty-focused research program
 
-**Current state:** see [CURRENT-EVIDENCE.md](CURRENT-EVIDENCE.md) and the [round-2 response](reviews/response-to-round-02-development.md). The older checkpoints below are retained history and must not be interpreted as current job or review status.
+**Current state:** see [CURRENT-EVIDENCE.md](CURRENT-EVIDENCE.md) and the [round-3 response](reviews/response-to-round-03-development.md). The older checkpoints below are retained history and must not be interpreted as current job or review status.
 
 Started 2026-09-29. This supersedes the focus of release v0.1.0; that release
 remains the record of the earlier reconstruction feasibility study. No new

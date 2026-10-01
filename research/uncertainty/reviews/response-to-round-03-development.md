@@ -47,7 +47,7 @@ neither this distinction nor the observed inclusion rescues the vacuous bounds.
 
 ## Status
 
-The diagnostic analysis is being implemented. No new full review or acceptance
+The saved-trial diagnostic analysis is complete. No new full review or acceptance
 assessment has occurred. All three full reviews remain unchanged and public.
 
 ## Implemented diagnosis
