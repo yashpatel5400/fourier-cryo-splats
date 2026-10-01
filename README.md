@@ -110,6 +110,7 @@ RELION result was already described in that release's appendix. The
 adds 128 verified numerical/map/diagnostic files and the 55-page manuscript,
 including all three completed RELION comparisons and all new cubic outcomes.
 It requires the prior bundles described in its manifest.
+The [v0.7.0 focused revision](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.0-dev) adds five verified numerical bundles (1.19 GB total) and the 26-page rewritten paper. It retains all 600 refitting trials, 384 calibration datasets, favorable matched-prior comparisons and the raw-movie diagnostics; the proposed pose bounds fail the informativeness criterion.
 
 On macOS, installing the optional uncertainty tools requires the FINUFFT build
 configuration in [COMPUTE.md](research/uncertainty/COMPUTE.md) to avoid conflicting

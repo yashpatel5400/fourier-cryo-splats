@@ -260,13 +260,49 @@ def remove_duplicated_baseline_rows(file, value):
 
 
 def inline_with_read_tools(name):
-    """Select by document role, never by outcome; all other evidence is readable."""
+    """Current paper/revision first; complete history stays in readable evidence.
+
+    Selection is by fixed document role and revision, never outcome. In
+    particular every post-review-2 result report (favorable or unfavorable)
+    is inline; bulky per-replicate/progress JSON stays exact in evidence/.
+    """
     path = Path(name)
-    if path.parts[0] in {'src', 'scripts', 'tests'}:
-        return False
-    # The older calibration study predates summary-directory naming.
-    return not name.startswith('results/') or path.name in {
-        'summary.json', 'metrics.json', 'noise-scale-calibration.json'}
+    if path.parts[0] == 'paper':
+        return True
+    if name.startswith('research/uncertainty/reviews/round-') and path.name == 'review.md':
+        return True
+    if name.startswith('research/uncertainty/reviews/response-'):
+        return True
+    current_notes = {
+        'CURRENT-EVIDENCE.md', 'SURVEY.md', 'PRIMARY-ANNOTATIONS.md',
+        'REPRODUCE-REVISION3.md', 'COMPUTE.md',
+        'CONTINUOUS-GAUSSIAN-EQUIVALENCE.md', 'CONTINUOUS-GAUSSIAN-PROTOCOL.md',
+        'CONTINUOUS-GAUSSIAN-V2-NUMERICAL-AMENDMENT.md', 'CONTINUOUS-GAUSSIAN-V2-RESULTS.md',
+        'MIXED-POSE-DERIVATION.md', 'LOCAL-ALIGNMENT-CALIBRATION-PROTOCOL.md',
+        'END-TO-END-LOCAL-POSE-PROTOCOL.md', 'END-TO-END-LOCAL-POSE-RESULTS.md',
+        'PHASE-SPLIT-DERIVATION.md', 'PHASE-SPLIT-CONTROL-PROTOCOL.md',
+        'PHASE-SPLIT-CONTROL-RESULTS.md', 'REGISTERED-DICTIONARY-PROTOCOL.md',
+        'REGISTERED-DICTIONARY-RESULTS.md', 'BREAKDOWN-RADIUS-PROTOCOL.md',
+        'BREAKDOWN-RADIUS-RESULTS.md', 'GAUSSIAN-SOLVE-GAP-NOTE.md',
+        'SHARP-NORMAL-ENVELOPE-NOTE.md', 'ALIGNMENT-INDEPENDENCE-READING.md',
+        'CLASSICAL-INFERENCE-READING-NOTE.md', 'ADJACENT-UQ-FOLLOWUP.md',
+        'PASR-VALIDATION-READING.md', 'MOVIE-SPLIT-READING-NOTE.md',
+        'RAW-MOVIE-PILOT-PROTOCOL.md', 'RAW-MOVIE-PILOT-RESULTS.md',
+        'CONTINUOUS-MOMENT-REMAINDER.md', 'FIXED-LENGTH-LOWER-BOUND.md',
+        'CENTERED-NOISE-CALIBRATION-RESULTS.md', 'REGISTERED-TARGET-SENSITIVITY-RESULTS.md',
+        'JOINT-ENRICHED-EXPERIMENTAL-RESULTS.md', 'REFERENCE-REGISTRATION-RESULTS.md'}
+    if name.startswith('research/uncertainty/'):
+        return path.name in current_notes
+    if name.startswith('provenance/uncertainty/'):
+        return path.name in {'review2-complete-code-verification.json',
+            'revision3-release-verification.json', 'revision3-paper-verification.json'}
+    if name.startswith('results/'):
+        return name in {
+            'results/uncertainty/development/continuous-gaussian-review2-summary-v2/summary.json',
+            'results/uncertainty/development/end-to-end-local-pose-summary-v1/remainder-diagnostics.json',
+            'results/uncertainty/confirmation/continuous-v1/summary/summary.json',
+            'results/uncertainty/confirmation/continuous-moments-v2/summary/summary.json'}
+    return False
 
 
 def snapshot_references(value):
@@ -503,7 +539,10 @@ def main():
         instructions += ('\nREAD-ONLY EVIDENCE MODE: All selected original files, excluded '
             'runner scripts and referenced archived source snapshots are copied under evidence/ '
             'with their original relative paths. evidence-index.json records exact SHA-256 hashes. '
-            'The initial text includes manuscript, notes and summary-level results. '
+            'The initial text includes the current manuscript, all post-review-2 result reports, '
+            'selected supporting notes, both prior reviews, and selected summary-level results. '
+            'All older development notes and bulky progress/calibration JSON remain exact in evidence/; '
+            'do not infer that deferral resolves or weakens the problems they report. '
             'Source code, tests and per-case result files are indexed below and accessible '
             'with Read/Glob/Grep. This selection uses file roles, never favorable outcomes. '
             'Inspect the relevant code and raw records before assessing implementation claims. '

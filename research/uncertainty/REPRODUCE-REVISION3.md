@@ -8,7 +8,7 @@ Use the repository's locked dependencies and the macOS FINUFFT instructions in `
 
 The v0.7.0-dev artifact specifications describe three refitting bundles, one comparison bundle and one raw-movie diagnostic bundle. The refitting bundles contain every calibration/test record and array, including the continuous generators, poses, observations and weights. Their archived calibration generators are sufficient to rerun the test fits; constructing the calibration generators afresh also needs the original particle metadata and earlier pilot/registration dependencies. The comparison manifest identifies its prior v0.6.* release dependencies. A completed collection can contain an interrupted historical fit; retain each record's individual completion and convergence flags.
 
-Validate every archive member against its accompanying manifest before use. `scripts/verify_uq_release_artifacts.py` performs a streaming read without extracting or modifying the archive. These local archives are prepared before publication; check the public release status before assuming a download exists.
+Validate every archive member against its accompanying manifest before use. `scripts/verify_uq_release_artifacts.py` performs a streaming read without extracting or modifying the archive. All five archives and their manifests are published in [v0.7.0-dev](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.7.0-dev). All eleven remote assets, including the PDF, have byte counts and GitHub-provided SHA-256 digests matching the local files.
 
 ## Re-estimated local poses and intervals
 
