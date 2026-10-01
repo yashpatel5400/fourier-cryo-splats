@@ -76,6 +76,35 @@ def main():
     table += alignment_table
     for ds,d in data.items():
         report += ['',f"{ds}: {sum(r['converged'] for r in d['numerical'])} converged solves of {sum(r['solves'] for r in d['numerical'])}; every numerical result remains in the coverage evaluation."]
+    # Post-outcome arithmetic diagnostic only: decompose every existing bound,
+    # without changing a fit, interval, template, or scientific parameter.
+    remainder_rows=[]
+    report += ['', '## Nonlinear-remainder decomposition', '',
+        'Post-outcome reporting diagnostic of every completed fit, with no refitting or selection. Fractions below concern the raw mixed-common-zero width.', '',
+        '| Stack | Template | Target | Fits | Median remainder / raw width | Minimum | Maximum |',
+        '| --- | --- | --- | ---: | ---: | ---: | ---: |']
+    for ds in DATASETS:
+        accum={(t,u):[] for t in TEMPLATES for u in TARGETS}
+        for rep in range(200):
+            p=ROOT/f'results/uncertainty/development/end-to-end-local-pose-v1/{ds}/replicate-{rep:03d}.json'
+            rec=json.loads(p.read_text())
+            if not rec['complete']:continue
+            for t in rec['templates']:
+                for f in t['fits']:
+                    m=f['mixed_audit']
+                    reconstructed=m['density_bias']+m['common_mode_bias']+m['nonlinear_remainder_bias']+m['subgaussian_tail']
+                    if not np.isclose(reconstructed,m['half_width'],rtol=1e-12):raise ValueError('Mixed bound decomposition differs')
+                    accum[t['template'],f['target']].append(m['nonlinear_remainder_bias']/m['half_width'])
+        for (template,target),values in accum.items():
+            a=np.asarray(values)
+            r=dict(dataset=ds,template=template,target=target,available=len(a),planned=200,
+                minimum=float(a.min()) if len(a) else None,median=float(np.median(a)) if len(a) else None,
+                maximum=float(a.max()) if len(a) else None)
+            remainder_rows.append(r)
+            if len(a):report.append(f"| {ds} | {template} | {target} | {len(a)} | {r['median']:.6f} | {r['minimum']:.6f} | {r['maximum']:.6f} |")
+    (base/'remainder-diagnostics.json').write_text(json.dumps(dict(complete=True,input_hashes=hashes,
+        groups=remainder_rows,source_sha256=sha(Path(__file__)),
+        scope='Post-outcome arithmetic decomposition of all existing raw mixed-common-zero bounds; not a new method or predeclared primary outcome.'),indent=2)+'\n')
     (ROOT/'paper/tables/end-to-end-detail.tex').write_text('\n'.join(table)+'\n')
     report += ['', 'A no-data fallback can provide coverage without using inference images or resolving a sign. The deterministic pose construction is simulation-assisted and its marginal tolerance guarantee averages over calibration datasets. Mixed intervals retain unverified conditional centering for estimated designs. These results do not calibrate experimental density coverage or repeat global ab initio reconstruction.']
     (ROOT/'research/uncertainty/END-TO-END-LOCAL-POSE-RESULTS.md').write_text('\n'.join(report)+'\n')
