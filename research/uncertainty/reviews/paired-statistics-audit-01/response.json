@@ -1,0 +1,97 @@
+{
+  "duration_api_ms": 345928,
+  "stop_reason": "end_turn",
+  "session_id": "e2f0d67a-81df-4972-b814-67e93dae4c5f",
+  "total_cost_usd": 2.29129275,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 32957,
+    "cache_read_input_tokens": 531,
+    "output_tokens": 32640,
+    "output_tokens_details": {
+      "thinking_tokens": 26889
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 32957,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 32640,
+        "cache_read_input_tokens": 531,
+        "cache_creation_input_tokens": 32957,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 32957
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 2,
+      "outputTokens": 32640,
+      "cacheReadInputTokens": 531,
+      "cacheCreationInputTokens": 32957,
+      "webSearchRequests": 0,
+      "costUSD": 2.29129275,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 26889,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "# Focused audit: paired-exposure power and matrix-covariance candidates\n\n**Bottom line.** The Gaussian algebra, cone lemmas, translation claim, `svec`/`smat` and LP dual signs all check out on paper. The diagonal negative result on 10076 stands. The matrix screen as declared cannot deliver a decisive answer in either direction: it has no upper bound, an unfavourable basis, no held-out-view check and a fixed translation.\n\n## Identities that check out\n\n- **Scalar/complex bilinear moment.** Conditioning on Z gives `E[exp(tXZ)|Z] = exp(tmZ + t\u00b2vZ\u00b2/2)`. Integrating over Z gives exponent `[t\u00b2vm\u00b2/2 + tm\u00b2 + t\u00b2vm\u00b2/2]/(1\u2212t\u00b2v\u00b2) = tm\u00b2/(1\u2212tv)` and prefactor `(1\u2212t\u00b2v\u00b2)^(-1/2)`. Two real coordinates give `log(1\u2212t\u00b2v\u00b2)` and `u|\u03bc|\u00b2`, and the translation phase cancels.\n- **Covariance monotonicity, signed T, noncommuting S.** `det(I\u22122HS) = det(I \u2212 T S_Z T S_X)`, and with `A = T S_Z T \u2ab0 0` this is `det(I \u2212 A^(1/2) S_X A^(1/2))`, decreasing in `S_X`. `K = (I\u22122HS)^(-1)H = H(I\u22122SH)^(-1)` is symmetric and `dK = 2K(dS)K \u2ab0 0`.\n- **A shorter proof of the same fact.** `E[exp(X'TZ)|Z] = exp(m_X'TZ + \u00bdZ'T S_X T Z)` is pointwise monotone in `S_X`; then swap roles. This avoids the path argument, covers unequal means, and should replace the derivative argument in the text.\n- **Moment domain.** `\u2016S_X^(1/2) T S_Z^(1/2)\u2016\u00b2 \u2264 \u03bb_max(D^(1/2) T D T D^(1/2)) = max(t_j v_j)\u00b2 < 1`. This uses that diagonal T and D commute; in the matrix case `D = I`. The whole path stays in the domain.\n- **Mismatch coefficient.** The exponent `[t Re(\u03bc_x \u03bc\u0304_z) + (t\u00b2v/2)(|\u03bc_x|\u00b2+|\u03bc_z|\u00b2)]/(1\u2212t\u00b2v\u00b2)` matches the code. It reduces to `t/(1\u2212tv)` at r=1, \u03c6=0. It is convex in r, and the cosine choice for t<0 is right. Unconstrained phase makes every nonzero coefficient positive, as claimed.\n- **Matrix form.** An orthogonal change of basis preserves `S = I`, so the scalar product formula gives `det(I\u2212T\u00b2)^(-1/2) exp(m'Um)` with `U = T(I\u2212T)^(-1)`. `matrix_gaussian_terms` implements this.\n- **Cone lemmas.** `U\u2212T = T\u00b2(I\u2212T)^(-1) \u2ab0 0`, so `tr(TS) \u2264 tr(US) = \u03a3\u03bb_l m_l'Um_l \u2264 0`. The diagonal analogue `t/(1\u2212tv) \u2212 t = t\u00b2v/(1\u2212tv) \u2265 0` holds. These are statements about expected log growth only.\n- **Small-c separator.** `T = U(I+U)^(-1)` inverts `U = T(I\u2212T)^(-1)`. The domain `\u03bb_min(U) > \u22121/2` and the derivative `tr(HS)` at c=0 are correct.\n- **Translation claim.** Commutation with all block rotations kills the complex-linear part of block (j,k) unless `q_j = q_k`, and the antilinear part unless `q_j = \u2212q_k`. A diagonal block is `aI + bJ`, and symmetry forces b=0. Bounded shift sets suffice, by analyticity. The dropped `J` term is `Im(X Z\u0304)`, which has zero mean under common means.\n- **`svec`/`smat`.** The \u221a2 scaling preserves the Frobenius inner product, and the inverse is consistent.\n- **LP dual sign.** SciPy/HiGHS marginals for `A_ub x \u2264 b` in a minimisation are \u2264 0. With `y = \u2212marginals`, dual feasibility gives `a_l\u00b7(y\u2082\u2212y\u2081) \u2264 0` per view and objective `b\u00b7(y\u2082\u2212y\u2081) = e*`. The code's `(marg[:n] \u2212 marg[n:])/scale` equals `(y\u2082\u2212y\u2081)/scale`, so `\u27e8H, m_l m_l'\u27e9 \u2264 0` and `tr(HS) = e* \u2265 0`.\n- **Repairs.** Subtracting `c\u00b7I` on trace-normalised views (matrix) or a constant on row-normalised powers (diagonal) shifts every constraint by exactly c. The fallback catches `u \u2264 \u22121/2`.\n- **Diagonal program and dual.** `x/(1\u2212x) = inv_pos(1\u2212x) \u2212 1` is convex and the objective is concave. The dual is separable, and any nonnegative multiplier gives a weak-duality upper bound.\n\n## Findings\n\n**P1 \u2014 High \u2014 `covariance_cone_diagnostic` + `direction_growth`; MATRIX-PROPOSAL \"Declared first screen\".** The matrix screen reports only a feasible lower value along one direction. That direction is the dual of a coordinate-scaled \u2113\u221e LP, which optimises an \u21131-normalised margin, not growth. Unlike the diagonal gate there is no upper bound, so small growth cannot support a stop and near-membership is unquantified.\n\n*Fix:*\n- Replace the LP with a Frobenius projection: `A* = argmin \u2016S \u2212 \u03a3\u03bb m m'\u2016_F`, \u03bb \u2265 0 (NNLS in `svec` coordinates).\n- By Moreau decomposition, `\u0394 = S \u2212 A*` is itself a separator: `\u27e8\u0394, m_l m_l'\u27e9 \u2264 0` and `\u27e8\u0394, S\u27e9 = \u2016\u0394\u2016\u00b2`.\n- It also gives a closed-form upper bound. For any feasible T, `tr(TA*) \u2264 tr(UA*) \u2264 0`, so growth `\u2264 sup_T tr(T\u0394/v) + \u00bd log det(I\u2212T\u00b2) = \u03a3_i g(\u03b4_i/v)`. Here `g(\u03b4) = \u03b4t* + \u00bdlog(1\u2212t*\u00b2)` with `t* = (\u221a(1+4\u03b4\u00b2)\u22121)/(2\u03b4)`, and `g \u2248 \u03b4\u00b2/2`. Von Neumann's trace inequality makes the supremum commute with \u0394.\n- The exact problem is also convex (`m'(I\u2212T)^(-1)m` is matrix-fractional and the log-det terms are concave), so ranks 8\u201316 can be solved directly.\n\n**P2 \u2014 High \u2014 `probe_uq_paired_covariance.py` basis choice; MATRIX-PROPOSAL \"top 32 eigenvectors\".** The basis maximises shared signal energy, which is where the true and region-removed maps agree most. A local removal lives in low-eigenvalue directions, so `retained_true_energy` near 1 is compatible with zero retained discrimination.\n\nThere is also a structural mechanism. `S_alt` is the null orbit's uniform average (an interior point of the null cone, if the cone is full-dimensional in Sym_r) plus a small perturbation. At r = 8/16/32 the symmetric dimension is 36/136/528 against 4,160 views, so full dimensionality is likely and small alternatives are then automatically inside. This is the same mechanism that plausibly produced the 10076 diagonal witness.\n\n*Fix / falsification:*\n- Report the numerical rank of the feature matrix against r(r+1)/2.\n- Add a discrimination-oriented oracle basis, for example leading eigenvectors of `S_true \u2212 S_removed` or a generalised eigenproblem.\n- Report `\u2016P_B(S_true \u2212 S_removed)P_B\u2016_F / \u2016S_true \u2212 S_removed\u2016_F`.\n- Do not read a negative at these ranks with this basis as a negative for the matrix family.\n\n**P3 \u2014 High \u2014 repair steps in `uq_power_cone.py` and `uq_paired_covariance.py`; both propositions.** Amplitude is unbounded, so the null expectation at an off-catalog view is `exp(a\u00b2 m'Um)`. Any strictly positive off-grid violation makes the null expectation unbounded, not slightly above 1. The `1e-12` margin gives no slack between views. The separator has up to 528 free parameters against 4,160 constraints, and the diagonal gate had d parameters against 64 views. Positive finite-view growth is therefore partly catalog overfitting; the diagonal result already shrank this way.\n\n*Falsification test:* evaluate each repaired U on at least 10\u2074 fresh Haar rotations of the null candidate. Report the maximum `m'Um/\u2016m\u2016\u00b2` and the fraction positive. Recompute growth after repairing against the union, and iterate until growth stabilises or vanishes. This is cheap and should precede any SO(3) enclosure work.\n\n**P4 \u2014 High \u2014 MATRIX-PROPOSAL \"Translation tradeoff\" / \"initial screen fixes translations exactly\".** The invariance claim is correct, but the fixed-shift screen gives the alternative perfect centering and the null no shift freedom. With a shift distribution, entry (j,k) of `S_alt` is damped by the characteristic function at `q_j \u2212 q_k`: `exp(\u22122\u03c0\u00b2\u03c3\u00b2|\u0394q|\u00b2)` for Gaussian \u03c3. Only pairs with `|\u0394q| \u2272 1/(2\u03c0\u03c3)` keep phase information, and broad shifts collapse `S_alt` to the already-defeated diagonal. The null cone also grows to a 5-parameter orbit.\n\n*Gate:* rerun the P1 bound pair with a declared alternative shift law (\u03c3 at 0.5, 1, 2 px) and a null catalog covering rotations \u00d7 bounded shifts. If growth does not survive realistic \u03c3, stop.\n\n**P5 \u2014 Medium \u2014 FINITE-VIEW-RESULTS closing paragraph; ENLARGED-CONE-RESULTS \"reason to stop\".** The packet separates expectation from power correctly, but three sharpenings are needed.\n- Cone membership gives nonpositive conditional expected log for every admissible predictable T. Log-wealth is then a supermartingale under the alternative, and a fixed `T \u2260 0` i.i.d. product tends to 0 almost surely. This is stronger than \"no positive expectation\". It still does not bound finite-n rejection probability: `E_alt[E]` can exceed 1 by Jensen, so Markov does not apply. Nor does it rule out averaged or mixture e-values.\n- \"Below log(20) at 128 particles\" is not a meaningful criterion, because growth is linear in n and real stacks have 10\u2074\u201310\u2075 particles. The decisive evidence is membership, and it exists only for 10076.\n- 10028 is trending toward membership (.0425 \u2192 .0088) but is unproven. 10049 (.288) is not defeated by this packet. State the stop decision as \"defeated on 10076, plausibly on 10028, open on 10049\".\n\nThe 10076 conclusion does not need an algebraic identity. The dual value (7.55e-28) is the bound, and it is quadratic in the residual.\n\n**P6 \u2014 Medium \u2014 `cone_witness` (zero objective).** The reported mass 1.0926 is whatever vertex HiGHS returned, and the implied 4.5% amplitude excess is not canonical. *Fix:* solve min-mass and max-mass LPs subject to the equality. If min mass \u2264 1, the failure survives a null with amplitude bounded by 1; otherwise the result quantifies exactly how much amplitude freedom the failure needs.\n\n**P7 \u2014 Medium \u2014 `covariance_cone_diagnostic` dual extraction.** The sign is correct, but nothing asserts it at run time. An inaccurate or mis-signed dual produces a large `correction`, an almost negative-definite direction, and zero growth, which looks the same as true non-separation. When the target is in the cone the dual is degenerate, and `raw_direction/max(norm, 1e-30)` can normalise roundoff to a unit-norm arbitrary direction. That is harmless by the lemma but meaningless.\n\n*Fix:* assert `|dual_objective \u2212 lp_objective| \u2264 tol` and `raw_maximum_normalized_violation \u2264 tol`. Flag cells where `correction\u00b7tr(S)` is comparable to `e*`. Return a zero direction when `lp_objective < tol`.\n\n**P8 \u2014 Medium \u2014 `probe_uq_paired_covariance.py` versus the stated model.** The script is a moment computation; no X or Z is drawn. Expected log growth does not depend on the true noise covariance, so the Loewner-bound machinery is exercised only by the 5-dimensional unit test. Specific gaps:\n- \"First saved CTF/noise profile\" applies only `transfer_squared[0]`. No noise spectrum or whitening appears, so identity covariance in these coordinates is assumed, not implemented.\n- If the saved frequency set contains Hermitian pairs (q and \u2212q), the realified covariance has eigenvalue 2v and violates `S \u2264 D`. This would invalidate the diagonal proposition too. The packet does not establish nonredundancy.\n- Self-conjugate frequencies have one real coordinate. The complex normaliser is then conservative, but this is undocumented.\n\n*Test:* assert nonredundancy on the frequency arrays. Run a Monte Carlo null check of `E[E] \u2264 1` at catalog and held-out views with noncommuting covariances at the bound.\n\n**P9 \u2014 Low/Medium \u2014 `scalar_dual_maximum`.** The value is evaluated at an approximate root, so it is at most the true supremum. The labelled \"upper\" is slightly anti-conservative. This is negligible in the interior but uncontrolled as x \u2192 1 (large s, zero-signal rows). *Fix:* add `|f'(x\u0302)|\u00b7bracket_width`, or evaluate a tangent bound from both bracket ends.\n\n**P10 \u2014 Low \u2014 tests and replay.**\n- `sign > 0` in `dense_mgf` is not a domain check; an even number of negative eigenvalues would pass.\n- No matrix test covers unequal means, eigenvalues near \u00b11, or singular covariances.\n- The translation test covers one frequency's diagonal block, not the off-diagonal claim.\n- `verify_uq_power_cone_witnesses.py` reuses `power_witness_log_upper`, so the replay is independent of the LP but not of the dual evaluator.\n- `direction_growth` is not concave in c. Its values are valid lower bounds regardless, but \"locally refined\" should not be read as the directional maximum.\n\n## Most consequential missing gates, in order\n\n1. **Held-out-view violation (P3).** Minutes of compute. It decides whether any finite-view positive is real.\n2. **Two-sided bound with a discrimination-aware basis (P1, P2).** This turns the matrix screen into a stop/go test.\n3. **Translation-distribution rerun (P4).** This decides whether the matrix extension has any content beyond the diagonal.\n4. **Power at realistic n.** Compute `Var(log E)` analytically for the selected T, apply a normal approximation at n = 10\u00b3\u201310\u2075, and run one Monte Carlo product check. Do this in place of further expectation tables at n = 128.\n5. **Null calibration with the true map.** Use adversarial covariances and both catalog and off-catalog views.\n6. **Paired empty-ice cross-power.** Solvent, neighbouring particles and fixed-pattern errors are common to both exposures. They add positive cross-power, which would falsely reject a true map through positive weights. Zero-mean cross-power on particle-free windows is a cheap test of the independence premise.\n7. **An oracle comparator.** Run a known-pose likelihood-ratio or half-map test on the same alternative at the same n. If the oracle bilinear family cannot approach it, stop without a continuous certificate.\n\n## What was and was not verified\n\n**Verified by hand from the packet text:** everything under \"Identities that check out\", and the code-to-formula correspondence in the five source files as printed.\n\n**Not verified:**\n- No code was executed, and no arrays, logs beyond the printed text, or original publications were inspected.\n- I did not check the frequency-set nonredundancy, the noise whitening, the number of frequencies or the catalog construction.\n- I did not check the cvxpy or HiGHS numerical behaviour, the 288-case and 36-case numbers, or the six tests' actual pass status.\n- The matrix screen has no results in this packet, and I assert none.\n- Nothing here establishes continuous-orientation validity, rejection power, experimental calibration or novelty.\n- The negative conclusion for the diagonal statistic on 10076 is preserved.",
+  "ttft_ms": 292893,
+  "type": "result",
+  "duration_ms": 345985,
+  "uuid": "be504ecf-c8bf-4916-a611-32d06da066da",
+  "ttft_stream_ms": 1205,
+  "time_to_request_ms": 32,
+  "first_content_frame_ms": 1206,
+  "queued_turn_count": 0,
+  "result_index": 0
+}
