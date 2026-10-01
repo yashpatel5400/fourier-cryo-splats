@@ -375,6 +375,8 @@ def main():
              *sorted((ROOT/'tests').glob('test*.py')),
              *[ROOT/'scripts'/name for name in REVIEW_RUNNERS],
              *sorted((ROOT/'results/uncertainty/confirmation').glob('*/summary/summary.json')),
+             *sorted((ROOT/'results/uncertainty/confirmation/continuous-v1').rglob('*.json')),
+             *sorted((ROOT/'results/uncertainty/confirmation/continuous-moments-v2').rglob('*.json')),
              *sorted((ROOT/'results/uncertainty/confirmation/prediction-v1').glob('*/metrics.json')),
              *sorted((ROOT/'results/uncertainty/confirmation/noise-calibration-v1').glob('*.json')),
              *[ROOT/'results/uncertainty/development'/name for name in [
