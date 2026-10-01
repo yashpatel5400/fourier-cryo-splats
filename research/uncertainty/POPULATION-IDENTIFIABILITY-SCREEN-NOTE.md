@@ -77,7 +77,8 @@ The point-concentrated viewing laws are allowed only in the arbitrary-view
 model. If the intended model enforces a positive uniform component or a
 restricted acquisition distribution, these witnesses must be replaced with
 admissible distributions before invoking the bound. Approximate physical means
-must include their errors in delta. Shared preprocessing, dependent images,+unknown colored noise and imperfect templates invalidate the simple
+must include their errors in delta. Shared preprocessing, dependent images,
+unknown colored noise and imperfect templates invalidate the simple
 experiment unless separately modeled.
 
 ## How this would constrain a new method
