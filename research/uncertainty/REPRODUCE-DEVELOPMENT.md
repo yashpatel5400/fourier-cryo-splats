@@ -587,3 +587,35 @@ It verifies every archive member by streaming it back without extraction.
 This command creates local files only and does not publish a GitHub release.
 The next release's exact specification and completed verification will identify
 which new arrays are available; do not infer that prior release assets contain them.
+
+
+## v0.6.2 completed increment
+
+The public v0.6.2-dev release contains 128 stream-verified members and the
+55-page paper. The exact list and completed-record owners are locked in
+`provenance/uncertainty/completed-joint-relion-v0.6.2-spec.json`; the resulting
+manifest records archive and member SHA-256 digests. The release verification
+compares every uploaded asset's GitHub digest and size against the local file.
+This increment requires earlier arrays, as listed in the manifest.
+
+All projected-calibration alternatives, enriched/joint final and checkpoint
+weights, the four new observed intervals, and later RELION arrays/curves are
+included, together with six native RELION half maps and all saved v3 model
+diagnostic STAR files. Some calibration arrays contain transformed Fourier
+observations from public EMPIAR particles. Full raw stacks and third-party
+publications are not redistributed in this bundle.
+
+To reproduce the final comparisons in a fresh output checkout after the declared
+fits have completed (the runners refuse to overwrite existing outcomes):
+
+```bash
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/evaluate_relion_baseline.py 10076 --continuation
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/evaluate_uq_registered_references.py --dataset 10076 --method relion
+PYTHONPATH=src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/plot_uq_registered_reconstruction.py
+.venv/bin/python scripts/package_uq_increment.py provenance/uncertainty/completed-joint-relion-v0.6.2-spec.json --output output/artifacts/completed-joint-relion-v0.6.2-dev.tar.gz
+```
+
+Use the same evaluator commands with 10028 or 10049 for their recorded cases.
+Both reference frames and every declared method are retained; the figure is
+not an uncertainty-coverage assessment or a fair comparison of identical pose
+inputs. No scientific source module was changed for this reporting/release step.

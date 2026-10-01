@@ -8,6 +8,9 @@ audits and the frozen fresh noise-calibration application are complete. Their
 results remain conditional and do not resolve experimental calibration. The eighteen-case
 pose-optimization grid and its post-audits are complete.
 This file also supports local packet-size/layout checks without invoking a model.
+The completed revision is published as v0.6.2-dev: a 55-page manuscript and
+128 hash-verified numerical/map/diagnostic files. All declared current runs
+are complete; no positive outcome is required for inclusion.
 
 ## Registered-reference follow-up, 30 September
 

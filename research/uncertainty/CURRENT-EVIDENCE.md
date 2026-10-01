@@ -20,9 +20,9 @@ unchanged. This page identifies current outcomes rather than replacing them.
 | What has independent review established? | Authentic full Fable 5.1 review 1 plus focused mathematical audits; 246 numerical tests pass, one skips | Focused audits and passing tests do not establish scientific utility or acceptance. The full second review has not been invoked. |
 
 All currently declared fitting and application runs are complete. The
-remaining immediate sequence is to update the manuscript, publish the new
-arrays, and submit the
-complete current paper/evidence to full review 2. No additional calibration
+55-page manuscript and 128-member artifact increment are published as
+v0.6.2-dev. The immediate next step is full review 2 of the complete current
+paper and evidence. No additional calibration
 variant is implied by this plan. If the practical limitations persist, the next
 research decision must address the estimand, experimentally defensible inputs,
 or substantive utility; adding similar simulations cannot resolve those issues.

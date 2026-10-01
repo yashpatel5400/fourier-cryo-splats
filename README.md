@@ -101,7 +101,11 @@ contains 905 verified arrays and its historical 50-page preprint. The
 adds seven verified arrays and the corrected 52-page manuscript with registered
 and centered-calibration outcomes. The historical v0.6 main-text statement that
 no converged ab initio comparison had run is corrected: 10028's completed
-RELION result was already described in that release's appendix.
+RELION result was already described in that release's appendix. The
+[v0.6.2 completed increment](https://github.com/yashpatel5400/fourier-cryo-splats/releases/tag/v0.6.2-dev)
+adds 128 verified numerical/map/diagnostic files and the 55-page manuscript,
+including all three completed RELION comparisons and all new cubic outcomes.
+It requires the prior bundles described in its manifest.
 
 On macOS, installing the optional uncertainty tools requires the FINUFFT build
 configuration in [COMPUTE.md](research/uncertainty/COMPUTE.md) to avoid conflicting
