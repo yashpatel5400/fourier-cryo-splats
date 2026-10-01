@@ -78,7 +78,7 @@ random catalogue, no experimental outcomes) took about one second for one
 
 ## Pre-outcome scheduling amendment
 
-At 11:41 UTC on 1 October, the external consultation had not returned a methods
+At 11:40 UTC on 1 October, the external consultation had not returned a methods
 critique. The earlier draft made execution contingent on that response. We
 removed that scheduling dependency before any catalogue outcomes, so the
 already specified diagnostic can run alongside the review. No numerical
