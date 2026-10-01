@@ -1,5 +1,11 @@
 # Reproduce the uncertainty studies
 
+For the focused manuscript and post-review-2 experiments, start with
+[REPRODUCE-REVISION3.md](REPRODUCE-REVISION3.md). The commands below preserve
+older development workflows. In particular, `write_uq_results.py` generates a
+superseded dictionary table; do not run that historical recipe over the current
+manuscript. Preserve existing output directories when replaying an older study.
+
 The commands distinguish exploratory development from the two frozen uncertainty
 studies and frozen additional-exposure prediction comparison below. Start from the project environment, downloaded particle selections,
 reference maps and metadata described in the repository README and provenance.
