@@ -17,12 +17,25 @@ def sha(path):
 def package(label,files):
     files=sorted(set(files));out=ROOT/f'output/artifacts/v0.7.8-dev-method-gates-{label}.tar.gz'
     manifest=out.with_name(out.name[:-7]+'-manifest.json')
-    if out.exists() or manifest.exists():raise ValueError('Preserve immutable artifacts')
+    if manifest.exists():raise ValueError('Preserve immutable completed artifacts')
+    dependencies=[]
+    for pattern in ['v0.7.7-dev-information-diagnostics-*-manifest.json','v0.7.6-dev-score-calibration*manifest.json']:
+        for p in sorted((ROOT/'output/artifacts').glob(pattern)):
+            j=json.loads(p.read_text())
+            dependencies.append(dict(archive=p.name.replace('-manifest.json','.tar.gz'),sha256=j['sha256']))
+    assert len(dependencies)==8 and len({d['archive'] for d in dependencies})==8
     assert all(p.is_file() for p in files)
     assert not any(p.name=='response.jsonl' for p in files)
     records=[dict(path=str(p.relative_to(ROOT)),bytes=p.stat().st_size,sha256=sha(p)) for p in files]
-    with tarfile.open(out,'w:gz',compresslevel=1) as tf:
-        for p in files:tf.add(p,arcname=str(p.relative_to(ROOT)),recursive=False)
+    recovered=out.exists()
+    if recovered:
+        # Attempt 1 finished the first archive and failed on an incomplete
+        # dependency filename glob. Never rewrite those already valid bytes.
+        failure=json.loads((ROOT/'research/uncertainty/release-v078-packaging-attempt-01.json').read_text())
+        assert label=='10028' and sha(out)==failure['archive_sha256']
+    else:
+        with tarfile.open(out,'w:gz',compresslevel=1) as tf:
+            for p in files:tf.add(p,arcname=str(p.relative_to(ROOT)),recursive=False)
     expected={r['path']:r for r in records};seen=set()
     with tarfile.open(out,'r|gz') as tf:
         for member in tf:
@@ -31,14 +44,9 @@ def package(label,files):
             assert actual==expected[member.name]['sha256'] and member.size==expected[member.name]['bytes']
             seen.add(member.name)
     assert set(expected)==seen and out.stat().st_size<2_000_000_000
-    dependencies=[]
-    for pattern in ['v0.7.7-dev-information-diagnostics-*-manifest.json','v0.7.6-dev-score-calibration-*-manifest.json']:
-        for p in sorted((ROOT/'output/artifacts').glob(pattern)):
-            j=json.loads(p.read_text())
-            dependencies.append(dict(archive=p.name.replace('-manifest.json','.tar.gz'),sha256=j['sha256']))
-    assert len(dependencies)==8
     j=dict(complete=True,stream_verification_complete=True,part=label,bytes=out.stat().st_size,sha256=sha(out),
            source_head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),files=records,
+           archive_recovered_without_rewriting=recovered,
            dependencies=dependencies,scope='Classical integration repair, failed population-method screen, focused review; no new paper or acceptance verdict',
            manuscript='Unchanged v0.7.6-dev PDF is distributed in its earlier release')
     manifest.write_text(json.dumps(j,indent=2)+'\n');print(label,len(records),out.stat().st_size,j['sha256'],flush=True)
@@ -66,7 +74,7 @@ def main():
                     'CAHRA-POSE-*.md','cahra-pose-*.json','CRYOBIFE-SYNTHETIC-*.md',
                     'cryobife-supplement-*.json','CRYOTWIN-UNCERTAINTY-*.md','cryotwin*-source.json']:
         files.extend((ROOT/'research/uncertainty').glob(pattern))
-    files.extend(ROOT/'research/uncertainty'/n for n in ['RELEASE-v0.7.8-dev.md','REPRODUCE-POST-REVIEW4-GATES.md'])
+    files.extend(ROOT/'research/uncertainty'/n for n in ['RELEASE-v0.7.8-dev.md','REPRODUCE-POST-REVIEW4-GATES.md','release-v078-packaging-attempt-01.json'])
     review=ROOT/'research/uncertainty/reviews/post-round04-method-consultation'
     files.extend(review/n for n in ['critique.md','assistant-text.md','prompt.txt','manifest.json',
         'response.json','response.md','public-events.jsonl','publication-audit.json'])
