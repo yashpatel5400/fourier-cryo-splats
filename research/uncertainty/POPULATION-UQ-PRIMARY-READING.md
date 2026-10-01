@@ -45,3 +45,8 @@ replace weak particle classification with a straw baseline while omitting those
 methods. CAHRA's separate population/pose target is relevant, but does not itself
 supply a new algorithm or establish coverage. We have not concluded that the
 desired robust-population contribution is absent from the literature.
+
+Subsequent work: the [author-code replay](POPULATION-BASELINE-REPLAY-RESULTS.md)
+now executes the two-state reweighting/deconvolution functions on the released
+likelihood arrays. This later check does not regenerate those likelihoods or
+change the limits of the primary-paper reading above.

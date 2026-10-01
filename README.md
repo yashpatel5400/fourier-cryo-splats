@@ -28,6 +28,11 @@ with [new population-UQ primary reading](research/uncertainty/POPULATION-UQ-PRIM
 and [CAHRA version-2 reading](research/uncertainty/CAHRA-V2-READING.md); candidate
 counts are not full-reading counts.
 
+The separate [author-code population baseline replay](research/uncertainty/POPULATION-BASELINE-REPLAY-RESULTS.md)
+completes all 23 published two-state conditions. It retains numerical
+discrepancies and independently verifies the optimizer; it reuses released
+likelihoods and does not establish uncertainty coverage or a new reconstruction.
+
 Post-review-2 work includes the [complete matched continuous Gaussian comparison](research/uncertainty/CONTINUOUS-GAUSSIAN-V2-RESULTS.md): all 48 fits converge and all 672 conditional cases are retained. The [600-dataset local-refinement study](research/uncertainty/END-TO-END-LOCAL-POSE-RESULTS.md) also finishes, following a separate 384-dataset calibration batch. All 12,000 weight solves converge. Every one of 216 procedure/control cells covers its coarse truth in 200/200 trials, including the simpler baselines; this is **not a demonstrated coverage advantage**. The three pose-audit procedures always select the no-data interval. Their raw median widths span 642–1,242 times its width, with nonlinear remainder dominating numerically; even removing it leaves all first-order bounds uninformative. Near-truth local pose initialization deteriorates substantially during the declared coarse fit; these are not production reconstruction results.
 
 The [rewritten manuscript](paper/focused-main.tex) reports these failures in its abstract and main results. The [registered replay](research/uncertainty/REGISTERED-DICTIONARY-RESULTS.md), [breakdown analysis](research/uncertainty/BREAKDOWN-RADIUS-RESULTS.md), and [phase independence control](research/uncertainty/PHASE-SPLIT-CONTROL-RESULTS.md) are complete. A [raw-movie pilot](research/uncertainty/RAW-MOVIE-PILOT-RESULTS.md) retains all acquisition diagnostics and the interrupted/recovered transfer, but does not establish independent pure noise. None resolves the experimental inputs. [Current reproduction instructions](research/uncertainty/REPRODUCE-REVISION3.md) distinguish immutable archived studies from new runs.

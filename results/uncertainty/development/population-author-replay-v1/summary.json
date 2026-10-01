@@ -1,0 +1,1177 @@
+{
+  "complete": true,
+  "author_commit": "b9099e1b7fb3f03207f94d89b153839bfcd6a7c4",
+  "git_head": "334130c81ab78ab20b517773a2e8d8ac3e640165",
+  "python": "3.13.9",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "cvxpy": "1.9.3"
+  },
+  "jax_devices": [
+    "cpu:0"
+  ],
+  "jax_enable_x64": false,
+  "inputs": {
+    "LICENSE": {
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "bytes": 35149
+    },
+    "compute_weights_spike_experimental.py": {
+      "sha256": "6205c3f80eb09971937e390336711505c886a1df90c60c20c304454d346ba904",
+      "bytes": 5700
+    },
+    "compute_weights_spike_synthetic.py": {
+      "sha256": "e633c54cb9c4ee61b69aa98b1df513dc5a5b036293bf2e32507bbe8b1be27522",
+      "bytes": 2646
+    },
+    "data/igg/1d_density_raw.npy": {
+      "sha256": "cf96c617c4882d788761f9f6ea979bab10de124c39bfb0c9747db32bc7ad8f58",
+      "bytes": 928
+    },
+    "data/igg/1d_density_reg_3.npy": {
+      "sha256": "75809fcba0c35fa6951e0f78bd39c1310e8ecd42688bdae32081a0ba7c000435",
+      "bytes": 928
+    },
+    "data/igg/1d_reweight_density_reference.npy": {
+      "sha256": "ac8ae8cc8fba6474b6941d0dd469c5c02c167ffc7eb0443a60bcbc6f4a3b21ab",
+      "bytes": 528
+    },
+    "data/igg/deconv_density_3.npz": {
+      "sha256": "d98236ea5d74518c65f180076dd2eff7952fed56f7041cde0f5a350eef4fadb7",
+      "bytes": 320570
+    },
+    "data/igg/embedded_gt_volumes_zdim2.npy": {
+      "sha256": "5d759db8b9d08ed48a65f9412abdc9174746a846a392830d5b2c6844a0bddcee",
+      "bytes": 1728
+    },
+    "data/igg/log_likelihoods_recovar.npy": {
+      "sha256": "27b0549d29e1bd2d6b8f0965d291036b9e87a974aa0e4cb3e084376c7736defb",
+      "bytes": 40000128
+    },
+    "data/igg/raw_density.npz": {
+      "sha256": "282124971b7252e29f71dca4692f8b8b29f47f7f4b63472badfe85d4fba8e64f",
+      "bytes": 160570
+    },
+    "data/spike_experimental/3D_classification_noisy_images.npy": {
+      "sha256": "d5bc734586d59f060c3aba06acb34a59dcdb09f8fb5e1a9bc34e480d516fb220",
+      "bytes": 144
+    },
+    "data/spike_experimental/3D_classification_noisy_rotations.npy": {
+      "sha256": "66fbaeb7d665076bb04291453318994a4f3e63cb511e8850c15a7b3a3ff72e97",
+      "bytes": 208
+    },
+    "data/spike_experimental/3D_classification_noisy_shifts.npy": {
+      "sha256": "66fbaeb7d665076bb04291453318994a4f3e63cb511e8850c15a7b3a3ff72e97",
+      "bytes": 208
+    },
+    "data/spike_experimental/error_predicted_recovar_default_recovar_filtered_aligned.npy": {
+      "sha256": "5f036176ad9eb24c92c1b812ecebd00a5c59a000d6ddcb505fca38747a4789a7",
+      "bytes": 136
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_images_ground_truth_recovar_filtered_aligned.npy": {
+      "sha256": "1ebd0eba06e2536911b226b51c3023f16e9ab49692b8a49be4bef73a50770355",
+      "bytes": 136
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_images_recovar_filtered_aligned.npy": {
+      "sha256": "1ebd0eba06e2536911b226b51c3023f16e9ab49692b8a49be4bef73a50770355",
+      "bytes": 136
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_poses_magn_10_recovar_filtered_aligned.npy": {
+      "sha256": "416aa9f63216f7433926d09105df4a142da92cae781ea82ad811dcc9d98c61cd",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_poses_magn_2_recovar_filtered_aligned.npy": {
+      "sha256": "690716df3a752211f4b0033e1ec11b0594db67fd110a9d17b3081b4c01bc4bfb",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_poses_magn_4_recovar_filtered_aligned.npy": {
+      "sha256": "10e4ab2a6f3634671fcf587f78ba94639926573eb6df9be41a4c2c507b557f09",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_poses_magn_6_recovar_filtered_aligned.npy": {
+      "sha256": "d2b943733b73ea004a9827bd6c41812f9f78cc00a948ba49aef8e9869997c56d",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_poses_magn_8_recovar_filtered_aligned.npy": {
+      "sha256": "3ddf57699d32f6cfa6d62ab69a7a39751ce10591b0f7fb6b3684eb5c5fe5533e",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_shifts_level_0_recovar_filtered_aligned.npy": {
+      "sha256": "1ef92068c25a5390c48fe3dd2fcfb9c34c3601c28cb015afc1a9798776ae2ccc",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_shifts_level_1_recovar_filtered_aligned.npy": {
+      "sha256": "3090f6ae672714e54dd26b78e367ac434ebf2d1ac63e11646175851404085ed5",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_shifts_level_2_recovar_filtered_aligned.npy": {
+      "sha256": "47ea03f80bef33e120d6ad0561bcb4f6ffa396292c59c2b1c876d0ad4369bb06",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_shifts_level_3_recovar_filtered_aligned.npy": {
+      "sha256": "6d98422f72ce8e0da99dcb3be43cd9a4401c70e8c4d25b4ce9d1c1e5b9896b91",
+      "bytes": 132
+    },
+    "data/spike_experimental/error_predicted_recovar_noisy_shifts_level_4_recovar_filtered_aligned.npy": {
+      "sha256": "43bb9dc195fed3a005fb451e727bfcc2216250bc537f90e23501ed969707b3c5",
+      "bytes": 132
+    },
+    "data/spike_experimental/log_likelihoods_recovar_default_recovar_filtered_aligned.npy": {
+      "sha256": "10054ac598d3aa00fbef58eebc682b2afdda2edabfd97034c7a3c66f2b15731e",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_images_ground_truth_recovar_filtered_aligned.npy": {
+      "sha256": "f2b607291a90f1b64bd45c8b3d51602e90d3f7f57f1f2a9028b98112c65ddad4",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_images_recovar_filtered_aligned.npy": {
+      "sha256": "f2b607291a90f1b64bd45c8b3d51602e90d3f7f57f1f2a9028b98112c65ddad4",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_10_recovar_filtered_aligned.npy": {
+      "sha256": "0b92ba7d131eb85707165e3f7b8c29dfea81dcd8e16a392802de002bb0e08d74",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_2_recovar_filtered_aligned.npy": {
+      "sha256": "0cb13350375ca635c06f7491062979ff3c658d60b86cfbd5fa4461fb349ebab4",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_4_recovar_filtered_aligned.npy": {
+      "sha256": "c1f33d86ae41dd2815391cf52b7717f6d03e16179fcca8794858695daaf087f3",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_6_recovar_filtered_aligned.npy": {
+      "sha256": "4bd37616bbceba98b14cfc4d1bfa94033446169eeb7406797eeaa1616bf5b787",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_8_recovar_filtered_aligned.npy": {
+      "sha256": "2eea2d2b5094cd207257d30828b33bac07ed8fa1a5ddc94212ad37f4b3c94bbd",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_0_recovar_filtered_aligned.npy": {
+      "sha256": "78308b6fce135d854fad5af62acdc2704c7a96f5beab8e72427494cacf6851cb",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_1_recovar_filtered_aligned.npy": {
+      "sha256": "5aca9c6cfcd634bec504fed51ab9b793b6af9cc0462366f2afa82ddce2beddc5",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_2_recovar_filtered_aligned.npy": {
+      "sha256": "6e1605f5b7e4194c880e4ddeff99b3c525711932ef94e239b152d83f67f8262e",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_3_recovar_filtered_aligned.npy": {
+      "sha256": "d7bfd715018180a783ee6c55ef075bf0f2cf1638ea7a5d78c43a8deeeebb0771",
+      "bytes": 289888
+    },
+    "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_4_recovar_filtered_aligned.npy": {
+      "sha256": "f6c8aafb839074bcc8379b6dea5379a625d00b04d36db84f71ed30f4e925b9f0",
+      "bytes": 289888
+    },
+    "data/spike_experimental/noisy_images_experiment_weights.pkl": {
+      "sha256": "6a52ad31d566d90183761d10f651fcf65238f6862eee05c0cc5604d5a679d613",
+      "bytes": 438
+    },
+    "data/spike_experimental/rotation_experiment_weights.pkl": {
+      "sha256": "ccb489433cef946d0469c35e3eae365866832e8e598d924497de77b3ead99707",
+      "bytes": 630
+    },
+    "data/spike_experimental/shift_experiment_weights.pkl": {
+      "sha256": "f20d08ccc063657ffaf52ea37a35dfd528457739fbcdcc6234c5aff9ff04cdc5",
+      "bytes": 630
+    },
+    "data/spike_synthetic/cryosparc_classification_true_volumes_results.npy": {
+      "sha256": "25291e04adf541006956f8890347459d73b27c737b7a28f64711f4123f65e8ac",
+      "bytes": 288
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset0.pkl": {
+      "sha256": "7e9149b3712d85ea2dd17b2aa1881f4faa6a068d63ec463abdbcc30e365d7f67",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset1.pkl": {
+      "sha256": "e66fde52a6be07c313ac14179154ac536f492ef79d7f1d04a61e6fd421d9a351",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset2.pkl": {
+      "sha256": "d6a28984edecb4d5516ecdcb4cdea8c699b02ed391066f2f6010dce237488654",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset3.pkl": {
+      "sha256": "986f4a6deed84033e9d3bd960ed84649fade12e61c43057359591102840d5e6d",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset4.pkl": {
+      "sha256": "257187bd2ef2b35f41843be8725fb91926dd6fef2693d50bc157c7927c256528",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset5.pkl": {
+      "sha256": "76e95434885e67ab111a90414c7670e2fae1f2bb77080027a85c45c273eac4e0",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset6.pkl": {
+      "sha256": "d2362c1dff8e2b1182dcb03aa22059d72199c1ecfe651ddc313ab5304173237a",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset7.pkl": {
+      "sha256": "272102e937773d871360ecb45dc4545dde4c7a776c9c48eec9ec0308b55f4121",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset8.pkl": {
+      "sha256": "a3aa541c37428cdd601faaeb6d60072ed10392558c432d4f2abee3b66fdf4a22",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/likelihoods_assignments_dataset9.pkl": {
+      "sha256": "acc2d0a63eb27ac8be83ac0eb7684b538fbd8bb6d7a15ca14c14d8ae75ad2e8b",
+      "bytes": 2400522
+    },
+    "data/spike_synthetic/noise_levels.pkl": {
+      "sha256": "bc6132e1f1ed00e97d7fd50e639c85bfaf15a6d22348677ee3e738a1021c391d",
+      "bytes": 227
+    },
+    "data/spike_synthetic/pops_errors.pkl": {
+      "sha256": "40d0044cfff8b55e97c845d3296f673bc996cd699b486bee63f74d3ab5d7256b",
+      "bytes": 950
+    },
+    "pyproject.toml": {
+      "sha256": "c01d8adebcf1f75044fe0b2a0b76ae3868dd4e234f3011d9f0d0b068127b7519",
+      "bytes": 602
+    },
+    "utils.py": {
+      "sha256": "2765a38704d89e4d11f890a1d124fd371dcb95f0e0c175c2e74e7ed727887fa0",
+      "bytes": 5967
+    }
+  },
+  "cases": [
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset0.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.8007283806800842,
+        0.19925950467586517
+      ],
+      "independent_mle": [
+        0.80074,
+        0.19926
+      ],
+      "identified": true,
+      "maximum_weight_difference": 1.1619319915778803e-05,
+      "float64_simplex_gradient_gap": 1.4510938036282894e-05,
+      "mean_objective_loss": 1.2114728969488684e-05,
+      "hard_weights": [
+        0.80074,
+        0.19926
+      ],
+      "soft_weights": [
+        0.8007400035858154,
+        0.19925999641418457
+      ],
+      "deconvolved": [
+        0.80074,
+        0.19926
+      ],
+      "analytic_deconvolved": [
+        0.80074,
+        0.19926
+      ],
+      "maximum_deconvolution_difference": 0.0,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.0,
+      "seconds": 0.2854014170006849
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset1.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.8007283806800842,
+        0.19925950467586517
+      ],
+      "independent_mle": [
+        0.8007400001907921,
+        0.19925999980920794
+      ],
+      "identified": true,
+      "maximum_weight_difference": 1.161951070782763e-05,
+      "float64_simplex_gradient_gap": 1.4511176303022566e-05,
+      "mean_objective_loss": 1.2114728971740806e-05,
+      "hard_weights": [
+        0.80074,
+        0.19926
+      ],
+      "soft_weights": [
+        0.8007400035858154,
+        0.19925999641418457
+      ],
+      "deconvolved": [
+        0.8007401131301006,
+        0.19925988686989934
+      ],
+      "analytic_deconvolved": [
+        0.8007401131301006,
+        0.19925988686989937
+      ],
+      "maximum_deconvolution_difference": 2.7755575615628914e-17,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 1.8808615098730996e-07,
+      "seconds": 0.009935749985743314
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset2.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.8007258772850037,
+        0.1992587000131607
+      ],
+      "independent_mle": [
+        0.8007423750848727,
+        0.19925762491512733
+      ],
+      "identified": true,
+      "maximum_weight_difference": 1.6497799869008567e-05,
+      "float64_simplex_gradient_gap": 2.0578372818658153e-05,
+      "mean_objective_loss": 1.5422874429352056e-05,
+      "hard_weights": [
+        0.79995,
+        0.20004999999999995
+      ],
+      "soft_weights": [
+        0.7995277047157288,
+        0.20047269761562347
+      ],
+      "deconvolved": [
+        0.8007608984669904,
+        0.19923910153300955
+      ],
+      "analytic_deconvolved": [
+        0.8007608984669905,
+        0.1992391015330095
+      ],
+      "maximum_deconvolution_difference": 1.1102230246251565e-16,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.00134807827600536,
+      "seconds": 0.009963166958186775
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset3.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7994215488433838,
+        0.20058214664459229
+      ],
+      "independent_mle": [
+        0.7994173436328428,
+        0.20058265636715722
+      ],
+      "identified": true,
+      "maximum_weight_difference": 4.2052105410084195e-06,
+      "float64_simplex_gradient_gap": 1.5675861693154047e-06,
+      "mean_objective_loss": -3.6954770298211714e-06,
+      "hard_weights": [
+        0.77326,
+        0.22674000000000005
+      ],
+      "soft_weights": [
+        0.7597178816795349,
+        0.24028299748897552
+      ],
+      "deconvolved": [
+        0.8004123701359102,
+        0.19958762986408987
+      ],
+      "analytic_deconvolved": [
+        0.8004123701359102,
+        0.19958762986408984
+      ],
+      "maximum_deconvolution_difference": 2.7755575615628914e-17,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.045191831021515694,
+      "seconds": 0.013849083974491805
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset4.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7978461384773254,
+        0.20215339958667755
+      ],
+      "independent_mle": [
+        0.7978464218601166,
+        0.20215357813988344
+      ],
+      "identified": true,
+      "maximum_weight_difference": 2.833827911219444e-07,
+      "float64_simplex_gradient_gap": 6.488617250166584e-07,
+      "mean_objective_loss": 4.61936113676071e-07,
+      "hard_weights": [
+        0.69369,
+        0.30630999999999997
+      ],
+      "soft_weights": [
+        0.6495713591575623,
+        0.3504285514354706
+      ],
+      "deconvolved": [
+        0.8019376311020058,
+        0.19806236889799425
+      ],
+      "analytic_deconvolved": [
+        0.8019376311020059,
+        0.1980623688979941
+      ],
+      "maximum_deconvolution_difference": 1.3877787807814457e-16,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.17925495193647412,
+      "seconds": 0.02255241700913757
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset5.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.796265184879303,
+        0.20373418927192688
+      ],
+      "independent_mle": [
+        0.7962675932889712,
+        0.20373240671102877
+      ],
+      "identified": true,
+      "maximum_weight_difference": 2.4084096682530642e-06,
+      "float64_simplex_gradient_gap": 9.964309035659369e-07,
+      "mean_objective_loss": 6.258507031401264e-07,
+      "hard_weights": [
+        0.61152,
+        0.38848000000000005
+      ],
+      "soft_weights": [
+        0.5593377947807312,
+        0.4406622648239136
+      ],
+      "deconvolved": [
+        0.7975473905874498,
+        0.2024526094125502
+      ],
+      "analytic_deconvolved": [
+        0.7975473905874498,
+        0.20245260941255017
+      ],
+      "maximum_deconvolution_difference": 2.7755575615628914e-17,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.31260128045514823,
+      "seconds": 0.046666416979860514
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset6.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7944818139076233,
+        0.20551784336566925
+      ],
+      "independent_mle": [
+        0.7944965044422826,
+        0.2055034955577174
+      ],
+      "identified": true,
+      "maximum_weight_difference": 1.4690534659300702e-05,
+      "float64_simplex_gradient_gap": 1.1605543372983362e-06,
+      "mean_objective_loss": 3.42755453861957e-07,
+      "hard_weights": [
+        0.56206,
+        0.43794
+      ],
+      "soft_weights": [
+        0.5189873576164246,
+        0.4810125529766083
+      ],
+      "deconvolved": [
+        0.8044717248774077,
+        0.19552827512259233
+      ],
+      "analytic_deconvolved": [
+        0.8044717248774079,
+        0.19552827512259208
+      ],
+      "maximum_deconvolution_difference": 2.498001805406602e-16,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.3980857745904193,
+      "seconds": 0.1313939160318114
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset7.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7916563153266907,
+        0.2083410620689392
+      ],
+      "independent_mle": [
+        0.7917014824863138,
+        0.20829851751368622
+      ],
+      "identified": true,
+      "maximum_weight_difference": 4.5167159623105135e-05,
+      "float64_simplex_gradient_gap": 3.3138773898322427e-06,
+      "mean_objective_loss": 2.6226792958383693e-06,
+      "hard_weights": [
+        0.53553,
+        0.46447000000000005
+      ],
+      "soft_weights": [
+        0.505497395992279,
+        0.49450257420539856
+      ],
+      "deconvolved": [
+        0.8276036028660594,
+        0.17239639713394056
+      ],
+      "analytic_deconvolved": [
+        0.827603602866058,
+        0.17239639713394195
+      ],
+      "maximum_deconvolution_difference": 1.3877787807814457e-15,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.44577287964911894,
+      "seconds": 0.36002687498694286
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset8.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7859453558921814,
+        0.21405251324176788
+      ],
+      "independent_mle": [
+        0.7861111420832703,
+        0.21388885791672974
+      ],
+      "identified": true,
+      "maximum_weight_difference": 0.00016578619108886805,
+      "float64_simplex_gradient_gap": 2.883219724525432e-06,
+      "mean_objective_loss": 2.131156728876554e-06,
+      "hard_weights": [
+        0.52489,
+        0.47511000000000003
+      ],
+      "soft_weights": [
+        0.5015228986740112,
+        0.49847710132598877
+      ],
+      "deconvolved": [
+        0.9340144837232908,
+        0.06598551627670926
+      ],
+      "analytic_deconvolved": [
+        0.9340144837232892,
+        0.06598551627671079
+      ],
+      "maximum_deconvolution_difference": 1.5543122344752192e-15,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.47132584172482495,
+      "seconds": 1.0223680419730954
+    },
+    {
+      "kind": "synthetic",
+      "input": "data/spike_synthetic/likelihoods_assignments_dataset9.pkl",
+      "particles": 100000,
+      "tolerance": 1e-08,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7666052579879761,
+        0.2333897054195404
+      ],
+      "independent_mle": [
+        0.7744555124780759,
+        0.22554448752192413
+      ],
+      "identified": true,
+      "maximum_weight_difference": 0.007850254490099795,
+      "float64_simplex_gradient_gap": 1.5953499533649662e-05,
+      "mean_objective_loss": 5.220117422878916e-06,
+      "hard_weights": [
+        0.52421,
+        0.47579000000000005
+      ],
+      "soft_weights": [
+        0.5004084706306458,
+        0.49959149956703186
+      ],
+      "deconvolved": [
+        1.0,
+        -3.288090613393322e-26
+      ],
+      "analytic_deconvolved": [
+        1.0,
+        0.0
+      ],
+      "maximum_deconvolution_difference": 3.288090613393322e-26,
+      "true_empirical_fractions": [
+        0.80074,
+        0.19926
+      ],
+      "predicted_misclassification": 0.4848641762710929,
+      "seconds": 1.530694915971253
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_default_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7982145547866821,
+        0.20176954567432404
+      ],
+      "independent_mle": [
+        0.7982280549024131,
+        0.2017719450975869
+      ],
+      "identified": true,
+      "maximum_weight_difference": 1.3500115730979978e-05,
+      "float64_simplex_gradient_gap": 1.6901516490142043e-05,
+      "mean_objective_loss": 1.5899667400184686e-05,
+      "hard_weights": [
+        0.7962175593594699,
+        0.20378244064053008
+      ],
+      "soft_weights": [
+        0.795360267162323,
+        0.20464125275611877
+      ],
+      "deconvolved": [
+        0.7969891769595003,
+        0.2030108230404997
+      ],
+      "analytic_deconvolved": [
+        0.7969891769595002,
+        0.20301082304049978
+      ],
+      "maximum_deconvolution_difference": 1.1102230246251565e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.0012990668682441031,
+      "seconds": 0.054137750004883856
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_images_ground_truth_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7918001413345337,
+        0.20820334553718567
+      ],
+      "independent_mle": [
+        0.7919242280292862,
+        0.2080757719707138
+      ],
+      "identified": true,
+      "maximum_weight_difference": 0.00012757356647186135,
+      "float64_simplex_gradient_gap": 0.00012105837971732036,
+      "mean_objective_loss": -3.448920746822334e-06,
+      "hard_weights": [
+        0.752457205963556,
+        0.24754279403644397
+      ],
+      "soft_weights": [
+        0.7360205054283142,
+        0.263980895280838
+      ],
+      "deconvolved": [
+        0.7877149851091626,
+        0.21228501489083743
+      ],
+      "analytic_deconvolved": [
+        0.7877149851091625,
+        0.2122850148908375
+      ],
+      "maximum_deconvolution_difference": 1.1102230246251565e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.06127205910430644,
+      "seconds": 0.0056273749796673656
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_images_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7918001413345337,
+        0.20820334553718567
+      ],
+      "independent_mle": [
+        0.7919242280292862,
+        0.2080757719707138
+      ],
+      "identified": true,
+      "maximum_weight_difference": 0.00012757356647186135,
+      "float64_simplex_gradient_gap": 0.00012105837971732036,
+      "mean_objective_loss": -3.448920746822334e-06,
+      "hard_weights": [
+        0.752457205963556,
+        0.24754279403644397
+      ],
+      "soft_weights": [
+        0.7360205054283142,
+        0.263980895280838
+      ],
+      "deconvolved": [
+        0.7877149851091626,
+        0.21228501489083743
+      ],
+      "analytic_deconvolved": [
+        0.7877149851091625,
+        0.2122850148908375
+      ],
+      "maximum_deconvolution_difference": 1.1102230246251565e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.06127205910430644,
+      "seconds": 0.0060884589911438525
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_10_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.6497051119804382,
+        0.35028910636901855
+      ],
+      "independent_mle": [
+        0.6497485620938118,
+        0.3502514379061882
+      ],
+      "identified": true,
+      "maximum_weight_difference": 4.345011337358873e-05,
+      "float64_simplex_gradient_gap": 5.89610384467143e-05,
+      "mean_objective_loss": 5.7846803347159265e-06,
+      "hard_weights": [
+        0.6330756488128106,
+        0.36692435118718936
+      ],
+      "soft_weights": [
+        0.6313027739524841,
+        0.3686983287334442
+      ],
+      "deconvolved": [
+        0.6334408548865373,
+        0.3665591451134627
+      ],
+      "analytic_deconvolved": [
+        0.6334408548865373,
+        0.36655914511346266
+      ],
+      "maximum_deconvolution_difference": 5.551115123125783e-17,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.0013684192672371864,
+      "seconds": 0.006114250048995018
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_2_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7926363348960876,
+        0.20737998187541962
+      ],
+      "independent_mle": [
+        0.79262689729485,
+        0.20737310270514997
+      ],
+      "identified": true,
+      "maximum_weight_difference": 9.437601237616278e-06,
+      "float64_simplex_gradient_gap": -1.203446756437021e-05,
+      "mean_objective_loss": -1.631660230133569e-05,
+      "hard_weights": [
+        0.787078961899503,
+        0.212921038100497
+      ],
+      "soft_weights": [
+        0.7854648232460022,
+        0.21453693509101868
+      ],
+      "deconvolved": [
+        0.7878287799427638,
+        0.21217122005723624
+      ],
+      "analytic_deconvolved": [
+        0.7878287799427638,
+        0.2121712200572362
+      ],
+      "maximum_deconvolution_difference": 2.7755575615628914e-17,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.001302541815675795,
+      "seconds": 0.005686875025276095
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_4_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7651963829994202,
+        0.23479773104190826
+      ],
+      "independent_mle": [
+        0.7652078607208033,
+        0.23479213927919673
+      ],
+      "identified": true,
+      "maximum_weight_difference": 1.147772138310188e-05,
+      "float64_simplex_gradient_gap": 1.4362971445747164e-05,
+      "mean_objective_loss": 5.886101881570206e-06,
+      "hard_weights": [
+        0.7513528437327444,
+        0.24864715626725564
+      ],
+      "soft_weights": [
+        0.7494205236434937,
+        0.25058114528656006
+      ],
+      "deconvolved": [
+        0.7520175693964637,
+        0.24798243060353628
+      ],
+      "analytic_deconvolved": [
+        0.7520175693964636,
+        0.24798243060353642
+      ],
+      "maximum_deconvolution_difference": 1.3877787807814457e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.0013188081793487072,
+      "seconds": 0.0060135830426588655
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_6_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7289977669715881,
+        0.2710048258304596
+      ],
+      "independent_mle": [
+        0.7290083052900734,
+        0.27099169470992657
+      ],
+      "identified": true,
+      "maximum_weight_difference": 1.3131120533027563e-05,
+      "float64_simplex_gradient_gap": 1.2828192970326668e-05,
+      "mean_objective_loss": -2.592445072982707e-06,
+      "hard_weights": [
+        0.7120651573716179,
+        0.2879348426283821
+      ],
+      "soft_weights": [
+        0.7095887064933777,
+        0.29041293263435364
+      ],
+      "deconvolved": [
+        0.712636277363839,
+        0.28736372263616095
+      ],
+      "analytic_deconvolved": [
+        0.712636277363839,
+        0.28736372263616095
+      ],
+      "maximum_deconvolution_difference": 0.0,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.0013429505052044988,
+      "seconds": 0.00585862499428913
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_poses_magn_8_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.6864704489707947,
+        0.31352755427360535
+      ],
+      "independent_mle": [
+        0.686503964931219,
+        0.313496035068781
+      ],
+      "identified": true,
+      "maximum_weight_difference": 3.3515960424335134e-05,
+      "float64_simplex_gradient_gap": 4.3394717695877105e-05,
+      "mean_objective_loss": 1.9988798399699445e-06,
+      "hard_weights": [
+        0.6684980673660961,
+        0.33150193263390393
+      ],
+      "soft_weights": [
+        0.6664974093437195,
+        0.33350375294685364
+      ],
+      "deconvolved": [
+        0.6689573893351053,
+        0.33104261066489465
+      ],
+      "analytic_deconvolved": [
+        0.6689573893351054,
+        0.3310426106648946
+      ],
+      "maximum_deconvolution_difference": 1.1102230246251565e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.001359283458441496,
+      "seconds": 0.005946458026301116
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_0_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7898798584938049,
+        0.21011877059936523
+      ],
+      "independent_mle": [
+        0.7898937684316062,
+        0.2101062315683938
+      ],
+      "identified": true,
+      "maximum_weight_difference": 1.3909937801259709e-05,
+      "float64_simplex_gradient_gap": 1.7031961475177937e-05,
+      "mean_objective_loss": 1.3713858040649173e-06,
+      "hard_weights": [
+        0.7829376035339591,
+        0.21706239646604086
+      ],
+      "soft_weights": [
+        0.7811150550842285,
+        0.2188870757818222
+      ],
+      "deconvolved": [
+        0.7836863232944266,
+        0.21631367670557344
+      ],
+      "analytic_deconvolved": [
+        0.7836863232944266,
+        0.21631367670557344
+      ],
+      "maximum_deconvolution_difference": 0.0,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.0013196261133998632,
+      "seconds": 0.005844999977853149
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_1_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7874549627304077,
+        0.21252788603305817
+      ],
+      "independent_mle": [
+        0.7874879386776357,
+        0.21251206132236433
+      ],
+      "identified": true,
+      "maximum_weight_difference": 3.2975947227953384e-05,
+      "float64_simplex_gradient_gap": 4.085558944755263e-05,
+      "mean_objective_loss": 1.7152469380928732e-05,
+      "hard_weights": [
+        0.7797349530646052,
+        0.22026504693539484
+      ],
+      "soft_weights": [
+        0.7774671912193298,
+        0.22253502905368805
+      ],
+      "deconvolved": [
+        0.7804766215076223,
+        0.21952337849237763
+      ],
+      "analytic_deconvolved": [
+        0.7804766215076224,
+        0.21952337849237757
+      ],
+      "maximum_deconvolution_difference": 1.1102230246251565e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.0013221573317423463,
+      "seconds": 0.005289209017064422
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_2_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7848065495491028,
+        0.2151954174041748
+      ],
+      "independent_mle": [
+        0.7848312295036097,
+        0.21516877049639027
+      ],
+      "identified": true,
+      "maximum_weight_difference": 2.664690778453327e-05,
+      "float64_simplex_gradient_gap": 2.9842050018880073e-05,
+      "mean_objective_loss": -1.965013163355439e-06,
+      "hard_weights": [
+        0.7758144671452236,
+        0.22418553285477638
+      ],
+      "soft_weights": [
+        0.773292064666748,
+        0.22670990228652954
+      ],
+      "deconvolved": [
+        0.776547070896993,
+        0.22345292910300701
+      ],
+      "analytic_deconvolved": [
+        0.7765470708969928,
+        0.22345292910300718
+      ],
+      "maximum_deconvolution_difference": 2.220446049250313e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.0013245552545413375,
+      "seconds": 0.005551957990974188
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_3_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.780891478061676,
+        0.21912671625614166
+      ],
+      "independent_mle": [
+        0.7809114282282634,
+        0.21908857177173657
+      ],
+      "identified": true,
+      "maximum_weight_difference": 3.814448440508933e-05,
+      "float64_simplex_gradient_gap": 2.3219925433970445e-05,
+      "mean_objective_loss": -1.8190924246027975e-05,
+      "hard_weights": [
+        0.7702650469353948,
+        0.22973495306460523
+      ],
+      "soft_weights": [
+        0.7681736350059509,
+        0.23182833194732666
+      ],
+      "deconvolved": [
+        0.7709852009217841,
+        0.22901479907821592
+      ],
+      "analytic_deconvolved": [
+        0.770985200921784,
+        0.22901479907821598
+      ],
+      "maximum_deconvolution_difference": 1.1102230246251565e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.0013287699548527598,
+      "seconds": 0.005596917006187141
+    },
+    {
+      "kind": "experimental",
+      "input": "data/spike_experimental/log_likelihoods_recovar_noisy_shifts_level_4_recovar_filtered_aligned.npy",
+      "particles": 36220,
+      "tolerance": 0.001,
+      "original_exit_message": true,
+      "author_weights": [
+        0.7752213478088379,
+        0.22478291392326355
+      ],
+      "independent_mle": [
+        0.7752129539819872,
+        0.2247870460180128
+      ],
+      "identified": true,
+      "maximum_weight_difference": 8.393826850694452e-06,
+      "float64_simplex_gradient_gap": 1.7005846039586103e-05,
+      "mean_objective_loss": -4.261653199316562e-06,
+      "hard_weights": [
+        0.7635284373274434,
+        0.23647156267255665
+      ],
+      "soft_weights": [
+        0.7610454559326172,
+        0.23895640671253204
+      ],
+      "deconvolved": [
+        0.7642321409865178,
+        0.23576785901348224
+      ],
+      "analytic_deconvolved": [
+        0.7642321409865176,
+        0.2357678590134824
+      ],
+      "maximum_deconvolution_difference": 2.220446049250313e-16,
+      "true_empirical_fractions": null,
+      "predicted_misclassification": 0.001331601175479591,
+      "seconds": 0.00558029196690768
+    }
+  ],
+  "seconds": 3.645805499982089
+}
