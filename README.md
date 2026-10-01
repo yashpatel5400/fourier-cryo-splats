@@ -1,7 +1,7 @@
 # Fourier Cryo Splats
 
 **Active research; not an acceptance-ready paper.** The
-[current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) studies
+[latest released ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) studies
 uncertainty in cryo-EM density features through continuous Fourier-slice bias
 and pose auditing. The original Gaussian reconstruction work remains available
 in the [earlier paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0 release.
@@ -19,7 +19,9 @@ establishes experimental density coverage.
 The compact [evidence and open-decisions table](research/uncertainty/CURRENT-EVIDENCE.md)
 distinguishes completed outcomes from unresolved scientific limitations.
 
-Current evidence includes:
+Post-review-2 work now includes the [complete matched continuous Gaussian comparison](research/uncertainty/CONTINUOUS-GAUSSIAN-V2-RESULTS.md): all 48 fits converge and all 672 conditional cases are retained. Its favorable baseline results are explicit. The [600-dataset local-refinement study](research/uncertainty/END-TO-END-LOCAL-POSE-PROTOCOL.md) is still running after a separate 384-dataset calibration batch; every test dataset refits poses and weights. A [complete manuscript restructuring](paper/focused-main.tex) is being validated separately before replacing the released PDF. The [registered replay](research/uncertainty/REGISTERED-DICTIONARY-RESULTS.md), [breakdown analysis](research/uncertainty/BREAKDOWN-RADIUS-RESULTS.md), and [phase independence control](research/uncertainty/PHASE-SPLIT-CONTROL-RESULTS.md) are complete. None establishes the unresolved experimental inputs.
+
+Earlier evidence includes:
 
 - Original-code CryoLike scoring completes all 24 declared three-stack cases.
   Both metrics and both viewing grids are retained; their rankings differ.

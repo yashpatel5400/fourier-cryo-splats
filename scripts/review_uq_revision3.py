@@ -461,6 +461,7 @@ def main():
         files.extend(sorted((ROOT/'results/uncertainty/development'/study).rglob('*.json')))
     files.extend(sorted((ROOT/'provenance/uncertainty').glob('continuous-gaussian-v1-stop*.json')))
     files.append(ROOT/'provenance/uncertainty/review2-diagnostics-verification.json')
+    files.append(ROOT/'provenance/uncertainty/review2-complete-code-verification.json')
     if args.round > 1:
         if args.response_file is None:
             raise ValueError('A revision needs a response and every unmodified earlier review')
