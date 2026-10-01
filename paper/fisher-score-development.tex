@@ -1,0 +1,140 @@
+\section{Covariance-Aware Scores and Simulation Allocation}
+\label{app:fisherscore}
+The candidate-derived contrast above ignores feature covariance. We therefore
+run a fresh classical comparison, preserving the same three candidate maps,
+regions, deletion amounts, noise/transfer model and seven calibration methods.
+No previously viewed calibration or test draw enters the new experiment.
+Each candidate receives 65,536 new Haar training views, with one independent
+Gaussian noise per view. Exact conditional feature means determine the null
+and 25\%-deletion mean gap $d$, while noisy candidate features determine an
+unbiased sample covariance $\widehat\Sigma$. Both feature families compare
+a Euclidean matched direction and a constrained Fisher direction, sharing
+the same training means. The shrinkage constant is fixed at .1, without tuning:
+\[
+ S=.9\widehat\Sigma+.1\,\operatorname{tr}(\widehat\Sigma)I/p.
+\]
+This is classical covariance-aware discriminant design
+\citep{friedman1989rda}, not a new learning principle. The alternative
+features need not be Gaussian or share the null covariance; $S$ supplies
+only a score-design criterion, not the test calibration.
+
+\paragraph{Constrained Rayleigh calculation.}
+Let $U$ contain the nonzero, separately normalized null power and bispectrum
+mean blocks. These columns have disjoint support. For positive-definite $S$,
+define
+\[
+ r=S^{-1}d-S^{-1}U(U^\top S^{-1}U)^{-1}U^\top S^{-1}d.
+\]
+The second term is absent when $U$ is empty. Then $U^\top r=0$ and
+$Sr=d-Uc$ for some $c$. Thus every feasible $h$ satisfies
+$h^\top d=h^\top Sr$, and Cauchy--Schwarz gives
+\[
+ \frac{(h^\top d)^2}{h^\top Sh}\le r^\top Sr.
+\]
+Equality holds for nonzero $h$ proportional to $r$; if $r=0$, all feasible
+mean gaps vanish. The implemented direction is $r/\|r\|$, with positive
+orientation toward the alternative, and the threshold is the training
+mean midpoint. The separate block constraints remove global amplitude means
+on the finite training law, as above. They do not remove viewing shifts,
+variance changes or finite-training error. This elementary optimization
+identity does not establish uniformly optimal test power. Independent
+calibration permits conditioning on any fixed training result and then
+integrating the existing conditional error bound over that training sample.
+
+\subsection{Fresh all-case comparison}
+Each stack uses 32,768 new calibration views, two 32-noise groups and 16
+amplitude cells, followed by 131,072 independent test views. We retain all
+18,900 projections and 6,300 repeated-group cells. To compare Fisher and
+matched scores, two 97.5\% exact single-image probability intervals are
+transformed by their respective binomial rejection rules. Subtracting
+opposite endpoints gives at least 95\% pointwise coverage for the difference,
+conditional on training/calibration, by a union bound. This construction
+allows dependence between scores. All 9,450 differences and joint event
+tables are retained; intervals are not simultaneous across these comparisons.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=.94\textwidth]{figures/fisher-score-projections.pdf}
+\caption{Fresh covariance-aware comparison at $n=10^4$, amplitude one and
+viewing cap 1.1. Solid curves use Fisher scores and dashed curves their
+matched counterparts. These are conditional simulator projections, with
+pointwise individual and difference intervals retained in the complete CSV.
+The two calibration procedures are distinct tests; their minimum is not
+used as a combined test.}
+\label{fig:fisherscore}
+\end{figure*}
+
+For 10028, combined-moment training squared separation rises from .00109 to
+.00170; its held-out counterpart rises from .00102 to .00161. At $n=10^4$,
+$\kappa=1$ and 50\% deletion, paired-variance rejection projections rise
+from .0310 to .269 for combined moments and .216 to .345 for power.
+With full deletion and $\kappa=1.1$, the combined split-CVaR projection
+rises from .0407 to .762; the pointwise difference interval is [.406,.899].
+These improvements do not resolve smaller changes:
+at 25\% deletion, $\kappa=1$ and $n=10^4$, the Fisher paired projections
+are .000156/.0000765 on 10028, .0603/.0513 on 10049, and
+.000454/.000259 on 10076 (power/combined). Several 10076 point estimates
+are worse under Fisher scoring. Its training criterion is optimal only for
+the declared covariance and constraints, and a better mean-to-variance ratio
+does not ensure a better robust rejection test.
+
+More particles need not rescue a conservative test whose calibrated probability
+bound exceeds the alternative event probability. At $n=10^5$, 25\% deletion
+and $\kappa=1$, the 10028 and 10076 projections remain very small. On
+10049, the power/paired projection rises from .0420 to .0941, but the
+conservative pointwise interval for the difference is $[-.591,.740]$.
+This does not resolve improvement at that case. These intervals exclude
+calibration variability and are especially wide after the large-$n$
+nonlinear transform.
+
+The largest correct-null $n=10^4$ projection is .0000273, with pointwise
+interval [.00000236,.000239]. The largest actual correct-null repeated-group
+count is 2/128, with exact interval [.00190,.0553]. These are conditional
+controls, not 1,260 independent calibration repetitions. Independent replay
+reproduces all three full feature covariances within $1.5\times10^{-13}$
+and all twelve score directions within $1.4\times10^{-14}$ using a
+null-space optimizer. All 420 probability bounds, 1,680 minimal critical
+values, 18,900 projections and 6,300 group vectors replay. First-view physical
+sums, 768 calibration cubics and all training-noise draws are also checked.
+Twenty-five targeted tests pass. Experimental calibration, regional
+attribution and useful small-error sensitivity remain unresolved.
+
+\subsection{Equal-noise-budget replica allocation}
+The grouped envelope contains a nested maximum of empirical amplitude-cell
+means. For two inner sample blocks, convexity gives
+\[
+ \max_j\frac{x_j+y_j}{2}\le\frac{\max_j x_j+\max_j y_j}{2}.
+\]
+Thus doubling replicas decreases this envelope in expectation at a fixed view.
+It does not ensure a tighter confidence bound when the number of independent
+views is reduced. This is a classical nested-simulation issue; antithetic
+multilevel methods for maxima and tail risk are relevant prior art
+\citep{gilesgoda2018,gileshajiali2019}. Their complexity assumptions and
+finite-sample validity do not transfer automatically to our problem.
+
+A frozen follow-up compares the original $(M,L)=(32768,32)$ calibration
+with new $(8192,128)$ calibration, using all four fixed scores on each stack.
+Both use two groups and 2,097,152 conditional noise draws, with different
+Fourier costs and wall times. Both allocations are evaluated on the same
+131,072 fresh held-out views per stack, distinct from the preceding study.
+Every method, cap, deletion and amplitude is retained: 37,800 scalar
+projections and 12,600 actual repeated-group cells. There is no unadjusted
+minimum over the two allocations and no claim of optimized allocation.
+
+All twelve estimated grouped means decrease, by about .0028--.0038, but
+most joint mean upper bounds on the first two stacks increase. For example,
+the 10028 combined Fisher mean decreases from .522783 to .519328 while
+its upper bound increases from .527256 to .529238. On the new test draws,
+its $n=10^4$, $\kappa=1.1$, full-deletion split-CVaR projection decreases
+from .838 to .692. On 10076 the same comparison increases from .000182
+to .00796, still weak. At $\kappa=1$ and 25\% deletion, all four 10076
+paired-variance projections remain below .00087 under the larger group.
+Changes include finite-calibration variation; one calibration per allocation
+cannot establish an expected allocation advantage or isolate nested-max bias.
+
+The largest correct-null $n=10^4$ projection is .0000790, with pointwise
+interval [.00000779,.000605]. The largest actual null count is 1/128,
+with exact interval [.000198,.0428]. Calibration is fixed and cells share
+draws. Independent replay verifies the twelve inherited scores, 420 new bounds,
+3,360 minimal critical counts, every projection/group vector and 3,072
+first-view cubics. Both calibration realizations remain archived.
