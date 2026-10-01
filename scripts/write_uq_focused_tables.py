@@ -14,7 +14,7 @@ def main():
     rows=list(csv.DictReader(inputs[0].open()))
     if len(rows)!=12 or any(float(r['historical_replay_max_error'])!=0 for r in rows):
         raise ValueError('Complete exact archived replay required')
-    t=[r'\begin{table}[t]',r'\centering\small',r'\caption{All registered dictionary replays. Coverage is analytic under the supplied fixed design/noise. Ambient-audited coverage is numerically one in both frames for these generators; this is not experimental density coverage.}',
+    t=[r'\begin{table}[t]',r'\centering\footnotesize\setlength{\tabcolsep}{3pt}',r'\caption{All registered dictionary replays. Coverage is analytic under the supplied fixed design/noise. Ambient-audited coverage is numerically one in both frames for these generators; this is not experimental density coverage.}',
        r'\begin{tabular}{llrrr}',r'\toprule',r'Stack & Target & SD/field & Original & Registered \\',r'\midrule']
     for r in rows:
         target='Center' if r['target']=='center' else 'Contrast'

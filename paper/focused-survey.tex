@@ -1,5 +1,5 @@
 \section{Uncertainty Targets in the Recent Literature}\label{app:survey}
-The retrieval ledger contains 16,969 deduplicated broad-search records, mostly applications and not individually screened methods. The following distinctions guide baseline selection. They do not rank methods that solve different problems on one inappropriate score. The accompanying dated survey has 126 curated candidates across reconstruction, poses, heterogeneity, map validation, atomic ensembles and general inverse inference; its source manifest distinguishes retrieved material from targeted critical reading and inaccessible full text. This is a scoped critical survey rather than a claim to have exhaustively reviewed all cryo-EM applications. Versioned preprints are identified separately from published articles.
+The retrieval ledger contains 16,969 deduplicated broad-search records, mostly applications and not individually screened methods. The following distinctions guide baseline selection. They do not rank methods that solve different problems on one inappropriate score. The accompanying dated survey has 130 curated candidates across reconstruction, poses, heterogeneity, map validation, atomic ensembles and general inverse inference; its source manifest distinguishes retrieved material from targeted critical reading and inaccessible full text. This is a scoped critical survey rather than a claim to have exhaustively reviewed all cryo-EM applications. Versioned preprints are identified separately from published articles.
 
 \paragraph{Additional local and atomic validation.} The recent Gold-standard local toolbox compares half-map phase and amplitude, with explicit independent-noise assumptions in its SNR derivation \citep{goldlocal2026}. EMMIVox combines molecular force fields, map likelihoods and half-map-informed uncertainty for atomic refinement \citep{emmivox2024}. Neither output is the fixed raw-particle density functional studied here.
 
@@ -61,3 +61,14 @@ CryoRes predicts local resolution using deposited and algorithm-derived training
 
 
 \paragraph{Alignment attenuation and conditioning.} Classical alignment-error envelopes include orientation, location and other imaging errors \citep{jensen2001}. Cross-validation against overfitting and noise correlation in three-dimensional alignment is also established \citep{shaikh2003}. For these two historical papers our reading is limited to the primary author abstracts; we do not claim to have verified their full derivations. SIMPLE's shared orientation-table updates \citep{simple2025} illustrate that particle-wise local fits against a frozen template are not the same stochastic procedure as a full reconstruction pipeline. The phase control in Appendix~\ref{app:phase} is therefore a diagnostic, not a discovery of alignment-induced bias.
+
+\paragraph{Additional Gaussian and anisotropy context.}
+Rendering-aware NIW posteriors explicitly depend on surrogate statistics
+\citep{jia2026bayesiangs}; photometric residual channels target view-dependent
+error prediction \citep{galappaththige2026ppu}. View-structured conformal
+prediction instead calibrates a within-view covered fraction using
+exchangeable labeled views \citep{chu2026viewcp}. These distinguish posterior,
+ranking and coverage targets; none supplies raw-particle density calibration.
+A recent atomic-fitting preprint argues for anisotropic Fourier weighting
+\citep{yadgar2026anisotropy}. Only its primary abstract was accessible in our
+reading, so its equivalence derivation has not been checked.
