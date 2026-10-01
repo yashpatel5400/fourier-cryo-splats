@@ -1,8 +1,10 @@
 # One proposed repair of the orientation-integration gate
 
 1 October 2026 UTC. This protocol is written before catalogue-proposal outcomes.
-Execution remains contingent on the focused methods consultation; the code is
-prepared so that any recommendation is concrete. This is the one substantive
+The focused methods consultation remains in progress. A pre-outcome scheduling
+amendment authorizes this bounded numerical diagnostic independently of that
+consultation: the measured mode-coverage failures and completed implementation
+checks justify running it while the scientific-method decision remains open. This is the one substantive
 revision permitted after the [first failure](ADAPTIVE-POSE-INTEGRATION-RESULTS.md).
 It is classical numerical integration, not a new uncertainty method.
 
@@ -73,3 +75,13 @@ noise, uniform true viewing law, genuine conformation population, numerical
 error certificate or new theorem follows. A synthetic timing check (uniform
 random catalogue, no experimental outcomes) took about one second for one
 8,192-point full-density evaluation on this Mac. No GPU rental is needed.
+
+## Pre-outcome scheduling amendment
+
+At 11:41 UTC on 1 October, the external consultation had not returned a methods
+critique. The earlier draft made execution contingent on that response. We
+removed that scheduling dependency before any catalogue outcomes, so the
+already specified diagnostic can run alongside the review. No numerical
+parameter, image, seed, stopping rule or threshold is changed. The consultation
+packet remains immutable and does not contain the new outcomes. This decision
+does not select a population method or presume the reviewer's approval.
