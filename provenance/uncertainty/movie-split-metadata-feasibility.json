@@ -1,0 +1,112 @@
+{
+  "complete": true,
+  "source_scope": "Existing cached EMPIAR metadata, not a new archive enumeration or raw-pixel download.",
+  "datasets": [
+    {
+      "dataset": "10028",
+      "title": "Cryo-EM structure of the Plasmodium falciparum 80S ribosome bound to the anti-protozoan drug emetine",
+      "cached_metadata_file": "data/empiar-10028.json",
+      "cached_metadata_sha256": "300da97209c05598a3aa3be0ade798f8d0896b77163a49a280ab3337e28c53f1",
+      "dataset_size_reported": "1.2 TB",
+      "imagesets": [
+        {
+          "name": "Unaligned multi-frame micrographs",
+          "directory": "data/Micrographs",
+          "category": "micrographs - multiframe",
+          "frames_per_image": 16,
+          "num_images_or_tilt_series": 1081,
+          "data_format": "MRC",
+          "voxel_type": "32 BIT FLOAT",
+          "image_width": "4096",
+          "image_height": "4096",
+          "uncompressed_pixel_bytes_per_movie_from_metadata": 1073741824
+        },
+        {
+          "name": "Frame averaged micrographs",
+          "directory": "data/Micrographs",
+          "category": "micrographs - single frame",
+          "frames_per_image": 1,
+          "num_images_or_tilt_series": 1081,
+          "data_format": "MRC",
+          "voxel_type": "32 BIT FLOAT",
+          "image_width": "4096",
+          "image_height": "4096"
+        },
+        {
+          "name": "Processed shiny particles",
+          "directory": "data/Particles",
+          "category": "picked particles - multiframe - processed",
+          "frames_per_image": 1,
+          "num_images_or_tilt_series": 105247,
+          "data_format": "MRC",
+          "voxel_type": "32 BIT FLOAT",
+          "image_width": "360",
+          "image_height": "360"
+        }
+      ]
+    },
+    {
+      "dataset": "10049",
+      "title": "Cryo-EM Structures of Synaptic RAG1-RAG2 Complex",
+      "cached_metadata_file": "data/empiar-10049.json",
+      "cached_metadata_sha256": "41f6c5c2534b38f7a59b40a09d6f9654c3cfd88d743d97f07ec7b748392dccfc",
+      "dataset_size_reported": "65.9 GB",
+      "imagesets": [
+        {
+          "name": "RAG SEC particle stack",
+          "directory": "data",
+          "category": "picked particles - multiframe - processed",
+          "frames_per_image": 1,
+          "num_images_or_tilt_series": 108544,
+          "data_format": "MRC",
+          "voxel_type": "32 BIT FLOAT",
+          "image_width": "192",
+          "image_height": "192"
+        },
+        {
+          "name": "Summed micrographs from drift-corrected multi-frame microsgraphs of RAG SEC (1st data set)",
+          "directory": "data/RAG_1st",
+          "category": "micrographs - single frame",
+          "frames_per_image": 1,
+          "num_images_or_tilt_series": 330,
+          "data_format": "MRC",
+          "voxel_type": "32 BIT FLOAT",
+          "image_width": "3838",
+          "image_height": "3710"
+        },
+        {
+          "name": "Summed micrographs from drift-corrected multi-frame microsgraphs of RAG SEC (2nd data set)",
+          "directory": "data/RAG_2nd",
+          "category": "micrographs - single frame",
+          "frames_per_image": 1,
+          "num_images_or_tilt_series": 350,
+          "data_format": "MRC",
+          "voxel_type": "32 BIT FLOAT",
+          "image_width": "3838",
+          "image_height": "3710"
+        }
+      ]
+    },
+    {
+      "dataset": "10076",
+      "title": "CryoEM Dataset of L17-Depleted 50S Ribosomal Intermediates",
+      "cached_metadata_file": "data/empiar-10076.json",
+      "cached_metadata_sha256": "625cc3c02c8a74262fb60564f665b3a39867c5824f6500e00d1d84f271150525",
+      "dataset_size_reported": "50.3 GB",
+      "imagesets": [
+        {
+          "name": "Particle stack of L17-depleted 50S Ribosomal Assembly Intermediates",
+          "directory": "data",
+          "category": "picked particles - multiframe - unprocessed",
+          "frames_per_image": 1,
+          "num_images_or_tilt_series": 131899,
+          "data_format": "MRC",
+          "voxel_type": "32 BIT FLOAT",
+          "image_width": "320",
+          "image_height": "320"
+        }
+      ]
+    }
+  ],
+  "interpretation": "10028 metadata lists 1081 unaligned 16-frame 4096-square float32 movies, approximately 1 GiB of pixels per movie before headers. The listed 10049 and 10076 image sets have one frame each, despite multiframe-origin category labels. Summed or partially summed stacks do not reconstruct an independent raw-frame processing graph. Availability, gain/calibration files, coordinates and preprocessing provenance need checking before an end-to-end protocol."
+}

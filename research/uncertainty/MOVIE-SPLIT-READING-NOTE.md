@@ -46,3 +46,15 @@ model. A future protocol would need a fully specified processing graph, raw
 frame access, treatment of motion/dose/CTF uncertainty and realistic negative
 controls. It must not replace the present unresolved input conditions with
 an unsupported independence assertion. No next experiment is selected here.
+
+## Cached source metadata feasibility
+
+The existing 10028 archive metadata lists 1,081 unaligned 16-frame, 4096-square
+float32 movies (about 1 GiB of pixel values per movie, excluding headers). The
+listed image sets on 10049 and 10076 contain one frame each, even where their
+category describes a multiframe origin. Thus an odd/even raw-frame procedure
+cannot simply be retrofitted onto the three downloaded particle stacks. The
+10028 entry is a possible source to inspect further, not a selected experiment.
+The exact cached metadata hashes and arithmetic are recorded in
+`provenance/uncertainty/movie-split-metadata-feasibility.json`. No current remote
+file enumeration, source-file availability check or movie download has occurred.
