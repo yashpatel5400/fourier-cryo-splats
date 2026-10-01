@@ -194,12 +194,12 @@ in the same three central planes, with display normalization stated explicitly.
 \input{tables/reconstruction-slices}
 
 \subsection{Raw-movie feasibility and remaining dependence}
-A separately declared acquisition pilot downloads one EMPIAR-10028 movie,
+A separately declared acquisition pilot downloaded one EMPIAR-10028 movie,
 \texttt{Micrographs\_part2/004\_movie.mrcs}, with 16 frames of
 $4096\times4096$ float32 pixels. The source-group mapping is supported by
 archive counts, acquisition date and nearby coordinates, but the deposited
 autopicks differ from final recentered coordinates. It is not labeled a
-fully verified new confirmatory cohort. Its initial analysis is restricted
+fully verified new confirmatory cohort. Its completed analysis is restricted
 to all-frame acquisition statistics, a fixed patch grid, frame-difference
 spectra/correlations and unaligned odd/even sums. Differences can contain
 motion, dose signal and detector effects; they are not automatically pure
@@ -207,3 +207,14 @@ noise or proof of frame independence. No density intervals result from this
 pilot. Any subsequent motion, picking, CTF or alignment pipeline requires
 its own declared processing graph and cannot claim independent inference
 noise while silently reusing full-movie-derived quantities.
+
+All sixteen frames, 512 fixed patch differences and 1,792 cross-pair
+correlations were retained. Median horizontal and vertical neighbor
+correlations are .657 and .658; the 5th--95th percentiles of disjoint
+difference correlation are $-.00780$ to $.00866$. Frame means span
+2052.53--2060.28 in deposited pixel units. Strong spatial correlation rules
+out treating these raw pixels as independent noise samples. Small temporal
+correlations do not establish independence or a transferable covariance.
+The interrupted download and verified byte-range recovery are preserved;
+they did not change the predeclared movie or diagnostics.
+\input{tables/raw-movie-diagnostics}

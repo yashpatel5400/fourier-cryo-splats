@@ -455,7 +455,8 @@ def main():
         'ALIGNMENT-INDEPENDENCE-READING.md', 'CLASSICAL-INFERENCE-READING-NOTE.md',
         'ADJACENT-UQ-FOLLOWUP.md', 'adjacent-uq-followup-sources.json',
         'PASR-VALIDATION-READING.md', 'pasr-reading-source.json',
-        'MOVIE-SPLIT-READING-NOTE.md', 'RAW-MOVIE-PILOT-PROTOCOL.md'])
+        'MOVIE-SPLIT-READING-NOTE.md', 'RAW-MOVIE-PILOT-PROTOCOL.md',
+        'RAW-MOVIE-PILOT-RESULTS.md'])
     for study in ['local-alignment-calibration-v1', 'end-to-end-local-pose-v1',
                   'end-to-end-local-pose-summary-v1', 'continuous-gaussian-review2-v1',
                   'continuous-gaussian-review2-v2', 'continuous-gaussian-review2-summary-v2',
@@ -465,6 +466,9 @@ def main():
     files.extend(sorted((ROOT/'provenance/uncertainty').glob('continuous-gaussian-v1-stop*.json')))
     files.append(ROOT/'provenance/uncertainty/review2-diagnostics-verification.json')
     files.append(ROOT/'provenance/uncertainty/review2-complete-code-verification.json')
+    files.extend(ROOT/'provenance/uncertainty'/name for name in [
+        'raw-movie-pilot-v1.json','raw-movie-pilot-download-attempt-01.json',
+        'raw-movie-pilot-resume-v1.json'])
     files.append(ROOT/'results/uncertainty/development/audit-regressions/sharp-normal-envelope.json')
     if args.round > 1:
         if args.response_file is None:
