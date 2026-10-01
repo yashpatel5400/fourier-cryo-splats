@@ -16,7 +16,7 @@ unchanged. This page identifies current outcomes rather than replacing them.
 | What changes with centering or more contrasts? | Centering gives 10/6/0 exclusions and five Class A reference disagreements on 10076. The seven-contrast family gives the same counts and slightly worse cubic widths | Reused-data development; alternatives are not combined by an unadjusted minimum. Class A agreement is not a truth label for a heterogeneous consensus. |
 | Were reconstruction baselines actually run? | Supplied-pose Gaussian/voxel/stock-neural fits on all three stacks; unknown-pose RELION finishes on all three; 24 original-code CryoLike scores finish | RELION registered-reference mean FSC is .702/.202/.122, with reported convergence on all three. The 10076 reference is one Class A assembly state. FSC and scoring are distinct from density coverage. |
 | Does global pose marginalization currently solve validation? | Discrete-view oracle screens and continuous-mixture bounds with retained failed/nonconverged outcomes | Continuous global gaps remain 12,898–15,892; a practical learned independent predictor is absent. |
-| Is the survey comprehensive enough to delimit novelty? | A 131-candidate ledger, targeted primary readings, source/version/access records, direct Bayesian pseudo-atom and selection-bias prior art | Candidate retrieval is not full reading. No novelty claim follows from not finding a matched paper. |
+| Is the survey comprehensive enough to delimit novelty? | A 138-candidate ledger, targeted primary readings, source/version/access records, direct Bayesian pseudo-atom, alignment/collective-recovery and moment-posterior prior art | Candidate retrieval is not full reading. No novelty claim follows from not finding a matched paper. |
 | What has independent review established? | Authentic full Fable 5.1 reviews 1, 2 and 3 all reject at confidence 4/5; 279 numerical tests pass, one skips, with one expected conic warning | Focused audits and passing tests do not establish scientific utility or acceptance. The requested simulation and matched baseline are now complete; the proposed pose intervals fail the practical informativeness criterion. The third review also rejects and prioritizes alignment-bias reanalysis. |
 
 The pre-round-2 fitting and application runs are complete. Their historical
@@ -56,3 +56,14 @@ within 8e-14. The new authentic focused Fable audit prompted these checks,
 not a favorable acceptance verdict. The saved candidate directions do not
 satisfy the required continuous-pose condition. Experimental covariance,
 paired-frame mean agreement and practical density calibration remain open.
+
+The [translation-invariant moment gate](paired-power-v1/BISPECTRUM-RESULTS.md)
+adds 24 complete cells and 160 continuous-orientation searches. All twelve
+removal fits reach their iteration limit. Both ranged-amplitude 10028 contrasts
+have verified counterexamples; the four 10049 contrasts retain sampled positive
+margins without a global certificate; 10076 has no positive fitted separator.
+Independent complex Gaussian moment enumeration agrees with all 48 declared
+variance checks within 3.6e-15. These are oracle development diagnostics, not
+measured power or density coverage. The current 26-page paper adds targeted
+primary literature on collective alignment and moment-based uncertainty; the
+earlier 25-page PDF remains immutable in v0.7.2-dev.

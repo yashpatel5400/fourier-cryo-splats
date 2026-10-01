@@ -1,5 +1,5 @@
 \section{Uncertainty Targets in the Recent Literature}\label{app:survey}
-The retrieval ledger contains 16,969 deduplicated broad-search records, mostly applications and not individually screened methods. The following distinctions guide baseline selection. They do not rank methods that solve different problems on one inappropriate score. The accompanying dated survey has 131 curated candidates across reconstruction, poses, heterogeneity, map validation, atomic ensembles and general inverse inference; its source manifest distinguishes retrieved material from targeted critical reading and inaccessible full text. This is a scoped critical survey rather than a claim to have exhaustively reviewed all cryo-EM applications. Versioned preprints are identified separately from published articles.
+The retrieval ledger contains 16,969 deduplicated broad-search records, mostly applications and not individually screened methods. The following distinctions guide baseline selection. They do not rank methods that solve different problems on one inappropriate score. The accompanying dated survey has 138 curated candidates across reconstruction, poses, heterogeneity, map validation, atomic ensembles and general inverse inference; its source manifest distinguishes retrieved material from targeted critical reading and inaccessible full text. This is a scoped critical survey rather than a claim to have exhaustively reviewed all cryo-EM applications. Versioned preprints are identified separately from published articles.
 
 \paragraph{Additional local and atomic validation.} The recent Gold-standard local toolbox compares half-map phase and amplitude, with explicit independent-noise assumptions in its SNR derivation \citep{goldlocal2026}. EMMIVox combines molecular force fields, map likelihoods and half-map-informed uncertainty for atomic refinement \citep{emmivox2024}. Neither output is the fixed raw-particle density functional studied here.
 
@@ -77,3 +77,29 @@ reading, so its equivalence derivation has not been checked.
 uses movie preprocessing and perturbation controls alongside map/model
 agreement \citep{pasr2026}. Those tests assess reconstruction fidelity;
 they do not establish the conditional noise law needed for density coverage.
+
+\paragraph{Collective recovery versus individual alignment.}
+In cyclic multi-reference alignment, generic signals can be recovered using
+third-order invariants even when individual shifts are poorly estimated
+\citep{perry2019mra}. This is not a theorem for arbitrary cryo-EM viewing laws;
+our failed local alignment does not establish collective nonidentifiability.
+Reference-driven selection of noise \citep{henderson2013bias} is a different
+failure from independent-image attenuation. Neyman--Scott's historical paper
+\citep{neymanscott1948} is a related bibliographic lead, whose original proof
+we have not inspected; we do not assert that our optimizer meets its
+asymptotic assumptions. Fourier-harmonic alignment-error estimation
+\citep{baldwin2005alignment} and SE(2) convolution models
+\citep{park2011alignment} further precede our diagnosis. The former was read
+at abstract depth; the latter was read selectively, including its small-angle
+and Gaussian approximations.
+
+\paragraph{Recent uncertainty from moment summaries.}
+\citet{janson2026mps} condition a learned diffusion prior on power spectra,
+using approximate posterior sampling in synthetic cyclic alignment experiments.
+Their point-error comparisons do not establish experimental density coverage.
+Functional deconvolution \citep{alghattas2026functional} instead uses derivatives
+of full second-order Fourier moments under compact-support, centered-shift and
+known-covariance assumptions. Such off-diagonal information differs from a
+bilinear statistic invariant to every common shift. These works delimit
+possible contributions from moment-based confidence or posterior methods;
+neither their implementations nor their complete proofs were replicated here.

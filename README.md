@@ -1,7 +1,7 @@
 # Fourier Cryo Splats
 
 **Active research; not an acceptance-ready paper.** The
-[latest released ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) studies
+[current ICML-format manuscript](output/pdf/fourier-cryo-splats.pdf) studies
 uncertainty in cryo-EM density features through continuous Fourier-slice bias
 and pose auditing. The original Gaussian reconstruction work remains available
 in the [earlier paper](paper/reconstruction-v0.1.0.pdf) and v0.1.0 release.
@@ -23,7 +23,9 @@ Post-review-2 work includes the [complete matched continuous Gaussian comparison
 
 The [rewritten manuscript](paper/focused-main.tex) reports these failures in its abstract and main results. The [registered replay](research/uncertainty/REGISTERED-DICTIONARY-RESULTS.md), [breakdown analysis](research/uncertainty/BREAKDOWN-RADIUS-RESULTS.md), and [phase independence control](research/uncertainty/PHASE-SPLIT-CONTROL-RESULTS.md) are complete. A [raw-movie pilot](research/uncertainty/RAW-MOVIE-PILOT-RESULTS.md) retains all acquisition diagnostics and the interrupted/recovered transfer, but does not establish independent pure noise. None resolves the experimental inputs. [Current reproduction instructions](research/uncertainty/REPRODUCE-REVISION3.md) distinguish immutable archived studies from new runs.
 
-The [post-review-3 saved-array diagnosis](research/uncertainty/REFITTING-BIAS-REANALYSIS-RESULTS.md) reproduces every original estimate and adds 18 converged true-pose fits. Noise-only coverage falls to .720 for the pilot-aligned 10049 contrast, versus .955 with true poses; the original broad bias-aware intervals still cover every trial. Exact realized-pose class envelopes are much smaller than the old bounds but remain large. These post hoc results are now in the 25-page paper and do not resolve the rejected novelty or usefulness assessment.
+The [post-review-3 saved-array diagnosis](research/uncertainty/REFITTING-BIAS-REANALYSIS-RESULTS.md) reproduces every original estimate and adds 18 converged true-pose fits. Noise-only coverage falls to .720 for the pilot-aligned 10049 contrast, versus .955 with true poses; the original broad bias-aware intervals still cover every trial. Exact realized-pose class envelopes are much smaller than the old bounds but remain large. These post hoc results are in the current 26-page paper and do not resolve the rejected novelty or usefulness assessment.
+
+The new [translation-invariant moment diagnostic](research/uncertainty/paired-power-v1/BISPECTRUM-RESULTS.md) retains all 24 cells and 160 continuous-orientation searches. Two ranged-amplitude contrasts fail on 10028; the four 10049 contrasts retain sampled positive margins without a global validity certificate; no positive direction was found on 10076. All twelve removal fits reach their iteration limit. An independent complex-moment calculation checks 48 noise-variance values within 3.6e-15. This is oracle method development, not new experimental coverage or a new reconstruction. The updated [literature reading](research/uncertainty/ALIGNMENT-LITERATURE-REVIEW3.md) distinguishes collective recovery, individual alignment and prior moment-based posterior methods; the ledger now has 138 candidates, with reading depth stated separately.
 
 Earlier evidence includes:
 

@@ -87,3 +87,21 @@ R7/R9/R11 and experimental calibration remain unresolved. The separate
 paired-power feasibility screen is method development, not evidence that the
 paper now meets the review's acceptance conditions. A fourth full acceptance
 review is not being requested merely for these reporting improvements.
+
+## Further primary reading and invariant-moment development
+
+The [targeted literature follow-up](../ALIGNMENT-LITERATURE-REVIEW3.md) adds
+seven candidates, making 138 ledger entries, with access and reading depth
+recorded. Perry et al.'s cyclic-alignment result prevents interpreting poor
+individual alignment as collective impossibility. Recent moment-posterior and
+functional-deconvolution work further narrows possible novelty. These additions
+address positioning, not R7's demand for a substantive contribution.
+
+The [bispectrum gate](../paired-power-v1/BISPECTRUM-RESULTS.md) implements
+continuous-translation-invariant third moments with exact conditional Gaussian
+variance. All 24 cells, fitting gaps and 160 pose-search outcomes are public.
+Independent variance enumeration and direct cell sums pass. Two 10028 contrasts
+are invalidated; the remaining nonzero contrasts have no global validity
+certificate. This development does not resolve R1/R2/R8 or justify another full
+acceptance review. The rewritten 26-page manuscript retains the rejected main
+results and adds the verified primary literature.

@@ -3,7 +3,7 @@
 Research cutoff: 2026-09-30. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 131 candidates; this is not a full-reading count.
+The current ledger contains 138 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -442,3 +442,12 @@ and photographic prediction from raw-particle density inference. These entries a
 ## 26. Acquisition processing and validation
 
 The [PASR reading note](PASR-VALIDATION-READING.md) adds processing-order and perturbation-validation context. Reading depth remains explicit.
+
+## Post-review-3 alignment and moment readings
+
+The [new reading note](ALIGNMENT-LITERATURE-REVIEW3.md) distinguishes classical
+alignment/reference effects from collective orbit recovery and follows recent
+moment-posterior and functional-deconvolution methods. Seven new ledger entries
+include two earlier readings and one metadata-only historical lead. Full-text,
+abstract-only and failed-access statuses remain explicit. The previous paper
+and reviewer snapshots retain their historical 131-candidate count.
