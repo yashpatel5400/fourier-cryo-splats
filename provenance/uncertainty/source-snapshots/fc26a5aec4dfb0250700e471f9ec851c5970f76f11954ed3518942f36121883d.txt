@@ -1,0 +1,9 @@
+# Registered-generator replay of the original dictionary example
+
+1 October 2026 UTC, declared after review 2 R12 and before this new replay. Retain all twelve original targets (three geometries, central/axial-contrast, widths .03/.07), both reference frames and both dictionary-only / ambient-audited intervals. No new pose or map registration is fitted.
+
+The original `ambient-full-solve.json` saved metrics but not its dictionary weights. Reconstruct that estimator with the same recorded configuration and archived/current unchanged algorithm. First compare the original dictionary width, audited width and original-map bias/coverage to their saved values. If the relative width differs by over 1e-6 or the original bias/coverage differs by over 1e-6 absolute, save the discrepancy and do not present a strict historical replay as successful. Use the unchanged pilot hash and explicitly record every geometry/reference/source hash.
+
+Use the original native-map-to-24 grid generator for the original frame. For the registered frame, resample the already frozen pilot-registered 64-grid map to 24 using the existing Fourier resampling function. Apply the same radius-.35 support and unit Euclidean normalization in both cases. Also compare original 64-to-24 versus native-to-24 resampling to expose any numerical difference. This is a finite supported voxel simulation, not the later continuous-density model or experimental truth.
+
+Store newly reconstructed weights, both generators, all conditional biases/coverages and source snapshots. Report the highlighted 10028 central .07 case together with the complete twelve-target table. Registration is already post-outcome development, so this is a declared sensitivity check, not a newly prospective molecular accuracy claim. Do not rerun the costly unrelated enrichment or full-space fits; their historical metrics remain unchanged.

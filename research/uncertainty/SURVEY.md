@@ -3,7 +3,7 @@
 Research cutoff: 2026-09-30. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 124 candidates; this is not a full-reading count.
+The current ledger contains 126 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -427,4 +427,8 @@ this addition is a bibliographic candidate, not a completed reading or baseline.
 
 ## Post-round-2 additions (1 October 2026 UTC)
 
-The ledger now contains 124 candidates. Five additions cover resolving kernels, fixed-length inference, Gaussian-prior coverage, raw-frame denoising and data thinning. Reading depth varies: see [classical inverse-problem reading](CLASSICAL-INFERENCE-READING-NOTE.md), [movie splitting](MOVIE-SPLIT-READING-NOTE.md), and [data fission](DATA-FISSION-READING-NOTE.md). Low (1997) is a candidate with primary full-text access still unresolved; adding its metadata does not mean its theorem was checked. The newer 2026 entries retain their existing individual source/version qualifications. The 16,969 raw search hits are a separate unscreened retrieval pool, not 16,969 read papers.
+The ledger now contains 126 candidates. Five additions cover resolving kernels, fixed-length inference, Gaussian-prior coverage, raw-frame denoising and data thinning. Reading depth varies: see [classical inverse-problem reading](CLASSICAL-INFERENCE-READING-NOTE.md), [movie splitting](MOVIE-SPLIT-READING-NOTE.md), and [data fission](DATA-FISSION-READING-NOTE.md). Low (1997) is a candidate with primary full-text access still unresolved; adding its metadata does not mean its theorem was checked. The newer 2026 entries retain their existing individual source/version qualifications. The 16,969 raw search hits are a separate unscreened retrieval pool, not 16,969 read papers.
+
+## Additional historical alignment checks (1 October 2026 UTC)
+
+The [alignment-independence reading note](ALIGNMENT-INDEPENDENCE-READING.md) adds Jensen (2001) and Shaikh et al. (2003), both at primary-abstract reading depth, and a targeted reading of the already-listed SIMPLE (2025) paper. Attenuation from misalignment and fitting/validation separation are established. The current ledger contains 126 candidates; this count does not imply full-text reading. The phase-only control is an elementary diagnostic, not a new reconstruction principle.

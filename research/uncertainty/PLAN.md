@@ -1,5 +1,7 @@
 # Uncertainty-focused research program
 
+**Current state:** see [CURRENT-EVIDENCE.md](CURRENT-EVIDENCE.md) and the [round-2 response](reviews/response-to-round-02-development.md). The older checkpoints below are retained history and must not be interpreted as current job or review status.
+
 Started 2026-09-29. This supersedes the focus of release v0.1.0; that release
 remains the record of the earlier reconstruction feasibility study. No new
 experimental result or acceptance-level claim is established by this plan.
@@ -58,7 +60,7 @@ linear-functional confidence tools. Any use of these must explicitly credit
 that literature; standard Gaussian posterior or conformal formulas are not new
 theorems. A cryo-EM-specific contribution must go beyond rebranding them.
 
-## Current status (30 September 2026)
+## Historical checkpoint (30 September 2026)
 
 The full round-1 Fable rejection remains the latest acceptance assessment.
 The survey contains 116 curated candidates, with targeted reading distinguished

@@ -1,0 +1,9 @@
+# Post-review breakdown-radius reporting
+
+1 October 2026 UTC. This is a reporting sensitivity analysis of previously observed results, not a new experiment or selection rule. Retain all twelve locked features, all four existing pose classes and both the previously reported raw and centered calibration procedures. Do not choose between calibrations or change image weights.
+
+For each fixed estimator reconstruct its bias bound as b(B)=intercept+slope*B with pilot norm and the existing pose class fixed. The fixed-pose intercept is zero. For the nonlinear pose audit, reconstruct the two density/pose branches from the archived field/cross/remainder quantities before taking their minimum; both branches have the same pilot/remainder intercept, so the resulting bound is affine in B. Replay b(2) and the raw half-width against the previous record to tolerance 1e-9 relative/absolute before reporting any sensitivity.
+
+Report the largest density-error radius for which the *raw, non-fallback* interval excludes zero, holding its observed center and calibrated SD fixed. If it already contains zero at B=0, explicitly state this instead of implying that an admissible positive radius exists. Also report the critical noise SD at B=2, if the bias alone does not already contain zero. These thresholds are conditional breakdowns, not calibrated choices of B or evidence of molecular truth. Preserve raw and selected half-width/absolute-center ratios, fallback flags, and registered-reference disagreement labels. No-data intervals have a different center and are not used to manufacture a positive data-based exclusion threshold.
+
+All input hashes, original class/scaling details and replay discrepancies must be saved. The original B=2 results remain the declared analysis. The 10076 homogeneous assumption is unverified; its rows remain stress evidence only. This calculation neither validates common covariance nor provides a physical density-energy bound.
