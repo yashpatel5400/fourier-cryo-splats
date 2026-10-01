@@ -1,0 +1,70 @@
+\section{Corrections after the second independent review}\label{sec:reviewtwocorrections}
+This section corrects claims in the 30 September manuscript. The unaltered
+second review recommends rejection at confidence 4/5. The new mathematical
+observations and ongoing experiments below have not received a further full
+review. No acceptance or useful end-to-end uncertainty result is asserted.
+
+\subsection{Matched continuous Gaussian inference}
+Write $G=\A\A^*$, $a=\A\ell$, and $L=\norm{\ell}^2$ for a fixed, whitened
+continuous design. A generalized white Gaussian prior of directional scale
+$\tau$ has weights $w_\tau=(G+\tau^{-2}I)^{-1}a$ and functional variance
+\begin{align}
+v_\tau&=\tau^2(L-a^\top w_\tau)\nonumber\\
+&=\norm{w_\tau}^2+\tau^2\norm{\ell-\A^*w_\tau}^2.
+\end{align}
+White covariance on infinite-dimensional $L^2$ is not trace class: this is an
+isonormal process on test functions, not an $L^2$-valued density with finite
+energy. The finite joint distribution of observations and target is nevertheless
+well defined. The construction is continuous ridge inference; neither that
+identity nor the resolving-kernel viewpoint is new.
+
+\begin{proposition}[A fixed-bias normal envelope]
+For $z\ge\sqrt{3}$ and $t\ge0$,
+$\Pr(|N(t,1)|\le z\sqrt{1+t^2})\ge2\Phi(z)-1$.
+Thus $z_{1-\alpha/2}\sqrt{s^2+b^2}$ covers a Gaussian error with variance
+$s^2$ and any fixed absolute bias at most $b$, whenever
+$\alpha\le2\Phi(-\sqrt{3})$.
+\end{proposition}
+\begin{proof}
+Set $q=z\sqrt{1+t^2}$, $F(t)=\Phi(q-t)+\Phi(q+t)-1$ and
+$c=zt/\sqrt{1+t^2}$. Then
+\[
+F'(t)=\phi(q-t)[(c-1)+(c+1)e^{-2qt}].
+\]
+For $c\ge1$ this is nonnegative. For $c<1$ this is equivalent to
+$\operatorname{arctanh}(c)\ge qt=c/(1-c^2/z^2)$. The absolutely convergent
+series have coefficients $1/(2j+1)$ and $z^{-2j}$, respectively.
+Since $z^{2j}\ge3^j\ge2j+1$, the inequality follows termwise.
+Therefore $F(t)\ge F(0)=2\Phi(z)-1$. Zero noise follows directly.
+\end{proof}
+At $\tau=B$, the usual Gaussian prior interval therefore shares the uniform
+fixed-pose guarantee over the $B$-ball. The folded-normal value can shorten it,
+and different weights can change efficiency, but uniform fixed-pose coverage
+is not a distinction from this matched baseline. At $\tau=B/2$ the implication
+need not hold. Our earlier finite-grid controls had a different operator and
+smaller directional prior scales. Their behavior cannot establish superiority
+over continuous Gaussian inference. The 48-fit matched comparison is running;
+its first higher-band solve hits its iteration limit and is retained as
+nonconverged, not an exact posterior calculation.
+
+\subsection{Noise-dependent nuisance errors}
+Theorem~\ref{thm:coverage} requires nuisance errors fixed independently of the
+inference noise. Even with fixed weights, a bounded bias chosen as
+$b\,\operatorname{sign}(Z)$ gives absolute error $s|Z|+b$.
+The folded-normal interval need not cover it at the advertised level.
+The sum width $b+z_{1-\alpha/2}s$ handles this bounded adaptive bias if the
+noise projection remains fixed Gaussian. It does not repair weights and
+poses estimated from the same noisy image. An independent inference image
+makes that projection conditionally Gaussian, but does not by itself make
+alignment errors centered conditional on the fitted design.
+
+\subsection{Prospective local-alignment study}
+A separate calibration uses 128 noisy replicate datasets per acquisition
+geometry and both an oracle-reference and an independent-pilot local alignment
+template. The frozen follow-up uses 200 additional datasets per geometry,
+recomputing poses and weights, with same-image and independent-image inference
+controls. It compares fixed-pose, deterministic-pose, centered mixed-pose and
+matched continuous Gaussian intervals on two broad targets. All failed fits,
+raw intervals and no-data fallbacks are retained. This is local alignment
+against fixed templates, not a complete ab initio reconstruction pipeline.
+No completed coverage result from this study is included in this revision.

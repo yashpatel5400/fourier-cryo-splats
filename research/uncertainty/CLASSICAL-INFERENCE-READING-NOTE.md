@@ -1,0 +1,11 @@
+# Classical inverse-problem connections added after review 2
+
+1 October 2026 UTC. These additions correct missing context, not establish novelty. They are separate from the original review packet.
+
+**Backus and Gilbert (1968), The Resolving Power of Gross Earth Data.** Primary source: DOI https://doi.org/10.1111/j.1365-246X.1968.tb00216.x; author-uploaded text https://www.researchgate.net/publication/228077301_The_Resolving_Power_of_Gross_Earth_Data. Read the abstract and selected passages in sections 3/4/9 and Appendix A. The authors form local averaging kernels from linear combinations of data kernels and relate their localization to the resolution available from finite measurements. This is direct prior art for interpreting our Fourier adjoint as a resolving kernel. Their geophysical construction does not itself establish our Gaussian fixed-bias confidence claim. Publisher access failed; the reading used the indexed author-uploaded primary text. Not a full-paper or numerical replication claim.
+
+**Johnstone (2010), High dimensional Bernstein-von Mises: simple examples.** Primary author manuscript https://pmc.ncbi.nlm.nih.gov/articles/PMC2990974/, DOI 10.1214/10-IMSCOLL607. Read the indexed primary abstract/introduction only; direct subsequent access returned a browser challenge. It compares posterior and frequentist behavior in Gaussian sequence models, including linear functionals. It is context for taking matched Bayesian coverage seriously, not a source for the new finite-sample normal-envelope proof in CONTINUOUS-GAUSSIAN-EQUIVALENCE.md.
+
+**Low (1997), On nonparametric confidence intervals.** Candidate DOI https://doi.org/10.1214/aos/1030741084, Annals of Statistics 25(6), 2547–2554. The reviewer identified this omission. Multiple primary HTML/PDF attempts returned an inaccessible iframe or tool error. Bibliographic metadata and an indexed abstract were found elsewhere, but no primary theorem was read. The candidate is in the ledger with an explicit pending-access category. Do not cite a particular theorem or present this as completed primary reading.
+
+Topaz-Denoise and data thinning have separate notes identifying their actual inspected sections. No third-party source is represented as independently validating the new mixed-pose lemma or ongoing simulation.

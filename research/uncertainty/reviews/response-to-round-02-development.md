@@ -17,3 +17,13 @@ Both full reviews reject. The positive mathematical checks do not resolve useful
 ## Review access limits
 
 Provider identity is exact Claude Fable 5.1; evidence immutability verified. The transport records all 55 uncropped pages, while the reviewer reports seeing only pages 20–55. It did not run tests, inspect all individual frozen records, or read third-party sources. This does not change or invalidate its substantive critique.
+
+## Implemented after the plan (1 October 2026 UTC)
+
+- **R10/R7, partial:** continuous generalized Gaussian baseline and fixed-bias normal-envelope proof implemented. Ten focused tests compare independent dense conditioning, derivatives and the coverage inequality. The 48-case radius-12 run is active; its first case fails the strict CG convergence limit and is retained. No completed baseline comparison is claimed.
+- **R9, partial:** a conditional independent-centered plus bounded common-mode lemma and continuous analytic derivative Gram are implemented and tested. It uses a sub-Gaussian tail and explicitly does not cover arbitrary estimated designs. This does not establish the premise for local alignment.
+- **R11, active:** local refinement/calibration sources frozen at `10cd6cd`; the test study protocol/sources frozen at `a5a2a69` before any test coverage. Calibration has 128 datasets per geometry; the following study has 200 new datasets per geometry, both oracle and independent-pilot templates, nine methods and same/independent image controls. The 10028 calibration is complete and its study is running. No end-to-end acceptance criterion is yet met by a completed study.
+- **R12/M13/M14, partial reporting fixes:** abstract now states that centres were observed before fresh calibration; main text includes the five registered-reference disagreements and distinguishes scale/operator matching. Four frozen protocols and the alpha-specific efficiency factor are stated. Directional prior scale replaces the misleading grid-RMS comparison. The dictionary example is labelled unregistered; its registered recomputation and feature breakdown radii remain pending.
+- **M2/M8/R7, survey:** ledger consistency fixed and five candidates added (124 total). Resolving-kernel primary passages were read. Low (1997) remains a candidate with primary access blocked; it is not represented as a checked theorem.
+
+The corrected 55-page manuscript includes the normal-envelope proof and the adaptive-bias caveat. It remains a development document, not a fully rewritten acceptance-level submission. Main text ends on page 8. Full suite: 261 passed, one skipped, one intentional solver warning; three later bookkeeping tests also pass. The external verdict remains reject.
