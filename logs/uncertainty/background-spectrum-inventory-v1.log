@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/Users/yash/Documents/New project/fourier-splats/scripts/inventory_background_spectra.py", line 88, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/yash/Documents/New project/fourier-splats/scripts/inventory_background_spectra.py", line 51, in main
+    np.testing.assert_allclose(direct,ref,atol=2e-15,rtol=0)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yash/Documents/New project/fourier-splats/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File "/Users/yash/Documents/New project/fourier-splats/.venv/lib/python3.13/site-packages/numpy/testing/_private/utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0, atol=2e-15
+
+Mismatched elements: 15 / 4096 (0.366%)
+First 5 mismatches are at indices:
+ [0, 0]: 0.9999999999999962 (ACTUAL), 1.0 (DESIRED)
+ [1, 1]: 0.9999999999999979 (ACTUAL), 1.0 (DESIRED)
+ [2, 2]: 0.9999999999999979 (ACTUAL), 1.0 (DESIRED)
+ [3, 3]: 0.9999999999999979 (ACTUAL), 1.0 (DESIRED)
+ [4, 4]: 0.9999999999999979 (ACTUAL), 1.0 (DESIRED)
+Max absolute difference among violations: 3.77475828e-15
+Max relative difference among violations: 3.77475828e-15
+ ACTUAL: array([[ 1.000000e+00,  1.587302e-02, -1.587302e-02, ...,  2.519526e-04,
+        -2.519526e-04,  2.519526e-04],
+       [ 1.587302e-02,  1.000000e+00,  1.587302e-02, ..., -2.519526e-04,...
+ DESIRED: array([[ 1.000000e+00,  1.587302e-02, -1.587302e-02, ...,  2.519526e-04,
+        -2.519526e-04,  2.519526e-04],
+       [ 1.587302e-02,  1.000000e+00,  1.587302e-02, ..., -2.519526e-04,...

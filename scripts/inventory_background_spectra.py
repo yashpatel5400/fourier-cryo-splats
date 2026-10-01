@@ -9,7 +9,7 @@ from scipy.fft import dctn
 from scipy.linalg import solve_triangular
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'results/uncertainty/development/background-spectrum-inventory-v1'
+OUT=ROOT/'results/uncertainty/development/background-spectrum-inventory-v2'
 
 
 def sha(path):
@@ -48,7 +48,8 @@ def main():
     # Independent Fourier basis, matching the original 64-pixel output grid.
     freq=np.arange(-31,32);f=np.exp(2j*np.pi*np.arange(8)[:,None]*freq/64)/np.sqrt(63)
     direct=np.kron((f@f.conj().T).real,(f@f.conj().T).real)
-    np.testing.assert_allclose(direct,ref,atol=2e-15,rtol=0)
+    # The explicit 63-term complex sum accumulates a few ulps at its diagonal.
+    np.testing.assert_allclose(direct,ref,atol=1e-13,rtol=0)
     result=dict(complete=False,sources={p:sha(ROOT/p) for p in sources},git_head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         reference_maximum_fourier_difference=float(abs(direct-ref).max()),datasets=[])
     def save():(OUT/'summary.json').write_text(json.dumps(result,indent=2)+'\n')
