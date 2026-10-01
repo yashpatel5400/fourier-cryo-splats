@@ -432,6 +432,7 @@ def main():
              ROOT/'paper/figures/cryolike-comparison.json',
              ROOT/'paper/figures/cubic-design-comparison.json',
              ROOT/'paper/figures/registered-reconstruction-fsc.json',
+             *sorted((ROOT/'paper/figures').glob('reconstruction-slices-*.json')),
              *sorted((ROOT/'results/uncertainty/development/cubic-preconditioner-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development/relion-runtime-probe').glob('*.json')),
              *sorted((ROOT/'results/uncertainty/development').glob('relion-reconstruction-*/*/*.json')),
