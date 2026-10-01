@@ -34,7 +34,18 @@ def main():
                 out[k+'_redacted']=record;redacted.append(dict(field=k,**record))
             else:out[k]=clean(v)
         return out
-    safe=[clean(e) for e in events]
+    safe=[]
+    private_events=0
+    for event in events:
+        if event.get('type') in ['assistant','result']:
+            safe.append(clean(event))
+        else:
+            # Provider-internal continuations can contain unrequested context;
+            # retain their identity/hash without exposing their contents.
+            serialized=json.dumps(event,sort_keys=True,ensure_ascii=False).encode()
+            safe.append(dict(type=event.get('type'),subtype=event.get('subtype'),
+                private_event_content_omitted=True,sha256=digest(serialized),bytes=len(serialized)))
+            private_events+=1
     text=[]
     for event in events:
         if event.get('type')=='assistant':
@@ -48,6 +59,7 @@ def main():
         exact_model='claude-fable-5-1',event_count=len(events),assistant_text_blocks=len(text),
         assistant_text_matches_terminal_result=joined.strip()==result['result'].strip(),
         reasoning_blocks_or_fields_redacted=len(redacted),
+        non_assistant_provider_events_redacted=private_events,
         final_result_sha256=digest(result['result'].encode()),
         public_files={p.name:dict(bytes=p.stat().st_size,sha256=digest(p.read_bytes())) for p in targets[:2]})
     targets[2].write_text(json.dumps(audit,indent=2)+'\n')
