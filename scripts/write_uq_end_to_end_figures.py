@@ -60,7 +60,9 @@ def main():
     report += ['', 'A no-data fallback can provide coverage without using inference images or resolving a sign. The deterministic pose construction is simulation-assisted and its marginal tolerance guarantee averages over calibration datasets. Mixed intervals retain unverified conditional centering for estimated designs. These results do not calibrate experimental density coverage or repeat global ab initio reconstruction.']
     (ROOT/'research/uncertainty/END-TO-END-LOCAL-POSE-RESULTS.md').write_text('\n'.join(report)+'\n')
     for template in TEMPLATES:
-        fig,axes=plt.subplots(2,2,figsize=(13,7),constrained_layout=True)
+        # Draw close to the final two-column print width so labels remain
+        # legible when the ICML template scales the PDF to textwidth.
+        fig,axes=plt.subplots(2,2,figsize=(7.2,6.2),constrained_layout=True)
         configs=[('same_image','raw_covered','Same-image raw coverage',0,1),
                  ('independent_image','raw_covered','Independent-image raw coverage',0,1),
                  ('independent_image','covered','Independent-image selected coverage',0,1),
@@ -71,14 +73,15 @@ def main():
                 for target in TARGETS:
                     matrix.append([lookup[ds,template,target,m,mode][metric]['median' if metric=='relative_half_width' else 'fraction'] for m in METHODS])
             a=np.array(matrix);im=ax.imshow(a,aspect='auto',vmin=lo,vmax=hi,cmap='viridis')
-            ax.set_xticks(range(9),LABELS,rotation=45,ha='right',fontsize=8)
-            ax.set_yticks(range(6),[f'{ds} {"C" if t=="center" else "Z"}' for ds in DATASETS for t in TARGETS],fontsize=8)
-            ax.set_title(title,fontsize=10)
+            ax.set_xticks(range(9),LABELS,rotation=60,ha='right',fontsize=7)
+            ax.set_yticks(range(6),[f'{ds} {"C" if t=="center" else "Z"}' for ds in DATASETS for t in TARGETS],fontsize=7)
+            ax.set_title(title,fontsize=8)
             for i in range(6):
                 for j in range(9):
-                    ax.text(j,i,f'{a[i,j]:.2f}',ha='center',va='center',fontsize=7,color='white' if a[i,j]<(hi-lo)/2 else 'black')
-            fig.colorbar(im,ax=ax,shrink=.7)
-        fig.suptitle(('Oracle-reference' if template=='oracle_reference' else 'Independent-pilot')+' alignment: 200 paired noisy datasets per geometry',fontsize=12)
+                    ax.text(j,i,f'{a[i,j]:.2f}',ha='center',va='center',fontsize=6.5,color='white' if a[i,j]<(hi-lo)/2 else 'black')
+            colorbar=fig.colorbar(im,ax=ax,shrink=.7)
+            colorbar.ax.tick_params(labelsize=7)
+        fig.suptitle(('Oracle-reference' if template=='oracle_reference' else 'Independent-pilot')+' alignment: 200 paired datasets per geometry',fontsize=9)
         for suffix in ['pdf','png']:
             fig.savefig(ROOT/f'paper/figures/end-to-end-{template}.{suffix}',dpi=150)
         plt.close(fig)

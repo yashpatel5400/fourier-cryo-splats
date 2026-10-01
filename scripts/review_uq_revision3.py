@@ -453,6 +453,7 @@ def main():
         'SHARP-NORMAL-ENVELOPE-NOTE.md',
         'ALIGNMENT-INDEPENDENCE-READING.md', 'CLASSICAL-INFERENCE-READING-NOTE.md',
         'ADJACENT-UQ-FOLLOWUP.md', 'adjacent-uq-followup-sources.json',
+        'PASR-VALIDATION-READING.md', 'pasr-reading-source.json',
         'MOVIE-SPLIT-READING-NOTE.md', 'RAW-MOVIE-PILOT-PROTOCOL.md'])
     for study in ['local-alignment-calibration-v1', 'end-to-end-local-pose-v1',
                   'end-to-end-local-pose-summary-v1', 'continuous-gaussian-review2-v1',
