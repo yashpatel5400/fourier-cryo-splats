@@ -44,6 +44,13 @@ biological state labels. The proposed method is not being built on these
 compact regions. The one permitted numerical repair is separate from that
 scientific decision; no fifth full-paper acceptance verdict is claimed.
 
+The [final catalogue integration repair](research/uncertainty/CATALOG-POSE-INTEGRATION-RESULTS.md)
+passes on all three stacks (128/128, 124/128 and 119/128 images within the
+unchanged tolerance). All 384 cases and independent checks are complete.
+The numerical branch ends here. A simulation-only planted-truth audit exposes
+why agreement of two banks is insufficient to certify absolute integrals;
+this computational pass does not validate experimental uncertainty.
+
 The separate [author-code population baseline replay](research/uncertainty/POPULATION-BASELINE-REPLAY-RESULTS.md)
 completes all 23 published two-state conditions. It retains numerical
 discrepancies and independently verifies the optimizer; it reuses released

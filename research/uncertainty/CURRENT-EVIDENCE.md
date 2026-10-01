@@ -43,8 +43,9 @@ conditional moment variances agree to floating-point precision. The [saved
 event decomposition](SAVED-EVENT-DECOMPOSITION.md) identifies the actual outer
 calibration and viewing-cap increments; finite-inner-replication bias is not
 separately identifiable from those archived quantities. The moment branch
-remains frozen. A likelihood direction must first pass an integration gate;
-none of these diagnostics establishes experimental uncertainty calibration.
+remains frozen. The later catalogue repair passes its necessary integration
+gate, as recorded below; none of these diagnostics establishes experimental
+uncertainty calibration.
 
 | Question | Completed evidence | Practical limit |
 |---|---|---|
@@ -145,6 +146,12 @@ finishes all 384 observed images: 10028 passes, while 10049 and 10076 fail the
 fixed between-bank tolerance criterion. Every integral/proposal summary and
 selected physical residuals replay independently. See the [complete gate
 report](ADAPTIVE-POSE-INTEGRATION-RESULTS.md). One substantive numerical
-revision remains possible under the existing stopping rule. A focused Fable
-methods consultation is running; no new statistical test or full review is
-claimed.
+revision was permitted under the existing stopping rule. That [final catalogue
+repair](CATALOG-POSE-INTEGRATION-RESULTS.md) is now complete and passes on all
+three stacks: 128/128, 124/128 and 119/128 images within tolerance. All 384
+cases, proposal-density subsets and direct physical checks independently
+replay. Both attempts receive the [planted-truth audit](PLANTED-TRUTH-INTEGRATION-AUDIT.md);
+its stochastic brackets concern matched simulation only. The numerical branch
+ends here, while the population-method gate fails as stated above. The
+focused consultation has completed; no new statistical test, experimental
+coverage or fifth full-paper review is claimed.

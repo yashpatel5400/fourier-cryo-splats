@@ -105,3 +105,29 @@ error, template error, nuisance calibration and biological interpretation
 would still require evidence. G2/G3 are contingent suggestions, not completed
 experiments or promised acceptance. Existing Mac compute is sufficient for
 the current arithmetic and numerical diagnostics; no GPU rental is requested.
+
+## Completed outcome update
+
+The [population screen](../../POPULATION-MATERIALITY-RESULTS.md) completes all
+thirty prelisted comparisons and fails materiality on all three primary grids.
+The largest absolute modeled biases are .000214 / .000122 / .003493. All
+harmonic surrogate values pass, but no pair reaches .02 bias. Independent
+direct expected-score integration, metadata-bin replay and later-batch physical
+projection checks reproduce the results. Under the frozen stop, the proposed
+method is not built on these compact regions.
+
+The [single catalogue repair](../../CATALOG-POSE-INTEGRATION-RESULTS.md) passes
+the unchanged numerical gate on all three stacks. All 384 cases complete and
+are retained, with 13 individual ratio-tolerance failures. Its lower-decile
+ESS also exceeds the consultation's secondary suggestions. The saved-draw
+autopsy finds no clipped original Hessian eigenvalues; a matching-state
+planted point changes an old within-tolerance 10076 log integral by as much
+as 1.50, reduced to .0626 after repair. This is sensitivity evidence, not
+knowledge of the exact integral. The numerical branch ends without a third
+revision. Neither outcome changes the full-review rejection.
+
+An additional [analytic observation](../../AMPLITUDE-UNBIASED-SCORE-OBSTRUCTION.md)
+shows why a bounded feature score cannot be exactly unbiased for both states
+over arbitrary nontrivial continuous amplitude intervals, even at known pose.
+It does not rule out approximate bias-aware inference, establish a convergence
+rate or claim novelty. Response bias must remain explicit.
