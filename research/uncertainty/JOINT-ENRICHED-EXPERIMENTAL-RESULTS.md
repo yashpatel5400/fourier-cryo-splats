@@ -33,4 +33,3 @@ The computation takes .383 seconds after fitting and reuses the recorded arrays.
 its integrity record verifies all 23 inputs, 70 source snapshots and the output
 arrays. Figure `cubic-design-comparison` displays all five cubic designs, both
 simulation frames, and both experimental calibration procedures.
-

@@ -32,4 +32,3 @@ The result and exact arrays are in `joint-cubic-design-probe`; the integrity
 record verifies 74 source snapshots and both improving checkpoint arrays.
 The separately declared real-image application is reported in
 [JOINT-ENRICHED-EXPERIMENTAL-RESULTS.md](JOINT-ENRICHED-EXPERIMENTAL-RESULTS.md).
-

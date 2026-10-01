@@ -1,0 +1,780 @@
+{
+  "version": "v0.6.2-dev",
+  "required_prior_arrays": [
+    "v0.6.0-dev validation-arrays bundle",
+    "v0.6.1-dev registered-centered increment",
+    "v0.2.0-dev earlier model bundle where required by baseline reproduction"
+  ],
+  "scope": "Completed post-v0.6.1 experiments: all three projected-calibration arrays; enriched and joint cubic final/checkpoint arrays; all four new experimental intervals; later RELION evaluation arrays/curves; native RELION half maps and every saved v3 model-diagnostic STAR file for all three stacks. Includes derived Fourier observations of public EMPIAR particles; no third-party papers or full original stacks. Negative outcomes retained. Not independent experimental calibration or an acceptance-ready result.",
+  "reproduction": "Extract at repository root after verifying digest and prior bundles. Completed JSON records and exact source snapshots live in Git. See research/uncertainty/REPRODUCE-DEVELOPMENT.md. No overwrite of historical experiment outputs is authorized by the reproduction examples.",
+  "files": [
+    {
+      "path": "results/uncertainty/development/projected-noise-calibration-v1/10028-arrays.npz",
+      "sha256": "b88ce97645803033208b81016e98400e98c5f1f2117f7716247c85f755f0b257",
+      "owner": "results/uncertainty/development/projected-noise-calibration-v1/10028.json",
+      "owner_sha256": "c317c4628f52408f4c26c449bd678ff6cb558a3bfd834fbaf051a31698cea953"
+    },
+    {
+      "path": "results/uncertainty/development/projected-noise-calibration-v1/10049-arrays.npz",
+      "sha256": "751388a5ef28141c149326ed004816113159973d0ef807cea32f110252a99860",
+      "owner": "results/uncertainty/development/projected-noise-calibration-v1/10049.json",
+      "owner_sha256": "ac621398fde0f65803a27c1f15a3c61641cd67ea206ca4ffc5de8876a0197a24"
+    },
+    {
+      "path": "results/uncertainty/development/projected-noise-calibration-v1/10076-arrays.npz",
+      "sha256": "f3c1d4724a4b7da21e6d9d2c7733eed58b48b0ecd6347d1aa0c2c357031b21c1",
+      "owner": "results/uncertainty/development/projected-noise-calibration-v1/10076.json",
+      "owner_sha256": "8c754c7d26f1fc35d431570c57be0d616d8888ae447600b02825be5609fd1cdd"
+    },
+    {
+      "path": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1.npz",
+      "sha256": "7d2b0905fc0356c7ad1366052a728429a866f2a1c84d15992c016b52b698c647",
+      "owner": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "d12fad02a3e5318a9fb98929b531385cc4e5dcae8e4914666864bbdc4baf17f5"
+    },
+    {
+      "path": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1-eval-0001.npz",
+      "sha256": "4708fe7dcc43f7c378bd7b43774fb39ea313be7013bf31185e969d2901f6048f",
+      "owner": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "d12fad02a3e5318a9fb98929b531385cc4e5dcae8e4914666864bbdc4baf17f5"
+    },
+    {
+      "path": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1-eval-0003.npz",
+      "sha256": "7230afa7075e513c09ff090a87ffd4284ab17c79f478af22001236948c711b51",
+      "owner": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "d12fad02a3e5318a9fb98929b531385cc4e5dcae8e4914666864bbdc4baf17f5"
+    },
+    {
+      "path": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1-eval-0005.npz",
+      "sha256": "42a5cb2626a077a8a325c2786d9a16de01ab3bd32725cc27295f9820ccd1e3b3",
+      "owner": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "d12fad02a3e5318a9fb98929b531385cc4e5dcae8e4914666864bbdc4baf17f5"
+    },
+    {
+      "path": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1-eval-0006.npz",
+      "sha256": "1992421ad3230626e13cbf64c788795ddb24f6718009da7e69dbe4e75589213e",
+      "owner": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "d12fad02a3e5318a9fb98929b531385cc4e5dcae8e4914666864bbdc4baf17f5"
+    },
+    {
+      "path": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1-eval-0007.npz",
+      "sha256": "2057ab0f67f9868a31ca605a75ece1a5730d390b2879b72bfec8d3641e9aa0fa",
+      "owner": "results/uncertainty/development/cubic-enrichment-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "d12fad02a3e5318a9fb98929b531385cc4e5dcae8e4914666864bbdc4baf17f5"
+    },
+    {
+      "path": "results/uncertainty/development/joint-cubic-design-probe/10049-pilot_region_1-1.npz",
+      "sha256": "a2cbacc0fd325ba67c2f11a810a4d0df4b5f45d33fa29a4c43256f5e0e9017e7",
+      "owner": "results/uncertainty/development/joint-cubic-design-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "512ab94d6600fc3995ef06799bb5993b4eb65facea4408d78f24162d22a3312c"
+    },
+    {
+      "path": "results/uncertainty/development/joint-cubic-design-probe/10049-pilot_region_1-1-eval-0001.npz",
+      "sha256": "1e16754ae31b207810ca5c1700d3c943c236291cff939f6b3da6786a82f24ea2",
+      "owner": "results/uncertainty/development/joint-cubic-design-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "512ab94d6600fc3995ef06799bb5993b4eb65facea4408d78f24162d22a3312c"
+    },
+    {
+      "path": "results/uncertainty/development/joint-cubic-design-probe/10049-pilot_region_1-1-eval-0002.npz",
+      "sha256": "4a3924d46d566c95083a9fdedb067d1aee1aa54f72485415076aeb4e27cfbfac",
+      "owner": "results/uncertainty/development/joint-cubic-design-probe/10049-pilot_region_1-1.json",
+      "owner_sha256": "512ab94d6600fc3995ef06799bb5993b4eb65facea4408d78f24162d22a3312c"
+    },
+    {
+      "path": "results/uncertainty/development/joint-enriched-experimental-v1/10049-arrays.npz",
+      "sha256": "dd9c3d9c4307f6bd52da0492e0b69159b228a0a4735c2c31642047c10dff37c6",
+      "owner": "results/uncertainty/development/joint-enriched-experimental-v1/10049.json",
+      "owner_sha256": "180a553e5a26307307444f154cf40a7c6645be2998c0d4d58e6b4ddacc3dd9f9"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_half1_class001_unfil.mrc",
+      "sha256": "e710fda617529157cf13a3bd9d38ba0b3af2a5b818a30ca9a8cb87be153eee21",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_half2_class001_unfil.mrc",
+      "sha256": "661ec28c0c748dbf232da64e26e9e53ffe3861b9aa507e2ee887631423b50e73",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/initial_it040_model.star",
+      "sha256": "6e26919416fbca9d1b197941358bb9b869e0228af8ff6954545934c0f7fcc4c5",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/initial_it050_model.star",
+      "sha256": "62750886860a9f6939be5d4e0c76f38ffea27bf6ca787f31132ce57c7a768f2d",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/initial_it060_model.star",
+      "sha256": "24d83aa50b83aa4ed5de439ee236270ae1be64bdded1e0fe0d704330a7fc7fa6",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/initial_it070_model.star",
+      "sha256": "5b3214dd698cd9a4b70ce3166ea04ea9eded729b08eb4a4d1590bd4661194fc6",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/initial_it080_model.star",
+      "sha256": "363047cf503db0219605a3a4908e0dab5b6a1834966b3669e9e48fd92a4f3b9c",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/initial_it090_model.star",
+      "sha256": "c53c456cd2068db5811557d13edcbabc481cdc403c45cc1473d336c162588b7a",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/initial_it100_model.star",
+      "sha256": "6cca5bbad272cbdf67fabde9fe9216d886dd14b336766a4c9cbe02af07b3be8e",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it000_half1_model.star",
+      "sha256": "ce566124318b88182f770eba144a2df3244b801a7e70aede65d1af56d4864315",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it000_half2_model.star",
+      "sha256": "9a6c39922d979b1b8904bb81c7428f42eb426170a5e91acc747205699c612b7b",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it001_half1_model.star",
+      "sha256": "90c94ac507e2b713b6c662b50a0068ec5232d9d9e8ecb2bc9785b7158345f854",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it001_half2_model.star",
+      "sha256": "702d93afc1fde27bad4523a1444f13d4956633e083fb97f88b0b07899b5657fb",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it002_half1_model.star",
+      "sha256": "fa606d59a1f00f111183bcbd4ee560605de9d1b9d3f3927d5647d90c1e2223ff",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it002_half2_model.star",
+      "sha256": "e23501f93d8e43df3f9400ad5bdf97f9d3dcfb24f7071f7afe9a46e976c033d6",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it003_half1_model.star",
+      "sha256": "a5042cc815841c0e14051a8c2787cb3a93ff8d4e9bdfad4c0d7b781806767881",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it003_half2_model.star",
+      "sha256": "01bd6b9eacb12693fd59fc7c5d190f49950f17601d387c2c7b952f00c1877161",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it004_half1_model.star",
+      "sha256": "c1fd9b4aeed5327da57bea69b8561af886935d2349d2e51d4d27d9c1dad52ddb",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it004_half2_model.star",
+      "sha256": "abb37c692dfc17eb97ec0ee7b32f2e9383cbd57f8c13fba1089ce76562870572",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it005_half1_model.star",
+      "sha256": "0fdf4d336fb6dbb15a32f5cec6cb8b7cd062ab31590961e85844dabbcfc428f8",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it005_half2_model.star",
+      "sha256": "4aa948b10ff0102d3955907e759ddc97023d1426ecb592c44d6e61066a3efe7e",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it006_half1_model.star",
+      "sha256": "4673375c2bcede09a5aacdef201b444cec2992cc0569289d2434daa50c58ac8a",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it006_half2_model.star",
+      "sha256": "bdb666f6b4a864e8bf40ac1fafbb367a99411fd8226151f48076befdd8bfdd0a",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it007_half1_model.star",
+      "sha256": "71933ea686c07494405363fd4171270d7197f6495e429069519c2012f53c51d1",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it007_half2_model.star",
+      "sha256": "19c21258db06bf93944cfa9864047b5dffa2f53918d9558958b8e66981d780b6",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it008_half1_model.star",
+      "sha256": "1860bf98adb27608171aae1aa08ad9eff061e5c4edfa715d2d513426b317840a",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it008_half2_model.star",
+      "sha256": "917f0330af335316bdd6499641acda14fd486a7ee0bc996ffcd197f6411f6e72",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it009_half1_model.star",
+      "sha256": "2d236305fc5dad4efca0669c595dc2563edb089b15f730c91e5b479c9fa0d971",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it009_half2_model.star",
+      "sha256": "15d0e1c71fc334cec917951cc2837b2677d1678c0b810121821a9f375d951342",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it010_half1_model.star",
+      "sha256": "c4d0b54217f5112ab5952ce9da0825d76099fefb11174ce8830c7f27d463014f",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it010_half2_model.star",
+      "sha256": "80032e8b3aae1fcf54575130d2f43579894f6f273502758cd7ddfa73530dde69",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it011_half1_model.star",
+      "sha256": "1d9c1efc03c947dcb58c74d8766af5a221f02921c9e477b877ddfe4a6c1a642a",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it011_half2_model.star",
+      "sha256": "e7d11044d9f09571bc6b15ef3600d9be07dd6d941f7aaa852f5986ad24bdbec4",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it012_half1_model.star",
+      "sha256": "b18990343e900a447ec2e3209c8ff71d153ddce2fbcd01b77d7acecf5f545e95",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it012_half2_model.star",
+      "sha256": "5e94b83166e546323429b14a721b1bcda7164376a11e2d698edd860d73ba36fd",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it013_half1_model.star",
+      "sha256": "6753ba6a77425ad5f21af11c0bd1882a20561988af858d500845621f1e05fc23",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it013_half2_model.star",
+      "sha256": "15ee401fd9d132a8939ffdefc47e49aed2e186cae5996356387f1509409ce981",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it014_half1_model.star",
+      "sha256": "e3d58d63a863b2eca9bdc37a5511652cde16e10faacc2556f29e9dc5e007761a",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_it014_half2_model.star",
+      "sha256": "b5b33d3767a987be6701d87abeb74bac223e0c22d786dc63683e450f276f0f14",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10028/refine_model.star",
+      "sha256": "e2294d88185580accaf642ab312f55bd03742064ddc32d05f7c5ebb6296809de",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10028/metrics.json",
+      "owner_sha256": "95e8b51176e03e4a69141fc96e3644386015d3f65e1b6b06e8ed61bdbc0be25f"
+    },
+    {
+      "path": "results/uncertainty/development/relion-evaluation-v2/10049/metrics-maps.npz",
+      "sha256": "55823a33c0b83494e77c0e65f594a2b92c50353bf240df61ba4d288f47e49ce4",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_half1_class001_unfil.mrc",
+      "sha256": "90b26b9ad66386fd9ca9fce4b035b2b1e9593de1c0790aafed907657f51d91f1",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_half2_class001_unfil.mrc",
+      "sha256": "e6689f9ced3abc6386920568fe227872c0551aafaa867754b6e2160f0fd68e2a",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/initial_it040_model.star",
+      "sha256": "3c8f6d42826707639b179934a3460ce5756932d01023ce72af14c757571a0757",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/initial_it050_model.star",
+      "sha256": "a0c879bf42782c2ea027fe245a81eaa41ac9cc13ff091b27819a435443d4d64b",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/initial_it060_model.star",
+      "sha256": "499eb3092fb5258479f1769f8ef442dbbcf639d3fa27285f94ede3c42b46ebe8",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/initial_it070_model.star",
+      "sha256": "be332e0b14c8938ad4b65457f02db498c94612b6abe56349c02630ea866c58fa",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/initial_it080_model.star",
+      "sha256": "e713aa29ba0165752a90453eeb9c179c9c662408ae435b50a1b6cf4977aff326",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/initial_it090_model.star",
+      "sha256": "ac86c47a37d8a1a087673f80264b5995425efa3e0147d2b4042461a0399fcd6c",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/initial_it100_model.star",
+      "sha256": "a3b73b4cd102da1edaad770fd03708708bac56a485bce20111e1af6d7cdd8bac",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it000_half1_model.star",
+      "sha256": "834f933d7e19f36e2906c47392c51c7e7614b8ef0b9b1c0a19628417af29e95f",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it000_half2_model.star",
+      "sha256": "277a65f0eab7aced46b0f3ba494df42c0cf754c7a0606d5c74c2a0f95117873a",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it001_half1_model.star",
+      "sha256": "3bf147ddd31cb17b0dafeec554790fe7afdc2423d582ff6e07ab59ea27ae7106",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it001_half2_model.star",
+      "sha256": "32146713fa370f69405ac8139be5b779947a4419b884177d4363a841fd1100e3",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it002_half1_model.star",
+      "sha256": "6125d1dfe17b58cb80121d4ef3808529855fd0453c430e8fa6ca1efd12320378",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it002_half2_model.star",
+      "sha256": "bbdf30bbdacc6671d01c01926f8b2f5fa068fb1ef8cb3923b79fb7a18f755497",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it003_half1_model.star",
+      "sha256": "5baf7bb8b00c41eae208f6d3f39b723f0103252ae7974184c08dffceb45bf04b",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it003_half2_model.star",
+      "sha256": "4ae8a387be96debe8eed7b7b855b5907a12086ebef3bdb9f2c78d9c7d666a720",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it004_half1_model.star",
+      "sha256": "7a411983fc6827db0feb7dc63f6c3658497655eb3c3435e01746c49750188902",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it004_half2_model.star",
+      "sha256": "58c1f6203adf5dd9b240fe5a2919f994981407f9deec1b69d40e448ab1e4694e",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it005_half1_model.star",
+      "sha256": "e32eda3920b6beba2267fcc1b859c44962af9e7c1cb2f88e5feb07a67556e6e5",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it005_half2_model.star",
+      "sha256": "2448a0357ce4a9c004339a6c7e833f3435da0428f2e4fb9640968b65bf15a6e6",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it006_half1_model.star",
+      "sha256": "4af61cc6de1a6bfe9e39319cb16a1b6ec0d631350e6c8b1aca4b9b9e6a75be4d",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it006_half2_model.star",
+      "sha256": "a99ada53a89a8af1be6ee2ea85450d3f8ca30aa69c1891ae3560ddc81c8606cb",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it007_half1_model.star",
+      "sha256": "6483c6f118ec03c1bc849f684123dd59be1b3e5d067204ee69aaed65ca89a6b0",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_it007_half2_model.star",
+      "sha256": "937b621576da087b111adfe7ac49245a11d38ea559775e7c557d91e92af2df87",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10049/refine_model.star",
+      "sha256": "503afa2dbe66df8bb043cf1a735f97cfe5b1a3f6ee937d53ac1179e901e99ea8",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10049/metrics.json",
+      "owner_sha256": "c28321ff663df386aedf34279f6c923540d7c0b18aef24efe1b92718aa75f6ee"
+    },
+    {
+      "path": "results/uncertainty/development/reference-registered-comparison-v1/10049-relion-curves.npz",
+      "sha256": "fb9139121a24978ee25f2f496a5a6e565f6d2e1363eeaddbecc3c18245cb01e8",
+      "owner": "results/uncertainty/development/reference-registered-comparison-v1/10049-relion.json",
+      "owner_sha256": "1914881fc2c28d5e2d77c9f563d5fa45daa19e11f09480bbbae4f84ac28856df"
+    },
+    {
+      "path": "results/uncertainty/development/relion-evaluation-v2/10076/metrics-maps.npz",
+      "sha256": "d2378113e17e17041158af2b93c887771ecf4d4532004d65f885805a17ce18dd",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_half1_class001_unfil.mrc",
+      "sha256": "d1027fbf2f9db063fa6c43107fede50c39df23bdc2f70c5ab01d94312b44077b",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_half2_class001_unfil.mrc",
+      "sha256": "66ea02866a2577b5b971cb079d31238e79e704ffa43cacb4942ab2ad67920a96",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/initial_it030_model.star",
+      "sha256": "9398159e5dce40bcb31af4ca5a3ee08525513e95ae9f1fccda6998bce229e4fc",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/initial_it040_model.star",
+      "sha256": "591bf9847afaf28b67f3588044a6737fa9c03ca80f97f1f94fae92ead663b61d",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/initial_it050_model.star",
+      "sha256": "fd68502e6061b69c1fb97eb2ca8b23c54c6486e5d2d371cfb725b68ce7f8b516",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/initial_it060_model.star",
+      "sha256": "ad4baeee989f788de9487f1d464848274c155758043efbefd73d1b45469debc5",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/initial_it070_model.star",
+      "sha256": "b8b11c4a8d7e57fe9a3dc0d9a079829df7d771a487399321c25489566ad9f03c",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/initial_it080_model.star",
+      "sha256": "f7b986b3e8349387094037fb4e4493ee56a6e19b60c22ed7fbecb5ef8dfef092",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/initial_it090_model.star",
+      "sha256": "01b8a7f63b352c4e285092733ab480b1221e89562da9c1eab5a311489084b5a9",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/initial_it100_model.star",
+      "sha256": "a07d217f50305cb4bfd85ca861fcdbbd964ba55f130d429954c7b142b1d5bcbc",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it000_half1_model.star",
+      "sha256": "8c31fa79f8e69eb5d92bc3f95f80532e741f6cbcf53934d4fe2452b8f23b416b",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it000_half2_model.star",
+      "sha256": "2ec0b7b3f728c7c29addda6c586c8468e0bf76f07e8ef0a2d6ea417600c31901",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it001_half1_model.star",
+      "sha256": "29915d848bde9f08b5f021ce4975d09102f90502450b36e093d5ae6d1d39e201",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it001_half2_model.star",
+      "sha256": "8d068e8f29dc98330959635d8882d68ab833f661f39d23c9714d443b268c77b6",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it002_half1_model.star",
+      "sha256": "0a9c910508e8b5dde6c411adb477fe79953bfb29949df6e40002a49cea2854e3",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it002_half2_model.star",
+      "sha256": "4f4dae179270af43ba0e393b8969441bf721e101216a01f2dabe1f76f4e84cd5",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it003_half1_model.star",
+      "sha256": "70ca0d3e620a1a631215e40e82418c37b063bb0b8f4a6b990480a9ac564eec69",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it003_half2_model.star",
+      "sha256": "b74df4a96bf7185b15912808daf23fd7182f0a5cbac21da2c6680adca85cc567",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it004_half1_model.star",
+      "sha256": "991031be40840c859ed1887b9e4546d4bbc1136a46b9f6ee3cb1aab92d4aa1f3",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it004_half2_model.star",
+      "sha256": "95a21e6497a2b64f38ba8ca8162528beeee0af3581be2d2dfa42f59033f7af39",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it005_half1_model.star",
+      "sha256": "39d78dc862422c22b089111a992865508a72cd6cbd02e9dc074ed7c90041c3a0",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it005_half2_model.star",
+      "sha256": "c16812ac4bf9396ee4f958582211f1159c9fb826d6229397716d8dcb1f39de80",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it006_half1_model.star",
+      "sha256": "14c9435cfabd032d980fa06398917c755392c74c4debdb2fc2353f3cb82362f1",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it006_half2_model.star",
+      "sha256": "72b790632a33cdf21f86c7c69e917f44c7ff17d261cc5580a42ac4d75135d9ba",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it007_half1_model.star",
+      "sha256": "835ab57e8fa6aa3f28c86f4a8bfaa11595035e30b9bf1bd7fbf1c48d42dca2c9",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it007_half2_model.star",
+      "sha256": "0033aeb75d0214d74311b8f15674c7ae9526d61701eadbfc49bd5019071fd78f",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it008_half1_model.star",
+      "sha256": "dbb205b7f9ea3de49536aae8f978e7f70995f7d71279b9616e991f1a7d993e56",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it008_half2_model.star",
+      "sha256": "f79fcd6fff92800b5941e9ef447a9be96dbeead5222bde507e358f8850ea5c2f",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it009_half1_model.star",
+      "sha256": "065b1a08d33261a394dd79c7b2e18c2ed945e6cfb25812bcd34d70f0207c2330",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it009_half2_model.star",
+      "sha256": "dc59986f45c8594ee6942f0aa4678dd19dafed227c1e17d9f7f3d7717d255023",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it010_half1_model.star",
+      "sha256": "2137bef96fcc8ac62d5eebd5d989a661351a0d8c61adb8d934a0c6fb1df4feec",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it010_half2_model.star",
+      "sha256": "e4370fc93ea9b6ea13d81a7832f448d7c5801165c3aa18c4bf9892b9408c8309",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it011_half1_model.star",
+      "sha256": "807fbd4c27f2b1bea045d100c9cde202814a40fecbfc16951b84a80269ebe7ac",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it011_half2_model.star",
+      "sha256": "48a3a55315db28c2213905220d08032bf2449e1298d195293cc5d35d461a6b7c",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it012_half1_model.star",
+      "sha256": "e4d926903bd170283a6e68beba9d72ebaca653696a3e258bace705ebc4d88a43",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it012_half2_model.star",
+      "sha256": "fa94bf24e42002f060f625db8717bed632b5b4427b4e4d82c28603e6b710f9f2",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it013_half1_model.star",
+      "sha256": "c11bdc7f3be953bcd3ae96eab3506db0adb417e181c8eed660f0d07e63cce884",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it013_half2_model.star",
+      "sha256": "719ede8855e4328a01ff881c4824caf9d55bb0b3e662245fb851058b83e0565c",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it014_half1_model.star",
+      "sha256": "11183ecd8f4f2bae752d37813667ba9e8a39198129e29b5ab5413f29905aaa2e",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it014_half2_model.star",
+      "sha256": "c4b84361db2faf9df3c3515fb9a83816125633ba90bc617b6e6d90edb623f7a3",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it015_half1_model.star",
+      "sha256": "fdbe35133fcc0f1a263946409605090c2e4e85a4f5a537a18ad3a067715aeffc",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it015_half2_model.star",
+      "sha256": "2bbc9e9bfc145e4a125e3667ff360d20e6fa5505899a0f070e13fe7babba108e",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it016_half1_model.star",
+      "sha256": "79ffec3a6dabca850f4f2e588d71affa0ef530255002120548461aee3c20e8e1",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_it016_half2_model.star",
+      "sha256": "4b764ddd4e2e2df7ddb5de89d832e116d545339ac3b2356c668c634465f40c8c",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/relion-reconstruction-v3/10076/refine_model.star",
+      "sha256": "1a78b63b3022ad9e33ab42fe30b63cf9aa7d692dcd6e7c245756a847b730afdf",
+      "owner": "results/uncertainty/development/relion-evaluation-v2/10076/metrics.json",
+      "owner_sha256": "35b0bb295cd5600debe1e3ae176fdc291121d359377ae391209c5a0e85affc0c"
+    },
+    {
+      "path": "results/uncertainty/development/reference-registered-comparison-v1/10076-relion-curves.npz",
+      "sha256": "b5585e481b95dd878657856299de9215569fc1ba7401a1fc4955bd567bb5061e",
+      "owner": "results/uncertainty/development/reference-registered-comparison-v1/10076-relion.json",
+      "owner_sha256": "ada98b1dab8ba6551d4dadd8629c970d71f42cc08cd88a89781ad020c5b9212f"
+    }
+  ]
+}
