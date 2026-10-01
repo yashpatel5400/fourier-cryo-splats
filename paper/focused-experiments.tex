@@ -1,0 +1,194 @@
+\section{Experimental Protocols and Complete Reporting}\label{app:experiments}
+\subsection{Data provenance and independence}
+The project downloads experimental particles and metadata from EMPIAR and
+reference maps from EMDB. Exact URLs, selected indices, file hashes, signs,
+physical fields and software versions accompany each artifact. EMPIAR-10028,
+10049 and 10076 supply three distinct acquisition geometries, not three
+independent repetitions of a molecular population. Reference maps are
+approximate external structures used as simulation generators and agreement
+comparators. Pilot-only frame/hand registration is frozen before the
+registered replay; the same maps in their original frame remain reported.
+Registration does not turn a map into experimental ground truth.
+
+Particle splits use acquisition groups. Within the existing particle
+cohorts, poses and CTF metadata may derive from full-data processing; a
+particle split does not undo this dependence. The noise-calibration
+experiment acquires 128 additional exposures per stack after locking the
+estimators and 116 calibration-related files. Its density interval centers
+had already been inspected, and the common covariance and transfer
+assumptions remain unverified. Selection of the three pilot regions and
+matched center precedes those fresh calibration images, but the full
+project is development research rather than a prospectively blinded
+experimental confirmation.
+
+EMPIAR-10076 contains assembly intermediates. A homogeneous simulation
+using registered EMD-8434 Class A is a legitimate fixed-generator test but
+is not ground truth for its heterogeneous experimental stack. All biological
+interpretations of those experimental consensus features retain this limit.
+
+\subsection{Registered representation replay}
+The twelve original dictionary examples use two targets and two widths on
+each geometry. Existing weights exactly replay their archived widths, biases
+and analytic coverages before the reference frame is changed; the maximum
+stored discrepancy is zero. Native versus two-stage resampling changes the
+original generator's projections by at most $2.15\times10^{-7}$ relatively.
+There is no refit to favor the registered comparison.
+\IfFileExists{tables/registered-dictionary-replay.tex}{\input{tables/registered-dictionary-replay.tex}}{}
+The finite ambient audit and the continuous audit concern different declared
+spaces. Both illustrate representation sensitivity, but an ambient-voxel
+result is not relabeled a continuous theorem. Near-unit coverage on a
+particular generator can coexist with wide or biologically unhelpful intervals.
+
+\subsection{Matched continuous Gaussian comparison}
+The frozen comparison has 128 particles per geometry, frequency radius 12,
+geometry seed 609315, order-80 quadrature, and 20\,\AA\ targets. It uses the
+same twelve pilot-locked locations as the continuous audit, $B=2$, prior
+scales 2 and 1, and $\alpha=.05/12$. Fixed-pose covariance is identity after
+supplied whitening. The local-Gaussian alternative uses the actual
+continuous pilot Jacobian, with coordinate SDs $1^\circ$ and .5\,\AA.
+This is a first-order working model, not the bounded nonlinear pose class.
+
+For each of 48 fits, both original and registered generators are projected
+at nominal poses and at all six declared perturbations: rotation scales
+0, 1 and 2 degrees, each with coherent and random-boundary directions and
+translation scale .5\,\AA. The zero-degree perturbation setting can still
+include shifts and differs from the nominal case. Conditional fixed-signal
+coverage and correct-sign probability are computed from their exact scalar
+Gaussian laws under the supplied noise. These are not end-to-end coverage
+experiments. All 672 fit/frame/scenario evaluations are retained.
+
+The initial rank-1,024 implementation was interrupted after four fits, all
+nonconverged at the 2,000-iteration limit. Its first residual was about
+$1.04\times10^{-5}$ and a residual-based variance-gap diagnostic was about
+9\%. Its JSON, weights, logs and incomplete flag are preserved. A numerical
+preflight, without new pixels or coverage selection, increased the
+preconditioner rank to 8,192: after 315 seconds of setup, the first system
+reached residual $9.50\times10^{-12}$ in three warm-started iterations.
+The declared complete rerun uses this rank, cached transforms, zero initial
+weights, one CPU thread, the same $10^{-10}$ tolerance and 2,000-iteration
+ceiling, and unchanged scientific settings. All convergence flags and
+variance-identity errors remain visible. This amendment is computational,
+not a replacement of an unfavorable statistical baseline.
+\IfFileExists{tables/continuous-gaussian-v2-detail.tex}{\input{tables/continuous-gaussian-v2-detail.tex}}{}
+
+\subsection{Local-pose refitting study}
+The calibration seed root is 261001; the test root is 261002. Each is
+combined with dataset identifier and replicate index using NumPy's seed
+sequence. Calibration contains 128 datasets per geometry; testing has
+exactly 200. New alignment noise, inference noise and local initialization
+are independently drawn for each replicate. Templates, truth and acquisition
+geometry remain fixed. All templates, targets, methods and image controls
+within that replicate are paired, not independent observations.
+
+The optimizer uses the frozen ten-iteration Gauss--Newton procedure and its
+unchanged step/search constraints. Oracle-template and independent-pilot
+fits share the noisy alignment images and initialization. Pose search is
+local around near-truth initialization; we do not claim global orientation
+discovery. Estimated translations dephase both observation controls and
+estimated rotations define a new Fourier Gram. Every interval weight is
+recomputed. The affine inference pilot remains the independent pilot even
+when the alignment template is oracle truth. Thus the oracle control
+isolates reference quality for alignment, not an oracle density estimator.
+
+Fixed-audit weights minimize the sum objective with 100 maximum iterations
+and relative-gap target .005. Gaussian fits use relative CG tolerance
+$10^{-10}$ and at most 2,000 iterations. Quadrature order is 40 and
+preconditioner rank 1,024. Local-Gaussian pose SDs are calibration RMS errors
+per coordinate, without removing mean error. These differ from the fixed
+$1^\circ$/.5\,\AA\ values in the separate radius-12 comparison.
+
+All nine procedures, both targets, both templates and both image controls
+give 72 interval cells per replicate. The first five procedures retain raw
+and no-data-selected results; all four Gaussian procedures are reported
+raw. Selection compares widths using the fitted design, not the inference
+value. When the no-data interval wins, both center and width switch to the
+pilot/class interval. It can obtain coverage with no sign information, so
+fallback rate and raw outcomes must accompany selected coverage.
+
+Every attempted replicate writes a JSON and arrays, including partial
+arrays and exception text on failure. Failed trials remain in the planned
+denominator of 200. A completed replicate must contain all 72 unique cells.
+Summaries require all 200 attempts and recheck hashes of every JSON, array
+and calibration input. Exact binomial 95\% intervals quantify Monte Carlo
+uncertainty separately for each procedure; they are not simultaneous
+confidence bands over all displayed comparisons. Width summaries use the
+available outcomes and report their count. Paired image-control discordance
+counts and center differences are retained. Empirical cross-particle
+correlations and mean errors are unconditional diagnostics, not tests that
+establish conditional-on-design centering.
+\IfFileExists{tables/end-to-end-detail.tex}{\input{tables/end-to-end-detail.tex}}{}
+
+\subsection{Experimental breakdown analysis}
+For each fixed estimator, the stored pilot, density-radius coefficient,
+pose remainder and noise scale determine a width as $B$ or measurement SD
+is varied. The reporting script reconstructs the stored $B=2$ result to
+$10^{-9}$ tolerance before solving where the interval first contains zero.
+It reports all 96 feature/pose/calibration combinations; it does not refit
+weights at each radius. A breakdown of zero means the feature already
+fails sign exclusion at zero radius or noise. It is not evidence that the
+true density radius is zero.
+
+At one degree, every retained fixed-weight bias bound already exceeds the
+observed center at zero measurement SD. At fixed poses, centered-calibration
+10028 breakdowns range from 2.877 to 4.868. These sensitivities measure how
+far an assumed input can move before a reported conclusion changes; they
+do not estimate that input or validate the common-noise law. The inference
+centers were known before this analysis. All raw/selected widths,
+no-data-fallback flags and registered-reference disagreements remain saved.
+\IfFileExists{tables/breakdown-radii.tex}{\input{tables/breakdown-radii.tex}}{}
+
+\subsection{Reconstruction baselines and FSC interpretation}
+Stock cryoDRGN 4.3.1 homogeneous training uses supplied consensus poses,
+three hidden layers of width 256 and batch size eight, separately on both
+exposure-group halves of each stack. These are actual neural fits, not
+backprojection, but are not ab initio CryoDRGN-AI or uncertainty inference.
+Gaussian and voxel ridge fits use those same halves. Held-out image scoring
+uses identical particles, 1,410 Fourier pairs per image inside radius 30
+of a 64-pixel grid, and the same window/background normalization. Stock
+neural training uses its radius-32 loss and per-half global scale, so the
+training objectives differ. Tuning-group prediction error selects epochs
+60, 50 and 100; two are final available checkpoints and undertraining
+remains possible. The development stopping budgets are not preregistered
+convergence criteria.
+\input{uncertainty-reconstruction-results}
+
+RELION 5.0.1 learns poses on all three stacks using a common prescribed
+initialization/refinement protocol, with exposure-half labels verified.
+Wall-limited initial attempts and separately declared continuations remain
+available. No checkpoint is chosen by reference FSC. Native half FSC is
+computed before map registration, unmasked, with the coupled low-frequency
+region displayed: RELION joins halves below $1/40$\,\AA$^{-1}$.
+Cross-method and external-reference FSC use the fixed pilot-only frame/hand
+transform, retaining interpolation and registration limits. All native and
+registered curves are provided, including poor agreement.
+
+For 10049, native FSC crosses .5 at 22.73\,\AA\ and .143 at
+18.95\,\AA. For 10076 these crossings are 24.73 and 15.92\,\AA.
+The registered-reference mean FSCs are .702, .202 and .122 for 10028,
+10049 and 10076. Mean FSC is a descriptive average over the recorded shells,
+not a resolution measure. The heterogeneous third stack and state-specific
+reference limit interpretation. Half-map agreement above a threshold
+through the sampled band is reported as censored at that limit, not an
+observed threshold crossing. Algorithmic convergence also does not establish
+structural accuracy.
+
+Original-code CryoLike likelihood scoring and held-out prediction provide
+additional image-fit context. A likelihood or FSC is not a confidence
+interval for the unknown true feature; we do not use those methods as if
+they promised such coverage. Conversely, weak reconstruction agreement is
+not hidden by reporting only an uncertainty diagnostic.
+
+\subsection{Raw-movie feasibility and remaining dependence}
+A separately declared acquisition pilot downloads one EMPIAR-10028 movie,
+\texttt{Micrographs\_part2/004\_movie.mrcs}, with 16 frames of
+$4096\times4096$ float32 pixels. The source-group mapping is supported by
+archive counts, acquisition date and nearby coordinates, but the deposited
+autopicks differ from final recentered coordinates. It is not labeled a
+fully verified new confirmatory cohort. Its initial analysis is restricted
+to all-frame acquisition statistics, a fixed patch grid, frame-difference
+spectra/correlations and unaligned odd/even sums. Differences can contain
+motion, dose signal and detector effects; they are not automatically pure
+noise or proof of frame independence. No density intervals result from this
+pilot. Any subsequent motion, picking, CTF or alignment pipeline requires
+its own declared processing graph and cannot claim independent inference
+noise while silently reusing full-movie-derived quantities.

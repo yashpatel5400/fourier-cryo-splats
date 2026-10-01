@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage{microtype,graphicx,booktabs,amsmath,amssymb,amsthm,hyperref}
+\usepackage[preprint]{icml2026}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\A}{\mathcal A}
+\icmltitlerunning{Representation and Alignment Uncertainty in Cryo-EM}
+\begin{document}
+\twocolumn[
+\icmltitle{Continuous Audits of Representation and\\Alignment Uncertainty in Cryo-EM}
+\begin{icmlauthorlist}\icmlauthor{Fourier Cryo Splats Project}{anon}\end{icmlauthorlist}
+\icmlaffiliation{anon}{Fourier Cryo Splats research project}
+\icmlcorrespondingauthor{Project repository}{\url{https://github.com/yashpatel5400/fourier-cryo-splats}}
+\icmlkeywords{cryo-EM, uncertainty quantification, inverse problems, validation}
+\vskip 0.2in]
+\printAffiliationsAndNotice{}
+\hypersetup{pdftitle={Continuous Audits of Representation and Alignment Uncertainty in Cryo-EM}}
+\begin{center}\small Research manuscript under development; not submitted.\end{center}
+
+\begin{abstract}
+Uncertainty in a cryogenic electron microscopy (cryo-EM) reconstruction depends on both its representation and its treatment of estimated alignments. We develop a continuous Fourier-slice audit for fixed linear density features, separating a convenient reconstruction model from the class over which uncertainty is assessed. Analytic adjoint integrals, matrix-free optimization, and explicit integration remainders permit an audit outside a Gaussian fitting dictionary. We distinguish deterministic pose errors from a conditional model of independent centered errors with a bounded shared component, and show why independent inference images alone do not establish the latter model. A matched continuous Gaussian-prior interval can share the fixed-pose uniform guarantee, so fixed-pose coverage is not an advantage over that baseline. Validation separates conditional calculations, a frozen study that re-estimates local poses and weights for every noisy replicate, and applications to three experimental stacks. Experimental interval centers were observed before fresh noise calibration; density, pose, and covariance assumptions remain unvalidated. This manuscript does not establish experimentally calibrated density coverage or an advantage at near-atomic resolution.
+\end{abstract}
+
+\section{Introduction}
+The relevant question for an uncertainty method is which claim its interval supports. A shell correlation, a posterior over conformations, and a local density confidence interval have different estimands and sampling assumptions. Modern neural and Gaussian reconstructions can represent detailed densities, but representational flexibility alone does not determine which features are supported by the observations. We study a specified local average or contrast of a homogeneous density, including the effect of uncertainty outside the representation used to fit a pilot.
+
+Two distinctions motivate the method. First, conditioning on a finite reconstruction dictionary removes possible density errors by assumption. An independent-half reconstruction can inherit the same omission. Second, an interval derived for a fixed Fourier-slice design need not remain valid after estimating that design from noisy particles. Separating alignment and inference observations removes one noise dependence, but does not make alignment errors centered conditional on the resulting design.
+
+Our contribution is an implemented continuous Fourier audit and a validation program that exposes these distinctions quantitatively. It specializes established bias-aware inference: the statistical coverage principle, norm duality, and Gaussian ridge representation are not new. The operator-specific work evaluates continuous residual and pose-derivative fields, controls quadrature in real arithmetic, and records when the resulting intervals are informative. The full study retains matched favorable baselines, numerical failures, and no-data fallbacks. A conditional guarantee is kept separate from evidence that its physical assumptions hold.
+
+\section{Related Work and the Uncertainty Target}
+Bayesian reconstruction is foundational in cryo-EM \citep{scheres2012}. Posterior ensembles from Gaussian pseudo-atoms \citep{joubert2015}, variational Fourier-slice density uncertainty \citep{ullrich2020}, and likelihood-Hessian soft modes \citep{rangan2024} directly precede our problem. The latter two already distinguish variance from model error and expose density--pose coupling. We compare against a continuous Gaussian prior with the same operator and directional scale rather than treating a weaker discretized prior as decisive evidence.
+
+CryoDRGN \citep{zhong2021} and ab initio neural reconstruction \citep{drgnai2025} address representation learning and structural recovery. Physical heterogeneity is not automatically uncertainty about one homogeneous density. Gaussian representations are also established \citep{chen2021,chen2025,qu2025,shekar2025,gaussianem2026}; their existence is not our novelty claim. Gaussian Fourier kernels provide our initial pilot, while the final audit does not require a Gaussian density dictionary.
+
+Gold-standard halves and noise substitution assess overfitting \citep{schereschen2012,chen2013}; confidence maps test signal significance \citep{beckers2019}; BioEM and independent-particle validation assess image fit \citep{bioem2013,independent2020}. Enhancement confidence can be calibrated against a proxy map \citep{locscale2026}, and conformal methods can cover an exchangeable population of signal--observation pairs \citep{narnhofer2024}. None should be scored as though it promised our fixed-signal density guarantee. The survey in Appendix~\ref{app:survey} separates these targets and identifies unresolved research questions.
+
+Resolving kernels \citep{backusgilbert1968}, optimal recovery \citep{donoho1994}, and honest bias-aware intervals \citep{armstrong2018} supply the statistical foundations. Moment methods can recover collective information without estimating every pose \citep{sharon2020,subspacemom2026}. Therefore, failure of a local pose audit is not an impossibility result for cryo-EM reconstruction.
+
+\section{Model, Feature, and Conditional Design}
+For Fourier convention $F(k)=\int\rho(x)e^{-2\pi i k^\top x}\,dx$, write a particle as
+\begin{equation}
+Y_i(q)=C_i(q)e^{-2\pi i q^\top t_i}F(E_iq)+\epsilon_i(q).
+\end{equation}
+$E_i$ embeds the detector plane, $C_i$ is the contrast transfer function (CTF), and frequency and shift units are reciprocal. We realify one representative of each conjugate pair. After specified whitening, the conditional nominal model is
+\begin{equation}\label{eq:conditionalmodel}
+y=\A_0\rho+d+\epsilon,\qquad \epsilon\sim N(0,I),
+\end{equation}
+where $d$ represents pose or other imaging error. The feature is $t=\ip{\ell}{\rho}$, with a stated coordinate frame and physical smoothing width. We use a Gaussian local average or signed difference of two averages.
+
+Let $H=L^2([-1/2,1/2]^3)$ and let an independent pilot $\rho_0$ define $\delta=\rho-\rho_0$, $\norm\delta_H\le B$. This supported continuous class is different from a finite voxel or Gaussian class. The norm radius is an assumption, not a consequence of a small data residual. The estimator is
+\begin{equation}\label{eq:affine}
+\widehat t=\ip{\ell}{\rho_0}+w^\top(y-\A_0\rho_0).
+\end{equation}
+For the basic theorem, the pilot, design, target, noise model, and weights are fixed independently of inference noise. Using consensus poses fitted to the same particles does not satisfy that premise. If separate alignment images determine the design, the theorem can instead be conditioned on those images, provided the inference noise and its processing have the specified conditional law.
+
+\section{Continuous Representation Audit}
+Put $h=\ell-\A_0^*w$, $s=\norm w$, and suppose $|w^\top d|\le b_{\rm pose}$. The total bias bound is
+\begin{equation}\label{eq:bias}
+b=B\norm h_H+b_{\rm pose}.
+\end{equation}
+Let $q(s,b,\alpha)$ solve
+\begin{equation}\label{eq:folded}
+\Phi((q-b)/s)-\Phi((-q-b)/s)=1-\alpha
+\end{equation}
+for $s>0$, and set $q(0,b,\alpha)=b$.
+
+\begin{theorem}[Fixed-design coverage]\label{thm:coverage}
+Under Equation~\eqref{eq:conditionalmodel}, with density and nuisance error fixed independently of inference noise, $\widehat t\pm q(s,b,\alpha)$ covers $t$ with probability at least $1-\alpha$, uniformly over the declared density and nuisance class.
+\end{theorem}
+\begin{proof}
+The error is $-\ip{h}{\delta}+w^\top d+w^\top\epsilon$. Its fixed absolute mean is at most $b$, and its Gaussian standard deviation is $s$. Symmetric Gaussian coverage decreases with absolute mean; Equation~\eqref{eq:folded} evaluates its minimum at $b$.
+\end{proof}
+The theorem is a classical bias-aware construction. A bias chosen adaptively as $b\operatorname{sign}(w^\top\epsilon)$ need not obey its folded-normal conclusion. The sum width $b+z_{1-\alpha/2}s$ handles a bounded adaptive bias when the noise projection itself remains fixed Gaussian, but not arbitrary data-dependent weights.
+
+\subsection{Auditing outside the fitting dictionary}
+If a reconstruction space has orthogonal projector $P_S$, a restricted calculation uses only $\norm{P_Sh}$. Orthogonality gives
+\begin{equation}\label{eq:omission}
+\norm h^2=\norm{P_Sh}^2+\norm{(I-P_S)h}^2.
+\end{equation}
+The second term is discarded uncertainty, even if the restricted residual is zero. Our audit evaluates the full continuous residual without estimating an omitted density direction from the inference images. It remains conditional on the declared support and norm class.
+
+On the unit cube, $K(v)=\prod_a\operatorname{sinc}(v_a)$. With $c_j=(w_{Rj}+iw_{Ij})C_j/\sigma$ and $f_w(x)=\operatorname{Re}\sum_j c_je^{2\pi i k_j^\top x}$,
+\begin{align}\label{eq:sincgram}
+\norm{f_w}^2=\tfrac12\operatorname{Re}\sum_{j,l}\{&c_j\overline c_l K(k_j-k_l)\nonumber\\
+&+c_jc_lK(k_j+k_l)\}.
+\end{align}
+Analytic Gaussian target integrals supply the remaining terms of $\norm{\ell-\A_0^*w}^2$. A matrix-free implementation quadratures only this known adjoint field, not the unknown density. Explicit integration remainders accompany primal residuals and dual feasibility. FINUFFT and rounding errors are checked numerically, not enclosed by interval arithmetic (Appendix~\ref{app:continuous}).
+
+\subsection{Design and a genuinely matched Gaussian baseline}
+We minimize the convex sum objective
+\begin{equation}\label{eq:sumobjective}
+z_{1-\alpha/2}\norm w+B\norm{\ell-\A_0^*w}
+\end{equation}
+before evaluating the sharper folded-normal width. A feasible dual supplies a stopping gap for this objective; it does not establish optimality of the reported folded-normal width. A no-data alternative uses center $\ip{\ell}{\rho_0}$ and half-width $B\norm\ell$. If selected using only design information, both center and width are replaced.
+
+Write $G=\A_0\A_0^*$ and $a=\A_0\ell$. A continuous isonormal Gaussian prior of directional scale $\tau$ gives
+\begin{align}
+w_\tau&=(G+\tau^{-2}I)^{-1}a,\label{eq:gaussianweights}\\
+v_\tau&=\norm{w_\tau}^2+\tau^2\norm{\ell-\A_0^*w_\tau}^2.
+\end{align}
+White covariance is not trace class on infinite-dimensional $L^2$: this defines joint Gaussian observations and functionals, not an $L^2$-valued random density. It is the continuous ridge/GP comparison naturally associated with the audit.
+
+\begin{proposition}[Fixed-bias Gaussian envelope]\label{prop:normal}
+For $z\ge\sqrt3$ and $t\ge0$, $\Pr(|N(t,1)|\le z\sqrt{1+t^2})\ge2\Phi(z)-1$.
+\end{proposition}
+The proof is in Appendix~\ref{app:proofs}. At $\tau=B$, $z_{1-\alpha/2}\sqrt{v_\tau}$ therefore shares the uniform fixed-pose class guarantee for $\alpha\le2\Phi(-\sqrt3)$. The folded-normal critical value can be shorter; uniform coverage alone is not a distinction from this baseline. We also retain $\tau=B/2$, for which that implication need not hold. A pose-linearized comparator replaces identity noise covariance by $I+JJ^\top$ using the actual continuous pilot Jacobian. It omits nonlinear and unknown-density/pose interactions.
+
+\section{Pose Errors and What Splitting Changes}
+For particle $i$, let $D_i:\R^5\to H$ be the first derivative of its weighted adjoint field with respect to scaled rotation/translation error. Its continuous $5\times5$ Gram is obtained by differentiating the sinc kernel. The scalar derivative satisfies
+\begin{equation}
+\norm{D_i^*\rho}\le c_i:=\norm{D_i^*\rho_0}+B\norm{D_i}_{\rm op}.
+\end{equation}
+Let $R_2$ be a uniform scalar second-order remainder over the specified error radii, computed by integrated Fourier moment bounds (Appendix~\ref{app:pose}). For arbitrary bounded errors $\norm{u_i}\le r_i$, a deterministic bias bound is $B\norm h+\sum_i r_i c_i+R_2$. This term need not average away as particle count increases.
+
+An alternative model writes $u_i=\mu_i+\xi_i$, with $\norm{\mu_i}\le\eta_i$ and independent centered $\xi_i$ satisfying $\norm{\xi_i}\le r_i$, conditional on the frozen design, weights, density, and pilot. The $\xi_i$ are independent of measurement noise. This is a stronger assumption than a bounded pose radius.
+
+\begin{theorem}[Conditional mixed-pose bound]\label{thm:mixed}
+Under this model, the interval centered at Equation~\eqref{eq:affine} with half-width
+\begin{align}\label{eq:mixed}
+B\norm h+\sum_i\eta_i c_i+R_2\quad\quad\quad\quad\nonumber\\
++\sqrt{2\log(2/\alpha)\left(\norm w^2+\sum_i r_i^2c_i^2\right)}
+\end{align}
+has coverage at least $1-\alpha$. The remainder is evaluated over radii $r_i+\eta_i$.
+\end{theorem}
+\begin{proof}
+The first-order random scalar for particle $i$ is centered and lies in $[-r_ic_i,r_ic_i]$. Hoeffding's lemma and independence add their sub-Gaussian variance proxies to the Gaussian measurement variance $\norm w^2$. The two-sided Chernoff bound gives the square-root term. Density bias, shared error, and nonlinear remainder are bounded in absolute value and added outside that tail event.
+\end{proof}
+We use a sub-Gaussian critical value; substituting a Gaussian quantile would require an additional approximation or distributional assumption.
+
+\paragraph{Estimated poses do not establish conditional centering.}
+For fixed true poses, a local error $u=\theta-\widehat\theta$ is measurable with respect to a design containing $\widehat\theta$. Hence $E[u\mid\widehat\theta]=u$, not generally zero. Unconditional symmetry does not supply the premise of Theorem~\ref{thm:mixed}. A random latent-pose model or an unconditional analysis of coupled errors and weights needs its own argument. Our estimated-pose use of Equation~\eqref{eq:mixed} is accordingly an empirical plug-in test, not an automatic application of the theorem.
+
+The issue remains with independent inference images. In the phase model $A=s+\sigma_A Z$, $B=s+\sigma_B W$, with independent circular Gaussian noise and $s>0$, let $\widehat\theta=\arg A$. Same-image alignment has mean $E|A|>s$, whereas independent-image alignment has mean $E\operatorname{Re}(e^{-i\widehat\theta}B)=sE\cos\widehat\theta<s$. Their shrinking intervals can converge to zero coverage. This elementary control and a finite-sample invariant comparator are detailed in Appendix~\ref{app:phase}; alignment attenuation and cross-validation are established concerns.
+
+\section{Validation}
+We separate three evidence levels: conditional mathematical/numerical checks with supplied inputs; simulations that repeat estimation under a known generator; and experimental-image applications with unverified inputs. The unit of replication is a newly generated dataset or a genuinely independent exposure, not a target, a method, or multiple intervals on the same data.
+
+\subsection{Acquisition geometries and estimands}
+We use EMPIAR-10028 (80S ribosome), 10049 (RAG complex), and 10076 (ribosomal assembly intermediates). Their working fields are 482.4, 236.16, and 419.2\,\AA. Density generators use the frozen pilot-registered EMD-2660, EMD-6487, and EMD-8434 maps. The last is one Class A state, not truth for the heterogeneous 10076 stack. Source-group splits, exact selected indices, download records, and input hashes are retained.
+
+The local-refinement study uses 128 particles, frequency radius five, and two broad Gaussian targets of width .07 field. The separate locked-feature study uses radius twelve and twelve features of width 20\,\AA. Band endpoints are 47.2--96.5\,\AA\ and 19.7--40.2\,\AA, respectively. These experiments address coarse features, not near-atomic accuracy. Supplied scalar noise is used in simulations; experimental recalibration is separate.
+
+\subsection{Representation and matched-prior checks}
+All twelve original finite-dictionary estimators replay their archived metrics before changing the generator frame. For the central broad 10028 feature, restricted analytic coverage is $4.18\times10^{-5}$ before registration and $3.73\times10^{-14}$ afterwards. Other features improve or worsen; the full table is retained. Continuous/ambient bias checks address the omitted-space mechanism, but conservative coverage of these particular generators does not calibrate the density class.
+
+The matched continuous Gaussian comparison includes all twelve locked features, $\tau\in\{B,B/2\}$, and fixed/linearized-pose models: 48 fits. Both original and registered generators and all declared perturbations are included. Nonconvergence is reported rather than interpreted as an exact posterior. A numerical-only preflight motivates stronger preconditioning for a separate complete rerun; the original incomplete implementation and failed fits remain available.
+\IfFileExists{tables/continuous-gaussian-v2-main.tex}{\input{tables/continuous-gaussian-v2-main.tex}}{\paragraph{Execution status.} The complete numerical rerun is still running; its results are not yet included in this working draft.}
+
+\subsection{Re-estimated local poses and weights}
+An independent calibration batch contains 128 datasets per geometry. Test batches contain 200 new datasets per geometry. On every replicate, ten fixed Gauss--Newton iterations refine poses against both the oracle reference and the independent pilot; all interval weights are then recomputed. Initial rotations have RMS $2^\circ$ and shifts RMS .5\,\AA\ around truth. Search limits are relative to initialization, not truth. This is a controlled local-refinement pipeline against fixed templates, not repeated ab initio density learning.
+
+Each replicate generates alignment image $Y_A$ and independent inference image $Y_B$. The same fitted design is applied to each, preserving a paired comparison. Nine procedures include folded/sum fixed-pose audits, deterministic pose audit, mixed intervals with shared radii 0/.1, and four Gaussian comparators. The first five retain raw and no-data-fallback results. Each target/procedure has marginal $\alpha=.05$; there is no simultaneous claim over all displayed methods.
+
+The simulation-calibrated joint pose radius is the maximum of 128 dataset-level calibration scores. Under exchangeability with this same generator, template, geometry and optimizer, a new score exceeds it with probability at most $1/129$. Combining this with noise error .04 gives a narrow marginal guarantee for the independent-image deterministic audit. It is known-truth simulation assistance, not experimental pose calibration or a uniform guarantee across new molecules. The mixed-model premise is not asserted for the fitted designs.
+\IfFileExists{tables/end-to-end-main.tex}{\input{tables/end-to-end-main.tex}}{\paragraph{Execution status.} All three 200-dataset batches are active. No completed coverage summary is reported in this working draft.}
+
+\subsection{Experimental application and sensitivity}
+Twelve estimators and 116 files were locked before acquiring 128 new noise-calibration exposures per stack. The inference centers had already been observed. Under a common Gaussian covariance model, the raw calibration excludes zero for six fixed-pose features, four with shifts alone, and none with rotation budgets. A later centered calibration changes these counts to ten, six, and zero. It also produces five disagreements with the registered 10076 Class A reference; these are not truth-coverage labels for its heterogeneous particles.
+
+All 96 combinations of feature, pose class, and raw/centered calibration are retained in a fixed-weight breakdown analysis. At the one-degree class, every recorded fixed-weight bias bound already exceeds its observed center even at zero measurement SD. The four centered fixed-pose 10028 density-radius breakdowns span 2.877--4.868 against the declared $B=2$; two 10049 features do not exclude zero even at $B=0$. These conditional sensitivities do not validate the scale, density radius, or noise transfer assumptions. More optimized historical cubic designs improve a selected bound modestly; all five experimental cubic designs still include zero.
+
+\subsection{Computation and reconstruction context}
+A separate 10,000-particle quadratic audit completes in 4,965 seconds with 1.95 GB peak resident memory. This establishes that audit's scaling, not high-resolution reconstruction speed or convergence of every pose optimizer. Source snapshots, convergence diagnostics, paired replicate arrays, and failed attempts accompany the results.
+
+Supplied-pose Gaussian, voxel and stock-neural fits, three unknown-pose RELION runs, and original-code CryoLike scores provide reconstruction/prediction context. Their FSCs and image scores are not density coverage. The registered-reference mean FSCs for the three RELION runs are .702, .202 and .122; the last uses a heterogeneous stack against one state. Sampled-resolution censoring, map registration, masks and tuning choices are recorded separately (Appendix~\ref{app:experiments}). We do not claim performance comparable to a full high-resolution production reconstruction from these restricted studies.
+
+\section{Discussion and Limits}
+The continuous audit tests a representation omission that a restricted model can hide. Its matched Gaussian comparison also shows where an apparent distinction disappears: at equal operator and directional scale, conventional Gaussian uncertainty can share the fixed-pose guarantee. The substantive question is therefore nuisance treatment and the credibility of the assumed class, rather than whether one estimator is called Bayesian or frequentist.
+
+Estimated alignments change the inference problem. Conditional centered-error bounds can be informative under their model, but independent inference images alone do not validate that model. The end-to-end study measures the resulting procedure instead of substituting an analytic fixed-bias calculation for calibration. No numerical or empirical result here establishes a useful experimental density interval without the stated unverified noise, pose, support, homogeneity and density-energy conditions.
+
+CTF and amplitude uncertainty, particle selection, motion/dose variation, detector correlations, and learned-prior dependence remain material. Experimental 10076 results are stress evidence, not a homogeneous-density validation. Ordinary floating-point calculations with analytic integration control are not fully validated arithmetic. The work remains a research manuscript; numerical tests and model reviews do not establish conference acceptance.
+
+\section*{Reproducibility and Impact}
+The public repository preserves protocols, code, hashes, complete outcomes, failures, and earlier manuscript versions. The requested independent reviews and responses are available with their unchanged verdicts. Experimental maps should not be interpreted biologically from an uncalibrated interval or internal agreement alone. The purpose of the audit is to make the assumptions and remaining uncertainty inspectable.
+
+\bibliography{references,uncertainty-references,survey-references}
+\bibliographystyle{icml2026}
+\appendix
+\input{focused-theory}
+\input{focused-experiments}
+\input{focused-survey}
+\end{document}

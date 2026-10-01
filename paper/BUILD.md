@@ -22,6 +22,18 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 The final deliverable is copied to `output/pdf/fourier-cryo-splats.pdf`.
 Numbers and figures are generated from saved experiment outputs. Rasterized
 pages are inspected before release; compilation alone is not visual QA.
-Refresh the current uncertainty table with `scripts/write_uq_results.py` and
-the stratified coverage figure with `scripts/summarize_uq_coverage.py` before
-building. They read completed development outputs; no result is invented in TeX.
+The historical generators `scripts/write_uq_results.py` and
+`scripts/summarize_uq_coverage.py` reproduce earlier artifacts. Do not run them
+blindly on the current paper: the original dictionary table was superseded by
+the all-case registered replay, and the old generator would overwrite that
+correction.
+
+The complete restructuring is being developed as `focused-main.tex`, with
+`focused-theory.tex`, `focused-experiments.tex` and `focused-survey.tex`. Build it
+with the same LaTeX/BibTeX sequence, substituting `focused-main` for `main`.
+It remains a working draft until the frozen 600-dataset local-pose study and
+48-fit matched continuous-prior comparison have complete, verified summaries.
+`write_uq_review2_diagnostics.py` reproduces the completed phase-control figure
+and registered-replay/breakdown reports. `summarize_uq_end_to_end_local.py`
+refuses final summaries until every prescribed replicate has been attempted.
+No incomplete working PDF is promoted to the release deliverable.
