@@ -16,6 +16,13 @@ by this update. The current literature ledger has 139 candidates, not 139 full
 readings. No useful experimentally calibrated method or acceptance result has
 been established.
 
+The first post-round-4 [recorded-nuisance inventory](STACK-NUISANCE-INVENTORY-RESULTS.md)
+is complete. Recorded angular distributions are far from uniform on all three
+stacks and stable across source halves; 90 histogram vectors independently
+replay. This is evidence against treating the near-Haar simulator as a measured
+experimental model, not a bound on latent poses. Defocus spread and incomplete
+amplitude/noise metadata remain explicit. The information comparison is pending.
+
 | Question | Completed evidence | Practical limit |
 |---|---|---|
 | Does a finite reconstruction dictionary hide uncertainty? | Continuous adjoint-residual checks and explicit excluded directions; matched finite-model Bayesian and bootstrap controls | The strongest excluded directions need not resemble molecular density. |

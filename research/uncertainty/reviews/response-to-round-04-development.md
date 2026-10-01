@@ -93,3 +93,14 @@ not permission to select a favorable subset or claim the overall goal achieved.
 
 R1/R2/R7/R9/R11/R14/R15 and R16–R22 remain scientifically open. Correct algebra,
 reproducible code and a larger experiment inventory do not resolve them.
+
+## Completed first diagnosis
+
+The [recorded-nuisance inventory](../STACK-NUISANCE-INVENTORY-RESULTS.md) finishes
+on all three full metadata populations and both supplied filtered subsets.
+All 90 full/half histogram vectors replay independently. In 128 normal bins,
+all-metadata peak ratios are 4.53 / 6.23 / 2.74 and cross-half chi-square values
+are 1.07 / 2.01 / .248. Defocus varies substantially; constant CTF-scale fields
+do not justify exact amplitude knowledge, and no noise spectrum is stored.
+This undermines the practical near-Haar premise but does not certify true
+viewing laws or resolve R18/R19. The matched information ledger is still needed.
