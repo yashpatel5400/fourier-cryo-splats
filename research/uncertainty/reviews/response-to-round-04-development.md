@@ -80,10 +80,11 @@ not permission to select a favorable subset or claim the overall goal achieved.
   The conditional failure to cross the implemented bound is directly checkable.
 - **M32 is a transcription error.** The allocation CSV must supply the corrected
   10076 number in the next manuscript revision. The v0.7.6 PDF is preserved.
-- **M36 is factually mistaken.** The round-3 response is present at
-  `round-04/evidence/research/uncertainty/reviews/response-to-round-03-development.md`
-  and indexed in the review packet; a Read call in the raw event stream accesses
-  it. This correction does not affect the scientific rejection.
+- **M36 is confirmed.** The round-3 response exists in the working repository
+  but was omitted from the review packet. The reviewer attempted to read it;
+  that call did not establish successful access. Our initial response incorrectly
+  inferred presence from the attempted call and is corrected here. Future
+  packets must include the prior response documents as well as the reviews.
 - The 23-condition author-code population replay was frozen and started during
   this review, before receiving the verdict. It is a separate retrospective
   comparator check on published likelihoods, not another candidate-test variant
