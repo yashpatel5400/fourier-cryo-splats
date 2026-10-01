@@ -1,4 +1,5 @@
 import numpy as np
+import json
 from numpy.testing import assert_allclose
 from fourier_splats.uq_power_cone import FinitePowerCone, scalar_dual_maximum
 
@@ -25,6 +26,7 @@ def test_separated_cone_and_zero_null_have_positive_growth():
     out=fit.solve(p,s)
     assert out['expected_log_lower']>.1
     assert out['gap']<1e-5
+    json.dumps({k:v for k,v in out.items() if not isinstance(v,np.ndarray)})
     assert np.max(p@(out['weights']/(1-out['weights'])))<1e-8
     zero=fit.solve(np.zeros((2,2)),s)
     expected=sum(scalar_dual_maximum(a,0.)[0] for a in s)

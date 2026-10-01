@@ -13,7 +13,7 @@ def main():
  for name in FILES:
   if subprocess.check_output(['git','show','HEAD:'+name],cwd=ROOT)!=(ROOT/name).read_bytes():
    raise ValueError('Commit probe protocol and implementation before outcomes')
- out=BASE/'paired-power-finite-view-v2'
+ out=BASE/'paired-power-finite-view-v3'
  if out.exists():raise ValueError('Preserve earlier probe')
  out.mkdir();start=time.perf_counter();all_rows=[]
  metadata=dict(complete=False,git_head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),

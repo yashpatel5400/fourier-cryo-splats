@@ -55,7 +55,7 @@ class FinitePowerCone:
         x=raw*(1-1e-6);u=x/(1-x)
         correction=max(0.,float((normalized@u).max()))+1e-12
         u-=correction;x=u/(1+u)
-        fallback=not np.isfinite(x).all() or np.max(abs(x))>=1
+        fallback=bool(not np.isfinite(x).all() or np.max(abs(x))>=1)
         if fallback:x=np.zeros_like(raw)
         residual=float((normalized@(x/(1-x))).max())
         if residual>1e-10:raise ArithmeticError('Power-cone repair failed')

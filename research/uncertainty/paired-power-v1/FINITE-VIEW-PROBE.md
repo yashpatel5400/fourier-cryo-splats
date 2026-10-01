@@ -58,3 +58,10 @@ exception; no statistical result is inferred from it. The corrected retry uses
 a new `paired-power-finite-view-v2` directory, removes only the duplicate key
 and adds partial-array preservation. Scientific settings and stopping rules
 are unchanged.
+
+The v2 retry exposed a second serialization issue: a NumPy Boolean in the
+solver metadata was not JSON serializable, including in the exception handler.
+Its untouched initial summary, log and saved partial weight array remain. An
+external failure manifest records this explicitly. The v3 retry converts that
+flag to a Python Boolean and adds a JSON-serialization check to the numerical
+test. No mathematical or experimental parameter changes.
