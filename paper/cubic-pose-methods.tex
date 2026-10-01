@@ -280,6 +280,18 @@ gives 1.796133293662 versus guide 1.796133292859. Its first unscaled SCS
 attempt reaches the solver limit; an equivalent unit-ball CLARABEL formulation
 succeeds. Analytic hard-case and explicit-residual tests also pass after a
 near-hard root-tolerance issue is corrected. These are small numerical checks.
-Failed shifted solves retain the older valid upper bound. The bounded
-empirical joint-design experiment is running at this revision; no improved
-empirical result is claimed.
+Failed shifted solves retain the older valid upper bound. The declared empirical
+fit completes in 2,321 seconds at 2.65\,GB peak memory. Two evaluations in the
+unchanged thirteen-dimensional span select the second candidate. Its final-cut
+restricted guide gap is $0.000885$, not a full-space convergence certificate.
+The fresh audited half-width is 2.130112, or 0.175192 of no data, only 2.55\%
+smaller than the original cubic design. The bias upper is 1.553146, compared
+with 1.595052 for the preceding joint bound and 1.913367 for the triangle bound
+at these same weights. The resolvent search reaches its declared lower
+log-shift boundary without falling back; both evaluations are retained,
+including the first master's \texttt{optimal\_inaccurate} status.
+Minimum original-/registered-frame sign powers are 0.01433/0.97829. All six
+conditional reference checks are retained without a tested coverage failure.
+These results demonstrate a modest bound/design improvement, not calibrated
+experimental inputs or full-space optimality. The real-image result below
+still contains zero.

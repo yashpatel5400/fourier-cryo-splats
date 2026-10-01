@@ -559,8 +559,8 @@ three-hour alarm. No source or settings are changed during that run.
 
 ## Latest post-v0.6.1 development commands
 
-The enrichment is now complete; the joint final audit and RELION 10076 are
-still running at this checkpoint. See CURRENT-EVIDENCE.md for current status.
+The enrichment, joint audit, both real-image applications and all three RELION
+continuations/evaluations are complete. See CURRENT-EVIDENCE.md for current status.
 These commands describe reproduction in a fresh output checkout, with the
 recorded inputs and source versions. Runners reject existing output directories.
 The isolated two-thread FINUFFT runtime below must not import PyTorch; the

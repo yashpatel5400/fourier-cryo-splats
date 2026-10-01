@@ -84,7 +84,7 @@ def main():
                 ax.set_ylabel(('Original reference' if row == 0 else 'Pilot-registered reference')+'\nFSC')
     handles, labels = axes[0, 0].get_legend_handles_labels()
     fig.legend(handles, labels, loc='lower center', ncol=2, frameon=False, bbox_to_anchor=(.53, .005))
-    fig.subplots_adjust(left=.10, right=.99, top=.91, bottom=.21, hspace=.19, wspace=.12)
+    fig.subplots_adjust(left=.10, right=.985, top=.91, bottom=.21, hspace=.23, wspace=.24)
     stem.parent.mkdir(parents=True, exist_ok=True)
     for suffix in ['.pdf', '.png']:
         fig.savefig(stem.with_suffix(suffix), dpi=200)

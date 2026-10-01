@@ -17,7 +17,7 @@ remain open; neither passing numerical checks nor approximate-map inclusion
 establishes experimental density coverage.
 
 The compact [evidence and open-decisions table](research/uncertainty/CURRENT-EVIDENCE.md)
-distinguishes completed outcomes from the remaining running fits.
+distinguishes completed outcomes from unresolved scientific limitations.
 
 Current evidence includes:
 
@@ -54,7 +54,12 @@ Current evidence includes:
   [All three fixed-estimator outcomes](research/uncertainty/REGISTERED-TARGET-SENSITIVITY-RESULTS.md)
   are retained. The coordinate follow-up completed with a
   worse width of 0.223. The reduced convex design selected the original weights
-  and left the full-space optimization gap unresolved.
+  and left the full-space optimization gap unresolved. The completed enriched
+  and joint designs give relative widths .178365 and .175192, modest .79% and
+  2.55% improvements. All ten raw/centered experimental intervals for the five
+  designs contain zero; the joint centered interval is 2.46896 ± 3.01088.
+  [All new outcomes](research/uncertainty/JOINT-ENRICHED-EXPERIMENTAL-RESULTS.md)
+  remain conditional on unverified pose, density and noise assumptions.
 - Matched bootstrap and [Fourier Gaussian baselines](research/uncertainty/FOURIER-VARIATIONAL-BASELINE.md),
   including favorable broader-prior results. A completed
   [local Gaussian pose comparison](research/uncertainty/FOURIER-POSE-BASELINE-RESULTS.md)
@@ -65,9 +70,9 @@ Current evidence includes:
 - A [known-map information diagnostic](research/uncertainty/ORACLE-POSE-INFORMATION-RESULTS.md)
   distinguishes individual pose information from collective reconstruction.
   The native RELION CPU comparison has completed a converged unknown-pose
-  reconstruction on 10028 and a weaker converged result on 10049; the 10076
-  continuation remains in progress. The second result has registered-reference
-  mean FSC 0.202 despite its convergence flag.
+  reconstruction on all three stacks. Registered-reference mean FSC is
+  .702/.202/.122 on 10028/10049/10076, respectively, despite convergence flags
+  on all three; every original and registered curve is retained.
   Pilot-only reference registration improves cross-method reference FSC on
   10028 and 10049; the Class A reference on heterogeneous 10076 remains a
   weak match to the consensus. Both original and registered curves are kept.

@@ -71,7 +71,7 @@ def main():
     np.testing.assert_allclose(references, references[0], rtol=1e-12)
     plt.rcParams.update({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False,
                          'pdf.fonttype': 42, 'ps.fonttype': 42})
-    fig, (ax, bx) = plt.subplots(1, 2, figsize=(9.3, 3.5), gridspec_kw={'width_ratios': [1, 1.45]})
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(9.3, 4.0), gridspec_kw={'width_ratios': [1, 1.45]})
     y = np.arange(len(rows))
     for key, marker, color, label in [
         ('simulation_minimum_power_original_frame', 'x', '#7c7c7c', 'Original reference frame'),
@@ -93,7 +93,7 @@ def main():
            title='Reused experimental images')
     bx.invert_yaxis(); bx.grid(axis='x', alpha=.2)
     bx.legend(loc='upper center', bbox_to_anchor=(.5, -.24), frameon=False, fontsize=9)
-    fig.subplots_adjust(left=.17, right=.99, top=.86, bottom=.29, wspace=.16)
+    fig.subplots_adjust(left=.17, right=.99, top=.90, bottom=.36, wspace=.16)
     stem.parent.mkdir(parents=True, exist_ok=True)
     for suffix in ['.pdf', '.png']:
         fig.savefig(stem.with_suffix(suffix), dpi=200)

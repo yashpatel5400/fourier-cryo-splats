@@ -11,7 +11,7 @@ This file also supports local packet-size/layout checks without invoking a model
 
 ## Registered-reference follow-up, 30 September
 
-A pilot-only frame registration was frozen before the eleven completed reconstruction FSC
+A pilot-only frame registration was frozen before the twelve completed reconstruction FSC
 comparisons and before the subsequent target sensitivity. That sensitivity
 retains all original results: the unchanged cubic estimator's simulated power
 on the previously selected 10049 region rises from .00654 to .95725. This
@@ -48,20 +48,26 @@ times the separate mean-only bounds; counts and five reference discrepancies
 are unchanged, and all three cubic intervals become slightly wider. This is
 negative calibration evidence, not a resolution of R1.
 
-Two unknown-pose RELION continuations now finish with verified exposure halves.
+All three unknown-pose RELION continuations now finish with verified exposure halves.
 The 10028 registered-reference mean FSC is .702; 10049 is much weaker at .202,
 despite reporting convergence. Its native half FSC crosses .143 at 18.95 A.
-Every curve and the earlier timed-out initializers remain. The 10076 continuation
-is running. These are conventional reconstruction comparisons, not density
+Every curve and the earlier timed-out initializers remain. On 10076 the native
+half FSC crosses .143 at 15.92 A, but registered-reference mean FSC is only
+.122; the Class A reference is not truth for the heterogeneous consensus.
+These are conventional reconstruction comparisons, not density
 coverage or calibrated pose-radius evidence.
 
 The adaptive triangle-objective enrichment completes in 3,476.62 seconds.
 Its width improves by only .79 percent to .178365 of no data; its full-space
-gap remains .927173. Registered-frame simulated power is .964129, with no
-experimental application yet. A separately declared joint density/pose design
-starts from the original weights and thirteen-column basis and is running. Its
-residual-controlled trust-region proposition and independent small robust-norm
-SDP agree, but no empirical improvement is claimed. A focused Fable audit of
+gap remains .927173. Registered-frame simulated power is .964129. The separately declared joint
+density/pose design completes in 2,320.89 seconds using the original thirteen-
+column span. Its width .175192 is 2.55 percent smaller than the original, with
+registered-frame power .978287. The restricted guide gap .000885 does not
+certify full-space convergence. All evaluations and six reference checks remain.
+The subsequent real-image application keeps all four raw/centered alternatives:
+centered enriched/joint intervals are 2.46350 ± 3.06013 and 2.46896 ± 3.01088.
+All four contain zero, so the empirical limitation persists. Its residual-
+controlled trust-region proposition and independent small robust-norm SDP agree. A focused Fable audit of
 this mathematics finds no validity error and seven numerical/design notes.
 Its corrections precede the first empirical joint fit; it is not full review
 round 2. The latest full regression run gives 246 passed, one skipped and one

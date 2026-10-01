@@ -1036,3 +1036,24 @@ conditional sensitivity results, not established experimental density coverage.
 Exact records, source snapshots and protocols remain public. v0.6 retains the
 preceding 50-page manuscript; the branch corrects its stale main-text RELION
 status and incorporates these later target/interval results.
+
+
+## 30 September: completed joint design and third RELION continuation
+
+The joint cubic fit completes its declared final audit: relative width .175192,
+2.55% smaller than the original, with restricted guide gap .000885 and no
+full-space convergence certificate. Enrichment gives only .79% improvement.
+Their separately declared raw/centered experimental applications all contain
+zero; the joint centered interval is 2.46896 ± 3.01088. All ten intervals across
+the five designs are retained. Supplied-noise simulation power does not resolve
+experimental class, pose or covariance assumptions.
+
+All three RELION continuations now finish and report convergence with verified
+exposure halves. The third stack's native half FSC crosses .143 at 15.92 A,
+but its registered Class A reference agreement is weak (mean .12169). All
+twelve method/stack pairs and both reference frames are plotted. The reference
+is not truth for a heterogeneous consensus, and FSC does not measure confidence
+coverage. No settings are selected after inspecting this outcome.
+
+The paper includes these completed positive and negative results; the next full
+review has not yet run. The latest full assessment remains rejection.

@@ -12,7 +12,12 @@ native half FSC crosses 0.5/0.143 at 22.73/18.95\,\AA. Registered-reference
 FSC crosses at 45.43/19.85\,\AA; its mean is only 0.202. Local angular and
 translation accuracy estimates are 8.87 degrees and 4.579\,\AA, not calibrated
 uniform pose bounds. Convergence does not establish correct reconstruction.
-The 10076 continuation remains in progress.
+The 10076 continuation also finishes: 5,425 seconds for initialization and
+7,144 seconds for refinement, with verified exposure halves and reported
+convergence. Native half FSC crosses 0.5/0.143 at 24.73/15.92\,\AA, but the
+registered-reference crossings are 101.87/47.64\,\AA\ and mean FSC is 0.122.
+Its local angular/translation accuracy estimates are 2.715 degrees/2.908\,\AA,
+again not calibrated uniform radii.
 
 Initially, every method's deposited-map FSC on 10028 is weak despite strong
 cross-method agreement. This motivates a separately declared frame audit,
@@ -36,7 +41,7 @@ and reconstruction error are not separated by this experiment.
 \begin{table}[t]
 \centering\small\setlength{\tabcolsep}{3pt}
 \caption{Mean shell FSC before and after pilot-only reference registration.
-G/V/N denote Gaussian/voxel/neural; R is RELION. Dashes mark running baselines.}
+G/V/N denote supplied-pose Gaussian/voxel/neural; R is unknown-pose RELION.}
 \label{tab:referenceframe}
 \begin{tabular}{llrrrr}
 \toprule
@@ -46,14 +51,15 @@ Stack & Frame & G & V & N & R\\
  & Registered & .727 & .707 & .736 & .702\\
 10049 & Original & .052 & .050 & .051 & .074\\
  & Registered & .757 & .692 & .799 & .202\\
-10076 & Original & .086 & .086 & .087 & --\\
- & Registered & .127 & .127 & .127 & --\\
+10076 & Original & .086 & .086 & .087 & .067\\
+ & Registered & .127 & .127 & .127 & .122\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 These results show that an unverified reference frame can dominate a comparison.
-All eleven completed method/stack cases and both reference curves are retained.
+All twelve completed method/stack cases and both reference curves are retained
+(Figure~\ref{fig:registeredfsc}).
 Reference agreement remains affected by pilot selection, interpolation,
 preprocessing and partial data dependence, and is not independent accuracy or
 density coverage. Historical reference-based uncertainty simulations keep their
@@ -133,8 +139,19 @@ respectively. None excludes zero. For the original cubic fit, the SD upper
 falls from 1.01002 to 0.55294, still exceeding the supplied simulation SD
 0.22191. A smaller bound does not identify pure noise or establish the
 experimental assumptions. The two procedures are separately reported
-alternatives; their unadjusted minimum is never used. The later adaptive enrichment changes its simulation width by only 0.79\%;
-its real-image application and the joint-design fit remain pending.
+alternatives; their unadjusted minimum is never used.
+
+The later enriched and joint designs are applied under a separate declared
+four-interval protocol with the same per-procedure allocations and replay
+checks. The enriched estimator gives $2.46350\pm4.28261$ under raw calibration
+and $2.46350\pm3.06013$ after centering. The joint estimator gives
+$2.46896\pm4.21952$ and $2.46896\pm3.01088$, respectively. All four contain
+zero and both reference values, without fallback. Centered SD upper bounds
+are 0.55211/0.54519, compared with supplied simulation SDs 0.22166/0.21869.
+Thus the 0.79\%/2.55\% simulation-width improvements do not remedy the
+experimental limitation (Figure~\ref{fig:cubiccomparison}). These remain
+reused-data alternatives, without a simultaneous claim across the history
+of development procedures.
 
 
 \paragraph{A finite family of projected calibration designs.}
@@ -150,3 +167,26 @@ reference disagreements are unchanged. Cubic half-widths are 3.11643,
 does not improve experimental conclusions. Upstream metadata independence
 remains unverified, and no unadjusted minimum across historical procedures
 is used.
+
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{figures/registered-reconstruction-fsc.pdf}
+\caption{All twelve method/stack comparisons against original and pilot-registered
+references; dotted lines mark FSC 0.5 and 0.143. G/V/N use supplied poses,
+whereas RELION estimates poses. Registration is selected using the old pilot
+only. Agreement includes preprocessing, interpolation and frame dependence;
+censored crossings are not measured resolutions. On 10076 the Class A reference
+is not truth for the heterogeneous consensus.}\label{fig:registeredfsc}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{figures/cubic-design-comparison.pdf}
+\caption{All five cubic designs on the selected 10049 region. Left: minimum
+conditional simulated sign power across three declared poses, retaining both
+reference frames. Right: observed intervals under separately reported raw and
+centered calibration; all contain zero. Each procedure retains the stated
+$.05/12$ total error allocation under unverified model premises; the plot is
+not an experimental coverage claim or an unadjusted selection rule across
+procedures. The registered approximate reference is not biological truth.}
+\label{fig:cubiccomparison}
+\end{figure*}
