@@ -127,5 +127,10 @@ shows nonflat background power on all three downloaded cohorts after adjusting
 for known Fourier cropping. It is descriptive; contamination and missing
 micrograph identities prevent interpreting it as pure-noise covariance or
 sub-percent calibration. The [adaptive pose integration gate](ADAPTIVE-POSE-INTEGRATION-PROTOCOL.md)
-is frozen and running on all three stacks, with no new statistical test or
-full review claimed.
+finishes all 384 observed images: 10028 passes, while 10049 and 10076 fail the
+fixed between-bank tolerance criterion. Every integral/proposal summary and
+selected physical residuals replay independently. See the [complete gate
+report](ADAPTIVE-POSE-INTEGRATION-RESULTS.md). One substantive numerical
+revision remains possible under the existing stopping rule. A focused Fable
+methods consultation is running; no new statistical test or full review is
+claimed.

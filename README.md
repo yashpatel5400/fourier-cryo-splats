@@ -20,13 +20,21 @@ The compact [evidence and open-decisions table](research/uncertainty/CURRENT-EVI
 distinguishes completed outcomes from unresolved scientific limitations.
 
 Round 4 calls for a substantive change, not more variants of the current moment
-test. Those variants are frozen while a matched information/nuisance ledger and
-the three stacks' recorded imaging conditions are investigated. The existing
+test. Those variants are frozen. The [matched information ledger](research/uncertainty/MATCHED-INFORMATION-LEDGER-RESULTS.md),
+[recorded imaging conditions](research/uncertainty/STACK-NUISANCE-INVENTORY-RESULTS.md)
+and [background spectra](research/uncertainty/BACKGROUND-SPECTRUM-INVENTORY-RESULTS.md)
+now document information loss and unsupported experimental assumptions. The existing
 33-page PDF is the reviewed v0.7.6-dev snapshot, not a revision addressing this
-review. All four full reviews reject. The living survey now has 139 candidates,
+review. All four full reviews reject. The living survey now has 141 candidates,
 with [new population-UQ primary reading](research/uncertainty/POPULATION-UQ-PRIMARY-READING.md)
 and [CAHRA version-2 reading](research/uncertainty/CAHRA-V2-READING.md); candidate
 counts are not full-reading counts.
+
+The first [adaptive orientation-integration gate](research/uncertainty/ADAPTIVE-POSE-INTEGRATION-RESULTS.md)
+finishes all 384 observed-image cases and independently replays every result.
+It passes on 10028 and fails on 10049/10076. This is a classical numerical
+integration diagnostic; no new uncertainty method or experimental coverage
+claim follows. A focused Fable methods consultation is in progress.
 
 The separate [author-code population baseline replay](research/uncertainty/POPULATION-BASELINE-REPLAY-RESULTS.md)
 completes all 23 published two-state conditions. It retains numerical
