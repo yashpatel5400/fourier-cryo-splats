@@ -9,6 +9,9 @@ def dense_mgf(t, mean, first_cov, second_cov):
     h = np.block([[np.zeros_like(t),t/2],[t/2,np.zeros_like(t)]])
     cov = np.block([[first_cov,np.zeros_like(t)],[np.zeros_like(t),second_cov]])
     mu = np.tile(mean,2); operator = np.eye(2*n)-2*cov@h
+    eigenvalues,vectors=np.linalg.eigh(cov)
+    root=(vectors*np.sqrt(np.maximum(eigenvalues,0)))@vectors.T
+    assert np.linalg.eigvalsh(np.eye(2*n)-2*root@h@root).min()>0
     sign, logdet = np.linalg.slogdet(operator)
     assert sign > 0
     return -.5*logdet+mu@h@np.linalg.solve(operator,mu)
@@ -73,3 +76,22 @@ def test_general_matrix_statistic_is_not_translation_invariant():
     t=np.diag([.1,-.2]);x=np.array([1.,2.]);z=np.array([3.,-.5])
     assert abs(x@t@z-(o@x)@t@(o@z))>.1
     np.testing.assert_allclose(x@(.1*np.eye(2))@z,(o@x)@(.1*np.eye(2))@(o@z))
+
+
+def test_near_boundary_and_singular_covariance_moments():
+    t=np.diag([.999,-.998,0.]);m=np.array([.02,.05,2.])
+    normalizer,u=matrix_gaussian_terms(t)
+    np.testing.assert_allclose(dense_mgf(t,m,np.eye(3),np.eye(3)),
+        -normalizer+m@u@m,rtol=1e-12)
+    actual=dense_mgf(t,m,np.diag([0.,.5,1.]),np.diag([1.,0.,.3]))
+    assert actual<=-normalizer+m@u@m
+
+
+def test_off_frequency_blocks_depend_on_common_translation():
+    # Two distinct frequencies and all Re coordinates followed by all Im.
+    q=np.array([[1.,0.],[0.,2.]])
+    phase=2*np.pi*(q@np.array([.07,.11]));c=np.diag(np.cos(phase));s=np.diag(np.sin(phase))
+    shift=np.block([[c,s],[-s,c]])
+    t=np.zeros((4,4));t[0,1]=t[1,0]=.1;t[2,3]=t[3,2]=.1
+    x=np.array([1.,2.,3.,4.]);z=np.array([-.5,.3,1.,2.])
+    assert abs(x@t@z-(shift@x)@t@(shift@z))>.1

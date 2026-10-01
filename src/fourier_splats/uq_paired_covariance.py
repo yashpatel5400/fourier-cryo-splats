@@ -91,6 +91,16 @@ def covariance_cone_diagnostic(means, signal_second_moment, time_limit=60.):
     marginal = result.ineqlin.marginals
     dual_vector = (marginal[:len(b)]-marginal[len(b):])/scale
     raw_direction = smat(dual_vector, len(s))
+    dual_objective=float(dual_vector@target)
+    dual_gap=abs(dual_objective-float(result.fun))
+    raw_constraint_violation=float(np.max(features@dual_vector))
+    if dual_gap>1e-7*max(1.,abs(result.fun)) or raw_constraint_violation>1e-7:
+        raise ArithmeticError('LP dual feasibility or objective check failed')
+    numerical_match=bool(residual<1e-8)
+    if numerical_match:
+        # A degenerate dual near membership is not evidence of a useful
+        # direction; do not amplify its floating-point noise to unit norm.
+        raw_direction=np.zeros_like(raw_direction)
     direction_norm = np.linalg.norm(raw_direction, 2)
     direction = raw_direction/max(direction_norm, 1e-30)
     violations = np.einsum('ni,ij,nj->n', m, direction, m)[nonzero]/norms[nonzero]
@@ -102,11 +112,12 @@ def covariance_cone_diagnostic(means, signal_second_moment, time_limit=60.):
     return dict(coefficients=coefficients, approximation=approximation,
         direction=direction, raw_direction=raw_direction,
         scaled_residual=float(residual), lp_objective=float(result.fun),
-        dual_objective=float(dual_vector@target),
+        dual_objective=dual_objective,dual_gap=dual_gap,
+        raw_dual_constraint_violation=raw_constraint_violation,
         raw_maximum_normalized_violation=float(violations.max()),
         repaired_maximum_normalized_violation=float(repaired.max()),
         direction_repair=correction, trace_signal_direction=float(np.sum(direction*s)),
-        numerical_match=bool(residual < 1e-8), mixture_mass=float(coefficients.sum()),
+        numerical_match=numerical_match, mixture_mass=float(coefficients.sum()),
         active_views=int(np.sum(coefficients > 1e-12)), lp_iterations=int(result.nit),
         status=int(result.status), message=result.message)
 
