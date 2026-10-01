@@ -1,0 +1,18 @@
+from pathlib import Path
+import sys,time,json,hashlib
+sys.path.insert(0,'scripts')
+import numpy as np
+from fourier_splats.uq_continuous_quadrature import QuadratureObservationGram
+from fourier_splats.uq_continuous_gaussian import continuous_gaussian
+from fourier_splats.uq_data import particle_geometry
+root=Path.cwd();out=root/'results/uncertainty/development/audit-regressions/continuous-gaussian-radius5-runtime.json'
+if out.exists():raise RuntimeError('Preserve preflight')
+r={'scope':'Computation-only radius-five solver preflight, no pixels, simulated errors or coverage read. Fixed old center functional, tau 2, max 30 iterations. Not a new accuracy result.','script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'records':[]}
+for ds in ['10028','10049','10076']:
+ g=particle_geometry(root,ds,'inference_half0',radius=5,count=128,seed=609311)
+ noise=float(np.load(root/f'results/uncertainty/development/continuous-quadrature-optimized/{ds}-center-0.07-weights.npz')['noise_std'])
+ for rank in [256,1024]:
+  t=time.perf_counter();gram=QuadratureObservationGram(g['k'],g['ctf'],noise,order=40,preconditioner_rank=rank);gram.nthreads=1
+  setup=time.perf_counter()-t;t=time.perf_counter();f=continuous_gaussian(gram,[[0,0,0]],[1],.07,2.,maxiter=30)
+  f.pop('weights');row={'dataset':ds,'rank':rank,'setup_seconds':setup,'fit_seconds':time.perf_counter()-t,'fit':f}
+  r['records'].append(row);out.write_text(json.dumps(r,indent=2)+'\n');print(ds,rank,row['setup_seconds'],row['fit_seconds'],f['cg_relative_residual'],f['cg_info'],flush=True)
