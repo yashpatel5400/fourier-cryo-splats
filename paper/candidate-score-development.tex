@@ -1,0 +1,101 @@
+\section{Candidate-Derived Scores on Three Fitted Gaussian Maps}
+\label{app:candidatescore}
+The preceding scores use reference-derived alternatives. A subsequent gate
+instead starts from the Gaussian mean maps already fitted to 8,192-particle
+stacks (Appendix~\ref{app:experiments}), with supplied consensus poses. It uses
+no external reference map to choose a region or contrast. Each 64-cubed signed
+candidate is normalized to unit coefficient norm and interpreted as physical
+cells. A 20-\AA\ Gaussian smoothing selects its highest density peak in the
+central half-field cube; a same-width Gaussian mask $g$ defines a nominated
+regional perturbation. The field sizes come from the saved candidate files.
+Full removal changes the candidates' relative $L^2$ norm by .0871, .2655 and
+.1464 on 10028, 10049 and 10076 respectively. Smaller deletion amounts scale
+these changes linearly. This normalization and the inherited first transfer/
+noise profile are a specified simulator, not an experimental SNR calibration.
+
+\subsection{Candidate-only design and its interpretation}
+For each candidate, 4,096 independent Haar training views provide mean moment
+vectors $\bar\phi_0$ and $\bar\phi_{.25}$ for the candidate and a 25\%
+regional deletion. The raw score direction is their normalized difference.
+A second direction projects that difference orthogonally to the mean power
+and mean bispectrum blocks before normalizing. These blocks have disjoint
+coordinates and scale as $a^2$ and $a^3$ under global amplitude, so the
+scale-orthogonal contrast's candidate mean is zero for every amplitude on
+that finite training law. This identity does not assert exact zero mean
+under the continuous viewing law. The threshold is the midpoint between
+the training candidate and 25\%-deletion means. Power-only and combined
+moments, with both raw and scale-orthogonal directions, give four fixed
+scores per candidate. All twelve directions are nonzero.
+
+This is a classical matched contrast with nuisance-mean projection, not a
+new learning principle. It avoids an external true-map alternative, but still
+assumes a hand-specified local error family. A rejection tests the complete
+candidate under the declared image simulator. It cannot uniquely attribute
+an error to the nominated region: other structural or imaging errors can
+change the same statistic. Non-rejection is not a regional-density confidence
+interval. Moment-based structure comparison and independent-particle validation
+remain directly relevant prior art \citep{momentmetrics2024,independent2020}.
+
+\subsection{Independent simulations and all-case comparison}
+Each stack receives 32,768 fresh calibration views, two groups of 32 noises,
+16 amplitude cells and fixed center $b=.5$. Independent testing uses 131,072
+Haar views and retains regional deletions $0/.1/.25/.5/1$ at amplitudes
+$.9/1/1.1$, with common noise across alternatives and scores. All seven
+calibration procedures from Appendix~\ref{app:viewvariance}, five density
+caps and three sample sizes are compared separately. The four classical
+comparators were declared while calibration was still running, before any
+held-out rejection result was computed. No minimum across scores or methods
+is used as an aggregate test. The archive contains 1,260 method rows and
+18,900 scalar rejection projections.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/candidate-score-projections.pdf}
+\caption{Candidate-derived local-deletion simulation: scale-orthogonal scores
+with the paired viewing-variance procedure, at amplitude one. Lines join the
+five tested deletion amounts; shaded bands transform pointwise 95\% intervals
+for independent single-image event probabilities. They exclude calibration
+variability and are not simultaneous bands or experimentally observed power.
+Both raw directions, the other amplitudes and all classical comparators remain
+in the complete CSV.}
+\label{fig:candidatescore}
+\end{figure*}
+
+At $n=10^4$, $\kappa=1$, amplitude one, the paired method's projections for
+25\% deletion are .0000225/.000000893 on 10028, .0776/.0625 on 10049,
+and .00263/.000846 on 10076 (power/combined). At 50\% deletion they rise
+to .178/.0169, .926/.936 and .0224/.0130 respectively. Full deletion is
+much easier on the first two candidates; 10076 remains .342/.246 at this
+sample size. These results reveal sensitivity limits rather than three-stack
+success on small perturbations (Figure~\ref{fig:candidatescore}).
+
+The earlier comparator ordering reverses in some cases. At $\kappa=1.1$,
+$n=10^4$, full deletion and amplitude one, the scale-orthogonal power score
+on 10028 has projection $4.68\times10^{-7}$ with paired variance, .220
+with DKW CVaR, and .426 with split CVaR. On 10049, paired variance gives
+.983 and split CVaR .9997; on 10076 they give .00296 and .00113. No
+procedure dominates these cases. The paired variance upper bounds for the
+three power scores are .02655, .005502 and .001367. Unlike the preceding
+selected oracle scores, their raw product estimates are .02558, .005236
+and .001302, with nontrivial mean-distance subtraction. The full decomposition
+is archived. These data do not support a general superiority claim for the
+paired construction, particularly when viewing variation is substantial.
+
+All zero-deletion amplitude controls are retained. At $n=10^4$, the largest
+correct-null point projection across methods/scores/caps/amplitudes is .0537.
+This single-image Monte Carlo estimate is not an exact false-rejection rate.
+Actual testing of 128 disjoint groups of 1,024 images yields at most 7/128
+rejections across 1,260 correct-null cells; its pointwise exact 95\% interval
+is [.0223,.1094]. Calibration is fixed and cells share draws, so these cells
+cannot be pooled as independent replications. The complete archive retains
+6,300 group-outcome cells. An unconditional error study over calibration
+repetitions remains outstanding.
+
+Independent FFT convolution reproduces all three chosen regions. Separate
+feature arithmetic and least-squares projection reproduce all directions within
+$7.9\times10^{-15}$. Separable physical sums, 768 first-view calibration
+cubics and 180 direct held-out scores are checked; the largest score difference
+is $2.5\times10^{-11}$. Every event count, 1,680 minimal critical values,
+6,300 group-count vectors and 18,900 rejection projections replay. These
+checks do not establish experimental nuisance calibration or global arithmetic
+certification. No full-paper acceptance reassessment has occurred.
