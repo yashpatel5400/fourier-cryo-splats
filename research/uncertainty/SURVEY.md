@@ -3,7 +3,7 @@
 Research cutoff: 2026-10-01. This is an ongoing critical survey, not a claim
 that every search hit has been read. Bibliographic candidates are in
 `reading-list.tsv`; downloaded materials have hashes in `background-manifest.json`.
-The current ledger contains 139 candidates; this is not a full-reading count.
+The current ledger contains 141 candidates; this is not a full-reading count.
 The broad Europe PMC search and its small retrieval discrepancies are preserved
 in `europepmc-search-ledger.json`. Primary full texts, abstracts and current
 preprints require different evidentiary weight. Conclusions below distinguish
@@ -459,3 +459,8 @@ moment-posterior and functional-deconvolution methods. Seven new ledger entries
 include two earlier readings and one metadata-only historical lead. Full-text,
 abstract-only and failed-access statuses remain explicit. The previous paper
 and reviewer snapshots retain their historical 131-candidate count.
+
+The [pose-integration reading](POSE-INTEGRATION-PRIOR-ART.md) adds the direct
+CVPR 2015 importance-sampling precedent and separates numerical quadrature
+accuracy from statistical uncertainty. A classical adaptive integrator is
+currently being tested; its success would not establish a new UQ method.

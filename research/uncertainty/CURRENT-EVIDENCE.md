@@ -12,7 +12,7 @@ loss and nuisance effects, inspect the actual stack metadata, then choose one
 estimand. The 33-page v0.7.6-dev paper is the reviewed snapshot and has not yet
 been restructured in response. Historical paragraphs below report their status
 at the stated checkpoint; their "no fourth review" statements are superseded
-by this update. The current literature ledger has 139 candidates, not 139 full
+by this update. The current literature ledger has 141 candidates, not 141 full
 readings. No useful experimentally calibrated method or acceptance result has
 been established.
 
@@ -121,3 +121,11 @@ The [candidate-derived score study](paired-power-v1/CANDIDATE-SCORE-RESULTS.md) 
 
 
 The current 33-page draft adds a [classical covariance-aware comparison](paired-power-v1/FISHER-SCORE-RESULTS.md) and an [equal-noise-budget allocation diagnostic](paired-power-v1/REPLICA-ALLOCATION-RESULTS.md). Fisher scoring improves the 10028 full-deletion combined CVaR projection from .0407 to .7616, with pointwise conditional difference interval [.406,.899]; smaller changes and 10076 remain weak. The fixed 0.1 shrinkage and constrained Rayleigh identity are classical. All 18,900 projections, 6,300 group cells, 90 joint tables and 9,450 difference intervals are independently checked. The new allocation (8,192 views, two 128-noise groups) uses the same noise count as 32,768 views/two 32-noise groups, and both are evaluated on another 131,072 fresh views per stack. All 37,800 projections and 12,600 group cells are retained. Estimated grouped means decrease, but fewer views enlarge confidence radii and neither allocation dominates. One calibration per allocation does not isolate expected nested-max bias or establish unconditional error rates. Twenty-five targeted tests pass; all new covariances, score directions, scalar probability bounds and outcomes replay, plus selected physical calculations. Literature notes credit constrained discriminants and nested-risk simulation; no new optimization theorem, multilevel implementation, experimental nuisance calibration or fourth full-review verdict is claimed.
+
+The [corner-spectrum inventory](BACKGROUND-SPECTRUM-INVENTORY-RESULTS.md)
+shows nonflat background power on all three downloaded cohorts after adjusting
+for known Fourier cropping. It is descriptive; contamination and missing
+micrograph identities prevent interpreting it as pure-noise covariance or
+sub-percent calibration. The [adaptive pose integration gate](ADAPTIVE-POSE-INTEGRATION-PROTOCOL.md)
+is frozen and running on all three stacks, with no new statistical test or
+full review claimed.
