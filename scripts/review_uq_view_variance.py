@@ -15,7 +15,7 @@ INSTRUCTIONS='Independently audit the bounded-view cryo-EM candidate-validation 
 
 
 def main():
-    out=ROOT/'research/uncertainty/reviews/paired-statistics-audit-01'
+    out=ROOT/'research/uncertainty/reviews/view-variance-audit-01'
     if out.exists():raise RuntimeError('Preserve previous invocation')
     out.mkdir();parts=[INSTRUCTIONS];hashes={}
     for name in NAMES:
