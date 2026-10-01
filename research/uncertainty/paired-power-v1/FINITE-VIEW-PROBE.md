@@ -65,3 +65,13 @@ Its untouched initial summary, log and saved partial weight array remain. An
 external failure manifest records this explicitly. The v3 retry converts that
 flag to a Python Boolean and adds a JSON-serialization check to the numerical
 test. No mathematical or experimental parameter changes.
+
+The v3 run retained 139 completed cases before CLARABEL failed on 10049,
+profile 48, full region removal, variance bound 2. The source mistakenly
+terminated the entire sweep on a numerical solver exception, despite the
+protocol requiring failed cases to remain. The v4 runner preserves a failed
+case in its denominator and continues. It repeats the same 288-case design
+and settings, retains every old record, and marks an aggregate upper bound
+unavailable if any of its eight profiles fails; zero betting supplies the
+feasible lower value for a failed profile. A convergence failure will not be
+interpreted as evidence for or against discrimination.

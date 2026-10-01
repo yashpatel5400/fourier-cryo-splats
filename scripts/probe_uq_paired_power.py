@@ -13,7 +13,7 @@ def main():
  for name in FILES:
   if subprocess.check_output(['git','show','HEAD:'+name],cwd=ROOT)!=(ROOT/name).read_bytes():
    raise ValueError('Commit probe protocol and implementation before outcomes')
- out=BASE/'paired-power-finite-view-v3'
+ out=BASE/'paired-power-finite-view-v4'
  if out.exists():raise ValueError('Preserve earlier probe')
  out.mkdir();start=time.perf_counter();all_rows=[]
  metadata=dict(complete=False,git_head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
@@ -36,7 +36,13 @@ def main():
     for candidate,name in enumerate(['true_map','region_half_removed','region_removed','zero_signal']):
      for variance in [1.,2.,4.]:
       if time.perf_counter()-start>1800:raise TimeoutError('Declared 30-minute limit reached')
-      tick=time.perf_counter();fitted=solver.solve(powers[candidate,profile],signal,variance)
+      tick=time.perf_counter()
+      try:
+       fitted=solver.solve(powers[candidate,profile],signal,variance)
+      except Exception as error:
+       metadata['cases'].append(dict(dataset=ds,profile=profile,candidate=name,variance_upper=variance,
+           seconds=time.perf_counter()-tick,error=repr(error),status='failed'))
+       save();print(ds,profile,name,variance,'FAILED',repr(error),flush=True);continue
       key=f'{profile}_{name}_v{variance:g}';arrays[key+'_weights']=fitted.pop('weights')
       arrays[key+'_raw_weights']=fitted.pop('raw_dimensionless_weights');arrays[key+'_multipliers']=fitted.pop('multipliers')
       case=dict(dataset=ds,profile=profile,original_index=int(record['original_indices'][profile]),candidate=name,
@@ -54,9 +60,10 @@ def main():
      rows=[r for r in metadata['cases'] if r['dataset']==ds and r['candidate']==name and r['variance_upper']==variance]
      assert len(rows)==8
      aggregates.append(dict(dataset=ds,candidate=name,variance_upper=variance,profiles=8,
-       expected_log_128_lower=16*sum(r['expected_log_lower'] for r in rows),
-       expected_log_128_dual_upper=16*sum(r['expected_log_dual_upper'] for r in rows),
-       maximum_profile_gap=max(r['gap'] for r in rows),
+       expected_log_128_lower=16*sum(r.get('expected_log_lower',0.) for r in rows),
+       expected_log_128_dual_upper=(16*sum(r['expected_log_dual_upper'] for r in rows) if all('error' not in r for r in rows) else None),
+       failed_profiles=sum('error' in r for r in rows),
+       maximum_profile_gap=max((r['gap'] for r in rows if 'gap' in r),default=None),
        nonoptimal_statuses=sum(r['status']!='optimal' for r in rows)))
   metadata.update(complete=True,aggregates=aggregates,seconds=time.perf_counter()-start);save()
  except Exception as exc:
